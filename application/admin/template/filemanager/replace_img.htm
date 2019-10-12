@@ -1,0 +1,103 @@
+{include file="public/layout" /}
+<body>
+  <div class="layui-fluid">
+      <div class="layui-row layui-col-space15">
+          <div class="layui-col-md12">
+            <div class="layui-card">
+              <div class="layui-card-body" pad15>
+                <div class="layui-form" wid100 lay-filter="">
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">当前目录</label>
+                    <div class="layui-input-inline">
+                        <div style="padding:6px 0px;">
+                            {$info['activepathname']|default=''}
+                            <input type="hidden" name="activepath" value="{$info['activepath']|default=''}">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">图片名</label>
+                    <div class="layui-input-inline">
+                        <div style="padding:6px 0px;">
+                            {$info['filename']|default=''}
+                            <input type="hidden" name="filename" value="{$info.filename|default=''}">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">上传图片</label>
+                    <div class="layui-input-inline" >
+                        <input type="hidden" name="upfile" id="upfile" placeholder="图片地址" value="" lay-verify="check_upfile" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline layui-btn-container layadmin-layer-demo" style="width: auto;padding:4px 0px;">
+                        <button class="layui-btn test-upload-demoMore layui-btn-sm fl" lay-data="{number:1,ey_savepath:'allimg',ey_callback:'upfile_call'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                    </div>
+                    <div class="none" style="padding:6px 0px;" id="upfile_filename"></div>
+                  </div>
+                  <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+
+  <script>
+
+  function upfile_call(imgObj) {
+    $('#upfile').val(imgObj.url);
+    $('#upfile_filename').html(imgObj.oldfilename).show();
+  }
+
+  layui.config({
+    base: '__SKIN__/' //静态资源所在路径
+    ,version: '{$version}'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'set'], function(){
+    var $ = layui.$
+    ,layer = layui.layer
+    ,form = layui.form;
+
+    form.verify({
+      check_upfile: function(value, item){ //value：表单的值、item：表单的DOM对象
+        if ($.trim(value) == '' || value == undefined || value == null) {
+            return '请上传图片！';
+        }
+      }
+    }); 
+
+    //监听提交
+    form.on('submit(formSubmit)', function(data){
+        var load = layer_loading();
+        data.field._ajax = 1;
+        $.ajax({
+            type : 'post',
+            url : "{:url('Filemanager/replace_img')}",
+            data : data.field,
+            dataType : 'json',
+            success : function(res){
+                layer.close(load); //关闭loading
+                if(res.code == 1){
+                    layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                        parent.gourl(res.url);
+                    });
+                }else{
+                    showErrorMsg(res.msg);
+                }
+            },
+            error: function(e){
+                layer.close(load); //关闭loading
+                showErrorAlert();
+            }
+        });
+        return false;
+    });
+
+  });
+
+  </script>
+{include file="public/footer" /}

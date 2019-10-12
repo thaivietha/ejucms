@@ -1,0 +1,195 @@
+{include file="public/layout" /}
+<body>
+  <link rel="stylesheet" href="__SKIN__/css/page.css" media="all">
+   <div class="layui-fluid">
+      <div class="layui-card">
+        <div class="head-oper">
+          <div class="fl">权限组列表 (共{$pager->totalRows}条数据) </div>
+          <div class="fl">
+            <a class="layui-btn layui-btn-xs" data-type="textAll" id="textAll" data-value="0">全选</a>
+            {eq name="'AuthRole@add'|is_check_access" value="1"}
+            <a href="{:url('AuthRole/add')}" class="layui-btn layui-btn-danger layui-btn-xs "><i class="layui-icon layui-icon-add-1"></i>新增权限组</a>
+            {/eq}
+            {eq name="'AuthRole@del'|is_check_access" value="1"}
+            <a data-url="{:url('AuthRole/del')}" class="layui-btn layui-btn-danger layui-btn-xs " data-type="batch_del"><i class="layui-icon layui-icon-delete"></i>批量删除</a>
+            {/eq}
+          </div>
+          <div class="fr ">
+            {eq name="'Admin@index'|is_check_access" value="1"}
+            <a lay-href="{:url('Admin/index')}" class="layui-btn layui-btn-xs"><i class="layui-icon layui-icon-template-1"></i>管理员列表</a>
+            {/eq}
+            {eq name="'AuthRole@index'|is_check_access" value="1"}
+            <a href="javascript:void(0);" class="layui-btn layui-btn-xs layui-disabled"><i class="layui-icon layui-icon-template-1"></i>权限组列表</a>
+            {/eq}
+          </div>
+        </div>
+        <div class="head-search">
+          <form action="{:url('AuthRole/index')}" method="get" onsubmit="layer_loading();">
+            {$searchform.hidden|default=''}
+            <div class="layui-input-inline w100">
+                <input type="text" name="keywords" value="{$Request.param.keywords}" class="layui-input" placeholder="搜索相关数据...">
+            </div>
+            <div class="layui-input-inline w50">
+              <button class="layui-btn" type="submit">搜 索</button>
+            </div>
+          </form>
+        </div>
+        <div class="layui-card-body">
+          <div class="layui-form layui-border-box layui-table-view house-table" lay-filter="formTest" lay-id="admin-arctype" >
+            <div class="layui-table-box">
+              <div class="layui-table-body " >
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" style="width: 100%">
+                  <thead >
+                    <tr>
+                      <th class="w40 tc"> 
+                        <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                          <input type="checkbox" lay-filter="checkboxAll" id="checkboxAll" lay-skin="primary">
+                          <div class="layui-unselect layui-form-checkbox" lay-skin="primary"> <i class="layui-icon layui-icon-ok"></i></div>
+                        </div>
+                      </th>
+                      <th class="w60 tc"> 
+                        <div class="layui-table-cell w60 tc" ><span>ID</span></div>
+                      </th>
+                      <th> 
+                        <div class="layui-table-cell wauto"><span>用户组</span></div>
+                      </th>
+                      <th class="w180 tc"> 
+                        <div class="layui-table-cell w180 tc"><span>更新时间</span></div>
+                      </th>
+                      <th class="w180 tc"> 
+                        <div class="layui-table-cell w180 tc"><span>操作</span></div>
+                      </th>
+                    </tr>
+                 </thead>
+                 <tbody>
+                  {empty name="list"}
+                    <tr>
+                      <td colspan="20" class="no-data tc">
+                         没有符合条件的数据
+                      </td>
+                    </tr>
+                  {else/}
+                    {foreach name="list" item="vo" key="k" }
+                     <tr>
+                        <td>
+                           <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                            {empty name="$vo.built_in"}
+                              <input type="checkbox" name="ids[]" lay-filter="ids" lay-skin="primary" value="{$vo.id}">
+                            {/empty}
+                           </div>
+                        </td>
+                        <td>
+                            <div class="layui-table-cell w60 tc"> 
+                                {$vo.id}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="layui-table-cell wauto">
+                                {eq name="'AuthRoleAuthRole@edit'|is_check_access" value="1"}
+                                <a href="{:url('AuthRole/edit',array('id'=>$vo['id']))}">{$vo.name}</a>
+                                {else /}
+                                {$vo.name}
+                                {/eq}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="layui-table-cell w180 tc">
+                                {$vo.update_time|date='Y-m-d H:i:s',###}
+                            </div>
+                        </td>
+                        <td>
+                           <div class="layui-table-cell w180 tc"> 
+                            {eq name="'AuthRole@edit'|is_check_access" value="1"}
+                                <a class="layui-btn layui-btn-xs" href="{:url('AuthRole/edit',array('id'=>$vo['id']))}"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                            {/eq}
+                            {eq name="'AuthRole@del'|is_check_access" value="1"}
+                              {empty name="$vo.built_in"}
+                                <a class="layui-btn layui-btn-xs" href="javascript:void(0);" data-url="{:url('AuthRole/del')}" data-id="{$vo.id}" data-type="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+                              {else /}
+                                &nbsp;&nbsp;&nbsp;&nbsp;——&nbsp;&nbsp;&nbsp;&nbsp;
+                              {/empty}
+                            {/eq}
+                           </div>
+                        </td>
+                      </tr>
+                    {/foreach}
+                  {/empty}
+                  </tbody>
+                </table>
+        </div>
+      </div>
+      <!--分页-->
+      {$page}
+     </div>
+     </div>
+  </div>
+ </div>
+
+  <script>
+  layui.config({
+    base: '__SKIN__/' //静态资源所在路径
+    ,version: '{$version}'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form'], function(){
+    var $ = layui.$
+    ,form = layui.form;
+
+    // 监听复选框全选
+    form.on('checkbox(checkboxAll)', function(data){
+      if (data.elem.checked) {
+        $('input[name*=ids]').attr('checked', true);
+        $('#textAll').attr('data-value', 1).html('取消');
+      } else {
+        $('input[name*=ids]').attr('checked', false);
+        $('#textAll').attr('data-value', 0).html('全选');
+      }
+      form.render();
+    });
+
+    // 监听每行复选框
+    form.on('checkbox(ids)', function(data){
+      if (data.elem.checked && $('input[name*=ids]:checked').length == $('input[name*=ids]').length) {
+        $('#checkboxAll').attr('checked', true);
+        $('#textAll').attr('data-value', 1).html('取消');
+      } else {
+        $('#checkboxAll').attr('checked', false);
+        $('#textAll').attr('data-value', 0).html('全选');
+      }
+      form.render();
+    });
+
+    /* 触发事件 */
+    var active = {
+        textAll: function(){
+            var value = $(this).attr('data-value');
+            if (0 == value) {
+                $(this).attr('data-value', 1).html('取消');
+                $('#checkboxAll').attr('checked', true);
+                $('input[name*=ids]').attr('checked', true);
+            } else {
+                $(this).attr('data-value', 0).html('全选');
+                $('#checkboxAll').attr('checked', false);
+                $('input[name*=ids]').attr('checked', false);
+            }
+            form.render();
+        }
+        ,del: function(){
+            delfun(this);
+            return false;
+        }
+        ,batch_del: function(){
+            batch_del(this, 'ids');
+            return false;
+        }
+    };
+
+    $('.layui-btn').on('click', function(){
+      var type = $(this).data('type');
+      active[type] && active[type].call(this);
+    });
+
+  });
+
+  </script>
+{include file="public/footer" /}

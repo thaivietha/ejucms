@@ -1,0 +1,232 @@
+{include file="public/layout" /}
+<body>
+
+<div class="layui-fluid " id="LAY-component-layer-list">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body layui-form"  lay-filter="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><b>*</b>表单名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="name" id="name" value="{$field.name}" lay-verify="required" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline layui-form-mid layui-word-aux ey_helptips"></div>
+                        <div class="layui-form-inline2 ey_helptips_txt none">保持唯一性，不可重复</div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">表单描述</label>
+                        <div class="layui-input-inline">
+                            <textarea name="intro" id="intro" value="{$field.intro}" class="layui-textarea">{$field.intro}</textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item ">
+                        <label class="layui-form-label">表单字段</label>
+                        <div class="layui-input-inline layadmin-layer-demo">
+                            <button class="layui-btn layui-btn-sm"  data-type="addfile">新增字段</button>
+                        </div>
+                    </div>
+                    <div class="layui-form-item container-scroll">
+                        <label class="layui-form-label"></label>
+                        <div class="edit-box-con fl">
+                            <div class="layui-border-box layui-table-view house-table" >
+                                <div class="layui-table-box">
+                                    <div class="layui-table-body ">
+                                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table" lay-skin="line">
+                                            <thead >
+                                            <tr>
+                                                <th class="w130 tc"><div class="layui-table-cell w130 tc" ><span>字段名称</span></div></th>
+                                                <th class="w130 tc"><div class="layui-table-cell w130 tc"><span>字段类型</span></div></th>
+                                                <th class="wauto"><div class="layui-table-cell wauto"><span>可选值(下拉、单选项、多选项)</span></div></th>
+                                                <th class="w80 tc"><div class="layui-table-cell w80 tc"><span>必填</span></div></th>
+                                                <th class="w80 tc"><div class="layui-table-cell w80 tc"><span>规则</span></div></th>
+                                                <th class="w80 tc"><div class="layui-table-cell w80 tc"><span>排序</span></div></th>
+                                                <th class="w100 tc"><div class="layui-table-cell w100 tc"><span>操作</span></div></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="tr_before">
+                                            {volist name="form_attr_list" id="vo"}
+                                            <tr>
+                                                <td>
+                                                    <div class="layui-table-cell w130 tc ">
+                                                        <input type="hidden"  name="is_default[]" value="{$vo.is_default}" >
+                                                        <input type="hidden" name="attr_id[]" value="{$vo.attr_id}">
+                                                        <input type="text"  name="attr_name[]" value="{$vo.attr_name}"  {eq name="vo.is_default" value="1"}readonly{/eq} class="layui-input">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w130 tc ">
+                                                        <select name="input_type[]" lay-ignore>
+                                                            {volist name="field_type_list" id="v2"}
+                                                            <option value="{$key}" {eq name="$key" value="$vo.input_type"}selected="true"{/eq} >{$v2}</option>
+                                                            {/volist}
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell wauto">
+                                                        <textarea name="attr_values[]" value="{$vo.attr_values}" placeholder="筛选项中间用英文,隔开" class="layui-textarea  min-h56">{$vo.attr_values}</textarea>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w80 tc ">
+                                                        <select name="is_fill[]" lay-ignore>
+                                                            <option value="0" {eq name="$vo.is_fill" value="0"}selected="true"{/eq} >否</option>
+                                                            <option value="1" {eq name="$vo.is_fill" value="1"}selected="true"{/eq} >是</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w80 tc ">
+                                                        <select name="input_rule[]" lay-ignore>
+                                                            <option value="0" >无</option>
+                                                            {volist name="input_rule_list" id="val"}
+                                                            <option value="{$key}" {eq name="$key" value="$vo.input_rule"}selected="true"{/eq} >{$val.name}</option>
+                                                            {/volist}
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w80 tc ">
+                                                        <input type="text" name="sort_order[]" value="{$vo.sort_order}" class="layui-input" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" onpaste="this.value=this.value.replace(/[^\d]/g,'');">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w100 tc ">
+                                                    {gt name="vo.is_default" value="0"}
+                                                        <a class="layui-btn layui-btn-disabled layui-btn-xs"><i class="layui-icon layui-icon-delete"></i>删除</a>
+                                                    {else /}
+                                                        <a class="layui-btn layui-btn-danger layui-btn-xs" onclick="tr_delete(this)">
+                                                            <i class="layui-icon layui-icon-delete"></i>删除
+                                                        </a>
+                                                    {/gt}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {/volist}
+                                            <tr id="tr_before" style="display: none"></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="hidden" name="id"  value="{$field.id}">
+                            <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var field_type_html = '{$field_type_html}';
+        var input_rule_html = '{$input_rule_html}';
+
+        layui.config({
+            base: '__SKIN__/' //静态资源所在路径
+            ,version: '{$version}'
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form', 'set'], function(){
+            var $ = layui.$
+                ,element = layui.element
+                ,layer = layui.layer
+                ,form = layui.form;
+
+            element.render();
+            /* 触发事件 */
+            var active = {
+                addfile:function () {     //新增字段
+                    addtr();
+                    form.render();
+                }
+            };
+            $('#LAY-component-layer-list .layui-btn').on('click', function(){
+                var type = $(this).data('type');
+                active[type] && active[type].call(this);
+            });
+            //监听提交
+            form.on('submit(formSubmit)', function(data){
+                var load = layer_loading();
+                data.field._ajax = 1;
+                $.ajax({
+                    type : 'post',
+                    url : "{:url('Form/edit')}",
+                    data : data.field,
+                    dataType : 'json',
+                    success : function(res){
+                        layer.close(load); //关闭loading
+                        if(res.code == 1){
+                            layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                                parent.gourl(res.url);
+                            });
+                        }else{
+                            showErrorMsg(res.msg);
+                        }
+                    },
+                    error: function(e){
+                        layer.close(load); //关闭loading
+                        showErrorAlert();
+                    }
+                });
+                return false;
+            });
+
+        });
+        //新增字段
+        function addtr() {
+            var last_div =  '<tr>' +
+                '	<td>' +
+                '		<div class="layui-table-cell w130 tc ">' +
+                '           <input type="hidden" name="attr_id[]"/>' +
+                '           <input type="hidden"  name="is_default[]" value="0" >'+
+                '			<input type="text"  name="attr_name[]" value="" class="layui-input">' +
+                '		</div>' +
+                '	</td>' +
+                '	<td>' +
+                '		<div class="layui-table-cell w130 tc ">' +
+                field_type_html +
+                '		</div>' +
+                '	</td>' +
+                '	<td>' +
+                '		<div class="layui-table-cell wauto">' +
+                '			<textarea name="attr_values[]" placeholder="筛选项中间用英文,隔开" class="layui-textarea  min-h56"></textarea>' +
+                '		</div>' +
+                '	</td>' +
+                '	<td>' +
+                '		<div class="layui-table-cell w80 tc ">' +
+                '       <select name="is_fill[]" lay-ignore>' +
+                '           <option value="1">是</option>'+
+                '           <option value="0">否</option>'+
+                '       </select>' +
+                '		</div>' +
+                '	</td>' +
+                '<td>' +
+                '<div class="layui-table-cell w80 tc ">' +
+                input_rule_html +
+                '</div>' +
+                '       </td>' +
+                '	<td>' +
+                '		<div class="layui-table-cell w80 tc ">' +
+                '			<input type="text" name="sort_order[]" value="100" class="layui-input" onkeyup="this.value=this.value.replace(/[^\\d]/g,\'\');" onpaste="this.value=this.value.replace(/[^\\d]/g,\'\');">' +
+                '		</div>' +
+                '	</td>' +
+                '	<td>' +
+                '		<div class="layui-table-cell w100 tc ">' +
+                '			<a class="layui-btn layui-btn-danger layui-btn-xs" onclick="tr_delete(this)"><i class="layui-icon layui-icon-delete"></i>删除</a>' +
+                '		</div>' +
+                '	</td>' +
+                '</tr>' ;
+            $("#tr_before").append(last_div);
+        }
+        function tr_delete(obj) {
+            $(obj).parent().parent().parent().remove();
+        }
+    </script>
+    {include file="public/footer" /}

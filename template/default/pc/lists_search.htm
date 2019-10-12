@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" >
+  <title>搜索页_{eju:global name="web_name" /}</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  {eju:static file="skin/css/public.css" /}
+  {eju:static file="skin/css/iconfont.css" /}
+  {eju:static file="skin/css/lplist.css" /}
+  {eju:static file="skin/css/sx.css" /}
+
+  {eju:static file="skin/js/jquery.min.1.7.2.js" /}
+  {eju:static file="skin/js/top_footer.js" /}
+</head>
+<body>
+<!--头部-->
+{eju:include file="header.htm"/} 
+<!--头部end--> 
+
+<!-- 位置 -->
+<div class="weizhi">
+  <ul>
+    <li>您当前的位置：</li>
+    <li><a href="{eju:global name='web_cmsurl' /}/">首页 </a> &gt;</li>
+    <li class="current">搜索列表</li>
+    <div class="clear"></div>
+  </ul>
+</div>
+
+<!--列表-->
+<div class="search-list">
+ <div class="tit">你搜索“<strong style="color: rgba(0,174,243,.9);">{$eju.field.keywords}</strong>”结果如下</div>
+  <ul class="clearfloat box">
+    {eju:list pagesize="10" titlelen="30"}
+    <li>
+        <div class="img fl">
+            <a href="{$field.arcurl}"><img src="{$field.litpic}" alt="{$field.title}"></a>
+        </div>
+        <div class="txt">
+            <h2><a href="{$field.arcurl}">{$field.title}</a></h2>
+            <p>{$field.seo_description|html_msubstr=###,0,250,true}</p>
+        </div>
+    </li>
+    {/eju:list}
+  </ul>
+</div><!--列表--end-->
+
+
+
+<!--页码-->
+<div class="page-box">
+  <ul class="pagination">
+    {eju:pagelist listitem="index,end,pageno,pre,next" listsize="10"/}
+  </ul>
+</div>
+<!--底部-->
+{eju:include file="footer.htm"/}
+<!--底部--end-->
+{eju:static file="skin/js/jquery.cxscroll.min.js" /}
+{eju:static file="skin/js/sx.js" /} 
+<script type="text/javascript">
+    $(".scroll_horizontal").cxScroll({
+        auto : false
+    });
+</script>
+</body>
+</html>

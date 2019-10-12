@@ -1,0 +1,215 @@
+{include file="public/layout" /}
+<body>
+  <link rel="stylesheet" href="__SKIN__/css/page.css" media="all">
+   <div class="layui-fluid" id="LAY-component-layer-list">
+      <div class="layui-card">
+        <div class="head-oper">
+          <div class="fl">
+              {eq name="'Links@add'|is_check_access" value="1"}
+              <a data-url="{:url('Links/add')}" data-type="Links_add" class="layui-btn mt5 ">新增链接</a>
+              {/eq}
+          </div>
+          <div class="fr">
+              <form action="{:url('Links/index')}" method="get" onsubmit="layer_loading();">
+                  <div class="fl mt5" >
+                      <div class="layui-input-inline w240">
+                          {$searchform.hidden|default=''}
+                          <input type="text" name="keywords" id="keywords" value="{$Request.param.keywords}" placeholder="搜索相关数据…" class="layui-input">
+                      </div>
+                  </div>
+                  <div class="layui-input-inline w50 mt5">
+                      <button class="layui-btn input-btn-search" type="submit"><i class="layui-icon layui-icon-search"></i></button>
+                  </div>
+              </form>
+          </div>
+        </div>
+        <div class="layui-card-body">
+          <div class="layui-form layui-border-box layui-table-view house-table" lay-id="admin-arctype" >
+            <div class="layui-table-box">
+              <div class="layui-table-body " >
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" style="width: 100%" lay-skin="line">
+                  <thead >
+                    <tr>
+                      <th class="w40 tc"> 
+                        <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                          <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary">
+                          <div class="layui-unselect layui-form-checkbox" lay-skin="primary"> <i class="layui-icon layui-icon-ok"></i></div>
+                        </div>
+                      </th>
+                      <th class="w60 tc"> 
+                        <div class="layui-table-cell w60 tc" ><span>ID</span></div>
+                      </th>
+                      <th class="w200"> 
+                        <div class="layui-table-cell w200"><span>网站名称</span></div>
+                      </th>
+                      <th> 
+                        <div class="layui-table-cell wauto"><span>链接地址</span></div>
+                      </th>
+                      <th class="w100 tc"> 
+                        <div class="layui-table-cell w100 tc"><span>新窗口打开</span></div>
+                      </th>
+                      <th class="w110 tc"> 
+                        <div class="layui-table-cell w110 tc"><span>更新时间</span></div>
+                      </th>
+                      <th class="w80 tc"> 
+                        <div class="layui-table-cell w80 tc"><span>排序</span></div>
+                      </th>
+                      <th class="w150 tc"> 
+                        <div class="layui-table-cell w150 tc"><span>操作</span></div>
+                      </th>
+                    </tr>
+                 </thead>
+                 <tbody>
+                  {empty name="list"}
+                    <tr>
+                      <td colspan="8" class="no-data tc">
+                         没有符合条件的数据
+                      </td>
+                    </tr>
+                  {else/}
+                    {foreach name="list" item="vo" key="k" }
+                     <tr>
+                        <td>
+                           <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                              <input type="checkbox" name="ids[]" lay-filter="ids" lay-skin="primary" value="{$vo.id}">
+                           </div>
+                        </td>
+                        <td><div class="layui-table-cell w60 tc"> {$vo.id} </div></td>
+                        <td>
+                          <div class="layui-table-cell w200" title="{$vo.title}"> 
+                            {eq name="'Links@edit'|is_check_access" value="1"}
+                            <input type="text" value="{$vo.title}" onchange="changeTableVal('links','id','{$vo.id}','title',this);" class="layui-input">
+                            {else /}
+                            {$vo.title}
+                            {/eq}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="layui-table-cell wauto">
+                            <input type="text" value="{$vo.url}" onchange="changeTableVal('links','id','{$vo.id}','url',this);" class="layui-input">
+                          </div>
+                        </td>
+                        <td>
+                           <div class="layui-table-cell w100 tc">
+                              <input type="checkbox" lay-skin="switch" lay-filter="target" data-id="{$vo.id}" {eq name="$vo['target']" value='1'}value="off" checked{else /}value="on"{/eq} lay-text="是|否">
+                           </div>
+                        </td>
+                        <td><div class="layui-table-cell w110 tc"> {$vo.update_time|date='Y-m-d',###} </div></td>
+                        <td>
+                          <div class="layui-table-cell w80 tc">
+                            {eq name="'Links@edit'|is_check_access" value="1"}
+                            <input type="text" value="{$vo.sort_order}" onchange="changeTableVal('links','id','{$vo.id}','sort_order',this);" class="layui-input" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" onpaste="this.value=this.value.replace(/[^\d]/g,'')">
+                            {else /}
+                            {$vo.sort_order}
+                            {/eq}
+                          </div>
+                         </td>
+                        <td>
+                           <div class="layui-table-cell w150 tc right-oper"> 
+                            {eq name="'Links@edit'|is_check_access" value="1"}
+                              <a class="layui-btn btn-edit customvar_edit" data-url="{:url('Links/edit',array('id'=>$vo['id']))}" data-type="Links_edit">编辑</a>
+                            {/eq}
+                            {eq name="'Links@del'|is_check_access" value="1"}
+                              <a href="javascript:void(0);" class="layui-btn btn-primary" data-url="{:url('Links/del')}" data-id="{$vo.id}" onClick="delfun(this);">删除</a> 
+                            {/eq}
+                           </div>
+                        </td>
+                      </tr>
+                    {/foreach}
+                  {/empty}
+                  </tbody>
+                </table>
+            </div>
+          </div>
+          <div class="layui-table-page footer-oper">
+              <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary" >
+              {eq name="'Links@del'|is_check_access" value="1"}
+              <a class="layui-btn layui-btn-primary" data-type="batch_del" data-url="{:url('Links/del')}" data-deltype="pseudo" style="line-height: 34px;">
+              批量删除
+              </a>
+              {/eq}
+          </div>
+      <!--分页-->
+     </div>
+    {$pageStr}
+     </div>
+  </div>
+ </div>
+  <script>
+  layui.config({
+    base: '__SKIN__/' //静态资源所在路径
+    ,version: '{$version}'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form'], function(){
+    var $ = layui.$
+    ,form = layui.form;
+
+    form.on('switch(target)', function(data){
+        changeTableVal('links','id',$(this).data('id'),'target',this);
+        return false;
+    });
+
+    // 监听复选框全选
+    form.on('checkbox(checkAll)', function(data){
+        if (data.elem.checked) {
+            $('.checkAll').attr('checked', true);
+            $('input[name*=ids]').attr('checked', true);
+        } else {
+            $('.checkAll').attr('checked', false);
+            $('input[name*=ids]').attr('checked', false);
+        }
+        form.render('checkbox');
+    });
+
+    // 监听每行复选框
+    form.on('checkbox(ids)', function(data){
+        if (data.elem.checked && $('input[name*=ids]:checked').length == $('input[name*=ids]').length) {
+            $('.checkAll').attr('checked', true);
+        } else {
+            $('.checkAll').attr('checked', false);
+        }
+        form.render('checkbox');
+    });
+
+    /* 触发事件 */
+    var active = {
+        // 新增
+        Links_add: function(){
+          var iframes = layer.open({
+              type: 2,
+              title: '新增链接',
+              fixed: true, //不固定
+              shadeClose: false,
+              shade: 0.3,
+              content: $(this).data('url')
+          });
+          layer.full(iframes);
+        }
+        // 编辑
+        ,Links_edit: function(){
+          var iframes = layer.open({
+              type: 2,
+              title: '新增链接',
+              fixed: true, //不固定
+              shadeClose: false,
+              shade: 0.3,
+              content: $(this).data('url')
+          });
+          layer.full(iframes);
+        }
+        // 批量删除
+        ,batch_del: function(){
+            batch_del(this,'ids');
+        }
+    };
+
+    $('#LAY-component-layer-list .layui-btn').on('click', function(){
+        var type = $(this).data('type');
+        active[type] && active[type].call(this);
+    });
+
+  });
+
+  </script>
+{include file="public/footer" /}

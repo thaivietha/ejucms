@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    {eju:static file="system/css/book.css" /}
+</head>
+<body>
+<div class="box_bg">
+    <div class="box_bg01">
+        <h1 class="box_h1">询问底价</h1>
+        <p class="box_text">请填写您的信息，免费获取楼盘报价</p>
+        {eju:form formid="2"}
+        <form method="post" id="{$field.form_name}" onsubmit="{$field.submit}">
+            <div class="box_from">
+                <p><span class="box_inp boxico01">
+                    <input type="text" id="{$field.attr_2}" name="{$field.attr_2}" placeholder="{$field.itemname_2}" class="input-text">
+                </span></p>
+                <p><span class="box_inp boxico02">
+                    <input type="text" id="{$field.attr_3}" name="{$field.attr_3}" placeholder="{$field.itemname_3}"  class="input-text">
+                </span></p>
+            </div>
+            <input type="submit" class="but40" value="立即提交">
+            {$field.hidden}
+        </form>
+        {/eju:form}
+    </div>
+</div>
+</body>
+</html>

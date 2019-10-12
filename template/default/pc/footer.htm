@@ -1,0 +1,89 @@
+<!--底部-->
+<div class="footer">
+    <div class="w1200">
+        <!--<div class="f-t fl">-->
+        <!--<div class="f-t-l">-->
+        <!--<dl>-->
+        <!--<dt>所有新房</dt>-->
+        <!--<dd><a href="">精选海景</a></dd>-->
+        <!--<dd><a href="">特价好房</a></dd>-->
+        <!--<dd><a href="">旅游地产</a></dd>-->
+        <!--<dd><a href="">精选别墅</a></dd>-->
+        <!--</dl>-->
+        <!--<dl>-->
+        <!--<dt>新闻资讯</dt>-->
+        <!--<dd><a href="">优惠信息</a></dd>-->
+        <!--<dd><a href="">房产资讯</a></dd>-->
+        <!--<dd><a href="">别墅资讯</a></dd>-->
+        <!--<dd><a href="">楼盘政策</a></dd>-->
+        <!--</dl>-->
+        <!--<dl>-->
+        <!--<dt>优选区域</dt>-->
+        <!--<dd><a href="">三亚新房</a></dd>-->
+        <!--<dd><a href="">海口新房</a></dd>-->
+        <!--<dd><a href="">陵水新房</a></dd>-->
+        <!--</dl>-->
+        <!--<dl>-->
+        <!--<dt>精选服务</dt>-->
+        <!--<dd><a href="">精选服务</a></dd>-->
+        <!--<dd><a href="">优选团购</a></dd>-->
+        <!--</dl>-->
+        <!--</div>-->
+        <!--<div class="f-t-r">-->
+        <!--<div class="img"><img src="{eju:global name='web_templets_pc' /}/skin/images/wx-code.png" alt=""></div>-->
+        <!--<div class="txt">-->
+        <!--<span>客服电话 ( 周一周六：9:00-19:00 )</span>-->
+        <!--<p>0898-88888888</p>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="f-b fl">
+            <div class="link-box clearfloat">
+                <ul>
+                    <li>友情链接：</li>
+                    {eju:flink type='all' titlelen='30'}
+                    <li><a href="{$field.url}" title="{$field.title}" {$field.target}>{$field.title}</a></li>
+                    {/eju:flink}
+                </ul>
+            </div>
+            <div class="link-box clearfloat">
+                <ul>
+                    {eju:channel type="top" row="60" id="field" currentstyle="on" hidden="on"}
+                    <li class="item"><a href="{$field.typeurl}" target="_blank">{$field.typename}</a></li>
+                        {eju:notempty name="$field.children"}
+                            {eju:channel name="$field.children" row="100" id="field2"}
+                            <li><a href="{$field2.typeurl}" target="_blank">{$field2.typename} </a></li>
+                                {eju:notempty name="$field2.children"}
+                                    {eju:channel name="$field2.children" row="100" id="field3"}
+                                    <li><a href="{$field3.typeurl}" target="_blank">{$field3.typename}</a></li>
+                                    {/eju:channel}
+                                {/eju:notempty}
+                            {/eju:channel}
+                        {/eju:notempty}
+                    {/eju:channel}
+                    <li><a href="{eju:diyurl type='map' /}" target="_blank">地图看房</a></li>
+
+                </ul>
+            </div>
+            <div class="link-box clearfloat">
+                <ul>
+                    <li>{eju:global name='web_copyright' /}</li>
+                    <li>{eju:global name='web_recordnum' /}</li>
+                    <li>服务热线：{eju:global name='web_attr_2' /}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+	/*城市更多*/
+	$(function(){
+            $(".city").mouseover(function(){
+                $(".cont").show(); 
+            })
+            $(".city").mouseout(function(){
+                $(".cont").hide(); 
+            })
+       })
+</script> 
+<!--底部--end-->

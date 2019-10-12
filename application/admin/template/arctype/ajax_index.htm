@@ -1,0 +1,18 @@
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.config.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.all.min.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/lang/zh-cn/zh-cn.js" /}
+<div id="view1">
+    <div class="layui-card-body">
+        <form class="layui-form" onsubmit="return false;">
+        {include file="field/addonextitem" /}
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input type="hidden" name="gourl" value="{$gourl}">
+                <input type="hidden" name="typeid" id="typeid" value="{$info.id|default=''}">
+                <button class="layui-btn"  lay-submit lay-filter="formSubmit">确认提交</button>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+

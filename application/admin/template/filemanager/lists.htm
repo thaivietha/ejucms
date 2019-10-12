@@ -1,0 +1,164 @@
+{include file="public/layout" /}
+<body>
+   <div class="layui-fluid" id="LAY-component-layer-list">
+      <div class="layui-card">
+        <div class="head-oper">
+          <div class="fl">
+            {eq name="'Filemanager@newfile'|is_check_access" value="1"}
+            <a data-url="{:url('Filemanager/newfile', array('activepath'=>replace_path($activepath)))}" data-type="newfile" class="layui-btn mt5 ">新建文件</a>
+            {/eq}
+          </div>
+        </div>
+        <div class="layui-card-body">
+          <div class="layui-form layui-border-box layui-table-view house-table" lay-filter="formTest" lay-id="admin-arctype" >
+            <div class="layui-table-box">
+              <div class="layui-table-body " >
+                <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" style="width: 100%" lay-skin="line">
+                  <thead >
+                    <tr>
+                      <th> 
+                        <div class="layui-table-cell wauto"><span>文件名</span></div>
+                      </th>
+                      <th class="w120 tc"> 
+                        <div class="layui-table-cell w120 tc"><span>文件大小</span></div>
+                      </th>
+                      <th class="w110 tc"> 
+                        <div class="layui-table-cell w110 tc"><span>更新时间</span></div>
+                      </th>
+                      <th class="w100 tc"> 
+                        <div class="layui-table-cell w100 tc"><span>操作</span></div>
+                      </th>
+                    </tr>
+                 </thead>
+                 <tbody>
+                  {empty name="list"}
+                    <tr>
+                      <td colspan="4" class="no-data tc">
+                         没有符合条件的数据
+                      </td>
+                    </tr>
+                  {else/}
+                    {foreach name="list" item="vo" key="k" }
+                     <tr>
+                        <td>
+                            <div class="layui-table-cell wauto">
+                              {if condition="in_array($vo['filetype'], array('dir','dir2'))"}
+                                {if condition="empty($vo['filepath']) || $maxDir == $vo['filepath']"}
+                                  <a href="{:url('Filemanager/index')}"><img src="__SKIN__/images/{$vo.icon}" border="0" width="16" height="16" align="absmiddle">&nbsp;{$vo.filename}</a>
+                                {else /}
+                                  <a href="{:url('Filemanager/lists', array('activepath'=>replace_path($vo.filepath)))}"><img src="__SKIN__/images/{$vo.icon}" border="0" width="16" height="16" align="absmiddle">&nbsp;{$vo.filename}</a>
+                                {/if}
+                              {else /}
+                                {notempty name="$vo.icon"}
+                                <img src="__SKIN__/images/{$vo.icon}" border="0" width="16" height="16" align="absmiddle" {if condition="!empty($vo.filepath) AND 'image' == $vo.filemine"}onmouseover="layer_tips=layer.tips('<img src=__ROOT_DIR__{$vo.filepath}?v={php}echo time();{/php} class=\'layer_tips_img\'>',this,{tips: [1, '#fff']});"{/if} onmouseout="layer.close(layer_tips);">
+                                {/notempty}
+                                &nbsp;
+                                {eq name="$vo['filemine']" value='image'}
+                                    <a href="{$vo['filepath']}?v={php}echo time();{/php}" target="_blank">{$vo.filename}</a>
+                                {else /}
+                                    <a href="javascript:void(0);" class="eju-event" data-type="edit" data-url="{:url('Filemanager/edit',array('filename'=>$vo['filename'], 'activepath'=>replace_path(dirname($vo['filepath']))))}">{$vo.filename}</a>
+                                {/eq}
+                              {/if}
+                              {$vo.intro}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="layui-table-cell w120 tc">
+                                {$vo.filesize|default=''}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="layui-table-cell w110 tc">
+                              {notempty name="$vo.filetime"}
+                              {$vo.filetime|date='Y-m-d',###}
+                              {/notempty}
+                            </div>
+                        </td>
+                        <td>
+                           <div class="layui-table-cell w100 tc"> 
+                              {eq name="$vo['filemine']" value='image'}
+                                {if condition="in_array($vo['filetype'], $replaceImgOpArr)"}
+                                    {eq name="$Think.const.CONTROLLER_NAME.'@replace_img'|is_check_access" value="1"}
+                                    <a class="layui-btn layui-btn-xs" data-url="{:url('Filemanager/replace_img',array('filename'=>$vo['filename'], 'activepath'=>replace_path(dirname($vo['filepath']))))}" data-type="replace_img"><i class="layui-icon layui-icon-picture-fine"></i>替换</a>
+                                    {/eq}
+                                {/if}
+                              {else /}
+                                {if condition="in_array($vo['filetype'], $editOpArr)"}
+                                    {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
+                                    <a class="layui-btn layui-btn-xs" data-url="{:url('Filemanager/edit',array('filename'=>$vo['filename'], 'activepath'=>replace_path(dirname($vo['filepath']))))}" data-type="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+                                    {/eq}
+                                {/if}
+                              {/eq}
+                           </div>
+                        </td>
+                      </tr>
+                    {/foreach}
+                  {/empty}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="layui-table-page">
+              <ul class="pagination">
+                <span class="rows">共 {$list|count} 条数据</span>
+              </ul>
+            </div>
+        </div>
+     </div>
+  </div>
+ </div>
+<script>
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table'], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,table = layui.table;
+
+        /* 触发事件 */
+        var active = {
+            newfile: function(){
+              var iframes = layer.open({
+                  type: 2,
+                  title: '新建文件',
+                  fixed: true, //不固定
+                  shadeClose: false,
+                  shade: 0.3,
+                  content: $(this).attr('data-url')
+              });
+              layer.full(iframes);
+            }
+            ,edit: function(){
+              var iframes = layer.open({
+                  type: 2,
+                  title: '编辑文件',
+                  fixed: true, //不固定
+                  shadeClose: false,
+                  shade: 0.3,
+                  content: $(this).attr('data-url')
+              });
+              layer.full(iframes);
+            }
+            ,replace_img: function(){
+              var iframes = layer.open({
+                  type: 2,
+                  title: '替换图片',
+                  fixed: true, //不固定
+                  shadeClose: false,
+                  shade: 0.3,
+                  content: $(this).attr('data-url')
+              });
+              layer.full(iframes);
+            }
+        };
+
+        $('#LAY-component-layer-list .layui-btn,.eju-event').on('click', function(){
+            var type = $(this).data('type');
+            active[type] && active[type].call(this);
+        });
+    });
+</script>
+{include file="public/footer" /}

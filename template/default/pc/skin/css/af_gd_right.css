@@ -1,0 +1,193 @@
+﻿/*right*/
+			
+.af-zxlist-fr.right {
+	width: 330px;
+}
+.af-zxlist-fr .right-cate {
+	position: relative;
+	border: 1px solid #eee;
+    padding:10px 15px;
+    margin-bottom: 20px;
+/*	background-color: #f9f9f9;*/
+	min-height:0px;
+	overflow: hidden;
+}
+
+.af-zxlist-fr .right-cate li{
+	float: left;
+	margin:4px 10px;
+}
+.af-zxlist-fr .right-cate li a{
+	display: block;
+	padding:6px 10px;
+	color: #888888;
+	background-color: #f9f9f9;
+	border: 1px solid #eee;
+	border-radius: 4px;
+}
+.af-zxlist-fr .right-cate .current a{
+	color: #fff;
+	background-color:#19b6f4;
+	border: 1px solid #19b6f4;
+}
+.afgd .afgd-head h2,  .zxpm .zxpm-head h2,  .hotlp .hotlp-head h2 {
+	font-size: 18px;
+	height: 36px;
+	line-height: 36px;
+	float: left;
+	/* padding: 0 10px; */
+	font-weight: normal;
+	color: #333;
+}
+.afgd-head-more,  .zxpm-head-more,  .hotlp-head-more {
+	height: 36px;
+	line-height: 36px;
+	font-size: 14px;
+	color: #888;
+	float: right;
+	margin-right: 6px;
+}
+.afgd-head,  .zxpm-head,  .hotlp-head {
+	border-bottom: 1px solid #ddd;
+}
+.afgd,  .zxpm,  .hotlp {
+	border: 1px solid #ddd;
+	padding: 0px 20px;
+	margin-bottom: 20px;
+}
+.af-gg {
+	margin-bottom: 20px;
+}
+.afgd ul li,  .zxpm ul li,  .hotlp ul li {
+	margin: 10px 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.zxpm ul li .newscon {
+	width: 180px;
+	font-size: 14px;
+	line-height: 40px;
+}
+.zxpm ul li .newscon p {
+}
+.afgd ul li a,  .zxpm ul li a,  .hotlp ul li a {
+	color: #636363;
+}
+.zxpm ul li .newscon p {
+	/* width: 180px; */
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.hotlp ul li a em .jg {
+	font-family: "Georgia";
+	color: #fa4242;
+	font-size: 18px;
+}
+span.bk {
+	padding: 2px;
+	display: block;
+	float: left;
+	width: 18px;
+	margin-right: 10px;
+	text-align: center;
+	line-height: 16px;
+	background: #01bdf3;
+	color: #fff;
+}
+.af-zxtop-search input.txt {
+	width: 230px;
+	height: 30px;
+	margin-top: 4px;
+	line-height: 30px;
+	padding-left: 20px;
+	border: 1px solid #CCC;
+	border-right: none;
+	color: #999;
+	background: #fff url(../images/fdj.png) no-repeat left center;
+	text-indent: 25px;
+	float: left;
+	overflow: hidden;
+	border-radius: 3px 0 0 3px;
+}
+.af-zxtop-search input.btn1 {
+	width: 80px;
+	height: 32px;
+	line-height: 32px;
+	margin-top: 4px;
+	color: #FFF;
+	border: none;
+	float: left;
+	background: #01bdf3;
+	margin-left: -1px;
+	_margin-left: -4px;
+	position: relative;
+	border-radius: 0 3px 3px 0;
+}
+/* 报名看房 */
+.lpagent_bmtel {
+	border: 2px solid #dd2446;
+	border-radius: 5px;
+	padding: 10px 20px;
+	margin-bottom: 20px;
+	background: url(../images/telbg.jpg) no-repeat top;
+}
+.bm_wrap input#bm_ins {
+	padding: 8px 10px;
+	width: 264px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	font-size: 15px;
+	background: #fff5e7;
+	margin-bottom: 10px;
+}
+.lpagent_bm .bt_yhbm {
+	background: #dd2446;
+	color: #fff;
+	border-radius: 5px;
+	font-size: 18px;
+	padding: 6px 16px;
+	display: block;
+	text-align: center;
+	margin-top: 20px;
+	cursor: pointer;
+}
+.lpagent_tel .tel_num {
+	color: #fff;
+	font-size: 20px;
+	font-weight: bold;/* margin-bottom: 24px; */
+}
+.lpagent_tel .tel_num em {
+	font-size: 14px;
+	padding: 0 5px;
+	font-weight: normal;
+}
+.lpagent_tel .lpagent_tel_btn {
+	background: #fff;
+	color: #dd2446;
+	padding: 2px 8px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.bm_wrap {
+	margin-top: 10px;
+}
+.lpagent_tel {
+	padding-bottom: 24px;
+}
+.nh_content {
+	width: 330px;
+}
+.qr-code img {
+	width: 216px;
+}
+.qr-code {
+	text-align: center;
+	padding-top: 10px;
+}
+.qr-code p {
+	font-size: 18px;
+	/* padding-top: 10px; */
+	color: #dd2446;
+}

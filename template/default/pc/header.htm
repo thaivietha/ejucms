@@ -1,0 +1,52 @@
+<div class="af_head clearfloat">
+    <div class="centermar">
+        <div class="left"> 
+           <a class="left logo" href="{eju:global name='web_cmsurl' /}"><img src="{eju:global name='web_logo' /}" alt="{eju:global name='web_name' /}"></a>
+           <div class="city left">
+             <a class="left index-address" href="{$eju.region.domainurl}">{$eju.region.name}<i class="down"></i></a>
+             <div class="cont" >
+                 <ul>
+                    <i></i>
+                    {eju:region type='top' row='60' id='field'}
+                      {eju:region name='$field.children' type='son' row='60' id='field2'}
+                      <li class="{$field2.currentstyle}"><a href="{$field2.domainurl}" title="{$field2.name}">{$field2.name}</a></li>
+                      {/eju:region}
+                    {/eju:region}
+                 </ul>
+             </div>
+           </div>
+            <ul class="st_city_list clearfloat left">
+                <li class="item">
+                    <a class="item_a" href="{eju:global name='web_cmsurl' /}">首页</a>
+                </li>
+                {eju:channel type="top" row="60" id="field" currentstyle="on"}
+                <li class="item {$field.currentstyle}">
+                    <a href="{$field.typeurl}" class="item_a " {eju:notempty name="$field.children"}data-toggle="dropdown"{/eju:notempty} data-hover="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {$field.typename}
+                    </a>
+                    {eju:notempty name="$field.children"}
+                    <ul class="son">
+                        {eju:channel name="$field.children" row="100" id="field2"}
+                        <li><a href="{$field2.typeurl}" >{$field2.typename} </a>
+                            {eju:notempty name="$field2.children"}
+                            <ul class="son">
+                                {eju:channel name="$field2.children" row="100" id="field3"}
+                                <li><a href="{$field3.typeurl}">{$field3.typename}</a></li>
+                                {/eju:channel}
+                            </ul>
+                            {/eju:notempty}
+                        </li>
+                        {/eju:channel}
+                    </ul>
+                    {/eju:notempty}
+                </li>
+                {/eju:channel}
+            </ul>
+        </div>
+        <div class="nav_login right">
+            <div class="login_wrap right clearfloat">
+                <span class="tel left" href="javascript:;">服务热线：{eju:global name='web_attr_2' /}</span>
+            </div>
+        </div>
+    </div>
+</div>

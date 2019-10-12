@@ -1,0 +1,55 @@
+/*cont*/
+.af-bar {
+    text-align: center;
+    height: 210px;
+    margin-top: 32px;
+}
+
+
+.afContent {
+    width: 1200px;
+    margin: 0 auto;
+    padding: 32px 0;
+    background: #fff;
+}
+.af-lft {
+    width: 265px;
+    float: left;
+}
+.af-rht {
+    width: 860px;
+    float: right;
+    margin-left: 32px;
+    border: 1px solid #efefef;
+    padding: 20px;
+}
+.af-lft ul li {
+    height: 72px;
+    line-height: 72px;
+    border-top: 1px solid #EFEFEF;
+    /* background: #e4e4e4; */
+    text-align: center;
+}
+.af-lft ul {
+    border: 1px solid #EFEFEF;
+}
+.af-lft ul li a {
+    display: block;
+    height: 72px;
+    line-height: 72px;
+    font-size: 16px;
+    color: #444;
+}
+.af-lft ul li a:hover{
+	background:#02BDF4;
+	color:#fff;
+}
+.af-lft ul .act{
+	background:#02BDF4;
+	color:#fff;
+}
+.af-titt {
+    border-left: 4px solid #02BDF4;
+    padding-left: 10px;
+    margin-bottom: 20px;
+}

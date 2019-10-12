@@ -1,0 +1,45 @@
+﻿			.af-gdtop {
+				width: 1200px;
+				margin: 20px auto;
+			}
+			
+			.af-gdtop-mbx a {
+				color: #444;
+			}
+			
+			.af-gdtop-mbx {
+				font-size: 16px;
+				color: #636363;
+			}
+			
+			.af-gdtop-search input.txt {
+				width: 230px;
+				height: 30px;
+				margin-top: 4px;
+				line-height: 30px;
+				padding-left: 20px;
+				border: 1px solid #CCC;
+				border-right: none;
+				color: #999;
+				background: #fff url(../images/fdj.png) no-repeat left center;
+				text-indent: 25px;
+				float: left;
+				overflow: hidden;
+				border-radius: 3px 0 0 3px;
+			}
+			
+			.af-gdtop-search input.btn1 {
+				width: 80px;
+				height: 32px;
+				line-height: 32px;
+				margin-top: 4px;
+				color: #FFF;
+				border: none;
+				float: left;
+				background: #01bdf3;
+				margin-left: -1px;
+				_margin-left: -4px;
+				position: relative;
+				border-radius: 0 3px 3px 0;
+			}
+			

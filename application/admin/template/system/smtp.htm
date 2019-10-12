@@ -1,0 +1,180 @@
+{include file="public/layout" /}
+<body>
+  <div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="web-system">
+            <div class="layui-tab layui-tab-card">
+              {include file="system/bar" /}
+              <div class="layui-tab-content" style="padding:10px 0">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-row layui-col-space15">
+                      <div class="layui-col-md12">
+                        <div class="layui-card">
+                          <div class="layui-card-body" pad15>
+                            <div class="layui-form" wid100 lay-filter="">
+                              <div class="layui-form-item layadmin-layer-demo">
+                                <label class="layui-form-label">邮件配置</label>
+                                <div class="layui-input-inline">
+                                  <button class="layui-btn layui-btn-sm" id="smtp_tpl_list">邮件模板</button>
+                                </div>
+                              </div>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label"><b>*</b>SMTP服务器</label>
+                                <div class="layui-input-inline">
+                                  <input type="text" name="smtp_server" value="{$config.smtp_server|default=''}" lay-verify="required" class="layui-input">
+                                </div>
+                                <div class="layui-form-inline2">发送邮箱的smtp地址，如: smtp.qq.com或smtp.gmail.com</div>
+                              </div>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label"><b>*</b>SMTP端口号</label>
+                                <div class="layui-input-inline">
+                                  <input type="text" name="smtp_port" lay-verify="required|number" value="{$config.smtp_port|default=465}" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                <div class="layui-form-inline2 ey_helptips_txt">smtp的端口，默认为465，具体请参看各STMP服务商的设置说明。</div>
+                                <div class="layui-form-inline2"><span style="color: red;">注意：如果使用阿里云服务器或Gmail，请将端口设为465，其他的可以尝试端口设为25</span></div>
+                              </div>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label"><b>*</b>邮箱账号</label>
+                                <div class="layui-input-inline">
+                                  <input type="text" name="smtp_user" lay-verify="required|email" value="{$config.smtp_user|default=''}" class="layui-input">
+                                </div>
+                              </div>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label"><b>*</b>邮箱授权码</label>
+                                <div class="layui-input-inline">
+                                  <input type="text" name="smtp_pwd" value="{$config.smtp_pwd|default=''}" lay-verify="required" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline layui-btn-container">
+                                    <a href="http://www.ejucms.com/index.php?m=plugins&c=Ask&a=details&ask_id=8" target="_blank" style="border-color:#eee" class="layui-btn-sm fl">如何获取？</a>
+                                </div>
+                              </div>
+                               <div class="layui-form-item">
+                                <label class="layui-form-label"><b>*</b>测试邮箱</label>
+                                <div class="layui-input-inline">
+                                  <input type="text" name="smtp_from_eamil" lay-verify="required|email" value="{$config.smtp_from_eamil|default=''}" class="layui-input">
+                                </div>
+                                <div class="layui-input-inline">
+                                    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="sendEmail">发送</button>
+                                </div>
+                              </div>
+                              <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                  <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+  </div>
+
+<script type="text/javascript">
+  layui.config({
+    base: '__SKIN__/' //静态资源所在路径
+    ,version: '{$version}'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form'], function(){
+    var $ = layui.$
+    ,layer = layui.layer
+    ,form = layui.form;
+
+    $('#smtp_tpl_list').click(function(){
+        var iframes = layer.open({
+            type: 2,
+            title: '邮件模板',
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            area: ['800px', '400px'],
+            content: "{:url('System/smtp_tpl')}"
+        });
+    });
+
+    form.on('submit(sendEmail)', function(data){
+        if (data.field.smtp_from_eamil == '') {
+            showErrorMsg('接收邮箱的地址不能为空！');
+            $('input[name=smtp_from_eamil]').focus();
+            return false;
+        } else {
+            var that = this;
+            var load = layer_loading();
+            var txt = $(that).html();
+            $(that).html('发送中…');
+
+            data.field._ajax = 1;
+            $.ajax({
+                type: "post",
+                data: data.field,
+                dataType: 'json',
+                url: "{:url('System/send_email')}",
+                success: function (res) {
+                    layer.close(load);
+                    $(that).html(txt);
+                    if (res.code == 1) {
+                        layer.msg(res.msg, {icon: 1, time:1000});
+                    } else {
+						if (res.data.icon && res.data.icon == 4) {
+							layer.alert(res.msg, {icon: res.data.icon, title: false, closeBtn: false});
+						} else {
+							showErrorMsg(res.msg);
+						}
+                    }
+                },
+                error: function(){
+                    layer.close(load);
+                    $(that).html(txt);
+                    showErrorAlert('发送超时！');
+                }
+            })
+        }
+        return false;
+    });
+
+    //监听提交
+    form.on('submit(formSubmit)', function(data){
+        var load = layer_loading();
+        data.field._ajax = 1;
+        $.ajax({
+            type : 'post',
+            url : "{:url('System/smtp')}",
+            data : data.field,
+            dataType : 'json',
+            success : function(res){
+                layer.close(load); //关闭loading
+                if(res.code == 1){
+                    layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                        window.location.reload();
+                    });
+                }else{
+                    if (res.data.icon && res.data.icon == 4) {
+                        layer.alert(res.msg, {icon: res.data.icon, title: false, closeBtn: false}, function(){
+                            window.location.reload();
+                        });
+                    } else {
+                        showErrorMsg(res.msg);
+                    }
+                }
+            },
+            error: function(e){
+                layer.close(load); //关闭loading
+                showErrorAlert();
+            }
+        });
+        return false;
+    });
+    
+  });
+  </script>
+
+{include file="public/footer" /}

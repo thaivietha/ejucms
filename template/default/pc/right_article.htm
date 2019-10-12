@@ -1,0 +1,142 @@
+<div class="af-zxlist-fr right">
+    <div class="af-zxlist-fr right">
+       <!--<div class="right-cate">
+       	 <ul>
+       	 	<li class="current"><a href="">本地资讯</a></li>
+       	 	<li><a href="">楼盘动态</a></li>
+       	 	<li><a href="">楼盘导购</a></li>
+       	 	<li><a href="">购房指南</a></li>
+       	 </ul>
+       	
+       </div>-->
+        <div class="lpagent_bmtel">
+            <div class="lpagent_tel"> <span class="tel_num"> 报名参加购房联盟 </span> </div>
+            <div class="lpagent_bm">
+                {eju:form formid="1"}
+                <form method="post" id="{$field.form_name}" action="{$field.action}" onsubmit="{$field.submit}">
+                    <div class="bm_wrap">
+                        <input type="text" id="{$field.attr_1}" name="{$field.attr_1}" placeholder="{$field.itemname_1}" class="input-text">
+                        <p class="bm_text">享受24小时接送机、住宿安排！免费专车看房、惊喜购房优惠！</p>
+                    </div>
+                    <input type="submit" class="bt_yhbm" value="报名看房" id="yuyue_btn_sub" style="width: 100%">
+                    <div class="clear"></div>
+                    {$field.hidden}
+                </form>
+                {/eju:form}
+
+            </div>
+            <div class="qr-code"> <img src="{eju:global name='web_attr_4' /}">
+                <p>动动手指，扫一扫<br>
+                    手机获取楼盘实时动态信息</p>
+            </div>
+        </div>
+        {eju:channelartlist typeid='5'}
+        <div class="afgd" >
+            <div  class="afgd-head">
+                <h2>{eju:field name='typename' /}</h2>
+                <a href="{eju:field name='typeurl' /}" title="{eju:field name='typename' /}" target="_blank" class="afgd-head-more">更多&gt;&gt;</a>
+                <div class="clear"></div>
+            </div>
+
+            <ul>
+                {eju:arclist orderby='click' row='10' id="field"}
+                <li>
+                    <a target="_blank" href="{$field.arcurl}" title="{$field.title}"><span class="bk">{$i}</span>{$field.title}</a>
+                </li>
+                {/eju:arclist}
+            </ul>
+        </div>
+        {/eju:channelartlist}
+        {eju:channelartlist typeid='6'}
+        <div class="zxpm" >
+            <div  class="zxpm-head">
+                <h2>{eju:field name='typename' /}</h2>
+                <a href="{eju:field name='typeurl' /}" title="{eju:field name='typename' /}" target="_blank" class="zxpm-head-more">更多&gt;&gt;</a>
+                <div class="clear"></div>
+            </div>
+            <ul>
+                {eju:arclist orderby='click' row='10' id="field"}
+                    {eju:eq name='$i' value='1'}
+                    <li> 
+                        <a href="{$field.arcurl}" target="_blank">
+                            <img src="{$field.litpic}" width="94" height="84" class="left" />
+                            <div class="newscon right">
+                                <p>{$field.title}</p>
+                                <span>{$field.add_time|MyDate='Y-m-d H:i:s',###}</span> 
+                            </div>
+                        </a>
+                        <div class="clear"></div>
+                    </li>
+                    {eju:else /}
+                    <li>
+                        <a target="_blank" href="{$field.arcurl}" title="{$field.title}"><span class="bk">{$i}</span>{$field.title}</a>
+                    </li>
+                    {/eju:eq}
+                {/eju:arclist}
+            </ul>
+        </div>
+        {/eju:channelartlist}
+        {eju:channelartlist typeid='7'}
+        <div class="zxpm" >
+            <div  class="zxpm-head">
+                <h2>{eju:field name='typename' /}</h2>
+                <a href="{eju:field name='typeurl' /}" title="{eju:field name='typename' /}" target="_blank" class="zxpm-head-more">更多&gt;&gt;</a>
+                <div class="clear"></div>
+            </div>
+            <ul>
+                {eju:arclist orderby='click' row='10' id="field"}
+                    {eju:eq name='$i' value='1'}
+                    <li> 
+                        <a href="{$field.arcurl}" target="_blank">
+                            <img src="{$field.litpic}" width="94" height="84" class="left" />
+                            <div class="newscon right">
+                                <p>{$field.title}</p>
+                                <span>{$field.add_time|MyDate='Y-m-d H:i:s',###}</span> 
+                            </div>
+                        </a>
+                        <div class="clear"></div>
+                    </li>
+                    {eju:else /}
+                    <li>
+                        <a target="_blank" href="{$field.arcurl}" title="{$field.title}"><span class="bk">{$i}</span>{$field.title}</a>
+                    </li>
+                    {/eju:eq}
+                {/eju:arclist}
+            </ul>
+        </div>
+        {/eju:channelartlist}
+        <div class="hotlp">
+            <div  class="hotlp-head">
+                <h2>热门楼盘</h2>
+                {eju:type typeid='1' id="field"}
+                <a href="{$field.typeurl}" title="{$field.typename}" target="_blank" class="zxpm-head-more">更多&gt;&gt;</a>
+                {/eju:type}
+                <div class="clear"></div>
+            </div>
+
+            <ul>
+                {eju:arclist channelid='9' flag='h' orderby='new' row='4' id="field"}
+                <li>
+                    <a href="{$field.arcurl}" target="_blank">
+                        <em class="right">
+                            <span class="jg">{$field.average_price}</span>{$field.price_units}
+                        </em>
+                        <span class="bk">{$i}</span>{$field.title}
+                    </a>
+                </li>
+                {/eju:arclist}
+            </ul>
+        </div>
+    </div>
+</div>
+<style>
+    .bm_wrap  .input-text {
+        padding: 8px 10px;
+        width: 264px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 15px;
+        background: #fff5e7;
+        margin-bottom: 10px;
+    }
+</style>

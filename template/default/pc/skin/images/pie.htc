@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE9" >
+<title>旅游房产网_养老地产_度假房产_A房网</title>
+<meta name="keywords" content="旅游房产网,养老地产,度假房产，旅居地产" />
+<meta name="description" content="A房网专注旅游地产、养老地产与度假房产，是专业的旅游房产网站，有大量新房独代楼盘，二手房独家房源。为客户提供精选旅游房产、置业指南、旅居置业服务、楼盘最新价格动态及旅游攻略等内容。咨询热线：400-9633-155。" />
+<link type="text/css" href="/static/home/css/public.css" rel="stylesheet" />
+<link type="text/css" href="/static/home/css/iconfont.css" rel="stylesheet" />
+<!--<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?2724558bcdded86265d5a75c767224db";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+</script>-->
+<script src="/static/js/jquery.min.1.7.2.js"></script>
+<!-- <script>
+$(document).ready(function(){$("link").attr("href",function(i,origValue){return origValue+"?time=20190808"})});
+</script> -->
+<script type="text/javascript" src="/static/home/js/af/top_footer.js"></script>
+		<link type="text/css" href="/static/home/css/home_always.css" rel="stylesheet" />
+		<link type="text/css" href="/static/home/css/swiper-3.4.2.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+			<div class="nav_login">
+		<div class="centermar">
+			<div class="top_nav_wrap left">
+				<ul>
+								            	<li><a href="http://www.afang.com/" target="_self" class="on">首页</a></li>
+			            			            	<li><a href="http://www.afang.com/newhouse/index.html" target="_self" >新房</a></li>
+			            			            	<li><a href="http://hn.afang.com/findhouse/index.html" target="_blank" >30秒找房</a></li>
+			            			            	<li><a href="http://hn.afang.com/tuangou/index.html" target="_blank" >看房团</a></li>
+			            			            	<li><a href="http://hn.afang.com/beauty/index.html" target="_blank" >最美海南</a></li>
+			            			            	<li><a href="http://hn.afang.com/apoint.html" target="_blank" >A房观点</a></li>
+			            				</ul>
+			</div>
+			<div class="login_wrap right clearfloat">
+				<a href="javascript:;" class="left af_newlogin01">登录</a>|<a href="javascript:;" class="right af_newlogin02">注册</a>
+			</div>
+		</div>
+	</div>
+	<div class="af_head clearfloat">
+		<div class="centermar">
+			<div class="left">
+				<a class="left logo" href="http://www.afang.com/"></a>
+				<ul class="st_city_list clearfloat left">
+					<li class="item"><a class="item_a " href="http://www.afang.com/">首页</a></li>
+											<li class="item">
+														<a class="item_a" target="_blank" href='http://hn.afang.com/'>海南</a>
+											           
+				            <ul>
+					            					            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae1853eb_0_0_0_0_0_0_0_0_0.html'>海口</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae181945_0_0_0_0_0_0_0_0_0.html'>三亚</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae182f73_0_0_0_0_0_0_0_0_0.html'>澄迈</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae1831b0_0_0_0_0_0_0_0_0_0.html'>临高</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae182059_0_0_0_0_0_0_0_0_0.html'>儋州</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae182269_0_0_0_0_0_0_0_0_0.html'>文昌</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae181e30_0_0_0_0_0_0_0_0_0.html'>琼海</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae182484_0_0_0_0_0_0_0_0_0.html'>万宁</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae184eea_0_0_0_0_0_0_0_0_0.html'>琼中</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae184c11_0_0_0_0_0_0_0_0_0.html'>保亭</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae1849c8_0_0_0_0_0_0_0_0_0.html'>陵水</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae184794_0_0_0_0_0_0_0_0_0.html'>乐东</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae182cbf_0_0_0_0_0_0_0_0_0.html'>屯昌</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae182a73_0_0_0_0_0_0_0_0_0.html'>定安</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae181c13_0_0_0_0_0_0_0_0_0.html'>五指山</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae1827dd_0_0_0_0_0_0_0_0_0.html'>东方</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae18453a_0_0_0_0_0_0_0_0_0.html'>昌江</a></li>
+														            	<li><a target="_blank" href='http://www.afang.com/hn/newhouse_55eb9ae183bfc_0_0_0_0_0_0_0_0_0.html'>白沙</a></li>
+													            </ul> 
+				            			            </li>
+			            						<li class="item">
+														<a target="_blank" class='item_a ' href='http://yn.afang.com/'>云南</a>
+											           
+				            <ul>
+					            									<li><a target="_blank" href='http://kunming.afang.com/'>昆明</a></li>
+																		<li><a target="_blank" href='http://dali.afang.com/'>大理</a></li>
+																		<li><a target="_blank" href='http://lijiang.afang.com/'>丽江</a></li>
+																		<li><a target="_blank" href='http://xsbn.afang.com/'>西双版纳</a></li>
+																		<li><a target="_blank" href='http://tengchong.afang.com/'>腾冲</a></li>
+													            </ul> 
+				            			            </li>
+			            						<li class="item">
+														<a target="_blank" class='item_a ' href='http://www.afang.com/gd/newhouse_0_0_0_0_0_0_0_0_0_0.html'>广东</a>
+											           
+				            <ul>
+					            					            	<li><a target="_blank" href='http://www.afang.com/gd/newhouse_55eb9ae18c3a5_0_0_0_0_0_0_0_0_0.html'>湛江</a></li>
+													            </ul> 
+				            			            </li>
+			            					<li class="item"><a class="item_a" target="_blank" href="https://www.0756fang.com">珠海</a></li>
+					<li class="item"><a class="item_a" target="_blank" href="https://www.0760fang.com">中山</a></li>
+				</ul>
+			</div>
+			<div class="right clearfloat">				
+								<a class="tel right" href="javascript:void(0)">服务热线  400-9633-155</a>
+			</div>
+		</div>
+	</div>
+
+<!--登陆-->
+<div id="af-top-login" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div class="login-top">
+		<span class="close"></span>
+	</div>
+	<div class="wrap">
+		<form action="http://www.afang.com/login/logindo.html" method="post" name="myForm" id="loginForm">
+			<ul>
+				<li>
+					<!--<label>用户名：</label>-->
+					<b class="usr"><input name="username" id="username" type="text" placeholder="手机号" onfocus="if(this.value=='用户名/手机号'){this.value='';}" onblur="if(this.value==''){this.value='用户名/手机号';}" /></b>
+				</li>
+				<li>
+					<!--<label>密　码：</label>-->
+					<b class="pass"><input name="password" id="password" type="password" placeholder="登录密码" /></b>
+				</li>
+				<li>
+					<a href="javascript:;" onclick="loginDo();" class="log_btn">立即登录</a>
+					<span class="all366C">
+						<em class="left">你还不是本站会员？<a href="#" class="mfzc">免费注册</a></em>
+						<a href="#" class="right">找回密码</a>
+						<div class="clear"></div>
+					</span>
+				</li>
+				<input type="hidden" name="forward" value="">
+			</ul>
+		</form>
+	</div>
+</div>
+<!--注册-->
+<div id="af-top-zc" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+	<div class="login-top">
+		<span class="close"></span>
+	</div>
+	<div class="wrap">
+		<form action="http://www.afang.com/login/regdo.html" method="post" name="myForm" id="regForm">
+			<ul>
+				<li>
+					<!--<label>用户名：</label>-->
+					<b class="usr"><input name="username" id="username" type="text" placeholder="请填写手机号" onfocus="if(this.value=='手机号'){this.value='';}" onblur="if(this.value==''){this.value='手机号';}" /></b>
+				</li>
+				<li>
+					<!--<label>密　码：</label>-->
+					<input class="yzm  inpx" name="captcha_code" id="captcha_code" type="text" placeholder="验证码" />
+					<input type="button" id="btn" value="免费获取验证码" onclick="getPhoneCode(this)" /> 
+					<div class="clear"></div>
+				</li>
+				<li>
+					<a href="javascript:;" onclick="regDo();" class="log_btn">注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册</a>
+					<span class="all366C">
+						<em class="left">我已阅读并同意<a href="#" class="">《A房网会员服务条款》</a></em>
+						<a href="javascript:;" class="right dl" >已注册？直接登录</a>
+						<div class="clear"></div>
+					</span>
+				</li>
+				<input type="hidden" name="forward" value="">
+			</ul>
+		</form>
+	</div>
+</div>
+<div class="modal-backdrop fade in" style="display: none;"></div>
+<script>
+	//autocomplete
+    $(function(){
+        $('#search_but03').bind('click',function(){
+           var v = $('#search_key03').val();
+            if(!v){
+                //alert('请填写关键词！');
+                return false;
+            }
+            $('#top_search_form03').submit();
+        });
+    });
+</script>
+<!--头部end-->
+<script>
+	var countdown = 60;
+	function settime(val) {
+		if (countdown == 0) {
+			val.style.backgroundColor = "";
+			val.removeAttribute("disabled");
+			val.value = "免费获取验证码";
+			countdown = 60;
+			return;
+		} else {
+			val.style.backgroundColor = "graytext";
+			val.setAttribute("disabled", true);
+			val.value = "重新发送(" + countdown + ")";
+			countdown--;
+		}
+		setTimeout(function() {
+			settime(val)
+		}, 1000)
+	}
+	
+	function getPhoneCode(val){
+		var mobile = $("#regForm #username").val();		
+		$.ajax({
+			url : "http://www.afang.com/login/getphonecode.html",
+			data : {'mobile':mobile},
+			type : "post",
+			dataType : "json",
+			success : function(data, status) {
+				if (data.status == 1) {
+					settime(val);
+				}else{
+					alert(data.msg);
+				}
+			}
+		});
+	}
+	
+	function regDo(){
+		mobile = $("#regForm #username").val();
+		captcha_code = $("#regForm #captcha_code").val();
+		$.ajax({
+			url : "http://www.afang.com/login/regdo.html",
+			data : {'mobile':mobile,'captcha_code':captcha_code},
+			type : "post",
+			dataType : "json",
+			success : function(data, status) {
+				if (data.status == 1) {
+					alert("初始密码已以短信形式的发送到了您的手机上！");
+					location.reload();
+				}else{
+					alert(data.msg);
+				}
+			}
+		});
+	}
+	
+	function loginDo(){
+		mobile = $("#loginForm #username").val();
+		dpassword = $("#loginForm #password").val();
+		$.ajax({
+			url : "http://www.afang.com/login/logindo.html",
+			data : {'mobile':mobile,'password':dpassword,'forward':'login'},
+			type : "post",
+			dataType : "json",
+			success : function(data, status) {
+				if (data.status == 1) {					
+					location.reload();
+				}else{
+					alert(data.msg);
+				}
+			}
+		});
+	}
+	
+</script>
+		<!--banner-->
+		<div class="banner">
+			<div class="swiper-container">
+				<div class="af-banner-wrap">
+					<div class="af-top-cont">
+						<p class="af-top-cont-text1"></p>
+					</div>
+					<div class="af-search">
+						<form method="get" action="http://www.afang.com/newhouse/index.html" id="top_search_form">
+							<p>
+								<input type="text" class="s_inp01" name="keyword" id="search_key" placeholder="请输入楼盘名称开始找房...">
+								<a href="javascript:;" id="search_but" class="but01">开始找房</a>
+							</p>
+						</form>
+						<div class="proposal-box"></div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="swiper-wrapper">
+					<!--<div class="swiper-slide" style="background: url('http://sources.afang.com/sources/banner/1225a9e3c034906250.jpg_full') center center no-repeat"></div>-->
+					<div class="swiper-slide" style="background: url('http://sources.afang.com/sources/banner/1225a9e3c034906251.jpg_full') center center no-repeat"></div>
+					<div class="swiper-slide" style="background: url('http://sources.afang.com/sources/banner/1225a9e3c034906252.jpg_full') center center no-repeat"></div>
+					<div class="swiper-slide" style="background: url('http://sources.afang.com/sources/banner/1225a9e3c034906253.jpg_full') center center no-repeat"></div>
+					<div class="swiper-slide" style="background: url('http://sources.afang.com/sources/banner/1225a9e3c034906254.jpg_full') center center no-repeat"></div>
+				</div>
+			</div>
+		</div>
+		<div class="hot_city">
+			<div class="city_prov">
+				<h3>热门城市</h3>
+				<ul class="option_three clearfloat">
+					<li class="city_info left">
+						<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae1853eb_0_0_0_0_0_0_0_0_0.html">
+							<img src="http://sources.afang.com/sources/23/14859a0eea332e331.jpg_nowater">
+							<div class="city_box">
+								<h4>海口</h4>
+								<p>一座富有海滨自然旖旎风光的南方滨海城市</p>
+							</div>
+						</a>
+					</li>
+					<li class="city_info left">
+						<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae181945_0_0_0_0_0_0_0_0_0.html">
+							<img src="http://sources.afang.com/sources/10/857598c03cc66fae8.jpg_nowater">
+							<div class="city_box">
+								<h4>三亚</h4>
+								<p>国际旅游城市，被称为“东方夏威夷”</p>
+							</div>
+						</a>
+					</li>
+					<li class="city_info left">
+						<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae182059_0_0_0_0_0_0_0_0_0.html">
+							<img src="http://sources.afang.com/sources/33/101598c0d0295b032.jpg_nowater">
+							<div class="city_box">
+								<h4>儋州</h4>
+								<p>海南西部的经济、交通、通信和文化中心</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<ul class="option_two clearfloat">
+					<li class="city_info left">
+						<a href="http://kunming.afang.com/">
+							<img src="http://sources.afang.com/sources/75/7365b10b9f45cc295.jpg_nowater">
+							<div class="city_box">
+								<h4>昆明</h4>
+								<p>气候四季如春，空气清新、天高云淡、阳光明媚，鲜花常开享“春城”之美誉</p>
+							</div>
+						</a>
+					</li>
+					<li class="city_info left">
+						<a href="http://dali.afang.com/">
+							<img src="http://sources.afang.com/sources/43/4605b10c4a0434993.jpg_nowater">
+							<div class="city_box">
+								<h4>大理</h4>
+								<p>西南边疆，风花雪月，文献名邦，国家历史文化名城之一</p>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<!--<ul class="option_two clearfloat">
+					<li class="city_info left">
+						<a href="http://beihai.afang.com/">
+							<img src="http://sources.afang.com/sources/99/6055b10c242491534.jpg_nowater">
+							<div class="city_box">
+								<h4>北海</h4>
+								<p>环北部湾城市群中心海滨城市，中国大西南连接东盟的最便捷的出海口</p>
+							</div>
+						</a>
+					</li>
+					<li class="city_info left">
+						<a href="http://fangcheng.afang.com/">
+							<img src="http://sources.afang.com/sources/77/7665b10c39280b8c8.jpg_nowater">
+							<div class="city_box">
+								<h4>防城港</h4>
+								<p>北部湾畔唯一的全海景生态海湾城市，被誉为“西南门户、边陲明珠”</p>
+							</div>
+						</a>
+					</li>
+				</ul>-->
+			</div>
+		</div>
+		<!--旅居锦囊-->
+		<div class="area_fenlei">
+			<h3>A房精选</h3>
+			<ul class="tabs clearfloat">
+				<li>
+					<a target="_blank" href="http://www.afang.com/apoint/hotshopping/cate_id/11.html" name=".tab_0"  class="current">热门导购</a>
+				</li>
+				<li>
+					<a target="_blank" href="http://www.afang.com/apoint/lvjvlist.html" name=".tab_1">旅居锦囊</a>
+				</li>
+			</ul>
+			<div class="fenlei_content">
+			<div class="fenlei_dg clearfloat fenlei_active tab_0" style="display: block">
+				<div class="left dg_img_big">
+										<a target="_blank" href="http://www.afang.com/apoint/pointdetail/id/8963.html">
+						<img src="http://sources.afang.com/sources/48/7225cce5bfd327f95.png_nowater" />
+						<div class="dg_mc">
+							<h4>置业选择 临高哪些楼盘值得买？</h4>
+							<p>临高县，隶属海南省，位于海南岛西北部。东邻澄迈县，西南与儋州市接壤，西北濒临北部湾，北濒琼州海峡，与雷州半岛隔海相望。临高属热带季风气候，光照充足，海域面积376平方公里，海洋渔业资源丰富，其吸引而来的开发商也不在少数，其价格在海南区</p>
+						</div>
+					</a>
+									</div>
+				<div class="right dg_img_list">
+										<div class="dg_img_lit">
+						<a target="_blank" href="http://www.afang.com/apoint/pointdetail/id/8581.html">
+							<img src="http://sources.afang.com/sources/14/6225c088cda138ac1.png_nowater" />
+							<div class="dg_mc">
+								<h4>临湾靠海 儋州美盘有哪些？</h4>
+								<p>在海南西部，坐落着一座有2千多年历史的古郡，中国大文豪苏轼曾在此谪居。它拥有</p>
+							</div>
+						</a>
+					</div>
+										<div class="dg_img_lit">
+						<a target="_blank" href="http://www.afang.com/apoint/pointdetail/id/9694.html">
+							<img src="http://sources.afang.com/sources/28/7955d1c04ef719397.png_nowater" />
+							<div class="dg_mc">
+								<h4>小家庭必备 海口两三房户型</h4>
+								<p>小户型面积空间容量小，太大的户型总价又太贵，面向小家庭，两至三房是较好的选择</p>
+							</div>
+						</a>
+					</div>
+										<div class="dg_img_lit">
+						<a target="_blank" href="http://www.afang.com/apoint/pointdetail/id/9971.html">
+							<img src="http://sources.afang.com/sources/3/3595c6f95420550d4.png_nowater" />
+							<div class="dg_mc">
+								<h4>购房指南 海南海口房价多少？</h4>
+								<p>海口市是海南的省会城市，素有“椰城”之称。位于北纬20°，年平均气温24.2</p>
+							</div>
+						</a>
+					</div>
+										<div class="dg_img_lit">
+						<a target="_blank" href="http://www.afang.com/apoint/pointdetail/id/10188.html">
+							<img src="http://sources.afang.com/sources/73/7785d3fae506fe6c5.jpg_nowater" />
+							<div class="dg_mc">
+								<h4>33城每周181个航班飞西港</h4>
+								<p>好消息，截止目前，现在每周有181个航班连接柬埔寨和中国。近期新增的一系列中</p>
+							</div>
+						</a>
+					</div>
+									</div>
+				
+			</div>
+
+			<div class="fenlei_jn fenlei_active tab_1">
+			<ul class="clearfloat">
+				<li>
+										<p class="photo">
+						<img src="http://sources.afang.com/sources/79/2815b398134ab0938.jpg_nowater" data-original="http://pic.qyer.com/album/user/934/91/SEpRSxsPZQ/index/310x200" width="310" height="200" alt="" class="lazy" style="display: block;">
+					</p>
+										<p class="photoMask"></p>
+					<div class="content">
+												<a href="http://kunming.afang.com/beauty/pointdetail/id/4886.html" target="_blank"><h4 class="title fontYaHei" data="人文特色">揭秘|云南十八怪 你说怪不怪</h4></a> 
+						<blockquote class="text">云南由于独特的地理风貌、特殊的气候状况、多彩的民族风情及奇特的风俗习惯，不仅产生了令人着...							<a href="http://kunming.afang.com/beauty/pointdetail/id/4886.html" target="_blank">[详细]</a>
+						</blockquote>
+												<a href="http://www.afang.com/apoint/pointdetail/id/7220.html" target="_blank"><i></i>
+							<p>云南无量山樱花谷“春色”上线！实拍图美哭</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/6182.html" target="_blank"><i></i>
+							<p>百变茶道—云南茶雕</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/6099.html" target="_blank"><i></i>
+							<p>丽江美食，十大特色小吃诱惑你的胃</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/5965.html" target="_blank"><i></i>
+							<p>白族三道茶：苦二甜三回味</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/5922.html" target="_blank"><i></i>
+							<p>段演绎包罗丽江万象</p>
+						</a>
+											</div>
+					<div class="bottom"></div>
+				</li>
+				<li>
+										<p class="photo">
+						<img src="http://sources.afang.com/sources/29/7025b3c3921a10b26.png_nowater" data-original="http://pic.qyer.com/album/user/934/91/SEpRSxsPZQ/index/310x200" width="310" height="200" alt="" class="lazy" style="display: block;">
+					</p>
+										<p class="photoMask"></p>
+					<div class="content">
+												<a href="http://gx.afang.com/beauty/pointdetail/id/4766.html" target="_blank"><h4 class="title fontYaHei" data="风情特产">北海老街记忆|那些年繁华依旧</h4></a>
+						<blockquote class="text">北海是一个风光旖旎，气候宜人的城市。地处亚热带，阳光充沛，雨量充足，植被丰茂。全年花繁叶...							<a href="http://gx.afang.com/beauty/pointdetail/id/4766.html" target="_blank">[详细]</a>
+						</blockquote>
+												<a href="http://www.afang.com/apoint/pointdetail/id/6085.html" target="_blank"><i></i>
+							<p>北海近代建筑 历史下的文化见证</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/5999.html" target="_blank"><i></i>
+							<p>边境的“小斯里兰卡” 低调海岛京族三岛</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/5963.html" target="_blank"><i></i>
+							<p>湖面上的星空—星岛湖</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/5896.html" target="_blank"><i></i>
+							<p>防城港*花茶 人称“植物界的大熊猫”</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/5727.html" target="_blank"><i></i>
+							<p>走进防城港 探索京族民俗文化</p>
+						</a>
+											</div>
+					<div class="bottom"></div>
+				</li>
+				<li>
+										<p class="photo">
+						<img src="http://sources.afang.com/sources/64/4275b3c3a2b5d58c2.jpg_nowater" data-original="http://pic.qyer.com/album/user/934/91/SEpRSxsPZQ/index/310x200" width="310" height="200" alt="" class="lazy" style="display: block;">
+					</p>
+										<p class="photoMask"></p>
+					<div class="content">
+												<a href="http://www.afang.com/beauty/pointdetail/id/4097.html" target="_blank"><h4 class="title fontYaHei" data="特色小吃">遇见你|海口休闲乡村主题公园</h4></a>
+						<blockquote class="text">人生就像是一场旅行，不必在乎目的地，在乎的是沿途的风景，以及看风景的心情。背上背包，走出...							<a href="http://www.afang.com/beauty/pointdetail/id/4097.html" target="_blank">[详细]</a>
+						</blockquote>
+												<a href="http://www.afang.com/apoint/pointdetail/id/4665.html" target="_blank"><i></i>
+							<p>来澄迈大丰村感受古代的商业文明</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/4655.html" target="_blank"><i></i>
+							<p>走进民族特色 探访海南十大文化名镇</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/4622.html" target="_blank"><i></i>
+							<p>舌尖上的诱惑——琼海杂粮小吃</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/4598.html" target="_blank"><i></i>
+							<p>琼中哪里好玩—隐藏在高山中的人间桃花源</p>
+						</a>
+												<a href="http://www.afang.com/apoint/pointdetail/id/4581.html" target="_blank"><i></i>
+							<p>东郊椰林好玩吗？海南椰景这边好</p>
+						</a>
+											</div>
+					<div class="bottom"></div>
+				</li>
+			</ul>
+		</div>
+		</div>
+		</div>
+	
+		<!--大家都在看-->
+		<div class="st_list">
+			<h3>大家都在看</h3>
+			<ul>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/873.html" target="_blank" title=""><img src="http://sources.afang.com/sources/36/8845c244f30ae2787.jpg_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/873.html" target="_blank">七彩云南·古滇名城</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[云南-昆明]</span>【呈贡区】昆明环湖南路滇池南岸</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="建面135平" href="http://www.afang.com/newhouse/houseinfo/id/873.html#hx">1室(建面135.00㎡)</a>&nbsp; 							<a target="_blank" title="建面87平" href="http://www.afang.com/newhouse/houseinfo/id/873.html#hx">2室(建面87.00㎡)</a>&nbsp; 							<a target="_blank" title="建面90平" href="http://www.afang.com/newhouse/houseinfo/id/873.html#hx">2室(建面90.00㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/873.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_3">公园地产</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/873_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 668</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>均价</em>11000</span>元/m²						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/177.html" target="_blank" title=""><img src="http://sources.afang.com/sources/95/1905c0798a3e54d71.png_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/177.html" target="_blank">恒大御海天下</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[海南-临高]</span>马袅湾滨海国际旅游区常青大道</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="B/C/D户型" href="http://www.afang.com/newhouse/houseinfo/id/177.html#hx">1室(建面42.00㎡)</a>&nbsp; 							<a target="_blank" title="A户型" href="http://www.afang.com/newhouse/houseinfo/id/177.html#hx">1室(建面60.00㎡)</a>&nbsp; 							<a target="_blank" title="B户型" href="http://www.afang.com/newhouse/houseinfo/id/177.html#hx">1室(建面59.00㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/177.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_1">海景房</span> 							<span id="c_2">宜居生态</span> 							<span id="c_1">低密居所</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/177_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 218</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>均价</em>10000</span>元/m²						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/966.html" target="_blank" title=""><img src="http://sources.afang.com/sources/50/4445c244f97c31162.jpg_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/966.html" target="_blank">俊发玉龙湾</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[云南-昆明]</span>云南省昆明市太平新城玉龙湾景区</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="G1户型" href="http://www.afang.com/newhouse/houseinfo/id/966.html#hx">2室(建面57.46㎡)</a>&nbsp; 							<a target="_blank" title="F1户型" href="http://www.afang.com/newhouse/houseinfo/id/966.html#hx">3室(建面87.76㎡)</a>&nbsp; 							<a target="_blank" title="大平层建面256.6㎡" href="http://www.afang.com/newhouse/houseinfo/id/966.html#hx">3室(建面256.60㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/966.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_2">宜居生态</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/966_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 668</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>均价</em>8500</span>元/m²						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/46.html" target="_blank" title=""><img src="http://sources.afang.com/sources/25/2995c0f5b103c0422.jpg_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/46.html" target="_blank">融创美伦熙语</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[海南-澄迈]</span>澄迈老城经济开发区生态软件园内</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="建面80㎡-2户型" href="http://www.afang.com/newhouse/houseinfo/id/46.html#hx">2室(建面80.00㎡)</a>&nbsp; 							<a target="_blank" title="建面80㎡-1户型" href="http://www.afang.com/newhouse/houseinfo/id/46.html#hx">2室(建面80.00㎡)</a>&nbsp; 							<a target="_blank" title="建面105㎡-2户型" href="http://www.afang.com/newhouse/houseinfo/id/46.html#hx">3室(建面105.00㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/46.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_2">温泉社区</span> 							<span id="c_3">宜居生态</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/46_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 268</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>均价</em>12000</span>元/m²						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/715.html" target="_blank" title=""><img src="http://sources.afang.com/sources/71/7345c079ada343993.jpg_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/715.html" target="_blank">勐巴拉雨林小镇</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[云南-西双版纳]</span>云南西双版纳曼兴湖（别名：勐巴拉国际旅游度假区）</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="G户型" href="http://www.afang.com/newhouse/houseinfo/id/715.html#hx">1室(建面86.00㎡)</a>&nbsp; 							<a target="_blank" title="11栋A户型" href="http://www.afang.com/newhouse/houseinfo/id/715.html#hx">1室(建面52.34㎡)</a>&nbsp; 							<a target="_blank" title="H3户型" href="http://www.afang.com/newhouse/houseinfo/id/715.html#hx">1室(建面37.78㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/715.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_2">公园地产</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/715_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 699</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>总价</em>130</span>万元/套						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/1084.html" target="_blank" title=""><img src="http://sources.afang.com/sources/35/2605c04ef09bcbde9.jpg_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/1084.html" target="_blank">农博雅苑</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[海南-屯昌]</span>屯昌县环东一路与中山路交汇处[农博城]</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="建面50.89平" href="http://www.afang.com/newhouse/houseinfo/id/1084.html#hx">2室(建面50.89㎡)</a>&nbsp; 							<a target="_blank" title="建面52.04平" href="http://www.afang.com/newhouse/houseinfo/id/1084.html#hx">2室(建面52.04㎡)</a>&nbsp; 							<a target="_blank" title="建面63.64平" href="http://www.afang.com/newhouse/houseinfo/id/1084.html#hx">3室(建面63.64㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/1084.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_3">宜居生态</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/1084_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 226</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>均价</em>7300</span>元/m²						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/925.html" target="_blank" title=""><img src="http://sources.afang.com/sources/44/8165c079c2e0d1b19.jpg_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/925.html" target="_blank">抚仙湖欢乐大世界</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[云南-昆明]</span>澄江县右所镇环湖北路9号寒武纪乐园（“别称：欢乐大世界”）</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="A户型" href="http://www.afang.com/newhouse/houseinfo/id/925.html#hx">2室(建面103.00㎡)</a>&nbsp; 							<a target="_blank" title="翡翠湾B户型" href="http://www.afang.com/newhouse/houseinfo/id/925.html#hx">2室(建面86.00㎡)</a>&nbsp; 							<a target="_blank" title="翡翠湾C户型" href="http://www.afang.com/newhouse/houseinfo/id/925.html#hx">3室(建面102.00㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/925.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_1">小户型</span> 							<span id="c_2">公园地产</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/925_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 668</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>均价</em>13000</span>元/m²						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/923.html" target="_blank" title=""><img src="http://sources.afang.com/sources/98/6625b2324ab4d60d5.jpg_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/923.html" target="_blank">洱海福门</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[云南-大理]</span>海东新区中心城区</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="建面39平户型" href="http://www.afang.com/newhouse/houseinfo/id/923.html#hx">1室(建面39.00㎡)</a>&nbsp; 							<a target="_blank" title="A户型" href="http://www.afang.com/newhouse/houseinfo/id/923.html#hx">1室(建面39.00㎡)</a>&nbsp; 							<a target="_blank" title="A户型模板" href="http://www.afang.com/newhouse/houseinfo/id/923.html#hx">1室(建面39.00㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/923.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_1">宜居生态</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/923_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 588</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>均价</em>10000</span>元/m²						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/8.html" target="_blank" title=""><img src="http://sources.afang.com/sources/85/2425c395b51dc5e51.jpg_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/8.html" target="_blank">融创观澜湖公园壹号</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[海南-海口]</span>观澜湖旅游度假区内</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="三期A户型" href="http://www.afang.com/newhouse/houseinfo/id/8.html#hx">3室(建面105.77㎡)</a>&nbsp; 							<a target="_blank" title="三期B户型" href="http://www.afang.com/newhouse/houseinfo/id/8.html#hx">3室(建面123.67㎡)</a>&nbsp; 							<a target="_blank" title="三期C户型" href="http://www.afang.com/newhouse/houseinfo/id/8.html#hx">34室(建面130.91㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/8.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_1">花园洋房</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/8_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 256</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>均价</em>16800</span>元/m²						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+								<li class="list-lp">
+					<div class="af-xf-img">
+						<a href="http://www.afang.com/newhouse/houseinfo/id/874.html" target="_blank" title=""><img src="http://sources.afang.com/sources/71/6135b050d4f1a3533.png_nowater" alt="" width="260" height="190"></a>
+					</div>
+					<div class="af-xf-wrap">
+						<div class="af-xfname">
+							<a href="http://www.afang.com/newhouse/houseinfo/id/874.html" target="_blank">万达西双版纳国际度假区</a>
+							<span class="lp_tag">在售</span>
+							<div class="clear"></div>
+						</div>
+						<p class="af-xf-dz">
+							<span>[云南-西双版纳]</span>云南西双版纳融创万达西双版纳国际度假区</p>
+						<p class="af-xf-dz">
+							<span>户型：</span> 							<a target="_blank" title="G1户型" href="http://www.afang.com/newhouse/houseinfo/id/874.html#hx">1室(建面50.50㎡)</a>&nbsp; 							<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/874.html#hx">全部户型</a>
+						</p>
+						<p class="af-xf-tese">
+														<span id="c_3">宜居生态</span> 						</p>
+						<p class="af-xf-dtell">
+							<a target="_blank" href="http://www.afang.com/map/874_house.html"><span><i class="iconfont af-icon-locationfill"></i>查看地图</span></a><span><i class="iconfont af-icon-dianhuatianchong"></i>400-9633-155转 699</span>
+						</p>
+					</div>
+					<div class="af-xf-jg">
+						<p class="xfjg">
+							<span class="xfjg-red"><em>均价</em>11000</span>元/m²						</p>
+					</div>
+					<div class="clear"></div>
+
+				</li>
+							</ul>
+			<a class="list_more" href="http://www.afang.com/newhouse/index.html">查看全部房源</a>
+		</div>
+		<!--底部-->
+<div class="af-footer">
+	<div class="wrapper">
+		<div class="f-title">
+			<div class="fl">
+				<ul>
+									        <li><a href="http://www.afang.com/about/about.html" target="_blank" rel="nofollow">关于我们</a></li>
+				        				        <li><a href="http://www.afang.com/about/contact.html" target="_blank" rel="nofollow">联系我们</a></li>
+				        				        <li><a href="/service/index.html" target="_blank" rel="nofollow">无忧服务</a></li>
+				        				        <li><a href="/about/link.html" target="_blank" rel="nofollow">友情链接</a></li>
+				        				        <li><a href="/tools/index.html" target="_blank" rel="nofollow">购房工具</a></li>
+				        				</ul>				
+			</div>
+			<div class="fr">服务热线&nbsp;&nbsp;400-9633-155</div>
+		</div>
+		<div class="lianjia-link-box">
+			<div class="fl">
+				<div class="tab" id="footer_link_tab">
+												<span>城市楼盘</span>
+													<span>房产</span>
+													<span>友情链接</span>
+										</div>
+				<div class="link-list" id="link_list">
+										<div style="display: block;">
+						<dd>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/12.html">和贵花园</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/7.html">鲁能山海天</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/40.html">同人湘海城</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/55.html">阳光丁香园</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/29.html">和信经典花园</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/51.html">珠江澄品</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/80.html">绿地海长流</a>
+													<a target="_blank" href="http://beihai.afang.com/newhouse/houseinfo/id/817.html">天隆·三千海</a>
+													<a target="_blank" href="http://beihai.afang.com/newhouse/houseinfo/id/950.html">碧桂园·北纬21°</a>
+													<a target="_blank" href="http://beihai.afang.com/newhouse/houseinfo/id/825.html">园辉新都</a>
+													<a target="_blank" href="http://beihai.afang.com/newhouse/houseinfo/id/898.html">园辉红树湾</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/468.html">爱克养生谷</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/384.html">衍宏海港小镇</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/311.html">中国海南海花岛</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/1048.html">中电·北海大都会</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/1010.html">海枫和苑</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/1018.html">互联网金融大厦</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/8.html">融创观澜湖公园壹号</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse/houseinfo/id/1002.html">凯皇橄榄湾</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse/houseinfo/id/1016.html">融创昆明万达文旅城</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse/houseinfo/id/969.html">抚仙湖樱花谷</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse/houseinfo/id/874.html">万达西双版纳国际度假区</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse/houseinfo/id/714.html">天泰大理十畝</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/715.html">勐巴拉雨林小镇</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/1043.html">华夏御江府</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/873.html">七彩云南古滇名城</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/925.html">抚仙湖欢乐大世界</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/971.html">中国滇池花田国际度假区</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/966.html">俊发玉龙湾</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/1035.html">古滇未来城</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/694.html">大理的小院子</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/688.html">大理公馆</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/923.html">洱海福门</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/924.html">山海云著</a>
+													<a target="_blank" href="http://gx.afang.com/newhouse/houseinfo/id/852.html">柏悦尊府</a>
+													<a target="_blank" href="http://gx.afang.com/newhouse/houseinfo/id/860.html">桐洋新城</a>
+													<a target="_blank" href="http://gx.afang.com/newhouse/houseinfo/id/868.html">碧园海公馆</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse/houseinfo/id/726.html">龙都盛世</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse/houseinfo/id/876.html">润城</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse/houseinfo/id/710.html">俊发滨江俊园</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/250.html">千江悦</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/248.html">海南天鹅湾</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/280.html">仁恒海棠湾</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/284.html">三亚湾红树林</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/10.html">海棠花开</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/20.html">清平乐西郡</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/36.html">万兴壹号</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/43.html">天成国际</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/21.html">半山香榭</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/houseinfo/id/19.html">海阳城</a>
+												</dd>
+					</div>
+										<div style="display: none;">
+						<dd>
+													<a target="_blank" href="http://hn.afang.com/beauty/index.html">海南旅游景点</a>
+													<a target="_blank" href="http://hn.afang.com/tuangou/index.html">海南看房团</a>
+													<a target="_blank" href="http://hn.afang.com/findhouse/index.html">海南找房</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae183bfc_0_0_0_0_0_0_0_0_0.html">海南白沙楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae18453a_0_0_0_0_0_0_0_0_0.html">海南昌江楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae1827dd_0_0_0_0_0_0_0_0_0.html">海南东方楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae181c13_0_0_0_0_0_0_0_0_0.html">五指山楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae182a73_0_0_0_0_0_0_0_0_0.html">定安楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae182cbf_0_0_0_0_0_0_0_0_0.html">屯昌楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae184794_0_0_0_0_0_0_0_0_0.html">乐东楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae184eea_0_0_0_0_0_0_0_0_0.html">陵水楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae184eea_0_0_0_0_0_0_0_0_0.html">保亭楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae184eea_0_0_0_0_0_0_0_0_0.html">琼中楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae182484_0_0_0_0_0_0_0_0_0.html">万宁楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae181e30_0_0_0_0_0_0_0_0_0.html">琼海房产</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae182269_0_0_0_0_0_0_0_0_0.html">文昌房产</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae182059_0_0_0_0_0_0_0_0_0.html">儋州楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae1831b0_0_0_0_0_0_0_0_0_0.html">临高楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae182f73_0_0_0_0_0_0_0_0_0.html">澄迈楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae181945_0_0_0_0_0_0_0_0_0.html">三亚楼盘</a>
+													<a target="_blank" href="http://hn.afang.com/newhouse_55eb9ae1853eb_0_0_0_0_0_0_0_0_0.html">海口楼盘</a>
+													<a target="_blank" href="http://gx.afang.com/apoint/houseshopping/cate_id/3.html">广西楼盘优惠</a>
+													<a target="_blank" href="http://yn.afang.com/apoint/houseshopping/cate_id/3.html">云南楼盘优惠</a>
+													<a target="_blank" href="http://yn.afang.com/apoint/lvjvlist.html">旅游指南</a>
+													<a target="_blank" href="http://hn.afang.com/apoint/pointlist/cate_id/4.html">置业指南</a>
+													<a target="_blank" href="http://www.afang.com/apoint/hotshopping/cate_id/11.html">热门导购</a>
+													<a target="_blank" href="http://hn.afang.com/apoint/houseshopping/cate_id/3.html">海南楼盘优惠</a>
+													<a target="_blank" href="http://hn.afang.com/apoint/pointlist/cate_id/1.html">商品房预售许可证查询</a>
+													<a target="_blank" href="http://hn.afang.com/apoint.html">楼市政策</a>
+													<a target="_blank" href="http://tengchong.afang.com/">云南腾冲楼盘</a>
+													<a target="_blank" href="http://lijiang.afang.com/">云南丽江楼盘</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse_55eb9ae193b8a_0_0_0_0_0_0_0_0_0.html">云南大理楼盘</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse_55eb9ae1938ef_0_0_0_0_0_0_0_0_0.html">云南西双版纳楼盘</a>
+													<a target="_blank" href="http://yn.afang.com/newhouse_55eb9ae190b9d_0_0_0_0_0_0_0_0_0.html">云南昆明楼盘</a>
+													<a target="_blank" href="http://gx.afang.com/newhouse_55eb9ae18f6dd_0_0_0_0_0_0_0_0_0.html">广西防城港楼盘</a>
+													<a target="_blank" href="http://gx.afang.com/newhouse_55eb9ae18f4ef_0_0_0_0_0_0_0_0_0.html">广西北海楼盘</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/index/price/0/tags/110/room/0/type/0/status/0/renovation/0/floor/0/group/0/sort/0.html">海景房</a>
+													<a target="_blank" href="http://www.afang.com/newhouse/index/price/0/tags/51/room/0/type/0/status/0/renovation/0/floor/0/group/0/sort/0.html">小户型</a>
+												</dd>
+					</div>
+										<div style="display: none;">
+						<dd>
+													<a target="_blank" href="http://shhpiano.co.chinachugui.com/">PIANO皮阿诺加盟</a>
+													<a target="_blank" href="http://www.hngxf.com/">海南房价</a>
+													<a target="_blank" href="http://ssww.co.chinaweiyu.com/">浪鲸卫浴加盟</a>
+													<a target="_blank" href="http://www.gyfcw.cn/">贵阳房产网</a>
+													<a target="_blank" href="http://www.ludedc.com/">海南房产网</a>
+													<a target="_blank" href="http://guan.loupan.com/">固安楼盘网</a>
+													<a target="_blank" href="http://jipiao.jiameng.com/">机票加盟代理</a>
+													<a target="_blank" href="http://www.yunfww.com/">云南房产网</a>
+													<a target="_blank" href="https://zz.917.com/">漳州房产网</a>
+													<a target="_blank" href="http://ved1861.com/">地板十大品牌</a>
+													<a target="_blank" href="http://www.0898uf.com/">三亚房产网</a>
+													<a target="_blank" href="http://esz.qizuang.com/">恩施装修</a>
+													<a target="_blank" href="http://china.findlaw.cn/sanya">三亚律师</a>
+													<a target="_blank" href="http://www.czhlife.com/">天津装修公司</a>
+													<a target="_blank" href="http://nn.fccs.com/">南宁新楼盘</a>
+													<a target="_blank" href="http://cs.haofang007.com/">常熟房产网</a>
+													<a target="_blank" href="https://www.kbgok.com/">重庆写字楼出租</a>
+													<a target="_blank" href="https://www.jyj777.com">餐饮店装修</a>
+													<a target="_blank" href="http://ks.haofang007.com/">昆山二手房</a>
+													<a target="_blank" href="http://www.quanwu.org/">集成墙面厂家</a>
+													<a target="_blank" href="http://lmc.chinamenwang.com/top10/">铝合金门窗十大品牌</a>
+													<a target="_blank" href="http://www.51zfwang.com/">养老地产</a>
+													<a target="_blank" href="http://bz.shijifc.com/">滨州房产网</a>
+													<a target="_blank" href="http://cw.hezefc.com">成武房产网</a>
+													<a target="_blank" href="http://zunyi.hx116.com">遵义装修公司</a>
+													<a target="_blank" href="http://cs.mingdiao.com.cn">长沙装修公司</a>
+													<a target="_blank" href="http://jiadian.jc001.cn/">家电</a>
+													<a target="_blank" href="http://huzfcw.51-jia.com/">湖州房产网</a>
+													<a target="_blank" href="http://dianmian.kaoyulu88.com/">北京店面装修</a>
+													<a target="_blank" href="http://chufangshebei88.com/">北京办公室装修</a>
+													<a target="_blank" href="http://fang.xhj.com/">长沙新房</a>
+													<a target="_blank" href="http://jy.haofang007.com">江阴房产网</a>
+													<a target="_blank" href="http://sh.szlddb.com/">上海担保公司</a>
+													<a target="_blank" href="http://www.rgfdcw.com">如皋房地产网</a>
+													<a target="_blank" href="http://www.stbieshu.com/">农村别墅设计</a>
+													<a target="_blank" href="http://www.0898hnhf.com/">海南房产</a>
+													<a target="_blank" href="http://www.0898cfw.com">诚房网</a>
+													<a target="_blank" href="http://baotou.jiazhuang.com/">包头装修</a>
+													<a target="_blank" href="https://rizhao.focus.cn/">日照房地产</a>
+													<a target="_blank" href="http://www.ludedc.com">海南房产网</a>
+												</dd>
+					</div>
+									</div>
+			</div>
+			<div class="fr">
+				<div class="ewmWrap">
+					<div class="js_downAppEwmStatic_img" source="dbewm" ewmimgw="129" ewmimgh="129" style="position: relative;">
+						<canvas width="129" height="129"></canvas>
+						<img class="js_qrCodeIcon" src="http://sources.afang.com/sources/39/28359b237abc0a091.jpg_nowater" style="width: 129px; height: 129px; position: absolute; top: 0; left: 0; /* margin-top: -24.5px; */ /* margin-left: -24.5px; */ background: rgb(255, 255, 255);">
+					</div>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="bottom">
+			<div class="copyright fl">海南阿房网络信息股份有限公司 网络经营许可证 <a href="http://www.miitbeian.gov.cn" target="_blank">琼ICP备13000955号-2</a><br>Copyright © 2017 A房网 版权所有
+				<!-- 站长统计 -->
+				<script type="text/javascript">
+var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1262951032'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s13.cnzz.com/z_stat.php%3Fid%3D1262951032%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+</script>			</div>
+			<!--<a href="http://aic.hainan.gov.cn:880/licenceview.aspx?cid=7&amp;vie=076144A08548ACE3DB843B1F0B84B9CFC50F291384E74DC791024996177A9E0F1A2F6A3D3738303F23C83C31C6A9EABC" target="_blank" title="主体名称：海南阿房网络信息股份有限公司
+法定代表人：邱廷录
+电子标识码：琼工商备E011803000331
+"><img src="http://www.afang.com/static/images/ludegsrz.png" alt="" style="border:0;width: 113px;height: 42px;margin-left: 20px;"></a>-->
+		</div>
+	</div>
+</div>
+
+<!--百度自动推送代码-->
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<!--360自动推送代码-->
+<script>
+(function(){
+var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?b82236bed39fe5f8dc834575513ef82d":"https://jspassport.ssl.qhimg.com/11.0.1.js?b82236bed39fe5f8dc834575513ef82d";
+document.write('<script src="' + src + '" id="sozz"><\/script>');
+})();
+</script>
+<script language="javascript" src="http://swt.ludedc.com/JS/LsJS.aspx?siteid=NDE20121148&float=1&lng=cn"></script>
+
+
+
+		<script src="/static/home/js/af/swiper-3.4.2.jquery.min.js"></script>
+		<script>
+			var mySwiper = new Swiper('.swiper-container', {
+				direction: 'horizontal',
+				loop: true,
+				autoplay : 5000
+
+			})
+		</script>
+		<script>
+			$(document).ready(function() {
+				$(window).on('scroll', function() {
+					var scrollTop = $(this).scrollTop();
+					if(scrollTop > 40) {
+						$(".af_head").addClass("af_head_sw");
+						$(".af_head a.logo").css("background", "url('/upload/logo/afang02.png') center 10px no-repeat");
+					} else {
+						$(".af_head").removeClass("af_head_sw");
+						$(".af_head a.logo").css("background", "url('/upload/logo/afang01.png') center 10px no-repeat");
+					}
+				});
+			});
+		</script>
+		<script>
+			$(function() {
+				$('#search_but').bind('click', function() {
+					var v = $('#search_key').val();
+					if(!v) {
+						//alert('请填写关键词！');
+						//return false;
+					}
+					$('#top_search_form').submit();
+				});
+			});
+		</script>
+			<script type="text/javascript">
+				//tab
+				function resetTabs(obj) {
+					$(obj).parent().parent().next("div").find(".fenlei_active").hide();
+					$(obj).parent().parent().find("a").removeClass("current");
+		
+				}
+		
+				function loadTab() {
+		
+					$(".fenlei_content > .fenlei_active").hide();
+					$(".tabs").each(function() {
+						$(this).find("li:first a").addClass("current");
+					});
+					$(".fenlei_content").each(function() {
+						$(this).find("div.fenlei_active:first").fadeIn();
+					});
+					$(".tabs a").on("mouseover", function(e) {
+						e.preventDefault();
+						if ($(this).attr("class") == "current") {
+							return;
+						
+						}else {
+							resetTabs(this);
+							$(this).addClass("current");
+							$($(this).attr("name")).fadeIn();
+						}
+					});
+				}//
+		
+						
+			</script>
+			<script>
+				$(function() {
+					loadTab();
+				});
+			</script>
+	</body>
+
+</html>

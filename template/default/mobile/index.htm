@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{eju:global name='web_title' /}</title>
+    <meta name="renderer" content="webkit" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+    <meta name="description" content="{eju:global name='web_description' /}" />
+    <meta name="keywords" content="{eju:global name='web_keywords' /}" />
+    <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    {eju:static file="skin/css/iconfont.css" /}
+    {eju:static file="skin/css/amazeui.min.css" /}
+    {eju:static file="skin/css/aflist.css" /}
+    {eju:static file="skin/css/mobile2.css" /}
+
+    {eju:static file="skin/js/jquery.min.js" /}
+    {eju:static file="skin/js/amazeui.min.js" /}
+    {eju:static file="skin/js/iscroll.js" /}
+    {eju:static file="skin/js/swiper-3.4.2.jquery.min.js" /}
+    {eju:static file="skin/js/amazeui.lazyload.min.js" /}
+    {eju:static file="skin/js/laytpl.js" /}
+
+    <style>
+        body {
+            background: #fff;
+        }
+        .af-lp div.lp-all-btn {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            background: #F6F4F5;
+            border-radius: .125rem;
+            height: 3.125rem;
+            width: 100%;
+            /* font-size: 1rem; */
+            color: #999;
+            margin-bottom: 1.25rem;
+            font-weight: normal;
+            margin-top: 1.375rem;
+        }
+    </style>
+</head>
+<body>
+<div class="newsheader">
+    <header data-am-widget="header" class="am-header am-header-blue">
+
+        <h1 class="am-header-title">
+            <a href="{eju:global name='web_cmsurl' /}" class="">
+                <img src="{eju:global name='web_logo' /}" />
+            </a>
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="#" class="" data-am-offcanvas="{target: '#doc-oc-demo3'}"> <i class="icon-daohang iconfont"></i> </a>
+        </div>
+        <!-- 侧边栏内容 -->
+        <div id="doc-oc-demo3" class="am-offcanvas">
+            <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+                <div class="am-offcanvas-content">
+                    <ul>
+                        <li>
+                            <a  href="{eju:global name='web_cmsurl' /}">网站首页</a>
+                        </li>
+                        {eju:channel type="top" row="60" id="field"}
+                        <li>
+                            <a href="{$field.typeurl}" >
+                                {$field.typename}
+                            </a>
+                        </li>
+                        {/eju:channel}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+
+<header class="topbanner">
+    <div class="toptext"> <img src="{eju:global name='web_templets_mobile' /}/skin/images/toptext.png" width="100%"> </div>
+    <div class="index-search-wrap" id="afsearch">
+        <div class="search-text">
+            <i class="icon-search iconfont"></i>
+            <input class="text" type="text" name="keyword" value="" placeholder="输入楼盘名称开始找房">
+        </div>
+    </div>
+</header>
+
+{eju:include file="search.htm"/}
+
+<div class="af-main">
+    <nav class="af-list">
+        <ul class="af-list-wrap">
+            {eju:channel type="top" row="60" id="field" currentstyle="on"}
+                {eju:if condition="$i == 1"}
+                <li>
+                    <a href="{$field.typeurl}" class="iconfont icon-jianyuede"> </a>
+                    <span>{$field.typename}</span>
+                </li>
+                {eju:elseif condition="$i == 2" /}
+                <li>
+                    <a href="{$field.typeurl}" class="iconfont icon-jingjide"> </a>
+                    <span>{$field.typename}</span>
+                </li>
+                {eju:elseif condition="$i == 3" /}
+                <li>
+                    <a href="{$field.typeurl}" class="iconfont icon-bus"> </a>
+                    <span>{$field.typename}</span>
+                </li>
+                {eju:else /}
+                <li>
+                    <a href="{$field.typeurl}" class="iconfont icon-kanguo"> </a>
+                    <span>{$field.typename}</span>
+                </li>
+                {/eju:if}
+            {/eju:channel}
+        </ul>
+    </nav>
+    <!--<section class="af-prov">
+        <div class="prov-row">
+        {eju:sqlarclist table='region' id='field' addwhere='is_hot=1 and status = 1' limit='0,2'}
+            <a class="wfull" href='{$field.domainurl}' >
+                <div class="prov-img"> <img src="{$field.litpic}" /> </div>
+                <span class="prov-name">{$field.name}</span>
+            </a>
+        {/eju:sqlarclist}
+        </div>
+    </section>-->
+
+    <section class="af-lp">
+        <div class="af-tittle-line">
+            <h3>精选品质楼盘</h3>
+            {eju:type typeid='1' type='self' id='field' empty='栏目不存在时，显示这里的文案'}
+            <a href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+            {/eju:type}
+        </div>
+        <div class="lp-list">
+            <ul>
+                {eju:arclist channelid='9' flag='h' orderby='new' limit="0,10" id="field"}
+                <li>
+                    <a href="{$field.arcurl}">
+                        <div class="lp-list-img"><img src="{$field.litpic}" /></div>
+                        <div class="lp-name-line">
+                            <span>{$field.title}</span>[{$field.province_id|get_province_name}-{$field.city_id|get_city_name}]
+                            <span class="intr-title">{$field.sale_status}</span>
+                        </div>
+                        <div class="lp-list-price">
+                            <p class="newhouse-jg">{$field.average_price}</span>{$field.price_units} </p>
+                        </div>
+                        <div class="lp-list-tag">
+                            {eju:volist name="$field.characteristic" id="vo"}
+                            <span class="lp-tag">{$vo}</span>
+                            {/eju:volist}
+                        </div>
+                        <div class="lp-list-hx">
+                            <p class="newhouse-hx">户型：
+                                {eju:arcview aid="$field.aid" huxing="on" id="view"}
+                                    {eju:volist name="$view.huxing_list" id="vo"}
+                                        {$vo.huxing_room}室(建面{$vo.huxing_area}㎡)
+                                    {/eju:volist}
+                                {/eju:arcview}
+                            </p>
+                            <p class="newhouse-hx">地址：{$field.address}</p>
+                        </div>
+                    </a>
+                </li>
+                {/eju:arclist}
+
+            </ul>
+
+            <div  class="lp-all-btn">
+                {eju:type typeid='1' type='self' id="field" empty='栏目不存在时，显示这里的文案'}
+                <a href="{$field.typeurl}" title="{$field.typename}">查看全部楼盘</a>
+                {/eju:type}
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 搜索弹出
+        $(document).ready(function(){
+            $("input.text").focus(function(){
+                $(".search_cont").css("display","block")
+                $("html,body").addClass("noscroll");
+            });
+            $(".search_back").click(function(){
+                $(".search_cont").css("display","none")
+                $("html,body").removeClass("noscroll");
+            });
+        })
+        function subDo() {
+            $("#search_form").submit();
+        }
+    </script>
+    {eju:include file="footer.htm"/}
+</body>
+</html>
