@@ -5,34 +5,25 @@
 房产代理公司主推自己的独家签售的楼盘，及展示公司合作销售的楼盘，快速获取潜在的意向客户报名，促进成交。产品实现PC,手机数据同步，方便新房代理机构，租房公寓等互联网化扩张发展，帮助客户快速搭建类似于海南品房阁，楼86，房多多，Q房网， 麦田房产，房天下，海外房产等网站平台。
 
 #### 软件架构
-软件架构说明
+1. 这是基于thinkphp5+小程序+layui研发的一套简易的房地产网站系统，包含完整后台管理、前台展示。
 
+#### 软件优点
+1. 易用：使用易居你可以用它十分钟搭建一个房地产网站系统，后台简单易用。
+2. 完善：易优基本包含了一个常规房地产网站需要的一切功能。
+3. 扩展性：易居亦可通过插件库支持更多功能，如阿里短信或小程序等第三方扩展。
+4. 丰富的资料：作为一个国内房地产cms，易居拥有完善的帮助文档及标签手册。
+5. 丰富的模版：易居拥有大量免费的漂亮模版，涵盖整个房地产行业，任用户自由选择。
+
+#### 效果演示
+
+1. 官方网址：http://www.ejucms.com
+2. 在线浏览：http://demo.ejucms.com
+3. 后台登录：http://demo.ejucms.com/login.php
 
 #### 安装教程
 
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
+1. 本地使用 Ejucms 搭建网站步骤：http://www.ejucms.com/index.php?m=plugins&c=Ask&a=details&ask_id=27
 
 #### 参与贡献
 
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1. 易而优团队
