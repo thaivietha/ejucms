@@ -1,0 +1,26 @@
+
+★安装环境要求★ 
+服务器：Linux / Apache / IIS 
+PHP版本：5.4及5.4以上，完美支持php7
+MYSQL版本：5.0以上
+PS：php版本推荐5.5~5.6，mysql推荐使用5.5+
+
+
+★模板安装步骤★
+1、请将安装包里面的所有文件和文件夹上传到你的网站根目录 (支持安装在二级目录)
+2、安装ejucms系统。直接运行：http://您的域名/install 
+3、填写服务器及后台管理员信息
+  1）填入数据库信息
+  2）设置管理员账号及密码
+4、提示安装完成后即可进入后台管理网站
+统一后台登录地址：http://您的域名/login.php
+至此，模板安装结束
+
+★安装注意事项★
+1、本地安装体验免费版，请修改hosts文件，将127.0.0.1分别指向到 www.yourweb.com（PC端），m.yourweb.com（WAP端）
+2、体验商业授权版，则指向到 www.ejucms.hk 及 m.ejucms.hk 然后正常安装，即可体验
+3、如果安装在服务器上，直接添加* 泛解析到你的服务器站点即可。
+
+
+购买商业授权地址：http://www.ejucms.com/baojiafuwu/
+更多安装步骤说明：http://www.ejucms.com/index.php?m=plugins&c=Ask&a=details&ask_id=27
