@@ -206,7 +206,7 @@ class Region extends Base
                 if ($key == 'keywords') {
                     $condition['name'] = array('LIKE', "%{$param[$key]}%");
                 } else if ($key == 'pid') {
-                    $condition['parent_id'] = array('LIKE', "%{$param[$key]}%");
+                    $condition['parent_id'] = array('eq', $param[$key]);
                 } else {
                     $condition[$key] = array('eq', $param[$key]);
                 }
@@ -214,7 +214,7 @@ class Region extends Base
         }
 
         // 上一级区域名称
-        $parentInfo = db('region')->where(['id'=>$parent_id])->find();
+        $parentInfo = Db::name('region')->where(['id'=>$parent_id])->find();
         $parentLevel = !empty($parentInfo['level']) ? intval($parentInfo['level']) : 0;
         $condition['level'] = $parentLevel + 1;
 
@@ -231,27 +231,85 @@ class Region extends Base
 
         return $this->fetch();
     }
+    /*
+     * 开启关闭启用
+     * 开启当前，判断当前是否为唯一开启，如果是，则将当前设置为默认区域
+     * 关闭当前，判断当前是否为原来默认区域：如果是，则判断当前同级（相同上级）是否存在开启：如存在，设置为默认，如不存在：判断第一级是否存在开启：如存在，设置第一个为默认，如不存在，继续往下级查找。
+     *
+     * 至少必须存在一个开启区域
+     */
+    public function setStatus(){
+        $id = input('id/d', 0);
+        $status = input('status/d', 0);
+        $list = Db::name("region")->where("status=1")->order("level")->getField("id,parent_id,status,is_default,level");
+        $count = count($list);
+        $is_true = true;
+        if ($status == 1){
+            if ($count == 0 || ($count == 1 && empty($list[$id]))){
+                $is_true = $this->setIsDefault($id);
+            }
+        }else{
+            if ($count == 1 && !empty($list[$id])){
+                $this->error("必须至少存在一个开启区域！".$status);
+            }
+            if (!empty($list[$id]) && $list[$id]['is_default'] == 1){
+                $peer_id = $top_id = $any_id = 0;
+                foreach ($list as $val){
+                    if (empty($peer_id) && $val['id']!= $id && $val['parent_id'] == $list[$id]['parent_id']){
+                        $peer_id = $val['id'];
+                        break;
+                    }
+                    if (empty($top_id) && $val['id']!= $id && $val['parent_id'] == 0){
+                        $top_id =  $val['id'];
+                    }
+                    if (empty($any_id) && $val['id']!= $id){
+                        $any_id =  $val['id'];
+                    }
+                }
+                if ($peer_id){
+                    $default_id = $peer_id;
+                }else if($top_id){
+                    $default_id = $top_id;
+                }else{
+                    $default_id = $any_id;
+                }
+                $is_true = $this->setIsDefault($default_id);
+            }
+        }
+        if (!$is_true){
+            $this->error("设置失败,请检查二级域名不能为空！");
+        }
+        Db::name('region')->where(['id'=>$id])->update(['status'=>$status]);
 
+        $this->success("设置成功");
+    }
+    /*
+     * 设置默认区域
+     */
+    private function setIsDefault($id){
+        $subdomain = Db::name('region')->where(['id'=>$id])->getField('domain');
+        if (empty($subdomain)) {
+            return false;
+        }
+        $is_true = Db::name('region')->where(['id'=>$id])->update(['is_default'=>1]);
+        if ($is_true){
+            Db::name('region')->where(['id'=>['neq',$id]])->update(['is_default'=>0]);
+            tpCache('system', ['system_default_subdomain'=>$subdomain]);
+        }
+
+        return $is_true;
+    }
     /*
      * 设置是否默认
      */
     public function setSortOrder(){
         $id = input('id/d', 0);
-        $subdomain = M('region')->where(['id'=>$id])->getField('domain');
-        if (empty($subdomain)) {
-            $this->error("该区域二级域名不能为空！");
-        }
-        $is_true = model('region')->save(['is_default'=>1],['id'=>$id]);
+        $is_true = $this->setIsDefault($id);
         if ($is_true){
-            model('region')->save(['is_default'=>0],['id'=>['neq',$id]]);
-            tpCache('system', ['system_default_subdomain'=>$subdomain]);
+            $this->success("设置成功");
         }else{
-            $this->error("设置失败！");
+            $this->error("设置失败,请检查二级域名不能为空！");
         }
-
-
-        $this->success("设置成功".$is_true);
-
     }
     //获取全部省份
     private function get_province_all()
@@ -288,7 +346,7 @@ class Region extends Base
      */
     public function ajax_get_region_arc($pid = 0,$level = 1,$channel = '9', $text = '--请选择--'){
         $regionIds = $this->getAllRegionIds($level,'',$channel);
-        $data = db('Region')->field("*")
+        $data = Db::name('Region')->field("*")
             ->where(["id"=>['in',$regionIds],'parent_id'=>$pid])
             ->select();
         if ($level == 1 && count($data) == 1){   //只存在一个省份
@@ -311,6 +369,9 @@ class Region extends Base
 
         $this->success($html);
     }
+    /*
+     * 获取所有区域（id）集合
+     */
     private function getAllRegionIds($level,$typeid = "",$channel = ""){
         $field = "province_id";
         if ($level == 2){
@@ -325,7 +386,7 @@ class Region extends Base
         }else if (!empty($channel)){
             $where['channel'] = ['in',$channel];
         }
-        $regionIds = M('archives')->where($where)->group($field)->getField($field,true);
+        $regionIds = Db::name('archives')->where($where)->group($field)->getField($field,true);
 
         return $regionIds;
     }
@@ -339,7 +400,7 @@ class Region extends Base
             $id_arr = eyIntval($id_arr);
             if(!empty($id_arr)){
 
-                $count = M('region')->where([
+                $count = Db::name('region')->where([
                         'is_default'    => 1,
                         'id' => ['IN', $id_arr],
                     ])->count();
@@ -347,18 +408,18 @@ class Region extends Base
                     $this->error('默认区域不允许删除');
                 }
 
-                $count = M('region')->where('parent_id','IN',$id_arr)->count();
+                $count = Db::name('region')->where('parent_id','IN',$id_arr)->count();
                 if ($count > 0){
                     $this->error('所选区域有下级区域，请先删除下级区域');
                 }
 
-                $result = M('region')->field('name')
+                $result = Db::name('region')->field('name')
                     ->where([
                         'id'    => ['IN', $id_arr],
                     ])->select();
                 $name_list = get_arr_column($result, 'name');
 
-                $r = M('region')->where([
+                $r = Db::name('region')->where([
                         'id'    => ['IN', $id_arr],
                     ])
                     ->cache(true, null, "region")

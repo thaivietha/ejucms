@@ -86,7 +86,7 @@ return array (
     'name' => 'floor_area',
     'type' => 'varchar(100)',
     'notnull' => false,
-    'default' => '0.00',
+    'default' => '',
     'primary' => false,
     'autoinc' => false,
   ),
@@ -95,7 +95,7 @@ return array (
     'name' => 'building_area',
     'type' => 'varchar(100)',
     'notnull' => false,
-    'default' => '0.00',
+    'default' => '',
     'primary' => false,
     'autoinc' => false,
   ),
@@ -104,23 +104,23 @@ return array (
     'name' => 'plot_ratio',
     'type' => 'varchar(10)',
     'notnull' => false,
-    'default' => '0.00',
+    'default' => '',
     'primary' => false,
     'autoinc' => false,
   ),
   'greening_rate' => 
   array (
     'name' => 'greening_rate',
-    'type' => 'varchar(10)',
+    'type' => 'varchar(200)',
     'notnull' => false,
-    'default' => '0.00',
+    'default' => '',
     'primary' => false,
     'autoinc' => false,
   ),
   'property' => 
   array (
     'name' => 'property',
-    'type' => 'varchar(100)',
+    'type' => 'varchar(200)',
     'notnull' => false,
     'default' => '',
     'primary' => false,
@@ -129,7 +129,7 @@ return array (
   'households' => 
   array (
     'name' => 'households',
-    'type' => 'varchar(100)',
+    'type' => 'varchar(200)',
     'notnull' => false,
     'default' => '',
     'primary' => false,
@@ -138,7 +138,7 @@ return array (
   'carport' => 
   array (
     'name' => 'carport',
-    'type' => 'varchar(100)',
+    'type' => 'varchar(200)',
     'notnull' => false,
     'default' => '',
     'primary' => false,
@@ -174,7 +174,7 @@ return array (
   'property_fee' => 
   array (
     'name' => 'property_fee',
-    'type' => 'varchar(100)',
+    'type' => 'varchar(200)',
     'notnull' => false,
     'default' => '',
     'primary' => false,

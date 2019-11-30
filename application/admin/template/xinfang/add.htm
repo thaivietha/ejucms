@@ -114,7 +114,7 @@
 
                                                             </div>
                                                         </div>
-                                                        <div class="w-out fl mt15">
+                                                        <div class="w-out fl mt15 {empty name="$arctype_html_show"}none{/empty}">
                                                             <label class="layui-form-label"><b>*</b>所属栏目</label>
                                                             <div class="layui-input-inline w-in" >
                                                                 <select name="typeid" id="typeid" lay-verify="check_typeid">
@@ -133,7 +133,7 @@
                                                                     {/eju:volist}
                                                                 </select>
                                                             </div>
-                                                            <div class="layui-form-mid layui-word-aux ey_helptips fr"></div>
+                                                            <div class="fr"></div>
                                                             <div class="layui-form-inline2 ey_helptips_txt none">后台菜单>用户管理>经纪人管理</div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['address']['ifeditable']"}none{/empty}">
@@ -152,26 +152,26 @@
                                                             <label class="layui-form-label">{$addonFieldExtList['opening_time']['title']}</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <div class="layui-input-inline w155">
-                                                                    <input type="text" name="addonFieldSys[opening_time]" id="opening_time" placeholder="{php}echo date('Y-m-d H:i:s'){/php}"  value="" class="layui-input">
+                                                                    <input type="text" name="addonFieldSys[opening_time]" id="opening_time" placeholder="{php}echo date('Y-m-d H:i:s'){/php}" autocomplete="off"  value="" class="layui-input">
                                                                 </div>
                                                                 <div class="layui-input-inline w100 {empty name="$addonFieldExtList['opening_time_memo']['ifeditable']"}none{/empty}">
                                                                     <input type="text" name="addonFieldExt[opening_time_memo]" id="opening_time_memo" value="{$addonFieldExtList['opening_time_memo']['dfvalue']}"  placeholder="{$addonFieldExtList['opening_time_memo']['remark']}" class="layui-input">
                                                                 </div>
                                                             </div>
-                                                            <div class="layui-form-mid layui-word-aux ey_helptips fr"></div>
+                                                            <div class="fr"></div>
                                                             <div class="layui-form-inline2 ey_helptips_txt none">{$addonFieldExtList['opening_time_memo']['remark']}</div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['complate_time']['ifeditable']"}none{/empty}">
                                                             <label class="layui-form-label">{$addonFieldExtList['complate_time']['title']}</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <div class="layui-input-inline w155">
-                                                                    <input type="text" name="addonFieldSys[complate_time]" id="complate_time"  placeholder="{php}echo date('Y-m-d H:i:s'){/php}"  value=""  class="layui-input">
+                                                                    <input type="text" name="addonFieldSys[complate_time]" id="complate_time"  placeholder="{php}echo date('Y-m-d H:i:s'){/php}"  autocomplete="off" value=""  class="layui-input">
                                                                 </div>
                                                                 <div class="layui-input-inline w100 {empty name="$addonFieldExtList['complate_time_memo']['ifeditable']"}none{/empty}">
                                                                     <input type="text" name="addonFieldExt[complate_time_memo]" id="complate_time_memo" value="{$addonFieldExtList['complate_time_memo']['dfvalue']}"  placeholder="{$addonFieldExtList['complate_time_memo']['remark']}" class="layui-input">
                                                                 </div>
                                                             </div>
-                                                            <div class="layui-form-mid layui-word-aux ey_helptips fr"></div>
+                                                            <div class="fr"></div>
                                                             <div class="layui-form-inline2 ey_helptips_txt none">{$addonFieldExtList['opening_time_memo']['remark']}</div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['sale_phone']['ifeditable']"}none{/empty}">
@@ -361,7 +361,7 @@
                                                                         <div class="layui-form-item">
                                                                             <label class="layui-form-label">作者</label>
                                                                             <div class="layui-input-inline">
-                                                                                <input type="text" value="{$field.author}" name="author" id="author" class="layui-input">
+                                                                                <input type="text" value="{$author}" name="author" id="author" class="layui-input">
                                                                             </div>
                                                                             <div class="layui-input-inline layadmin-layer-demo">
                                                                                 <a class="layui-btn layui-btn-sm" data-type="author_mark">设置</a>
@@ -388,7 +388,7 @@
                                                                         <div class="layui-form-item">
                                                                             <label class="layui-form-label">发布时间</label>
                                                                             <div class="layui-input-inline">
-                                                                                <input type="text" class="layui-input" id="add_time" name="add_time" value="{php}echo date('Y-m-d H:i:s'){/php}" placeholder="yyyy-MM-dd HH:mm:ss">
+                                                                                <input type="text" class="layui-input" id="add_time" name="add_time" value="{php}echo date('Y-m-d H:i:s'){/php}"  autocomplete="off" placeholder="yyyy-MM-dd HH:mm:ss">
                                                                             </div>
                                                                         </div>
                                                                         <div class="layui-form-item">
@@ -437,7 +437,10 @@
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['price_time']['ifeditable']"}none{/empty}">
                                                             <label class="layui-form-label">{$addonFieldExtList['price_time']['title']}</label>
                                                             <div class="layui-input-inline w-in">
-                                                                <input type="text" name="addonFieldExt[price_time]" id="price_time"  placeholder="{php}echo date('Y-m-d H:i:s'){/php}" class="layui-input">
+                                                                <input type="text" name="addonFieldExt[price_time]" id="price_time"  placeholder="{php}echo date('Y-m-d H:i:s'){/php}"  autocomplete="off" class="layui-input">
+                                                            </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['price_time']['dfvalue_unit']}
                                                             </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['total_price']['ifeditable']"}none{/empty}">
@@ -453,11 +456,17 @@
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldExt[property_fee]" id="property_fee" value="{$addonFieldExtList['property_fee']['dfvalue']}"  placeholder="{$addonFieldExtList['property_fee']['remark']}" class="layui-input">
                                                             </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['property_fee']['dfvalue_unit']}
+                                                            </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['manage_company']['ifeditable']"}none{/empty}">
                                                             <label class="layui-form-label">{$addonFieldExtList['manage_company']['title']}</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldExt[manage_company]" id="manage_company" value="{$addonFieldExtList['manage_company']['dfvalue']}"  placeholder="{$addonFieldExtList['manage_company']['remark']}" class="layui-input">
+                                                            </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['manage_company']['dfvalue_unit']}
                                                             </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['building_num']['ifeditable']"}none{/empty}">
@@ -465,11 +474,17 @@
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldExt[building_num]" id="building_num" value="{$addonFieldExtList['building_num']['dfvalue']}"  placeholder="{$addonFieldExtList['building_num']['remark']}" class="layui-input">
                                                             </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['building_num']['dfvalue_unit']}
+                                                            </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['floor_case']['ifeditable']"}none{/empty}">
                                                             <label class="layui-form-label">{$addonFieldExtList['floor_case']['title']}</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldExt[floor_case]" id="floor_case" value="{$addonFieldExtList['floor_case']['dfvalue']}"  placeholder="{$addonFieldExtList['floor_case']['remark']}" class="layui-input">
+                                                            </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['floor_case']['dfvalue_unit']}
                                                             </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['carport']['ifeditable']"}none{/empty}">
@@ -477,11 +492,17 @@
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldExt[carport]" id="carport" value="{$addonFieldExtList['carport']['dfvalue']}"  placeholder="{$addonFieldExtList['carport']['remark']}" class="layui-input">
                                                             </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['carport']['dfvalue_unit']}
+                                                            </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['households']['ifeditable']"}none{/empty}">
                                                             <label class="layui-form-label">{$addonFieldExtList['households']['title']}</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldExt[households]" id="households" value="{$addonFieldExtList['households']['dfvalue']}"  placeholder="{$addonFieldExtList['households']['remark']}" class="layui-input">
+                                                            </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['households']['dfvalue_unit']}
                                                             </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['greening_rate']['ifeditable']"}none{/empty}">
@@ -489,11 +510,17 @@
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldExt[greening_rate]"   id="greening_rate" value="{$addonFieldExtList['greening_rate']['dfvalue']}" onkeyup="this.value=this.value.replace(/[^0-9.%]/g,'');" onpaste="this.value=this.value.replace(/[^0-9.%]/g,'');"  placeholder="{$addonFieldExtList['greening_rate']['remark']}" class="layui-input">
                                                             </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['greening_rate']['dfvalue_unit']}
+                                                            </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['plot_ratio']['ifeditable']"}none{/empty}">
                                                             <label class="layui-form-label">{$addonFieldExtList['plot_ratio']['title']}</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldExt[plot_ratio]"  id="plot_ratio" value="{$addonFieldExtList['plot_ratio']['dfvalue']}" onkeyup="this.value=this.value.replace(/[^0-9.%]/g,'');" onpaste="this.value=this.value.replace(/[^0-9.%]/g,'');"  placeholder="{$addonFieldExtList['plot_ratio']['remark']}" class="layui-input">
+                                                            </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['plot_ratio']['dfvalue_unit']}
                                                             </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['property']['ifeditable']"}none{/empty}">
@@ -501,11 +528,17 @@
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldExt[property]" id="property" value="{$addonFieldExtList['property']['dfvalue']}"  placeholder="{$addonFieldExtList['property']['remark']}" class="layui-input">
                                                             </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['property']['dfvalue_unit']}
+                                                            </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['main_unit']['ifeditable']"}none{/empty}">
                                                             <label class="layui-form-label">{$addonFieldExtList['main_unit']['title']}</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldSys[main_unit]" id="main_unit" value="{$addonFieldExtList['main_unit']['dfvalue']}"  placeholder="{$addonFieldExtList['main_unit']['remark']}" class="layui-input">
+                                                            </div>
+                                                            <div class="layui-input-inline layui-input-company">
+                                                                {$addonFieldExtList['main_unit']['dfvalue_unit']}
                                                             </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['building_area']['ifeditable']"}none{/empty}">
@@ -514,7 +547,8 @@
                                                                 <input type="text" name="addonFieldExt[building_area]"  id="building_area" value="{$addonFieldExtList['building_area']['dfvalue']}" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" onpaste="this.value=this.value.replace(/[^0-9.]/g,'');" placeholder="{$addonFieldExtList['building_area']['remark']}" class="layui-input">
                                                             </div>
                                                             <div class="layui-input-inline layui-input-company">
-                                                                {$addonFieldExtList['building_area']['dfvalue_unit']}</div>
+                                                                {$addonFieldExtList['building_area']['dfvalue_unit']}
+                                                            </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['floor_area']['ifeditable']"}none{/empty}">
                                                             <label class="layui-form-label">{$addonFieldExtList['floor_area']['title']}</label>
@@ -618,35 +652,6 @@
                                                         <div class="layui-form-item ">
                                                             <label class="layui-form-label"></label>
                                                             <div class="edit-box-con2 fl sort-list">
-
-                                                                {volist name="photo_list" id="vo" key="k"}
-                                                                <div class="images-upload ic">
-                                                                    <div class="upimg" title="拖动修改排序">
-                                                                        <div class="icaction" style="display: none;">
-                                                                        <span class="load_images" onclick="Images('{$vo.photo_pic}');">
-                                                                            <a href="javascript:void(0);" style="color: white">
-                                                                                <i class="fa fa-search-plus"></i>查看大图
-                                                                            </a>
-                                                                        </span>
-                                                                        </div>
-                                                                        <div class="cover-bg" style="display: none;"></div>
-                                                                        <img src="{$vo.photo_pic}">
-                                                                    </div>
-                                                                    <input type="hidden" name="photo_id[]" value="{$vo.photo_id}">
-                                                                    <span class="span_input">
-                                                                    <input type="hidden" name="photo_pic[]" value="{$vo.photo_pic}">
-                                                                </span>
-                                                                    <span class="select_input">
-                                                                    <input type="hidden" name="photo_type[]" value="{$vo.photo_type}">
-                                                                </span>
-                                                                    <textarea placeholder="请输入标题..." name="photo_title[]" value="{$vo.photo_title}">{$vo.photo_title}</textarea>
-                                                                    <div class="operation">
-                                                                        <a href="javascript:void(0)"><label>分类：{$vo.photo_type}</label></a>
-                                                                        <a href="javascript:void(0)" onclick="ClearPicArr(this,'{$vo.photo_pic}')" style="float:right"><i class="layui-icon layui-icon-close mr5"></i>删除</a>
-                                                                    </div>
-                                                                </div>
-                                                                {/volist}
-
                                                                 <div class="images-upload" style="display: none;"></div>
                                                                 <!-- 上传图片显示的样板 start -->
                                                                 <div class="images_upload_tpl" style="display: none;">
@@ -704,8 +709,6 @@
                                                         <div class="layui-form-item " >
                                                             <label class="layui-form-label"></label>
                                                             <div class="edit-box-con2 fl sort-list huxing">
-
-
                                                                 <div class="images-upload ic" style="display: none;"></div>
                                                                 <!-- 上传图片显示的样板 start -->
                                                                 <div class="huxing_images_upload_tpl none">
@@ -733,8 +736,8 @@
                                                                             <input  type="text" name=""/><span>厨</span>
                                                                         </div>
                                                                         <div class="pricearea">
-                                                                            <span>价格：</span><input  type="text" name=""/><em>万元/套</em>
-                                                                            <span>面积：</span><input  type="text" name=""/><em>㎡</em>
+                                                                            <span>面积：</span><input class="huxing_area"  type="text" name=""/><em>㎡</em>
+                                                                            <span>价格：</span><input class="huxing_price"  type="text" name=""/><em>万元/套</em>
                                                                         </div>
                                                                         <div class="selectdiv">
                                                                             <select lay-ignore>
@@ -787,7 +790,6 @@
                             </div>
                         </div>
                         <div class="button-container layadmin-layer-demo">
-                            <input type="hidden" name="aid" value="{$aid}">
                             <button class="layui-btn layui-btn-sm" lay-submit lay-filter="formSubmit">确认提交</button>
                             <button class="layui-btn layui-btn-sm layui-btn-primary"  data-type="return_parent">返回</button>
                         </div>
@@ -820,6 +822,33 @@
             set_area_list(area_id);
         });
 
+        //光标离开楼盘地址编辑，自动获取坐标
+        $("#address").on('blur',function(){
+            var province_id = $("#province_id").val(),city_id = $("#city_id").val();area_id = $("#area_id").val();
+            var address = $(this).val();
+            var url     = "{:url('Map/getLocationByAddress')}";
+            var param = {
+                province : province_id,
+                city : city_id,
+                area : area_id,
+                address : address
+            };
+            $.get(url,param,function(res){
+                if(res.code == 1)
+                {
+                    $("#map").val(res.data.map);
+                }
+            });
+        });
+        //光标离开区域编辑，自动获取坐标
+        $(".huxing").on('blur',".huxing_area",function(){
+            var huxing_area = $(this).val();
+            var id = $(this).attr("data-id");
+            var average_price = $("#average_price").val();
+            var huxing_price = huxing_area*average_price/10000;
+            huxing_price = huxing_price.toFixed(2)
+            $("#huxing_price_"+id).val(huxing_price);
+        });
         var temp = 0;
         var layui_index = layui.config({
             base: '__SKIN__/' //静态资源所在路径
@@ -1119,8 +1148,8 @@
 
         // 查看大图
         function Images(links){
-            var max_width = 900;
-            var max_height = 600;
+            var max_width = 650;
+            var max_height = 350;
             var img = "<img src='"+links+"'/>";
             $(img).load(function() {
                 width  = this.width;
@@ -1230,8 +1259,11 @@
                 $(".huxing .images-upload:eq(0)").find('div.size input:eq(2)').attr('name','huxing_toilet[]');
                 $(".huxing .images-upload:eq(0)").find('div.size input:eq(3)').attr('name','huxing_kitchen[]');
                 //提交价格，面积
-                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(0)').attr('name','huxing_price[]');
-                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(1)').attr('name','huxing_area[]');
+                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(0)').attr('name','huxing_area[]');
+                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(0)').attr('data-id',temp);
+                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(1)').attr('name','huxing_price[]');
+                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(1)').attr('id','huxing_price_'+temp);
+
                 //提交select
                 $(".huxing .images-upload:eq(0)").find('div.selectdiv select:eq(0)').attr('name','sale_status[]');
                 $(".huxing .images-upload:eq(0)").find('div.selectdiv select:eq(1)').attr('name','huxing_aspect[]');

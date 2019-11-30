@@ -59,7 +59,7 @@ class Base extends Controller {
             //return;
         }else{
             $admin_login_expire = session('admin_login_expire'); // 登录有效期
-            if (getTime() - intval($admin_login_expire) < config('login_expire')) {
+            if (session('?admin_id') && getTime() - intval($admin_login_expire) < config('login_expire')) {
                 session('admin_login_expire', getTime()); // 登录有效期
                 $this->check_priv();//检查管理员菜单操作权限
             }else{

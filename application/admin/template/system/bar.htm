@@ -15,5 +15,7 @@
         {eq name="'System@smtp'|is_check_access" value="1"}
         <li {if condition="preg_match('/^smtp/i', $Think.const.ACTION_NAME)"}class="layui-this"{/if}><a href="{:url('System/smtp')}">接口配置</a></li>
         {/eq}
+
+
     </ul>
 {/neq}

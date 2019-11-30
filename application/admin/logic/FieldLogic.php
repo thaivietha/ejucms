@@ -43,11 +43,13 @@ class FieldLogic extends Model
                 $default_sql = "DEFAULT '$dfvalue'";
             }else{
                 $default_sql = "DEFAULT '0'";
+                $dfvalue = 0;
             }
             $maxlen = 10;
             $fields[0] = " `$fieldname` int($maxlen) NOT NULL $default_sql COMMENT '$fieldtitle';";
             $fields[1] = "int($maxlen)";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("datetime" == $dtype)
         {
@@ -57,22 +59,28 @@ class FieldLogic extends Model
                 $dfvalue = strtotime($dfvalue);
                 empty($dfvalue) && $dfvalue = 0;
                 $default_sql = "DEFAULT '$dfvalue'";
+            }else{
+                $dfvalue = "0";
             }
             $maxlen = 11;
             $fields[0] = " `$fieldname` int($maxlen) NOT NULL $default_sql COMMENT '$fieldtitle';";
             $fields[1] = "int($maxlen)";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("switch" == $dtype)
         {
             if(empty($dfvalue) || preg_match("#[^0-9]#", $dfvalue))
             {
                 $dfvalue = 1;
+            }else{
+                $dfvalue = 0;
             }
             $maxlen = 1;
             $fields[0] = " `$fieldname` tinyint($maxlen) NOT NULL DEFAULT '$dfvalue' COMMENT '$fieldtitle';";
             $fields[1] = "tinyint($maxlen)";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("float" == $dtype)
         {
@@ -82,11 +90,13 @@ class FieldLogic extends Model
                 $default_sql = "DEFAULT '$dfvalue'";
             }else{
                 $default_sql = "DEFAULT '0.00'";
+                $dfvalue = "0.00";
             }
             $maxlen = 9;
             $fields[0] = " `$fieldname` float($maxlen,2) NOT NULL $default_sql COMMENT '$fieldtitle';";
             $fields[1] = "float($maxlen,2)";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("decimal" == $dtype)
         {
@@ -96,11 +106,13 @@ class FieldLogic extends Model
                 $default_sql = "DEFAULT '$dfvalue'";
             }else{
                 $default_sql = "DEFAULT '0.00'";
+                $dfvalue = "0.00";
             }
             $maxlen = 10;
             $fields[0] = " `$fieldname` decimal($maxlen,2) NOT NULL $default_sql COMMENT '$fieldtitle';";
             $fields[1] = "decimal($maxlen,2)";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("img" == $dtype)
         {
@@ -111,6 +123,7 @@ class FieldLogic extends Model
             $fields[0] = " `$fieldname` varchar($maxlen) NOT NULL DEFAULT '$dfvalue' COMMENT '$fieldtitle';";
             $fields[1] = "varchar($maxlen)";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("imgs" == $dtype)
         {
@@ -121,6 +134,7 @@ class FieldLogic extends Model
             $fields[0] = " `$fieldname` varchar($maxlen) NOT NULL DEFAULT '$dfvalue' COMMENT '$fieldtitle';";
             $fields[1] = "varchar($maxlen)";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("files" == $dtype)
         {
@@ -131,6 +145,7 @@ class FieldLogic extends Model
             $fields[0] = " `$fieldname` varchar($maxlen) NOT NULL DEFAULT '$dfvalue' COMMENT '$fieldtitle';";
             $fields[1] = "varchar($maxlen)";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("multitext" == $dtype)
         {
@@ -138,6 +153,7 @@ class FieldLogic extends Model
             $fields[0] = " `$fieldname` text NOT NULL COMMENT '$fieldtitle';";
             $fields[1] = "text";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("htmltext" == $dtype)
         {
@@ -145,28 +161,31 @@ class FieldLogic extends Model
             $fields[0] = " `$fieldname` longtext NOT NULL COMMENT '$fieldtitle';";
             $fields[1] = "longtext";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
         else if("checkbox" == $dtype)
         {
             $maxlen = 0;
             $dfvalueArr = explode(',', $dfvalue);
-            $default_value = !empty($dfvalueArr[0]) ? $dfvalueArr[0] : '';
+            $default_value = isset($dfvalueArr[0]) ? $dfvalueArr[0] : '';
             $dfvalue = str_replace(',', "','", $dfvalue);
             $dfvalue = "'".$dfvalue."'";
             $fields[0] = " `$fieldname` SET($dfvalue) NOT NULL DEFAULT '{$default_value}' COMMENT '$fieldtitle';";
             $fields[1] = "SET($dfvalue)";
             $fields[2] = $maxlen;
+            $fields[3] = $default_value;
         }
         else if("select" == $dtype || "radio" == $dtype)
         {
             $maxlen = 0;
             $dfvalueArr = explode(',', $dfvalue);
-            $default_value = !empty($dfvalueArr[0]) ? $dfvalueArr[0] : '';
+            $default_value = isset($dfvalueArr[0]) ? $dfvalueArr[0] : '';
             $dfvalue = str_replace(',', "','", $dfvalue);
             $dfvalue = "'".$dfvalue."'";
             $fields[0] = " `$fieldname` enum($dfvalue) NOT NULL DEFAULT '{$default_value}' COMMENT '$fieldtitle';";
             $fields[1] = "enum($dfvalue)";
             $fields[2] = $maxlen;
+            $fields[3] = $default_value;
         }
         else if("region_db" == $dtype)
         {
@@ -175,6 +194,7 @@ class FieldLogic extends Model
             $fields[0] = " `$fieldname` int($maxlen) NOT NULL $default_sql COMMENT '$fieldtitle';";
             $fields[1] = "int($maxlen)";
             $fields[2] = $maxlen;
+            $fields[3] = 0;
         }
         else
         {
@@ -186,6 +206,7 @@ class FieldLogic extends Model
             $fields[0] = " `$fieldname` varchar($maxlen) NOT NULL DEFAULT '$dfvalue' COMMENT '$fieldtitle';";
             $fields[1] = "varchar($maxlen)";
             $fields[2] = $maxlen;
+            $fields[3] = $dfvalue;
         }
 
         return $fields;
@@ -338,25 +359,103 @@ class FieldLogic extends Model
     /**
      * 同步模型附加表的字段记录
      * @author 小虎哥 by 2018-4-16
+     * $channel_id     channelid
+     * $channel_name   nid
      */
-    public function synChannelTableColumns($channel_id)
+    public function synChannelTableColumns($channel_id,$channel_name = '')
     {
-        $this->synArchivesTableColumns($channel_id);
+        $where = [];
+        if (!empty($channel_id)){
+            $where['id'] = $channel_id;
+        }
+        if (!empty($channel_name)){
+            $where['nid'] = strtolower($channel_name);
+        }
+        if (empty($where)){
+            return false;
+        }
+        $channeltypeInfo = M('channeltype')->field('id,table,nid,ctl_name')->where($where)->find();
+        if (empty($channeltypeInfo)){
+            return false;
+        }
+        $channelfieldArr = M('channelfield')->field('name,dtype')->where('channel_id',$channeltypeInfo['id'])->getAllWithIndex('name');
+        $this->synArchivesTableColumns($channeltypeInfo['id'],$channelfieldArr);  //主表
+        $this->synContentTableColumns($channeltypeInfo['id'],$channelfieldArr,$channeltypeInfo);  //content表
+        $this->synSystemTableColumns($channeltypeInfo['id'],$channelfieldArr,$channeltypeInfo);  //system表
 
-        // $cacheKey = "admin-FieldLogic-synChannelTableColumns-{$channel_id}";
-        // $cacheValue = cache($cacheKey);
-        // if (!empty($cacheValue)) {
-        //     return true;
-        // }
 
-        $channelfieldArr = M('channelfield')->field('name,dtype')->where('channel_id',$channel_id)->getAllWithIndex('name');
+        \think\Cache::clear('channelfield');
+    }
+    /*
+     * 同步system表字段记录到指定模型
+     */
+    private function synSystemTableColumns($channel_id,$channelfieldArr,$channeltypeInfo){
+        $systemArr = ['Xinfang','Xiaoqu','Ershou','Zufang'];     //存在system表的模型
+        if (empty($channeltypeInfo['ctl_name']) || !in_array($channeltypeInfo['ctl_name'],$systemArr)){
+            return false;
+        }
+        $tableExt = PREFIX.$channeltypeInfo['table'].'_system';
+        $rowExt = Db::query("SHOW FULL COLUMNS FROM {$tableExt}");
+        $new_arr = array(); // 表字段数组
+        $addData = array(); // 数据存储变量
+        foreach ($rowExt as $key => $val) {
+            $fieldname = $val['Field'];
+            if (in_array($fieldname, array('id','add_time','update_time','aid'))) {
+                continue;
+            }
+            $new_arr[] = $fieldname;
+            // 对比字段记录 表字段有 字段新增记录没有
+            if (empty($channelfieldArr[$fieldname])) {
+                $dtype = $this->toDtype($val['Type']);
+                $dfvalue = $this->toDefault($val['Type'], $val['Default']);
+
+                $maxlength = preg_replace('/^([^\(]+)\(([^\)]+)\)(.*)/i', '$2', $val['Type']);
+                $maxlength = intval($maxlength);
+                $addData[] = array(
+                    'name'  => $fieldname,
+                    'channel_id'  => $channel_id,
+                    'title'  => !empty($val['Comment']) ? $val['Comment'] : $fieldname,
+                    'dtype' => $dtype,
+                    'define'    => $val['Type'],
+                    'maxlength' => $maxlength,
+                    'dfvalue'   => $dfvalue,
+                    'ifeditable'    => 1,
+                    'ifsystem'  => 1,
+                    'ifmain'    => 2,
+                    'ifcontrol' => 0,
+                    'add_time'  => getTime(),
+                    'update_time'  => getTime(),
+                );
+            }
+        }
+        if (!empty($addData)) {
+            M('channelfield')->insertAll($addData);
+        }
+
+        /*字段新增记录有，表字段没有*/
+        foreach($channelfieldArr as $k => $v){
+            if (!in_array($k, $new_arr)) {
+                $map = array(
+                    'channel_id'    => $channel_id,
+                    'ifmain'    => 2,
+                    'name'  => $v['name'],
+                );
+                M('channelfield')->where($map)->delete();
+            }
+        }
+    }
+    /*
+     * 同步content表字段记录到指定模型
+     */
+    private function synContentTableColumns($channel_id,$channelfieldArr,$channeltypeInfo){
+        if (empty($channeltypeInfo['table'])){
+            return false;
+        }
+        $tableExt = PREFIX.$channeltypeInfo['table'].'_content';
+        $rowExt = Db::query("SHOW FULL COLUMNS FROM {$tableExt}");
 
         $new_arr = array(); // 表字段数组
         $addData = array(); // 数据存储变量
-
-        $table = M('channeltype')->where('id',$channel_id)->getField('table');
-        $tableExt = PREFIX.$table.'_content';
-        $rowExt = Db::query("SHOW FULL COLUMNS FROM {$tableExt}");
         foreach ($rowExt as $key => $val) {
             $fieldname = $val['Field'];
             if (in_array($fieldname, array('id','add_time','update_time','aid','typeid'))) {
@@ -367,11 +466,12 @@ class FieldLogic extends Model
             if (empty($channelfieldArr[$fieldname])) {
                 $dtype = $this->toDtype($val['Type']);
                 $dfvalue = $this->toDefault($val['Type'], $val['Default']);
-                if (in_array($fieldname, array('content'))) {
-                    $ifsystem = 1;
-                } else {
-                    $ifsystem = 0;
-                }
+                $ifsystem = 1;
+//                if (in_array($fieldname, array('content'))) {
+//                    $ifsystem = 1;
+//                } else {
+//                    $ifsystem = 0;
+//                }
                 $maxlength = preg_replace('/^([^\(]+)\(([^\)]+)\)(.*)/i', '$2', $val['Type']);
                 $maxlength = intval($maxlength);
                 $addData[] = array(
@@ -406,21 +506,13 @@ class FieldLogic extends Model
                 M('channelfield')->where($map)->delete();
             }
         }
-        /*--end*/
-
-        \think\Cache::clear('channelfield');
-
-        // cache($cacheKey, 1, null, 'channelfield');
     }
-
     /**
      * 同步文档主表的字段记录到指定模型
      * @author 小虎哥 by 2018-4-16
      */
-    public function synArchivesTableColumns($channel_id = '')
+    public function synArchivesTableColumns($channel_id = '',$channelfieldArr)
     {
-        $channelfieldArr = M('channelfield')->field('name,dtype')->where('channel_id',$channel_id)->getAllWithIndex('name');
-
         $new_arr = array(); // 表字段数组
         $addData = array(); // 数据存储变量
 
@@ -697,5 +789,22 @@ class FieldLogic extends Model
         }
 
         return $nowDataExt;
+    }
+    /*
+     * 更新 eju_channelfield 表 dfvalue_unit、remark字段
+     */
+    public function synChannelUnit(){
+        M('channelfield')->where("name='average_price' and ifsystem=1 and channel_id>10")->save(['dfvalue_unit'=>'元/㎡']);
+        M('channelfield')->where("name='building_age' and ifsystem=1 and channel_id>10")->save(['dfvalue_unit'=>'年']);
+        M('channelfield')->where("name='area' and ifsystem=1 and channel_id>10")->save(['dfvalue_unit'=>'㎡']);
+        M('channelfield')->where("name='building_area' and ifsystem=1 and channel_id>10")->save(['dfvalue_unit'=>'㎡']);
+        M('channelfield')->where("name='floor_area' and ifsystem=1 and channel_id>10")->save(['dfvalue_unit'=>'㎡']);
+        M('channelfield')->where("name='floor_count' and ifsystem=1 and channel_id>10")->save(['dfvalue_unit'=>'层']);
+        M('channelfield')->where("name='floor_count' and ifsystem=1 and channel_id>10")->save(['dfvalue_unit'=>'层']);
+        M('channelfield')->where("name='property' and ifsystem=1 and channel_id>10")->save(['dfvalue_unit'=>'年']);
+        M('channelfield')->where("name='total_price' and ifsystem=1 and channel_id>10")->save(['dfvalue_unit'=>'万元']);
+        M('channelfield')->where("name='province_id' and ifsystem=1 and channel_id>10")->save(['is_screening'=>'1','dtype'=>'region_db','sort_order'=>'-3']);
+        M('channelfield')->where("name='city_id' and ifsystem=1 and channel_id>10")->save(['is_screening'=>'1','dtype'=>'region_db','dfvalue'=>'province_id','sort_order'=>'-2']);
+        M('channelfield')->where("name='area_id' and ifsystem=1 and channel_id>10")->save(['is_screening'=>'1','dtype'=>'region_db','dfvalue'=>'city_id','sort_order'=>'-1']);
     }
 }

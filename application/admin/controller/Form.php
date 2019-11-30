@@ -331,7 +331,7 @@ class Form extends Base
 
         // 规则
         $input_rule_list = config("global.input_rule");
-        $input_rule_html = '<select name="input_rule[]" lay-ignore><option value=0">无</option>';
+        $input_rule_html = '<select name="input_rule[]" lay-ignore><option value="0">无</option>';
         foreach ($input_rule_list as $key=>$val){
             $input_rule_html .= '<option value="'.$key.'">'.$val['name'].'</option>';
         }
@@ -458,7 +458,7 @@ class Form extends Base
 
         // 规则
         $input_rule_list = config("global.input_rule");
-        $input_rule_html = '<select name="input_rule[]" lay-ignore><option value=0">无</option>';
+        $input_rule_html = '<select name="input_rule[]" lay-ignore><option value="0">无</option>';
         foreach ($input_rule_list as $key=>$val){
             $input_rule_html .= '<option value="'.$key.'">'.$val['name'].'</option>';
         }
@@ -531,8 +531,11 @@ class Form extends Base
         $id_arr = input('del_id/a');
         $id_arr = eyIntval($id_arr);
         if(IS_POST && !empty($id_arr)){
-            $r = M('form')->where('id','IN',$id_arr)->save(['is_del'=>1]);
+            $r = M('form')->where('id','IN',$id_arr)->delete();
             if ($r) {
+                M('form_attr')->where('form_id','IN',$id_arr)->delete();
+                M('form_list')->where('form_id','IN',$id_arr)->delete();
+                M('form_value')->where('form_id','IN',$id_arr)->delete();
                 adminLog('删除表单-id：'.implode(',', $id_arr));
                 $this->success('删除成功');
             } else {

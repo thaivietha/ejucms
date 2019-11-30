@@ -41,11 +41,6 @@ class Url
         }
         /*--end*/
 
-        // 解析参数 by 小虎哥
-        if (is_string($vars)) {
-            parse_str($vars, $vars);
-        }
-
         if (false === $domain && Route::rules('domain')) {
             $domain = true;
         }
@@ -384,6 +379,20 @@ class Url
             if (empty($pattern)) {
                 return [rtrim($url, '$'), $domain, $suffix];
             }
+
+            /*同个模块、控制器、操作名对应多个路由规则，进行优先级别匹配 by 许宇资*/
+            $unequal = 0;
+            foreach ($pattern as $key => $val){
+                if (!isset($vars[$key])){
+                    $unequal = 1;
+                    break;
+                }
+            }
+            if ($unequal){
+                continue;
+            }
+            /*end*/
+
             $type = Config::get('url_common_param');
             foreach ($pattern as $key => $val) {
                 if (isset($vars[$key])) {
@@ -404,6 +413,33 @@ class Url
         return false;
     }
 
+    public static function getRuleUrl_old($rule, &$vars = [])
+    {
+        foreach ($rule as $item) {
+            list($url, $pattern, $domain, $suffix) = $item;
+            if (empty($pattern)) {
+                return [rtrim($url, '$'), $domain, $suffix];
+            }
+            $type = Config::get('url_common_param');
+            foreach ($pattern as $key => $val) {
+                if (isset($vars[$key])) {
+                    $url = str_replace(['[:' . $key . ']', '<' . $key . '?>', ':' . $key . '', '<' . $key . '>'], $type ? $vars[$key] : urlencode($vars[$key]), $url);
+                    unset($vars[$key]);
+                    $result = [$url, $domain, $suffix];
+                } elseif (2 == $val) {
+                    $url    = str_replace(['/[:' . $key . ']', '[:' . $key . ']', '<' . $key . '?>'], '', $url);
+                    $result = [$url, $domain, $suffix];
+                } else {
+                    break;
+                }
+            }
+            if (isset($result)) {
+                return $result;
+            }
+        }
+        return false;
+    }
+    
     // 指定当前生成URL地址的root
     public static function root($root)
     {

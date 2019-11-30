@@ -24,7 +24,20 @@ class Tags extends Base
      */
     public function index()
     {
-        return $this->lists();
+        /*获取当前页面URL*/
+        $result['pageurl'] = $this->request->url(true);
+        /*--end*/
+        $eju = array(
+            'field' => $result,
+        );
+        $this->eju = array_merge($this->eju, $eju);
+        $this->assign('eju', $this->eju);
+        
+        /*模板文件*/
+        $viewfile = 'index_tags';
+        /*--end*/
+
+        return $this->fetch(":{$viewfile}");
     }
 
     /**

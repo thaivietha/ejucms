@@ -24,7 +24,8 @@ class Channeltype extends Base
     private $channeltype_system_id = [];
 
     // 系统内置不可用的模型标识，防止与home分组的控制器重名覆盖，导致网站报错
-    private $channeltype_system_nid = ['base','index','lists','search','tags','view','left','right','top','bottom','ajax','images','guestbook'];
+    private $channeltype_system_nid = ['base','index','map','buildhtml','lists','search','tags','view','left','right','top','bottom','ajax'
+        ,'images','guestbook','xiaoqu','ershou','zufang'];
 
     // 数据库对象
     public $channeltype_db;
@@ -122,22 +123,11 @@ class Channeltype extends Base
                     $fieldLogic = new FieldLogic;
                     $fieldLogic->synArchivesTableColumns($insertId);
 
-                    /*追加到快速入口列表*/
-                    $addData = [
-                        'title' => $data['title'],
-                        'type' => 0,
-                        'controller' => 'Custom',
-                        'action' => 'index',
-                        'vars' => 'channel='.$insertId,
-                        'sort_order' => 100,
-                        'groups'    => 1,
-                        'add_time' => getTime(),
-                        'update_time' => getTime(),
-                    ];
-                    Db::name('quickentry')->insert($addData);
-                    /*end*/
-
                     try {
+                        /*追加到快速入口列表*/
+                        $this->syn_custom_quickmenu($data, $insertId);
+                        /*end*/
+
                         schemaTable($post['table'].'_content');
                     } catch (\Exception $e) {}
 
@@ -151,6 +141,40 @@ class Channeltype extends Base
         }
 
         return $this->fetch();
+    }
+
+    /**
+     * 同步自定义模型的快捷导航
+     */
+    private function syn_custom_quickmenu($data = [], $insertId)
+    {
+        $saveData = [
+            [
+                'title' => $data['title'],
+                'laytext'   => $data['title'].'列表',
+                'type' => 1,
+                'controller' => 'Custom',
+                'action' => 'index',
+                'vars' => 'channel='.$insertId,
+                'sort_order' => 100,
+                'groups'    => 1,
+                'add_time' => getTime(),
+                'update_time' => getTime(),
+            ],
+            [
+                'title' => $data['title'],
+                'laytext'   => $data['title'].'列表',
+                'type' => 2,
+                'controller' => 'Custom',
+                'action' => 'index',
+                'vars' => 'channel='.$insertId,
+                'sort_order' => 100,
+                'groups'    => 1,
+                'add_time' => getTime(),
+                'update_time' => getTime(),
+            ],
+        ];
+        model('Quickentry')->saveAll($saveData);
     }
 
     /**
@@ -244,19 +268,19 @@ class Channeltype extends Base
 
                     // 删除相关文件和数据
                     foreach ($result as $key => $value) {
-
-                        /*删除快速入口的相关数据*/
-                        Db::name('quickentry')->where([
-                                'groups'    => 1,
-                                'controller'    => 'Custom',
-                                'action'    => 'index',
-                                'vars'  => 'channel='.$value['id'],
-                            ])->delete();
-                        /*end*/
-
                         $nid = $value['nid'];
 
                         try {
+
+                            /*删除快速入口的相关数据*/
+                            Db::name('quickentry')->where([
+                                    'groups'    => 1,
+                                    'controller'    => 'Custom',
+                                    'action'    => 'index',
+                                    'vars'  => 'channel='.$value['id'],
+                                ])->delete();
+                            /*end*/
+
                             // 删除相关数据表
                             Db::execute('DROP TABLE '.PREFIX.$nid.'_content');
                         } catch (\Exception $e) {}

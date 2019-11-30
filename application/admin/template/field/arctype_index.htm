@@ -255,12 +255,21 @@
                     }
                     break;
 
+                case 'datetime':
+                    {
+                        contentdiv += '<dd>列表/内容页：</dd>';
+                        contentdiv += '<dd><input type="text" style=" width:470px;margin-bottom:10px;" value="{$'+'eju.field.'+fieldname+'|MyDate=\'Y-m-d H:i:s\',###}" class="layui-input"></dd>'
+                        contentdiv += '<dd>标签 type / arclist / list 内调用：</dd>'
+                        contentdiv += '<dd><input type="text" style=" width:470px;" value="{$'+'field.'+fieldname+'|MyDate=\'Y-m-d H:i:s\',###}" class="layui-input"></dd>';
+                    }
+                    break;
+
                 default:
                     {
                         contentdiv += '<dd>列表/内容页：</dd>';
                         contentdiv += '<dd><input type="text" style=" width:470px;margin-bottom:10px;" value="{$'+'eju.field.'+fieldname+'}" class="layui-input"></dd>'
                         contentdiv += '<dd>标签 type / arclist / list 内调用：</dd>'
-                        contentdiv += '<dd><input type="text" style=" width:470px;" value="{$'+'field.'+fieldname+'}" class="layui-input"></dd>'
+                        contentdiv += '<dd><input type="text" style=" width:470px;" value="{$'+'field.'+fieldname+'}" class="layui-input"></dd>';
                     }
                     break;
             }

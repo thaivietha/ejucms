@@ -312,7 +312,7 @@ var BMapApplication = {
     "makeInfoWindow" : function (key) {
         _ite = this._ite_arr[key];
         if (_ite.phone_code){
-            _ite.phone_code = '转'+_ite.phone_code;
+            _ite.sale_phone += '转'+_ite.phone_code;
         }
         var sContent = '<div class="t_box">' +
             '<div class="boxt">' +
@@ -324,7 +324,7 @@ var BMapApplication = {
             '<div class="boxm"><div class="m1"><div class="txt">' +
             '<ul><li><em>楼盘类型：</em>'+_ite.manage_type_name+'</li>' +
             '<li><em>均   价：</em>'+_ite.average_price+_ite.price_units+'</li>' +
-            '<li><em>咨询热线：</em> <i>'+_ite.sale_phone+_ite.phone_code+'</i></li><li><em>楼盘地址：</em> '+_ite.address+'</li>' +
+            '<li><em>咨询热线：</em> <i>'+_ite.sale_phone+'</i></li><li><em>楼盘地址：</em> '+_ite.address+'</li>' +
             '<li><em>楼盘特色：</em>'+_ite.characteristic_name+'</li>' +
             '</ul></div>' +
             '<div class="pic"><a target="_blank" href="'+_ite.arcurl+'"><img src="'+_ite.litpic+'" width="151" height="99" alt="'+_ite.title+'"></a>' +

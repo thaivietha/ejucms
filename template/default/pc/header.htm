@@ -7,10 +7,8 @@
              <div class="cont" >
                  <ul>
                     <i></i>
-                    {eju:region type='top' row='60' id='field'}
-                      {eju:region name='$field.children' type='son' row='60' id='field2'}
-                      <li class="{$field2.currentstyle}"><a href="{$field2.domainurl}" title="{$field2.name}">{$field2.name}</a></li>
-                      {/eju:region}
+                    {eju:region type='son' row='60' id='field'}
+                     <li class="{$field.currentstyle}"><a href="{$field.domainurl}" title="{$field.name}">{$field.name}</a></li>
                     {/eju:region}
                  </ul>
              </div>
@@ -46,6 +44,21 @@
         <div class="nav_login right">
             <div class="login_wrap right clearfloat">
                 <span class="tel left" href="javascript:;">服务热线：{eju:global name='web_attr_2' /}</span>
+                {eju:user type='open'}
+                {eju:user type='login'}
+                <a href="{$field.url}" id="{$field.id}"  class="right">登录</a>　
+                {$field.hidden}
+                {/eju:user}
+                {eju:user type='reg'}
+                <a href="{$field.url}" id="{$field.id}" class="right">注册</a>
+                {$field.hidden}
+                {/eju:user}
+                {eju:user type='logout'}
+                <a href="{$field.url}" id="{$field.id}" class="right">退出</a>
+                {$field.hidden}
+                {/eju:user}
+                {/eju:user}
+
             </div>
         </div>
     </div>

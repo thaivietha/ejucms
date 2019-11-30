@@ -39,8 +39,6 @@ class TagSqlarclist extends Base
         if ('region' == $table) {
             return $this->getRegionData($table, $fields, $addwhere, $limit);
         }
-
-        $aid = !empty($aid) ? $aid : $this->aid;
         $where = [];
         if (!empty($aid)){
             $foreignkey = model($table)->getForeignKeys();
@@ -61,6 +59,9 @@ class TagSqlarclist extends Base
             foreach ($map as $key=>$val){
                 $where[$mapkey[$key]] = $val;
             }
+        }
+        if (!empty($addwhere)){
+            $where = $addwhere;
         }
         if (empty($where)){
             echo '标签sonarclist报错：缺少属性 where 。';
@@ -108,11 +109,11 @@ class TagSqlarclist extends Base
             $result = $result->limit($limit);
         }
         $result = $result->select();
+
         if (!empty($result)){
             $controller_name = "";
             if (!empty($result[0]['channel'])){
                 $result = $this->fieldLogic->getChannelFieldList($result, $result[0]['channel'], true);
-
                 $channeltype_info = model('Channeltype')->getInfo($result[0]['channel']);
                 $controller_name = $channeltype_info['ctl_name'];
             }

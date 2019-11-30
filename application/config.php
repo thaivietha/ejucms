@@ -203,7 +203,7 @@ return array(
         // 日志记录级别
         'level' => array('error'),
         // 日志开关  1 开启 0 关闭
-        'switch' => 0,  
+        'switch' => 0,
     ),
 
     // +----------------------------------------------------------------------
@@ -329,12 +329,12 @@ return array(
         ],
         // 会员登录验证码配置
         'users_login'   => [
-            'is_on' => 0, // 开关
+            'is_on' => 1, // 开关
             'config' => [],
         ],
         // 会员注册验证码配置
         'users_reg'   => [
-            'is_on' => 0, // 开关
+            'is_on' => 1, // 开关
             'config' => [],
         ],
         // 会员找回密码验证码配置
@@ -363,38 +363,38 @@ return array(
     // 缓存的页面，规则：模块 控制器 方法名 参数名
     'HTML_CACHE_ARR'    => [
         // 首页
-        'home_Index_index'      => ['filename'=>'index', 'cache'=>7200],
+        'home_Index_index'      => ['filename'=>'index', 'p'=>['subdomain'], 'cache'=>7200],
         // [普通伪静态]楼盘
-        'home_Xinfang_index'    => ['filename'=>'channel', 'cache'=>7200],
-        'home_Xinfang_lists'    => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
-        'home_Xinfang_view'     => ['filename'=>'view', 'p'=>array('dirname','aid','column','sid','photo_type'), 'cache'=>7200],
+        'home_Xinfang_index'    => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
+        'home_Xinfang_lists'    => ['filename'=>'lists', 'p'=>['subdomain','tid','page','subdomain'], 'cache'=>7200],
+        'home_Xinfang_view'     => ['filename'=>'view', 'p'=>['subdomain','dirname','aid','column','sid','photo_type'], 'cache'=>7200],
         // [普通伪静态]团购
-        'home_Tuan_index'    => ['filename'=>'channel', 'cache'=>7200],
-        'home_Tuan_lists'    => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
-        'home_Tuan_view'     => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
+        'home_Tuan_index'    => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
+        'home_Tuan_lists'    => ['filename'=>'lists', 'p'=>['subdomain','tid','page','subdomain'], 'cache'=>7200],
+        'home_Tuan_view'     => ['filename'=>'view', 'p'=>['subdomain','dirname','aid'], 'cache'=>7200],
         // [普通伪静态]文章
-        'home_Article_index'    => ['filename'=>'channel', 'cache'=>7200],
-        'home_Article_lists'    => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
-        'home_Article_view'     => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
+        'home_Article_index'    => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
+        'home_Article_lists'    => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
+        'home_Article_view'     => ['filename'=>'view', 'p'=>['subdomain','dirname','aid'], 'cache'=>7200],
         // [普通伪静态]产品
-        'home_Product_index'    => ['filename'=>'channel', 'cache'=>7200],
-        'home_Product_lists'    => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
-        'home_Product_view'     => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
+        'home_Product_index'    => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
+        'home_Product_lists'    => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
+        'home_Product_view'     => ['filename'=>'view', 'p'=>['subdomain','dirname','aid'], 'cache'=>7200],
         // [普通伪静态]图集
-        'home_Images_index'     => ['filename'=>'channel', 'cache'=>7200],
-        'home_Images_lists'     => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
-        'home_Images_view'      => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
+        'home_Images_index'     => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
+        'home_Images_lists'     => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
+        'home_Images_view'      => ['filename'=>'view', 'p'=>['subdomain','dirname','aid'], 'cache'=>7200],
         // [普通伪静态]下载
-        'home_Download_index'   => ['filename'=>'channel', 'cache'=>7200],
-        'home_Download_lists'   => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
-        'home_Download_view'    => ['filename'=>'view', 'p'=>array('dirname','aid'), 'cache'=>7200],
+        'home_Download_index'   => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
+        'home_Download_lists'   => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
+        'home_Download_view'    => ['filename'=>'view', 'p'=>['subdomain','dirname','aid'], 'cache'=>7200],
         // [普通伪静态]单页
-        'home_Single_index'     => ['filename'=>'channel', 'cache'=>7200],
-        'home_Single_lists'     => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
+        'home_Single_index'     => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
+        'home_Single_lists'     => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
         // [超短伪静态]列表页
-        'home_Lists_index'      => ['filename'=>'lists', 'p'=>array('tid','page'), 'cache'=>7200],
+        'home_Lists_index'      => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
         // [超短伪静态]内容页
-        'home_View_index'       => ['filename'=>'view', 'p'=>array('dirname','aid','column','sid','photo_type'), 'cache'=>7200],
+        'home_View_index'       => ['filename'=>'view', 'p'=>['subdomain','dirname','aid','column','sid','photo_type'], 'cache'=>7200],
     ],
 
     // +----------------------------------------------------------------------
@@ -408,6 +408,9 @@ return array(
     // +----------------------------------------------------------------------
     //邮件使用场景
     'send_email_scene' => [
-        1   => ['scene'=>1], // 报名表单
+        1   => ['scene'=>1], // 留言表单
+        2   => ['scene'=>2], // 会员注册
+        3   => ['scene'=>3], // 绑定邮箱
+        4   => ['scene'=>4], // 找回密码
     ],
 );

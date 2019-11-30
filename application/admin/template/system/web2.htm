@@ -23,7 +23,7 @@
                                 <div class="layui-form-inline2">
                                     开发模式：方便修改模板，及时预览前台效果，没缓存，一改便生效。
                                     <br/>
-                                    运营模式：提高前台响应速度，利于收录；改模板及后台发布内容需执行【<a style="color:green" lay-href="{:url('System/clear_cache')}">更新缓存</a>】后才能在前台展示。
+                                    运营模式：提高前台响应速度，利于收录；改模板及后台发布内容需执行【<a style="color:green" id="clear_cache" href="javascript:void(0);">更新缓存</a>】后才能在前台展示。
                                 </div>
                               </div>
                             
@@ -185,6 +185,31 @@
         }
       }
     }); 
+
+    /*清除缓存*/
+    $('#clear_cache').click(function(){
+        var load = layer_loading();
+        $.ajax({
+            type : 'post',
+            url : "{:url('System/clear_cache')}",
+            data : {_ajax:1},
+            dataType : 'json',
+            success : function(res){
+                layer.close(load); //关闭loading
+                if(res.code == 1){
+                    layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                        top.window.location.reload();
+                    });
+                }else{
+                    showErrorMsg(res.msg);
+                }
+            },
+            error: function(e){
+                layer.close(load); //关闭loading
+                showErrorAlert();
+            }
+        });
+    });
 
     // 监听开关
     form.on('switch', function(data){

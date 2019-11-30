@@ -21,164 +21,10 @@
     {eju:static file="skin/js/nav.js" /}
 </head>
 <style>
-    .lp-map-s11 {
-        width: 870px;
-        height: 340px;
-        overflow: hidden;
-    }
-    .lp-map-s12 {
-        width: 300px;
-        height: 340px;
-        overflow: hidden;
-        padding-left: 30px;
-    }
-    .mt10 {
-        margin-top: 10px;
-    }
 
-    .lp-map-a-1, .lp-map-a-2, .lp-map-a-3, .lp-map-a-4 {
-        color: #ee4433;
-    }
-    .lp-map-1 {
-        background-position: 0 -628px;
-    }
-    .lp-map-a-1 {
-        background-position: -91px -628px;
-    }
-    .lp-map-2 {
-        background-position: 0 -714px;
-    }
-    .lp-map-a-2 {
-        background-position: -92px -714px;
-    }
-    .lp-map-3 {
-        background-position: 0 -800px;
-    }
-    .lp-map-a-3 {
-        background-position: -92px -800px;
-    }
-    .lp-map-4 {
-        background-position: 0 -898px;
-    }
-    .lp-map-a-4 {
-        background-position: -91px -898px;
-    }
-    .lp-map-1, .lp-map-2, .lp-map-3 {
-        margin-right: 17px;
-    }
-    .lp-map-s {
-        display: block;
-        width: 62px;
-        padding-top: 66px;
-        text-align: center;
-    }
-    .icons {
-        background-image: url({eju:global name='web_templets_pc' /}/skin/images/all.png);
-        background-repeat: no-repeat;
-    }
-
-    .lpm-map-recond {
-        height: 30px;
-        line-height: 30px;
-        background: #f4f4f4;
-        font-size: 12px;
-        text-indent: 20px;
-    }
-    .mt20 {
-        margin-top: 20px;
-    }
-    .lp-map-tab {
-        height: 202px;
-        width: 300px;
-        overflow: hidden;
-        position: relative;
-        margin-top: 10px;
-    }
-    .lp-map-s19 li {
-        height: 18px;
-        width: 280px;
-        overflow: hidden;
-        margin-bottom: 12px;
-    }
-    .lp-map-s20 {
-        width: 17px;
-        height: 20px;
-        display: block;
-        background: red;
-        background-position-x: 0%;
-        background-position-y: 0%;
-        background-position: 0 -1010px;
-        text-align: center;
-        font-size: 12px;
-        color: #fff;
-        margin-right: 10px;
-        text-align: center；background: red;
-    }
-    .lp-map-s22 {
-        height: 20px;
-        width: 200px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        cursor: pointer;
-    }
-    .lp-map-s21 {
-        float: right;
-        margin-right: 3px;
-        color: #999;
-    }
-    .divScrollBar {
-        background-color: #ddd;
-        position: absolute;
-        right: 0;
-        top: 0;
-        opacity: .5;
-        filter: Alpha(opacity=50);
-        z-index: 11;
-    }
-    .divScrollBar div {
-        background-color: #aaa;
-        position: absolute;
-        left: 0;
-        top: 0;
-    }
 </style>
 <body>
 {eju:include file="header.htm"/}
-
-<script type="text/javascript">
-    //tab
-    function resetTabs(obj) {
-        $(obj).parent().parent().next("div").find("ul").hide();
-        $(obj).parent().parent().find("a").removeClass("current");
-    }
-    function loadTab() {
-        $(".content > ul").hide();
-        $(".tabs").each(function() {
-            $(this).find("li:first a").addClass("current");
-        });
-        $(".content").each(function() {
-            $(this).find("ul:first").fadeIn();
-        });
-        $(".tabs a").on("click", function(e) {
-            e.preventDefault();
-            if ($(this).attr("class") == "current") {
-                return;
-            }else {
-                resetTabs(this);
-                $(this).addClass("current");
-                console.log($(this).attr("name"));
-                $($(this).attr("name")).fadeIn();
-            }
-        });
-    }
-</script>
-<script>
-    $(function() {
-        loadTab();
-    });
-</script>
-
 <!-- 导航 -->
 {eju:include file="main_xinfang.htm"/}
 {eju:include file="follow_xinfang.htm"/}
@@ -326,11 +172,11 @@
         <ul>
             <li><span>楼盘名称：</span>{$eju.field.title}</li>
             <li><span>所属区域：</span>{$eju.field.province_id|get_province_name} - {$eju.field.city_id|get_city_name}</li>
-            <li><span>占地面积：</span>{$eju.field.floor_area}㎡</li>
-            <li><span>建筑面积：</span>{$eju.field.building_area}㎡</li>
+            <li><span>占地面积：</span>{$eju.field.floor_area}{$eju.field.floor_area_unit}</li>
+            <li><span>建筑面积：</span>{$eju.field.building_area}{$eju.field.building_area_unit}</li>
             <li><span>装修状况：</span>{$eju.field.fitment|implode=",",###}</li>
             <li><span>建筑类别：</span>{$eju.field.building_type|implode=",",###}</li>
-            <li><span>产权年限：</span>{$eju.field.property}</li>
+            <li><span>产权年限：</span>{$eju.field.property}{$eju.field.property_unit}</li>
             <li><span>开 发 商：</span>{$eju.field.developer}</li>
             <li><span>销售状态：</span>{$eju.field.sale_status}</li>
             <li><span>楼盘均价：</span>{$eju.field.average_price}{$eju.field.price_units}</li>
@@ -349,14 +195,14 @@
     <div class="info_main_lpinfo">
         <h2 class="nh_info_head">小区规划</h2>
         <ul>
-            <li><span>规划户数：</span>{$eju.field.households}</li>
-            <li><span>停 车 位：</span>{$eju.field.carport}</li>
+            <li><span>规划户数：</span>{$eju.field.households}{$eju.field.households_unit}</li>
+            <li><span>停 车 位：</span>{$eju.field.carport}{$eju.field.carport_unit}</li>
             <li><span>物业类型：</span>{$eju.field.manage_type|implode=",",###}</li>
-            <li><span>容 积 率：</span>{$eju.field.plot_ratio}</li>
-            <li><span>绿 化 率：</span>{$eju.field.greening_rate}</li>
-            <li><span>物 业 费：</span>{$eju.field.property_fee}</li>
+            <li><span>容 积 率：</span>{$eju.field.plot_ratio}{$eju.field.plot_ratio_unit}</li>
+            <li><span>绿 化 率：</span>{$eju.field.greening_rate}{$eju.field.greening_rate_unit}</li>
+            <li><span>物 业 费：</span>{$eju.field.property_fee}{$eju.field.property_fee_unit}</li>
             <li><span>物业公司：</span>{$eju.field.manage_company}</li>
-            <li><span>楼层状况：</span>{$eju.field.floor_case}</li>
+            <li><span>楼层状况：</span>{$eju.field.floor_case}{$eju.field.floor_case_unit}</li>
             <div class="clear"></div>
         </ul>
     </div>
@@ -420,10 +266,6 @@
         </div>
         {$field.hidden}
         {/eju:surroundings}
-
-
-
-
         <div class="clear">
         </div>
         <div class="h20">
@@ -447,21 +289,47 @@
     </ul>
 </div>
 <script>
-    $(document).ready(function() {
-        $(".tabs a").click(function(){
-            var SpanTag = $(".current span")[1].innerHTML;
-            if( SpanTag < 6){
-                $(".xc_bt").hide();
-            }else{
-                $(".nh_pic .content").css("height","600px");
-                $(".xc_bt").text("显示更多户型");
-                $(".xc_bt").show();
+    function resetTabs(obj) {
+        $(obj).parent().parent().next("div").find("ul").hide();
+        $(obj).parent().parent().find("a").removeClass("current");
+    }
+    function xc_bt_show(){
+        var SpanTag = $(".current span")[1].innerHTML;
+        if( SpanTag < 7){
+            $(".xc_bt").hide();
+        }else{
+            $(".nh_pic .content").css("height","600px");
+            $(".xc_bt").text("显示更多户型");
+            $(".xc_bt").show();
+        }
+    }
+    function loadTab() {
+        $(".content > ul").hide();
+        $(".tabs").each(function() {
+            $(this).find("li:first a").addClass("current");
+        });
+        $(".content").each(function() {
+            $(this).find("ul:first").fadeIn();
+        });
+        $(".tabs a").on("click", function(e) {
+            e.preventDefault();
+            if ($(this).attr("class") == "current") {
+                return;
+            }else {
+                resetTabs(this);
+                $(this).addClass("current");
+                console.log($(this).attr("name"));
+                $($(this).attr("name")).fadeIn();
             }
         });
+        xc_bt_show();
+    }
+    $(document).ready(function() {
+        loadTab();
+        $(".tabs a").click(function(){
+            xc_bt_show();
+        });
         $(".nh_hxcon li").eq(2).nextAll(".nh_hxcon li").hide();
-        // if($(".nh_hxcon li").length<8){
-        // 	$(".hx_bt").hide();
-        //  }
 
         $(".hx_bt").click(function(){
             $(".nh_hxcon li").eq(2).nextAll(".nh_hxcon li").slideToggle(function(){
@@ -610,7 +478,6 @@
                 $(this).parents("li").find(".hx-list-img a img").click();
             });
             layer.ext = function(){
-
                 layer.photosPage({
                     html:piccon,
                     title:'全部',

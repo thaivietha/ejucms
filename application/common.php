@@ -216,10 +216,15 @@ if (!function_exists('write_html_cache'))
             $request = \think\Request::instance();
             $param = input('param.');
 
-            /*URL模式是否启动页面缓存（排除admin后台、前台可视化装修）*/
-            $uiset = input('param.uiset/s', 'off');
-            $uiset = trim($uiset, '/');
-            if ('on' == $uiset || 'admin' == $request->module()) {
+            /*区域子站点*/
+            $subDomain = $request->param('subdomain');
+            empty($subDomain) && $subDomain = $request->subDomain();
+            $param['subdomain'] = $subDomain;
+            /*end*/
+
+            /*URL模式是否启动页面缓存（排除admin后台、前台筛选）*/
+            $url_screen_var = config('global.url_screen_var');
+            if (isset($param[$url_screen_var]) || 'admin' == $request->module()) {
                 return false;
             }
             $seo_pseudo = config('ey_config.seo_pseudo');
@@ -338,6 +343,19 @@ if (!function_exists('read_html_cache'))
             $request = \think\Request::instance();
             $seo_pseudo = config('ey_config.seo_pseudo');
             $param = input('param.');
+
+            /*区域子站点*/
+            $subDomain = $request->param('subdomain');
+            empty($subDomain) && $subDomain = $request->subDomain();
+            $param['subdomain'] = $subDomain;
+            /*end*/
+
+            /*前台筛选不进行页面缓存*/
+            $url_screen_var = config('global.url_screen_var');
+            if (isset($param[$url_screen_var]) || 'admin' == $request->module()) {
+                return false;
+            }
+            /*end*/
 
             if (1 == $seo_pseudo) {
                 isset($param['tid']) && $param['tid'] = input('param.tid/d');
@@ -1774,7 +1792,7 @@ if (!function_exists('getOrderBy'))
             case 'new': // 兼容织梦的写法
             case 'pubdate': // 兼容织梦的写法
             case 'add_time':
-                $orderby = "a.add_time {$orderway}";
+                $orderby = "a.show_time {$orderway}";
                 break;
 
             case 'sortrank': // 兼容织梦的写法
@@ -1786,14 +1804,14 @@ if (!function_exists('getOrderBy'))
                 if (true === $isrand) {
                     $orderby = "rand()";
                 } else {
-                    $orderby = "a.aid {$orderway}";
+                    $orderby = "a.show_time {$orderway}";
                 }
                 break;
 
             default:
             {
                 if (empty($orderby)) {
-                    $orderby = 'a.sort_order asc, a.aid desc';
+                    $orderby = 'a.sort_order asc, a.show_time desc';
                 } elseif (trim($orderby) != 'rand()') {
                     $orderbyArr = explode(',', $orderby);
                     foreach ($orderbyArr as $key => $val) {
@@ -1846,7 +1864,7 @@ if (!function_exists('get_saleman_list')){
     {
         $result = extra_cache('global_get_saleman_list');
         if ($result == false) {
-            $result = M('saleman')->field('id, saleman_name as name')
+            $result = M('saleman')->field('id, saleman_name as name,saleman_mobile')
                 ->where('status',1)
                 ->getAllWithIndex('id');
             extra_cache('global_get_saleman_list', $result);
@@ -2203,5 +2221,125 @@ if (!function_exists('get_default_subdomain'))
         }
 
         return $default_subdomain;
+    }
+}
+
+if (!function_exists('getUsersConfigData'))
+{
+    // 专用于获取users_config，会员配置表数据处理。
+    // 参数1：必须传入，传入值不同，获取数据不同：
+    // 例：获取配置所有数据，传入：all，
+    // 获取分组所有数据，传入：分组标识，如：member，
+    // 获取分组中的单个数据，传入：分组标识.名称标识，如：users.users_open_register
+    // 参数2：data数据，为空则查询，否则为添加或修改。
+    // 参数3：多语言标识，为空则获取当前默认语言。
+    function getUsersConfigData($config_key,$data=array(), $options = null){
+        $tableName = 'users_config';
+        $table_db = \think\Db::name($tableName);
+
+        $param = explode('.', $config_key);
+        $cache_inc_type = $tableName.$param[0];
+        if (empty($options)) {
+            $options['path'] = CACHE_PATH.DS;
+        }
+        if(empty($data)){
+            //如$config_key=shop_info则获取网站信息数组
+            //如$config_key=shop_info.logo则获取网站logo字符串
+            $config = cache($cache_inc_type,'',$options);//直接获取缓存文件
+            if(empty($config)){
+                //缓存文件不存在就读取数据库
+                if ($param[0] == 'all') {
+                    $param[0] = 'all';
+                    $res = $table_db->where([
+                    ])->select();
+                } else {
+                    $res = $table_db->where([
+                        'inc_type'  => $param[0],
+                    ])->select();
+                }
+                if($res){
+                    foreach($res as $k=>$val){
+                        $config[$val['name']] = $val['value'];
+                    }
+                    cache($cache_inc_type,$config,$options);
+                }
+            }
+            if(!empty($param) && count($param)>1){
+                $newKey = strtolower($param[1]);
+                return isset($config[$newKey]) ? $config[$newKey] : '';
+            }else{
+                return $config;
+            }
+        }else{
+            //更新缓存
+            $result =  $table_db->where([
+                'inc_type'  => $param[0],
+            ])->select();
+
+            if($result){
+                foreach($result as $val){
+                    $temp[$val['name']] = $val['value'];
+                }
+                $add_data = array();
+                foreach ($data as $k=>$v){
+                    $newK = strtolower($k);
+                    $newArr = array(
+                        'name'=>$newK,
+                        'value'=>trim($v),
+                        'inc_type'=>$param[0],
+                        'update_time'   => time(),
+                    );
+                    if(!isset($temp[$newK])){
+                        array_push($add_data, $newArr); //新key数据插入数据库
+                    }else{
+                        if ($v != $temp[$newK]) {
+                            $table_db->where([
+                                'name'  => $newK,
+                            ])->save($newArr);//缓存key存在且值有变更新此项
+                        }
+                    }
+                }
+                if (!empty($add_data)) {
+                    $table_db->insertAll($add_data);
+                }
+                //更新后的数据库记录
+                $newRes = $table_db->where([
+                    'inc_type'  => $param[0],
+                ])->select();
+                foreach ($newRes as $rs){
+                    $newData[$rs['name']] = $rs['value'];
+                }
+            }else{
+                if ($param[0] != 'all') {
+                    foreach($data as $k=>$v){
+                        $newK = strtolower($k);
+                        $newArr[] = array(
+                            'name'=>$newK,
+                            'value'=>trim($v),
+                            'inc_type'=>$param[0],
+                            'update_time'   => time(),
+                        );
+                    }
+                    $table_db->insertAll($newArr);
+                }
+                $newData = $data;
+            }
+
+            $result = false;
+            $res = $table_db->where([
+            ])->select();
+            if($res){
+                $global = array();
+                foreach($res as $k=>$val){
+                    $global[$val['name']] = $val['value'];
+                }
+                $result = cache($tableName.'all',$global,$options);
+            }
+            if ($param[0] != 'all') {
+                $result = cache($cache_inc_type,$newData,$options);
+            }
+
+            return $result;
+        }
     }
 }

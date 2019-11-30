@@ -519,6 +519,9 @@ body {
 	color: #0D6FD5
 }
 
+.line-h38{
+	line-height: 38px;
+}
 /*移动端分辨率样式*/
 @media screen and (max-width:768px) {
     .w-max{}
@@ -643,9 +646,9 @@ body {
 
 /*大于iPad分辨率的样式*/
 @media screen and (min-width:992px) {
-	.w-out{width: 430px;}
+	.w-out{width: 460px;}
 	.w-in{width:260px;}
-	.w-max{width: 890px !important;}
+	.w-max{width: 960px !important;}
 	.w-max2{width:1200px !important;}
 
 	.layui-form-item .layui-input-inline {
@@ -731,7 +734,7 @@ body {
 /*iPad端分辨率样式*/
 @media (min-width: 768px) and (max-width: 991px) {
 	.w-out{width: 500px;}
-	.w-in{width:320px;}
+	.w-in{width:260px;}
 	.w-max{width: 720px;}
 	
 	.layui-form-item .layui-input-inline {

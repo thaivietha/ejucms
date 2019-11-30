@@ -44,9 +44,7 @@
       </div>
       <span class="btn right_btn"></span> </div>
   </div>
-  
   <!-- 右侧info -->
-  
   <div class="nh_content right">
     <div class="topfix">
       <div class="hd_jiage">
@@ -70,7 +68,7 @@
             <p class="lptb02">{$eju.field.complate_time|myDate='Y年m月d日',###}</p>
           </li>
           <li><span class="lptb">产权年限:</span>
-            <p class="lptb02">{$eju.field.property} </p>
+            <p class="lptb02">{$eju.field.property}{$eju.field.property_unit} </p>
           </li>
           <li><span class="lptb">所在区域:</span>
             <p class="lptb02">[{$eju.field.province_id|get_province_name}-{$eju.field.city_id|get_city_name}]</p>
@@ -109,7 +107,6 @@
 </div>
 
 <!-- 楼盘基本信息 end -->
-
 {eju:static file="skin/js/carousel.min.js" /}
 {eju:static file="skin/layer/layer.min.js" /}
 <script>

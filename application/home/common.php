@@ -116,3 +116,12 @@ if (!function_exists('set_str_replace')) {
         return $seo_title;
     }
 }
+//获取房间配套图片url
+if (!function_exists('get_supporting_icon')) {
+    function get_supporting_icon($name){
+        $name = func_preg_replace([' ','　'], '', $name);
+        $name = get_pinyin($name);
+
+        return ROOT_DIR . '/public/static/common/images/supporting/'.$name.'.png';
+    }
+}

@@ -82,7 +82,6 @@ class FieldLogic extends Model
         if (false !== $batch) {
             return $this->handleBatchAddonFieldList($data, $fieldInfo);
         }
-
         if (!empty($data) && !empty($fieldInfo)) {
             foreach ($data as $key => $val) {
                 $dtype = !empty($fieldInfo[$key]) ? $fieldInfo[$key]['dtype'] : '';
@@ -96,7 +95,6 @@ class FieldLogic extends Model
                         $data[$key.'_unit'] = $dfvalue_unit;
                         break;
                     }
-
                     case 'checkbox':
                     case 'imgs':
                     case 'files':
@@ -144,10 +142,11 @@ class FieldLogic extends Model
                         break;
                     }
                 }
+//                is_string($val) && $val .= $dfvalue_unit;
+                $data[$key.'_unit'] = $dfvalue_unit;
                 $data[$key] = $val;
             }
         }
-
         return $data;
     }
 

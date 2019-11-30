@@ -35,7 +35,7 @@ h4{
 	margin-top: 20px;
     height: 40px;
     background: none;
-    width:300px;
+    /*width:300px;*/
 }
 .af_head .st_city_list li.item a.item_a {color: #333;}
 .af_head span.fenge {color: #fff;}

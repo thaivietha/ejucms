@@ -109,6 +109,7 @@ class Channeltype extends Model
         if ($type == 'yes') {
             $map = array(
                 'b.status'    => 1,
+                'b.is_del'    => 0,
             );
             $result = M('Channeltype')->field('b.*, a.*, b.id as typeid')
                 ->alias('a')

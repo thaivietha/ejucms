@@ -30,7 +30,7 @@ class Eju extends Taglib
         'php'        => ['attr' => ''],
         'channel'    => ['attr' => 'typeid,notypeid,reid,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit,hidden'],
         'channelartlist' => ['attr' => 'typeid,type,row,id,key,empty,titlelen,mod'],
-        'arclist'    => ['attr' => 'channelid,typeid,notypeid,row,offset,titlelen,limit,orderby,orderway,noflag,flag,infolen,empty,mod,name,id,key,addfields,tagid,pagesize,thumb,joinaid'],
+        'arclist'    => ['attr' => 'channelid,typeid,notypeid,row,offset,titlelen,limit,orderby,orderway,noflag,flag,infolen,empty,mod,name,id,key,addfields,tagid,pagesize,thumb,joinaid,province,city,area,screen'],
         'arcpagelist'=> ['attr' => 'tagid,pagesize,id,tips,loading,callback'],
         'list'       => ['attr' => 'channelid,typeid,notypeid,pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,addfields,thumb'],
         'pagelist'   => ['attr' => 'listitem,listsize', 'close' => 0],
@@ -84,7 +84,7 @@ class Eju extends Taglib
         //子表信息个数标签
         'sonarccount'=>['attr' => 'aid,map,mapkey,table,group,where,map', 'close' => 0],
         //子表信息单条显示
-        'sqlview'    => ['attr' => 'aid,map,mapkey,empty,id,table,fields'],
+        'sqlview'    => ['attr' => 'aid,map,mapkey,empty,id,table,fields,addwhere'],
         //子表信息标签
         'sqlarclist'=>['attr' => 'currentstyle,id,key,empty,aid,map,mapkey,table,fields,orderby,limit,group,where,mod,addfields,max,min,sum,count,jointable,region,addwhere'],
         //排序标签
@@ -101,7 +101,46 @@ class Eju extends Taglib
         'fanglist'        => ['attr' => 'aid,name,row,limit,orderby,orderway,id,empty,key,mod,type,group'],
         //楼盘相关最大最小，比如户型
         'minmax'   => ['attr' =>'currentstyle,id,key,empty,aid,type'],
+        //会员登陆状态
+        'user'       => ['attr' => 'type,id,currentstyle,img,txt,txtid'],
     ];
+    /**
+     * user 标签解析
+     * 在模板中获取会员登录入口
+     * 格式：
+     * {eyou:user type='default'}
+     *  <a href="{$field.url}">{$field.username}</a>
+     * {/eyou:user}
+     * @access public
+     * @param array $tag 标签属性
+     * @return string
+     */
+    public function tagUser($tag, $content)
+    {
+        $type  =  !empty($tag['type']) ? $tag['type'] : 'default';
+        $id     = isset($tag['id']) ? $tag['id'] : 'field';
+        $txt  =  !empty($tag['txt']) ? $tag['txt'] : '';
+        $txt  = $this->varOrvalue($txt);
+        $txtid  =  !empty($tag['txtid']) ? $tag['txtid'] : '';
+        $img  =  !empty($tag['img']) ? $tag['img'] : 'off';
+        $currentstyle   = !empty($tag['currentstyle']) ? $tag['currentstyle'] : '';
+
+        $parseStr = '<?php ';
+        $parseStr .= ' $tagUser = new \think\template\taglib\eju\TagUser;';
+        $parseStr .= ' $__LIST__ = $tagUser->getUser("'.$type.'", "'.$img.'", "'.$currentstyle.'", '.$txt.', "'.$txtid.'");';
+        $parseStr .= '?>';
+
+        $parseStr .= '<?php if(!empty($__LIST__) || (($__LIST__ instanceof \think\Collection || $__LIST__ instanceof \think\Paginator ) && $__LIST__->isEmpty())): ?>';
+        $parseStr .= '<?php $'.$id.' = $__LIST__; ?>';
+        $parseStr .= $content;
+        $parseStr .= '<?php endif; ?>';
+        $parseStr .= '<?php $'.$id.' = []; ?>'; // 清除变量值，只限于在标签内部使用
+
+        if (!empty($parseStr)) {
+            return $parseStr;
+        }
+        return;
+    }
     /*
      * minmax 标签解析
      * 获取最大最小
@@ -333,10 +372,12 @@ class Eju extends Taglib
         $fields  = $this->varOrvalue($fields);
         $table = !empty($tag['table']) ? $tag['table'] : '';
         $table  = $this->varOrvalue($table);
+        $addwhere = !empty($tag['addwhere']) ? $tag['addwhere'] : '';
+
         $parseStr = '<?php ';
         // 声明变量
         $parseStr .= ' $tagSqlview = new \think\template\taglib\eju\TagSqlview;';
-        $parseStr .= ' $_result = $tagSqlview->getSqlview('.$aid.', '.$table.', '.$map.', '.$mapkey.', '.$fields.');';
+        $parseStr .= ' $_result = $tagSqlview->getSqlview('.$aid.', '.$table.', '.$map.', '.$mapkey.', '.$fields.',"'.$addwhere.'");';
         $parseStr .= ' ?>';
         $parseStr .= '<?php if(is_array($_result) || $_result instanceof \think\Collection || $_result instanceof \think\Paginator): ';
         $parseStr .= ' $__LIST__ = $_result;';
@@ -815,6 +856,14 @@ class Eju extends Taglib
 
         $joinaid   = isset($tag['joinaid']) ? $tag['joinaid'] : '';
         $joinaid  = $this->varOrvalue($joinaid);
+        $province   = isset($tag['province']) ? $tag['province'] : '';
+        $province  = $this->varOrvalue($province);
+        $city   = isset($tag['city']) ? $tag['city'] : '';
+        $city  = $this->varOrvalue($city);
+        $area   = isset($tag['area']) ? $tag['area'] : '';
+        $area  = $this->varOrvalue($area);
+        $screen   = isset($tag['screen']) ? $tag['screen'] : '1';
+        $screen  = $this->varOrvalue($screen);
 
         $name   = !empty($tag['name']) ? $tag['name'] : '';
         $id     = isset($tag['id']) ? $tag['id'] : 'field';
@@ -874,6 +923,10 @@ class Eju extends Taglib
             $parseStr .= '      "noflag"=> "'.$noflag.'",';
             $parseStr .= '      "channel"=> $channelid,';
             $parseStr .= '      "joinaid"=> '.$joinaid.',';
+            $parseStr .= '      "province_id"=> '.$province.',';
+            $parseStr .= '      "city_id"=> '.$city.',';
+            $parseStr .= '      "area_id"=> '.$area.',';
+            $parseStr .= '      "screen"=> '.$screen.',';
             $parseStr .= ' );';
             $parseStr .= ' $tag = '.var_export($tag,true).';';
             $parseStr .= ' $tagArclist = new \think\template\taglib\eju\TagArclist;';
@@ -1540,6 +1593,7 @@ class Eju extends Taglib
 
             $parseStr .= '<?php if(!empty($_result) || (($_result instanceof \think\Collection || $_result instanceof \think\Paginator ) && $_result->isEmpty())): ?>';
             $parseStr .= '<?php $'.$id.' = $_result; ?>';
+            $parseStr .= '<?php $' . $id . '["title"] = text_msubstr($' . $id . '["title"], 0, '.$titlelen.', false); ?>';
             $parseStr .= $content;
             $parseStr .= '<?php endif; ?>';
         }
@@ -2707,7 +2761,7 @@ class Eju extends Taglib
         $orderby    = isset($tag['orderby']) ? $tag['orderby'] : '';
         $orderway    = isset($tag['orderway']) ? $tag['orderway'] : 'desc';
         $group   = !empty($tag['group']) ? $tag['group'] : '';
-
+        $model =  !empty($tag['model']) ? $tag['model'] : 'xinfang';
         $parseStr = '<?php ';
         // 声明变量
         if (!empty($aid_tmp)) {
@@ -2736,7 +2790,7 @@ class Eju extends Taglib
 
         } else { // 查询数据库获取的数据集
             $parseStr .= ' $tagFanglist = new \think\template\taglib\eju\TagFanglist;';
-            $parseStr .= ' $_result = $tagFanglist->getFanglist("'.$type.'", $aid, "'.$limit.'", "'.$orderby.'", "'.$orderway.'", "'.$group.'");';
+            $parseStr .= ' $_result = $tagFanglist->getFanglist("'.$type.'", $aid, "'.$limit.'", "'.$orderby.'", "'.$orderway.'", "'.$group.'","'.$model.'");';
 
             $parseStr .= 'if(is_array($_result["list"]) || $_result["list"] instanceof \think\Collection || $_result["list"] instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;';
             // 设置了输出数组长度

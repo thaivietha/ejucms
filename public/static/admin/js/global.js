@@ -1008,6 +1008,7 @@ function BigImages(imgpath){
             type: 1,
             title: false,
             closeBtn: true,
+            shadeClose:true,
             area: [width, height],
             skin: 'layui-layer-nobg', //没有背景色
             content: content
@@ -1079,4 +1080,38 @@ function number_format(num, ext){
     }
 
     return _str;
+}
+
+// 百度自动推送
+function push_zzbaidu(url, type)
+{
+    $.ajax({
+        url:__root_dir__+"/index.php?m=admin&c=Ajax&a=push_zzbaidu",
+        type:'POST',
+        dataType:'json',
+        data:{"url":url,"type":type,"_ajax":1},
+        success:function(res){
+            console.log(res.msg);
+        },
+        error: function(e){
+            console.log(e);
+        }
+    });
+}
+
+// 更新sitemap.xml地图
+function update_sitemap(controller, action)
+{
+    $.ajax({
+        url:__root_dir__+"/index.php?m=admin&c=Ajax&a=update_sitemap",
+        type:'POST',
+        dataType:'json',
+        data:{"controller":controller,"action":action,"_ajax":1},
+        success:function(res){
+            console.log(res.msg);
+        },
+        error: function(e){
+            console.log(e);
+        }
+    });
 }

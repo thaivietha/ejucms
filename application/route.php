@@ -76,6 +76,7 @@ if (3 == $seo_pseudo) {
         }
     }
     /*--end*/
+
     if (1 == $seo_rewrite_format) { // 精简伪静态
         $home_rewrite = array(
             // 标签伪静态
@@ -86,34 +87,29 @@ if (3 == $seo_pseudo) {
             // 列表页
             $rewrite_str.'<tid>$' => array('home/Lists/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
             //内容详情页
-            $rewrite_str.'<dirname>/<aid>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
-            $rewrite_str.'<dirname>/<aid>/<column>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'<dirname>/<aid>/<column>_<sid>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'<dirname>/<aid>/<column>_<photo_type>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            $rewrite_str.'<dirname>/<aid>/<column>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            $rewrite_str.'<dirname>/<aid>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
         );
     } else {
         $home_rewrite = array(
             // 文章模型伪静态
-            $rewrite_str.'article$' => array('home/Article/index',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'article/<tid>$' => array('home/Article/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'article/<dirname>/<aid>$' => array('home/Article/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 楼盘模型伪静态
-            $rewrite_str.'xinfang$' => array('home/Xinfang/index',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'xinfang/<tid>$' => array('home/Xinfang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-            $rewrite_str.'xinfang/<dirname>/<aid>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
-            $rewrite_str.'xinfang/<dirname>/<aid>/<column>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>/<column>_<sid>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            $rewrite_str.'xinfang/<dirname>/<aid>/<column>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            $rewrite_str.'xinfang/<dirname>/<aid>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 团购模型伪静态
-            $rewrite_str.'tuan$' => array('home/Tuan/index',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'tuan/<tid>$' => array('home/Tuan/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'tuan/<dirname>/<aid>$' => array('home/Tuan/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 图集模型伪静态
-            $rewrite_str.'images$' => array('home/Images/index',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'images/<tid>$' => array('home/Images/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'images/<dirname>/<aid>$' => array('home/Images/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 单页模型伪静态
-            $rewrite_str.'single$' => array('home/Single/index',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'single/<tid>$' => array('home/Single/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             // 标签伪静态
             $rewrite_str.'tags$' => array('home/Tags/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),

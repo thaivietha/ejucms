@@ -339,6 +339,9 @@ class Xinfang extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+            if (empty($post['seo_title'])){
+                $post['seo_title'] = $post['title'];
+            }
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/        
             $contentField = Db::name('channelfield')->where([
                     'channel_id'    => $this->channeltype,
@@ -407,6 +410,7 @@ class Xinfang extends Base
                 'province_id'  => empty($post['province_id']) ? 0 : $post['province_id'],
                 'city_id'      => empty($post['city_id']) ? 0 : $post['city_id'],
                 'area_id'      => empty($post['area_id']) ? 0 : $post['area_id'],
+                'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
 
@@ -446,7 +450,7 @@ class Xinfang extends Base
         $arctype_html = allow_release_arctype($typeid, array($this->channeltype));
         $assign_data['arctype_html'] = $arctype_html;
         /*--end*/
-
+        $assign_data['arctype_html_show'] = substr_count($arctype_html, '</option>') > 1;
         /*自定义字段*/
         $addonFieldExtList = model('Field')->getChannelFieldList($this->channeltype);
         $addonFieldExtList = convert_arr_key($addonFieldExtList,'name');
@@ -475,6 +479,11 @@ class Xinfang extends Base
         !empty($arctypeInfo['tempview']) && $tempview = $arctypeInfo['tempview'];
         $this->assign('tempview', $tempview);
         /*--end*/
+        $pen_name = session('admin_info.pen_name');
+        if (empty($pen_name)){
+            $pen_name = M('Admin')->where("admin_id",session('admin_id'))->getField('user_name');
+        }
+        $assign_data['author'] = $pen_name;
 
         $this->assign($assign_data);
 
@@ -492,6 +501,7 @@ class Xinfang extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
                     'channel_id'    => $this->channeltype,
@@ -608,7 +618,8 @@ class Xinfang extends Base
         $arctype_html = allow_release_arctype($typeid, array($info['channel']));
         $assign_data['arctype_html'] = $arctype_html;
         /*--end*/
-        
+        $assign_data['arctype_html_show'] = substr_count($arctype_html, '</option>') > 1; //count(explode('</option>',$arctype_html)) > 2;
+
         /*自定义字段*/
         $lng = "";
         $lat = "";

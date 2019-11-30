@@ -318,7 +318,10 @@ if (!function_exists('typeurl')) {
             static $seo_rewrite_format = null;
             null === $seo_rewrite_format && $seo_rewrite_format = config('ey_config.seo_rewrite_format');
             if (1 == intval($seo_rewrite_format)) {
-                $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format).'/';
+                $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format);
+                if (!strstr($eyouUrl, '.htm')){
+                    $eyouUrl .= '/';
+                }
             } else {
                 $eyouUrl = url($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format); // 兼容v1.1.6之前被搜索引擎收录的URL
             }
@@ -340,10 +343,10 @@ if (!function_exists('typeurl')) {
 
 if (!function_exists('nextarcurl'))
 {
-    function nextarcurl($id, $fangInfo, $column)
+    function nextarcurl($id, $fangInfo, $column = '')
     {
         $fangInfo['column'] = $column;
-        if ('huxing' == $column) {
+        if (in_array($column,['huxing','photo'])) {
             $fangInfo['sid'] = $id;
         }
         return arcurl('home/Xinfang/view', $fangInfo);
@@ -521,6 +524,8 @@ if (!function_exists('eyPreventShell')) {
         $data = true;
         if (is_string($data) && (preg_match('/^phar:\/\//i', $data) || stristr($data, 'phar://'))) {
             $data = false;
+        } else if (is_numeric($data)) {
+            $data = intval($data);
         }
 
         return $data;

@@ -51,7 +51,7 @@ class TagRegion extends Base
     {
         $this->currentstyle = $currentstyle;
         $this->opencity = !empty($opencity) ? explode(',', str_replace('，', ',', $opencity)) : [];
-        empty($domain) && $domain = $this->subDomain;
+        empty($domain) && $this->subDomain != 'www' &&  $domain = $this->subDomain;
         if (empty($domain)) {
             $regionInfo = \think\Cookie::get("regionInfo");
             if(is_json($regionInfo))
@@ -78,7 +78,6 @@ class TagRegion extends Base
                 $this->orderby = "sort_order asc, initial asc, id asc";
                 break;
         }
-
         $result = $this->getSwitchRegion($domains, $type);
 
         return $result;
@@ -110,7 +109,6 @@ class TagRegion extends Base
                 $result = $this->getSon($domain, true);
                 break;
         }
-
         return $result;
     }
 
@@ -123,7 +121,6 @@ class TagRegion extends Base
     {
         $result = [];
         $firstTypeid = model('Arctype')->getFristTypeid(9); // 指定模型的第一个区域ID
-
         /*获取当前或者指定的区域*/
         $row = M('region')->field($this->field)
             ->where([
@@ -210,7 +207,6 @@ class TagRegion extends Base
                         // ->cache(true,EYOUCMS_CACHE_TIME,"region")
                         ->select();
                 }
-
                 $res3 = [];
                 foreach($row3 as $k3 => $v3){
                     // 封面图
@@ -289,7 +285,6 @@ class TagRegion extends Base
             ->where($map)
             ->group('parent_id')
             ->select();
-
         $pidArr = get_arr_column($res, 'parent_id');
         $map = array(
             'parent_id'    => ['IN', $pidArr],

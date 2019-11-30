@@ -33,7 +33,7 @@ class TagFanglist extends Base
      * 获取数据列表，比如：户型列表、相册列表、价格趋势
      * @author wengxianhu by 2018-4-20
      */
-    public function getFanglist($type = '', $aid = '', $limit = '', $orderby = '', $orderway = '', $group = '')
+    public function getFanglist($type = '', $aid = '', $limit = '', $orderby = '', $orderway = '', $group = '',$model = 'xinfang')
     {
         empty($aid) && $aid = $this->aid;
 
@@ -42,25 +42,45 @@ class TagFanglist extends Base
             return false;
         }
 
-        switch ($type) {
-            case 'huxing':
-                return $this->getHuxingData($aid, $limit, $orderby, $orderway, $group);
-                break;
+        if ($model == 'xinfang'){
+            switch ($type) {
+                case 'huxing':
+                    return $this->getHuxingData($aid, $limit, $orderby, $orderway, $group);
+                    break;
 
-            case 'photo':
-                return $this->getPhotoData($aid, $limit, $orderby, $orderway, $group);
-                break;
+                case 'photo':
+                    return $this->getPhotoData($aid, $limit, $orderby, $orderway, $group);
+                    break;
 
-            case 'price':
-                return $this->getPriceData($aid, $limit, $orderby, $orderway, $group);
-                break;
-            
-            default:
-                return false;
-                break;
+                case 'price':
+                    return $this->getPriceData($aid, $limit, $orderby, $orderway, $group);
+                    break;
+
+                default:
+                    return false;
+                    break;
+            }
+        }else if ($model == 'ershou'){
+            switch ($type) {
+                case 'photo':
+                    return $this->getErshouPhotoData($aid, $limit, $orderby, $orderway, $group);
+                    break;
+                default:
+                    return false;
+                    break;
+            }
+        }else if ($model == 'xiaoqu'){
+            switch ($type) {
+                case 'photo':
+                    return $this->getXiaoquPhotoData($aid, $limit, $orderby, $orderway, $group);
+                    break;
+                default:
+                    return false;
+                    break;
+            }
         }
 
-        return $result;
+        return false;
     }
 
     /**
@@ -106,7 +126,7 @@ class TagFanglist extends Base
         /*end*/
 
         $data = [
-            'list'  => $groupList,
+            'list'  => array_values($groupList),
         ];
 
         return $data;
@@ -127,12 +147,10 @@ class TagFanglist extends Base
             ])
             ->order($orderby)
             ->select();
-
         $groupList = array();
         foreach($list as $key => $val){
             $groupList[$val[$group]][] = $val;
         }
-
         /*截取数量*/
         $limitArr = explode(',', $limit);
         $offset = (2 <= count($limitArr)) ? intval($limitArr[0]) : 0;
@@ -152,10 +170,10 @@ class TagFanglist extends Base
                 'children'  => $children,
             ];
         }
-        /*end*/
 
+        /*end*/
         $data = [
-            'list'  => $groupList,
+            'list'  => array_values($groupList),
         ];
 
         return $data;
@@ -203,12 +221,107 @@ class TagFanglist extends Base
         /*end*/
 
         $data = [
-            'list'  => $groupList,
+            'list'  => array_values($groupList),
         ];
 
         return $data;
     }
+    /**
+     * 获取二手房相册分类列表数据
+     * @author wengxianhu by 2018-4-20
+     */
+    private function getErshouPhotoData($aid = '', $limit = '', $orderby = '', $orderway = '', $group = '')
+    {
+        $orderby = $this->getOrderBy($orderby, $orderway);
+        $list = Db::name('ershou_photo')
+            ->field('*')
+            ->where([
+                'aid'   => $aid,
+                'is_del'    => 0,
+            ])
+            ->order($orderby)
+            ->select();
 
+        $groupList = array();
+        foreach($list as $key => $val){
+            $groupList[$val[$group]][] = $val;
+        }
+
+        /*截取数量*/
+        $limitArr = explode(',', $limit);
+        $offset = (2 <= count($limitArr)) ? intval($limitArr[0]) : 0;
+        $num = (2 <= count($limitArr)) ? intval($limitArr[1]) : intval($limitArr[0]);
+        foreach ($groupList as $key => $sub) {
+            $endset = $offset + $num;
+            if ($endset > count($sub)) {
+                $endset = count($sub);
+            }
+            $children = [];
+            for ($i = $offset; $i < $endset; $i++) {
+                $children[] = $sub[$i];
+            }
+            $groupList[$key] = [
+                $group => $key,
+                'count' => count($children),
+                'children'  => $children,
+            ];
+        }
+        /*end*/
+
+        $data = [
+            'list'  => array_values($groupList),
+        ];
+
+        return $data;
+    }
+    /**
+     * 获取二手房相册分类列表数据
+     * @author wengxianhu by 2018-4-20
+     */
+    private function getXiaoquPhotoData($aid = '', $limit = '', $orderby = '', $orderway = '', $group = '')
+    {
+        $orderby = $this->getOrderBy($orderby, $orderway);
+        $list = Db::name('xiaoqu_photo')
+            ->field('*')
+            ->where([
+                'aid'   => $aid,
+                'is_del'    => 0,
+            ])
+            ->order($orderby)
+            ->select();
+
+        $groupList = array();
+        foreach($list as $key => $val){
+            $groupList[$val[$group]][] = $val;
+        }
+
+        /*截取数量*/
+        $limitArr = explode(',', $limit);
+        $offset = (2 <= count($limitArr)) ? intval($limitArr[0]) : 0;
+        $num = (2 <= count($limitArr)) ? intval($limitArr[1]) : intval($limitArr[0]);
+        foreach ($groupList as $key => $sub) {
+            $endset = $offset + $num;
+            if ($endset > count($sub)) {
+                $endset = count($sub);
+            }
+            $children = [];
+            for ($i = $offset; $i < $endset; $i++) {
+                $children[] = $sub[$i];
+            }
+            $groupList[$key] = [
+                $group => $key,
+                'count' => count($children),
+                'children'  => $children,
+            ];
+        }
+        /*end*/
+
+        $data = [
+            'list'  => array_values($groupList),
+        ];
+
+        return $data;
+    }
     /**
      * 查询排序规则
      * @author wengxianhu by 2018-4-20

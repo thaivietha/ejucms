@@ -220,7 +220,8 @@ class System extends Base
             // 过滤php扩展名的附件类型
             $image_type = explode('|', $param['image_type']);
             foreach ($image_type as $key => $val) {
-                if (stristr($val, 'php')) {
+                $val = trim($val);
+                if (stristr($val, 'php') || empty($val)) {
                     unset($image_type[$key]);
                 }
             }
@@ -228,7 +229,8 @@ class System extends Base
 
             $file_type = explode('|', $param['file_type']);
             foreach ($file_type as $key => $val) {
-                if (stristr($val, 'php')) {
+                $val = trim($val);
+                if (stristr($val, 'php') || empty($val)) {
                     unset($file_type[$key]);
                 }
             }
@@ -236,7 +238,8 @@ class System extends Base
 
             $media_type = explode('|', $param['media_type']);
             foreach ($media_type as $key => $val) {
-                if (stristr($val, 'php')) {
+                $val = trim($val);
+                if (stristr($val, 'php') || empty($val)) {
                     unset($media_type[$key]);
                 }
             }
@@ -334,15 +337,14 @@ class System extends Base
     public function smtp()
     {
         $inc_type =  'smtp';
-
         if (IS_POST) {
             $param = input('post.');
             tpCache($inc_type,$param);
             $this->success('操作成功', url('System/smtp'));
         }
-
-        $config = tpCache($inc_type);
-        $this->assign('config',$config);//当前配置项
+        $smtp_config = tpCache($inc_type);
+        $this->assign('config',$smtp_config);//当前配置项(邮件)
+        $this->assign('sms_config',tpCache('sms'));//当前配置项(短信)
         return $this->fetch();
     }
 
@@ -606,7 +608,7 @@ class System extends Base
     public function send_mobile()
     {
         $param = $sms_config = input('post.');
-        $res = sendSms(4, $param['sms_test_mobile'], ['content'=>"这里是content内容"]);
+        $res = sendSms(4, $param['sms_test_mobile'], ['content'=>mt_rand(100000,999999)]);
         if (intval($res['code']) == 1) {
             tpCache('sms',$sms_config);
             $this->success($res['msg']);
@@ -702,7 +704,7 @@ class System extends Base
                 $r = model('ConfigAttribute')->saveAll($editData);
                 if ($r) {
                     // 保存到config表，更新缓存
-                    foreach ($editData as $key => $val) {
+                    foreach ($addData as $key => $val) {
                         $configData[$val['attr_var_name']] = '';
                     }
                     !empty($configData) && tpCache('web', $configData);

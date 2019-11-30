@@ -12,9 +12,11 @@
  */
 
 namespace app\admin\controller;
+
 use app\admin\controller\Base;
 use think\Controller;
 use think\Db;
+use app\admin\logic\FieldLogic;
 
 class Index extends Base
 {
@@ -38,7 +40,9 @@ class Index extends Base
     public function welcome()
     {
         $globalConfig = tpCache('global');
+        // 服务器信息
         $this->assign('sys_info',$this->get_sys_info($globalConfig));
+        // 升级弹窗
         $this->assign('web_show_popup_upgrade', $globalConfig['web_show_popup_upgrade']);
 
         // 纠正上传附件的大小，始终以空间大小为准
@@ -48,6 +52,9 @@ class Index extends Base
         if (empty($file_size) || $file_size > $maxFileupload) {
             tpCache('basic', ['file_size'=>$maxFileupload]);
         }
+
+        // 同步导航与内容统计的状态
+        $this->syn_open_quickmenu();
         // 快捷导航
         $quickMenu = Db::name('quickentry')->where([
                 'type'      => 1,
@@ -55,10 +62,27 @@ class Index extends Base
                 'status'    => 1,
             ])->order('sort_order asc, id asc')->select();
         $this->assign('quickMenu',$quickMenu);
-
         // 内容统计
         $contentTotal = $this->contentTotalList();
         $this->assign('contentTotal',$contentTotal);
+        //升级后首次更新新模型字段到channel表
+        $fieldLogic = new FieldLogic();
+        if (!tpCache('system.system_channeltype_xiaoqu')){
+            $fieldLogic->synChannelTableColumns('','xiaoqu');
+            tpCache('system', ['system_channeltype_xiaoqu'=>1]);
+        }
+        if (!tpCache('system.system_channeltype_ershou')){
+            $fieldLogic->synChannelTableColumns('','ershou');
+            tpCache('system', ['system_channeltype_ershou'=>1]);
+        }
+        if (!tpCache('system.system_channeltype_zufang')){
+            $fieldLogic->synChannelTableColumns('','zufang');
+            tpCache('system', ['system_channeltype_zufang'=>1]);
+        }
+        if (!tpCache('system.system_channeltype_unit')){
+            $fieldLogic->synChannelUnit();
+            tpCache('system', ['system_channeltype_unit'=>1]);
+        }
 
         return $this->fetch();
     }
@@ -94,6 +118,14 @@ class Index extends Base
             $this->error('操作失败');
         }
 
+        /*同步v1.0.0以及早期版本的系统新增模型*/
+        $this->syn_system_quickmenu(2);
+        /*end*/
+
+        /*同步v1.0.0以及早期版本的自定义模型*/
+        $this->syn_custom_quickmenu(2);
+        /*end*/
+
         $totalList = Db::name('quickentry')->where([
                 'type'      => ['IN', [2]],
                 'status'    => 1,
@@ -103,6 +135,9 @@ class Index extends Base
         return $this->fetch();
     }
 
+    /**
+     * 内容统计 - 数量处理
+     */
     private function contentTotalList()
     {
         $archivesTotalRow = null;
@@ -188,6 +223,14 @@ class Index extends Base
             $this->error('操作失败');
         }
 
+        /*同步v1.0.0以及早期版本的系统新增模型*/
+        $this->syn_system_quickmenu(1);
+        /*end*/
+
+        /*同步v1.0.0以及早期版本的自定义模型*/
+        $this->syn_custom_quickmenu(1);
+        /*end*/
+
         $menuList = Db::name('quickentry')->where([
                 'type'      => ['IN', [1]],
                 'groups'    => 0,
@@ -196,6 +239,88 @@ class Index extends Base
         $this->assign('menuList',$menuList);
 
         return $this->fetch();
+    }
+
+    /**
+     * 同步自定义模型的快捷导航
+     */
+    private function syn_custom_quickmenu($type = 1)
+    {
+        $row = Db::name('quickentry')->where([
+                'controller'    => 'Custom',
+                'type'  => $type,
+            ])->count();
+        if (empty($row)) {
+            $customRow = Db::name('channeltype')->field('id,ntitle')
+                ->where(['ifsystem'=>0])->select();
+            $saveData = [];
+            foreach ($customRow as $key => $val) {
+                $saveData[] = [
+                    'title' => $val['ntitle'],
+                    'laytext'   => $val['ntitle'].'列表',
+                    'type' => $type,
+                    'controller' => 'Custom',
+                    'action' => 'index',
+                    'vars' => 'channel='.$val['id'],
+                    'groups'    => 1,
+                    'sort_order' => 100,
+                    'add_time' => getTime(),
+                    'update_time' => getTime(),
+                ];
+            }
+            model('Quickentry')->saveAll($saveData);
+        }
+    }
+
+    /**
+     * 同步系统新增模型的快捷导航
+     */
+    private function syn_system_quickmenu($type = 1)
+    {
+        $row = Db::name('quickentry')->where([
+                'controller'    => 'Zufang',
+                'type'  => $type,
+            ])->count();
+        if (empty($row)) {
+            $systemRow = Db::name('channeltype')->field('id,ntitle,ctl_name')
+                ->where(['nid'=>['IN', ['xiaoqu','ershou','zufang']]])->select();
+            $saveData = [];
+            foreach ($systemRow as $key => $val) {
+                $saveData[] = [
+                    'title' => $val['ntitle'],
+                    'laytext'   => $val['ntitle'].'列表',
+                    'type' => $type,
+                    'controller' => $val['ctl_name'],
+                    'action' => 'index',
+                    'vars' => 'channel='.$val['id'],
+                    'groups'    => 1,
+                    'sort_order' => 100,
+                    'add_time' => getTime(),
+                    'update_time' => getTime(),
+                ];
+            }
+            model('Quickentry')->saveAll($saveData);
+        }
+    }
+
+    /**
+     * 同步受开关控制的导航和内容统计
+     */
+    private function syn_open_quickmenu()
+    {
+        /*处理模型导航和统计*/
+        $updateData = [];
+        $channeltypeRow = Db::name('channeltype')->cache(true,EYOUCMS_CACHE_TIME,"channeltype")->select();
+        foreach ($channeltypeRow as $key => $val) {
+            $updateData[] = [
+                'groups'    => 1,
+                'vars'  => 'channel='.$val['id'],
+                'status'    => $val['status'],
+                'update_time'   => getTime(),
+            ];
+        }
+        !empty($updateData) && Db::name('quickentry')->updateAll($updateData, 'vars');
+        /*end*/
     }
 
     /**
@@ -235,7 +360,6 @@ class Index extends Base
             $data = [
                 'refresh'   => 0,
             ];
-
             $param = input('param.');
             $table    = input('param.table/s'); // 表名
             $id_name  = input('param.id_name/s'); // 表主键id名
@@ -243,7 +367,6 @@ class Index extends Base
             $field    = input('param.field/s'); // 修改哪个字段
             $value    = input('param.value/s', '', null); // 修改字段值
             $value    = eyPreventShell($value) ? $value : strip_sql($value);
-
             /*插件专用*/
             if ('weapp' == $table) {
                 if (1 == intval($value)) { // 启用
@@ -253,7 +376,6 @@ class Index extends Base
                 }
             }
             /*end*/
-
             /*处理数据的安全性*/
             if (empty($id_value)) {
                 $this->error('查询条件id不合法！');

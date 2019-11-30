@@ -22,23 +22,36 @@ class TagSqlview extends Base
     /*
      * 获取单个信息
      */
-    public function getSqlview($aid = 0,$table = '',$map = [],$mapkey = [],$field = "*"){
+    public function getSqlview($aid = 0,$table = '',$map = [],$mapkey = [],$field = "*",$addwhere = ''){
         $aid = !empty($aid) ? $aid : $this->aid;
         if (empty($table)){
-            echo '标签sonarcview报错：缺少属性 table 。';
+            echo '标签sqlview报错：缺少属性 table 。';
             return false;
         }
-        if (empty($aid)){
-           echo '标签sonarcview报错：缺少属性 aid 。';
-            return false;
-        }
-        $where = [];
-        if (!empty($map)){
-            foreach ($map as $key=>$val){
-                $where[$mapkey[$key]] = $val;
+
+        $result = [];
+        if (!empty($addwhere) || !empty($map)){
+            if (!empty($addwhere)){
+                $where = $addwhere;
+            }else if (!empty($map)){
+                foreach ($map as $key=>$val){
+                    $where[$mapkey[$key]] = $val;
+                }
+            }
+            $result = db($table)->field($field)->where($addwhere)->find();
+        } else {
+            if (empty($aid)){
+//                echo '标签sqlview报错：缺少属性 aid 。';
+                return false;
+            } else {
+                $result = db($table)->field($field)->find($aid);
             }
         }
-        $result = db($table)->field($field)->where($where)->find($aid);
+        
+        if (empty($result)){
+            return false;
+        }
+
         if (!empty($result['channel'])){
             $channeltype_info = model('Channeltype')->getInfo($result['channel']);
             $controller_name = $channeltype_info['ctl_name'];
@@ -57,9 +70,10 @@ class TagSqlview extends Base
                 $result['arcurl'] = arcurl('home/'.$controller_name.'/view', $result);
             }
         }
-        if (isset($result['litpic'])){
-            $result['litpic'] = thumb_img(get_default_pic($result['litpic'])); // 默认封面图
-        }
+        isset($result['litpic']) && $result['litpic'] = thumb_img(get_default_pic($result['litpic'])); // 默认封面图
+        isset($result['saleman_pic']) && $result['saleman_pic'] = thumb_img(get_default_pic($result['saleman_pic'])); // 默认封面图
+
+
         return $result;
     }
 }

@@ -21,11 +21,17 @@ class TagSurroundings extends Base
             echo '标签surroundings报错：缺少属性 field 。';
             return false;
         }
+        if (!isset($fields['average_price']) && isset($fields['total_price'])){
+            $fields['average_price'] = $fields['total_price'];
+        }else if (!isset($fields['average_price'])){
+            $fields['average_price'] = 0;
+        }
         $version   = getCmsVersion();
         $result['list'] = [0=>"商业",1=>"交通",2=>"教育",3=>"医疗"];
         $result['hidden'] = <<<EOF
         <script type="text/javascript" src="{$this->root_dir}/public/static/common/js/tag_surroundings.js?v={$version}"></script>
         <script type="text/javascript" src="{$this->root_dir}/public/static/common/js/baidu_surroundings.js?v={$version}"></script>
+        <link rel="stylesheet" type="text/css" href="{$this->root_dir}/public/static/common/css/tag_surroundings.css?v={$version}" />
       <script type="text/javascript">
           var lng = "{$fields['lng']}";
           var lat = "{$fields['lat']}";

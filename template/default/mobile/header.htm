@@ -7,7 +7,7 @@
         </div>
         <h1 class="am-header-title">
             <a href="{eju:global name='web_cmsurl' /}" class="">
-                <img src="{eju:global name='web_logo' /}" />
+                <img src="{eju:global name='web_attr_1' /}" />
             </a>
         </h1>
         <div class="am-header-right am-header-nav">
@@ -28,6 +28,14 @@
                             </a>
                         </li>
                         {/eju:channel}
+                        <li>
+                            {eju:user type='open'}
+                            {eju:user type='login'}
+                            <a href="{$field.url}" id="{$field.id}">会员中心</a>　
+                            {$field.hidden}
+                            {/eju:user}
+                            {/eju:user}
+                        </li>
                     </ul>
                 </div>
             </div>

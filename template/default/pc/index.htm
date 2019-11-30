@@ -101,7 +101,7 @@ $(function() {
   </div>
   <!--条件筛选-->
     <div class="filter-box">
-        {eju:screening id='field' typeid='1' addfields='province_id,city_id,average_price,characteristic,manage_type' region='off' target='_blank' currentstyle='act2' show='2' alltxt='不限' opencity='2' }
+        {eju:screening id='field' typeid='1' addfields='province_id,city_id,area_id,average_price,characteristic,manage_type' region='off' target='_blank' currentstyle='act2' show='2' alltxt='不限' opencity='2' }
             {eju:volist name='$field.list' id='vo' key='nl'}
             <div class="in-box x{$nl} left">
                 <h2>{$vo.title}</h2>
@@ -210,6 +210,132 @@ $(function() {
      </ul>
   </div>
 </div><!--热销新房--end-->
+<div class="hot-house" style="background-color: #fff">
+  <div class="w1200">
+      <div  class="index-tit">
+          <h2>{$eju.region.name}热门小区</h2>
+          <p>优质好房 不容错过</p>
+          {eju:type typeid='10' empty='栏目不存在时，显示这里的文案'}
+          <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+          {/eju:type}
+      </div>
+     <ul class="hot-list">
+         {eju:arclist typeid='10' orderby='new' row='4' id='field'}
+         <li>
+             <a class="a1" href="{$field.arcurl}" target="_blank">
+                 <div class="img">
+                     <img src="{$field.litpic}" alt="{$field.title}">
+                     <div class="info-box">
+                         <div class="info1">
+                             <div class="info1-r right">{$field.city_id|get_city_name}</div>
+                         </div>
+                         <div class="info2">
+                             <div class="info2-con">{$field.city_id|get_city_name}</div>
+                         </div>
+                     </div>
+                 </div>
+             </a>
+             <div class="txt">
+                 <div class="txt-tit">
+                     <a href="{$field.arcurl}">{$field.title}</a>
+                     <p>{$field.average_price}{$field.price_units}</p>
+                 </div>
+                 <div class="add">{$field.address}</div>
+                 <div class="tag">
+                     {eju:volist name="$field.characteristic" id="vo"}
+                     <a href="javascript:;">{$vo}</a>
+                     {/eju:volist}
+                 </div>
+             </div>
+         </li>
+         {/eju:arclist}
+     </ul>
+  </div>
+</div>
+<div class="hot-house" style="background-color: #fff">
+  <div class="w1200">
+      <div  class="index-tit">
+          <h2>{$eju.region.name}热门二手房</h2>
+          <p>优质好房 不容错过</p>
+          {eju:type typeid='11' empty='栏目不存在时，显示这里的文案'}
+          <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+          {/eju:type}
+      </div>
+     <ul class="hot-list">
+         {eju:arclist typeid='11' orderby='new' row='4' id='field'}
+         <li>
+             <a class="a1" href="{$field.arcurl}" target="_blank">
+                 <div class="img">
+                     <img src="{$field.litpic}" alt="{$field.title}">
+                     <div class="info-box">
+                         <div class="info1">
+                             <div class="info1-r right">{$field.city_id|get_city_name}</div>
+                         </div>
+                         <div class="info2">
+                             <div class="info2-con">{$field.city_id|get_city_name}</div>
+                         </div>
+                     </div>
+                 </div>
+             </a>
+             <div class="txt">
+                 <div class="txt-tit">
+                     <a href="{$field.arcurl}">{$field.title}</a>
+                     <p>{$field.total_price}万</p>
+                 </div>
+                 <div class="add">{$field.address}</div>
+                 <div class="tag">
+                     {eju:volist name="$field.characteristic" id="vo"}
+                     <a href="javascript:;">{$vo}</a>
+                     {/eju:volist}
+                 </div>
+             </div>
+         </li>
+         {/eju:arclist}
+     </ul>
+  </div>
+</div>
+<div class="hot-house" style="background-color: #fff">
+  <div class="w1200">
+      <div  class="index-tit">
+          <h2>{$eju.region.name}租房</h2>
+          <p>优质好房 不容错过</p>
+          {eju:type typeid='12' empty='栏目不存在时，显示这里的文案'}
+          <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+          {/eju:type}
+      </div>
+     <ul class="hot-list">
+         {eju:arclist typeid='12' orderby='new' row='4' id='field'}
+         <li>
+             <a class="a1" href="{$field.arcurl}" target="_blank">
+                 <div class="img">
+                     <img src="{$field.litpic}" alt="{$field.title}">
+                     <div class="info-box">
+                         <div class="info1">
+                             <div class="info1-r right">{$field.city_id|get_city_name}</div>
+                         </div>
+                         <div class="info2">
+                             <div class="info2-con">{$field.city_id|get_city_name}</div>
+                         </div>
+                     </div>
+                 </div>
+             </a>
+             <div class="txt">
+                 <div class="txt-tit">
+                     <a href="{$field.arcurl}">{$field.title}</a>
+                     <p>{$field.total_price}{$field.price_units}</p>
+                 </div>
+                 <div class="add">{$field.address}</div>
+                 <div class="tag">
+                     {eju:volist name="$field.characteristic" id="vo"}
+                     <a href="javascript:;">{$vo}</a>
+                     {/eju:volist}
+                 </div>
+             </div>
+         </li>
+         {/eju:arclist}
+     </ul>
+  </div>
+</div>
 <!--团购热门新房-->
 <div class="hot-group" >
   <div class="w1200">

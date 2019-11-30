@@ -64,7 +64,8 @@ class TagArclist extends Base
     {
         $result = false;
         $condition = array();
-        $param = array_merge(input('param.'),$param);
+        $param = array_merge($param,input('param.'));
+
         $channeltype = ("" != $param['channel'] && is_numeric($param['channel'])) ? intval($param['channel']) : '';
         $param['typeid'] = !empty($param['typeid']) ? $param['typeid'] : $this->tid;
         empty($orderway) && $orderway = 'desc';
@@ -140,73 +141,83 @@ class TagArclist extends Base
         }*/
 
         // 所有应用于搜索的自定义字段
+        $hava_system = $if_system = $if_content = 0;
         $where = [
-            'is_screening' => 1,
             'channel_id'=> $param['channel']
             // 根据需求新增条件
         ];
-        $channelfield = db('channelfield')->where($where)->field('channel_id,id,name,dtype,define,dfvalue,ifmain')->select();
+        $channelfield = db('channelfield')->where($where)->field('channel_id,id,name,dtype,define,dfvalue,ifmain,is_screening')->select();
         $regionInfo = \think\Cookie::get("regionInfo");
         if(is_json($regionInfo))
         {
             $regionInfo = json_decode($regionInfo,true);
         }
         $orderbys = input('param.orderby/s', '');
-        $hava_system = $if_system = $if_content = 0;    //是否筛选(存在)从表
         foreach ($channelfield as $key => $value) {
             // 值不为空则执行
             $name = $value['name'];
-            if (!empty($orderbys) && $orderbys == $value['name'] && $value['ifmain'] == 2){
-                $if_system = 1;
-            }else if (!empty($orderbys) && $orderbys == $value['name'] && $value['ifmain'] == 0){
-                $if_content = 0;
-            }
             if (!empty($name)) {
+                if (!empty($orderbys) && $orderbys == $name && $value['ifmain'] == 2){
+                    $if_system = 1;
+                }else if (!empty($orderbys) && $orderbys == $name && $value['ifmain'] == 0){
+                    $if_content = 1;
+                }
                 if ($value['ifmain'] == 2){
                     $hava_system = 1;
                 }
-                if (!empty($param[$name])) {
+                if (!empty($param[$name])  && !empty($value['is_screening'])) {
                     if ($value['ifmain'] == 2){
                         $if_system = 1;
                     }else if ($value['ifmain'] == 0){
-                        $if_content = 0;
+                        $if_content = 1;
                     }
-                    if ($value['define'] == 'config'){    //配置文件定义数值区间
-                        $dfvalue = config($value['dfvalue']);
-                        !empty($dfvalue[$param[$name]]['sql']) && array_push($condition, $name." ".$dfvalue[$param[$name]]['sql']);
-                        continue;
-                    }
-                    if (in_array($value['dtype'],['int','decimal','float'])){   //后台定义数值区间
-                        $list = explode(',',$param[$name]);
-                        if (count($list) >1){
-                            array_push($condition, $name." between {$list[0]} and {$list[1]} ");
-                        }else{
-                            array_push($condition, $name."> {$list[0]} ");
+                    if (1 == $param['screen']){  //是否筛选(存在)从表 screen = 1启用页面筛选项目（默认）,screen = 0 不启用页面筛选项
+                        if ($value['define'] == 'config'){    //配置文件定义数值区间
+                            $dfvalue = config($value['dfvalue']);
+                            !empty($dfvalue[$param[$name]]['sql']) && array_push($condition, $name." ".$dfvalue[$param[$name]]['sql']);
+                            continue;
                         }
-                        continue;
-                    }
-                    if (empty($param[$name]) || is_numeric($param[$name])){   //数字
-                        array_push($condition, $name." = '".$param[$name]."'");
-                        continue;
-                    }
-                    // 分割参数，判断多选或单选，拼装sql语句
-                    $val  = explode('|', $param[$name]);
-                    if (!empty($val) && !empty($val[0])) {
-                        array_push($condition, "(FIND_IN_SET('".$val[0]."',".$name."))");
+                        if (in_array($value['dtype'],['int','decimal','float'])){   //后台定义数值区间
+                            $list = explode(',',$param[$name]);
+                            if (count($list) >1){
+                                array_push($condition, $name." between {$list[0]} and {$list[1]} ");
+                            }else{
+                                array_push($condition, $name."> {$list[0]} ");
+                            }
+                            continue;
+                        }
+
+                        if (empty($param[$name]) || is_numeric($param[$name])){   //数字
+                            array_push($condition, $name." = '".$param[$name]."'");
+                            continue;
+                        }
+
+                        // 分割参数，判断多选或单选，拼装sql语句
+                        $val  = explode('|', $param[$name]);
+                        if (!empty($val) && !empty($val[0])) {
+                            array_push($condition, "(FIND_IN_SET('".$val[0]."',".$name."))");
+                        }
                     }
                 }else if (config('ey_config.web_region_domain') == 1 && (($name == "province_id" && $regionInfo['level'] == 1) || ($name =="city_id" && $regionInfo['level'] == 2))){ //开启二级域名,区域筛选为空时，选中默认项
                     array_push($condition, "(a.".$name." = '".$regionInfo['id']."' or a.".$name." = 0)");
                 }else if(config('ey_config.web_region_domain') == 0 && config('tpcache.web_region_show_data') == 0 && ($name == "province_id")){   //关闭二级域名，不显示其他信息
                     array_push($condition, "(a.".$name." = 0)");
                 }
+                //关闭二级域名，无差别显示所有，无需操作
             }
         }
+        if (empty($hava_system)){
+            $where_sys = ['channel_id'=> $param['channel'],'ifmain'=>2];
+            $hava = db('channelfield')->where($where_sys)->find();
+            $hava_system = $hava ? 1: 0;
+        }
         // 查询条件
-
         foreach (array('keywords','typeid','notypeid','flag','noflag','channel','joinaid') as $key) {
             if (isset($param[$key]) && $param[$key] !== '') {
                 if ($key == 'keywords') {
-                    array_push($condition, "a.title LIKE '%{$param[$key]}%'");
+                    if (1 == $param['screen']){
+                        array_push($condition, "a.title LIKE '%{$param[$key]}%'");
+                    }
                 } elseif ($key == 'channel') {
                     array_push($condition, "a.channel IN ({$channeltype})");
                 } elseif ($key == 'typeid') {
@@ -277,111 +288,83 @@ class TagArclist extends Base
         $channeltype_info = model('Channeltype')->getInfo($channeltype);
         $controller_name = $channeltype_info['ctl_name'];
         $channeltype_table = $channeltype_info['table'];
+        $tableContent = $channeltype_table.'_content';
+        $tableSystem = $channeltype_table.'_system';
 
         /*用于arclist标签的分页*/
         if(0 < $pagesize) {
             $tag['typeid'] = $typeid;
-            $tag['channelid'] = $channeltype;
+            isset($tag['channelid']) && $tag['channelid'] = $channeltype;
             $tagidmd5 = $this->attDef($tag); // 进行tagid的默认处理
         }
         /*--end*/
+        if ($hava_system){
+            $model = db('archives')
+                ->field("c.*,b.*, a.*")
+                ->alias('a')
+                ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT');
+            $model = $model->join($tableSystem.' c',"a.aid = c.aid","LEFT");
+        }else{
+            $model = db('archives')
+                ->field("b.*, a.*")
+                ->alias('a')
+                ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT');
+        }
+        if ($if_content){
+            $model = $model->join($tableContent.' d',"a.aid = d.aid","LEFT");
+        }
+        $result = $model ->where($where_str)
+            ->orderRaw($orderby)
+            ->limit($limit)
+            ->select();
 
         // 查询数据处理
         $aidArr = array();
         $addtableName = ''; // 附加字段的数据表名
-        switch ($channeltype) {
-            case '-1':
-            {
-                break;
+        $querysql = $this->archives_db->getLastSql(); // 用于arclist标签的分页
+        foreach ($result as $key => $val) {
+            array_push($aidArr, $val['aid']); // 收集文档ID
+            /*栏目链接*/
+            if ($val['is_part'] == 1) {
+                $val['typeurl'] = $val['typelink'];
+            } else {
+                $val['typeurl'] = typeurl('home/'.$controller_name."/lists", $val);
             }
-            
-            default:
-            {
-                if (9 == $channeltype) {
-                    $field = "b.*, c.*, a.*";
-                    $result = $this->archives_db
-                        ->field($field)
-                        ->alias('a')
-                        ->join('__XINFANG_SYSTEM__ c', 'c.aid = a.aid', 'LEFT')
-                        ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT')
-                        ->where($where_str)
-                        ->orderRaw($orderby)
-                        ->limit($limit)
-                        ->select();
-                } else {
-                    $field = "b.*, a.*";
-                    $result = $this->archives_db
-                        ->field($field)
-                        ->alias('a')
-                        ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT')
-                        ->where($where_str)
-                        ->orderRaw($orderby)
-                        ->limit($limit)
-                        ->select();
-                }
-
-                $querysql = $this->archives_db->getLastSql(); // 用于arclist标签的分页
-                $result = $this->fieldLogic->getChannelFieldList($result, $param['channel'], true);
-                foreach ($result as $key => $val) {
-                    array_push($aidArr, $val['aid']); // 收集文档ID
-
-                    /*栏目链接*/
-                    if ($val['is_part'] == 1) {
-                        $val['typeurl'] = $val['typelink'];
-                    } else {
-                        $val['typeurl'] = typeurl('home/'.$controller_name."/lists", $val);
-                    }
-                    /*--end*/
-                    /*文档链接*/
-                    if ($val['is_jump'] == 1) {
-                        $val['arcurl'] = $val['jumplinks'];
-                    } else {
-                        $val['arcurl'] = arcurl('home/'.$controller_name.'/view', $val);
-                    }
-                    /*--end*/
-                    /*封面图*/
-                    $val['litpic'] = get_default_pic($val['litpic']); // 默认封面图
-                    if ('on' == $thumb) { // 属性控制是否使用缩略图
-                        $val['litpic'] = thumb_img($val['litpic']);
-                    }
-                    /*--end*/
-                    /*地图*/
-                    $mapurl = '';
-                    if (9 == $val['channel']) {
-                        $mapurl = url('home/Map/index', ['aid'=>$val['aid']], true, false, 1);
-                        // $reset_param_query['m'] = 'home';
-                        // $reset_param_query['c'] = 'Map';
-                        // $reset_param_query['a'] = 'index';
-                        // $reset_param_query['aid'] = $val['aid'];
-                        // $mapurl = $this->makeUrl($reset_param_query);
-                    }
-                    $val['mapurl'] = $mapurl;
-                    /*--end*/
-
-                    $result[$key] = $val;
-                }
-
-                /*附加表*/
-                if (!empty($addfields) && !empty($aidArr)) {
-                    $addfields = str_replace('，', ',', $addfields); // 替换中文逗号
-                    $addfields = trim($addfields, ',');
-                    $addtableName = $channeltype_table.'_content';
-                    $resultExt = M($addtableName)->field("aid,$addfields")->where('aid','in',$aidArr)->getAllWithIndex('aid');
-                    /*自定义字段的数据格式处理*/
-                    $resultExt = $this->fieldLogic->getChannelFieldList($resultExt, $channeltype, true);
-                    /*--end*/
-                    foreach ($result as $key => $val) {
-                        $valExt = !empty($resultExt[$val['aid']]) ? $resultExt[$val['aid']] : array();
-                        $val = array_merge($valExt, $val);
-                        $result[$key] = $val;
-                    }
-                }
-                /*--end*/
-
-                break;
+            /*--end*/
+            /*文档链接*/
+            if ($val['is_jump'] == 1) {
+                $val['arcurl'] = $val['jumplinks'];
+            } else {
+                $val['arcurl'] = arcurl('home/'.$controller_name.'/view', $val);
             }
+            /*--end*/
+            /*封面图*/
+            $val['litpic'] = get_default_pic($val['litpic']); // 默认封面图
+            if ('on' == $thumb) { // 属性控制是否使用缩略图
+                $val['litpic'] = thumb_img($val['litpic']);
+            }
+            /*--end*/
+            /*地图*/
+            $mapurl = url('home/Map/index', ['aid'=>$val['aid']], true, false, 1);
+            $val['mapurl'] = $mapurl;
+            /*--end*/
+
+            $result[$key] = $val;
         }
+        /*附加表*/
+        if (!empty($addfields) && !empty($aidArr)) {
+            $addfields = str_replace('，', ',', $addfields); // 替换中文逗号
+            $addfields = trim($addfields, ',');
+            $resultExt = db::name($tableContent)->field("aid,$addfields")->where('aid','in',$aidArr)->getAllWithIndex('aid');
 
+        }
+        foreach ($result as $key => $val){
+            $valExt = !empty($resultExt[$val['aid']]) ? $resultExt[$val['aid']] : array();
+            $val = array_merge($valExt, $val);
+
+            $result[$key] = $val;
+        }
+        $result = $this->fieldLogic->getChannelFieldList($result, $channeltype, true);
         //分页特殊处理
         if(false !== $tagidmd5 && 0 < $pagesize)
         {

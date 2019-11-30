@@ -21,7 +21,7 @@ if (extension_loaded('zlib')){
     ob_start('ob_gzhandler');
 }
 // 检测PHP环境
-if(version_compare(PHP_VERSION,'5.4.0','<'))  die('本系统要求PHP版本 >= 5.4.0，当前PHP版本为：'.PHP_VERSION . '，请到虚拟主机控制面板里切换PHP版本，或联系空间商协助切换。<a href="http://www.ejucms.com/index.php?m=plugins&c=Ask&a=index" target="_blank">点击查看易优安装教程</a>');
+if(version_compare(PHP_VERSION,'5.4.0','<'))  die('本系统要求PHP版本 >= 5.4.0，当前PHP版本为：'.PHP_VERSION . '，请到虚拟主机控制面板里切换PHP版本，或联系空间商协助切换。<a href="http://www.ejucms.com/index.php?m=plugins&c=Ask&a=index" target="_blank">点击查看易居安装教程</a>');
 // error_reporting(E_ALL ^ E_NOTICE);//显示除去 E_NOTICE 之外的所有错误信息
 error_reporting(E_ERROR | E_WARNING | E_PARSE);//报告运行时错误
 

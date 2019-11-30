@@ -145,7 +145,6 @@
         var $ = layui.$
             ,form = layui.form
             ,table = layui.table;
-
         /* 触发事件 */
         var active = {
             Region_add:function () {
@@ -182,13 +181,38 @@
 
         //开启关闭
         form.on('switch(status)', function(obj){
-            var dataid = $(this).attr('data-id');
-            if ($(this).val() == 1){
-                $(this).val(0);
-            }else{
-                $(this).val(1);
+            var url = "{:url('Region/setStatus')}";
+            var id = $(this).attr('data-id');
+            var status = 1;
+            var self = this;
+            if ($(self).val() == 1){
+                status = 0;
             }
-            changeTableVal('region','id',dataid,'status',this);
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {id:id,status:status,_ajax:1},
+                dataType: 'json',
+                success: function(res){
+                    if (res.code == 1) {
+                        layer.msg(res.msg, {icon: 1});
+                        $(self).val(status);
+                        window.location.reload();
+                    } else {
+                        layer.msg(res.msg, {icon: 5});
+                        if(obj.elem.checked == true){
+                            $(self).removeAttr("checked");
+                        }else{
+                            $(self).val(1);
+                            $(self).attr("checked","checked");
+                        }
+                    }
+                    form.render();
+                },
+                error:function (res) {
+                    showErrorAlert();
+                }
+            });
         });
 
         //开启关闭
@@ -223,6 +247,7 @@
             }
             form.render('checkbox');
         });
+        form.render();
     });
     //修改是否默认
     function changeSortOrder(id) {

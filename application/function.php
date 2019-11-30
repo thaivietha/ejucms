@@ -1970,13 +1970,14 @@ if (!function_exists('view_logic'))
      * @param mix $tag 模板标签传入的属性集合
      * @return array
      */
-    function view_logic($aid, $channelid, $result = array(), $allAttrInfo = array(), $tag = [])
+    function view_logic($aid, $channelid, $result = array(), $allAttrInfo = array(), $tag = [],$channeName = '')
     {
         $allAttrInfo_bool = $allAttrInfo;
         $result['image_list'] = $result['huxing_list'] = $result['photo_list'] = $result['price_list'] = array();
+        $channeName && $channelid = $channeName;
         switch ($channelid) {
-
             case '3': // 图集模型
+            case 'Image': // 图集模型
             {
                 /*图集相册*/
                 if (true === $allAttrInfo_bool) {
@@ -1994,8 +1995,8 @@ if (!function_exists('view_logic'))
                 /*--end*/
                 break;
             }
-
             case '9': // 楼盘模型
+            case 'Xinfang': // 楼盘模型
             {
                 /*楼盘户型图*/
                 $huxing_list = [];
@@ -2034,13 +2035,61 @@ if (!function_exists('view_logic'))
                 /*--end*/
                 break;
             }
-
+            case 'Xiaoqu':      //小区
+                /*小区相册图*/
+                $photo_list = [];
+                if (isset($tag['photo']) && $tag['photo'] == 'on') {
+                    if (true === $allAttrInfo_bool) {
+                        $allAttrInfo = [];
+                        $allAttrInfo['photo_list'] = model('XiaoquPhoto')->getPhotoImg([$aid]);
+                    }
+                    $photo_list = !empty($allAttrInfo['photo_list'][$aid]) ? $allAttrInfo['photo_list'][$aid] : [] ;
+                }
+                $result['photo_list'] = $photo_list;
+                break;
+            case 'Ershou':      //二手房
+                /*二手房相册图*/
+                $photo_list = [];
+                if (isset($tag['photo']) && $tag['photo'] == 'on') {
+                    if (true === $allAttrInfo_bool) {
+                        $allAttrInfo = [];
+                        $allAttrInfo['photo_list'] = model('ErshouPhoto')->getPhotoImg([$aid]);
+                    }
+                    $photo_list = !empty($allAttrInfo['photo_list'][$aid]) ? $allAttrInfo['photo_list'][$aid] : [] ;
+                }
+                $result['photo_list'] = $photo_list;
+                break;
+            case 'Zufang':      //租房
+                $photo_list = [];
+                if (isset($tag['photo']) && $tag['photo'] == 'on') {
+                    if (true === $allAttrInfo_bool) {
+                        $allAttrInfo = [];
+                        $allAttrInfo['photo_list'] = model('ZufangPhoto')->getPhotoImg([$aid]);
+                    }
+                    $photo_list = !empty($allAttrInfo['photo_list'][$aid]) ? $allAttrInfo['photo_list'][$aid] : [] ;
+                }
+                $result['photo_list'] = $photo_list;
+                break;
             default:
             {
                 break;
             }
         }
-
+        $result['saleman'] = [
+            'saleman_name' => '',
+            'saleman_mobile' => '',
+            'saleman_qq' => '',
+            'saleman_pic' => ''
+        ];
+        if(!empty($result['users_id'])){
+            $saleman_info = \think\Db::name("users")->field("nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")->find($result['users_id']);
+            get_default_pic();
+            $result['saleman'] = $saleman_info;
+        }else if(!empty($result['saleman_id'])){
+            $saleman_info = \think\Db::name("saleman")->find($result['saleman_id']);
+            $result['saleman'] = $saleman_info;
+        }
+        !empty($result['saleman']['saleman_pic']) && $result['saleman']['saleman_pic']= thumb_img(get_default_pic($result['saleman']['saleman_pic'])); // 默认封面图
         return $result;
     }
 }
@@ -2231,31 +2280,19 @@ if (!function_exists('convert_js_array'))
     }
 }
 
-if (!function_exists('get_urltodomain')) 
+if (!function_exists('GetUrlToDomain')) 
 {
     /**
      * 取得根域名
      * @param type $domain 域名
      * @return string 返回根域名
      */
-    function get_urltodomain($domain = '') {
-        if (empty($domain) || !stristr($domain, '.')) {
-            return '';
-        }
-        $re_domain = '';
-        $domain_postfix_cn_array = array("com", "net", "org", "gov", "edu", "com.cn", "cn", "co");
-        $array_domain = explode(".", $domain);
-        $array_num = count($array_domain) - 1;
-        if (in_array($array_domain[$array_num], ['cn','tw','hk','nz'])) {
-            if (in_array($array_domain[$array_num - 1], $domain_postfix_cn_array)) {
-                $re_domain = $array_domain[$array_num - 2] . "." . $array_domain[$array_num - 1] . "." . $array_domain[$array_num];
-            } else {
-                $re_domain = $array_domain[$array_num - 1] . "." . $array_domain[$array_num];
-            }
-        } else {
-            $re_domain = $array_domain[$array_num - 1] . "." . $array_domain[$array_num];
-        }
-        return $re_domain;
+    function GetUrlToDomain($domain = '') {
+        static $request = null;
+        null == $request && $request = \think\Request::instance();
+        $root = $request->rootDomain($domain);
+
+        return $root;
     }
 }
 

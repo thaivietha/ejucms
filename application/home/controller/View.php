@@ -53,7 +53,7 @@ class View extends Base
         /*--end*/
 
         $aid = intval($aid);
-        $archivesInfo = M('archives')->field('a.typeid, a.channel, b.nid, b.ctl_name')
+        $archivesInfo = M('archives')->field('a.typeid, a.channel,a.status,a.users_id, b.nid, b.ctl_name')
             ->alias('a')
             ->join('__CHANNELTYPE__ b', 'a.channel = b.id', 'LEFT')
             ->where([
@@ -61,9 +61,9 @@ class View extends Base
                 'a.is_del'      => 0,
             ])
             ->find();
-        if (empty($archivesInfo)) {
+        $users_id = session('users_id');
+        if (empty($archivesInfo) || ($archivesInfo['status'] == 0 && (empty($users_id) || $users_id != $archivesInfo['users_id']))) {
             abort(404,'页面不存在');
-            // $this->redirect('/public/static/errpage/404.html', 301);
         }
         $this->nid = $archivesInfo['nid'];
         $this->channel = $archivesInfo['channel'];
@@ -146,12 +146,12 @@ class View extends Base
 			'photo'	 => 'on',
 			'price'	 => 'on',
 		];
-        $result = view_logic($aid, $this->channel, $result, true, $tag); // 模型对应逻辑
+        $result = view_logic($aid, $this->channel, $result, true, $tag,$this->modelName); // 模型对应逻辑
 
         /*自定义字段的数据格式处理*/
         $result = $this->fieldLogic->getChannelFieldList($result, $this->channel);
-        /*--end*/
 
+        /*--end*/
         $eju = array(
             'type'  => $arctypeInfo,
             'field' => $result,
@@ -159,6 +159,7 @@ class View extends Base
         $this->eju['param']['url_screen_var'] = $url_screen_var;
         $this->eju['param']['root_dir'] = ROOT_DIR;
         $this->eju = array_merge($this->eju, $eju);
+
         $this->assign('eju', $this->eju);
 
         /*模板文件*/

@@ -329,6 +329,7 @@ class Images extends Base
                 'sort_order'    => 100,
                 'add_time'     => strtotime($post['add_time']),
                 'update_time'  => strtotime($post['add_time']),
+                'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
 

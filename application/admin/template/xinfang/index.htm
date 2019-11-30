@@ -91,12 +91,12 @@
                                 <td>
                                     <div class="layui-table-cell laytable-cell-1-0-2" title="">
                                         <a class="media" href="javascript:;" >
-                                            <span  class="customvar_edit"  data-url="{:url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}" onclick="customvar_edit(this)">
+                                            <span  class="customvar_edit"  data-url="{:url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}" >
                                                 <img src="{$vo.litpic}">
                                             </span>
                                             <div class="media-body" >
                                                 {eq name="'Archives@edit'|is_check_access" value="1"}
-                                                <span data-url="{:url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}" onclick="customvar_edit(this)" class="tit customvar_edit" >
+                                                <span data-url="{:url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}" class="tit customvar_edit" >
                                                     {$vo.title}
                                                 </span>
                                                 <span {eju:if condition="$vo.sale_status eq '在售'"}
@@ -152,7 +152,7 @@
                                 <td>
                                     <div class="layui-table-cell w220 tc right-oper">
                                         {eq name="'Archives@edit'|is_check_access" value="1"}
-                                        <a data-url="{:url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}" onclick="customvar_edit(this)" class="layui-btn btn-edit customvar_edit" >
+                                        <a data-url="{:url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}" class="layui-btn btn-edit customvar_edit" >
                                             编辑
                                         </a>
                                         {/eq}

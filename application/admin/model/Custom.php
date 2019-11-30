@@ -39,8 +39,6 @@ class Custom extends Model
         $post['aid'] = $aid;
         $addonFieldExt = !empty($post['addonFieldExt']) ? $post['addonFieldExt'] : array();
         model('Field')->dealChannelPostData($post['channel'], $post, $addonFieldExt);
-        // 自动推送链接给蜘蛛
-        push_zzbaidu($opt, $aid);
 
         // --处理TAG标签
         model('Taglist')->savetags($aid, $post['typeid'], $post['tags']);

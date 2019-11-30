@@ -74,7 +74,6 @@ class TagList extends Base
                 echo '标签list报错：typeid属性值语法错误，请正确填写栏目ID。';
                 return false;
             }
-
             // 过滤typeid中含有空值的栏目ID
             $typeidArr_tmp = explode(',', $param['typeid']);
             $typeidArr_tmp = array_unique($typeidArr_tmp);
@@ -358,11 +357,11 @@ class TagList extends Base
         }
         // 所有应用于搜索的自定义字段
         $where = [
-            'is_screening' => 1,
+//            'is_screening' => 1,
             'channel_id'=> $param_new['channel']
             // 根据需求新增条件
         ];
-        $channelfield = db('channelfield')->where($where)->field('channel_id,id,name,dtype,define,dfvalue,ifmain')->select();
+        $channelfield = db('channelfield')->where($where)->field('channel_id,id,name,dtype,define,dfvalue,ifmain,is_screening')->select();
         $regionInfo = \think\Cookie::get("regionInfo");
         if(is_json($regionInfo))
         {
@@ -371,52 +370,58 @@ class TagList extends Base
         $orderbys = input('param.orderby/s', '');
         $hava_system = $if_system = $if_content = 0;    //是否筛选(存在)从表
         foreach ($channelfield as $key => $value) {
-            // 值不为空则执行
-            $name = $value['name'];
-            if (!empty($orderbys) && $orderbys == $value['name'] && $value['ifmain'] == 2){
-                $if_system = 1;
-            }else if (!empty($orderbys) && $orderbys == $value['name'] && $value['ifmain'] == 0){
-                $if_content = 0;
-            }
-            if (!empty($name)) {
+            $fieldname = $value['name'];
+            if (!empty($fieldname)) {
+                if (!empty($orderbys) && $orderbys == $fieldname && $value['ifmain'] == 2){
+                    $if_system = 1;
+                }else if (!empty($orderbys) && $orderbys == $fieldname && $value['ifmain'] == 0){
+                    $if_content = 1;
+                }
                 if ($value['ifmain'] == 2){
                     $hava_system = 1;
                 }
-                if (!empty($param_new[$name])) {
+                if (!empty($param_new[$fieldname]) && !empty($value['is_screening'])) {
+                    // $param_new[$fieldname] = func_preg_replace(['"','\'',';'], '', $param_new[$fieldname]);
+                    $param_new[$fieldname] = addslashes($param_new[$fieldname]);
                     if ($value['ifmain'] == 2){
                         $if_system = 1;
                     }else if ($value['ifmain'] == 0){
-                        $if_content = 0;
+                        $if_content = 1;
                     }
                     if ($value['define'] == 'config'){    //配置文件定义数值区间
                         $dfvalue = config($value['dfvalue']);
-                        !empty($dfvalue[$param_new[$name]]['sql']) && array_push($condition, $name." ".$dfvalue[$param_new[$name]]['sql']);
+                        !empty($dfvalue[$param_new[$fieldname]]['sql']) && array_push($condition, $fieldname." ".$dfvalue[$param_new[$fieldname]]['sql']);
                         continue;
                     }
                     if (in_array($value['dtype'],['int','decimal','float'])){   //后台定义数值区间
-                        $list = explode(',',$param_new[$name]);
+                        $list = explode(',',$param_new[$fieldname]);
                         if (count($list) >1){
-                            array_push($condition, $name." between {$list[0]} and {$list[1]} ");
+                            array_push($condition, $fieldname." between {$list[0]} and {$list[1]} ");
                         }else{
-                            array_push($condition, $name."> {$list[0]} ");
+                            array_push($condition, $fieldname."> {$list[0]} ");
                         }
                         continue;
                     }
-                    if (empty($param_new[$name]) || is_numeric($param_new[$name])){   //数字
-                        array_push($condition, $name." = '".$param_new[$name]."'");
+                    if (empty($param_new[$fieldname]) || is_numeric($param_new[$fieldname])){   //数字
+                        array_push($condition, $fieldname." = '".$param_new[$fieldname]."'");
                         continue;
                     }
                     // 分割参数，判断多选或单选，拼装sql语句
-                    $val  = explode('|', $param_new[$name]);
+                    $val  = explode('|', $param_new[$fieldname]);
                     if (!empty($val) && !empty($val[0])) {
-                        array_push($condition, "(FIND_IN_SET('".$val[0]."',".$name."))");
+                        array_push($condition, "(FIND_IN_SET('".$val[0]."',".$fieldname."))");
                     }
-                }else if (tpCache('web.web_region_domain') == 1 && (($name == "province_id" && $regionInfo['level'] == 1) || ($name =="city_id" && $regionInfo['level'] == 2))){ //开启二级域名,区域筛选为空时，选中默认项
-                    array_push($condition, "(".$name." = '".$regionInfo['id']."' or ".$name." = 0)");
-                }else if(tpCache('web.web_region_domain') == 0 && tpCache('web.web_region_show_data') == 0 && ($name == "province_id")){   //关闭二级域名，不显示其他信息
-                    array_push($condition, "(".$name." = 0)");
+                }else if (tpCache('web.web_region_domain') == 1 && (($fieldname == "province_id" && $regionInfo['level'] == 1) || ($fieldname =="city_id" && $regionInfo['level'] == 2))){ //开启二级域名,区域筛选为空时，选中默认项
+                    array_push($condition, "(".$fieldname." = '".$regionInfo['id']."' or ".$fieldname." = 0)");
+                }else if(tpCache('web.web_region_domain') == 0 && tpCache('web.web_region_show_data') == 0 && ($fieldname == "province_id")){   //关闭二级域名，不显示其他信息
+                    array_push($condition, "(".$fieldname." = 0)");
                 }
             }
+        }
+        if (empty($hava_system)){
+            $where_sys = ['channel_id'=> $param_new['channel'],'ifmain'=>2];
+            $have = db('channelfield')->where($where_sys)->find();
+            $hava_system = $have ? 1: 0;
         }
 
         // 应用搜索条件
@@ -617,12 +622,6 @@ class TagList extends Base
                 //地图
                 $mapurl = url('home/Map/index', ['aid'=>$val['aid']], true, false, 1);
                 $arcval['mapurl'] = $mapurl;
-                // $reset_param_query['m'] = 'home';
-                // $reset_param_query['c'] = 'Map';
-                // $reset_param_query['a'] = 'index';
-                // $reset_param_query['aid'] = $val['aid'];
-                // $arcval['mapurl'] = $this->makeUrl($reset_param_query);
-//                $arcval['mapurl'] = url('home/Map/index',['aid'=>$val['aid']],false,false,1,1);
 
                 $list[$key] = $arcval;
             }
@@ -640,7 +639,7 @@ class TagList extends Base
                     $addtableName = $channeltype_table.'_content';
                     $resultExt = M($addtableName)->field("aid,$addfields")->where('aid','in',$tmp_aid_arr)->getAllWithIndex('aid');
                     /*自定义字段的数据格式处理*/
-                    $resultExt = $this->fieldLogic->getChannelFieldList($resultExt, $channelid, true);
+//                    $resultExt = $this->fieldLogic->getChannelFieldList($resultExt, $channelid, true);
                     /*--end*/
                     foreach ($list as $key2 => $val2) {
                         $valExt = !empty($resultExt[$val2['aid']]) ? $resultExt[$val2['aid']] : array();
@@ -649,6 +648,8 @@ class TagList extends Base
                     }
                 }
             }
+            $list = $this->fieldLogic->getChannelFieldList($list, $param_new['channel'], true);
+
             /*--end*/
         }
 

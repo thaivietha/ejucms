@@ -76,7 +76,7 @@
   {eju:screening id='field' currentstyle='select-all selected' domain='0' region='on' show='2' alltxt='不限' opencity='2' }
     {eju:volist name='$field.list' id='vo'}
     <li class="select-list">
-      <dl id="select1">
+      <dl id="">
         <dt>{$vo.title} ：</dt>
         {eju:volist name='$vo.dfvalue' id='vo2'}
         <dd class="{$vo2.currentstyle}"><a {$vo2.onClick}>{$vo2.name}</a></dd>
@@ -144,7 +144,7 @@
           {/eju:arcview}
         </p>
         <p class="af-xf-tese"> 
-          {eju:volist name='$field.characteristic' id='vo'} 
+          {eju:volist name='$field.characteristic' id='vo'}
             <span id="c_2">{$vo}</span> 
           {/eju:volist} </p>
         <p class="af-xf-dtell">
@@ -192,6 +192,7 @@
 </div>
 {eju:include file="footer.htm"/}
 {eju:static file="skin/js/jquery.cxscroll.min.js" /}
+{eju:static file="skin/js/sx.js" /}
 <script type="text/javascript">
     $(function(){
         if($(".select-no").length > 0) {

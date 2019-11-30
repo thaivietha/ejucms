@@ -306,4 +306,22 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'users_id' => 
+  array (
+    'name' => 'users_id',
+    'type' => 'int(11) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'show_time' => 
+  array (
+    'name' => 'show_time',
+    'type' => 'int(11) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
 );

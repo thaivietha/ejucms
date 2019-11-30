@@ -325,6 +325,9 @@ class Tuan  extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+            if (empty($post['seo_title'])){
+                $post['seo_title'] = $post['title'];
+            }
             // 根据标题自动提取相关的关键字
             $seo_keywords = $post['seo_keywords'];
             if (!empty($seo_keywords)) {
@@ -382,6 +385,7 @@ class Tuan  extends Base
                 'sort_order'    => 100,
                 'add_time'     => strtotime($post['add_time']),
                 'update_time'  => strtotime($post['add_time']),
+                'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
 
@@ -471,6 +475,7 @@ class Tuan  extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+
             // 根据标题自动提取相关的关键字
             $seo_keywords = $post['seo_keywords'];
             if (!empty($seo_keywords)) {

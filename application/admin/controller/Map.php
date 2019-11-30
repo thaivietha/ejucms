@@ -12,9 +12,22 @@ class Map extends Base
 {
     public function getLocationByAddress()
     {
+        $province = input('get.province/d',0);
         $city = input('get.city/d',0);
-        $city_name = get_city_name($city);
-        $address = input('get.address');
+        $area = input('get.area/d',0);
+        $city_name = "";
+        $address = "";
+        if ($province){
+            $address .= get_province_name($province);
+        }
+        if ($city){
+            $city_name = get_city_name($city);
+            $address .= $city_name;
+        }
+        if ($area){
+            $address .= get_area_name($area);
+        }
+        $address .=  input('get.address/s');
         $ak      = config('global.baidu_map_ak');
         $url = "http://api.map.baidu.com/geocoder/v2/?address={$address}&city={$city_name}&output=json&ak={$ak}";
         $result = file_get_contents($url);
@@ -35,14 +48,14 @@ class Map extends Base
         $location = input('get.map');
         $keyword = "";
         $province = input('get.province/d',0);
+        $city = input('get.city/d',0);
+        $area = input('get.area/d',0);
         if ($province){
             $keyword .= get_province_name($province);
         }
-        $city = input('get.city/d',0);
         if ($city){
             $keyword .= get_city_name($city);
         }
-        $area = input('get.area/d',0);
         if ($area){
             $keyword .= get_area_name($area);
         }
@@ -59,7 +72,9 @@ class Map extends Base
         $this->assign('lat',$lat);
         $this->assign('ak',config('global.baidu_map_ak'));
         $this->assign('keyword',$keyword);
+        $this->assign('province',$province);
         $this->assign('city',$city);
+        $this->assign('area',$area);
         return $this->fetch('map_mark');
     }
 }

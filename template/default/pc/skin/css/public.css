@@ -1,4 +1,4 @@
-﻿* {
+* {
 	margin: 0;
 	padding: 0;
 }
@@ -628,14 +628,14 @@ span#c_3 {
 }
 .af_head .login_wrap a {
 	padding: 0 10px;
-	color: #999;
+	color: #fff;
 	line-height: 40px
 }
 .nav_login {
 	margin-top: 20px;
 	height: 40px;
 	background: none;
-	width: 300px;
+	/*width: 300px;*/
 }
 .nav_login .tel {
 	margin-right: 20px;

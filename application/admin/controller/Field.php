@@ -166,7 +166,7 @@ class Field extends Base
 
             /*去除中文逗号，过滤左右空格与空值、以及单双引号*/
             $dfvalue = str_replace('，', ',', $post['dfvalue']);
-            $dfvalue = func_preg_replace(['"','\''], '', $dfvalue);
+            $dfvalue = func_preg_replace(['"','\'',';'], '', $dfvalue);
             $dfvalueArr = explode(',', $dfvalue);
             foreach ($dfvalueArr as $key => $val) {
                 $tmp_val = trim($val);
@@ -210,7 +210,7 @@ class Field extends Base
             if (true == $this->fieldLogic->checkChannelFieldList($table, $post['name'], $channel_id)) {
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
-            if ($table_name == 'xinfang' && true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'])){
+            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang']) && true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'])){
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
             /*--end*/
@@ -384,7 +384,7 @@ class Field extends Base
             $old_name = $post['old_name'];
             /*去除中文逗号，过滤左右空格与空值*/
             $dfvalue = str_replace('，', ',', $post['dfvalue']);
-            $dfvalue = func_preg_replace(['"','\''], '', $dfvalue);
+            $dfvalue = func_preg_replace(['"','\'',';'], '', $dfvalue);
             $dfvalueArr = explode(',', $dfvalue);
             foreach ($dfvalueArr as $key => $val) {
                 $tmp_val = trim($val);
@@ -428,7 +428,7 @@ class Field extends Base
             if (true == $this->fieldLogic->checkChannelFieldList($table, $post['name'], $channel_id, array($old_name))) {
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
-            if ($table_name == 'xinfang' && true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'], array($old_name))){
+            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang']) &&  true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'], array($old_name))){
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
             /*--end*/
@@ -440,11 +440,15 @@ class Field extends Base
             $ntabsql = $fieldinfos[0];
             $buideType = $fieldinfos[1];
             $maxlength = $fieldinfos[2];
+            $new_dfvalue = $fieldinfos[3];
             if ($info['ifmain'] == 2){    //此字段为主表2的字段
                 $table = PREFIX.$table_name.'_system';
             }
             $sql = " ALTER TABLE `$table` CHANGE COLUMN `{$old_name}` $ntabsql ";
             if (false !== Db::execute($sql)) {
+                //将空数据变更为默认值
+                $update_sql = "UPDATE `$table` SET `{$post['name']}` ='$new_dfvalue' WHERE `{$post['name']}`=0 or `{$post['name']}`='' or `{$post['name']}` is NULL";
+                Db::execute($update_sql);
                 /*保存更新字段的记录$table*/
                 if (!empty($post['region_data'])) {
                     $dfvalue = $post['region_data'];
@@ -782,7 +786,7 @@ class Field extends Base
 
             /*去除中文逗号，过滤左右空格与空值*/
             $dfvalue = str_replace('，', ',', $post['dfvalue']);
-            $dfvalue = func_preg_replace(['"','\''], '', $dfvalue);
+            $dfvalue = func_preg_replace(['"','\'',';'], '', $dfvalue);
             $dfvalueArr = explode(',', $dfvalue);
             foreach ($dfvalueArr as $key => $val) {
                 $tmp_val = trim($val);
@@ -894,7 +898,7 @@ class Field extends Base
             $old_name = $post['old_name'];
             /*去除中文逗号，过滤左右空格与空值*/
             $dfvalue = str_replace('，', ',', $post['dfvalue']);
-            $dfvalue = func_preg_replace(['"','\''], '', $dfvalue);
+            $dfvalue = func_preg_replace(['"','\'',';'], '', $dfvalue);
             $dfvalueArr = explode(',', $dfvalue);
             foreach ($dfvalueArr as $key => $val) {
                 $tmp_val = trim($val);

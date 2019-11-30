@@ -30,14 +30,29 @@ class TagDiyurl extends Base
                 $parseStr = url('home/Index/ajax_form', ['ajax_form'=>1, 'parent_url'=>$parent_url,'aid'=>$aid,'tid'=>$tid], true, false, 1);
                 break;
 
-            case "map":
+            case "map":     //新房地图有页面
                 $parseStr = url('home/Map/index');
                 break;
 
-            case "maphouselist":
+            case "maphouselist":    //新房地图列表数据
                 $parseStr = url('home/Map/getHouseLists');
                 break;
-
+            case "mapxiaoqu":   //小区地图页面
+                $parseStr = url('home/Map/xiaoqu');
+                break;
+            case "mapxiaoqulist":   //小区地图列表数据
+                $parseStr = url('home/Map/getXiaoquLists');
+                break;
+            case "mapershou":   //二手地图页面
+                $parseStr = url('home/Map/ershou');
+                break;
+            case "mapershoulist":   //二手地图列表数据
+                $parseStr = url('home/Map/getErshouLists');
+                break;
+            case "panorama":    //全景地图
+                $aid = I("param.aid/s", '');
+                $parseStr = url('home/Map/panorama',['aid'=>$aid]);
+                break;
             default:
                 $parseStr = "";
                 break;

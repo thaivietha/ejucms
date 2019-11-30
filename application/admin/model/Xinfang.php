@@ -37,10 +37,6 @@ class Xinfang extends Model
     public function afterSave($aid, $post, $opt)
     {
         $post['aid'] = $aid;
-//        $post['addonFieldExt']['province_id'] = !empty($post['province_id'])?$post['province_id']:0;
-//        $post['addonFieldExt']['city_id'] = !empty($post['city_id'])?$post['city_id']:0;
-//        $post['addonFieldExt']['area_id'] = !empty($post['area_id'])?$post['area_id']:0;
-//        $post['addonFieldExt']['saleman_id'] = !empty($post['saleman_id'])?$post['saleman_id']:0;
         if (!empty($post['map'])){
             $map_arr = explode(',',$post['map']);
             $post['addonFieldSys']['lng'] = !empty($map_arr[0])?$map_arr[0]:'';
@@ -50,10 +46,7 @@ class Xinfang extends Model
         model('Field')->dealChannelPostData($post['channel'], $post, $addonFieldExt);   //编辑子表信息(content)
         $addonFieldSys = !empty($post['addonFieldSys']) ? $post['addonFieldSys'] : array();
         model('Field')->dealChannelPostData($post['channel'], $post, $addonFieldSys,'system');   //编辑子表信息(system)
-        // 自动推送链接给蜘蛛
-        push_zzbaidu($opt, $aid);
         // --处理TAG标签
-
         model('Taglist')->savetags($aid, $post['typeid'], $post['tags']);
         //处理保存相册
         if (!empty($post['photo_title'])){
@@ -110,7 +103,9 @@ class Xinfang extends Model
                     ];
                 }else{
                     $insert_data[] = [
-                        'aid'=>$aid,'huxing_title'=>$val,'huxing_pic'=>$post['huxing_pic'][$key]
+                        'aid'=>$aid
+                        ,'huxing_title'=>$val
+                        ,'huxing_pic'=>$post['huxing_pic'][$key]
                         ,'huxing_price'=>!empty($post['huxing_price'][$key])?$post['huxing_price'][$key]:'0'
                         ,'huxing_characteristic'=>implode(',',$huxing_characteristic_arr)
                         ,'huxing_area'=>!empty($post['huxing_area'][$key])?$post['huxing_area'][$key]:'0'
@@ -229,20 +224,5 @@ class Xinfang extends Model
             ->find();
 
         return $row;
-    }
-    
-    /*
-     * 获取所有区域id
-     */
-    public function getAllRegionIds($level){
-        $field = "province_id";
-        if ($level == 2){
-            $field = "city_id";
-        }else if ($level == 3){
-            $field = "area_id";
-        }
-        $regionIds = M('xinfang_content')->getField($field,true);
-
-        return $regionIds;
     }
 }

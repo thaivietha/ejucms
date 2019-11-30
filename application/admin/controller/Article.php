@@ -310,7 +310,9 @@ class Article extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-
+            if (empty($post['seo_title'])){
+                $post['seo_title'] = $post['title'];
+            }
             // 根据标题自动提取相关的关键字
             $seo_keywords = $post['seo_keywords'];
             if (!empty($seo_keywords)) {
@@ -371,6 +373,7 @@ class Article extends Base
                 'province_id'  => empty($post['province_id']) ? 0 : $post['province_id'],
                 'city_id'      => empty($post['city_id']) ? 0 : $post['city_id'],
                 'area_id'      => empty($post['area_id']) ? 0 : $post['area_id'],
+                'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
 
@@ -410,7 +413,6 @@ class Article extends Base
         $arctype_html = allow_release_arctype($typeid, array($this->channeltype));
         $assign_data['arctype_html'] = $arctype_html;
         /*--end*/
-
         /*自定义字段*/
         $addonFieldExtList = model('Field')->getChannelFieldList($this->channeltype);
         $channelfieldBindRow = Db::name('channelfield_bind')->where([

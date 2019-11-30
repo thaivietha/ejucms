@@ -38,9 +38,9 @@
                         </div>
                     </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">地图坐标</label>
+                            <label class="layui-form-label"><b>*</b>地图坐标</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="map" id="map" value="{$map}" value="" placeholder="115.345,22.1349" class="layui-input">
+                                <input type="text" name="map" id="map" value="{$map}" lay-verify="required" placeholder="115.345,22.1349" class="layui-input">
                             </div>
                             <div class="layui-input-inline layadmin-layer-demo">
                                 <a class="layui-btn layui-btn-sm" data-type="map_mark">标注地图</a>
@@ -116,6 +116,23 @@
         
         var city_id = "{$city_id}";
         set_city_list(city_id);
+    });
+    //光标离开区域编辑，自动获取坐标
+    $("#name").on('blur',function(){
+        var province_id = $("#province_id").val(),city_id = $("#city_id").val();
+        var address = $(this).val();
+        var url     = "{:url('Map/getLocationByAddress')}";
+        var param = {
+            province : province_id,
+            city : city_id,
+            address : address
+        };
+        $.get(url,param,function(res){
+            if(res.code == 1)
+            {
+                $("#map").val(res.data.map);
+            }
+        });
     });
     layui.config({
         base: '__SKIN__/' //静态资源所在路径

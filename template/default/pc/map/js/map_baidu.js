@@ -1791,19 +1791,7 @@ $(function(){
 
 			var path = obj.path;
 
-		 
-
 			var phone = obj.centerphone.replace('400-7053-322','400-705-3322')+(obj.agentphone.length>0?('转'+obj.agentphone):'');
-
-/*			if (!isNaN(obj.averagePrice)|| obj.averagePrice.length==0)
-
-			{*/
-
-				//obj.averagePrice = (obj.averagePrice==0?'售价待定':'  '+(obj.averagePrice/10000).toFixed(1)+'万元/㎡') 
-
-			/*}*/    
-
-			
 
 		    var priceVal= "";
 

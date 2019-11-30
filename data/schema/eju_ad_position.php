@@ -18,15 +18,6 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
-  'intro' => 
-  array (
-    'name' => 'intro',
-    'type' => 'text',
-    'notnull' => false,
-    'default' => NULL,
-    'primary' => false,
-    'autoinc' => false,
-  ),
   'status' => 
   array (
     'name' => 'status',

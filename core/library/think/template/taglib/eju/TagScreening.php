@@ -54,7 +54,7 @@ class TagScreening extends Base
     {
         if (empty($this->tid) && empty($typeid)){
             return false;
-        }else if (empty($this->tid) && !empty($typeid)){
+        }else if (!empty($typeid)){
             $this->tid = $typeid;
         }
         $opencity_arr = [];
@@ -92,6 +92,7 @@ class TagScreening extends Base
             ->where($where)
             ->order("a.sort_order asc")
             ->select();
+
         // Onclick点击事件方法名称加密，防止冲突
         $OnclickScreening  = 'ey_'.md5('OnclickScreening');
         // Onchange改变事件方法名称加密，防止冲突
@@ -130,6 +131,13 @@ class TagScreening extends Base
             }else{
                 $is_data = $alltxt;
             }
+
+            /*参数值含有单引号、双引号、分号，直接跳转404*/
+            if (preg_match('#(\'|\"|;)#', $is_data)) {
+                abort(404,'页面不存在');
+            }
+            /*end*/
+            
             if (!empty($alltxt)){
                 $all[] = [
                     'id'   => '',
@@ -213,10 +221,9 @@ class TagScreening extends Base
                 unset($row[$key]);
                 continue;
             }
+
             // 合并数组
-
             $RegionData = array_merge($all,$RegionData);
-
             // 在伪静态下拼装控制器方式参数名
             $seo_pseudo  = config('ey_config.seo_pseudo');
             if (!isset($param[$url_screen_var]) || 3 == $seo_pseudo) {
@@ -232,7 +239,6 @@ class TagScreening extends Base
             } else {
                 $param_query = request()->param();
             }
-
             /* 生成静态页面代码 */
             if (2 == $seo_pseudo && !isMobile()) {
                 $param_query['m'] = 'home';
@@ -240,7 +246,6 @@ class TagScreening extends Base
                 $param_query['a'] = 'index';
                 unset($param_query['_ajax']);
             }
-
             foreach ($RegionData as $kk => $vv) {
                 $param_query['domain'] = "";//$regionInfo['domain'];     //默认二级域名
                 // 参数拼装URL
@@ -249,7 +254,7 @@ class TagScreening extends Base
                     if (!empty($vv['domain'])){
                         $param_query['domain'] = $vv['domain'];     //设置二级域名
                     }
-                }else{                  //选择不限，去掉该字段已选项
+                }else{      //选择不限，去掉该字段已选项
                     unset($param_query[$name]);
                 }
                 $param_query = $this->unsetNextFiledName($row,$name,$param_query);   //点击该栏目时,去掉所有下级的筛选条件
@@ -328,7 +333,7 @@ EOF;
         $result = array(
             'hidden'    => $hidden,
             'resetUrl' => $resetUrl,
-            'list'       => $row,
+            'list'       => array_merge($row),
         );
         return $result;
     }

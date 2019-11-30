@@ -286,7 +286,9 @@ class Custom extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-
+            if (empty($post['seo_title'])){
+                $post['seo_title'] = $post['title'];
+            }
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/        
             $contentField = Db::name('channelfield')->where([
                     'channel_id'    => $this->channeltype,
@@ -353,6 +355,7 @@ class Custom extends Base
                 'sort_order'    => 100,
                 'add_time'     => strtotime($post['add_time']),
                 'update_time'  => strtotime($post['add_time']),
+                'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
 

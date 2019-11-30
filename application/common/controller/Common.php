@@ -46,6 +46,7 @@ class Common extends Controller {
         if (!session_id()) {
             Session::start();
         }
+        parent::_initialize();
         header("Cache-control: private");  // history.back返回后输入框值丢失问题 
         $this->session_id = session_id(); // 当前的 session_id
         !defined('SESSION_ID') && define('SESSION_ID', $this->session_id); //将当前的session_id保存为常量，供其它方法调用
@@ -66,16 +67,16 @@ class Common extends Controller {
         // 请求参数
         $this->eju['param'] = $this->request->param();
         // 区域子站点
-        $subDomain = input("subdomain/s");
+        $subDomain = input("param.subdomain/s");
         empty($subDomain) && $subDomain = $this->request->subDomain();
-        if (empty($this->eju['global']['web_region_domain'])) {
+        if (empty($this->eju['global']['web_region_domain'])) { // 关闭区域子站点
             $regionInfo = $this->getDefaultCity();
             // $tableFiels = M('region')->getTableFields();
             // foreach ($tableFiels as $key => $val) {
             //     $regionInfo[$val] = '';
             // }
-        } else {
-            if (!empty($subDomain)){
+        } else { // 开启区域子站点
+            if (!empty($subDomain) && $subDomain != $this->eju['global']['web_mobile_domain']){
                 $regionInfo =  $this->getDomainCity($subDomain);
             }else{
                 $regionInfo =  $this->getDefaultCity();
@@ -103,9 +104,11 @@ class Common extends Controller {
         $info = [];
         if(!empty($subDomain) && $subDomain != 'www'){
             $info =  M('region')->field('*')->where(['domain'=>$subDomain,'status'=>1])->find();
+            if (empty($info)) {
+                abort(404,'页面不存在');
+            }
             $info = model('Region')->handle_info($info, false);
-        }
-        if (empty($info)){
+        } else {
             $info = $this->getDefaultCity();
         }
 

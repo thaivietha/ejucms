@@ -684,10 +684,11 @@ p.newhouse-name,p.oldhouse-name,p.newslist-name {
     margin-bottom: 0.2rem;
     width: 100%;
 }
-
+p .new{float:right;font-size:15px;color:#ff5350;font-weight:bold;margin-right:0!important;}
+p .new em{margin-right:2px;}
 p.newhouse-dz, p.newhouse-hx,p.newhouse-jg,p.oldhouse-dz, p.oldhouse-hx,p.oldhouse-jg,p.newslist-data {
     color: #626262;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     /* line-height: 1rem; */
     white-space: nowrap;
     overflow: hidden;
@@ -1939,4 +1940,182 @@ p.search-des{
 	background-color: #24c6ef;
 	color: #fff;
 	border: 1px solid #24c6ef;
+}
+
+/*二手房样式*/
+.tjlp_list_jg em{
+   font-style: normal;
+}
+.newhouse-hx span{
+	margin: 0 4px;
+}
+.agent_info{
+	padding: 10px auto;
+}
+.agent_info span{
+	margin: 0  1rem;
+}
+.agent_info img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: 0;
+}
+.agent_info .tg_jj{
+	display:inline-block;
+    color: #ffffff;
+	font-size: 1.5rem;
+    padding:0.2rem 1rem;
+    background-color: #fa5741;
+    border-radius: 1rem;
+}
+.detail-info-list2{
+	padding: 0 0.8rem;
+}
+.detail-info-list2 li {
+    font-size: 1.5rem;
+    color: #555;
+    margin: 0.6rem 0;
+	line-height: 1.5;
+}
+.detail-info-list2 li i{
+    font-style: normal;
+    margin-right: 6px;
+}
+.detail-info-list2 li span{
+	width: 50%;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.detail-info-list2 lable {
+    width: 7rem;
+	color: #999;
+	font-size: 1.5rem;
+    display: inline-block;
+}
+.detail-jieshao{
+	padding: 10px;
+	font-size: 1.4rem;
+}
+/*房屋配套图标*/
+.house-confi-point{
+	padding:1.25rem 0;
+	height: auto;
+	overflow: hidden;
+}
+.house-confi-point:after{
+    clear: both;
+    content: "";
+    display: block;
+    border-bottom: 1px solid #eee;
+    margin-bottom: .6rem;
+}
+.house-confi-point li{
+    float:left;
+    color: #686868;
+    font-size: 1.5rem;
+    width:6rem;
+    text-align: center;
+    margin-bottom: .5rem;
+	white-space:nowrap;
+}
+.house-confi-point li:before{
+  content: "";
+  display: block;
+  background: url(../images/configure_icon.png) no-repeat;
+  background-size:36rem 4.2rem;
+  width:3rem;
+  height:2rem;
+  margin:0 auto .2rem;
+}
+.house-confi-point li.chuang:before{
+  background-position:0.4rem 0;
+}
+.house-confi-point li.kongtiao:before{
+   background-position: -6.3rem 0;
+
+}
+.house-confi-point li.bingxiang:before{
+      background-position: -19.6rem 0;
+}
+.house-confi-point li.shafa:before{
+	background-position: -6.2rem -2rem;
+}
+.house-confi-point li.yangtai:before{
+   background-position: -32.7rem -2.2rem;
+
+}
+.house-confi-point li.xiyiji:before{
+       background-position: -26.2rem 0;
+}
+.house-confi-point li.weishengjian:before{
+	background-position: -26.1rem -2.2rem;
+
+}
+.house-confi-point li.chouyouyanji:before{
+      background-position: -19.4rem -2.2rem;
+
+}
+.house-confi-point li.dianshi:before{
+  background-position: 0.5rem -2.2rem;
+
+}
+.house-confi-point li.reshuiqi:before{
+  background-position: -32.8rem 0;
+
+}
+.house-confi-point li.yigui:before{
+	background-position: -12.9rem 0;
+
+}
+
+.house-confi-point li.dianti:before{
+  background-position: -12.7rem -2.2rem;
+}
+.ershou-pic{
+	display: flex;
+	display: -webkit-flex;
+	padding: 0.625rem;
+	flex-flow:wrap;
+	 -webkit-flex-flow: wrap;
+}
+.ershou-pic li{
+	width: 48%;
+	margin:1%;
+}
+.ershou-pic a{
+	position: relative;
+}
+.ershou-pic a span{
+	color: #fff;
+	text-align: center;
+	width: 100%;
+	background:rgba(0,0,0,0.6);
+	line-height: 2rem;
+	height: 2rem;
+	position: absolute;
+	bottom: 0;
+}
+/*房屋配套图标2*/
+.house-confi-point2 {
+	padding: 1.25rem 0;
+	height: auto;
+	overflow: hidden;
+}
+.house-confi-point2 li {
+    float: left;
+    color: #686868;
+    font-size: 1.5rem;
+    width: 5.8rem;
+    text-align: center;
+    margin-bottom: .8rem;
+    white-space: nowrap;
+}
+.house-confi-point2 li .ico_img{
+	height: 2.5rem;
+}
+.house-confi-point2 li .ico_img img{
+	height: 2.5rem;
 }

@@ -99,21 +99,19 @@ class Xinfang extends Model
             ->where($where)
             ->order($sort)
             ->select();
-//        $lists = model('archives')->alias("a")->join("xinfang_content b","a.aid = b.aid")->field("a.*,b.*")->where($where)->order($sort)->select();
         if($lists)
         {
-            $region = DB::name("region")->where("level=1 or level=2")->getField("id,name");
             foreach ($lists as $key => $val) {
                 $param_query['tid'] = $val['typeid'];
                 $lists[$key]['litpic'] = handle_subdir_pic($val['litpic']); // 支持子目录
-                $lists[$key]['province'] =  !empty($region[$val['province_id']])?$region[$val['province_id']]:'';
-                $lists[$key]['city'] = !empty($region[$val['city_id']])?$region[$val['city_id']]:'';
-                $lists[$key]['area'] = !empty($region[$val['area_id']])?$region[$val['area_id']]:'';
+                $lists[$key]['province'] =  !empty($val['province_id'])?get_province_name($val['province_id']):'';
+                $lists[$key]['city'] = !empty($val['city_id'])?get_city_name($val['city_id']):'';
+                $lists[$key]['area'] = !empty($val['area_id'])?get_area_name($val['area_id']):'';
                 $lists[$key]['sale_status_name'] = $val['sale_status'];
                 if ($val['is_jump'] == 1) {
                     $lists[$key]['arcurl'] = $val['jumplinks'];
                 } else {
-                    $lists[$key]['arcurl'] = arcurl("home/Xifang/index", $val);
+                    $lists[$key]['arcurl'] = arcurl("home/Xinfang/index", $val);
                 }
                 $manage_type_arr = explode(",",$val['manage_type']);
                 $lists[$key]['manage_type_name'] = '';

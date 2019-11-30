@@ -172,7 +172,7 @@ class Ajax extends Base
     public function send_email()
     {
         // 超时后，断掉邮件发送
-        function_exists('set_time_limit') && set_time_limit(5);
+        function_exists('set_time_limit') && set_time_limit(10);
 
         $type = input('param.type/s');
         
@@ -365,4 +365,133 @@ class Ajax extends Base
             M('form_value')->add($adddata);
         }
     }
+    /*
+     * 读取非本站图片
+     */
+    public function crawlerpic(){
+        header('Content-type: image/jpg');
+        $url = $_GET['url'];
+        $refer = "http://www.qq.com/";
+        $opt = [
+            'http'=>[
+                'header'=>"Referer: " . $refer
+            ]
+        ];
+        $context = stream_context_create($opt);
+        $file_contents = file_get_contents($url,false, $context);
+        echo $file_contents;
+    }
+
+    /**
+     * 检验会员登录
+     */
+    public function check_user()
+    {
+        if (IS_AJAX) {
+            $type = input('param.type/s', 'default');
+            $img = input('param.img/s');
+            if ('login' == $type) {
+                $users_id = session('users_id');
+                if (!empty($users_id)) {
+                    $currentstyle = input('param.currentstyle/s');
+                    $users = M('users')->field('username,nickname,litpic')
+                        ->where([
+                            'id'  => $users_id,
+                        ])->find();
+                    if (!empty($users)) {
+                        $nickname = $users['nickname'];
+                        if (empty($nickname)) {
+                            $nickname = $users['username'];
+                        }
+                        $head_pic = get_head_pic($users['litpic']);
+                        if ('on' == $img) {
+                            $users['html'] = "<img class='{$currentstyle}' alt='{$nickname}' src='{$head_pic}' />";
+                        } else {
+                            $users['html'] = $nickname;
+                        }
+                        $users['ey_is_login'] = 1;
+                        $this->success('请求成功', null, $users);
+                    }
+                }
+                $this->success('请先登录', null, ['ey_is_login'=>0]);
+            }
+            else if ('reg' == $type)
+            {
+                if (session('?users_id')) {
+                    $users['ey_is_login'] = 1;
+                } else {
+                    $users['ey_is_login'] = 0;
+                }
+                $this->success('请求成功', null, $users);
+            }
+            else if ('logout' == $type)
+            {
+                if (session('?users_id')) {
+                    $users['ey_is_login'] = 1;
+                } else {
+                    $users['ey_is_login'] = 0;
+                }
+                $this->success('请求成功', null, $users);
+            }
+        }
+        $this->error('访问错误');
+    }
+    /**
+     * 获取用户信息
+     */
+    public function get_tag_user_info()
+    {
+        $t_uniqid = input('param.t_uniqid/s', '');
+        if (IS_AJAX && !empty($t_uniqid)) {
+            $users_id = session('users_id');
+            if (!empty($users_id)) {
+                $users = Db::name('users')->field('b.*, a.*')
+                    ->alias('a')
+                    ->join('__USERS_LEVEL__ b', 'a.level_id = b.id', 'LEFT')
+                    ->where([
+                        'a.id' => $users_id,
+                    ])->find();
+                if (!empty($users)) {
+                    $users['reg_time'] = MyDate('Y-m-d H:i:s', $users['reg_time']);
+                    $users['update_time'] = MyDate('Y-m-d H:i:s', $users['update_time']);
+                } else {
+                    $users = [];
+                    $tableFields1 = Db::name('users')->getTableFields();
+                    $tableFields2 = Db::name('users_level')->getTableFields();
+                    $tableFields = array_merge($tableFields1, $tableFields2);
+                    foreach ($tableFields as $key => $val) {
+                        $users[$val] = '';
+                    }
+                }
+                $users['url'] = url('user/Users/centre');
+                unset($users['password']);
+                unset($users['paypwd']);
+                $dtypes = [];
+                foreach ($users as $key => $val) {
+                    $html_key = md5($key.'-'.$t_uniqid);
+                    $users[$html_key] = $val;
+
+                    $dtype = 'txt';
+                    if (in_array($key, ['head_pic'])) {
+                        $dtype = 'img';
+                    } else if (in_array($key, ['url'])) {
+                        $dtype = 'href';
+                    }
+                    $dtypes[$html_key] = $dtype;
+
+                    unset($users[$key]);
+                }
+
+                $data = [
+                    'ey_is_login'   => 1,
+                    'users'  => $users,
+                    'dtypes'  => $dtypes,
+                ];
+                $this->success('请求成功', null, $data);
+            }
+            $this->success('请先登录', null, ['ey_is_login'=>0]);
+        }
+        $this->error('访问错误');
+    }
+
 }

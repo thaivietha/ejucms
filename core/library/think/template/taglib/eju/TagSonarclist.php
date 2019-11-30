@@ -28,7 +28,7 @@ class TagSonarclist extends Base
      * 获取总数
      */
     public function getSonCount($aid = 0,$map = [],$mapkey = [],$table = '',$group = ""){
-        $aid = !empty($aid) ? $aid : $this->aid;
+//        $aid = !empty($aid) ? $aid : $this->aid;
         if (empty($table)){
             echo '标签sonarclist报错：缺少属性 table 。';
             return false;

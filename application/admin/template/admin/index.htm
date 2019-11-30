@@ -38,25 +38,25 @@
                 <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" style="width: 100%" lay-skin="line">
                   <thead >
                     <tr>
-                      <th class="w40 tc"> 
+                      <th class="w40 tc">
                         <div class="layui-table-cell w40 tc laytable-cell-checkbox">
                           <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary">
                           <div class="layui-unselect layui-form-checkbox" lay-skin="primary"> <i class="layui-icon layui-icon-ok"></i></div>
                         </div>
                       </th>
-                      <th class="w60 tc"> 
+                      <th class="w60 tc">
                         <div class="layui-table-cell w60 tc" ><span>ID</span></div>
                       </th>
-                      <th> 
+                      <th>
                         <div class="layui-table-cell wauto"><span>用户名</span></div>
                       </th>
-                      <th class="w150 tc"> 
+                      <th class="w150 tc">
                         <div class="layui-table-cell w150 tc"><span>角色</span></div>
                       </th>
-                      <th class="w180 tc"> 
+                      <th class="w180 tc">
                         <div class="layui-table-cell w180 tc"><span>最后登录时间</span></div>
                       </th>
-                      <th class="w150 tc"> 
+                      <th class="w150 tc">
                         <div class="layui-table-cell w150 tc"><span>操作</span></div>
                       </th>
                     </tr>
@@ -81,7 +81,7 @@
                            </div>
                         </td>
                         <td>
-                            <div class="layui-table-cell w60 tc"> 
+                            <div class="layui-table-cell w60 tc">
                                 {$vo.admin_id}
                             </div>
                         </td>
@@ -109,7 +109,7 @@
                             </div>
                         </td>
                         <td>
-                           <div class="layui-table-cell w150 tl right-oper"> 
+                           <div class="layui-table-cell w150 tl right-oper">
                             {eq name="'Admin@admin_edit'|is_check_access" value="1"}
                                 <a class="layui-btn btn-edit customvar_edit" data-url="{:url('Admin/admin_edit',array('id'=>$vo['admin_id']))}" data-type="admin_edit">编辑</a>
                             {/eq}

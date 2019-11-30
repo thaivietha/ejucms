@@ -50,7 +50,7 @@
     text-align: center;
 }
 .icons {
-    background-image: url({eju:global name='web_templets_pc' /}/skin/images/all.png);
+    background-image: url(../images/surroundings/all.png);
     background-repeat: no-repeat;
 }
 

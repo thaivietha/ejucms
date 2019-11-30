@@ -145,6 +145,21 @@ class ArchivesLogic extends Model
                 // 价格走势
                 $xinfangPriceRow = Db::name('xinfang_price')->field('price_id', true)->where(['aid'=>['IN', $aids]])->select();
                 $xinfangPriceRow = group_same_key($xinfangPriceRow, 'aid');
+            }else if ('xiaoqu' == $channeltypeRow['nid']){  //小区
+                $xiaoquSystemRow = Db::name('xiaoqu_system')->field('id', true)->where(['aid'=>['IN', $aids]])->select();
+                $xiaoquSystemRow = group_same_key($xiaoquSystemRow, 'aid');
+                $xiaoquPhotoRow = Db::name('xiaoqu_photo')->field('photo_id', true)->where(['aid'=>['IN', $aids]])->select();
+                $xiaoquPhotoRow = group_same_key($xiaoquPhotoRow, 'aid');
+            }else if('ershou' == $channeltypeRow['nid']){  //二手房
+                $ershouSystemRow = Db::name('ershou_system')->field('id', true)->where(['aid'=>['IN', $aids]])->select();
+                $ershouSystemRow = group_same_key($ershouSystemRow, 'aid');
+                $ershouPhotoRow = Db::name('ershou_photo')->field('photo_id', true)->where(['aid'=>['IN', $aids]])->select();
+                $ershouPhotoRow = group_same_key($ershouPhotoRow, 'aid');
+            }else if('zufang' == $channeltypeRow['nid']){  //租房
+                $zufangSystemRow = Db::name('zufang_system')->field('id', true)->where(['aid'=>['IN', $aids]])->select();
+                $zufangSystemRow = group_same_key($zufangSystemRow, 'aid');
+                $zufangPhotoRow = Db::name('zufang_photo')->field('photo_id', true)->where(['aid'=>['IN', $aids]])->select();
+                $zufangPhotoRow = group_same_key($zufangPhotoRow, 'aid');
             }
 
             foreach ($archivesRow as $key => $val) {
@@ -170,6 +185,15 @@ class ArchivesLogic extends Model
                         $imgUploadInfo = $imgUploadData = [];
                         $xinfangSystemInfo = $xinfangHuxingInfo = $xinfangPhotoInfo = $xinfangPriceInfo = [];
                         $xinfangSystemData = $xinfangHuxingData = $xinfangPhotoData = $xinfangPriceData = [];
+
+                        $xiaoquSystemInfo = $xiaoquPhotoInfo = $xiaoquPriceInfo = [];
+                        $xiaoquSystemData = $xiaoquPhotoData = $xiaoquPriceData = [];
+
+                        $ershouSystemInfo = $ershouPhotoInfo = $ershouPriceInfo = [];
+                        $ershouSystemData = $ershouPhotoData = $ershouPriceData = [];
+
+                        $zufangSystemInfo = $zufangPhotoInfo = $zufangPriceInfo = [];
+                        $zufangSystemData = $zufangPhotoData = $zufangPriceData = [];
                         if ('images' == $channeltypeRow['nid']) { // 图集模型的特性表数据
                             $imgUploadInfo = !empty($imgUploadRow[$val['aid']]) ? $imgUploadRow[$val['aid']] : [];
                         } else if ('xinfang' == $channeltypeRow['nid']) { // 新房模型的特性表数据
@@ -181,6 +205,21 @@ class ArchivesLogic extends Model
                             $xinfangPhotoInfo = !empty($xinfangPhotoRow[$val['aid']]) ? $xinfangPhotoRow[$val['aid']] : [];
                             // 价格走势
                             $xinfangPriceInfo = !empty($xinfangPriceRow[$val['aid']]) ? $xinfangPriceRow[$val['aid']] : [];
+                        }else if ('xiaoqu' == $channeltypeRow['nid']){  //小区
+                            // 中间表
+                            $xiaoquSystemInfo = !empty($xiaoquSystemRow[$val['aid']]) ? $xiaoquSystemRow[$val['aid']] : [];
+                            // 相册
+                            $xiaoquPhotoInfo = !empty($xiaoquPhotoRow[$val['aid']]) ? $xiaoquPhotoRow[$val['aid']] : [];
+                        }else if('ershou' == $channeltypeRow['nid']){
+                            // 中间表
+                            $ershouSystemInfo = !empty($ershouSystemRow[$val['aid']]) ? $ershouSystemRow[$val['aid']] : [];
+                            // 相册
+                            $ershouPhotoInfo = !empty($ershouPhotoRow[$val['aid']]) ? $ershouPhotoRow[$val['aid']] : [];
+                        }else if('zufang' == $channeltypeRow['nid']){
+                            // 中间表
+                            $zufangSystemInfo = !empty($zufangSystemRow[$val['aid']]) ? $zufangSystemRow[$val['aid']] : [];
+                            // 相册
+                            $zufangPhotoInfo = !empty($zufangPhotoRow[$val['aid']]) ? $zufangPhotoRow[$val['aid']] : [];
                         }
 
                         // 需要复制的数据与新产生的文档ID进行关联
@@ -218,6 +257,33 @@ class ArchivesLogic extends Model
                                     $pr_v['aid'] = $aid_new;
                                     $xinfangPriceData[] = $pr_v;
                                 }
+                            }else if ('xiaoqu' == $channeltypeRow['nid']){
+                                foreach ($xiaoquSystemInfo as $sys_k => $sys_v) {
+                                    $sys_v['aid'] = $aid_new;
+                                    $xiaoquSystemData[] = $sys_v;
+                                }
+                                foreach ($xiaoquPhotoInfo as $sys_k => $sys_v) {
+                                    $sys_v['aid'] = $aid_new;
+                                    $xiaoquPhotoData[] = $sys_v;
+                                }
+                            }else if('ershou' == $channeltypeRow['nid']){
+                                foreach ($ershouSystemInfo as $sys_k => $sys_v) {
+                                    $sys_v['aid'] = $aid_new;
+                                    $ershouSystemData[] = $sys_v;
+                                }
+                                foreach ($ershouPhotoInfo as $sys_k => $sys_v) {
+                                    $sys_v['aid'] = $aid_new;
+                                    $ershouPhotoData[] = $sys_v;
+                                }
+                            }else if('zufang' == $channeltypeRow['nid']){
+                                foreach ($zufangSystemInfo as $sys_k => $sys_v) {
+                                    $sys_v['aid'] = $aid_new;
+                                    $zufangSystemData[] = $sys_v;
+                                }
+                                foreach ($zufangPhotoInfo as $sys_k => $sys_v) {
+                                    $sys_v['aid'] = $aid_new;
+                                    $zufangPhotoData[] = $sys_v;
+                                }
                             }
                         }
 
@@ -237,6 +303,21 @@ class ArchivesLogic extends Model
                             !empty($xinfangPhotoData) && Db::name('xinfang_photo')->insertAll($xinfangPhotoData);
                             // 价格走势
                             !empty($xinfangPriceData) && Db::name('xinfang_price')->insertAll($xinfangPriceData);
+                        }else if ('xiaoqu' == $channeltypeRow['nid']){
+                            // 中间表
+                            !empty($xiaoquSystemData) && Db::name('xiaoqu_system')->insertAll($xiaoquSystemData);
+                            // 相册
+                            !empty($xiaoquPhotoData) && Db::name('xiaoqu_photo')->insertAll($xiaoquPhotoData);
+                        }else if('ershou' == $channeltypeRow['nid']){
+                            // 中间表
+                            !empty($ershouSystemData) && Db::name('ershou_system')->insertAll($ershouSystemData);
+                            // 相册
+                            !empty($ershouPhotoData) && Db::name('ershou_photo')->insertAll($ershouPhotoData);
+                        }else if('zufang' == $channeltypeRow['nid']){
+                            // 中间表
+                            !empty($zufangSystemData) && Db::name('zufang_system')->insertAll($zufangSystemData);
+                            // 相册
+                            !empty($zufangPhotoData) && Db::name('zufang_photo')->insertAll($zufangPhotoData);
                         }
                     }
                     else {

@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{eju:global name='web_title' /}</title>
+    <title>{$eju.field.seo_title}</title>
     <meta name="renderer" content="webkit" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
-    <meta name="description" content="{eju:global name='web_description' /}" />
-    <meta name="keywords" content="{eju:global name='web_keywords' /}" />
+    <meta name="description" content="{$eju.field.seo_description}" />
+    <meta name="keywords" content="{$eju.field.seo_keywords}" />
     <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     {eju:static file="skin/css/iconfont.css" /}
     {eju:static file="skin/css/amazeui.min.css" /}
@@ -59,6 +59,7 @@
             <a class="jj_callme" data-text="价格变动第一时间通知您。" href="#" data-am-modal="{target:'#af-user-yy'}">
                 (<i class="iconfont icon-jiangjia"></i>降价通知)
             </a>
+        </span>
         </li>
         <li> 价格有效期至：{$eju.field.price_time|myDate='Y-m-d',###} </li>
         <li><span>地址：</span>{$eju.field.address}</li>
@@ -102,10 +103,10 @@
         </li>
         <li> <span class="info-li-name">建筑类别：</span> <span class="info-li-text">{$eju.field.building_type|implode=",",###}</span> </li>
         <li> <span class="info-li-name">建筑状况：</span> <span class="info-li-text">{$eju.field.fitment|implode=",",###}</span> </li>
-        <li> <span class="info-li-name">建筑面积：</span> <span class="info-li-text">{$eju.field.building_area}㎡</span> </li>
-        <li> <span class="info-li-name">占地面积：</span> <span class="info-li-text">{$eju.field.floor_area}㎡</span> </li>
+        <li> <span class="info-li-name">建筑面积：</span> <span class="info-li-text">{$eju.field.building_area}{$eju.field.building_area_unit}</span> </li>
+        <li> <span class="info-li-name">占地面积：</span> <span class="info-li-text">{$eju.field.floor_area}{$eju.field.floor_area_unit}</span> </li>
         <li> <span class="info-li-name">物业公司：</span> <span class="info-li-text">{$eju.field.address}</span> </li>
-        <li> <span class="info-li-name">物&nbsp;业&nbsp; 费：</span> <span class="info-li-text">{$eju.field.property_fee}</span> </li>
+        <li> <span class="info-li-name">物&nbsp;业&nbsp; 费：</span> <span class="info-li-text">{$eju.field.property_fee}{$eju.field.property_fee_unit}</span> </li>
         <li> <span class="info-li-name">开&nbsp;发&nbsp; 商：</span> <span class="info-li-text">{$eju.field.developer}</span> </li>
     </ul>
 </div>
@@ -162,12 +163,10 @@
         <div class="clear"></div>
     </a> </h3>
     <div class="detail-map-wrap">
-        <div id="map_canvas123" style="width:100%;height: 300px;"></div>
-        {eju:surroundings field="$eju['field']" canvas="map_canvas123" }
+        <div id="map_canvas" style="width:100%;height: 300px;"></div>
+        {eju:surroundings field="$eju['field']" canvas="map_canvas" }
         {$field.hidden}
         {/eju:surroundings}
-
-
     </div>
 </div>
 <div class="bmkf_wrap">

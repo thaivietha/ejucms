@@ -34,7 +34,7 @@ class AppEndBehavior {
 
     private function _initialize() {
         $this->clearHtmlCache(); // 变动数据之后，清除页面缓存和数据
-        $this->sitemap(); // 自动生成sitemap
+        // $this->sitemap(); // 自动生成sitemap
     }
 
     /**
