@@ -1,0 +1,50 @@
+{
+  "code": 0
+  ,"msg": ""
+  ,"count": "11"
+  ,"data": [{
+      "title": "恒大海口文化城"
+      ,"province": "海南省"
+      ,"city": "海口"
+    }, {
+     "title": "雅居乐金沙湾"
+      ,"province": "海南省"
+      ,"city": "海口"
+    }, {
+     "title": "恒大金碧天下"
+      ,"province": "海南省"
+      ,"city": "儋州 "
+    }, {
+    "title": "恒大海口文化城"
+      ,"province": "海南省"
+      ,"city": "海口"
+    }, {
+     "title": "恒大海口文化城"
+      ,"province": "海南省"
+      ,"city": "海口"
+    }, {
+     "title": "恒大海口文化城"
+      ,"province": "海南省"
+      ,"city": "海口"
+    }, {
+     "title": "恒大海口文化城"
+      ,"province": "海南省"
+      ,"city": "海口"
+    }, {
+     "title": "恒大海口文化城"
+      ,"province": "海南省"
+      ,"city": "海口"
+	}, {
+     "title": "恒大海口文化城"
+      ,"province": "海南省"
+      ,"city": "海口"
+	}, {
+    "title": "恒大海口文化城"
+      ,"province": "海南省"
+      ,"city": "海口"
+	}, {
+     "title": "恒大海口文化城"
+      ,"province": "海南省"
+      ,"city": "海口"
+  }]
+}

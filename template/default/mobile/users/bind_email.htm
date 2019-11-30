@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+{include file="users/public_layout" /}
+<body>
+<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" >
+    <div class="layadmin-user-login-main">
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <div class="layui-form-item">
+                <label class="layadmin-user-login-icon layui-icon layui-icon-cellphone" for="email"></label>
+                <input type="text" name="email" id="email" lay-verify="email" {eq name='$users.is_email' value='0'} value="{$users.email}" {/eq} placeholder="新的邮箱地址" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-row">
+                    <div class="layui-col-xs7">
+                        <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="email_code"></label>
+                        <input type="text" name="email_code" id="email_code" lay-verify="num" placeholder="验证码" class="layui-input">
+                    </div>
+                    <div class="layui-col-xs5">
+                        <div style="margin-left: 10px;">
+                            <button type="button" class="layui-btn layui-btn-primary layui-btn-fluid" onclick="get_email_code();" id="email_button">点击发送</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="formSubmit">确  定</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+        <script>
+            function get_email_code()
+            {
+                var email = $("#email").val();
+                var reg = /^[a-z0-9]([a-z0-9\\.]*[-_]{0,4}?[a-z0-9-_\\.]+)*@([a-z0-9]*[-_]?[a-z0-9]+)+([\.][\w_-]+){1,5}$/i;
+                // 邮箱格式不正确
+                if(!reg.test(email)){
+                    layer.msg('请正确输入邮箱地址！', {time: 2000});
+                    return false;
+                }
+
+                $("#email_button").val('发送中…');
+                $("#email_button").attr('disabled', 'disabled');
+                var title = '{$title}';
+                $.ajax({
+                    url: "{eju:url link='user/Smtpmail/send_email' /}",
+                    data: {email:email,title:title,type:'bind_email',scene:3},
+                    type:'post',
+                    dataType:'json',
+                    success:function(res){
+                        if(res.code == 1){
+                            countdown();
+                            layer.msg(res.msg, {time: 2000});
+                        }else{
+                            $("#email_button").val('点击发送');
+                            $("#email_button").removeAttr("disabled");
+                            layer.alert(res.msg, {icon: 2});
+                        }
+                    },
+                    error : function() {
+                        $("#email_button").val('点击发送');
+                        $("#email_button").removeAttr("disabled");
+                        layer.alert('网络失败，请刷新页面后重试', {icon: 5});
+                    }
+                });
+            }
+            layui.config({
+                base: '__SKIN__/' //静态资源所在路径
+                ,version: '{$version}'
+            }).extend({
+                index: 'lib/index' //主入口模块
+            }).use(['index', 'set'], function(){
+                var $ = layui.$
+                    ,layer = layui.layer
+                    ,form = layui.form;
+
+                var parentObj = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                //监听提交
+                form.on('submit(formSubmit)', function(data){
+                    var load = layer_loading();
+                    data.field._ajax = 1;
+                    $.ajax({
+                        type : 'post',
+                        url : "{eju:url link='user/Users/bind_email' /}",
+                        data : data.field,
+                        dataType : 'json',
+                        success : function(res){
+                            layer.close(load); //关闭loading
+                            if(res.code == 1){
+                                parent.layer.msg(res.msg, {shade: 0.3, time: 1000}, function(){
+                                    parent.window.location.reload();
+                                    parent.layer.close(parentObj);
+                                });
+                            }else{
+                                showErrorMsg(res.msg);
+                            }
+                        },
+                        error: function(e){
+                            layer.close(load); //关闭loading
+                            showErrorAlert();
+                        }
+                    });
+                    return false;
+                });
+            });
+        </script>
+</body>
+</html>
