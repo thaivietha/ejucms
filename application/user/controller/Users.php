@@ -99,7 +99,7 @@ class Users extends Base
         }
 
         // 跳转链接
-        $referurl  =  url("user/Users/centre"); //isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : url("user/Users/centre");
+        $referurl  = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : url("user/Users/centre"); // url("user/Users/centre");
 
         $this->assign('referurl', $referurl);
 

@@ -49,10 +49,11 @@
                                 <th class="w80 tc"> <div class="layui-table-cell w80 tc"><span>启用</span></div></th>
                                 <th class="w80 tc"> <div class="layui-table-cell w80 tc"><span>级别</span></div></th>
                                 <th class="w80 tc"> <div class="layui-table-cell w80 tc"><span>排序</span></div></th>
-                                {notempty name="$web_region_domain"}
                                 <th class="w310 tc"> <div class="layui-table-cell w310 tc"><span>操作</span></div></th>
+                                {notempty name="$web_region_domain"}
+                                <!--<th class="w310 tc"> <div class="layui-table-cell w310 tc"><span>操作</span></div></th>-->
                                 {else /}
-                                <th class="w230 tc"> <div class="layui-table-cell w230 tc"><span>操作</span></div></th>
+                                <!--<th class="w230 tc"> <div class="layui-table-cell w230 tc"><span>操作</span></div></th>-->
                                 {/notempty}
                             </tr>
                             </thead>
@@ -94,19 +95,19 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="layui-table-cell {notempty name='$web_region_domain'}w310{else /}w230{/notempty} tl right-oper nav-more">
+                                    <div class="layui-table-cell {notempty name='$web_region_domain'}w310{else /}w310{/notempty} tl right-oper nav-more">
                                         {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
                                         <a data-url="{:url('Region/edit',array('id'=>$vo['id']))}" class="layui-btn btn-edit customvar_edit" data-type="Region_edit" >
                                             编辑
                                         </a>
                                         {/eq}
                                         <a  href="{:url('Region/index',array('pid'=>$vo['id']))}"  class="layui-btn btn-primary">查看下级</a>
+                                        {if condition="($vo.is_default eq 1)"}
+                                        <a  class="layui-btn btn-del" href="javascript:;">默认区域</a>
+                                        {else /}
+                                        <a  class="layui-btn btn-primary" href="javascript:;"   onClick="changeSortOrder('{$vo.id}');">设为默认</a>
+                                        {/if}
                                         {notempty name="$web_region_domain"}
-                                            {if condition="($vo.is_default eq 1)"}
-                                            <a  class="layui-btn btn-del" href="javascript:;">默认区域</a>
-                                            {else /}
-                                            <a  class="layui-btn btn-primary" href="javascript:;"   onClick="changeSortOrder('{$vo.id}');">设为默认</a>
-                                            {/if}
                                         {/notempty}
                                         {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
                                         <a href="javascript:void(0);" class="layui-btn btn-primary" data-url="{:url('Region/del')}" data-id="{$vo.id}" onClick="delfun(this);">删除</a> 

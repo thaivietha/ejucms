@@ -48,7 +48,7 @@ class AuthRoleBehavior
     {
         if (0 < intval(self::$admin_info['role_id'])) {
             // 检测全局的增、改、删的权限——优先级最高
-            $this->cud_access();
+//            $this->cud_access();
             // 检测每个小插件的权限
             $this->weapp_access();
             // 检测栏目管理的每个栏目权限

@@ -174,7 +174,9 @@
 
                         </div>
                     </div>
+                    {eq name="'RecycleBin@archives_index'|is_check_access" value="1"}
                     <a class="layui-btn layui-btn-primary" lay-href="{:url('RecycleBin/archives_index')}" title="回收站"><i class="layui-icon layui-icon-delete"></i>回收站</a>
+                    {/eq}
                 </div>
                 <!--分页-->
 

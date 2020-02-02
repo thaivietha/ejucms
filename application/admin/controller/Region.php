@@ -288,7 +288,7 @@ class Region extends Base
      */
     private function setIsDefault($id){
         $subdomain = Db::name('region')->where(['id'=>$id])->getField('domain');
-        if (empty($subdomain)) {
+        if ($this->web_region_domain && empty($subdomain)) {    //如果为开启状态，且二级域名为空，不允许设置
             return false;
         }
         $is_true = Db::name('region')->where(['id'=>$id])->update(['is_default'=>1]);

@@ -102,7 +102,7 @@
 <div class="af-px">
   <div class="af-px-left">
     <ul>
-      <li class="js-tabtoggle tab" toggle="0"><i class="iconfont af-icon-sort"></i>全部楼盘</li>
+      <li class="js-tabtoggle tab" toggle="0"><i class="iconfont af-icon-sort"></i>全部楼盘(<i id="countlist"></i>个)</li>
       <li class="js-tabtoggle" toggle="1"><i class="iconfont af-icon-appstore"></i>户型图模式</li>
     </ul>
   </div>
@@ -184,6 +184,13 @@
     {/eju:list}
   </ul>
 </div>
+<div style="display: none" id="countlist_none" data-count="{eju:countlist /}"></div>
+<script  type="text/javascript">
+  $(function(){
+      var count = $("#countlist_none").data("count");
+      $("#countlist").html(count);
+  });
+</script>
 <!--页码-->
 <div class="page-box">
   <ul class="pagination">

@@ -41,7 +41,19 @@ class Images extends Base
         $typeid = input('typeid/d', 0);
         $begin = strtotime(input('add_time_begin'));
         $end = strtotime(input('add_time_end'));
-
+        $admin_info = session('admin_info');
+        $auth_role_info = [];
+        if (0 < intval($admin_info['role_id'])) {
+            $auth_role_info = $admin_info['auth_role_info'];
+            if(! empty($auth_role_info)){
+                if(isset($auth_role_info['only_oneself']) && 1 == $auth_role_info['only_oneself']){
+                    $condition['a.admin_id'] = $admin_info['admin_id'];
+                }
+                if(!empty($auth_role_info['permission']['arctype'])){
+                    $condition['a.typeid'] = array('IN', $auth_role_info['permission']['arctype']);
+                }
+            }
+        }
         // 应用搜索条件
         foreach (['keywords','typeid','flag'] as $key) {
             if (isset($param[$key]) && $param[$key] !== '') {
@@ -51,22 +63,9 @@ class Images extends Base
                     $typeid = $param[$key];
                     $hasRow = model('Arctype')->getHasChildren($typeid);
                     $typeids = get_arr_column($hasRow, 'id');
-                    /*权限控制 by 小虎哥*/
-                    $admin_info = session('admin_info');
-                    if (0 < intval($admin_info['role_id'])) {
-                        $auth_role_info = $admin_info['auth_role_info'];
-                        if(! empty($auth_role_info)){
-                            if(isset($auth_role_info['only_oneself']) && 1 == $auth_role_info['only_oneself']){
-                                $condition['a.admin_id'] = $admin_info['admin_id'];
-                            }
-                            if(! empty($auth_role_info['permission']['arctype'])){
-                                if (!empty($typeid)) {
-                                    $typeids = array_intersect($typeids, $auth_role_info['permission']['arctype']);
-                                }
-                            }
-                        }
+                    if(!empty($auth_role_info['permission']['arctype']) && !empty($typeids)){
+                        $typeids = array_intersect($typeids, $auth_role_info['permission']['arctype']);
                     }
-                    /*--end*/
                     $condition['a.typeid'] = array('IN', $typeids);
                 } else if ($key == 'flag') {
                     $condition['a.'.$param[$key]] = array('eq', 1);
@@ -144,7 +143,21 @@ class Images extends Base
         $typeid = input('typeid/d', 0);
         $begin = strtotime(input('add_time_begin'));
         $end = strtotime(input('add_time_end'));
-
+        /*权限控制 by 小虎哥*/
+        $admin_info = session('admin_info');
+        $auth_role_info = [];
+        if (0 < intval($admin_info['role_id'])) {
+            $auth_role_info = $admin_info['auth_role_info'];
+            if(! empty($auth_role_info)){
+                if(isset($auth_role_info['only_oneself']) && 1 == $auth_role_info['only_oneself']){
+                    $condition['a.admin_id'] = $admin_info['admin_id'];
+                }
+                if(!empty($auth_role_info['permission']['arctype'])){
+                    $condition['a.typeid'] = array('IN', $auth_role_info['permission']['arctype']);
+                }
+            }
+        }
+        /*--end*/
         // 应用搜索条件
         foreach (['keywords','typeid','flag'] as $key) {
             if (isset($param[$key]) && $param[$key] !== '') {
@@ -154,22 +167,9 @@ class Images extends Base
                     $typeid = $param[$key];
                     $hasRow = model('Arctype')->getHasChildren($typeid);
                     $typeids = get_arr_column($hasRow, 'id');
-                    /*权限控制 by 小虎哥*/
-                    $admin_info = session('admin_info');
-                    if (0 < intval($admin_info['role_id'])) {
-                        $auth_role_info = $admin_info['auth_role_info'];
-                        if(! empty($auth_role_info)){
-                            if(isset($auth_role_info['only_oneself']) && 1 == $auth_role_info['only_oneself']){
-                                $condition['a.admin_id'] = $admin_info['admin_id'];
-                            }
-                            if(! empty($auth_role_info['permission']['arctype'])){
-                                if (!empty($typeid)) {
-                                    $typeids = array_intersect($typeids, $auth_role_info['permission']['arctype']);
-                                }
-                            }
-                        }
+                    if(!empty($auth_role_info['permission']['arctype']) && !empty($typeids)){
+                        $typeids = array_intersect($typeids, $auth_role_info['permission']['arctype']);
                     }
-                    /*--end*/
                     $condition['a.typeid'] = array('IN', $typeids);
                 } else if ($key == 'flag') {
                     $condition['a.'.$param[$key]] = array('eq', 1);
@@ -506,6 +506,18 @@ class Images extends Base
         if (empty($info)) {
             $this->error('数据不存在，请联系管理员！');
             exit;
+        }
+        $admin_info = session('admin_info');
+        if (0 < intval($admin_info['role_id'])) {
+            $auth_role_info = $admin_info['auth_role_info'];
+            if(! empty($auth_role_info)){
+                if(isset($auth_role_info['only_oneself']) && 1 == $auth_role_info['only_oneself'] && $admin_info['admin_id'] != $info['admin_id']){
+                    $this->error('您不能操作其他人文档');
+                }
+                if(!empty($auth_role_info['permission']['arctype']) && !in_array($info['typeid'],$auth_role_info['permission']['arctype'])){
+                    $this->error('您没有权限操作该文档数据');
+                }
+            }
         }
         /*兼容采集没有归属栏目的文档*/
         if (empty($info['channel'])) {

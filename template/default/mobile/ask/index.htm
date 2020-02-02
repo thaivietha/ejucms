@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>问答中心</title>
+    <meta name="renderer" content="webkit" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+    <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    {eju:static file="ask/skin/css/eyoucms.css"/}
+    {eju:static file="ask/skin/css/ask.css" /}
+
+    {eju:static file="/public/static/common/js/jquery.min.js"/}
+</head>
+
+<body class="askpn" style="">
+<!-- 头部 -->
+{eju:include file="ask/ask_header.htm" /}
+<!-- END -->
+<main class="mian-body container">
+    <aside class="aside-left col-md-9">
+        <!-- 栏目导航、搜索 -->
+        {eju:include file="ask/hotsearch.htm" /}
+        <!-- END -->
+
+        <!-- 最新、推荐、待回答 -->
+        <div class="article-nav">
+            {eju:empty name="$eju.field.PendingAsk"}
+                {eju:empty name="$eju.field.SearchName"}
+                    {eju:empty name='$eju.field.TypeId'}
+                        <span {eju:eq name="$eju.field.IsRecom" value="0"}class="act"{/eju:eq} onclick="window.location.href='{$eju.field.NewDateUrl}'">最新</span>
+                        <span {eju:eq name="$eju.field.IsRecom" value="1"}class="act"{/eju:eq}onclick="window.location.href='{$eju.field.RecomDateUrl}'">推荐</span>
+                    {eju:else/}
+                        <span class="act 1">{$eju.field.TypeName}</span>
+                    {/eju:empty}
+                {eju:else/}
+                    <span class="act 2">{$eju.field.SearchNameRed}</span>
+                {/eju:empty}
+            {eju:else/}
+                <span onclick="window.location.href='{$eju.field.NewDateUrl}'">最新</span>
+                <span onclick="window.location.href='{$eju.field.RecomDateUrl}'">推荐</span>
+                <span class="act 3">{$eju.field.PendingAsk}</span>
+            {/eju:empty}
+            <button onclick="window.location.href='{$eju.field.PendingAnswerUrl}';">
+                <i class="fa icon-TobeAnswered"></i>待回答
+            </button>
+        </div>
+        <!-- END -->
+
+        <!-- 问题列表数据 -->
+        <div class="article-list" id="newDiv">
+            <ul class="article-ul">
+                {eju:empty name="$eju.field.AskData"}
+                    <div class="huifu-edit">
+                        <div class="huifu-null" > <p style="margin-top: 10px;">没有符合条件的问题！</p> </div>
+                    </div>
+                {eju:else/}
+                    {eju:volist name="$eju.field.AskData" id="vo"}
+                    <li class="article-list-item">
+                        <a class="list-avter user_card avatar" href="javascript:void(0);">
+                            <img src="{$vo.litpic}">
+                            <i class="svip"></i>
+                        </a>
+                        <div>
+                            <a href="{$vo.AskUrl}" class="went-head">
+                                {eju:eq name="$eju.field.IsRecom" value="1"}
+                                    {eju:eq name="$vo.is_recom" value='1'}
+                                        <span class="jxuan"><i class="fa icon-best"></i>推荐</span>
+                                    {/eju:eq}
+                                {/eju:eq}
+                                <span class="went-head-text">{$vo.ask_title}</span>
+                            </a>
+                            <div class="tx-list">
+                                {eju:volist name="$vo.HeadPic" id="pic"}
+                                <a href="javascript:void(0);">
+                                    <img src="{$pic.litpic}">
+                                </a>
+                                {/eju:volist}
+                                <i class="fa icon-people-more" style="font-size:20px;color:#e5e5e5;margin-right: 10px;"></i>
+                                <div class="list-text">
+                                    {$vo.UsersConut} | {$vo.add_time} |
+                                    <a href="{$vo.TypeUrl}" target="_blank">{$vo.type_name}</a>
+                                </div>
+                                <div style=" flex-grow:1 "></div>
+                                <div class="more-info">
+                                    <span style="margin-right:5px">
+                                        <i class="icon wb-eye"></i>{$vo.click}
+                                    </span> |
+                                    <span style="margin-left:5px">
+                                        <i class="fa fa-comments-o"></i>{$vo.replies}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {/eju:volist}
+                {/eju:empty}
+            </ul>
+        </div>
+        {$eju.field.pageStr}
+        <!-- END -->
+    </aside>
+
+    <!-- 右侧 -->
+    <aside class="aside-right col-md-3">
+        <!-- 个人信息 -->
+        <div class="wt-opti">
+            {eju:notempty name="$users.nickname"}
+            <div class="people-info">
+                <a class="user_card" href="{$eju.field.UsersIndexUrl}" target="_blank">
+                    <img src="{$users.litpic}" style="width:40px;height:40px;border-radius:100%;cursor: pointer">
+                </a>
+                <div class="people-info-a">
+                    <h3>{$users.nickname}</h3>
+                    <div></div>
+                </div>
+            </div>
+            {/eju:notempty}
+            <div class="people-btn">
+                <button class="act tw" onclick="window.location.href='{$eju.field.AddAskUrl}';">
+                    <i class="fa fa-edit"></i>我要提问
+                </button>
+            </div>
+        </div>
+        <!-- END -->
+
+        <!-- 热门帖子 -->
+        {eju:include file="ask/hotpost.htm" /}
+        <!-- END -->
+    </aside>
+    <!-- END -->
+</main>
+</body>
+</html>

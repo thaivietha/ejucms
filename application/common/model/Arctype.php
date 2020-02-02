@@ -612,7 +612,7 @@ class Arctype extends Model
                 }
 
                 /*同步栏目ID到权限组，默认是赋予该栏目的权限*/
-                model('AuthRole')->syn_auth_role($insertId);
+//                model('AuthRole')->syn_auth_role($insertId);
                 /*--end*/
             }
         }

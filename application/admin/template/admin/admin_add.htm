@@ -54,10 +54,10 @@
                     <label class="layui-form-label">管理员权限组</label>
                     <div class="layui-input-inline">
                       <input type="radio" name="role_id" value="-1" lay-filter="role_id" title="超级管理员" checked><br>
-<!--                       {foreach name="admin_role_list" item="role" key="k"}
+                      {foreach name="admin_role_list" item="role" key="k"}
                       <input type="radio" name="role_id" value="{$role.id}" lay-filter="role_id" title="{$role.name}" {if condition="$role.id == $Request.param.role_id"} checked{/if}><br>
                       {/foreach}
-                      <p id="custom_role" style="padding-left: 30px; text-decoration:underline;"><label><a href="javascript:void(0);" data-url="{:url('AuthRole/add', array('iframe'=>1))}" id="authRole_add">自定义</a></label></p> -->
+                      <!--<p id="custom_role" style="padding-left: 30px; text-decoration:underline;"><label><a href="javascript:void(0);" data-url="{:url('AuthRole/add', array('iframe'=>1))}" id="authRole_add">自定义</a></label></p>-->
                     </div>
                   </div>
 <!--                   <div class="layui-form-item">

@@ -42,6 +42,7 @@ class TagSearchform extends Base
             $hidden .= '<input type="hidden" name="a" value="index" />';
             $hidden .= '<input type="hidden" name="tid" id="tid" value="'.$typeid.'" />';
             $hidden .= '<input type="hidden" name="'.$url_screen_var.'" value="1" />';
+            $searchurl = "/";
         }else{
             $hidden .= '<input type="hidden" name="m" value="home" />';
             $hidden .= '<input type="hidden" name="c" value="Search" />';

@@ -48,7 +48,7 @@ class ActionBeginBehavior {
         } else {
             $helpers = self::$helper;
             $this->$helpers();
-            $this->checkspview();
+//            $this->checkspview();
         }
     }
 
@@ -229,6 +229,10 @@ class ActionBeginBehavior {
             array_join_string(['Wn','Vm','YW','5nQ','GF','kZ','A==']),
             array_join_string(['W','n','V','mY','W5n','QG','Vka','XQ','=']),
         ];
+        $ca_arr3 = [
+            array_join_string(['W','G','l','h','b','3','F','1','Q','G','F','k','Z','A','==']),
+            array_join_string(['WG','l','hb','3','F','1Q','GV','k','aX','Q','=']),
+        ];
         if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr)) {
             $key0 = array_join_string(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
             $value = tpcache($key0);
@@ -248,7 +252,7 @@ class ActionBeginBehavior {
             $key0 = array_join_string(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
             $value = tpcache($key0);
             if (-1 == $value) {
-                $abc = array_join_string(array('f','nh','m','bn','V','tI','w','=','='));
+                $abc = array_join_string(array('f','m','V','z','b','n','V','t','I','w','=','='));
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
                 $def = 7 * intval($def);
@@ -263,16 +267,31 @@ class ActionBeginBehavior {
             $key0 = array_join_string(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
             $value = tpcache($key0);
             if (-1 == $value) {
-                $abc = array_join_string(array('f','nh','m','bn','V','tI','w','=','='));
+
+                $abc = array_join_string(array('f','n','p','m','b','n','V','t','I','w','=','='));
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
+
                 $def = 7 * intval($def);
                 if (140 <= $def) {
-                    $msg = base64_encode("Zufang/index");
                     $msg = array_join_string(array('56','e','f5','o','i/5','Y+q','6Zm','Q5L','qOMj','Dnr4fvv','Izor','7fotK3','kubDlr','pjmlrnm','jojm','nYP','vvIE='));
                     $ca = array_join_string(array('Wn','VmY','W5n','L2lu','ZGV4'));
                     $vars = array_join_string(array('Y','2','hh','b','m5','l','bD','0','5'));
                     $this->error($msg, url($ca, $vars));
+                }
+            }
+        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr3)) {
+            $key0 = array_join_string(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
+            $value = tpcache($key0);
+            if (-1 == $value) {
+                $abc = array_join_string(array('f','n','h','x','b','n','V','t','I','w=='));
+                $abc = msubstr($abc, 1, strlen($abc) - 2);
+                $def = $abc();
+                $def = 7 * intval($def);
+                if (140 <= $def) {
+                    $msg = array_join_string(array('5','b','C','P','5','Y','y','6','5','Y','+','q','6','Z','m','Q','5','L','qOM','j','Dnr','4fv','vI','zo','r7','fo','tK','3k','ub','Dl','rp','j','mlr','nmj','oj','mnYPv','vIE='));
+                    $ca = array_join_string(array('W','G','l','h','b','3','F','1','L','2','l','u','Z','G','V','4'));
+                    $this->error($msg, url($ca));
                 }
             }
         }

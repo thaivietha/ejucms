@@ -14,12 +14,14 @@
                   <div carousel-item>
                     <ul class="layui-row layui-col-space10">
                       {volist name='$contentTotal' id='vo' length='7'}
+                      {notempty name="$vo.is_menu"}
                       <li class="layui-col-xs4 layui-col-md3">
                         <a lay-href="{:url($vo.controller.'/'.$vo.action, $vo.vars)}" lay-text="{$vo.laytext}" class="layadmin-backlog-body">
                           <h3>{$vo.title}</h3>
                           <p><cite>{$vo.total|default='0'}</cite></p>
                         </a>
                       </li>
+                      {/notempty}
                       {/volist}
                       <li class="layui-col-xs4 layui-col-md3">
                         <a href="javascript:;" id="contentTotalAdd" class="layadmin-backlog-body">
@@ -96,11 +98,13 @@
                 <div class="console-menu">
                    <ul class="layui-row layui-col-space10">
                     {volist name='$quickMenu' id='vo'}
+                     {notempty name="$vo.is_menu"}
                       <li class="layui-col-xs3 layui-col-md2">
                         <a lay-href="{:url($vo.controller.'/'.$vo.action, $vo.vars)}" lay-text="{$vo.laytext}">
                           <i class="layui-icon"><cite>{$vo.title}</cite></i>
                         </a>
                       </li>
+                     {/notempty}
                     {/volist}
                     <li class="layui-col-xs3 layui-col-md2">
                         <a href="javascript:void(0);" id="quickMenuAdd">

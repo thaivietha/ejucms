@@ -362,13 +362,17 @@ if (!function_exists('group_same_key'))
      * array('pay'=>array( array('name'=>'aa','type'=>'pay') , array('name'=>'cc','type'=>'pay') ))
      * @param $arr 数组
      * @param $key 分组值的key
+     * @param $count 每个子数组最多个数   ---  为0或者为空表示不限制个数
      * @return array
      */
-    function group_same_key($arr,$key){
+    function group_same_key($arr,$key,$count = 0){
         $new_arr = array();
         foreach($arr as $k=>$v ){
-            $new_arr[$v[$key]][] = $v;
+            if (empty($count) || count($new_arr[$v[$key]]) < $count ){
+                $new_arr[$v[$key]][] = $v;
+            }
         }
+
         return $new_arr;
     }
 }
@@ -1609,7 +1613,8 @@ if (!function_exists('MyDate'))
         if (!empty($t)) {
             $t = date($format, $t);
         }
-        return $t;
+
+        return $t ? $t : '';
     }
 }
 

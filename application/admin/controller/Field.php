@@ -447,7 +447,7 @@ class Field extends Base
             $sql = " ALTER TABLE `$table` CHANGE COLUMN `{$old_name}` $ntabsql ";
             if (false !== Db::execute($sql)) {
                 //将空数据变更为默认值
-                $update_sql = "UPDATE `$table` SET `{$post['name']}` ='$new_dfvalue' WHERE `{$post['name']}`=0 or `{$post['name']}`='' or `{$post['name']}` is NULL";
+                $update_sql = "UPDATE `$table` SET `{$post['name']}` ='$new_dfvalue' WHERE `{$post['name']}`='0' or `{$post['name']}`='' or `{$post['name']}` is NULL;";
                 Db::execute($update_sql);
                 /*保存更新字段的记录$table*/
                 if (!empty($post['region_data'])) {

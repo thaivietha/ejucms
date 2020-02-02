@@ -246,6 +246,43 @@
     </div>
     <div class="xc_bt">显示更多图片</div>
 </div>
+<!-- 楼盘问答 -->
+{eju:ask id="field" bestanswer="off"}
+{$field.hidden}
+<div class="nh_zbpt lpwd" id="lpwd">
+    <div class="head">
+        <h2 class="nh_head">楼盘问答</h2>
+        <a target="_blank" href="{$field.AddAskUrl}">
+            我要提问
+        </a>
+    </div>
+    <div class="con_box">
+        <ul class="list">
+            {eju:volist name="$field.AskData" id="vo"}
+            <li>
+                <div class="asking">
+                    <div class="aico">问</div>
+                    <div class="acon">
+                        <a class="asking-tit" target="_blank" href="{$vo.AskUrl}">{$vo.ask_title}</a>
+                        <p>{$vo.content}</p>
+                    </div>
+                </div>
+                {eju:volist name="$vo.AnswerData" id="vo2"}
+                <div class="answer">
+                    <div class="aico">答</div>
+                    <div class="acon">
+                        <p>{$vo2.content}</p>
+                    </div>
+                </div>
+                {/eju:volist}
+            </li>
+            {/eju:volist}
+        </ul>
+    </div>
+</div>
+{/eju:ask}
+
+
 <!-- 周边配套 -->
 <div class="nh_zbpt" id="zbpt">
     <h2 class="nh_head">周边配套</h2>

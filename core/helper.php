@@ -710,12 +710,35 @@ if (!function_exists('array_join_string')) {
     
 if (!function_exists('xfnum')) {
     function xfnum() {
-        $total = \think\Db::name('archives')->where(['channel'=>9,'is_del'=>0])
+        $total = \think\Db::name('archives')->where(['channel'=>9])  //,'is_del'=>0
             ->count();
         return $total;
     }
 }
-
+if (!function_exists('esnum')) {
+    function esnum() {
+        $channel_id = \think\Db::name('channeltype')->where("nid='ershou'")->getField('id');
+        $total = \think\Db::name('archives')->where(['channel'=>$channel_id])
+            ->count();
+        return $total;
+    }
+}
+if (!function_exists('zfnum')) {
+    function zfnum() {
+        $channel_id = \think\Db::name('channeltype')->where("nid='zufang'")->getField('id');
+        $total = \think\Db::name('archives')->where(['channel'=>$channel_id])
+            ->count();
+        return $total;
+    }
+}
+if (!function_exists('xqnum')) {
+    function xqnum() {
+        $channel_id = \think\Db::name('channeltype')->where("nid='xiaoqu'")->getField('id');
+        $total = \think\Db::name('archives')->where(['channel'=>$channel_id])
+            ->count();
+        return $total;
+    }
+}
 if (!function_exists('token')) {
     /**
      * 生成表单令牌

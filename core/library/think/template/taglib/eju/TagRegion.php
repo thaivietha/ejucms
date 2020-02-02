@@ -30,6 +30,8 @@ class TagRegion extends Base
     public $orderby;
     public $orderway = 'desc';
     public $ishot;
+    public $typeid = '';
+    public $channel = '';
 
     //初始化
     protected function _initialize()
@@ -47,7 +49,7 @@ class TagRegion extends Base
      * @param boolean $self 包括自己本身
      * @author wengxianhu by 2018-4-26
      */
-    public function getRegion($type = 'top', $currentstyle = '', $opencity = '', $domain = '', $orderby = '', $orderway = '', $ishot = '')
+    public function getRegion($type = 'top', $currentstyle = '', $opencity = '', $domain = '', $orderby = '', $orderway = '', $ishot = '',$typeid = '',$channel = '')
     {
         $this->currentstyle = $currentstyle;
         $this->opencity = !empty($opencity) ? explode(',', str_replace('，', ',', $opencity)) : [];
@@ -78,6 +80,8 @@ class TagRegion extends Base
                 $this->orderby = "sort_order asc, initial asc, id asc";
                 break;
         }
+        !empty($typeid) && $this->typeid = $typeid;
+        !empty($channel) && $this->channel = $channel;
         $result = $this->getSwitchRegion($domains, $type);
 
         return $result;
@@ -120,7 +124,14 @@ class TagRegion extends Base
     public function getSon($domain, $self = false)
     {
         $result = [];
-        $firstTypeid = model('Arctype')->getFristTypeid(9); // 指定模型的第一个区域ID
+        if (!empty($this->typeid)){
+            $firstTypeid = $this->typeid;
+        }else if (!empty($this->channel)){
+            $firstTypeid = model('Arctype')->getFristTypeid($this->channel); // 指定模型的第一个区域ID
+        }else{
+            $firstTypeid = model('Arctype')->getFristTypeid(9); // 指定模型的第一个区域ID
+        }
+
         /*获取当前或者指定的区域*/
         $row = M('region')->field($this->field)
             ->where([
@@ -320,7 +331,13 @@ class TagRegion extends Base
      */
     public function getTop($domain = [])
     {
-        $firstTypeid = model('Arctype')->getFristTypeid(9); // 指定模型的第一个区域ID
+        if (!empty($this->typeid)){
+            $firstTypeid = $this->typeid;
+        }else if (!empty($this->channel)){
+            $firstTypeid = model('Arctype')->getFristTypeid($this->channel); // 指定模型的第一个区域ID
+        }else{
+            $firstTypeid = model('Arctype')->getFristTypeid(9); // 指定模型的第一个区域ID
+        }
 
         /*获取一级区域*/
         $map = [

@@ -125,7 +125,6 @@ class Archives extends Base
         $assign_data['arctype_list'] = !empty($arctype_list[0]) ? $arctype_list[0] : [];
         $assign_data['arctype_html'] = allow_release_arctype($typeid, array());
 
-
         $this->assign($assign_data);
 
 

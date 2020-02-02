@@ -17,6 +17,7 @@ use app\admin\controller\Base;
 use think\Controller;
 use think\Db;
 use app\admin\logic\FieldLogic;
+use think\image\Exception;
 
 class Index extends Base
 {
@@ -30,7 +31,6 @@ class Index extends Base
         $this->assign('home_url', $this->request->domain().ROOT_DIR.'/');
         $this->assign('admin_info', getAdminInfo(session('admin_id')));
         $this->assign('menu',getMenuList());
-
         return $this->fetch();
     }
 
@@ -61,6 +61,14 @@ class Index extends Base
                 'checked'   => 1,
                 'status'    => 1,
             ])->order('sort_order asc, id asc')->select();
+        foreach ($quickMenu as $key=>$val){
+            $check = is_check_access($val['controller']."@".$val['action']);
+            if ($check){
+                $quickMenu[$key]['is_menu'] = 1;
+            }else{
+                continue;
+            }
+        }
         $this->assign('quickMenu',$quickMenu);
         // 内容统计
         $contentTotal = $this->contentTotalList();
@@ -82,6 +90,38 @@ class Index extends Base
         if (!tpCache('system.system_channeltype_unit')){
             $fieldLogic->synChannelUnit();
             tpCache('system', ['system_channeltype_unit'=>1]);
+        }
+        //升级成功后，更新问答体系
+        $question = tpCache("question");
+        if (empty($question['question_acrtype'])){
+            $seo = tpCache("seo");
+            if (1 == $seo['seo_pseudo']) {
+                $HomeAskUrl = $this->root_dir.'/index.php?m=home&c=Ask&a=index';
+            } else {
+                $HomeAskUrl = $this->root_dir.'/ask.html'; //url('home/Ask/index', [], true, false, $seo['seo_pseudo'], 1);
+            }
+            $arctype['channeltype'] = -1;
+            $arctype['current_channel'] = -1;
+            $arctype['typename'] = '问答';
+//            $arctype['dirname'] = 'ask';
+//            $arctype['dirpath'] = '/ask';
+            $arctype['typelink'] =  $HomeAskUrl;
+            $arctype['sort_order'] = 100;
+            $arctype['is_part'] = 1;
+            $arctype['is_hidden'] = 1;
+            $arctype['admin_id'] = -1;
+            $arctype['add_time'] = getTime();
+            $arctype['update_time'] = getTime();
+            try{
+                $r = Db::name("arctype")->insertGetId($arctype);
+                if ($r){
+                    tpCache('question', ['question_acrtype'=>1]);
+                    \think\Cache::clear('arctype');
+                }
+            }catch (\Exception $e){
+
+            }
+
         }
 
         return $this->fetch();
@@ -147,6 +187,12 @@ class Index extends Base
                 'status'    => 1,
             ])->order('sort_order asc, id asc')->select();
         foreach ($quickentryList as $key => $val) {
+            $check = is_check_access($val['controller']."@".$val['action']);
+            if ($check){
+                $quickentryList[$key]['is_menu'] = 1;
+            }else{
+                continue;
+            }
             $code = $val['controller'].'@'.$val['action'].'@'.$val['vars'];
             if ($code == 'Form@index@') // 用户报名
             {

@@ -347,10 +347,10 @@ class RecycleBin extends Base
                 $typeidArr = array_unique($typeidArr);
                 foreach ($typeidArr as $key => $val) {
                     $pidArr = model('Arctype')->getAllPid($val);
+                    $typeids[] = $val;
                     $typeids = array_merge($typeids, get_arr_column($pidArr, 'id'));
                 }
                 $typeids = array_unique($typeids);
-
                 if (!empty($typeids)) {
                     // 还原数据
                     $r = $this->arctype->where([

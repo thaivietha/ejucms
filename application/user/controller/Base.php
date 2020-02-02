@@ -31,7 +31,6 @@ class Base extends Common {
 
         if(session('?users_id'))
         {
-
             $this->users_id = session('users_id');
             $this->users = $this->getUserInfo($this->users_id);
             $this->assign('users_id',$this->users_id);

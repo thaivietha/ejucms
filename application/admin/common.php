@@ -118,58 +118,164 @@ if (!function_exists('get_auth_rule'))
         return $auth_rule;
     }
 }
+/*
+ * 检测不需要权限的
+ */
+if(!function_exists('is_uneed_check_access')){
+    function is_uneed_check_access($str = 'Index@index'){
+        $arr = explode('@', $str);
+        $ctl = !empty($arr[0]) ? $arr[0] : '';
+        $ctl_all = $ctl.'@*';
+        $filter_login_action = config('filter_login_action');
+        if (in_array($str, $filter_login_action) || in_array($ctl_all, $filter_login_action)) {
+            return true;
+        }
+        $uneed_check_action = config('uneed_check_action');
+        if (in_array($str, $uneed_check_action) || in_array($ctl_all, $uneed_check_action)) {
+            return true;
+        }
 
-if (!function_exists('is_check_access')) 
-{
-    /**
-     * 检测是否有该权限
-     */
-    function is_check_access($str = 'Index@index') {  
-        $bool_flag = 1;
-        $role_id = session('admin_info.role_id');
-        if (0 < intval($role_id)) {
-            $ctl_act = strtolower($str);
-            $arr = explode('@', $ctl_act);
-            $ctl = !empty($arr[0]) ? $arr[0] : '';
-            $act = !empty($arr[1]) ? $arr[1] : '';
-            $ctl_all = $ctl.'@*';
+        return false;
+    }
+}
+/*
+ * 检测增删改审核权限
+ *
+ */
+if (!function_exists('is_cud_check_access')){
+    function is_cud_check_access($str = 'Index@index'){
+        $ctl_act = strtolower($str);
+        $arr = explode('@', $ctl_act);
+        $ctl = !empty($arr[0]) ? $arr[0] : '';
+        $act = !empty($arr[1]) ? $arr[1] : '';
+        $actArr = ['add','edit','del'];
+        $admin_info = session('admin_info');
+        $auth_role_info = !empty($admin_info['auth_role_info']) ? $admin_info['auth_role_info'] : [];
+        $cudArr = !empty($auth_role_info['cud']) ? $auth_role_info['cud'] : [];
 
-            $auth_role_info = session('admin_info.auth_role_info');
-            $permission = $auth_role_info['permission'];
-            $permission_rules = !empty($permission['rules']) ? $permission['rules'] : [];
-
-            $auth_rule = get_auth_rule();
-            $all_auths = []; // 系统全部权限对应的菜单ID
-            $admin_auths = []; // 用户当前拥有权限对应的菜单ID
-            $diff_auths = []; // 用户没有被授权的权限对应的菜单ID
-            foreach($auth_rule as $key => $val){
-                $all_auths = array_merge($all_auths, explode(',', strtolower($val['auths'])));
-                if (in_array($val['id'], $permission_rules)) {
-                    $admin_auths = array_merge($admin_auths, explode(',', strtolower($val['auths'])));
+        if ('weapp' == $ctl && 'execute' == $act) {
+            $sa = input('param.sa/s');
+            foreach ($actArr as $key => $cud) {
+                $sa = preg_replace('/^(.*)_('.$cud.')$/i', '$2', $sa); // 同名add 或者以_add类似结尾都符合
+                if ($sa == $cud) {
+                    if (!in_array($sa, $cudArr)) {
+                        return false;
+                    }
+                    break;
                 }
             }
-            $all_auths = array_unique($all_auths);
-            $admin_auths = array_unique($admin_auths);
-            $diff_auths = array_diff($all_auths, $admin_auths);
-
-            if (in_array($ctl_act, $diff_auths) || in_array($ctl_all, $diff_auths)) {
-                $bool_flag = false;
+        } else {
+            array_push($actArr, 'changetableval'); // 审核信息
+            foreach ($actArr as $key => $cud) {
+                $act = preg_replace('/^(.*)_('.$cud.')$/i', '$2', $act); // 同名add 或者以_add类似结尾都符合
+                if ($act == $cud) {
+                    if (!in_array($act, $cudArr)) {
+                        return false;
+                    }
+                    break;
+                }
             }
         }
 
-        return $bool_flag;
+        return true;
     }
 }
+/*
+ * 检测栏目内容arctype的权限
+ */
+if (!function_exists('is_arctype_check_access')){
+    function is_arctype_check_access($str = 'Index@index'){
+        $ctl_act = $str; //strtolower($str);
+        $arr = explode('@', $ctl_act);
+        $ctl = !empty($arr[0]) ? $arr[0] : '';
+        $auth_role_info = session('admin_info.auth_role_info');
+        $permission_arctype = !empty($auth_role_info['permission']['arctype']) ? $auth_role_info['permission']['arctype'] : [];
+        if ($ctl == 'Custom'){
+            $channel_id = \think\Db::name('channeltype')->where("is_del=0 and ifsystem=0")->getField('id',true);
+            if ($channel_id){
+                $have = \think\Db::name("arctype")->where(['is_del'=>0,'current_channel'=>['in',$channel_id],'id'=>['in',$permission_arctype]])->find();
+                if ($have){
+                    return true;
+                }
+            }
+        }else{
+            $channel_id = \think\Db::name('channeltype')->where("is_del=0 and ctl_name='{$ctl}'")->getField('id');
+            if ($channel_id){
+                $have = \think\Db::name("arctype")->where(['is_del'=>0,'current_channel'=>$channel_id,'id'=>['in',$permission_arctype]])->find();
+                if ($have){
+                    return true;
+                }
+            }
+        }
 
-if (!function_exists('getMenuList')) 
+        return false;
+    }
+}
+/*
+ * 检测控制器rules的权限
+ */
+if (!function_exists('is_rules_check_access')){
+    function is_rules_check_access($str = 'Index@index'){
+        $ctl_act = strtolower($str);
+        $arr = explode('@', $ctl_act);
+        $ctl = !empty($arr[0]) ? $arr[0] : '';
+        $act = !empty($arr[1]) ? $arr[1] : '';
+        $ctl_all = $ctl.'@*';
+        if (preg_match('/^ajax_(.*)$/i',$act) || preg_match('/^(.*)_ajax$/i',$act)){
+            return true;
+        }
+        $auth_role_info = session('admin_info.auth_role_info');
+        $permission = $auth_role_info['permission'];
+        $permission_rules = !empty($permission['rules']) ? $permission['rules'] : [];
+        $auth_rule = get_auth_rule();  //全部权限节点
+        $admin_auths = []; // 用户当前拥有权限对应的菜单ID
+        foreach($auth_rule as $key => $val){
+            if (in_array($val['id'], $permission_rules)) {
+                $admin_auths = array_merge($admin_auths, explode(',', strtolower($val['auths'])));
+            }
+        }
+        $admin_auths = array_unique($admin_auths);
+        if (in_array($ctl_act, $admin_auths) || in_array($ctl_all, $admin_auths)) {
+            return true;
+        }
+
+        return false;
+    }
+}
+/**
+ * 检测是否有该权限（完全）
+ */
+if (!function_exists('is_check_access'))
+{
+    function is_check_access($str = 'Index@index') {
+        $role_id = session('admin_info.role_id');
+        if (0 < intval($role_id)) {
+            if (!is_cud_check_access($str)){
+                return false;
+            }
+            if (is_uneed_check_access($str)){
+                return true;
+            }
+            if (is_arctype_check_access($str)){
+                return true;
+            }
+            if (is_rules_check_access($str)){
+                return true;
+            }
+        }else{
+            return true;
+        }
+
+        return false;
+    }
+}
+if (!function_exists('getMenuList'))
 {
     /**
      * 根据角色权限过滤菜单
      */
     function getMenuList() {
         $menuArr = getAllMenu();
-        // return $menuArr;
-
         $role_id = session('admin_info.role_id');
         if (0 < intval($role_id)) {
             $auth_role_info = session('admin_info.auth_role_info');
@@ -177,45 +283,42 @@ if (!function_exists('getMenuList'))
             $permission_rules = !empty($permission['rules']) ? $permission['rules'] : [];
 
             $auth_rule = get_auth_rule();
-            $all_auths = []; // 系统全部权限对应的菜单ID
             $admin_auths = []; // 用户当前拥有权限对应的菜单ID
-            $diff_auths = []; // 用户没有被授权的权限对应的菜单ID
             foreach($auth_rule as $key => $val){
-                $all_auths = array_merge($all_auths, explode(',', $val['menu_id']), explode(',', $val['menu_id2']));
                 if (in_array($val['id'], $permission_rules)) {
                     $admin_auths = array_merge($admin_auths, explode(',', $val['menu_id']), explode(',', $val['menu_id2']));
                 }
             }
-            $all_auths = array_unique($all_auths);
             $admin_auths = array_unique($admin_auths);
-            $diff_auths = array_diff($all_auths, $admin_auths);
-
-            /*过滤三级数组菜单*/
+            $arctypeLogic = new app\common\logic\ArctypeLogic();
+            $arctype_list = $arctypeLogic->arctype_list(0, 0, false, 0, ['is_del'=>0], false);
+            $channeltype = get_arr_column($arctype_list, 'current_channel');
             foreach($menuArr as $k=>$val){
                 foreach ($val['child'] as $j=>$v){
                     foreach ($v['child'] as $s=>$son){
-                        if (in_array($son['id'], $diff_auths)) {
-                            unset($menuArr[$k]['child'][$j]['child'][$s]);//过滤菜单
+                        if (empty($son['is_menu']) || (empty($son['channel']) && !in_array($son['id'], $admin_auths)) || (!empty($son['channel']) && !in_array($son['channel'],$channeltype))) {
+                            unset($menuArr[$k]['child'][$j]['child'][$s]);//过滤三级菜单
                         }
                     }
-                }
-            }
-            /*--end*/
-
-            /*过滤二级数组菜单*/
-            foreach ($menuArr as $mk=>$mr){
-                foreach ($mr['child'] as $nk=>$nrr){
-                    if (in_array($nrr['id'], $diff_auths)) {
-                        unset($menuArr[$mk]['child'][$nk]);//过滤菜单
+                    if (empty($v['is_menu']) || (empty($v['channel'])  && empty($menuArr[$k]['child'][$j]['child']) && !in_array($v['id'], $admin_auths)) || (!empty($v['channel']) && !in_array($v['channel'],$channeltype))) {
+                        unset($menuArr[$k]['child'][$j]);//过滤二级菜单
                     }
                 }
+                //一级是直接操作项目，且没有被赋予权限，或者，下级才是操作权限，所有下级都没有被赋予权限
+                if (empty($val['is_menu']) || (empty($val['channel'])  && empty($menuArr[$j]['child']) && !in_array($val['id'], $admin_auths)) || (!empty($val['channel']) && !in_array($val['channel'],$channeltype))) {
+                    unset($menuArr[$k]);//过滤一级级菜单
+                }
             }
-            /*--end*/
+        }
+        $config = tpCache('question');
+        if (empty($config['question_status'])){   //没有开启问答
+            unset($menuArr[10000]);
         }
 
         return $menuArr;
     }
 }
+
 
 if (!function_exists('getAllMenu')) 
 {

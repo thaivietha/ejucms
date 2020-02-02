@@ -76,6 +76,9 @@ $admin_config = array(
         'Ajax@*', // 所有ajax操作
         'Ueditor@*', // 编辑器上传
         'Uploadify@*', // 图片上传
+        'Archives@*',   //文档操作
+        'System@clear_cache',  //清楚缓存
+        'Map@*',        //地图设置
     ),
 );
 

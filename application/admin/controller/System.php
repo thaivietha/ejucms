@@ -31,7 +31,30 @@ class System extends Base
     {
         $this->redirect(url('System/web'));
     }
+    //问答配置
+    public function question(){
+        $inc_type =  'question';
+        if (IS_POST) {
+            $param = input('post.');
+            if ($param['question_status']){
+                $r = Db::name("arctype")->where("current_channel=-1 and channeltype=-1")->setField(['is_hidden'=>0]);
+            }else{
+                $r = Db::name("arctype")->where("current_channel=-1 and channeltype=-1")->setField(['is_hidden'=>1]);
+            }
+            if ($r){
+                \think\Cache::clear('arctype');
+            }
+//            $param['web_keywords'] = str_replace('，', ',', $param['web_keywords']);
+            tpCache($inc_type, $param);
+            write_global_params(); // 写入全局内置参数
+            $this->success('操作成功', url('System/question'));
+            exit;
+        }
+        $config = tpCache($inc_type);
+        $this->assign('config',$config);//当前配置项
 
+        return $this->fetch();
+    }
     /**
      * 网站设置
      */
@@ -53,6 +76,14 @@ class System extends Base
 
             // 网站LOGO
             if (!empty($param['old_web_logo']) && !empty($param['web_logo']) && !is_http_url($param['web_logo'])) {
+                $image_ext_str = config("global.image_ext");
+                $image_ext_match = str_replace(',','|',$image_ext_str);
+                $img_match = '/(\w+\.(?:'.$image_ext_match.'))$/i';
+                preg_match($img_match, $param['web_logo'],$matches);
+                preg_match($img_match, $param['old_web_logo'],$matches_old);
+                if (empty($matches) || empty($matches_old)){
+                    $this->error('网站LOGO名称不合法！');
+                }
                 $source = './'.preg_replace('#^'.$this->root_dir.'/#i', '', $param['web_logo']);
                 $destination = '/'.preg_replace('#^'.$this->root_dir.'/#i', '', $param['old_web_logo']);
                 if (file_exists($source) && @copy($source, '.'.$destination)) {
@@ -142,6 +173,14 @@ class System extends Base
             $web_adminlogo = $param['web_adminlogo'];
             $web_adminlogo_old = tpCache('web.web_adminlogo');
             if ($web_adminlogo != $web_adminlogo_old && !empty($web_adminlogo)) {
+                $image_ext_str = config("global.image_ext");
+                $image_ext_match = str_replace(',','|',$image_ext_str);
+                $img_match = '/(\w+\.(?:'.$image_ext_match.'))$/i';
+                preg_match($img_match, $web_adminlogo,$matches);
+                preg_match($img_match, $web_adminlogo_old,$matches_old);
+                if (empty($matches) || empty($matches_old)){
+                    $this->error('网站后台LOGO名称不合法！');
+                }
                 $source = preg_replace('#^'.ROOT_DIR.'#i', '', $web_adminlogo); // 支持子目录
                 $destination = '/public/static/admin/images/logo.png';
                 if (@copy('.'.$source, '.'.$destination)) {
@@ -805,4 +844,6 @@ class System extends Base
         }
         $this->error('非法访问！');
     }
+
+
 }

@@ -122,6 +122,7 @@ class Seo extends Base
     public function handle()
     {
         $param = input('post.');
+
         $successData = [];
         $inc_type = $param['inc_type'];
         $globalConfig = tpCache('global');
@@ -182,12 +183,10 @@ class Seo extends Base
         }
         unset($param['inc_type']);
         tpCache($inc_type,$param);
-        
         if ($inc_type == 'seo') {
             /* 生成静态页面代码 - 更新分页php文件支持生成静态功能*/
             $this->update_paginatorfile();
             /* end */
-
             // 清空缓存
             delFile(rtrim(HTML_ROOT, '/'));
             \think\Cache::clear();
@@ -195,6 +194,13 @@ class Seo extends Base
             /* 生成sitemap */
             sitemap_all();
         }
+        //更新问答链接
+        if (1 == $param['seo_pseudo']) {
+            $HomeAskUrl = $this->root_dir.'/index.php?m=home&c=Ask&a=index';
+        } else {
+            $HomeAskUrl = $this->root_dir.'/ask.html';
+        }
+        $r = Db::name("arctype")->where("current_channel=-1  and channeltype=-1")->setField(['typelink'=>$HomeAskUrl]);
         $this->success('操作成功', url('Seo/index',array('inc_type'=>$inc_type)), $successData);
     }
 

@@ -158,6 +158,43 @@
         <img src="{eju:global name='web_templets_mobile' /}/skin/images/house-list_tjf.png">
     </a>
 </li>
+<!-- 楼盘问答 -->
+{eju:ask id="field" bestanswer="off"}
+{$field.hidden}
+<div class="nh_zbpt lpwd" id="lpwd">
+    <div class="head">
+        <h2 class="nh_head">楼盘问答</h2>
+        <a href="{$field.AddAskUrl}">
+            我要提问
+        </a>
+    </div>
+    <div class="con_box">
+        <ul class="list">
+            {eju:volist name="$field.AskData" id="vo"}
+            <li>
+                <div class="asking">
+                    <div class="aico">问</div>
+                    <div class="acon">
+                        <a class="asking-tit" href="{$vo.AskUrl}">{$vo.ask_title}</a>
+                        <p>{$vo.content}</p>
+                    </div>
+                </div>
+                {eju:volist name="$vo.AnswerData" id="vo2"}
+                <div class="answer">
+                    <div class="aico">答</div>
+                    <div class="acon">
+                        <p>{$vo2.content}</p>
+                    </div>
+                </div>
+                {/eju:volist}
+            </li>
+            {/eju:volist}
+        </ul>
+    </div>
+</div>
+{/eju:ask}
+
+
 <div class="lp-detail-map">
     <h3> <a href="javascript:;" class="af-head"> <span class="left">周边配套</span>
         <div class="clear"></div>

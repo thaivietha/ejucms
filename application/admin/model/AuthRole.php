@@ -56,12 +56,12 @@ class AuthRole extends Model{
         $permission_rules = !empty($permission['rules']) ? $permission['rules'] : [];
         /*栏目与内容权限*/
         if (!empty($permission['arctype'])) {
-            $permission_rules[] = 2; // 内容管理的权限ID，在conf/auth_rule.php配置文件
+            $permission_rules[] = 1; // 内容管理的权限ID，在conf/auth_rule.php配置文件
         }
         /*--end*/
         /*插件应用权限*/
         if (!empty($permission['plugins'])) {
-            $permission_rules[] = 15; // 插件应用的权限ID，在conf/auth_rule.php配置文件
+//            $permission_rules[] = 15; // 插件应用的权限ID，在conf/auth_rule.php配置文件
         }
         /*--end*/
         $permission['rules'] = $permission_rules;

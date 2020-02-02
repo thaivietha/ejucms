@@ -1,0 +1,100 @@
+{include file="public/layout" /}
+<body>
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body web-system" pad15>
+                    <div class="layui-form" wid100 lay-filter="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">提问标题</label>
+                            <div class="layui-input-inline">
+                                <input id="ask_title" name="ask_title"  class="layui-input" value="{$info.ask_title|default=''}">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">提问内容</label>
+                            <div class="layui-input-inline">
+                                <textarea name="content" class="layui-textarea" placeholder="">{$info.content}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">审核</label>
+                            <div class="layui-input-inline w70">
+                                <input type="checkbox" lay-filter="is_review" lay-skin="switch" lay-text="是|否" {if condition="$info.is_review eq 1"}checked{/if}>
+                                <input type="hidden" name="is_review" value="{$info.is_review|default='0'}" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">热门</label>
+                            <div class="layui-input-inline w70">
+                                <input type="checkbox" lay-filter="is_recom" lay-skin="switch" lay-text="是|否" {if condition="$info.is_recom eq 1"}checked{/if}>
+                                <input type="hidden" name="is_recom" value="{$info.is_recom|default='0'}" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="hidden" name="ask_id" value="{$info.ask_id}">
+                                <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        layui.config({
+            base: '__SKIN__/' //静态资源所在路径
+            ,version: '{$version}'
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'set'], function(){
+            var $ = layui.$
+                ,layer = layui.layer
+                ,form = layui.form;
+
+            // 监听开关
+            form.on('switch', function(data){
+                var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+                if (data.elem.checked) {
+                    this.value = 1;
+                } else {
+                    this.value = 0;
+                }
+                $("input[name='"+elemId+"']").val(this.value);
+            });
+
+            //监听提交
+            form.on('submit(formSubmit)', function(data){
+                var load = layer_loading();
+                data.field._ajax = 1;
+                $.ajax({
+                    type : 'post',
+                    url : "{:url('Ask/edit')}",
+                    data : data.field,
+                    dataType : 'json',
+                    success : function(res){
+                        layer.close(load); //关闭loading
+                        if(res.code == 1){
+                            layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                                parent.gourl(res.url);
+                            });
+                        }else{
+                            showErrorMsg(res.msg);
+                        }
+                    },
+                    error: function(e){
+                        layer.close(load); //关闭loading
+                        showErrorAlert();
+                    }
+                });
+                return false;
+            });
+
+        });
+
+    </script>
+    {include file="public/footer" /}

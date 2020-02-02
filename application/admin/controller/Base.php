@@ -17,6 +17,7 @@ use think\Controller;
 use think\Db;
 use think\response\Json;
 use think\Session;
+use app\common\logic\ArctypeLogic;
 class Base extends Controller {
 
     public $session_id;
@@ -50,7 +51,6 @@ class Base extends Controller {
         !defined('SESSION_ID') && define('SESSION_ID', $this->session_id); //将当前的session_id保存为常量，供其它方法调用
 
         parent::_initialize();
-
         //过滤不需要登陆的行为
         $ctl_act = CONTROLLER_NAME.'@'.ACTION_NAME;
         $ctl_all = CONTROLLER_NAME.'@*';
@@ -104,33 +104,13 @@ class Base extends Controller {
         $ctl = CONTROLLER_NAME;
         $act = ACTION_NAME;
         $ctl_act = $ctl.'@'.$act;
-        $ctl_all = $ctl.'@*';
-        //无需验证的操作
-        $uneed_check_action = config('uneed_check_action');
-        if (0 >= intval(session('admin_info.role_id'))) {
-            //超级管理员无需验证
-            return true;
-        } else {
-            $bool = false;
-
-            /*检测是否有该权限*/
-            if (is_check_access($ctl_act)) {
-                $bool = true;
-            }
-            /*--end*/
-
-            /*在列表中的操作不需要验证权限*/
-            if (IS_AJAX || strpos($act,'ajax') !== false || in_array($ctl_act, $uneed_check_action) || in_array($ctl_all, $uneed_check_action)) {
-                $bool = true;
-            }
-            /*--end*/
-
-            //检查是否拥有此操作权限
-            if (!$bool) {
-                $this->error('您没有操作权限，请联系超级管理员分配权限');
-            }
+        $bool = is_check_access($ctl_act);
+        //检查是否拥有此操作权限
+        if (!$bool) {
+            $this->error('您没有操作权限，请联系超级管理员分配权限！');
         }
-    }  
+    }
+
 
     /**
      * 保存系统设置 

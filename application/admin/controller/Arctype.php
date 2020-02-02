@@ -59,11 +59,13 @@ class Arctype extends Base
         // 目录列表
         $arctypeLogic = new ArctypeLogic(); 
         $where['is_del'] = '0'; // 回收站功能
+        $where['current_channel'] = ['gt',0]; // 非自定义（问答）
         $arctype_list = $arctypeLogic->arctype_list(0, 0, false, 0, $where, false);
         foreach ($arctype_list as $key=>$val){
             $arctype_list[$key]['channeltypename'] = $channeltype_list[$val['current_channel']]['title'];
             $arctype_list[$key]['typeurl'] = get_typeurl($val);
         }
+
         $arctype_list = array_merge($arctype_list);
         $this->assign('arctype_list', $arctype_list);
         $this->assign('json_arctype_list', json_encode($arctype_list));

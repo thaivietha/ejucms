@@ -108,7 +108,7 @@ class AuthRole extends Base {
 
         // 栏目
         $arctype_data = $arctype_array = array();
-        $arctype = M('arctype')->select();
+        $arctype = M('arctype')->where(['is_del'=>0])->select();
         if(! empty($arctype)){
             foreach ($arctype as $item){
                 if($item['parent_id'] <= 0){
@@ -172,6 +172,7 @@ class AuthRole extends Base {
 
         $model = model('AuthRole');
         $info = $model->getRole(array('id' => $id));
+
         if(empty($info)){
             $this->error('数据不存在，请联系管理员！');
         }
@@ -180,11 +181,9 @@ class AuthRole extends Base {
         // 权限组
         $admin_role_list = model('AuthRole')->getRoleAll();
         $this->assign('admin_role_list', $admin_role_list);
-
         // 模块组
         $modules = getAllMenu();
         $this->assign('modules', $modules);
-
         // 权限集
         $auth_rules = get_auth_rule(['is_modules'=>1]);
         $auth_rule_list = group_same_key($auth_rules, 'menu_id');
@@ -192,7 +191,7 @@ class AuthRole extends Base {
 
         // 栏目
         $arctype_data = $arctype_array = array();
-        $arctype = M('arctype')->select();
+        $arctype = M('arctype')->where(['is_del'=>0])->select();
         if(! empty($arctype)){
             foreach ($arctype as $item){
                 if($item['parent_id'] <= 0){

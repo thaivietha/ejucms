@@ -69,14 +69,34 @@ if (3 == $seo_pseudo) {
         if (1 == $web_region_domain) {
             $subdomain = \think\Cookie::get('subdomain');
             $rewrite_str = $subdomain.'/';
-            $rewrite = [
-                // 首页
-                $rewrite_str.'$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
-            ];
+            if (1 == $seo_rewrite_format){
+                $rewrite = [
+                    '<subdomain>/search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    //目录名称
+                    '<subdomain>/<tid>$' => array('home/Lists/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+                    '<subdomain>/$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+                ];
+            }else{
+                $rewrite = [
+                    '<subdomain>/search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    //模型标识
+                    '<subdomain>/article/<tid>$' => array('home/Article/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/xinfang/<tid>$' => array('home/Xinfang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/tuan/<tid>$' => array('home/Tuan/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/images/<tid>$' => array('home/Images/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/single/<tid>$' => array('home/Single/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/xiaoqu/<tid>$' => array('home/Xiaoqu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/ershou/<tid>$' => array('home/Ershou/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/zufang/<tid>$' => array('home/Zufang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                $rewrite_str.'$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+                    '<subdomain>/$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+                ];
+            }
+
         }
     }
-    /*--end*/
 
+    /*--end*/
     if (1 == $seo_rewrite_format) { // 精简伪静态
         $home_rewrite = array(
             // 标签伪静态
@@ -111,13 +131,21 @@ if (3 == $seo_pseudo) {
             $rewrite_str.'images/<dirname>/<aid>$' => array('home/Images/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 单页模型伪静态
             $rewrite_str.'single/<tid>$' => array('home/Single/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            // 小区模型伪静态
+            $rewrite_str.'xiaoqu/<tid>$' => array('home/Xiaoqu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'xiaoqu/<dirname>/<aid>$' => array('home/Xiaoqu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            // 二手房模型伪静态
+            $rewrite_str.'ershou/<tid>$' => array('home/Ershou/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'ershou/<dirname>/<aid>$' => array('home/Ershou/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            // 租房模型伪静态
+            $rewrite_str.'zufang/<tid>$' => array('home/Zufang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'zufang/<dirname>/<aid>$' => array('home/Zufang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 标签伪静态
             $rewrite_str.'tags$' => array('home/Tags/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
             $rewrite_str.'tags/<tagid>$' => array('home/Tags/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             // 搜索伪静态
             $rewrite_str.'search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
         );
-
         /*自定义模型*/
         $cacheKey = "application_route_channeltype";
         $channeltype_row = \think\Cache::get($cacheKey);
@@ -138,7 +166,20 @@ if (3 == $seo_pseudo) {
         }
         /*--end*/
     }
+    /*问答模型*/
+    $home_rewrite += [
+        $rewrite_str.'ask/list_<is_recom>_<aid>$' => array('home/Ask/index',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+        $rewrite_str.'ask/list_<is_recom>$' => array('home/Ask/index',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+        $rewrite_str.'ask$' => array('home/Ask/index',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//        $rewrite_str.'ask/add_<aid>$' => array('home/Ask/add_ask',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//        $rewrite_str.'ask/add$' => array('home/Ask/add_ask',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//        $rewrite_str.'ask/edit_<ask_id>$' => array('home/Ask/edit_ask',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+
+        $rewrite_str.'ask/view_<ask_id>$' => array('home/Ask/details',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//        $rewrite_str.'aswer/edit_<answer_id>$' => array('home/Ask/ajax_edit_answer',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+    ];
     $home_rewrite = array_merge($rewrite, $home_rewrite);
+
 }
 
 /*插件模块路由*/

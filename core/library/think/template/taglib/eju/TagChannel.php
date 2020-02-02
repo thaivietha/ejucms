@@ -416,7 +416,9 @@ class TagChannel extends Base
                 'grade' => 100,
                 'is_part'   => 0,
             ]; // 标记选择栏目的数组
-
+            $pageurl = request()->url(true);
+            $controller = request()->controller();
+            $module = request()->module();
             foreach ($res as $key => $val) {
                 /*获取指定路由模式下的URL*/
                 if ($val['is_part'] == 1) {
@@ -437,25 +439,28 @@ class TagChannel extends Base
 
                 /*标记栏目被选中效果*/
                 $val['currentstyle'] = '';
-                $pageurl = request()->url(true);
                 $typelink = htmlspecialchars_decode($val['typelink']);
+
+                $is_currentstyle = false;
                 if ($val['id'] == $topTypeid || (!empty($typelink) && stristr($pageurl, $typelink))) {
                     $is_currentstyle = false;
                     if ($topTypeid != $this->tid && 0 == $currentstyleArr['is_part'] && $val['grade'] <= $currentstyleArr['grade']) { // 当前栏目不是顶级栏目，按外部链接优先
                         $is_currentstyle = true;
                     }
-                    else if ($topTypeid == $this->tid && $val['grade'] < $currentstyleArr['grade']) 
+                    else if ($topTypeid == $this->tid && $val['grade'] < $currentstyleArr['grade'])
                     { // 当前栏目是顶级栏目，按顺序优先
                         $is_currentstyle = true;
                     }
-                    if ($is_currentstyle) {
-                        $currentstyleArr = [
-                            'tid'   => $val['id'],
-                            'currentstyle'  => $this->currentstyle,
-                            'grade' => $val['grade'],
-                            'is_part'   => $val['is_part'],
-                        ];
-                    }
+                }else if(!empty($val['is_part']) && $val['current_channel'] == -1 && $controller == 'Ask' && $module=='home'){
+                    $is_currentstyle = true;
+                }
+                if ($is_currentstyle) {
+                    $currentstyleArr = [
+                        'tid'   => $val['id'],
+                        'currentstyle'  => $this->currentstyle,
+                        'grade' => $val['grade'],
+                        'is_part'   => $val['is_part'],
+                    ];
                 }
                 /*--end*/
 

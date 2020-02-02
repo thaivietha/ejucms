@@ -10,6 +10,7 @@
                 {notempty name='$gourl'}
                 <a href="{$gourl}" class="layui-btn layui-btn-primary  input-btn-back"><i class="layui-icon layui-icon-left"></i></a>
                 {/notempty}
+
                 {eq name="$Think.const.CONTROLLER_NAME.'@add'|is_check_access" value="1"}
                 <a data-type="Article_add" data-url="{:url('Article/add', array('typeid'=>$Request.param.typeid))}" class="layui-btn mt5 ">
                    新增文档
@@ -169,7 +170,9 @@
 
                         </div>
                     </div>
+                    {eq name="'RecycleBin@archives_index'|is_check_access" value="1"}
                     <a class="layui-btn layui-btn-primary" lay-href="{:url('RecycleBin/archives_index')}" title="回收站"><i class="layui-icon layui-icon-delete"></i>回收站</a>
+                    {/eq}
                 </div>
                 <!--分页-->
 

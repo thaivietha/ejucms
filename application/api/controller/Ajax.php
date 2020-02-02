@@ -188,7 +188,7 @@ class Ajax extends Base
             // 判断标题拼接
             $formRow  = M('form')->field('name')->find($form_id);
             $web_name = $formRow['name'].'-'.$web_name;
-
+            $come_from = Db::name("form_list")->where("list_id=".$list_id)->getField('come_from');
             // 拼装发送的字符串内容
             $row = M('form_attr')->field('a.attr_name, b.attr_value')
                 ->alias('a')
@@ -208,9 +208,9 @@ class Ajax extends Base
             }
             $html = "<p style='text-align: left;'>{$web_name}</p><p style='text-align: left;'>{$content}</p>";
             if (isMobile()) {
-                $html .= "<p style='text-align: left;'>——来源：移动端</p>";
+                $html .= "<p style='text-align: left;'>——来源：移动端 -- {$come_from}</p>";
             } else {
-                $html .= "<p style='text-align: left;'>——来源：电脑端</p>";
+                $html .= "<p style='text-align: left;'>——来源：电脑端 -- {$come_from}</p>";
             }
             // 发送邮件
             $res = send_email(null,null,$html, $scene);
@@ -364,22 +364,6 @@ class Ajax extends Base
             );
             M('form_value')->add($adddata);
         }
-    }
-    /*
-     * 读取非本站图片
-     */
-    public function crawlerpic(){
-        header('Content-type: image/jpg');
-        $url = $_GET['url'];
-        $refer = "http://www.qq.com/";
-        $opt = [
-            'http'=>[
-                'header'=>"Referer: " . $refer
-            ]
-        ];
-        $context = stream_context_create($opt);
-        $file_contents = file_get_contents($url,false, $context);
-        echo $file_contents;
     }
 
     /**

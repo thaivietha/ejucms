@@ -299,20 +299,16 @@ class Field extends Model
     public function dealChannelPostData($channel_id, $data = array(), $dataExt = array(),$suffix = 'content')
     {
         if (!empty($channel_id)) {
-
             $nowDataExt = array();
             $fieldTypeList = model('Channelfield')->getListByWhere(array('channel_id'=>$channel_id), 'name,dtype', 'name');
-
             foreach ($dataExt as $key => $val) {
-                
                 /*处理复选框取消选中的情况下*/
                 if (preg_match('/^(.*)(_eyempty)$/', $key) && empty($val)) {
                     $key = preg_replace('/^(.*)(_eyempty)$/', '$1', $key);
-                    $nowDataExt[$key] = '';
+//                    $nowDataExt[$key] = '';
                     continue;
                 }
                 /*end*/
-                
                 $key = preg_replace('/^(.*)(_eyou_is_remote|_eyou_remote|_eyou_local)$/', '$1', $key);
                 $dtype = !empty($fieldTypeList[$key]) ? $fieldTypeList[$key]['dtype'] : '';
                 switch ($dtype) {
@@ -321,14 +317,12 @@ class Field extends Model
                         $val = implode(',', $val);
                         break;
                     }
-
                     case 'switch':
                     case 'int':
                     {
                         $val = intval($val);
                         break;
                     }
-
                     case 'img':
                     {
                         $is_remote = !empty($dataExt[$key.'_eyou_is_remote']) ? $dataExt[$key.'_eyou_is_remote'] : 0;
@@ -339,7 +333,6 @@ class Field extends Model
                         }
                         break;
                     }
-
                     case 'imgs':
                     case 'files':
                     {
@@ -356,7 +349,7 @@ class Field extends Model
 
                     case 'datetime':
                     {
-                        $val = !empty($val) ? strtotime($val) : getTime();
+                        $val = !empty($val) ? strtotime($val) : 0;//getTime();
                         break;
                     }
 
@@ -375,7 +368,10 @@ class Field extends Model
                         break;
                     }
                 }
-                $nowDataExt[$key] = $val;
+                if (!empty($val)){
+                    $nowDataExt[$key] = $val;
+
+                }
             }
 
             $nowData = array(

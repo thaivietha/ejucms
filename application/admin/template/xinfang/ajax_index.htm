@@ -43,7 +43,14 @@
                                         <img src="{$vo.litpic}">
                                         <div class="media-body" >
                                             <span>{$vo.title}</span><br>
-                                            <span class="color-888">[]</span><br>
+                                            <span class="color-888">
+                                                {assign name='showArcFlagData' value='$vo|showArchivesFlagStr'}
+                                                    {volist name='$showArcFlagData' id="vo1"}
+                                                        {eq name='$i' value='1'}<span>{/eq}
+                                                        <b style="font-size: 12px;">{$vo1['small_name']}</b>
+                                                        {eq name='$i' value='$showArcFlagData|count'}</span>{/eq}
+                                                    {/volist}
+                                            </span><br>
                                             <span class="price-color-b">￥{$vo.average_price}元/m²</span>
                                         </div>
                                     </a>

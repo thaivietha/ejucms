@@ -42,11 +42,10 @@ class ArctypeLogic extends Model
             $where = array(
                 'status' => 1,
             );
-
-
             /*权限控制 by 小虎哥*/
             $admin_info = session('admin_info');
             if (in_array(MODULE_NAME, ['admin']) && 0 < intval($admin_info['role_id'])) {
+                $where['id'] = ['lt',0];
                 $auth_role_info = $admin_info['auth_role_info'];
                 if(! empty($auth_role_info)){
                     if(! empty($auth_role_info['permission']['arctype'])){
