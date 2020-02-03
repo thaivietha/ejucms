@@ -1,0 +1,333 @@
+.clearfix {
+    clear: both
+}
+
+body {
+    background-color: #fff
+}
+
+* {
+    text-decoration: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    font-style: normal
+}
+
+.default_gg_ss {
+    width: 9.2rem;
+    margin: 0 auto;
+    margin-top: 0.16rem
+}
+
+.search_div {
+    background-color: #eeefef;
+    width: 8.21333rem;
+    float: left
+}
+
+.search_div img {
+    width: 0.34666rem;
+    display: block;
+    float: left;
+    margin-left: 0.18666rem;
+    margin-right: 0.16rem;
+    padding-top: 0.25333rem
+}
+
+.search_div input {
+    height: 0.85333rem;
+    display: block;
+    background-color: #eeefef;
+    float: left;
+    border: 0;
+    width: 6.5rem;
+    font-size: 0.32rem;
+}
+
+.return_sun {
+    float: right
+}
+
+.return_sun a {
+    font-size: 0.37333rem;
+    display: block;
+    line-height: 0.85333rem
+}
+
+#history {
+    padding-top: 0.45333rem;
+}
+
+#history p {
+    font-size: 0.34666rem;
+    color: #888888;
+    padding-left: 0.50666rem;
+    background-image: url("../images/time.png");
+    background-repeat: no-repeat;
+    background-size: 0.34666rem;
+    background-position: left center;
+    line-height: 0.36666rem;
+    margin-bottom: 0.28rem;
+    margin-left: 0.4rem;
+}
+
+#history .border {
+    border-bottom: 1px solid #dfdee1
+}
+
+#history li {
+    width: 9.2rem;
+    margin: 0 auto
+}
+
+#history li .projectType {
+    display: none
+}
+
+#history li .projectStatus {
+    display: none
+}
+
+#history li .region {
+    display: none
+}
+
+#history li .price {
+    display: none
+}
+
+#history li .oneSelection {
+    font-size: 0.4rem;
+    color: #000000;
+    line-height: 1.29333rem
+}
+
+#history li {
+    border-bottom: 1px solid #dfdee1
+}
+
+#history button {
+    display: block;
+    width: 100%;
+    border: 0;
+    background-color: #fff;
+    height: 1.29333rem;
+    border-bottom: 1px solid #dfdee1;
+    color: #888;
+}
+.searchinfo .newHouse_li:first-child{
+    padding-top:0;
+    padding-bottom:0
+}
+.searchinfo .newHouse_li {
+    width: 9.2rem;
+    margin: 0 auto;
+    border-bottom: 1px solid #e0e0e0;
+    padding-top: 0.41333rem !important;
+    padding-bottom: 0.41333rem !important;
+}
+
+.searchinfo .newHouse_li .multipleSelection i {
+    color: #4b78b8;
+    font-size: 0.4rem;
+    line-height: 1.45333rem
+}
+
+.searchinfo .newHouse_li .multipleSelection {
+    float: left;
+    color: #000000;
+    float: left;
+    font-size: 0.4rem;
+    line-height: 1.45333rem;
+}
+
+.searchinfo .newHouse_li .multipleNmu {
+    font-size: 0.34666rem;
+    color: #333333;
+    line-height: 1.45333rem;
+    float: right
+}
+
+.searchinfo .newHouse_li .oneSelection {
+    font-size: 0.4rem;
+    color: #000000;
+    float: left;
+    line-height: 0.4rem
+}
+
+.searchinfo .newHouse_li .oneSelection i {
+    color: #4b78b8;
+    font-size: 0.4rem;
+}
+
+.searchinfo .newHouse_li .projectStatus {
+    float: right;
+    font-size: 0.32rem;
+    color: #bdbdbd;
+    line-height: 0.4rem
+}
+
+.searchinfo .newHouse_li .region {
+    float: left;
+    font-size: 0.34666rem;
+    color: #919496;
+    line-height: 0.34666rem;
+    margin-top: 0.29333rem
+}
+
+.searchinfo .newHouse_li .price {
+    float: right;
+    font-size: 0.32rem;
+    color: #ff5200;
+    line-height: 0.34666rem;
+    margin-top: 0.29333rem
+}
+
+.searchinfo .newHouse_li .price i {
+    font-size: 0.34666rem;
+    font-weight: bold;
+}
+
+.searchinfo .newHouse_li .projectType {
+    float: left;
+    font-size: 0.34666rem;
+    color: #999999
+}
+
+.searchinfo .region  {
+    padding-top: 0;
+    padding-bottom: 0
+}
+
+#search_box {
+    position: fixed;
+    right: 15px;
+    bottom: 15px;
+    z-index: 9;
+    background-color: #fff;
+    padding-left: 10px;
+    max-width: 90%;
+}
+
+#search {
+    background: none;
+    width: auto
+}
+
+#search {
+    font-size: 13px;
+    float: left;
+    line-height: 35px;
+    padding-left: 24px;
+    background-image: url("../images/addrs.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: center left;
+    max-width: 270px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
+#deleteSearch img {
+    width: 12px;
+    padding-top: 12px;
+    padding-right: 10px;
+    padding-left: 11px;
+}
+
+.close_wei {
+    float: left
+}
+
+.label span {
+    display: block
+}
+
+.label {
+    height: auto !important;
+    text-align: center;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+    border-radius: 2px !important;
+}
+
+.color {
+    background-color: #276cde !important;
+    z-index: 0 !important;
+}
+.color .label_sun{background-image:url(../images/mark02.png) !important}
+#history .multipleSelection i {
+    color: #000;
+    font-size: 0.4rem;
+    line-height: 1.45333rem
+}
+
+#history .multipleSelection {
+    /* float: left; */
+    font-size: 0.4rem;
+    color: #000;
+}
+
+#history .multipleNmu {
+    font-size: 0.34666rem;
+    color: #333333;
+    line-height: 1rem;
+    float: right;
+    display: none
+}
+
+.toast2 {
+    position: absolute;
+    left: 5%;
+    top: 97px;
+    z-index: 9;
+    display: none;
+    width: 90%;
+    line-height: 37px;
+    background-color: #fff;
+    text-align: center;
+    color: #545454;
+    box-shadow: 0px 0px 6px rgb(4, 0, 0, 0.2);
+}
+
+.searchinfo .first {
+    padding-top: 0.41333rem !important;
+    padding-bottom: 0.41333rem !important
+}
+
+.search_div .close{display: none}
+
+
+.newHouse_li_tab{
+    float: right;
+    color: #bdbdbd;
+    font-size: 0.32rem;
+    display: block;
+    line-height: 1.45333rem;
+}
+
+.newhouse_type{
+    color: #bdbdbd;
+    font-size: 0.32rem;
+}
+
+.newhouse_qu{
+    color: #bdbdbd;
+    font-size: 0.32rem;
+    float: left;
+    margin-top: -11px;
+}
+
+.newhouse_red{
+    font-size: 0.32rem;
+    color:#fe5000;
+    float: right;
+    margin-top: -11px;
+    margin-bottom: 11px;
+}
+.searchinfo .newHouse_li:first-child{
+    padding-top: 0 !important;
+}

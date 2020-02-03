@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>问答中心</title>
+<meta name="renderer" content="webkit" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+{eju:static file="/public/static/common/js/jquery.min.js"/}
+{eju:static file="/public/plugins/layer-v3.1.0/layer.js"/}
+{eju:static file="ask/skin/js/ask.js"/}
+{eju:static file="skin/css/public.css" /}
+{eju:static file="skin/css/color.css" /}
+{eju:static file="ask/skin/css/pusk.css" /}
+{eju:static file="ask/skin/css/ask.css" /}
+</head>
+
+<body class="askpn" style="">
+<!-- 头部 --> 
+{eju:include file="header.htm"/} 
+
+<!-- END --> 
+{eju:ask id="field" bestanswer="off" pagesize='2'}
+<form action="" method="get" name="search" id="search">
+<div class="search flexbox ask_top" id="searchbox">
+ 
+  <div class="searbox" id="new_searchtext">
+    <div class="ipt inputbox">
+    <input  id="searchinput" type="text" class="input" value="{$field.SearchName}" autocomplete="off" placeholder="请输入您的问题">
+    </div>
+  </div>
+  <input type="button" value="搜索" id="search-bottom" class="questionbtn"  data-url="{$field.NewDateUrl}"  onclick="formSubmit(this);">
+
+</div>
+</form>
+<div class="main ">
+  <div class="btnAsk"> <a href="{$field.AddAskUrl}">我要<br>
+    提问</a> </div>
+  
+  <!-- 头部banner begin -->
+  
+  <div class="banShow">
+    <div id="myBanner" class="swipe" style="visibility: visible;">
+      <ul class="swipe-wrap blue_M">
+        <li class="blue_S"><a href="#"><img src="{eju:global name='web_templets_m' /}/ask/skin/images/640x214c.png" height="100%"></a></li>
+      </ul>
+      <div class="swipe-btm">
+        <ul class="swipe-point"  id="focus_daily">
+          <li class="cur" ></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="askTab flexbox"> {eju:empty name="$eju.field.SearchName"} <a href="{$field.NewDateUrl}" {eju:empty name="$eju.get.is_recom"}class="cur"{/eju:empty}><span>最新问题</span></a> <a href="{$field.HotUrl}" {eju:eq name="$eju.get.is_recom" value="4"}class="cur"{/eju:eq}><span>热门问题</span></a> <a href="{$field.SolveUrl}" {eju:eq name="$eju.get.is_recom" value="3"}class="cur"{/eju:eq}><span>常见问题</span></a> {eju:else/} <a><span>{$field.SearchNameRed}</span></a> {/eju:empty} </div>
+  {eju:empty name="$field.AskData"}
+  <div class="result">
+    <div>没有符合条件的问题！</div>
+    <p>您可以继续提问，让其他网友帮您解决</p>
+    <a href="{$field.AddAskUrl}" class="ask-btn">立即提问</a> </div>
+  {eju:else/}
+  <section class="pdX20 mBox">
+    <div class="answerlist">
+      <ul id="askcontent">
+        {eju:volist name="$field.AskData" id="vo"}
+        <li> <a href="{$vo.AskUrl}">
+          <h2 class="askline2">{eju:notempty name="$vo.fang_title"}[{$vo.fang_title}]{/eju:notempty}{$vo.ask_title}</h2>
+          </a>
+          <div class="a-int pay mt14">
+            <div class="flol"> <span>{$vo.add_time|MyDate="Y-m-d",###}</span><span class="hh-num">{$vo.click}</span><span class="pdX20">{$vo.replies}人回答</span> </div>
+          </div>
+        </li>
+        {/eju:volist}
+      </ul>
+    </div>
+  </section>
+  <!--加载更多--> 
+  {/eju:empty}
+  <div class="page_list clearfix">
+    <ul class="pagination">
+      {eju:pagelist listitem="pageno,pre,next" listsize="1"/}
+    </ul>
+  </div>
+</div>
+{/eju:ask} 
+<script type="text/javascript" charset="utf-8">
+    // 搜索提交
+    function formSubmit(obj)
+    {
+        var q = $('#searchinput').val();
+        var url = $(obj).data('url');
+        if (url.indexOf('?') > -1) {
+            url += '&';
+        } else {
+            url += '?';
+        }
+        url += 'search_name=' + q;
+        window.location.href = url;
+        return false;
+    }
+    function SubmitData(obj) {
+        if (!$('#content').val()) {
+            layer.msg('请填写问题描述！', {time: 1500, icon: 2});
+            return false;
+        }
+        layer_loading('正在处理');
+        var content = $('#content').val();
+        $.ajax({
+            url: $(obj).data('url'),
+            data: {content:content},
+            type:'post',
+            dataType:'json',
+            success:function(res){
+                layer.closeAll();
+                if (1 == res.code) {
+                    layer.msg(res.msg, {time: 1000},function(){
+                        window.location.href = res.url;
+                    });
+                } else {
+                    layer.msg(res.msg, {time: 1500, icon: 2});
+                }
+            },
+            error : function() {
+                layer.closeAll();
+                layer.alert('网络失败，请刷新页面后重试', {icon: 5, closeBtn: 0});
+            }
+        });
+    }
+</script> 
+{eju:include file="footer.htm"/}
+{eju:static file="skin/js/jquery-3.2.1.min.js" /} 
+{eju:static file="skin/js/swiper-3.4.2.min.js" /}
+{eju:static file="skin/js/nav.js" /}
+{eju:static file="skin/js/method.js" /}
+{eju:static file="skin/css/layer-animate.css" /}
+{eju:static file="skin/js/search_public.js" /} 
+<!--底部优惠开始-->
+{eju:include file="youhui.htm"/}
+<!--底部优惠结束-->
+<!--搜索弹出层开始-->
+{eju:include file="so.htm"/}
+</body>
+</html>

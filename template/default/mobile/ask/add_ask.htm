@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>提问-问答中心</title>
+<meta name="renderer" content="webkit" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+{eju:static file="ask/skin/css/ask.css" /}
+{eju:static file="/public/static/common/js/jquery.min.js"/}
+{eju:static file="/public/plugins/layer-v3.1.0/layer.js"/}
+{eju:static file="ask/skin/js/ask.js"/}
+
+{eju:static file="skin/css/public.css" /}
+{eju:static file="ask/skin/css/AskCommonCss.css" /}
+{eju:static file="ask/skin/css/add.css" /}
+{eju:static file="ask/skin/css/navigation20141112.css" /}
+
+
+</head>
+
+<body>
+<!-- 头部 --> 
+{eju:include file="header.htm"/} 
+<!-- END -->
+
+<div class="askBox-area s2" style="display:block;">
+        <div class="bb-s mb10">
+            <textarea id="txtArea" maxlength="50" placeholder="您的问题（6到50字以内）" class="areaStyle h60"></textarea>
+            <div>
+                <span class="num">0/50</span>
+            </div>
+        </div>
+        <textarea id="bc" maxlength="500" placeholder="补充说明（选填，最多500字）" class="areaStyle h90"></textarea>
+    </div>
+<script type="text/javascript">
+    function SubmitData(obj) {
+        if (!$('#title').val()) {
+            layer.msg('请填写问题标题！', {time: 1500, icon: 2});
+            $('#title').focus();
+            return false;
+        }
+        if (!UE.getEditor("content").getContent()) {
+            layer.msg('请填写问题描述！', {time: 1500, icon: 2});
+            return false;
+        }
+        var aid = $('#aid').val();
+        var title = $('#title').val();
+        var content = UE.getEditor("content").getContent();
+        layer_loading('正在处理');
+        $.ajax({
+            url: $(obj).data('url'),
+            data: {aid:aid,title:title,content:content},
+            type:'post',
+            dataType:'json',
+            success:function(res){
+                layer.closeAll();
+                if (1 == res.code) {
+                    layer.msg(res.msg, {time: 1000},function(){
+                        window.location.href = res.url;
+                    });
+                } else {
+                    layer.msg(res.msg, {time: 1500, icon: 2});
+                }
+            },
+            error : function() {
+                layer.closeAll();
+                layer.alert('网络失败，请刷新页面后重试', {icon: 5, closeBtn: 0});
+            }
+        });
+    }
+</script> 
+{eju:include file="footer.htm"/}
+</body>
+</html>

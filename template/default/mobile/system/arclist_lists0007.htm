@@ -1,0 +1,14 @@
+<li class="c">
+      <div class="y_img">
+        <p class="y_tu"><a href="{$field.arcurl}"><img src="{$field.litpic}" alt="{$field.title}"></a></p>
+      </div>
+      <div class="y_text">
+        <div class="y_text_main"><a href="{$field.arcurl}">
+          <p class="y_titlezufang"><span>{$field.title}</span></p>
+          <p class="y_shijianspcs ">{$field.area}{$field.area_unit}<span class="l">|</span>{$field.manage_type}</p>
+          <p class="y_address t5"> {$field.address}</p>
+          <p class="y_spcs y_lptese_color c t5">{eju:volist name='$field.characteristic' id='vo' row='3'}<i>{$vo}</i>{/eju:volist}</p>
+          </a></div>
+        <div class="y_text_jiage"><span>{eju:notempty name="$field.total_price"}{$field.total_price}<i>{$field.total_price_unit}</i>{eju:else /}暂无{/eju:notempty}</span></div>
+      </div>
+    </li>

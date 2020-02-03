@@ -1,0 +1,62 @@
+.tab .active {
+	border-bottom: 1px #ff5200 solid;
+	color: #ff5200;
+}
+.m_text_jiage span{
+	color: #ff5200;
+    font-weight: bold;
+	}
+.y_homelist_list ul li .y_text .y_text_main .y_jiage span{color:#ff5200;}
+
+.y_homelist_list ul li .y_text .y_text_jiage span{
+	color: #ff5200;
+    font-weight: bold;
+	}
+
+
+.m_lpdata_jg span i{color:#ff5200;}
+.hu_nav_main ul li.on a{color:#ff5200;}
+
+
+.fangyuan .mod_cont .btn {
+	color: #ff5200;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*问答分页*/
+.page_list a.on,.page_list li span,
+.page_list a:hover {background: #ff5200;color: #ffffff;}
+
+.y_lpindexnav_main ul li.on a{color:#ff5200;}
+
+
+
+.free-call .tel{color: #ff5200;}
+.free-call .call_btn{    
+	background: linear-gradient(0deg, #ff5200, #ff5200);}
+.fixed-btns a.btn-right {
+
+    background-color: #ff5200;
+}
+
+.xq-house-head .p2 span b{color: #ff5200;}

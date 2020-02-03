@@ -1,0 +1,1034 @@
+.bar {
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+    backface-visibility: hidden;
+	bottom: 0;
+    width: 100%;
+    table-layout: fixed;
+	height: 3.125rem !important;
+    background: #fff;
+	padding: 0;
+}
+
+.bar-tab {
+    bottom: 0;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.bar-tab:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: auto;
+    right: auto;
+    height: 1px;
+    width: 100%;
+    background-color: #e7e7e7;
+    display: block;
+    z-index: 15;
+    -webkit-transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+    .bar-tab:before {
+        -webkit-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+    .bar-tab:before {
+        -webkit-transform: scaleY(0.33);
+        transform: scaleY(0.33);
+    }
+}
+
+.bar-tab:after {
+    display: none;
+}
+
+.bar-tab .tab-item {
+    position: relative;
+    display: table-cell;
+    width: 1%;
+    height: 2.5rem;
+    color: #929292;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.bar-tab .tab-item.active,
+.bar-tab .tab-item:active {
+    color: #0894ec;
+}
+
+.bar-tab .tab-item .badge {
+    position: absolute;
+    top: .1rem;
+    left: 50%;
+    z-index: 100;
+    height: .8rem;
+    min-width: .8rem;
+    padding: 0 .2rem;
+    font-size: .6rem;
+    line-height: .8rem;
+    color: white;
+    vertical-align: top;
+    background: red;
+    border-radius: .5rem;
+    margin-left: .1rem;
+}
+
+.bar-tab .tab-item .icon {
+    top: 0.05rem;
+    height: 1.2rem;
+    font-size: 22px;
+    line-height: 1.2rem;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.bar-tab .tab-item .icon ~ .tab-label {
+    display: block;
+    font-size: 12px;
+    position: relative;
+    top: 0.15rem;
+}
+
+.bar .button {
+    position: relative;
+    top: 0.5rem;
+    z-index: 20;
+    margin-top: 0;
+    font-weight: 400;
+}
+
+.bar .button.pull-right {
+    margin-left: 0.5rem;
+}
+
+.bar .button.pull-left {
+    margin-right: 0.5rem;
+}
+
+.bar .button-link {
+    top: 0;
+    padding: 0;
+    font-size: 0.8rem;
+    line-height: 2.5rem;
+    height: 2.5rem;
+    color: #0894ec;
+    border: 0;
+}
+
+.bar .button-link.active {
+    color: #0675bb;
+}
+
+.bar .button-block {
+    top: 0.35rem;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+.bar .button-nav.pull-left {
+    margin-left: -0.25rem;
+}
+
+.bar .button-nav.pull-left .icon-left-nav {
+    margin-right: -0.15rem;
+}
+
+.bar .button-nav.pull-right {
+    margin-right: -0.25rem;
+}
+
+.bar .button-nav.pull-right .icon-right-nav {
+    margin-left: -0.15rem;
+}
+
+.bar .icon {
+    position: relative;
+    z-index: 20;
+    padding: .5rem .1rem;
+    font-size: 1rem;
+    line-height: 1.2rem;
+}
+
+.bar .button .icon {
+    padding: 0;
+}
+
+.bar .title .icon {
+    padding: 0;
+}
+
+.bar .title .icon.icon-caret {
+    top: 0.2rem;
+    margin-left: -0.25rem;
+}
+
+.bar-footer .icon {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+}
+
+.bar input[type="search"] {
+    height: 1.45rem;
+    margin: 0.3rem 0;
+}
+.fixbom {
+    height: 3.125rem !important;
+    background: #fff;
+}
+
+.fixbom .tab-item {
+    height: 3.125rem;
+    color: #555;
+}
+
+.fixbom .tab-item .icon {
+    margin-right: 0;
+}
+
+.fixbom .act {
+    color: #fff;
+    background: #eb1d33;
+}
+
+
+.title_jjr {
+	position: absolute;
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin: 0 -0.5rem;
+	font-size: 1rem;
+	font-weight: 500;
+	line-height: 3.5rem;
+	color: #0a0a0a;
+	text-align: center;
+	white-space: nowrap;
+}
+.jjrlist {
+	background: #F1F3F5;
+}
+.jjrlist .dllong {
+	text-align: center;
+	color: #fff;
+	background: #ff5200;
+	line-height: 2.5625rem;
+	font-size: 0.8125rem;
+}
+.jjrlist .dllong a {
+	color: #000000;
+}
+.jjrlist .list-block ul {
+	background: #efeff4;
+	margin: 0.625rem 0;
+}
+.jjrlist .list-block ul li {
+	background: #fff;
+	margin: 0 0.46875rem 0.625rem 0.46875rem;
+	border-radius: 0.625rem;
+}
+.jjrlist .list-block ul li .jjr {
+	padding-left: 0.875rem;
+}
+.jjrlist .list-block ul li .jjr .item-media img {
+	width: 5.25rem;
+	height: 5.25rem;
+}
+.jjrlist .list-block ul li .jjr .item-inner {
+	margin-left: 0.84375rem;
+	display: inline-block;
+}
+.jjrlist .list-block ul li .jjr .item-inner .item-title-row {
+	display: flex;
+	justify-content: space-between;
+}
+.jjrlist .list-block ul li .jjr .item-inner .item-title {
+	font-size: 1rem !important;
+	color: #333;
+}
+.jjrlist .list-block ul li .jjr .item-inner .item-after {
+	color: #989898;
+	font-size: 0.375rem;
+}
+.jjrlist .list-block ul li .jjr .item-inner .lh {
+	height: 0.75rem;
+	line-height: 0.75rem;
+}
+.jjrlist .list-block ul li .jjr .item-inner .mt5 {
+	margin-top: 0.3125rem;
+}
+.jjrlist .list-block ul li .jjr .item-inner .button {
+	margin: 0 0.125rem;
+}
+.jjrlist .list-block ul li .jjr .item-inner .button-sm {
+	font-size: 0.3125rem;
+	height: 0.75rem;
+	line-height: 0.75rem;
+	padding: 0 0.125rem;
+	border-radius: 0.0625rem;
+}
+.jjrlist .list-block ul li .jjr .item-inner .button-danger {
+	color: #f6383a;
+	border-color: #f6383a;
+}
+.jjrlist .list-block ul li .jjr .item-inner .item-subtitle {
+	padding-top: 0.3125rem;
+	color: #989898;
+	font-size: 0.625rem;
+}
+.jjgslist .item-media img {
+	width: 3.4375rem !important;
+	height: 3.4375rem !important;
+	border: 1px solid #f3f3f3;
+	border-radius: 0.625rem;
+}
+.jjgslist .item-subtitle {
+	font-size: 0.625rem;
+	color: #666;
+}
+.jjgslist .item-subtitle i {
+	margin-right: 0.5rem;
+	font-size: 0.78125rem;
+}
+
+.list-block .item-content {
+    box-sizing: border-box;
+    padding-left: 0.75rem;
+    min-height: 2.2rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.list-block .item-inner {
+    padding-right: 0.75rem;
+    position: relative;
+    width: 100%;
+    padding-top: 0.4rem;
+    padding-bottom: 0.35rem;
+    min-height: 2.2rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+
+
+.gsdetail .detail-bg {
+    position: absolute;
+    height: 8.28125rem;
+    width: 20rem;
+    background-image: url("../img/member_bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.gsdetail .gsbj {
+    background: #fff;
+    margin: 0.625rem auto;
+    padding: 0.625rem;
+    font-size: 0.75rem;
+    color: #666;
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.15);
+    border: 1px solid #f7f7f7;
+    position: relative;
+    z-index: 2;
+}
+
+.gsdetail .gsbj .gsbj-title {
+    font-size: 18px;
+    color: #333;
+    height: 1.875rem;
+    line-height: 1.875rem;
+}
+
+.gsdetail .gsbj .gsbj-content {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.25rem;
+}
+
+.gsdetail .gsbj h2 {
+    font-size: 1.42rem;
+    color: #333;
+    width: 12.5rem;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.gsdetail .gsbj span {
+    display: inline-block;
+    margin-top: 0.375rem;
+}
+
+.gsdetail .gsbj .fr {
+    margin-top: 0.625rem;
+}
+
+.gsdetail .gsbj .fr img {
+    width: 3.625rem;
+    height: 3.625rem;
+    border-radius: 1.5625rem;
+}
+
+.gsdetail .gsbj .fl {
+    margin-top: 0.625rem;
+}
+
+.gsdetail .gsbj .gsdy {
+    clear: both;
+    padding-top: 0.78125rem;
+}
+
+.gsdetail .gsbj .gsdy p {
+    line-height: 1.25rem;
+	font-size: 14px;
+}
+
+.gsdetail .gsqh .buttons-tab {
+    padding: 0 1rem;
+}
+
+.gsdetail .gsqh .buttons-tab .button.active {
+    color: #db0000;
+    border-color: #db0000;
+}
+
+.gsdetail .tabs.list-con {
+    height: 12.5625rem;
+    overflow: hidden;
+}
+
+.gsdetail .gsfy {
+    background: #fff;
+    padding-top: 0.5625rem !important;
+    padding-bottom: 0.625rem !important;
+}
+
+.gsdetail .gsfy li {
+    height: 10.3125rem;
+    border: 0;
+    margin: 0.625rem auto 0.5rem;
+}
+
+.gsdetail .gsfy li .gsnr {
+    width: 7.5rem;
+    margin: 0 auto;
+}
+
+.gsdetail .gsfy li .gsnr img {
+    border-radius: 0.625rem;
+    height: 5.625rem;
+}
+
+.gsdetail .gsfy li .gsnr .gstitle {
+    padding-top: 0.5rem;
+    font-size: 0.8125rem;
+}
+
+.gsdetail .gsfy li .gsnr .gstitle .gsmj {
+    font-size: 0.625rem;
+    color: #b6b6b6;
+}
+
+.gsdetail .gsfy li .gsnr .gstitle .gsjg {
+    font-size: 0.6875rem;
+    color: #e23535;
+}
+
+.gsdetail .jjrfy {
+    background: #fff;
+    padding-top: 0.5625rem !important;
+    padding-bottom: 0.625rem !important;
+}
+
+.gsdetail .jjrfy h3 {
+    margin-left: 0.5rem;
+    font-size: 1rem;
+    color: #000;
+}
+
+.gsdetail .jjrfy li {
+    margin: 0.625rem 0 0 0.5rem;
+}
+
+.gsdetail .jjrfy li .gsnr {
+    height: 6.25rem;
+}
+
+.gsdetail .jjrfy li .gsnr img {
+    border-radius: 0.625rem;
+    height: 5.625rem;
+    width: 7.5rem;
+    float: left;
+}
+
+.gsdetail .jjrfy li .gsnr .gstitle {
+    margin-left: 7.8125rem;
+    font-size: 0.8125rem;
+    padding: 0 0.3125rem;
+}
+
+.gsdetail .jjrfy li .gsnr .gstitle .gsmj {
+    font-size: 0.625rem;
+    color: #b6b6b6;
+}
+
+.gsdetail .jjrfy li .gsnr .gstitle .gsjg {
+    font-size: 0.6875rem;
+    color: #e23535;
+}
+
+
+@font-face {
+    font-family: "f";
+    font-weight: normal;
+    font-style: normal;
+    src: url("../fonts/f.eot");
+    src: url("../fonts/f.eot?#iefix") format("embedded-opentype"), url("../fonts/f.svg#f") format("svg"), url("../fonts/f.woff") format("woff");
+}
+
+[class^="font-f-"],
+[class*=" font-f-"] {
+    font-family: "f";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: inherit;
+    float: none;
+    margin: 0;
+    vertical-align: -0.25em;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    text-decoration: none;
+    text-transform: none;
+}
+
+.font-f-1:before {
+    content: "\EA01";
+}
+
+.font-f-10:before {
+    content: "\EA02";
+}
+
+.font-f-100:before {
+    content: "\EA03";
+}
+
+.font-f-101:before {
+    content: "\EA04";
+}
+
+.font-f-102:before {
+    content: "\EA05";
+}
+
+.font-f-103:before {
+    content: "\EA06";
+}
+
+.font-f-104:before {
+    content: "\EA07";
+}
+
+.font-f-105:before {
+    content: "\EA08";
+}
+
+.font-f-106:before {
+    content: "\EA09";
+}
+
+.font-f-107:before {
+    content: "\EA0A";
+}
+
+.font-f-108:before {
+    content: "\EA0B";
+}
+
+.font-f-109:before {
+    content: "\EA0C";
+}
+
+.font-f-11:before {
+    content: "\EA0D";
+}
+
+.font-f-110:before {
+    content: "\EA0E";
+}
+
+.font-f-111:before {
+    content: "\EA0F";
+}
+
+.font-f-112:before {
+    content: "\EA10";
+}
+
+.font-f-113:before {
+    content: "\EA11";
+}
+
+.font-f-114:before {
+    content: "\EA12";
+}
+
+.font-f-115:before {
+    content: "\EA13";
+}
+
+.font-f-116:before {
+    content: "\EA14";
+}
+
+.font-f-117:before {
+    content: "\EA15";
+}
+
+.font-f-119:before {
+    content: "\EA16";
+}
+
+.font-f-12:before {
+    content: "\EA17";
+}
+
+.font-f-120:before {
+    content: "\EA18";
+}
+
+.font-f-121:before {
+    content: "\EA19";
+}
+
+.font-f-122:before {
+    content: "\EA1A";
+}
+
+.font-f-13:before {
+    content: "\EA1B";
+}
+
+.font-f-133:before {
+    content: "\EA1C";
+}
+
+.font-f-134:before {
+    content: "\EA1D";
+}
+
+.font-f-135:before {
+    content: "\EA1E";
+}
+
+.font-f-14:before {
+    content: "\EA1F";
+}
+
+.font-f-140:before {
+    content: "\EA20";
+}
+
+.font-f-141:before {
+    content: "\EA21";
+}
+
+.font-f-142:before {
+    content: "\EA22";
+}
+
+.font-f-143:before {
+    content: "\EA23";
+}
+
+.font-f-144:before {
+    content: "\EA24";
+}
+
+.font-f-145:before {
+    content: "\EA25";
+}
+
+.font-f-146:before {
+    content: "\EA26";
+}
+
+.font-f-147:before {
+    content: "\EA27";
+}
+
+.font-f-148:before {
+    content: "\EA28";
+}
+
+.font-f-149:before {
+    content: "\EA29";
+}
+
+.font-f-15:before {
+    content: "\EA2A";
+}
+
+.font-f-150:before {
+    content: "\EA2B";
+}
+
+.font-f-151:before {
+    content: "\EA2C";
+}
+
+.font-f-152:before {
+    content: "\EA2D";
+}
+
+.font-f-153:before {
+    content: "\EA2E";
+}
+
+.font-f-154:before {
+    content: "\EA2F";
+}
+
+.font-f-155:before {
+    content: "\EA30";
+}
+
+.font-f-156:before {
+    content: "\EA31";
+}
+
+.font-f-157:before {
+    content: "\EA32";
+}
+
+.font-f-158:before {
+    content: "\EA33";
+}
+
+.font-f-159:before {
+    content: "\EA34";
+}
+
+.font-f-16:before {
+    content: "\EA35";
+}
+
+.font-f-17:before {
+    content: "\EA36";
+}
+
+.font-f-18:before {
+    content: "\EA37";
+}
+
+.font-f-19:before {
+    content: "\EA38";
+}
+
+.font-f-2:before {
+    content: "\EA39";
+}
+
+.font-f-20:before {
+    content: "\EA3A";
+}
+
+.font-f-21:before {
+    content: "\EA3B";
+}
+
+.font-f-22:before {
+    content: "\EA3C";
+}
+
+.font-f-23:before {
+    content: "\EA3D";
+}
+
+.font-f-24:before {
+    content: "\EA3E";
+}
+
+.font-f-25:before {
+    content: "\EA3F";
+}
+
+.font-f-26:before {
+    content: "\EA40";
+}
+
+.font-f-27:before {
+    content: "\EA41";
+}
+
+.font-f-28:before {
+    content: "\EA42";
+}
+
+.font-f-29:before {
+    content: "\EA43";
+}
+
+.font-f-3:before {
+    content: "\EA44";
+}
+
+.font-f-30:before {
+    content: "\EA45";
+}
+
+.font-f-31:before {
+    content: "\EA46";
+}
+
+.font-f-32:before {
+    content: "\EA47";
+}
+
+.font-f-33:before {
+    content: "\EA48";
+}
+
+.font-f-34:before {
+    content: "\EA49";
+}
+
+.font-f-35:before {
+    content: "\EA4A";
+}
+
+.font-f-36:before {
+    content: "\EA4B";
+}
+
+.font-f-37:before {
+    content: "\EA4C";
+}
+
+.font-f-38:before {
+    content: "\EA4D";
+}
+
+.font-f-39:before {
+    content: "\EA4E";
+}
+
+.font-f-4:before {
+    content: "\EA4F";
+}
+
+.font-f-40:before {
+    content: "\EA50";
+}
+
+.font-f-41:before {
+    content: "\EA51";
+}
+
+.font-f-42:before {
+    content: "\EA52";
+}
+
+.font-f-43:before {
+    content: "\EA53";
+}
+
+.font-f-44:before {
+    content: "\EA54";
+}
+
+.font-f-45:before {
+    content: "\EA55";
+}
+
+.font-f-46:before {
+    content: "\EA56";
+}
+
+.font-f-47:before {
+    content: "\EA57";
+}
+
+.font-f-48:before {
+    content: "\EA58";
+}
+
+.font-f-49:before {
+    content: "\EA59";
+}
+
+.font-f-5:before {
+    content: "\EA5A";
+}
+
+.font-f-50:before {
+    content: "\EA5B";
+}
+
+.font-f-51:before {
+    content: "\EA5C";
+}
+
+.font-f-52:before {
+    content: "\EA5D";
+}
+
+.font-f-56:before {
+    content: "\EA5E";
+}
+
+.font-f-58:before {
+    content: "\EA5F";
+}
+
+.font-f-6:before {
+    content: "\EA60";
+}
+
+.font-f-68:before {
+    content: "\EA61";
+}
+
+.font-f-7:before {
+    content: "\EA62";
+}
+
+.font-f-76:before {
+    content: "\EA63";
+}
+
+.font-f-77:before {
+    content: "\EA64";
+}
+
+.font-f-78:before {
+    content: "\EA65";
+}
+
+.font-f-8:before {
+    content: "\EA66";
+}
+
+.font-f-85:before {
+    content: "\EA67";
+}
+
+.font-f-89:before {
+    content: "\EA68";
+}
+
+.font-f-9:before {
+    content: "\EA69";
+}
+
+.font-f-90:before {
+    content: "\EA6A";
+}
+
+.font-f-91:before {
+    content: "\EA6B";
+}
+
+.font-f-92:before {
+    content: "\EA6C";
+}
+
+.font-f-ask39:before {
+    content: "\EA6D";
+}
+
+.font-f-ask40:before {
+    content: "\EA6E";
+}
+
+.font-f-ask41:before {
+    content: "\EA6F";
+}
+
+.font-f-ask42:before {
+    content: "\EA70";
+}
+
+.font-f-ask43:before {
+    content: "\EA71";
+}
+
+.font-f-ask44:before {
+    content: "\EA72";
+}
+
+.font-f-ask45:before {
+    content: "\EA73";
+}
+
+.font-f-ask46:before {
+    content: "\EA74";
+}
+
+.font-f-ask47:before {
+    content: "\EA75";
+}
+
+.font-f-ask48:before {
+    content: "\EA76";
+}
+
+.font-f-ask49:before {
+    content: "\EA77";
+}
+
+.font-f-ask50:before {
+    content: "\EA78";
+}
+
+.font-f-ask51:before {
+    content: "\EA79";
+}
+
+.font-f-ask52:before {
+    content: "\EA7A";
+}
+
+.font-f-ask53:before {
+    content: "\EA7B";
+}
+
+.font-f-ask54:before {
+    content: "\EA7C";
+}
+
+.font-f-qj:before {
+    content: "\EA7D";
+}

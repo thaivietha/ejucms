@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+{eju:static file="skin/css/public.css" /}
+{eju:static file="skin/css/alert.css" /}
+{eju:static file="skin/css/swiper-3.4.2.min.css" /}
+{eju:static file="skin/css/lpindex_xc.css" /}
+{eju:static file="skin/css/map.css" /}
+
+{eju:static file="skin/css/esindex.css" /}
+{eju:static file="skin/css/recommend.css" /}
+{eju:static file="skin/css/mobile.css" /}
+{eju:static file="skin/css/xinfang.css" /}
+{eju:static file="skin/js/jquery-3.2.1.min.js" /}
+{eju:static file="skin/css/swiper.css" /}
+{eju:static file="skin/css/color.css" /}
+</head>
+<body>
+<div id="serachBox2">
+  <div class="body_box"> {eju:include file="header.htm" /}
+    <div style="height:50px;" class="m_v2head"></div>
+    <!-- 楼盘导航 --> 
+    
+    <!-- 头部图片-->
+    
+    <div class="imgs-box swiper-container">
+      <ul class="swiper-wrapper">
+        {eju:volist name="$eju.field.photo_list" id="vo"}
+        <li class="swiper-slide swiper-slide-active" ><a href="{:arcurl('home/zufang/index',['aid'=>$eju.field.aid,'dirname'=>$eju.field.dirname,'dirpath'=>$eju.field.dirpath,'column'=>'photo'])}"><img src="{$vo.photo_pic}" alt="{$vo.photo_title}" ></a></li>
+        {/eju:volist}
+      </ul>
+      <div class="lab-num">1/{$eju.field.photo_list|count}</div>
+      <input type="hidden" id="myHidden" value="{$eju.field.photo_list|count}" />
+    </div>
+    <div class="m_esdatav2_box">
+      <div class="m_esdatav2_title c"> <em>{$eju.field.title}</em> <i>{$eju.field.sale_status}</i> </div>
+      <div class="point-data">
+        <div class="data-cell"> <span class="lab">售价</span> <span class="num oneline">{$eju.field.total_price}{$eju.field.total_price_unit}</span> </div>
+        <div class="data-cell"> <span class="lab">户型</span> <span class="num oneline">{$eju.field.room}{$eju.field.living_room}</span> </div>
+        <div class="data-cell"> <span class="lab">建筑面积</span> <span class="num oneline">{$eju.field.area}{$eju.field.area_unit}</span> </div>
+      </div>
+      <div class="m_esdatav2_style c"> {eju:volist name='$eju.field.characteristic' id='vo'}<i>{$vo}</i>{/eju:volist}</div>
+      <ul class="house-info clearfix">
+        <li><span>楼层：</span> {$eju.field.floo_type}/{$eju.field.floor_count}{$eju.field.floor_count_unit} </li>
+        <li><span>朝向：</span> {$eju.field.aspect} </li>
+        <li><span>装修：</span> {$eju.field.fitment} </li>
+        <li><span>用途：</span> {$eju.field.manage_type} </li>
+        <li><span>产权：</span> {eju:notempty name="$eju.field.xiaoqu.property"}{$eju.field.property}{$eju.field.property_unit}{eju:else /}暂无数据{/eju:notempty} </li>
+        <li><span>年代：</span> {eju:notempty name="$eju.field.xiaoqu.building_age"}{$eju.field.building_age}{$eju.field.building_age_unit}{eju:else /}暂无数据{/eju:notempty} </li>
+        <li> <span>区域：</span>{$eju.field.city_id|get_city_name}-{$eju.field.area_id|get_area_name} </li>
+        {eju:notempty name="$eju.field.xiaoqu.title"}
+        <li class="full_w"> <a href="{$eju.field.xiaoqu.arcurl}"><span>小区：</span>{$eju.field.xiaoqu.title} <i class="ads"></i></a></li>
+        {eju:else /}
+        {/eju:notempty}
+        <li class="full_w"><span>地址：</span> {$eju.field.xiaoqu.address} </li>
+      </ul>
+    </div>
+    <div class="free-call">
+      <p class="tel">{$eju.field.sale_phone} {eju:notempty name="$eju.field.phone_code"} 转 {$eju.field.phone_code}{/eju:notempty}</p>
+      <p class="txt">号码加密拨打，放心了解详情</p>
+      <a href="tel:{$eju.field.sale_phone} {eju:notempty name="$eju.field.phone_code"} 转 {$eju.field.phone_code}{/eju:notempty}" class="call_btn">免费咨询</a> </div>
+    <!-- 房源描述 -->
+    
+    <div class="house-comment">
+      <div class="ct-head">
+        <p class="p1">房源描述</p>
+        <p class="p2">经纪人对房源的见解</p>
+        <div class="avatar-frame"> <a href="javascript:;"> {notempty name="$eju.field.saleman"} <img src="{$eju.field.saleman.saleman_pic}" alt="{$eju.field.saleman.saleman_name}"> {else /} <img src="{eju:global name='web_templets_pc' /}/skin/img/noavatar.jpg" alt="头像"> {/notempty} </a> </div>
+      </div>
+      <div class="ct-con spill-txt twoline" style="" id="intro"> {$eju.field.content|html_msubstr=###}<a href="javascript:;" class="acheck">展开</a> </div>
+
+    </div>
+    <div class="m_espeitao">
+      <div class="title"><a href="javascript:;">房屋配套</a></div>
+      <ul class="house-confi-point2">
+        {eju:volist name="$eju.field.supporting" id="vo"}
+        <li>
+          <div class="ico_img"> <img src="{$vo|get_supporting_icon=###}" alt=""> </div>
+          <p>{$vo}</p>
+        </li>
+        {/eju:volist}
+      </ul>
+    </div>
+    
+    <!-- 楼盘经纬度 -->
+    
+    <div id="longitude" data-jwd="{$eju.field.lng},{$eju.field.lat}"></div>
+    <div id="details">
+      <div class="m_lphome_h" style="padding:15px 10px 10px 10px;">周边配套</div>
+      <div class="detail-map-wrap">
+        <div id="map_canvas" style="width:100%;height: 300px;"></div>
+        {eju:surroundings field="$eju['field']" canvas="map_canvas" }
+        {$field.hidden}
+        {/eju:surroundings} </div>
+    </div>
+    <div class="xiaoqu-box mt28">
+      <div class="title"><a href="{$eju.field.xiaoqu.arcurl}">{$eju.field.xiaoqu.title}<span class="title-remark">小区详情</span></a></div>
+      <div class="subcon">
+        <div class="price oneline"><span>小区均价：</span>{$eju.field.xiaoqu.average_price}{$eju.field.xiaoqu.price_units}</div>
+        <p>建筑年代：<span>{$eju.field.xiaoqu.building_age}{$eju.field.xiaoqu.building_age_unit}</span></p>
+        <p>楼栋总数：<span>{$eju.field.xiaoqu.building_num}{$eju.field.xiaoqu.building_num_unit}</span></p>
+        <p>开发商：<span>{$eju.field.xiaoqu.developer}</span></p>
+        <div class="media"> <img src="{$eju.field.xiaoqu.litpic}"> </div>
+      </div>
+    </div>
+    
+    <!-- 底部推荐 -->
+    <div class="mod_box link">
+      <h3 class="mod_tit">相关推荐</h3>
+      <h3 class="mod_sub_tit">同小区房源</h3>
+      <div class="mod_cont">
+        <ul class="list clearfix" style="width: 100rem;">
+          {eju:arclist  channelid="12" joinaid="$eju.field.joinaid"  orderby='rand' row='10' id="field" addfields='building_age'}
+          <li class="item"> <a href="{$field.arcurl}" class="pictext post_ulog">
+            <div class="pic_wrap"> <img alt="{$field.title}" class="lazyload" src="{$field.litpic}" > </div>
+            <div class="title">
+              <div>{$field.title}<span class="built_year"> {$field.building_age}{$field.building_age_unit}建</span></div>
+              <p class="avg_price">{$field.total_price}{$field.total_price_unit}</p>
+            </div>
+            </a></li>
+          {/eju:arclist}
+        </ul>
+      </div>
+      <h3 class="mod_sub_tit">周边二手房</h3>
+      <div class="mod_cont bm">
+        <ul class="list clearfix" style="width: 100rem;">
+          {eju:arclist typeid='19' orderby='rand' row='10' id="field" addfields='building_age'}
+          <li class="item"> <a href="{$field.arcurl}" class="pictext post_ulog">
+            <div class="pic_wrap"> <img alt="{$field.title}" class="lazyload" src="{$field.litpic}" > </div>
+            <div class="title">
+              <div>{$field.title}<span class="built_year"> {$field.building_age}{$field.building_age_unit}建</span></div>
+              <p class="avg_price">{$field.total_price}{$field.total_price_unit}</p>
+            </div>
+            </a></li>
+          {/eju:arclist}
+        </ul>
+      </div>
+    </div>
+     
+   </div>
+</div>
+
+<!--底部开始-->
+{eju:include file="footer_a.htm"/}
+<!--底部结束--> 
+
+{eju:static file="skin/js/swiper-3.4.2.min.js" /}
+{eju:static file="skin/js/nav.js" /}
+{eju:static file="skin/js/method.js" /}
+{eju:static file="skin/css/layer-animate.css" /}
+{eju:static file="skin/js/search_public.js" /}
+{eju:static file="skin/js/index.js" /} 
+<!--底部优惠开始--> 
+{eju:include file="youhui.htm"/} 
+<!--底部优惠结束--> 
+{eju:static file="skin/js/iscroll.js" /}
+{eju:static file="skin/js/navbarscroll.js" /}
+
+{eju:static file="skin/js/lpindex_xc.js" /}
+{eju:static file="skin/js/lpindex.js" /}
+{eju:static file="skin/js/recommend.js" /}
+{eju:static file="skin/js/method.js" /}
+{eju:static file="skin/css/layer-animate.css" /} 
+{eju:static file="skin/js/common.js" /}
+{eju:static file="skin/js/swiper.min.js" /} 
+<script type="text/javascript">
+$(function(){
+	FastClick.attach(document.body);
+
+    var sizeNum= 0;
+        sizeNum = 2+1;
+    var ratio=750/420;
+	var swiperH=$(window).width()/ratio;   
+	$(".imgs-box").css("height",swiperH+"px");
+	if($(".swiper-wrapper li").find("img").length>0){
+	    var topSwiper = new Swiper ('.imgs-box', {
+			lazyLoading : true,
+			lazyLoadingInPrevNext : true,
+			onInit:function(swiper){
+				var sizeNum=$("#myHidden").val();
+				$(".lab-num").text('1/'+sizeNum);
+				var image=swiper.container.find("li").eq(0).find("img")[0];
+	      		var rr=new Image();
+	            rr.src=image.getAttribute("src");
+	            rr.onload=function(){
+	                var w=rr.width,h=rr.height;
+
+	            }
+			},
+			onLazyImageLoad:function(swiper, slide, image){
+	            var rr=new Image();
+	            rr.src=image.getAttribute("data-src");
+	            rr.onload=function(){
+	                var w=rr.width,h=rr.height;
+	            }
+			},
+			
+			onSlideChangeEnd: function(swiper){
+				var index=swiper.activeIndex;
+				var sizeNum=$("#myHidden").val();
+		    	$(".lab-num").text((index+1)+'/'+sizeNum);
+				$('#curIndex').val(index);
+		    }
+	    });
+    }
+
+	window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function() {
+		clearInterval();
+    	setTimeout(function() {
+	    	winW=$("body").width();
+			var swiperH=winW/ratio;
+			$(".imgs-box").css("height",swiperH+"px");
+	        !!topSwiper&&topSwiper.onResize();
+	    }, 1e3 / 60)
+	},false); 
+});
+
+</script>
+<script type="text/javascript">
+    /*小区介绍折叠效果*/
+	$("#intro").height(function(index,height){
+		var h=height;
+		$(this).removeClass("twoline");
+		var realh=$(this).height();
+		if(h>=realh){
+			$(this).find("a").css("display","none");
+		}
+	}).addClass("twoline");
+	$("#intro .acheck").on("click",function(){
+		if($(this).hasClass("unfold")){
+			$(this).removeClass("unfold").text("展开").parent().addClass("twoline");
+		}else{
+			$(this).addClass("unfold").text("收起").parent().removeClass("twoline");
+		}
+	});
+
+  function zaishou_show(){
+	  $("#zaishou_div").show();
+	  $("#zaizu_div").hide();
+	  $("#zaishou_a").addClass("current");
+	  $("#zaizu_a").removeClass("current");
+  }
+  function zaizu_show(){
+	  $("#zaishou_div").hide();
+	  $("#zaizu_div").show();
+	  $("#zaizu_a").addClass("current");
+	  $("#zaishou_a").removeClass("current");
+  }
+</script> 
+<div style="display: none;">{eju:arcclick /}</div>
+</body>
+</html>

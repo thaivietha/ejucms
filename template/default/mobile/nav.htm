@@ -1,0 +1,19 @@
+<div class="y_sidebar">
+  <div class="y_sidebarcent">
+    <div class="y_sidebarcent_ul">
+      <ul>
+        {eju:user type='open'}
+        {eju:user type='login'} 
+        <li class="thin-border-b"><a href="{$field.url}" id="{$field.id}" class="ico1">个人中心</a></li>
+        {$field.hidden}
+        {/eju:user}
+        {/eju:user}
+        <li class="thin-border-b"><a href="{eju:global name='web_cmsurl' /}" class="ico2">首页</a></li>
+        {eju:channel type="top" row="10" id="field"}
+        <li class="thin-border-b"><a href="{$field.typeurl}" class="ico{$i+2}">{$field.typename}</a></li>
+        {/eju:channel}
+      </ul>
+    </div>
+  </div>
+  <div class="y_sidebar_bg"></div>
+</div>

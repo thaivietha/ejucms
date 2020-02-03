@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+{eju:static file="skin/css/public.css" /}
+{eju:static file="skin/css/alert.css" /}
+{eju:static file="skin/css/swiper-3.4.2.min.css" /}
+{eju:static file="skin/css/lpindex_xc.css" /}
+{eju:static file="skin/css/map.css" /}
+{eju:static file="skin/css/lpindex.css" /}
+{eju:static file="skin/css/recommend.css" /}
+{eju:static file="skin/css/mobile.css" /}
+{eju:static file="skin/css/xinfang.css" /}
+{eju:static file="skin/js/jquery-3.2.1.min.js" /}
+{eju:static file="skin/css/color.css" /}
+</head>
+<body>
+<div id="serachBox2">
+  <div class="body_box"> 
+   {eju:include file="header.htm" /}
+    <div style="height:50px;" class="m_v2head"></div>
+    
+    <!-- 楼盘导航 -->
+    <div class="y_lpindexnav xungua">
+      <div class="y_lpindexnav_main">
+        <ul class="c">
+          <li {eju:empty name='$eju.param.column'} class="on"{/eju:empty}><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath])}"> <span>楼盘首页</span> </a></li>
+          <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='detail'} class="on"{/eju:eq}{/eju:notempty}>
+          <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'detail'])}"> <span>楼盘信息</span> </a>
+          </li>
+          <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='information'} class="on"{/eju:eq}{/eju:notempty}>
+          <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'information'])}"> <span>楼盘动态</span> </a>
+          </li>
+          <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='huxing'} class="on"{/eju:eq}{/eju:notempty}>
+          <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing'])}"> <span>楼盘户型</span> </a>
+          </li>
+          <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='photo'} class="on"{/eju:eq}{/eju:notempty}>
+          <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo'])}"> <span>楼盘相册</span> </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- 头部图片-->
+    
+    <div class="m_headImg_box"> <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo'])}"><img class="m_headImg_img" src="{$eju.field.litpic}" alt=""></a></div>
+    <div class="m_lpdatav2_box">
+      <div class="m_lpdatav2_title c"> <em>{$eju.field.title}</em> <i>{$eju.field.sale_status}</i> <a class="btn3"> <img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_21.gif" alt=""> <span>开盘通知</span> </a> </div>
+      <div class="m_lpdatav2_style c"> {eju:volist name='$eju.field.characteristic' id='vo'}<i>{$vo}</i>{/eju:volist}</div>
+      <div class="m_lpdatav2_b">
+        <div class="m_lpdatav2_jg"> <span>均价: {eju:notempty name="$eju.field.average_price"}<i>{$eju.field.average_price}</i>{$eju.field.price_units}{eju:else /}暂无{/eju:notempty}</span> <em class="yxq">(有效期至：{$eju.field.price_time|myDate='Y-m-d',###})</em> </div>
+        <div class="m_lpdatav2_dz c"> <span>地址：</span> <i>{$eju.field.address}</i> <a href="#m_Matching"><img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_2.png" alt=""></a> </div>
+        <div class="m_lpdatav2_dh c">
+          <div class="m_lpdatav2_dhtext"> <span>售楼处：<em>{$eju.field.sale_phone} {eju:notempty name="$eju.field.phone_code"} 转 {$eju.field.phone_code}{/eju:notempty}</em></span> <i>最新价格、政策行情、楼盘优惠信息等可咨询</i> </div>
+          <div class="m_lpdatav2_dhimg"><a href="tel:{$eju.field.sale_phone}"><img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_03.gif" alt=""></a></div>
+        </div>
+      </div>
+      <div class="m_lpdatav2_bm c"> <a class="btn4"> <img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_4.png" alt=""> <span>降价通知</span> </a> <a class="btn5"> <img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_5.png" alt=""> <span>报名看房</span> </a> </div>
+    </div>
+    
+    <!-- 户型 -->
+    <div class="activity div_gap">
+      <div class="title"><a href="javascript:;">热门活动</a></div>
+      <ul class="activity-box-list">
+        <!-- 默认版（预约看房） -->
+        <li class="bg-red">
+          <p class="txt">组团砍价</p>
+          <p class="subtxt">人多力量大，团购更优惠</p>
+          <a class="btn btn2">立即报名</a>
+          <div class="sm"><strong>279人</strong>已报名</div>
+        </li>
+        <li class="bg-green">
+          <p class="txt">预约看房</p>
+          <p class="subtxt">一对一服务，解答更详细</p>
+          <a class="btn btn5">立即报名</a>
+          <div class="sm"><strong>167人</strong>已报名</div>
+        </li>
+      </ul>
+    </div>
+    <div class="huxing div_gap anchor3">
+      <div class="title"><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing'])}" title="{$eju.field.title}户型图">主力户型({$eju.field.huxing_list|count})<span class="title-remark">查看更多</span></a></div>
+      <div class="hx-list"> {eju:fanglist name="$eju.field.huxing_list" id="field" row='10'} <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.aid,'dirname'=>$eju.field.dirname,'dirpath'=>$eju.field.dirpath,'column'=>'huxing','sid'=>$vo.huxing_id])}">
+        <div class="img"> <img  src="{$field.huxing_pic}" alt="{$field.huxing_title}" > </div>
+        <div class="hxtxt"> {$field.huxing_room}室{$field.huxing_living_room}厅{$field.huxing_toilet}卫 </div>
+        <div class="extra">建筑面积:{$field.huxing_area}㎡</div>
+        <div class="price">约{$field.huxing_price}万/套</div>
+        </a> {/eju:fanglist} </div>
+    </div>
+    
+    <!-- 楼盘详情 -->
+    
+    <div class="m_details_box">
+      <div class="m_lphome_h">楼盘详情</div>
+      <div class="y_lpjbxx_cent">
+        <ul>
+          <li class="c"><span>主力户型：</span><em>{$eju.field.main_unit} </em></li>
+          <li class="show c"><span>开&nbsp;&nbsp;发&nbsp;&nbsp;商：</span><em>{$eju.field.developer} </em></li>
+          <li class="c"><span>开盘时间：</span><em>{$eju.field.opening_time|myDate='Y年m月d日',###}</em></li>
+          <li class="show c"><span>交房时间：</span><em>{$eju.field.complate_time|myDate='Y年m月d日',###}</em></li>
+          <li class="show c"><span>产权年限：</span><em>{$eju.field.property}</em></li>
+          <li class="show c"><span>预售许可证：</span><em> {$eju.field.licence} </em></li>
+        </ul>
+      </div>
+      <div class="m_hotlP_gd"><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'detail'])}">更多信息</a></div>
+    </div>
+    
+    <!-- 优惠通知 -->
+    
+    <div class="m_Discount_bm"> <a onclick="liquyouhui()" href="javascript:;"> <img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_9.png" alt=""> </a> </div>
+    
+    <!-- 楼盘动态 -->
+    
+    <div class="m_dynamic_box">
+      <div class="m_lphome_h">楼盘动态</div>
+      <div class="m_hotnews_list">
+        <ul>
+          {eju:arclist typeid="4" joinaid="$eju.field.aid" orderby='new' limit="0,3" id="field"}
+          <li class="style1 c"> <a href="{$field.arcurl}">
+            <div class="m_style1_tu"> <img src="{$field.litpic}" alt=""> </div>
+            <div class="m_style1_text">
+              <p class="m_title">{$field.title}</p>
+              <p class="m_sjll"> <span class="m_ll"><i><img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_10.png" alt=""></i>{$field.click}</span> <span class="m_sj">{$field.add_time|MyDate='Y-m-d',###}</span> </p>
+            </div>
+            </a> </li>
+          {/eju:arclist}
+        </ul>
+      </div>
+      <a name="m_Matching"></a> 
+      
+      <!-- 动态通知 -->
+      
+      <div class="y_lpyhtz">
+        <div class="y_lpyhtz_main "> {eju:form formid="1"}
+          <form method="post" id="{$field.form_name}" action="{$field.action}" onsubmit="{$field.submit}">
+            <input class="y_lpyhtz_input" type="text" id="{$field.attr_1}" name="{$field.attr_1}" placeholder="请输入您的{$field.itemname_1}" style="border: 1px solid #DDD"  maxlength="11" >
+            <button class="apply_subm2" type="submit">动态通知</button>
+            <span><img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_12.png" alt="">我们将以短信通知您全新楼盘动态，足不出户知房事</span> {$field.hidden}
+          </form>
+          {/eju:form} </div>
+      </div>
+      <div class="m_hotlP_gd"><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'information'])}">更多动态</a></div>
+    </div>
+    <!-- 周边配套 -->
+    <!-- 楼盘经纬度 -->
+    <div id="longitude" data-jwd="{$eju.field.lng},{$eju.field.lat}"></div>
+    <div id="details">
+      <div class="m_lphome_h" style="padding:15px 10px 10px 10px;">周边配套</div>
+      <div class="detail-map-wrap">
+        <div id="map_canvas" style="width:100%;height: 300px;"></div>
+      </div>
+      {eju:surroundings field="$eju['field']" canvas="map_canvas" tag="heihei" select="active" total="total" tab="lp-map-tab" result="result"}
+      <div class="map-mart">
+        <div class="map-mart-title" id="map-keyword">
+          {eju:volist name="$field.list" id="vo"}
+          <a href="javascript:;" class="heihei" onclick="select_around({$key});">{$vo}</a>
+          {/eju:volist}
+        </div>
+        <ul class="map-mart-lists" id="result">
+        </ul>
+      </div>
+      {$field.hidden}
+      {/eju:surroundings}
+    </div>
+
+  <style>
+     .map-mart .map-mart-lists li {
+      height: 22px;
+      line-height: 22px;
+      color:#425571;
+      cursor: pointer;
+      overflow: hidden;
+    }
+  </style>
+
+
+
+    <!-- 报名看房 -->
+    <div class="m_bmkf"> <a class="btn5" href="javascript:;"> <img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_16.png" alt=""> </a> </div>
+    <!-- 底部推荐 -->
+    <div class="mod_box link">
+      <h3 class="mod_tit">相关推荐</h3>
+      <h3 class="mod_sub_tit">同小区房源</h3>
+      <div class="mod_cont">
+        <ul class="list clearfix" style="width: 140rem;">
+          {eju:arclist  channelid="9" joinaid="$eju.field.joinaid"  orderby='rand' row='10' id="field"}
+          <li class="item"> <a href="{$field.arcurl}" class="pictext post_ulog">
+            <div class="pic_wrap"> <img alt="{$field.title}" class="lazyload" src="{$field.litpic}" > </div>
+            <div class="title">
+              <div>{$field.title}<span class="built_year"> {$field.opening_time|MyDate='Y年',###}开盘</span></div>
+              <p class="avg_price">{$field.average_price}{$field.price_units}</p>
+            </div>
+            </a></li>
+          {/eju:arclist}
+        </ul>
+      </div>
+      <h3 class="mod_sub_tit">猜你喜欢</h3>
+      <div class="mod_cont bm">
+        <ul class="list clearfix" style="width: 140rem;">
+          {eju:arclist  orderby='rand' row='10' id="field"}
+          <li class="item"> <a href="{$field.arcurl}" class="pictext post_ulog">
+            <div class="pic_wrap"> <img alt="{$field.title}" class="lazyload" src="{$field.litpic}" > </div>
+            <div class="title">
+              <div>{$field.title}<span class="built_year"> {$field.opening_time|MyDate='Y年',###}开盘</span></div>
+              <p class="avg_price">{$field.average_price}{$field.price_units}</p>
+            </div>
+            </a></li>
+          {/eju:arclist}
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+
+  
+</div>
+
+<!--底部开始--> 
+
+{eju:include file="footer.htm"/} 
+<!--底部结束--> 
+
+{eju:static file="skin/js/swiper-3.4.2.min.js" /}
+{eju:static file="skin/js/nav.js" /}
+{eju:static file="skin/js/method.js" /}
+{eju:static file="skin/css/layer-animate.css" /}
+{eju:static file="skin/js/search_public.js" /}
+{eju:static file="skin/js/index.js" /} 
+<!--底部优惠开始--> 
+{eju:include file="youhui.htm"/} 
+<!--底部优惠结束--> 
+{eju:static file="skin/js/iscroll.js" /}
+{eju:static file="skin/js/navbarscroll.js" /}
+
+{eju:static file="skin/js/lpindex_xc.js" /}
+{eju:static file="skin/js/lpindex.js" /}
+{eju:static file="skin/js/recommend.js" /}
+{eju:static file="skin/js/method.js" /}
+{eju:static file="skin/css/layer-animate.css" /} 
+
+<!--搜索弹出层开始--> 
+{eju:include file="so.htm"/} 
+<!--搜索弹出层结束-->
+<div style="display: none;">{eju:arcclick /}</div>
+</body>
+</html>

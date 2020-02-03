@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{$eju.field.info.ask_title}-问答中心</title>
+<meta name="renderer" content="webkit" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+{eju:static file="ask/skin/css/ask.css" /}
+
+{eju:static file="/public/static/common/js/jquery.min.js"/}
+{eju:static file="/public/plugins/layer-v3.1.0/layer.js"/}
+{eju:static file="skin/css/public.css" /}
+{eju:static file="skin/css/color.css" /}
+{eju:static file="ask/skin/css/pusk.css" /}
+{eju:static file="ask/skin/css/ask.css" /}
+</head>
+
+<body>
+<!-- 头部 --> 
+{eju:include file="header.htm"/} 
+<!-- END -->
+<div class="search flexbox ask_top" id="searchbox">
+ 
+  <div class="searbox" id="new_searchtext">
+    <div class="inputbox" id="wapasksy_D01_05"> <a class="input" href="javascript:void(0);" ><i></i>请输入您的问题</a> </div>
+  </div>
+  <a class="questionbtn" id="wapasksy_D01_06">常见问题<i></i></a> 
+  
+  </div>
+<div class="main ">
+  <section class="crumb pdX20"> <a href="{eju:global name='web_cmsurl' /}" class="f999">首页</a> > <a href="{$eju.field.NewDateUrl}" class="f999">问答</a> > {$eju.field.info.ask_title} </section>
+
+  <section class="pdX20 mBox">
+    <div class="answerMylist">
+      <ul>
+        <li>
+          <h2 class="">{$eju.field.info.ask_title}</h2>
+          <div class="askAnShare bt mt14">
+            <div class="s1">
+              <p>提问者：{$eju.field.info.username}</p>
+              <p class="mt10">发布于{$eju.field.info.add_time|MyDate="Y-m-d H:i:s",###}</p>
+            </div>
+            <div class="s2"> <a href="//m.fang.com/ask/bj/answerRightNow_40786631.html" id="answer_rightnow" class="tiwen mgX10"><i></i>回答</a> <a href="javascript:void(0);" class="share"><i></i>分享</a> </div>
+          </div>
+          
+          <!-- 提问者信息及分享回答按钮,如果是字app中则不显示 end --> 
+        </li>
+      </ul>
+    </div>
+  </section>
+  
+  <section class="pdX20 mBox">
+    <div class="astTAans f15 gray-b bb">共{eju:countlist /}个回答</div>
+    <div class="payasklist">
+      <ul class="ul_answer">
+        <li>
+          <dl class="gradePay">
+            <dt> <a href="javascript:void(0);"> <img class='lazyload' data-original="skin/images/pic14.jpg" onerror='this.src="//static.soufunimg.com/common_m/m_public/201511/images/ask_img.jpg"'> </a> </dt>
+            <dd>
+              <h5> {$vo.username}
+                
+                丨Lv 1 </h5>
+            </dd>
+          </dl>
+          <div class="cinfo gray-0">{$vo.content}</div>
+          <div class="other"> <em> <a href="javascript:void(0);" class="zan askzan" data-id="51694665" answer_user_id="115164940" IsDingCai="-1"><i>+1</i>0</a> </em> 2020-01-03 </div>
+        </li>
+        
+        
+        <li class="li-dw-p" id="askDetailMiddle" style="display:none;"></li>
+        
+        
+        <!-- 普通答案 end -->
+      </ul>
+    </div>
+    <!--ajax加载多个答案-->
+    
+    <div class="mb8"></div>
+  </section>
+  
+  <!-- 渐变的间距 -->
+  <div class="space8jb"></div>
+
+</div>
+{eju:include file="footer.htm"/}
+</body>
+</html>

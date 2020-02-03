@@ -1,0 +1,340 @@
+<html>
+<head>
+    <title>{eju:global name='web_title' /}_地图找房</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="keywords" content="地图找房"/>
+    <meta name="description" content=""/>
+    {eju:static file="map/css/list_pub.css" /}
+    {eju:static file="map/css/housedefault.css" /}
+    {eju:static file="map/css/allheader.css" /}
+    {eju:static file="map/css/search_list.css" /}
+    <script src="{eju:global name='web_templets_m' /}/skin/js/jquery-3.2.1.min.js"></script>
+    <style>
+        .tabnav{
+            text-align:center;
+            position: absolute;
+            top: 3px;
+            width: 100%;
+        }
+        .tabnav>ul{
+            display:block;
+            width: 70%;
+            margin:5px auto;
+            border: 1px solid #999;
+            background: #999;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .tabnav li{
+            display:block !important;
+            float: left;
+            background: #fff;
+            width: 33% !important;
+            line-height: 25px !important;
+        }
+        .tabnav ul a{
+            display: block;
+            padding:5px 20px;
+            background-color:#fff;
+            color:#000;
+        }
+        .tabnav ul li.on a{
+            background-color: #999;
+            padding: 0;
+            border-bottom: none;
+            color: #fff;
+        }
+        .tabcon .main{
+            display:none;
+        }
+        .tabcon .main.on{
+            display: block;
+        }
+        .m_nav ul li.t{border-left: 1px solid #999; border-right: 1px solid #999;}
+
+        .searchicon{top: 11px; right: 15px; width: 20px; height: 20px;}
+        .layout{padding-bottom: 0}
+    </style>
+    <script type="text/javascript">
+        function go() {
+            window.location = "/";
+        }
+        /*<![CDATA[*/
+        var haveSub = 0;
+        /*]]>*/
+    </script>
+</head>
+<body>
+<div class="m_top m_nav">
+    <input type="hidden"  id="search-map" data-url="{eju:diyurl type='mapershoulist' /}">
+    <a class="return" onclick="javascript:history.go(-1);"></a>
+    <!--选项卡-->
+    <div class="tabnav">
+        <ul>
+            <li rel="1" class=""><a href="{eju:diyurl type='map' /}">新房</a></li>
+            <li rel="2" class="t on"><a href="{eju:diyurl type='mapershou' /}">二手房</a></li>
+            <li rel="3" class=""><a href="{eju:diyurl type='mapzufang' /}">租房</a></li>
+        </ul>
+        <!--<a href="">-->
+        <!--<i class="list_icon searchicon"></i>-->
+        <!--</a>-->
+    </div>
+</div>
+<!--<div id="search_box">-->
+<!--<div id="search"></div>-->
+<!--<div class="close_wei">-->
+<!--<a id="deleteSearch"><img src="{eju:global name='web_templets_mobile' /}/map/images/close.png"></a>-->
+<!--</div>-->
+<!--</div>-->
+<form  id="form-map">
+    <div class="filter">
+        <div class="filter_item" show="0">
+            <div class="fillter_text">
+                <span>价格</span>
+            </div>
+            <img src="{eju:global name='web_templets_mobile' /}/map/images/sanjiao.gif" class="bgarrow"/>
+        </div>
+        <div class="filter_item" show="0">
+            <div class="fillter_text">
+                <span>特色</span>
+            </div>
+            <img src="{eju:global name='web_templets_mobile' /}/map/images/sanjiao.gif" class="bgarrow"/>
+        </div>
+        <div class="filter_item" show="0">
+            <div class="fillter_text">
+                <span>类型</span>
+            </div>
+            <img src="{eju:global name='web_templets_mobile' /}/map/images/sanjiao.gif" class="bgarrow"/>
+        </div>
+        <div class="filter_item" show="0">
+            <div class="fillter_text borderrn">
+                <span>更多</span>
+            </div>
+            <img src="{eju:global name='web_templets_mobile' /}/map/images/sanjiao.gif" class="bgarrow"/>
+        </div>
+    </div>
+    <div class="fillter_select" show="0" style="top: 85px;">
+        {eju:screening id='field' addfields='total_price,characteristic,manage_type'  typeid='11' currentstyle='on' alltxt='不限' }
+        {eju:volist name='$field.list' id='vo'}
+        <div class="area_block">
+            <div class="fillter_4">
+                <ul>
+                    <input type="hidden" name="{$vo.name}" id="{$vo.name}" />
+                    <!--<li class="select_search {$vo2.currentstyle}" data-value="" data-name="{$vo.name}">{$vo.title}</li>-->
+                    {eju:volist name='$vo.dfvalue' id='vo2'}
+                    <li class="select_search {$vo2.currentstyle}" data-value="{$vo2.id}" data-title="{$vo2.name}" data-name="{$vo.name}">{$vo2.name}</li>
+                    {/eju:volist}
+                </ul>
+            </div>
+        </div>
+        {/eju:volist}
+        {$field.hidden}
+        {/eju:screening}
+        <div class="area_block">
+            {eju:screening id='field' addfields='room,aspect,fitment,floo_type'  typeid='11' currentstyle='on' alltxt='不限' }
+            <div class="fillter_4 layout moreItem " haveThing="0" style="display: block">
+                {eju:volist name='$field.list' id='vo'}
+                <ul class="more">
+                    <h3 >{$vo.title}</h3>
+                    <span>
+                    <input type="hidden" name="{$vo.name}" id="{$vo.name}" />
+                    {eju:volist name='$vo.dfvalue' id='vo2'}
+                    <li class="ajax_select_search {$vo2.currentstyle}" data-value="{$vo2.id}" data-title="{$vo2.name}" data-name="{$vo.name}">{$vo2.name}</li>
+                    {/eju:volist}
+                </span>
+                </ul>
+                {/eju:volist}
+                <div class="btn">
+                    <button class="empty">清空条件</button>
+                    <button class="confirm">确认</button>
+                </div>
+                <ul></ul>
+            </div>
+            {$field.hidden}
+            {/eju:screening}
+
+        </div>
+    </div>
+</form>
+<div id="allmap"></div>
+<div id="list_item"></div>
+<script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak={:config('global.baidu_map_ak')}"></script>
+<script type="text/html" id="template">
+    {{# for(var i = 0, len = d.length; i < len; i++){ }}
+    <li onmouseover="" onmouseout=""  onclick="openInfo('{{d[i].aid}}')">
+        <a href="#"  class="clearfix" id="bid_{{d[i].aid}}">
+            <div class="img">
+                <img src="{{d[i].litpic}}" alt="">
+                <em class="shou">{{d[i].sale_status_name}}</em>
+            </div>
+            <div class="text">
+                <p class="mt5 clearfix">
+                    <span class="name text-ellip">{{d[i].title}}</span>
+                    <span class="ads text-ellip">{{d[i].address}}</span>
+                    <span class="unit-pri text-ellip">
+                        <em class="orange fz16">{{d[i].average_price}}{{d[i].price_units}}</em>
+                    </span>
+                </p>
+                <p class="mt15 c666">
+                    {{# if(d[i].is_discount){ }}
+                    <i class="tuan">惠</i>{{d[i].discount}}
+                    {{# } }}
+                </p>
+            </div>
+        </a>
+    </li>
+    {{# } }}
+</script>
+{eju:static file="map/js/layer.js" /}
+{eju:static file="map/js/laytpl.js" /}
+{eju:static file="map/js/map_ershou.js" /}
+<script>
+    $(function(){
+        var lng = '{$lng}';
+        var lat = '{$lat}';
+        BMapApplication.init({'lng' : lng, 'lat' : lat, 'mapContainerId' : 'allmap'});
+        BMapApplication.requestUrl = $('#search-map').data('url');
+        BMapApplication.requestParam = getParam();
+        BMapApplication.getMap();
+        //点击打开筛选项
+        $(".filter_item").click(function () {
+            var height = $(window).height();
+            var index = $(this).index();
+            $("body").css("overflow", "hidden");
+            $(".fillter_text").find("span:eq(0)").removeClass("active");
+            $(".fillter_text:eq(" + index + ")").find("span:eq(0)").addClass("active");
+            $(".area_block").hide();
+            switch (index) {
+                case 0://区域
+                    $(".area_block:eq(0)").show();
+                    break;
+                case 1://户型
+                    $(".area_block:eq(1)").show();
+                    break;
+                case 2://价格
+                    $(".area_block:eq(2)").show();
+                    break;
+                case 3://更多
+                    $(".area_block:eq(3)").show();
+                    break;
+            }
+            if ($(this).attr("show") == 0) {
+                $(".fillter_select").height(height).slideDown();
+                $(this).attr("show", "1");
+                $(this).find("span:eq(0)").addClass("active");
+                $(this).siblings().attr("show", "0");
+            } else {
+                $(".fillter_select").height(height).slideUp();
+                $(".fillter_select").attr("show", "0");
+                $(this).attr("show", "0");
+                $(".fillter_text").find("span:eq(0)").removeClass("active");
+            }
+        });
+        //点击触发筛选项
+        $('.select_search').on('click',function(){
+            var height = $(window).height();
+            var index = $(this).index();
+            $("body").css("overflow", "hidden");
+            $(".fillter_text").find("span:eq(0)").removeClass("active");
+            $(".fillter_text:eq(" + index + ")").find("span:eq(0)").addClass("active");
+            $(".area_block").hide();
+            $(this).siblings().removeClass('on');
+            $(this).addClass('on');
+            var input_name = $(this).data('name');
+            var input_value = $(this).data('value');
+            var input_title = $(this).data('title');
+            $("#"+input_name).val(input_value);
+            $(".filter_item[show='1']").find("span:eq(0)").addClass('active').html(input_title);
+            $(".fillter_select").height(height).slideUp();
+            $(".fillter_select").attr("show", "0");
+            $(".filter_item").attr("show", "0");
+            $(".fillter_text").find("span:eq(0)").removeClass("active");
+            search();
+            return false;
+        });
+        //更多选中
+        $(".ajax_select_search").on('click',function () {
+            $(this).siblings().removeClass('on');
+            $(this).addClass('on');
+            var input_name = $(this).data('name');
+            var input_value = $(this).data('value');
+            var input_title = $(this).data('title');
+            $("#"+input_name).val(input_value);
+        });
+        //提交更多
+        $(".confirm").on('click',function (){
+            var height = $(window).height();
+            var index = $(this).index();
+            $("body").css("overflow", "hidden");
+            $(".fillter_text").find("span:eq(0)").removeClass("active");
+            $(".fillter_text:eq(" + index + ")").find("span:eq(0)").addClass("active");
+            $(".area_block").hide();
+            $(".fillter_select").height(height).slideUp();
+            $(".fillter_select").attr("show", "0");
+            $(".filter_item").attr("show", "0");
+            $(".fillter_text").find("span:eq(0)").removeClass("active");
+            search();
+            return false;
+        });
+        //清空条件
+        $(".empty").on('click',function () {
+            $(".more li").removeClass("on");
+            $(".more input").val("");
+            return false;
+        });
+
+
+        //按条件筛选
+        $('.search-btn').on('click',function(){
+
+            search();
+            return false;
+        });
+        //排序
+        $('.sort a').on('click',function(){
+            var order = $(this).attr('data-order');
+            var orderway = 'asc';
+            $(this).addClass('active').siblings('.active').removeClass('active');
+            $(this).siblings('.icon-desc').removeClass('icon-desc');
+            $(this).siblings('.icon-asc').removeClass('icon-asc');
+            if (order){
+                if($(this).hasClass('icon-desc'))
+                {
+                    $(this).removeClass('icon-desc').addClass('icon-asc');
+                    $(this).attr('data-orderway','asc');
+                }else{   // if($(this).hasClass('icon-asc'))
+                    $(this).removeClass('icon-asc').addClass('icon-desc');
+                    $(this).attr('data-orderway','desc');
+                    orderway = 'desc';
+                }
+            }
+            $("#orderby").val(order);
+            $("#orderway").val(orderway);
+
+            search()
+        });
+        function search(){
+            BMapApplication.viewArea = true;
+            BMapApplication.requestParam = getParam();
+            BMapApplication.getData();
+
+            return false;
+        }
+    });
+    function openInfo(aid){
+        BMapApplication.makeInfoWindow(aid);
+    }
+    function getParam()
+    {
+        var result = $('#form-map').serializeArray();
+        var param = {};
+        $.each(result, function(i, field){
+            param[field.name] = field.value;
+        });
+
+        return param;
+    }
+</script>
+</body>
+</html>

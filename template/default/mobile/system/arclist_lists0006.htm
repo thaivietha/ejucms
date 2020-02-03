@@ -1,0 +1,15 @@
+<li class="c">
+      <div class="y_img">
+        <p class="y_tu"><a href="{$field.arcurl}"><img src="{$field.litpic}" alt="{$field.title}"></a></p>
+      </div>
+      <div class="y_text">
+        <div class="y_text_main"><a href="{$field.arcurl}">
+          <p class="y_titlezufang"><span>{$field.title}</span></p>
+          <p class="y_shijian">{$field.city_id|get_city_name}</p>
+          <p class="y_address">在售二手房（<b>{eju:sonarccount table='archives' map="[$field['aid'],0,12]" mapkey="['joinaid','is_del','channel']"/}</b>）套<span class="l">|</span>
+              在租房源（<b>{eju:sonarccount table='archives' map="[$field['aid'],0,13]" mapkey="['joinaid','is_del','channel']"/}</b>）套 </p>
+          <p class="y_tese y_lptese_color c">{$field.building_age}年建造</p>
+          </a></div>
+        <div class="y_text_jiage"><span>{eju:notempty name="$field.average_price"}{$field.average_price}<i>{$field.price_units}</i>{eju:else /}暂无{/eju:notempty}</span></div>
+      </div>
+    </li>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+{eju:static file="skin/css/public.css" /}
+{eju:static file="skin/css/alert.css" /}
+{eju:static file="skin/css/swiper-3.4.2.min.css" /}
+{eju:static file="skin/css/news.css" /}
+{eju:static file="skin/css/mobile.css" /}
+{eju:static file="skin/css/color.css" /}
+</head>
+<body background="#efefef">
+<div id="serachBox2">
+{eju:include file="header.htm" /}
+<div style="height:50px;" class="m_v2head"></div>
+<div class="tuan-1 news_list" id="lists0003">
+
+ {eju:arclist tagid="lists0003" addfields="end_time,price" row="2" titlelen="20" orderby='new' id='field'}
+  <li><a href="{$field.arcurl}"><img src="{$field.litpic}"></a>
+    <div class="tuan-1-1"><a href="{$field.arcurl}">
+      <h2>{$field.title}</h2>
+      {eju:arcview aid='$field.joinaid' id='field2'}
+      </a><em>团购价：<font style="color: #c00">{$field.price} {$field2.price_units}</font> <font style="color: #999;font-size: 14px; text-decoration: line-through;">({$field2.average_price}{$field2.price_units})</font></em><span class="yomibox" id="1" endtime="{$field.end_time|MyDate='Y-m-d',###}"></span>
+      {/eju:arcview} 
+      </div>
+  </li>
+ {/eju:arclist}
+ 
+</div>
+ <div style="height: 30px; width: 100%; float: left;"></div>
+  <div style="clear: both;"></div>
+{eju:arcpagelist row='2' tagid='lists0003' tips='数据加载完成'}
+   <p id="loading-alt"><a href="javascript:void(0);" {$field.onclick}>点击加载更多</a></p>
+  {/eju:arcpagelist}
+
+
+<!--底部开始-->
+
+{eju:include file="footer.htm"/}
+<!--底部结束-->
+{eju:static file="skin/js/jquery-3.2.1.min.js" /} 
+{eju:static file="skin/js/swiper-3.4.2.min.js" /}
+{eju:static file="skin/js/nav.js" /}
+{eju:static file="skin/js/method.js" /}
+{eju:static file="skin/css/layer-animate.css" /}
+{eju:static file="skin/js/search_public.js" /} 
+<!--底部优惠开始-->
+{eju:include file="youhui.htm"/}
+<!--底部优惠结束-->
+{eju:static file="skin/js/js.js" /}
+{eju:static file="skin/js/dropload.min.js" /}
+<style type="text/css">
+.tuan-1{
+width: 94%;  margin:0 auto;
+}
+.tuan-1 li{
+width: 100%; float: left; background: #FFF; margin-top: 15px; border-radius:  0 0 5px 5px;
+box-shadow: 0px 1px 5px #ddd;
+}
+.tuan-1 li img{ width: 100%; border:none; float: left; border-radius: 5px 5px 0 0; }
+.tuan-1-1{ width: 94%;float: left; padding: 5px 3%;  }
+.tuan-1-1 h2{
+width: 100%; height: 40px; float: left; line-height: 40px; color: #000;
+font-size: 18px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+}
+.tuan-1-1 em{
+width: 95%; height: 30px; float: left;line-height: 30px; font-size: 16px;
+background: url({eju:global name='web_templets_m' /}/skin/img/tg-junj.png) no-repeat 0 center; padding-left: 8%;
+background-size: 6%; 
+}
+.yomibox{ width: 100%; float:left; margin-top: 10px; border-radius:2px; overflow: hidden;  margin-bottom: 15px; }
+.yomibox e{ width: 100%; float:left;color:#fff;background: #484848; height: 30px; line-height: 30px; padding:1px 5px;font-size:20px;margin:0 auto; margin-right: 1px;}
+.yomibox i{ width: 12.2%; float:left;color:#fff;background: #ff5200; height: 30px; line-height: 30px; padding:1px 5px;font-size:20px;margin:0 auto; margin-right: 1px;}
+.yomibox i.split{background: #ff5200;padding:1px 7px;color:#eee;font-size:18px}
+.yomibox i.split:last-child{ margin-right: 0; }
+
+</style>
+
+<script>
+$(function(){
+    updateEndTime();
+});
+//倒计时函数
+function updateEndTime()
+{
+var date = new Date();
+var time = date.getTime(); //当前时间距1970年1月1日之间的毫秒数
+$(".yomibox").each(function(i){
+var endDate =this.getAttribute("endTime"); //结束时间字符串
+//转换为时间日期类型
+var endDate1 = eval('new Date(' + endDate.replace(/\d+(?=-[^-]+$)/, function (a) { return parseInt(a, 10) - 1; }).match(/\d+/g) +')');
+var endTime = endDate1.getTime(); //结束时间毫秒数
+var lag = (endTime - time) / 1000;
+if(lag > 0)
+{
+var second = Math.floor(lag % 60); 
+var minite = Math.floor((lag / 60) % 60);
+var hour = Math.floor((lag / 3600) % 24);
+var day = Math.floor((lag / 3600) / 24);
+$(this).html("<i class='yomiday'>"+day+"</i><i class='split'>天</i><i class='yomihour'>"+hour+"</i><i class='split'>时</i><i class='yomimin'>"+minite+"</i><i class='split'>分</i><i class='yomisec'>"+second+"</i><i class='split'>秒</i>");
+}else{
+$(this).removeClass("settime");
+//alert($(this).attr("id"));
+$(this).html("<e >团购已经结束啦！</e>");
+}
+});
+setTimeout("updateEndTime()",1000);
+}
+
+$('.lpadd,.bm-btn').click(function () {
+$(".popup").show();
+});
+$('.close-btn').click(function () {
+$(".popup").hide();
+})
+</script>
+
+<!--搜索弹出层开始-->
+{eju:include file="so.htm"/}
+<!--搜索弹出层结束-->
+</body>
+</html>

@@ -1,0 +1,15 @@
+<section class="m_qhcs_box" style="display:none;">
+  <div class="m_head_qhcs">
+    <div class="m_Return"><img src="{eju:global name='web_templets_m' /}/skin/img/top_arrow.png" alt=""></div>
+    <span>切换城市</span> </div>
+  <div class="m_City">
+    <div class="m_City_title">全部城市</div>
+    <ul class="m_City_list c">
+      {eju:region type='top' row='60' id='field'}
+      {eju:region name='$field.children' type='son' row='60' id='field2'}
+      <li><a href="{$field2.domainurl}" title="{$field2.name}">{$field2.name}</a></li>
+      {/eju:region}
+      {/eju:region}
+    </ul>
+  </div>
+</section>
