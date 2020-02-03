@@ -100,10 +100,30 @@
       <div class="m_lphome_h" style="padding:15px 10px 10px 10px;">周边配套</div>
       <div class="detail-map-wrap">
         <div id="map_canvas" style="width:100%;height: 300px;"></div>
-        {eju:surroundings field="$eju['field']" canvas="map_canvas" }
-        {$field.hidden}
-        {/eju:surroundings} </div>
+      </div>
+      {eju:surroundings field="$eju['field']" canvas="map_canvas" tag="heihei" select="active" total="total" tab="lp-map-tab" result="result"}
+      <div class="map-mart">
+        <div class="map-mart-title" id="map-keyword">
+          {eju:volist name="$field.list" id="vo"}
+          <a href="javascript:;" class="heihei" onclick="select_around({$key});">{$vo}</a>
+          {/eju:volist}
+        </div>
+        <ul class="map-mart-lists" id="result">
+        </ul>
+      </div>
+      {$field.hidden}
+      {/eju:surroundings}
     </div>
+
+  <style>
+     .map-mart .map-mart-lists li {
+      height: 22px;
+      line-height: 22px;
+      color:#425571;
+      cursor: pointer;
+      overflow: hidden;
+    }
+  </style>
     <div class="xiaoqu-box mt28">
       <div class="title"><a href="{$eju.field.xiaoqu.arcurl}">{$eju.field.xiaoqu.title}<span class="title-remark">小区详情</span></a></div>
       <div class="subcon">
