@@ -1,0 +1,80 @@
+{include file="public/layout" /}
+<body>
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.config.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.all.min.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/lang/zh-cn/zh-cn.js" /}
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                {notempty name='$gourl'}
+                <div class="head-oper">
+                    <div class="fl">
+                        <a href="{$gourl}" class="layui-btn layui-btn-primary  input-btn-back"><i class="layui-icon layui-icon-left"></i></a>
+                    </div>
+                </div>
+                {/notempty}
+                <div class="layui-card-body web-system" pad15>
+                    <form class="layui-form" wid100 onsubmit="return false;">
+                    <div class="" lay-filter="">
+
+                        {include file="field/addonextitem" /}
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="hidden" name="gourl" value="{$gourl}">
+                                <input type="hidden" name="typeid" id="typeid" value="{$info.id|default=''}">
+                                <button class="layui-btn"  lay-submit lay-filter="formSubmit">确认提交</button>
+                            </div>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'set'], function(){
+        var $ = layui.$
+            ,element = layui.element
+            ,layer = layui.layer
+            ,form = layui.form;
+
+        //监听提交
+        form.on('submit(formSubmit)', function(data){
+            var load = layer_loading();
+            data.field._ajax = 1;
+            $.ajax({
+                type : 'post',
+                url : "{:url('Arctype/single_edit')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                            gourl(res.url);
+                        });
+                    }else{
+                        showErrorMsg(res.msg);
+                    }
+                },
+                error: function(e){
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        });
+    });
+
+</script>
+
+{include file="public/footer" /}

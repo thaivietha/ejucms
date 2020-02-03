@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{$global.web_name|default=''}-{notempty name="$is_eyou_authortoken"}易居CMS房地产管理系统{/notempty}{$version}</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="shortcut icon" type="image/x-icon" href="__ROOT_DIR__/favicon.ico?v={$version}" media="screen"/>
+  <link rel="stylesheet" href="__PUBLIC__/plugins/layui/css/layui.css?v={$version}" media="all">
+  <link rel="stylesheet" href="__SKIN__/css/admin.css?v={$version}" media="all">
+  <link rel="stylesheet" href="__SKIN__/css/ey_layui.css?v={$version}" media="all">
+  <link rel="stylesheet" href="__SKIN__/font/ali-font/iconfont.css?v={$version}" media="all">
+  <script type="text/javascript">
+    var eyou_basefile = window.location.pathname;
+    var module_name = "{$Think.const.MODULE_NAME}";
+    var SITEURL = window.location.host + eyou_basefile + "/" + module_name;
+    var __root_dir__ = "__ROOT_DIR__";
+  </script>
+
+  <script type="text/javascript" src="__SKIN__/js/jquery.js?v={$version}"></script>
+  <script type="text/javascript" src="__SKIN__/js/jquery.cookie.js?v={$version}"></script>
+  <script type="text/javascript" src="__PUBLIC__/plugins/layer-v3.1.0/layer.js?v={$version}"></script>
+  <script src="__SKIN__/js/global.js?v={$version}"></script>
+
+</head>
+<body class="layui-layout-body">
+  <div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+      
+      <!-- 顶部功能 -->
+      {include file="public/menubox" /}
+      
+      <!-- 侧边菜单 -->
+      {include file="public/left" /}
+      
+      <!-- 主体内容 -->
+      <div class="layui-body" id="LAY_app_body">
+        <div class="layadmin-tabsbody-item layui-show">
+          <iframe src="{:url('Index/welcome')}" class="layadmin-iframe" frameborder="0"></iframe>
+        </div>
+      </div>
+      
+      <!-- 辅助元素，一般用于移动设备下遮罩 -->
+      <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+  </div>
+  <script src="__PUBLIC__/plugins/layui/layui.js?v={$version}"></script>
+
+  <script type="text/javascript">
+      $(function(){
+          otherRemainds();
+      })
+      function otherRemainds(){
+          $('.form_index_read').hide();
+          $.ajax({
+              type : "GET",
+              url  : "{:url('Ajax/check_form_read')}",
+              data : {_ajax:1},
+              dataType : "JSON",
+              success: function(res) {
+                  if (1 == res.code){
+                      $('.form_index_read').css('display', 'unset');
+                  } else {
+                      $('.form_index_read').hide();
+                  }
+              }
+          });
+      }
+      setInterval("otherRemainds()",10000);
+  </script>
+
+  <script type="text/javascript">
+    layui.config({
+      base: '__SKIN__/' //静态资源所在路径
+      ,version: '{$version}'
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use('index');
+  </script>
+  
+  {include file="public/footer" /}

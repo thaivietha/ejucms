@@ -1,0 +1,512 @@
+{include file="public/layout" /}
+<body>
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.config.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.all.min.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/lang/zh-cn/zh-cn.js" /}
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+
+                <div class="">
+                    <form class="layui-form" wid100 onsubmit="return false;">
+                        <div class="bt-close">
+                            <span class="layui-layer-setwin" ><a onclick="close_this();" class="layui-layer-ico layui-layer-close layui-layer-close1"></a></span>
+                        </div>
+                    <div class="layui-tab  layui-tab-card">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">常规选项</li>
+                        </ul>
+                        <div class="layui-tab-content web-system " style="padding:10px 0">
+                            <!--常规选项-->
+                            <div class="layui-tab-item layui-show">
+                                <div class="layui-row layui-col-space15">
+                                    <div class="layui-col-md12">
+                                        <div class="layui-card">
+                                            <div class="layui-card-body" pad15>
+                                                <div class="" lay-filter="">
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label"><b>*</b>标题</label>
+                                                        <div class="layui-input-inline">
+                                                            <input type="text" name="title" id="title"  lay-verify="required" value="{$field.title}" class="layui-input">
+                                                        </div>
+                                                    </div>
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label"><b>*</b>所属栏目</label>
+                                                        <div class="layui-input-inline">
+                                                            <select name="typeid" id="typeid" lay-verify="required">
+                                                                {$arctype_html}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label">文档属性</label>
+                                                        <div class="layui-input-inline">
+                                                            <input type="checkbox" lay-filter="is_head" id="is_head" lay-skin="primary" title="头条[h]" value="1" {if condition="$field.is_head == 1" }checked{/if}>
+                                                            <input type="checkbox" lay-filter="is_recom" id="is_recom" lay-skin="primary" title="推荐[c]" value="1" {if condition="$field.is_recom == 1" }checked{/if}>
+                                                            <input type="checkbox" lay-filter="is_special" id="is_special" lay-skin="primary" title="特推[a]" value="1" {if condition="$field.is_special == 1" }checked{/if} >
+                                                            <input type="checkbox" lay-filter="is_b" id="is_b" lay-skin="primary" title="加粗[b]" value="1" {if condition="$field.is_b == 1" }checked{/if} >
+                                                            <input type="checkbox" lay-filter="is_litpic" id="is_litpic" lay-skin="primary" title="图片[p]" value="1" {if condition="$field.is_litpic == 1" }checked{/if}>
+                                                            <input type="checkbox" lay-filter="is_jump" id="is_jump"  lay-skin="primary" lay-filter="is_jump" title="跳转[j]" value="1" {if condition="$field.is_jump == 1" }checked{/if} >
+
+                                                            <input type="hidden" name="is_head" value="{$field.is_head}">
+                                                            <input type="hidden" name="is_recom" value="{$field.is_recom}">
+                                                            <input type="hidden" name="is_special" value="{$field.is_special}">
+                                                            <input type="hidden" name="is_b" value="{$field.is_b}">
+                                                            <input type="hidden" name="is_litpic" value="{$field.is_litpic}">
+                                                            <input type="hidden" name="is_jump" value="{$field.is_jump}">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="layui-form-item {if condition=" $field.is_jump !=1"}none{/if}" id="jump_div">
+                                                        <label class="layui-form-label">跳转网址</label>
+                                                        <div class="layui-input-inline">
+                                                            <input type="text" name="jumplinks" id="jumplinks" value="{$field.jumplinks}" class="layui-input"  placeholder="http://">
+                                                            <p>请输入完整的URL网址（包含http或https），设置后访问该条信息将直接跳转到设置的网址</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label">缩略图</label>
+                                                        <div class="layui-input-inline">
+                                                            <div class="upload-box">
+                                                              <div class="upload-img fl">
+                                                                <div class="icaction none">
+                                                                  <span class="load_images">
+                                                                     <a href="javascript:void(0);" onclick="BigImages($('#img_litpic').attr('src'));">
+                                                                     <i class="layui-icon layui-icon-search mr5"></i>查看
+                                                                     </a>
+                                                                  </span>
+                                                                  <span class="load_images">
+                                                                    <a href="javascript:void(0);" data-inputid="litpic" onclick="DelImages(this);">
+                                                                    <i class="layui-icon layui-icon-delete mr5"></i>删除
+                                                                    </a>
+                                                                  </span>
+                                                                </div>
+                                                                <div class="cover-bg none"></div>
+                                                                <img id="img_litpic" src="{$field.litpic|get_default_pic=###}">
+                                                              </div>
+                                                              <div class="upload-right fl">
+                                                                <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'litpic',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'litpic');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                <input name="litpic" id="litpic" placeholder="图片地址" value="{$field.litpic|default=''}" class="layui-input">
+                                                              </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label">楼盘</label>
+                                                        <div class="layui-input-inline layadmin-layer-demo">
+                                                            <input type="hidden" name="joinaid" id="joinaid" value="{$field.joinaid}">
+                                                            <span class="tower-add" id="house_title"  {eju:empty name="$xinfangTitle"}style="display:none;"{/eju:empty}>
+                                                                {notempty name="$xinfangTitle"}{$xinfangTitle}<i class="layui-icon layui-icon-close"></i>{/notempty}
+                                                            </span>
+                                                            <button class="layui-btn layui-btn-sm" data-type="select_house">选择楼盘</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="layui-form-item"  {empty name="web_region_domain"}style="display:none;"{/empty}>
+                                                        <label class="layui-form-label"><b>*</b>城市</label>
+                                                        <div class="layui-input-inline w120"   style="z-index: 1000;">
+                                                            <select name="province_id" id="province_id"  lay-filter="province_id" >
+                                                                <option value="0">请选择省</option>
+                                                                {volist name=':get_province_list()' id='vo'}
+                                                                <option value="{$vo.id}" {eq name="$province_id" value="$vo.id" } selected {/eq} >{$vo.name}</option>
+                                                                {/volist}
+                                                            </select>
+                                                        </div>
+                                                        <div class="layui-input-inline w120"   style="z-index: 1000;">
+                                                            <select name="city_id" id="city_id"   lay-filter="city_id">
+                                                                <option value="">请选择城市</option>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="layui-input-inline bt-more layadmin-layer-demo">
+                                                            <a class="layui-btn layui-btn-sm" data-type="area">区域管理</a>
+                                                        </div>
+                                                    </div>
+                                                    {include file="field/addonextitem" /}
+                                                    <!--折叠面板--stra-->
+                                                    <div class="layui-collapse mt20" lay-filter="component-panel">
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title">SEO选项</h2>
+                                                            <div class="layui-colla-content">
+                                                                <div class="" wid100 lay-filter="">
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">TAG标签</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" value="{$field.tags}" name="tags" id="tags" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo">
+                                                                            <a class="layui-btn layui-btn-sm" data-type="tags_mark">管理</a>
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">多个标签用英文逗号（,）分开，单个标签小于12字节</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">SEO标题</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="seo_title" id="seo_title" value="{$field.seo_title}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                        <div class="layui-form-inline2 ey_helptips_txt none">一般不超过80个字符，为空时系统自动构成，可以到 <a href="{:url('Seo/index', array('inc_type'=>'seo'))}">SEO设置 - SEO基础</a> 中设置构成规则。</div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">SEO关键词</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="seo_keywords" id="seo_keywords" value="{$field.seo_keywords}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                        <div class="layui-form-inline2 ey_helptips_txt none">一般不超过100个字符，多个关键词请用英文逗号（,）隔开，建议3到5个关键词。</div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">SEO描述</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <textarea name="seo_description" class="layui-textarea">{$field.seo_description}</textarea>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                        <div class="layui-form-inline2 ey_helptips_txt none">一般不超过200个字符，不填写时系统自动提取正文的前200个字符</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title">其他选项</h2>
+                                                            <div class="layui-colla-content">
+                                                                <div class="" wid100 lay-filter="">
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">作者</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" value="{$field.author}" name="author" id="author" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo">
+                                                                            <a class="layui-btn layui-btn-sm" data-type="author_mark">设置</a>
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">设置作者默认名称（将同步至管理员笔名）</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">浏览量</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" value="{$field.click}" name="click" id="click" value="465" class="layui-input">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">阅读权限</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="arcrank" id="arcrank">
+                                                                                {volist name="arcrank_list" id="vo"}
+                                                                                <option value="{$vo.rank}" {eq name="vo.rank" value="$field.arcrank" }selected{/eq}>{$vo.name}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">发布时间</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" class="layui-input" id="add_time" name="add_time" value="{$field.add_time|date='Y-m-d H:i:s',###}" autocomplete="off" placeholder="yyyy-MM-dd HH:mm:ss">
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">文档模板</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="tempview" id="tempview">
+                                                                                {volist name='$templateList' id='vo'}
+                                                                                <option value="{$vo}" {eq name='$vo' value='$tempview'}selected{/eq}>{$vo}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                            <input type="hidden" name="type_tempview" value="{$tempview}" />
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--折叠面板--end-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-container layadmin-layer-demo">
+                        <input type="hidden" name="gourl" value="{$gourl}">
+                        <input type="hidden" name="aid" value="{$aid}">
+                        <button class="layui-btn layui-btn-sm" lay-submit lay-filter="formSubmit">确认提交</button>
+                        <button class="layui-btn layui-btn-sm layui-btn-primary"  data-type="return_parent">返回</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            // 鼠标事件，加载查看大图和删除图片
+            $(".upload-img").live('mouseover', function(){
+                $(this).find('div.icaction').show();
+                $(this).find('div.cover-bg').show();
+            }).live('mouseout', function(){
+                $(this).find('div.icaction').hide();
+                $(this).find('div.cover-bg').hide();
+            });
+
+            $('#add_time').layDate(); 
+
+            var city_id = "{$city_id}";
+            set_city_list(city_id);
+        });
+        layui.config({
+            base: '__SKIN__/' //静态资源所在路径
+            ,version: '{$version}'
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form'], function(){
+            var $ = layui.$
+                ,element = layui.element
+                ,layer = layui.layer
+                ,form = layui.form;
+
+            element.render();
+
+            //监听自定义开关
+            form.on('switch', function(data){
+                var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+                if (data.elem.checked) {
+                    this.value = 1;
+                } else {
+                    this.value = 0;
+                }
+                $("input[name='"+elemId+"']").val(this.value);
+            });
+
+            /*自定义字段的复选框*/
+            form.on('checkbox(addonFieldExt)', function(data){
+                try{
+                    var callback = data.elem.attributes['data-callback']['nodeValue'];
+                    eval(callback+"()");
+                }catch(e){}
+            });
+            /*end*/
+
+            form.on('checkbox', function(data){
+                try{
+                    var elemId = data.elem.attributes['id']['nodeValue'];
+                    if (data.elem.checked) {
+                        this.value = 1;
+                    } else {
+                        this.value = 0;
+                    }
+                    $("input[name='"+elemId+"']").val(this.value);
+                }catch(e){}
+            });
+
+            /* 触发事件 */
+            var active = {
+                area:function () {     //区域管理
+                    set_region();
+                }
+                ,select_house:function () {     //楼盘关联管理
+                    var xinfang = layer.open({
+                        type : 2,
+                        title : '选择楼盘',
+                        area : ['500px','500px'],
+                        shade : 0.2,
+                        iframeAuto:true,
+                        content : "{:url('Xinfang/ajaxSelectHouse')}"+'&func=set_house_back',
+                        end : function(){
+
+                        }
+                    });
+                    layer.full(xinfang);
+                }
+                ,tags_mark:function () {    //设置标签
+                    tags_list(this);
+                }
+                ,author_mark:function () {  //设置作者
+                    set_author();
+                }
+                , return_parent:function () {     //返回上级
+                    var index=parent.layer.getFrameIndex(window.name); //获取当前窗口的name
+                    parent.layer.close(index);		//关闭窗口
+                }
+            };
+            $('#LAY-component-layer-list .layadmin-layer-demo .layui-btn').on('click', function(){
+                var type = $(this).data('type');
+                active[type] && active[type].call(this);
+            });
+
+            $('#component-tabs .site-demo-active').on('click', function(){
+                var othis = $(this), type = othis.data('type');
+                active[type] ? active[type].call(this, othis) : '';
+            });
+            //选中跳转链接
+            form.on('checkbox(is_jump)',function (obj) {
+                if ($(this).is(':checked')) {
+                    $('#jump_div').show();
+                } else {
+                    $('#jump_div').hide();
+                }
+            });
+            //选中省份模型
+            form.on('select(province_id)', function(data){
+                var result = set_city_list(0);
+                form.render();
+            });
+            //选中城市
+//            form.on('select(city_id)', function(data){
+//                var result = set_area_list(0);
+//                form.render();
+//            });
+            //监听提交
+            form.on('submit(formSubmit)', function(data){
+                var load = layer_loading();
+                data.field._ajax = 1;
+                $.ajax({
+                    type : 'post',
+                    url : "{:url('Article/edit')}",
+                    data : data.field,
+                    dataType : 'json',
+                    success : function(res){
+                        layer.close(load); //关闭loading
+                        if(res.code == 1){
+                            parent.window.location.href = res.url;
+                        }else{
+                            showErrorMsg(res.msg);
+                        }
+                    },
+                    error: function(e){
+                        layer.close(load); //关闭loading
+                        showErrorAlert();
+                    }
+                });
+                return false;
+            });
+        });
+        //自动获取城市列表
+        function set_city_list(cityid) {
+            var pid =  $("#province_id").val();
+            $.ajax({
+                url: "{:url('Region/ajax_get_region')}",
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                data: {pid:pid,_ajax:1},
+                success: function(res){
+                    if (res.code === 1){
+                        $("#city_id").empty();
+                        $("#city_id").prepend(res.msg);
+                        if (cityid > 0){
+                            $("#city_id").val(cityid);
+                        }
+                    }
+                },
+                error: function(e){
+                    showErrorMsg();
+                    return false;
+                }
+            });
+        }
+        //自动获取区域
+        function set_area_list(areaid) {
+            var pid =  $("#city_id").val();
+            $.ajax({
+                url: "{:url('Region/ajax_get_region')}",
+                type: 'POST',
+                dataType: 'JSON',
+                async: false,
+                data: {pid:pid,level:3,_ajax:1},
+                success: function(res){
+                    if (res.code === 1){
+                        $("#area_id").empty();
+                        $("#area_id").prepend(res.msg);
+                        if (areaid > 0){
+                            $("#area_id").val(areaid);
+                        }
+                    }
+                },
+                error: function(e){
+                    showErrorMsg();
+                    return false;
+                }
+            });
+        }
+        //区域管理
+        function set_region() {
+            var url = "{:url('Region/index')}";
+            var region_iframes = layer.open({
+                type: 2,
+                title: '区域管理',
+                fixed: true, //不固定
+                shadeClose: false,
+                shade: 0.3,
+                content: url
+            });
+            layer.full(region_iframes);
+        }
+        //选择楼盘回调
+        function set_house_back(recall){
+            $("#province_id").val(recall['province_id']);
+            $("#joinaid").val(recall['aid']);
+            $('#house_title').html(recall['title']+ ' <i class="layui-icon layui-icon-close"></i>');
+            $('#house_title').show();
+            set_city_list(recall['city_id']);
+        }
+        $("#house_title").on('click','i',function(){
+            $("#house_title").html('');
+            $('#house_title').hide();
+            $("#joinaid").val(0);
+        });
+        //设置作者
+        function set_author()
+        {
+            layer.prompt({
+                    title:'<font color="red">设置作者默认名称</font>'
+                },
+                function(val, index){
+                    var admin_id = '{$Think.session.admin_info.admin_id}';
+                    $.ajax({
+                        url: "{:url('Admin/ajax_setfield')}",
+                        type: 'POST',
+                        dataType: 'JSON',
+                        data: {id_name:'admin_id',id_value:admin_id,field:'pen_name',value:val},
+                        success: function(res){
+                            if (res.code == 1) {
+                                $('#author').val(val);
+                                layer.msg(res.msg, {icon: 1, time:1000});
+                            } else {
+                                showErrorMsg(res.msg);
+                                return false;
+                            }
+                        },
+                        error: function(e){
+                            showErrorMsg();
+                            return false;
+                        }
+                    });
+                    layer.close(index);
+                }
+            );
+        }
+        //设置标签
+        function tags_list(obj)
+        {
+            var url = "{:url('Tags/index')}";
+            //iframe窗
+            layer.open({
+                type: 2,
+                title: 'TAG标签管理',
+                fixed: true, //不固定
+                shadeClose: false,
+                shade: 0.3,
+                maxmin: true, //开启最大化最小化按钮
+                area: ['80%', '80%'],
+                content: url
+            });
+        }
+    </script>
+
+
+
+    {include file="public/footer" /}

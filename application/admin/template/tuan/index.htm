@@ -1,0 +1,480 @@
+{include file="public/layout" /}
+
+<body>
+<link rel="stylesheet" href="__SKIN__/css/page.css" media="all">
+
+<div class="layui-fluid " id="LAY-component-layer-list">
+    <div class="layui-card">
+        <div class="head-oper">
+            <div class="fl">
+                {notempty name='$gourl'}
+                <a href="{$gourl}" class="layui-btn layui-btn-primary  input-btn-back"><i class="layui-icon layui-icon-left"></i></a>
+                {/notempty}
+                {eq name="$Think.const.CONTROLLER_NAME.'@add'|is_check_access" value="1"}
+                <a id="customvar_add" data-url="{:url('Tuan/add', array('typeid'=>$typeid))}" class="layui-btn ">
+                    新增团购
+                </a>
+                {/eq}
+            </div>
+
+            <div class="fr ">
+                <form id="xinfang_form" action="{:url('Tuan/index')}" method="get" onsubmit="layer_loading();">
+                    {$searchform.hidden|default=''}
+                    <div class="fl" >
+                        {gt name='$typeidNum' value='1'}
+                        <div class="layui-input-inline mt5">
+                            <select name="typeid" id="searchTypeid">
+                                <option value="">--所有文档--</option>
+                                {$arctype_html}
+                            </select>
+                        </div>
+                        {/gt}
+                        <div class="layui-input-inline mt5" id="div_province"></div>
+                        <div class="layui-input-inline mt5" id="div_city"></div>
+                        <div class="layui-input-inline w240 mt5">
+                            <input type="text" name="keywords" id="keywords" value="{$Request.param.keywords}" placeholder="标题搜索" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-input-inline w50 mt5">
+                        <button class="layui-btn input-btn-search" type="submit"><i class="layui-icon layui-icon-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-form layui-border-box layui-table-view house-table">
+                <div class="layui-table-box">
+                    <div class="layui-table-body " >
+                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" lay-skin="line" style="width: 100%">
+                            <thead >
+                            <tr>
+                                <th class="w40 tc">
+                                    <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                                        <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary" >
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"> <i class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </th>
+                                <th class="w60 tc"> <div class="layui-table-cell w60 tc" ><span>ID</span></div></th>
+                                <th class="laytable-cell-1-0-2"> <div class="layui-table-cell laytable-cell-1-0-2"><span>标题</span></div></th>
+                                <th class="w180 tc"> <div class="layui-table-cell w180 tc"><span>关联楼盘</span></div></th>
+                                <th class="w110 tc"> <div class="layui-table-cell w110 tc"><span>更新时间</span></div></th>
+                                <th class="w80 tc"> <div class="layui-table-cell w80 tc"><span>排序</span></div></th>
+                                <th class="w220 tc"> <div class="layui-table-cell w220 tc"><span>操作</span></div></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {empty name="list"}
+                            <tr>
+                                <td class="no-data" align="center" axis="col0" colspan="7">
+                                    <i class="fa fa-exclamation-circle"></i>没有符合条件的数据
+                                </td>
+                            </tr>
+                            {else /}
+                            {foreach name="list" item="vo" key="k" }
+                            <tr>
+                                <td>
+                                    <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                                        <input type="checkbox" name="ids[]" value="{$vo.aid}" lay-filter="ids" lay-skin="primary">
+                                    </div>
+                                </td>
+                                <td><div class="layui-table-cell w60 tc">{$vo.aid} </div></td>
+                                <td>
+                                    <div class="layui-table-cell laytable-cell-1-0-2">
+                                        <a class="media" href="javascript:;">
+                                            <span data-url="{:url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid'],'gourl'=>$gourl))}"  class="customvar_edit">
+                                                <img src="{$vo.litpic}">
+                                            </span>
+                                            <div class="media-body" >
+                                                {eq name="'Archives@edit'|is_check_access" value="1"}
+                                                <span data-url="{:url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid'],'gourl'=>$gourl))}" class="tit customvar_edit" >
+                                                    {$vo.title}
+                                                </span>
+                                                {else /}
+                                                <span>
+                                                    {$vo.title}[{$vo.xinfang.title}]
+                                                </span>
+                                                {/eq}
+                                                <br>
+                                                <span class="attr">
+                                                    {assign name='showArcFlagData' value='$vo|showArchivesFlagStr'}
+                                                    {volist name='$showArcFlagData' id="vo1"}
+                                                        {eq name='$i' value='1'}<span>[{/eq}
+                                                        <b >{$vo1['small_name']}</b>
+                                                        {eq name='$i' value='$showArcFlagData|count'}]</span>{/eq}
+                                                    {/volist}
+                                                </span><br>
+                                                <span class="price-color-b">￥{$vo.price}元/m²</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w180 tc">
+                                        {$vo.xinfang.title}
+                                    </div>
+                                </td>
+                        
+
+                                <td><div class="layui-table-cell w110 tc">{$vo.update_time|date='Y-m-d H:i:s',###} </div></td>
+                                <td>
+                                    <div class="layui-table-cell w80 tc">
+                                        {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
+                                        <input type="text" class="layui-input" onchange="changeTableVal('archives','aid','{$vo.aid}','sort_order',this);"  size="4"  value="{$vo.sort_order}" onkeyup="this.value=this.value.replace(/[^\d]/g,'');" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="changeTableVal('archives','aid','{$vo.aid}','sort_order',this);" />
+                                        {else /}
+                                        {$vo.sort_order}
+                                        {/eq}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w220 tc right-oper">
+                                        {eq name="'Archives@edit'|is_check_access" value="1"}
+                                        <a data-url="{:url($channelRow[$vo['channel']]['ctl_name'].'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid'],'gourl'=>$gourl))}" class="layui-btn btn-edit customvar_edit" >
+                                            编辑
+                                        </a>
+                                        {/eq}
+                                        <a href="{$vo.arcurl}" target="_blank" class="layui-btn btn-primary" >
+                                            浏览
+                                        </a>
+                                         {eq name="'Archives@del'|is_check_access" value="1"}
+                                        <a onclick="delfun(this)" class="layui-btn btn-primary" data-url="{:url('Archives/del')}" data-id="{$vo.aid}" data-deltype="pseudo">
+                                            删除
+                                        </a>
+                                        {/eq}
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {/empty}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="layui-table-page footer-oper">
+                    <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary" >
+                    <div class="nav-dropup">
+                        <button  href="" class="layui-btn layui-btn-primary dropdown-bt" >批量操作<i class="layui-icon layui-icon-up"></i></button>
+                        <div class="dropdown-menu">
+                            {eq name="'Archives@batch_copy'|is_check_access" value="1"}
+                            <a  href="javascript:;" data-url="{:url('Archives/batch_copy', array('typeid'=>$vo['typeid']))}" onclick="func_batch_copy(this, 'ids');" id="batch_copy">
+                                批量复制
+                            </a>
+                            {/eq}
+                            {eq name="'Archives@move'|is_check_access" value="1"}
+                            <a  href="javascript:;" onclick="func_move(this,'ids')" id="batch_move_all" data-url="{:url('Archives/move', array('typeid'=>$vo['typeid']))}">
+                                批量移动
+                            </a>
+                            {/eq}
+                            {eq name="'Archives@del'|is_check_access" value="1"}
+                            <a  href="javascript:;" onclick="batch_del(this,'ids');" id="batch_del_all" data-url="{:url('Archives/del')}" data-deltype="pseudo">
+                                批量删除
+                            </a>
+                            {/eq}
+                            <hr class="layui-bg-gray">
+                            {eq name="'Archives@add_attribute'|is_check_access" value="1"}
+                            <a  href="javascript:;"  onclick="func_haddle_attribute(this, 'ids','添加');" data-url="{:url('Archives/add_attribute')}" id="add_attribute">
+                                添加属性
+                            </a>
+                            {/eq}
+                            {eq name="'Archives@del_attribute'|is_check_access" value="1"}
+                            <a  href="javascript:;" onclick="func_haddle_attribute(this,'ids','删除')" data-url="{:url('Archives/del_attribute')}"  id="del_attribute">
+                                删除属性
+                            </a>
+                            {/eq}
+                        </div>
+                    </div>
+                    {eq name="'RecycleBin@archives_index'|is_check_access" value="1"}
+                    <a class="layui-btn layui-btn-primary" lay-href="{:url('RecycleBin/archives_index')}" title="回收站"><i class="layui-icon layui-icon-delete"></i>回收站</a>
+                    {/eq}
+                </div>
+            </div>
+            {$page}
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table'], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,table = layui.table;
+
+        /* 触发事件 */
+        var active = {
+
+        };
+
+        $('#LAY-component-layer-list .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] && active[type].call(this);
+        });
+        //开启关闭
+        form.on('switch(is_recom)', function(obj){
+            var dataid = $(this).attr('data-id');
+            if ($(this).val() == 1){
+                $(this).val(0);
+            }else{
+                $(this).val(1);
+            }
+            changeTableVal('archives','aid',dataid,'is_recom',this);
+        });
+
+        // 监听复选框全选
+        form.on('checkbox(checkAll)', function(data){
+            if (data.elem.checked) {
+                $('.checkAll').attr('checked', true);
+                $('input[name*=ids]').attr('checked', true);
+            } else {
+                $('.checkAll').attr('checked', false);
+                $('input[name*=ids]').attr('checked', false);
+            }
+            form.render('checkbox');
+        });
+
+        // 监听每行复选框
+        form.on('checkbox(ids)', function(data){
+            if (data.elem.checked && $('input[name*=ids]:checked').length == $('input[name*=ids]').length) {
+                $('.checkAll').attr('checked', true);
+            } else {
+                $('.checkAll').attr('checked', false);
+            }
+            form.render('checkbox');
+        });
+    });
+
+    $(function () {
+        var aids = '';
+        var province_id = "{$province_id}";
+        set_province_list(province_id);
+        var city_id = "{$city_id}";
+        set_city_list(city_id);
+        var openurl = "{$Request.param.openurl}";
+        var msg = "{$Request.param.msg}";
+        if (openurl){
+            var iframes = layer.open({
+                type: 2,
+                title: false, // msg+'团购',
+                closeBtn: false,
+                fixed: true, //不固定
+                shadeClose: false,
+                shade: 0.3,
+                content: openurl
+            });
+            layer.full(iframes);
+        }
+    });
+    //新增
+    $('#customvar_add').click(function (){
+        var iframes = layer.open({
+            type: 2,
+            title: false,
+            closeBtn: false,
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            content: $(this).attr('data-url')
+        });
+        layer.full(iframes);
+    });
+    //点击城市提交
+    function city_submit(province,city){
+        $("#province_id").val(province);
+        set_city_list(city);
+        $("#xinfang_form").submit();
+    }
+    //下拉省份获取城市数据
+    $(document).on('change', '#province_id', function(){
+        set_city_list(0);
+    });
+    //选择下拉框提交
+    $(document).on('change', '#city_id', function(){
+        $('#xinfang_form').submit();
+    });
+    //编辑
+    $('.customvar_edit').click(function () {
+        var iframes = layer.open({
+            type: 2,
+            title: false,
+            closeBtn: false,
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            // maxmin: false, //开启最大化最小化按钮
+            // area: admin.screen() < 2 ? ['96%', '400px'] : ['700px', '348px'],
+            content: $(this).attr('data-url')
+        });
+        layer.full(iframes);
+    });
+    //移动文档
+    function func_move(obj, name)
+    {
+        var a = [];
+        var k = 0;
+        aids = '';
+        $('input[name^='+name+']').each(function(i,o){
+            if($(o).is(':checked')){
+                a.push($(o).val());
+                if (k > 0) {
+                    aids += ',';
+                }
+                aids += $(o).val();
+                k++;
+            }
+        })
+        if(a.length == 0){
+            showErrorAlert('请至少选择一项');
+            return;
+        }
+
+        var url = $(obj).attr('data-url');
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '移动文档',
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['450px', '350px'],
+            content: url
+        });
+    }
+    //批量处理属性
+    function func_haddle_attribute(obj, name,text){
+        var a = [];
+        var k = 0;
+        aids = '';
+        $('input[name^='+name+']').each(function(i,o){
+            if($(o).is(':checked')){
+                a.push($(o).val());
+                if (k > 0) {
+                    aids += ',';
+                }
+                aids += $(o).val();
+                k++;
+            }
+        })
+        if(a.length == 0){
+            showErrorAlert('请至少选择一项');
+            return;
+        }
+
+        var url = $(obj).attr('data-url');
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '批量'+text+'属性',
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['450px', '330px'],
+            content: url
+        });
+    }
+    //批量复制
+    function func_batch_copy(obj, name)
+    {
+        var a = [];
+        var k = 0;
+        aids = '';
+        $('input[name^='+name+']').each(function(i,o){
+            if($(o).is(':checked')){
+                a.push($(o).val());
+                if (k > 0) {
+                    aids += ',';
+                }
+                aids += $(o).val();
+                k++;
+            }
+        })
+        if(a.length == 0){
+            showErrorAlert('请至少选择一项');
+            return;
+        }
+
+        var url = $(obj).attr('data-url');
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '批量复制',
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['450px', '330px'],
+            content: url
+        });
+    }
+    //自动获取省份列表
+    function set_province_list(provinceid){
+        $.ajax({
+            url: "{:url('Region/ajax_get_region_arc')}",
+            type: 'POST',
+            async: false,
+            dataType: 'JSON',
+            data: {pid:0,level:1,text:'区域选择',_ajax:1},
+            success: function(res){
+                if (res.code === 1){
+                    $("#div_province").html(res.msg);
+                    if (provinceid > 0){
+                        $("#province_id").val(provinceid);
+                    }
+                }
+            },
+            error: function(e){
+                showErrorMsg();
+                return false;
+            }
+        });
+    }
+    //自动获取城市列表
+    function set_city_list(cityid) {
+        var pid =  $("#province_id").val();
+        if (pid){
+            $("#div_city").show();
+            $.ajax({
+                url: "{:url('Region/ajax_get_region_arc')}",
+                type: 'POST',
+                async: false,
+                dataType: 'JSON',
+                data: {pid:pid,level:2,_ajax:1},
+                success: function(res){
+                    if (res.code === 1){
+                        $("#div_city").html(res.msg);
+                        if (cityid > 0){
+                            $("#city_id").val(cityid);
+                        }
+                    }
+                },
+                error: function(e){
+                    showErrorMsg();
+                    return false;
+                }
+            });
+        }else{
+            $("#city_id").val(0);
+            $("#div_city").hide();
+        }
+    }
+    /**
+     * 获取修改之前的内容
+     */
+    function get_aids()
+    {
+        return aids;
+    }
+    $(".dropdown-bt").click(function(){
+        $(".dropdown-menu").slideToggle(200);
+        event.stopPropagation();
+    })
+    $(document).click(function(){
+        $(".dropdown-menu").slideUp(200);
+        event.stopPropagation();
+    })
+</script>
+{include file="public/footer" /}

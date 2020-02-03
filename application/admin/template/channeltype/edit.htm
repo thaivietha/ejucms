@@ -1,0 +1,100 @@
+{include file="public/layout" /}
+<body>
+  <div class="layui-fluid">
+      <div class="layui-row layui-col-space15">
+          <div class="layui-col-md12">
+            <div class="layui-card">
+              <div class="layui-card-body web-system" pad15>
+                <div class="layui-form" wid100 lay-filter="">
+                  <div class="layui-form-item">
+                    <label class="layui-form-label"><b>*</b>模型名称</label>
+                    <div class="layui-input-inline">
+                      <input type="text" name="ntitle" value="{$field.ntitle|default=''}" id="ntitle" class="layui-input" lay-verify="required">
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">模型标识</label>
+                    <div class="layui-input-inline">
+                        <div style="padding:6px 0px;">{$field.nid}</div>
+                        <input type="hidden" name="nid" value="{$field.nid|default=''}">
+                    </div>
+                    <div class="layui-form-inline2">
+                        与文档的模板相关连，建议由小写字母、数字组成，因为部份Unix系统无法识别中文文件。<br/>
+                        列表模板是：lists_模型标识.htm<br/>
+                        文档模板是：view_模型标识.htm
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label">允许标题重复</label>
+                    <div class="layui-input-inline w70">
+                        <input type="checkbox" lay-filter="is_repeat_title" lay-skin="switch" lay-text="是|否" {if condition="!isset($field.is_repeat_title) || $field.is_repeat_title eq 1"}checked{/if}>
+                        <input type="hidden" name="is_repeat_title" value="{$field.is_repeat_title|default='1'}" />
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <input type="hidden" name="id" value="{$field.id}">
+                        <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+
+  <script>
+  layui.config({
+    base: '__SKIN__/' //静态资源所在路径
+    ,version: '{$version}'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'set'], function(){
+    var $ = layui.$
+    ,layer = layui.layer
+    ,form = layui.form;
+
+    var parentObj = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+
+    // 监听开关
+    form.on('switch', function(data){
+      var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+      if (data.elem.checked) {
+        this.value = 1;
+      } else {
+        this.value = 0;
+      }
+      $("input[name='"+elemId+"']").val(this.value);
+    });
+
+    //监听提交
+    form.on('submit(formSubmit)', function(data){
+        var load = layer_loading();
+        data.field._ajax = 1;
+        $.ajax({
+            type : 'post',
+            url : "{:url('Channeltype/edit')}",
+            data : data.field,
+            dataType : 'json',
+            success : function(res){
+                layer.close(load); //关闭loading
+                if(res.code == 1){
+                    layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                        parent.gourl(res.url);
+                    });
+                }else{
+                    parent.showErrorMsg(res.msg);
+                }
+            },
+            error: function(e){
+                layer.close(load); //关闭loading
+                showErrorAlert();
+            }
+        });
+        return false;
+    });
+
+  });
+
+  </script>
+{include file="public/footer" /}
