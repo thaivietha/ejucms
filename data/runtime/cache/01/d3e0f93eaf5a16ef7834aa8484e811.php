@@ -1,0 +1,4 @@
+<?php
+//000000000000
+ exit();?>
+a:11:{i:9;a:2:{s:2:"id";i:9;s:8:"ctl_name";s:7:"Xinfang";}i:10;a:2:{s:2:"id";i:10;s:8:"ctl_name";s:4:"Tuan";}i:1;a:2:{s:2:"id";i:1;s:8:"ctl_name";s:7:"Article";}i:6;a:2:{s:2:"id";i:6;s:8:"ctl_name";s:6:"Single";}i:11;a:2:{s:2:"id";i:11;s:8:"ctl_name";s:6:"Xiaoqu";}i:12;a:2:{s:2:"id";i:12;s:8:"ctl_name";s:6:"Ershou";}i:13;a:2:{s:2:"id";i:13;s:8:"ctl_name";s:6:"Zufang";}i:14;a:2:{s:2:"id";i:14;s:8:"ctl_name";s:6:"Shopcs";}i:15;a:2:{s:2:"id";i:15;s:8:"ctl_name";s:6:"Shopcz";}i:16;a:2:{s:2:"id";i:16;s:8:"ctl_name";s:8:"Officecs";}i:17;a:2:{s:2:"id";i:17;s:8:"ctl_name";s:8:"Officecz";}}

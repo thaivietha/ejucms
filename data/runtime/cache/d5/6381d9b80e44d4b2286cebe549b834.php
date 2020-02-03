@@ -1,0 +1,4 @@
+<?php
+//000000086400
+ exit();?>
+a:33:{s:2:"id";i:24;s:3:"nid";s:6:"shopcs";s:5:"title";s:18:"商铺出售模型";s:6:"ntitle";s:12:"商铺出售";s:5:"table";s:6:"shopcs";s:8:"ctl_name";s:6:"Shopcs";s:6:"status";i:1;s:8:"ifsystem";i:1;s:15:"is_repeat_title";i:1;s:6:"is_del";i:0;s:10:"sort_order";i:100;s:8:"add_time";i:1578625509;s:11:"update_time";i:1579172012;s:11:"channeltype";i:14;s:15:"current_channel";i:14;s:9:"parent_id";i:23;s:8:"typename";s:12:"商铺出售";s:7:"dirname";s:14:"shangpuchushou";s:7:"dirpath";s:23:"/shangpu/shangpuchushou";s:12:"englist_name";s:0:"";s:5:"grade";i:1;s:8:"typelink";s:0:"";s:6:"litpic";s:0:"";s:8:"templist";s:16:"lists_shopcs.htm";s:8:"tempview";s:15:"view_shopcs.htm";s:9:"seo_title";s:0:"";s:12:"seo_keywords";s:0:"";s:15:"seo_description";s:0:"";s:9:"is_hidden";i:0;s:7:"is_part";i:0;s:8:"admin_id";i:1;s:10:"del_method";i:0;s:6:"typeid";i:24;}

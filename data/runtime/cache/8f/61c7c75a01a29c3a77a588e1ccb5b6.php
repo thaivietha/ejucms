@@ -1,0 +1,4 @@
+<?php
+//000000086400
+ exit();?>
+a:33:{s:2:"id";i:3;s:3:"nid";s:4:"tuan";s:5:"title";s:12:"团购模型";s:6:"ntitle";s:6:"团购";s:5:"table";s:4:"tuan";s:8:"ctl_name";s:4:"Tuan";s:6:"status";i:1;s:8:"ifsystem";i:1;s:15:"is_repeat_title";i:1;s:6:"is_del";i:0;s:10:"sort_order";i:100;s:8:"add_time";i:1570765919;s:11:"update_time";i:1579166696;s:11:"channeltype";i:9;s:15:"current_channel";i:10;s:9:"parent_id";i:1;s:8:"typename";s:6:"团购";s:7:"dirname";s:7:"tuangou";s:7:"dirpath";s:16:"/xinfang/tuangou";s:12:"englist_name";s:0:"";s:5:"grade";i:1;s:8:"typelink";s:0:"";s:6:"litpic";s:0:"";s:8:"templist";s:14:"lists_tuan.htm";s:8:"tempview";s:13:"view_tuan.htm";s:9:"seo_title";s:0:"";s:12:"seo_keywords";s:0:"";s:15:"seo_description";s:0:"";s:9:"is_hidden";i:0;s:7:"is_part";i:0;s:8:"admin_id";i:1;s:10:"del_method";i:0;s:6:"typeid";i:3;}

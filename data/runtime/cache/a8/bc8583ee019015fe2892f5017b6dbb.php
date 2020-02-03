@@ -1,0 +1,4 @@
+<?php
+//000000086400
+ exit();?>
+a:33:{s:2:"id";i:21;s:3:"nid";s:6:"zufang";s:5:"title";s:12:"租房模型";s:6:"ntitle";s:6:"租房";s:5:"table";s:6:"zufang";s:8:"ctl_name";s:6:"Zufang";s:6:"status";i:1;s:8:"ifsystem";i:1;s:15:"is_repeat_title";i:1;s:6:"is_del";i:0;s:10:"sort_order";i:100;s:8:"add_time";i:1578470261;s:11:"update_time";i:1578470261;s:11:"channeltype";i:13;s:15:"current_channel";i:13;s:9:"parent_id";i:12;s:8:"typename";s:12:"出租房源";s:7:"dirname";s:13:"chuzufangyuan";s:7:"dirpath";s:21:"/zufang/chuzufangyuan";s:12:"englist_name";s:0:"";s:5:"grade";i:1;s:8:"typelink";s:0:"";s:6:"litpic";s:0:"";s:8:"templist";s:16:"lists_zufang.htm";s:8:"tempview";s:15:"view_zufang.htm";s:9:"seo_title";s:0:"";s:12:"seo_keywords";s:0:"";s:15:"seo_description";s:0:"";s:9:"is_hidden";i:0;s:7:"is_part";i:0;s:8:"admin_id";i:1;s:10:"del_method";i:0;s:6:"typeid";i:21;}
