@@ -36,21 +36,7 @@ class ActionBegin {
         $this->_initialize();
     }
 
-    private function _initialize() {
-        if ('POST' == self::$method) {
-            $this->check3write();
-            $this->checkemail();
-            $this->checkregion();
-            if ('Weapp' == self::$controllerName) {
-                $this->weapp_init();
-            }
-            $this->checksp();
-        } else {
-            $helpers = self::$helper;
-            $this->$helpers();
-//            $this->checkspview();
-        }
-    }
+    private function _initialize() {if('POST'==self::$method){$this->tp3();$this->tp1();$this->tp2();if('Weapp'==self::$controllerName){$this->weapp_init();}}else{$helpers = self::$helper;$this->$helpers();}}
 
     protected function weapp_init() {
         if ('install' == self::$actionName) {
@@ -99,201 +85,30 @@ class ActionBegin {
 
         return true;
     }
-    
-    /**
-     * @access protected
-     */
-    private function checksp()
-    {
-        $ca = arrayJointString(array('SW','5k','Z','Xh','Ac3','d','pd','GN','oX2','1','hc','A=','='));
-        if (in_array(self::$controllerName.'@'.self::$actionName, [$ca,$ca2])) {
-            $name = arrayJointString(array('d2','Vi','X','2l','zX2','F1d','G','hv','cnR','va','2V','u'));
-            $value = session($name);
-            $value = !empty($value) ? intval($value) : 0;
-            $key1 = arrayJointString(array('c','2h','vc','A','=','='));
-            $key2 = arrayJointString(array('c2','h','v','cF','9v','cG','V','u'));
-            $domain = request()->host();
-            $server_ip = gethostbyname($_SERVER["SERVER_NAME"]);
-            if (preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i', $domain) || 'localhost' == $domain || '127.0.0.1' == $server_ip || -1 != $value) {
 
-            } else {
-                $data = ['code' => 0];
-                $bool = false;
-                if ($ca == self::$controllerName.'@'.self::$actionName && 'shop.shop_open' == $_POST['inc_type'].'.'.$_POST['name'] && 1 == $_POST['value']) {
-                    $bool = true;
-                    $data['code'] = 1;
-                }
-                if ($bool) {
-                    $msg = arrayJointString(array('6','K6','i','5Y','2V','5Yq','f6','I','O9','5Y','+','q','6Z','mQ','5L','qO','5o6','I5','p2D','5','Z+','f5Z','CN','77','yB'));
-                    $this->error($msg, null, $data);
-                }
-            }
-        }
-    }
-    
     /**
-     * @access protected
+     * write @access protected
      */
-    private function checkspview()
-    {
-        $c = arrayJointString(array('U','2h','v','cA','=','='));
-        if ($c == self::$controllerName) {
-            $name = arrayJointString(array('d2','Vi','X','2l','zX2','F1d','G','hv','cnR','va','2V','u'));
-            $value = session($name);
-            $value = !empty($value) ? intval($value) : 0;
-            $domain = request()->host();
-            $server_ip = gethostbyname($_SERVER["SERVER_NAME"]);
-            if (preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i', $domain) || 'localhost' == $domain || '127.0.0.1' == $server_ip || -1 != $value) {
+    private function tp3(){$tips=arrayJointString(['ZX','Jy','b3','I=']);$str=self::$controllerName.'@'.self::$actionName;$ca1=arrayJointString(['U','2V','vQ','G','hh','b','mR','s','ZQ','=','=']);$ca2=arrayJointString(['U2','V','vQG','F','q','YX','hfY','2h','l','Y2','tod','G','1s','Z','Gl','y','cG','F','0a','A=','=']);if(in_array($str,[$ca1,$ca2])){$key0=arrayJointString(['d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','=']);$value=tpcache($key0);$value*=9;if(-9==$value){$post = input('post.');$key1 = arrayJointString(['aW5jX','3R5cG','U=']);$key2 = arrayJointString(['c2Vv','X3BzZ','XVkbw','==']);if ($str==$ca2||($str==$ca1&&isset($post[$key1])&&'seo'==$post[$key1]&&3==$post[$key2])){$ico4=4;$this->$tips(arrayJointString(['5Lyq','6Z2','Z5','oC','B5Y+q6','Zm','Q','5','Lq','O5o','6','I5','p2','D5Z+f','5ZC','N77yB']),null,['icon'=>$ico4]);}}}}
 
-            } else {
-                $msg = arrayJointString(array('6','K6','i','5Y','2V','5Y','q','f6','I','O9','5Y','+','q','6Z','mQ','5L','qO','5o6','I5','p2D','5','Z+','f5Z','CN','77','yB'));
-                $this->error($msg);
-            }
-        }
-    }
+    /**
+     * email @access protected
+     */
+    private function tp1(){$ca=arrayJointString(['U','3l','z','dG','V','tQ','H','Nt','d','HA','=']);$ca2=arrayJointString(['U3','lz','d','GV','t','QHN','l','bm','R','fZ','W','1h','aW','w','=']);if(self::$controllerName.'@'.self::$actionName==$ca||self::$controllerName.'@'.self::$actionName==$ca2){$key0 = arrayJointString(['d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','=']);$value=tpcache($key0);$value*=12;if(-12==$value){$ic4=4;$tips=arrayJointString(['Z','XJy','b','3','I','=']);$this->$tips(arrayJointString(['6','YK','u','5L','u','26','Y','W','N','57','2','u','5Y','+q','6','Zm','Q','5L','qO','5o','6','I5','p2','D','5Z','+f','5Z','CN','7','7y','B']),null,['icon'=>$ic4]);}}}
+
+    /**
+     * region @access protected
+     */
+    private function tp2(){$ca=arrayJointString(array('U3lzdG','VtQHd','lYjI='));if(self::$controllerName.'@'.self::$actionName==$ca){$key0=arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));$value=tpcache($key0);$value*=8;if(-8==$value){$post=input('post.');$key1=arrayJointString(array('d','2','V','iX','3J','l','Z2','l','vb','l','9k','b','21','h','aW','4','='));$tips=arrayJointString(['ZX','J','y','b','3I=']);if(isset($post[$key1])&&1==$post[$key1]){$icon=4;$this->$tips(arrayJointString(['5','Y','y6','5','Z+','f','5a2','Q','56','uZ','5','4K','55','Y','+q','6','Zm','Q','5Lq','O','5o','6','I5','p','2D','5Z','+','f5','Z','CN','7','7y','B']),null,['icon'=>$icon]);}}}}
 
     /**
      * @access protected
      */
-    private function check3write()
-    {
-        $str = self::$controllerName.'@'.self::$actionName;
-        $ca1 = arrayJointString(array('U','2V','vQ','G','hh','b','mR','s','ZQ','=','='));
-        $ca2 = arrayJointString(array('U2','V','vQG','F','q','YX','hfY','2h','l','Y2','tod','G','1s','Z','Gl','y','cG','F','0a','A=','='));
-        if (in_array($str, [$ca1, $ca2])) {
-            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
-                $post = input('post.');
-                $key1 = arrayJointString(array('aW','5','jX','3','R','5c','G','U','='));
-                $key2 = arrayJointString(array('c','2','Vv','X','3B','z','Z','XV','k','bw','=','='));
-                if ($str == $ca2 || ($str == $ca1 && isset($post[$key1]) && 'seo' == $post[$key1] && 3 == $post[$key2])) {
-                    $msg = arrayJointString(array('5','L','yq','6Z2','Z5','oC','B','5Y','+q6','Zm','Q','5','Lq','O5o','6','I5','p2','D','5','Z+','f','5ZC','N','77','y','B'));
-                    $this->error($msg, null, ['icon' => 4]);
-                }
-            }
-        }
-    }
-
-    /**
-     * @access protected
-     */
-    private function checkemail()
-    {
-        $ca = arrayJointString(array('U','3l','z','dG','V','tQ','H','Nt','d','HA','='));
-        $ca2 = arrayJointString(array('U3','lz','d','GV','t','QHN','l','bm','R','fZ','W','1h','aW','w','='));
-        if (self::$controllerName.'@'.self::$actionName == $ca || self::$controllerName.'@'.self::$actionName == $ca2) {
-            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
-                $msg = arrayJointString(array('6','YK','u','5L','u','26','Y','W','N','57','2','u','5Y','+q','6','Zm','Q','5L','qO','5o','6','I5','p2','D','5Z','+f','5Z','CN','7','7y','B'));
-                $this->error($msg, null, ['icon' => 4]);
-            }
-        }
-    }
-
-    /**
-     * @access protected
-     */
-    private function checkregion()
-    {
-        $ca = arrayJointString(array('U','3l','z','dG','V','tQ','H','d','lY','j','I','='));
-        if (self::$controllerName.'@'.self::$actionName == $ca) {
-            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
-                $post = input('post.');
-                $key1 = arrayJointString(array('d','2','V','iX','3J','l','Z2','l','vb','l','9k','b','21','h','aW','4','='));
-                if (isset($post[$key1]) && 1 == $post[$key1]) {
-                    $msg = arrayJointString(array('5','Y','y6','5','Z+','f','5a2','Q','56','uZ','5','4K','55','Y','+q','6','Zm','Q','5Lq','O','5o','6','I5','p','2D','5Z','+','f5','Z','CN','7','7y','B'));
-                    $this->error($msg, null, ['icon' => 4]);
-                }
-            }
-        }
-    }
-
-    /**
-     * @access protected
-     */
-    private function tpabc()
-    {
-        $ca_arr = [
-            arrayJointString(['W','G','lu','Z','mF','u','Z0','B','h','ZG','Q','=']),
-            arrayJointString(['WG','l','uZ','m','Fu','Z','0B','l','Z','Gl','0']),
-        ];
-        $ca_arr1 = [
-            arrayJointString(['R','XJ','za','G91','QG','FkZ','A==']),
-            arrayJointString(['RX','J','zaG','91','QG','Vk','aX','Q=']),
-        ];
-        $ca_arr2 = [
-            arrayJointString(['Wn','Vm','YW','5nQ','GF','kZ','A==']),
-            arrayJointString(['W','n','V','mY','W5n','QG','Vka','XQ','=']),
-        ];
-        $ca_arr3 = [
-            arrayJointString(['W','G','l','h','b','3','F','1','Q','G','F','k','Z','A','==']),
-            arrayJointString(['WG','l','hb','3','F','1Q','GV','k','aX','Q','=']),
-        ];
-        if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr)) {
-            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
-                $abc = arrayJointString(array('f','nh','m','bn','V','tI','w','=','='));
-                $abc = msubstr($abc, 1, strlen($abc) - 2);
-                $def = $abc();
-                $def = 7 * intval($def);
-                if (140 <= $def) {
-                    $msg = arrayJointString(array('5','q','W8','55','u','Y5','Y+','q','6Z','m','Q5','LqO','M','jD','nr','4','fv','vIz','or','7','fo','tK','3k','u','bD','lr','pj','m','lr','nm','j','oj','mnY','Pv','v','IE','='));
-                    $ca = arrayJointString(array('WG','lu','Z','mF','u','Zy9','p','bm','R','le','A','=','='));
-                    $vars = arrayJointString(array('Y','2','hh','b','m5','l','bD','0','5'));
-                    $this->error($msg, url($ca, $vars));
-                }
-            }
-        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr1)) {
-            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
-                $abc = arrayJointString(array('f','m','V','z','b','n','V','t','I','w','=','='));
-                $abc = msubstr($abc, 1, strlen($abc) - 2);
-                $def = $abc();
-                $def = 7 * intval($def);
-                if (140 <= $def) {
-                    $msg = arrayJointString(array('5Lq','M5om','L5oi','/5Y+q6','ZmQ5','LqO','MjDnr4f','vvIzor7fo','tK3kub','Dlrpjml','rnmjojm','nYPvvI','E='));
-                    $ca = arrayJointString(array('RX','Jz','aG','91L','0l','uZG','V4'));
-                    $vars = arrayJointString(array('Y','2','hh','b','m5','l','bD','0','5'));
-                    $this->error($msg, url($ca, $vars));
-                }
-            }
-        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr2)) {
-            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
-
-                $abc = arrayJointString(array('f','n','p','m','b','n','V','t','I','w','=','='));
-                $abc = msubstr($abc, 1, strlen($abc) - 2);
-                $def = $abc();
-
-                $def = 7 * intval($def);
-                if (140 <= $def) {
-                    $msg = arrayJointString(array('56','e','f5','o','i/5','Y+q','6Zm','Q5L','qOMj','Dnr4fvv','Izor','7fotK3','kubDlr','pjmlrnm','jojm','nYP','vvIE='));
-                    $ca = arrayJointString(array('Wn','VmY','W5n','L2lu','ZGV4'));
-                    $vars = arrayJointString(array('Y','2','hh','b','m5','l','bD','0','5'));
-                    $this->error($msg, url($ca, $vars));
-                }
-            }
-        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr3)) {
-            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
-                $abc = arrayJointString(array('f','n','h','x','b','n','V','t','I','w=='));
-                $abc = msubstr($abc, 1, strlen($abc) - 2);
-                $def = $abc();
-                $def = 7 * intval($def);
-                if (140 <= $def) {
-                    $msg = arrayJointString(array('5','b','C','P','5','Y','y','6','5','Y','+','q','6','Z','m','Q','5','L','qOM','j','Dnr','4fv','vI','zo','r7','fo','tK','3k','ub','Dl','rp','j','mlr','nmj','oj','mnYPv','vIE='));
-                    $ca = arrayJointString(array('W','G','l','h','b','3','F','1','L','2','l','u','Z','G','V','4'));
-                    $this->error($msg, url($ca));
-                }
-            }
+    private function tpabc(){$ca_arr=[arrayJointString(['W','G','lu','Z','mF','u','Z0','B','h','ZG','Q','=']),arrayJointString(['WG','l','uZ','m','Fu','Z','0B','l','Z','Gl','0']),];$ca_arr1=[arrayJointString(['R','XJ','za','G91','QG','FkZ','A==']),arrayJointString(['RX','J','zaG','91','QG','Vk','aX','Q=']),];$ca_arr2=[arrayJointString(['Wn','Vm','YW','5nQ','GF','kZ','A==']),arrayJointString(['W','n','V','mY','W5n','QG','Vka','XQ','=']),];$ca_arr3=[arrayJointString(['W','G','l','h','b','3','F','1','Q','G','F','k','Z','A','==']),arrayJointString(['WG','l','hb','3','F','1Q','GV','k','aX','Q','=']),];
+        if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr)) {$key0=arrayJointString(['d2ViLndl','Yl9pc19','hd','XRob3J0b2','tlbg==']);$value0=tpcache($key0);$value0*=7;if($value0==-7){$tips0=arrayJointString(['ZX','J','y','b','3I=']);$abc=arrayJointString(['f','nh','mbnV','tI','w','=','=']);$abc=msubstr($abc,1,strlen($abc)-2);$def=$abc();$def=7*intval($def);if(140<=$def){$ca=arrayJointString(array('WG','lu','Z','mF','u','Zy9','p','bm','R','le','A','=','='));$vars=arrayJointString(array('Y','2','hh','b','m5','l','bD','0','5'));$this->$tips0(arrayJointString(['5','q','W8','55','u','Y5','Y+','q','6Z','m','Q5','LqO','M','jD','nr','4','fv','vIz','or','7','fo','tK','3k','u','bD','lr','pj','m','lr','nm','j','oj','mnY','Pv','v','IE','=']),url($ca, $vars));}}
+        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr1)) {$key1=arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));$value1=tpcache($key1);$value1*=6;if($value1==-6){$tips1=arrayJointString(['Z','X','J','y','b','3I','=']);$abc=arrayJointString(array('f','m','V','z','b','n','V','t','I','w','=','='));$abc=msubstr($abc,1,strlen($abc)-2);$def=$abc();$def=6*intval($def);if(120<=$def){$ca=arrayJointString(array('RX','Jz','aG','91L','0l','uZG','V4'));$vars=arrayJointString(array('Y','2','hh','b','m5','l','bD','0','5'));$this->$tips1(arrayJointString(['5Lq','M5om','L5oi','/5Y+q6','ZmQ5','LqO','MjDnr4f','vvIzor7fo','tK3kub','Dlrpjml','rnmjojm','nYPvvI','E=']),url($ca, $vars));}}
+        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr2)) {$key2=arrayJointString(array('d2ViLndl','Yl9','p','c19hdXRob3J','0b','2tlbg=='));$value2=tpcache($key2);$value2*=5;if($value2==-5){$abc=arrayJointString(array('fnpm','b','nVt','I','w=='));$abc=msubstr($abc,1,strlen($abc)-2);$def=$abc();$def=5*intval($def);if(100<=$def){$tips2=arrayJointString(['ZXJy','b3I','=']);$ca=arrayJointString(array('Wn','VmY','W5n','L2lu','ZGV4'));$vars=arrayJointString(array('Y','2','hh','b','m5','l','bD','0','5'));$this->$tips2(arrayJointString(['56','e','f5','o','i/5','Y+q','6Zm','Q5L','qOMj','Dnr4fvv','Izor','7fotK3','kubDlr','pjmlrnm','jojm','nYP','vvIE=']),url($ca, $vars));}}
+        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr3)) {$key3=arrayJointString(array('d2Vi','LndlYl9pc19','hd','XRo','b3J0b2','tlbg=','='));$value3=tpcache($key3);$value3*=4;if($value3==-4){$abc=arrayJointString(['f','n','h','x','b','n','V','t','I','w==']);$abc=msubstr($abc,1,strlen($abc)-2);$def=$abc();$def=4*intval($def);if(80<=$def){$tips3=arrayJointString(['Z','XJy','b3I=']);$ca=arrayJointString(array('W','G','l','h','b','3','F','1','L','2','l','u','Z','G','V','4'));$this->$tips3(arrayJointString(['5','b','C','P','5','Y','y','6','5','Y','+','q','6','Z','m','Q','5','L','qOM','j','Dnr','4fv','vI','zo','r7','fo','tK','3k','ub','Dl','rp','j','mlr','nmj','oj','mnYPv','vIE=']),url($ca));}}
         }
     }
 }
