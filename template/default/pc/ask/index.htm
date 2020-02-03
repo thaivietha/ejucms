@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>问答中心</title>
+<meta name="renderer" content="webkit" />
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+{eju:static file="ask/skin/css/ask.css" /}
+{eju:static file="/public/static/common/js/jquery.min.js"/}
+{eju:static file="/public/plugins/layer-v3.1.0/layer.js"/}
+  {eju:static file="ask/skin/js/ask.js"/}
+{eju:static file="skin/css/public.css" /}
+{eju:static file="ask/skin/css/AskCommonCss.css" /}
+{eju:static file="ask/skin/css/add.css" /}
+{eju:static file="ask/skin/css/navigation20141112.css" /}
+</head>
+
+<body class="askpn" style="">
+<!-- 头部 --> 
+{eju:include file="header.htm"/} 
+<!-- END -->
+{eju:ask id="field" bestanswer="off" pagesize='2'}
+<div class="searchWrap">
+  <div class="searchBox clearfix">
+    <div class="searchBar">
+      <form action="" method="get" name="search" id="search">
+        <div class="searchBar-text">
+          <input id="searchinput" type="text" class="input-text" value="{$field.SearchName}" autocomplete="off" placeholder="已有1606004人在这里找到答案">
+        </div>
+        <div class="searchBar-btn">
+          <input type="button" value="搜索" id="search-bottom" class="btn-search"  data-url="{$field.NewDateUrl}"  onclick="formSubmit(this);">
+          <a href="javascript:void(0);" class="btn_mai" style="display: none;">我要提问</a> </div>
+      </form>
+      <!-- 联想区域 -->
+      <div id="autoContent" class="subject-list" style="display: none;">
+        <ul>
+        </ul>
+      </div>
+    </div>
+    <!-- 热门搜索 -->
+    <!--<div id="asklist_B01_03">-->
+      <!--<dl id="ask_C01_04" class="hot">-->
+        <!--<dt>大家都在搜：</dt>-->
+        <!--<dd><a href="/?m=home&c=Ask&a=index&search_name=二手房">二手房</a></dd>-->
+      <!--</dl>-->
+    <!--</div>-->
+    <!-- 我要提问 --> 
+    <a href="{$field.AddAskUrl}" id="ask_C01_03" class="i-ask-btn"><i class="pencil"></i>我要提问</a> </div>
+  <!-- 搜索条end -->
+</div>
+
+<main class="mian-body container">
+  <div class="MainContent">
+    <div class="content clearfix">
+      <section class="main">
+        <div class="questionBox">
+          <ul class="clearfix">
+          {eju:empty name="$eju.field.SearchName"}
+            <li {eju:empty name="$eju.get.is_recom"}class="active"{/eju:empty}> <a href="{$field.NewDateUrl}" >最新问题</a> </li>
+            <li {eju:eq name="$eju.get.is_recom" value="4"}class="active"{/eju:eq}> <a href="{$field.HotUrl}" >热门问题</a> </li>
+            <li {eju:eq name="$eju.get.is_recom" value="3"}class="active"{/eju:eq}> <a href="{$field.SolveUrl}" >常见问题</a> </li>
+          {eju:else/}
+            <li> <a >{$field.SearchNameRed}</a> </li>
+          {/eju:empty}
+          </ul>
+          <div class="question-wrapper"> 
+           {eju:empty name="$field.AskData"}
+            <div class="result">
+              <div>没有符合条件的问题！</div>
+              <p>您可以继续提问，让其他网友帮您解决</p>
+              <a href="{$field.AddAskUrl}" class="ask-btn">立即提问</a> </div>
+            {eju:else/} 
+            <!-- 热门问题begin-->
+            <div>
+              <div>
+                <div class="question-list"> 
+                 {eju:volist name="$field.AskData" id="vo"}
+                  <div class="question-item">
+                    <h3 class="f18"> <a href="{$vo.AskUrl}" target="_blank">{eju:notempty name="$vo.fang_title"}[{$vo.fang_title}]{/eju:notempty}{$vo.ask_title}</a> </h3>
+                    {eju:volist name="$vo.AnswerData" id="vo2"}
+                    <div class="answer-cont">
+                      <a href="{$vo.AskUrl}" target="_blank">
+                        <b>答</b> :{$vo2.content|strip_tags} </a>
+                    </div>
+                    {/eju:volist}
+                    <div class="answer-from"> <span class="time">{$vo.add_time|MyDate="Y-m-d H:i:s",###}</span> <span class="view">浏览(<em class="">{$vo.click}</em>)</span> </div>
+                    <div class="answer-count">
+                      <p class="f24 c333">{$vo.replies}</p>
+                      <p>个回答</p>
+                    </div>
+                  </div>
+                  {/eju:volist}
+
+                </div>
+
+              </div>
+            </div>
+            {/eju:empty}
+          </div>
+        </div>
+        <div class="cl"></div>
+        <div>
+          <div class="page_list clearfix">
+            <ul class="pagination">
+              {eju:pagelist listitem="pageno,pre,next" listsize="1"/}
+            </ul>
+          </div>
+        </div>
+      </section>
+      <div class="sidebar clearfix">
+        <div id="askrightquickask" style="">
+          <div id="ask_C03_01" class="quick-ask " >
+            <h3 class="f17_h3_c3">快速提问</h3>
+            <div class="quick-area h168">
+              <textarea class="h_133" id="content" name="content" placeholder="请输入您的问题" maxlength="150"></textarea>
+              <div class="quick-count"><em id="asktitlenum">0</em>/150</div>
+              <p class="quick-note" style="display:none; position: relative; top: -15px;">问题不能少于6个字</p>
+            </div>
+            <p class="clearfix">
+              <style>
+					.slide-verify .drag-handler {
+						width: 28px;
+						height: 32px;
+					}
+				</style>
+            </p>
+            <div class="drag-content" style="height:45px;width:240px;display:none"></div>
+            <a href="javascript:void(0);" class="quick-btn" data-url="{$field.SubmitAddAsk}" onclick="SubmitData(this);">快速提问</a>
+            <p></p>
+          </div>
+        </div>
+        <div class="jp-zhishi" >
+          <div>
+            <h3>精品知识</h3>
+            <ul class="jp-list">
+              {eju:ask id="field1" answer="off" pagesize='5'}
+              {eju:volist name="$field1.AskData" id="vo"}
+              <li><a href="{$vo.AskUrl}" target="_blank">{$vo.ask_title}</a></li>
+              {/eju:volist}
+              {/eju:ask}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{/eju:ask}
+<script type="text/javascript" charset="utf-8">
+    // 搜索提交
+    function formSubmit(obj)
+    {
+        var q = $('#searchinput').val();
+        var url = $(obj).data('url');
+        if (url.indexOf('?') > -1) {
+            url += '&';
+        } else {
+            url += '?';
+        }
+        url += 'search_name=' + q;
+        window.location.href = url;
+        return false;
+    }
+    function SubmitData(obj) {
+        if (!$('#content').val()) {
+            layer.msg('请填写问题描述！', {time: 1500, icon: 2});
+            return false;
+        }
+        layer_loading('正在处理');
+        var content = $('#content').val();
+        $.ajax({
+            url: $(obj).data('url'),
+            data: {content:content},
+            type:'post',
+            dataType:'json',
+            success:function(res){
+                layer.closeAll();
+                if (1 == res.code) {
+                    layer.msg(res.msg, {time: 1000},function(){
+                        window.location.href = res.url;
+                    });
+                } else {
+                    layer.msg(res.msg, {time: 1500, icon: 2});
+                }
+            },
+            error : function() {
+                layer.closeAll();
+                layer.alert('网络失败，请刷新页面后重试', {icon: 5, closeBtn: 0});
+            }
+        });
+    }
+</script>
+{eju:include file="footer.htm"/}
+</body>
+</html>

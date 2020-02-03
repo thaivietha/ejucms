@@ -1,0 +1,104 @@
+
+
+
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/foot.css">
+<!-- 公共底部 start -->
+<div class="footer-v5">
+  <div class="wrap-v5 comWidth">
+    <div class="aboutcopy">
+      <ul class="clearfix">
+        {eju:channelartlist typeid='8' type="son"} 
+        <li><a href="{eju:field name='typeurl' /}" target="_blank" rel="nofollow">{eju:field name='typename' /}</a></li>
+       {/eju:channelartlist} 
+      </ul>
+    </div>
+    <div class="links-v5"> 
+      <!--城市导航 start--> 
+      <!-- 展开添加样式on -->
+      <div class="linkrow">
+        <div class="ftlinkswrap"> <span class="linkstit-v5">{$eju.region.name}导航</span>
+          <div class="linkscont-v5">
+            <p>你可以按区域查找{$eju.region.name}新房、二手房，也可以按区域查询{$eju.region.name}房价。同时，你买房 过程中遇到的很多问题都可以在这里得到解答。</p>
+          </div>
+          <i class="footmore"></i> </div>
+        <!--展开内容 start-->
+        <div class="szdhwrap">
+          <div class="szdh-item">
+            <div class="szdh-lab">区域新房</div>
+            <ul class="szdh-list clearfix">
+             {eju:region type='son' row='60' id='field'}
+              <li><a href="{$field.domainurl}" target="_blank">{$field.name}</a></li>
+             {/eju:region}
+            </ul>
+          </div>
+          <div class="szdh-item">
+            <div class="szdh-lab">区域二手房</div>
+            <ul class="szdh-list clearfix">
+             {eju:screening id='field' typeid='11' domain='0' region='on' show='2'  opencity='2'}
+				{eju:volist name='$field.list' id='vo'  row='1'}
+					{eju:volist name='$vo.dfvalue' id='vo2'}
+					<li><a {$vo2.onClick}>{$vo2.name}二手房</a></li>
+					{/eju:volist}
+				{/eju:volist}
+				{$field.hidden}
+				{/eju:screening} 
+            </ul>
+          </div>
+
+          
+        </div>
+        <!--展开内容 end--> 
+      </div>
+      <!--城市导航 end--> 
+      
+      <!--热门城市 start--> 
+      <!-- 展开添加样式on -->
+      <div class="linkrow">
+        <div class="ftlinkswrap"> <span class="linkstit-v5">热门城市</span>
+          <div class="linkscont-v5">
+            <ul class="alinklist clearfix">
+              <!--热门城市开始-->
+              {eju:region type='son' row='60' id='field'}
+              <li><a href="{$field.domainurl}" target="_blank">{$field.name}</a></li>
+              {/eju:region}
+              <!--热门城市结束-->
+            </ul>
+          </div>
+          <i class="footmore"></i> </div>
+      </div>
+      <!--热门城市 end--> 
+      <!--周边城市 start--> 
+      <!-- 展开添加样式on -->
+      
+      <!--周边城市 end--> 
+      <!-- 展开添加样式on -->
+      
+      <div class="linkrow" id="yqljdiv">
+        <div class="ftlinkswrap"> <span class="linkstit-v5">友情链接</span>
+          <div class="linkscont-v5">
+            <ul class="alinklist clearfix">
+             {eju:flink type='text' row='100' titlelen='20'} 
+              <li><a href="{$field.url}" {$field.target}>{$field.title}</a></li>
+             {/eju:flink}
+            </ul>
+          </div>
+          <i class="footmore"></i></div>
+      </div>
+    </div>
+    <div class="conyfiv">
+      <p>{eju:global name='web_copyright' /}</p>
+      <p>{eju:global name='web_recordnum' /}<span>|</span>
+        <a href="#" target="_blank" rel="nofollow">增值电信业务经营许可证</a><span>|</span>
+        <a href="#" target="_blank" rel="nofollow">房地产经纪机构备案</a><span>|</span>
+        <a href="http://szcert.ebs.org.cn/" target="_blank" rel="nofollow">工商网监</a><span>|</span>
+        <a href="http://si.trustutn.org/" target="_blank" rel="nofollow">中国电子认证服务产业联盟</a><span>|</span>
+        <a href="http://www.beian.gov.cn/" target="_blank" rel="nofollow">粤公网安备&nbsp;&nbsp;0000000号&nbsp</a>
+      </p>
+    </div>
+  </div>
+</div>
+<!-- 公共底部 end --> 
+<!-- common.js与老版本js存在冲突，必须放页面最底部     js文件加载顺序有关 --> 
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/foot.js"></script>
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/common.js"></script>
+<!-- 公共底部 end -->

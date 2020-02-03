@@ -1,0 +1,142 @@
+ @font-face {
+            font-family: 'dinot-bold';  
+            src: url('../fonts/dinot-bold.woff');       
+        }
+.housesRight{
+    float: right;
+    width: 247px;
+    /* margin-left: 20px; */
+    width: 253px !important;
+    margin-right: 5px;
+    /* margin-right: 15px; */
+}
+.housesRight .houseRight{
+    border: 1px solid #ededed;
+    margin-bottom:  20px;
+    padding: 0 20px;
+    overflow: hidden;
+}
+.housesRight .houseRinghtTitle{
+    font-size: 18px;
+    color: #333333;
+    line-height: 55px;
+    border-bottom: 1px solid #ededed;
+    margin-bottom: 20px;
+}
+.housesRight .salesOffice{
+    /* padding-top: 30px; */
+    height: 128px;
+    padding-bottom: 20px;
+}
+.housesRight .houseRightBtn{
+    background: #ff6100;
+    color: #fff;
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    margin-top: 18px !important;
+}
+.housesRight .salesOffice p{
+    margin-top: 23px;
+}
+.housesRight .salesOffice span{
+    color: #ff5200;
+    display: inline-block;
+    /* padding-bottom:  20px; */
+    padding-top: 6px;
+}
+.housesRight .salesOffice span b{
+    font-size: 20px;
+    font-family: dinot-bold;
+    font-weight: normal;
+}
+.housesRight .salesOffice span b b{font-size:14px;padding:0 2px}
+.housesRight .subscription{}
+.housesRight .subscription ul{
+    overflow: hidden;
+    padding-bottom: 12px;
+}
+.housesRight .subscription ul li{
+    overflow: hidden;
+    float: left;
+    line-height: 40px;
+    width: 50%;
+}
+.housesRight .subscription ul li b{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border:  1px solid #ededed;
+    box-sizing: border-box;
+    float: left;
+    margin-top: 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.housesRight .subscription ul li.hover b{
+    background: url(../img/select.png)no-repeat;
+    border:  none;
+}
+.housesRight .subscription ul li span{}
+.housesRight .subscriber{
+    padding-bottom: 10px;
+}
+.housesRight .subscriber ul{
+    margin-top: -10px;
+}
+.housesRight .subscriber ul li{
+    height: 36px;
+    overflow: hidden;
+}
+.housesRight .subscriber ul li a>p{
+    line-height: 36px;
+}
+.housesRight .subscriber ul li a>p b{
+    font-weight: 400;
+}
+.housesRight .subscriber ul li a>p span{
+    float: right;
+    color: #ff5200;
+}
+.housesRight .subscriber ul li a>div{
+    /* display: none; */
+    padding: 12px 0;
+}
+.housesRight .subscriber ul li a>div img{
+    width: 90px;
+    float: left;
+}
+.housesRight .subscriber ul li a>div>div{
+
+float: left;
+
+margin-left: 10px;
+
+width: 105px;
+}
+.housesRight .subscriber ul li a>div h3{
+    font-size: 14px;
+    font-weight: 400;
+    white-space:  nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.housesRight .subscriber ul li a>div h4{
+    font-size: 14px;
+    font-weight: 400;
+    color: #999;
+}
+.housesRight .subscriber ul li a>div h5{
+    font-size: 14px;
+    font-weight: 400;
+    color: #ff5200;
+}
+.housesRight .subscriber ul li.hover{
+    height:auto;
+}
+.housesRight .subscriber ul li.hover a p{
+display:none;
+}

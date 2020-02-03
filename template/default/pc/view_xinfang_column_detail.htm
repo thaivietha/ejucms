@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}-详情</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body>
+<!-- topBar S --> 
+{eju:include file="header.htm"/} 
+<!-- topBar E --> 
+
+<!-- 楼盘详情 S-->
+<div class="newhouse_detail"> {eju:include file="main_xinfang.htm"/}
+  <div class="comWidth clearfix house_detail">
+    <div class="con_wrap" id="main"> 
+      <!-- 楼盘详情 S -->
+      <div style="margin-top: 30px;">
+        <div class="housesLeft">
+          <div class="Basics_box">
+            <div class="title_sun">
+              <h1>基本信息</h1>
+            </div>
+            <div class="content">
+              <ul>
+                <div class="top_wei">
+                  <li>普宅标签：{eju:volist name='$eju.field.characteristic' id='vo'}{$vo}&nbsp;&nbsp;{/eju:volist}</li>
+                  <li>建筑类型：{eju:diyfield type='checkbox' id='building_type' name='$eju.field.building_type'}{$building_type.value}{/eju:diyfield}</li>
+                  <li>装修状况：{eju:diyfield type='checkbox' id='fitment' name='$eju.field.fitment'}{$fitment.value}{/eju:diyfield}</li>
+                  <li>开 发 商：{$eju.field.developer}</li>
+                  
+                  <div class="clearfix"></div>
+                </div>
+              </ul>
+            </div>
+          </div>
+          <div class="Mansion">
+            <div class="title_sun">
+              <h1>小区信息</h1>
+            </div>
+            <div class="content">
+              <ul>
+                <li>建筑面积：{$eju.field.building_area} {$eju.field.building_area_unit} </li>
+                <li>占地面积：{$eju.field.floor_area} {$eju.field.floor_area_unit} </li>
+                <li>容积率：{$eju.field.plot_ratio}{$eju.field.plot_ratio_unit} </li>
+                <li>绿化率：{$eju.field.greening_rate}{$eju.field.greening_rate_unit}</li>
+                <li>物业公司：{$eju.field.manage_company} </li>
+                <li>车位信息：{$eju.field.carport}{$eju.field.carport_unit} </li>
+                <li>物业费：{$eju.field.property_fee}{$eju.field.property_fee_unit} </li>
+                <li>楼栋数量：{$eju.field.building_num}{$eju.field.building_num_unit} </li>
+                <div class="clearfix"></div>
+              </ul>
+            </div>
+          </div>
+          <div class="sale">
+            <div class="title_sun">
+              <h1>销售信息</h1>
+            </div>
+            <div class="content">
+              <ul>
+                <li>售楼处地址：{$eju.field.sales_address}{$eju.field.sales_address_unit}</li>
+                <li>楼盘户型： 
+                {eju:fanglist type="huxing" id="field" group="huxing_room"} 
+                <a target="_blank" tyle="margin-right: 10px" href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','room'=>$field.huxing_room])}">{$field.huxing_room}居室[{$field.count}]</a>
+                {/eju:fanglist}
+                </li>
+                <li>贷款方式：全款,商贷,公积金,组合贷</li>
+                <li>开盘时间：{$eju.field.opening_time|MyDate='Y-m-d',###}</li>
+                <li>交房时间：{$eju.field.complate_time|MyDate='Y-m-d',###}</li>
+                <li>预售许可证：{$eju.field.licence}{$eju.field.licence_unit}</li>
+              </ul>
+            </div>
+          </div>
+          <div class="project">
+            <div class="title_sun">
+              <h1>项目简介</h1>
+            </div>
+            <div class="content">
+              {$eju.field.content}
+            </div>
+          </div>
+        </div>
+        <div>
+          <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/housesright.css">
+          <div class="housesRight">
+            <div class="salesOffice houseRight">
+              <p>售楼处电话：</p>
+              <span><b>{$eju.field.sale_phone} {eju:notempty name="$eju.field.phone_code"} 转 {$eju.field.phone_code}{/eju:notempty}</b></span> 
+              <!-- <span><b><th:block th:text="${houseInfo.sortelTel}"></th:block></b></span>--> 
+              <a  data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form'/}" class="houseRightBtn J_dialog" style="cursor:pointer ; display: block;margin-top: 5px">免费通话</a> </div>
+            <div class="houseRight subscription">
+              <div class="houseRinghtTitle">楼盘订阅</div>
+              {eju:form formid="3"}
+              <form method="post" id="{$field.form_name}" action="{$field.action}" onsubmit="{$field.submit}">
+                <div class="right-form">
+                  <div class="form-type">
+                    <p> {eju:volist name="$field.options_8" id="attr" limit='0,2'}
+                      <label>
+                        <input type="checkbox" id="{$field.attr_8}" name="{$field.attr_8}" value="{$attr.value}">
+                        {$attr.value} </label>
+                      {/eju:volist} </p>
+                    <p> {eju:volist name="$field.options_8" id="attr" limit='2,2'}
+                      <label>
+                        <input type="checkbox" id="{$field.attr_8}" name="{$field.attr_8}" value="{$attr.value}">
+                        {$attr.value} </label>
+                      {/eju:volist} </p>
+                  </div>
+                  <div class="form-input">
+                    <p>
+                      <input type="text" id="{$field.attr_6}" name="{$field.attr_6}" autocomplete="off" placeholder="您的{$field.itemname_6}" class="input-txt" />
+                    </p>
+                    <p>
+                      <input type="text" id="{$field.attr_7}" name="{$field.attr_7}" autocomplete="off" placeholder="您的{$field.itemname_7}" class="input-txt" />
+                    </p>
+                  </div>
+                  <div class="button">
+                    <button class="subscribe-btn" type="submit">立即订阅</button>
+                  </div>
+                </div>
+                {$field.hidden}
+              </form>
+              {/eju:form} </div>
+          </div>
+          <script type="text/javascript">
+			 $(function(){ 
+			   $('.J_dialog').on('click',function(){
+            var me=$(this),w = 420,h = 270,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri');
+            url = url + '?house_id='+house_id+'&type='+type+'&model='+model;
+            layer.open({
+                type: 2,
+                title: false,
+                fix:true,
+                move:false,
+                area: [w+'px', h+'px'],
+                shade: 0.5,
+                closeBtn: 1,
+                shadeClose: true,
+                content: url
+					});
+				});
+			   });
+    </script> 
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <!-- 楼盘详情 E --> 
+    </div>
+  </div>
+</div>
+<!-- 楼盘详情 E--> 
+
+{eju:include file="footer.htm"/} 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+    });
+</script>
+</body>
+</html>

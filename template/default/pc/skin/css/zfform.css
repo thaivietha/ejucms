@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin:0;padding:0;border:none}
+
+
+/*2017-8-2 表单*/
+.title{color:#ff5200;font-weight:100;text-align:center;font-size: 30px;line-height: 40px;color: #333 !important;font-size: 30px;text-align: center;line-height: 40px;margin-top: 29px;margin-bottom: 10px;width: 1170px;margin: 20px auto 30px auto;}
+.title p{margin-bottom:30px;text-align:center;font-size: 18px;color:#666;line-height: 40px;display:  none;}
+.form_qh{width: 1170px;margin: 0 auto 20px;height: 30px;font-size: 16px;display: none;}
+.form_qh p{float:left;margin-right:20px;margin-left: 327px;}
+.form_qh li{float:left;}
+.form_qh li a{padding: 0 15px 10px;border-bottom:2px solid #ccc;text-decoration: none;}
+.form_qh li a.hover{border-bottom:2px solid #ff5200;}
+
+.form_h{width: 800px;margin:0 auto;font-size: 14px;/* overflow:  hidden; */}
+.form_h .form_l{width: 290px;text-align:right;float:left;margin-right: 20px;font-size: 16px;line-height: 38px;}
+.form_h .form_l i{color:red;font-size:20px;margin:0 5px 0 0;vertical-align: middle;}
+.form_h .form_r{width: 300px;text-align:left;float:left;}
+.form_h .error{font-size:12px;color:#ff5200;height: 30px;visibility:hidden}
+.form_h .form_r input{width: 173px;padding-left: 20px !important;height: 35px;line-height: 35px;color: #666 !important;border: 1px solid #ccc;border-radius: 3px;margin-right: 10px;}
+.form_btn{width: 800px;/* margin: 0 auto 45px; */}
+.form_btn a{width: 172px;height: 40px;border: none;color: #fff;font-size: 16px;background-color: #fe6218;cursor: pointer;display: block;text-align: center;line-height: 40px;margin: 18px 0 0 320px;}
+.form_h .form_r input.yzm{width:100px;float: left;}
+.form_h .form_r a.yzm_btn,.form_h .form_r a.yzm_btn_time{float:left;padding: 0 14px;text-align: center;line-height: 31px;font-size: 12px;color: #333;border: 1px solid #ccc;background-color: #fff;margin-top: 2px;cursor: pointer;}
+.form_h .form_r a.yzm_btn_time{display:none;}
+.form_h .form_r .ms{width: 302px;height: 78px;padding: 6px;border: 1px solid #ccc;resize:  vertical;}
+/*下拉*/
+.my_xl{height: 28px;line-height: 30px;width: 167px;padding: 4px 6px 4px 20px;position:relative;font-size: 14px;background: #fff url(../img/my_xiala.gif) 175px 16px no-repeat;cursor:pointer;display:inline-block;margin-right:20px;}
+.my_xl_txt{float:left;width: 150px;line-height: 28px;padding-right:17px;color:#666;}
+.my_xl,.my_xl_list{border:1px solid #ccc; border-radius:4px}
+.my_xl_txt,.my_xl_list li{text-indent:0px;overflow:hidden;}
+.my_xl_list{z-index:99;position:absolute;top: 37px;left:-1px;z-index:88888;border-top:none;width:100%;display:none;_top:23px;margin-left:0px !important;}
+.my_xl_list li{list-style:none;height: 30px;line-height: 30px;cursor:default;background:#fff;padding-left: 20px;color:#666}
+.my_xl_list li.focus{background:#3399FF;color:#fff}
+
+/*提交成功弹出*/
+.success_bg{position:fixed;width:100%;height:100%;background:#000;opacity:0.5;top:0;left:0;z-index:1000;}
+.success_tc{display:none;width: 344px;height: 119px;border:1px solid #ccc;position:fixed;top:300px;left:50%;background-color:#fff;margin-left:-185px;padding: 70px 0 0 33px;font-size:14px;z-index:1001;}
+.su_left{float:left;margin-right:20px;}
+.su_cg{margin-bottom: 11px;font-size: 19px;}
+.su_close{ position:absolute;right:16px;top:16px; cursor:pointer}
+.su_right p{font-size:12px;}
+
+/*背景*/
+.house_bot{background:#fff;}
+.hb_bg{background:#f7f7f7;}
+.bnzf-kuangBg{
+            width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 40px 0;
+            margin-bottom: 100px;
+            }
+
+.bnzf-kuangBottom{
+    background: #ddd;
+}
+.bnzf-kuangBottom>div{
+    width:  1170px;
+    margin:  0 auto;
+}
+.bnzf-kuangBottom div img{}
+
+

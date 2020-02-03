@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<style>
+/*预约弹窗*/
+p {
+	margin: 0;
+	padding: 0;
+}
+a {
+	text-decoration: none;
+}
+.dialog {
+	width: 405px;
+	height: 240px;
+	position: relative;
+}
+.dialog h1 {
+	margin: 0 20px;
+	font-size: 20px;
+	height: 40px;
+	border-bottom: 1px solid #ccc;
+	font-weight: normal;
+}
+.dialog h1 span {
+	display: inline-block;
+	height: 40px;
+	border-bottom: 1px solid #d32f2f;
+}
+.dialog .dia-con1 {
+	width: 405px;
+	height: 200px;
+	background: #fff;
+}
+.dialog .tc_left {
+	overflow: hidden;
+	width: 390px;
+}
+.dialog .tc_left img {
+	overflow: hidden;
+	width: 330px;
+	height: 180px;
+	margin: 20px 20px 10px 20px;
+	padding: 10px;
+	border: 1px solid #ddd;
+}
+.dialog .tc_left .stm_p2 {
+	font-size: 12px;
+	padding-left: 10px;
+	height: 30px;
+	line-height: 4px;
+	color: #666;
+}
+.dialog .tc_left .stm_p2:before {
+	content: "";
+	width: 30px;
+	height: 10px;
+	display: block;
+	background-position: -30px -270px;
+}
+.dialog .tc_left .stm_p2 em {
+	font-size: 12px;
+	font-style: normal;
+	color: #333;
+	margin: 0 5px;
+}
+.dialog .tc_left .stm_p2 em.price {
+	font-size: 22px;
+	margin-right: 5px;
+	font-style: normal;
+	color: #d32f2f;
+}
+.dialog .tc_right {
+	overflow: hidden;
+}
+.dialog .tc_right p {
+	overflow: hidden;
+	padding: 10px 0;
+	text-align: center;
+}
+.dialog .tc_right .tc_right_p1 {
+	font-size: 15px;
+	color: #666666;
+	font-weight: bold;
+	padding-top: 20px;
+	text-align: center;
+}
+.dialog .tc_right .tc_right_p2 input {
+	width: 300px;
+	padding: 0 10px;
+	font-size: 14px;
+	height: 35px;
+	line-height: 35px;
+	color: #999999;
+	border: none;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+.dialog .tc_right .tc_right_p2 a {
+	font-size: 12px;
+	text-decoration: none;
+	display: block;
+	position: absolute;
+	width: 87px;
+	right: 0;
+	height: 35px;
+	line-height: 35px;
+	color: #009900;
+	border: 1px solid #ddd;
+	padding: 0 5px;
+	text-align: center;
+	background: #eee;
+}
+.dialog .tc_right .tc_right_p3 input {
+	width: 180px;
+	padding: 0 10px;
+	font-size: 12px;
+	height: 35px;
+	line-height: 35px;
+	color: #999999;
+	border: none;
+	border: 1px solid #ddd;
+}
+.dialog .tc_right .tc_right_p4 input {
+	height: 40px;
+    margin: 0 auto;
+    border: 0px;
+    outline: none;
+    display: block;
+    background: #ff5200;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+    line-height: 42px;
+    font-size: 14px;
+    border-radius: 4px;
+    width: 320px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+.dialog .tc_right .tc_right_p5 {
+	font-size: 12px;
+	color: #999999;
+}
+.dialog .tc_right .tc_right_p5 a {
+	font-size: 12px;
+	color: #0066cc;
+	margin: 0 5px;
+}
+.placeholder {
+	display: none;
+	line-height: 55px;
+}
+.form_box .sct_ipt {
+	width: 405px;
+}
+.dialog .tc_left .stm_p2 em.price i {
+	font-size: 14px;
+	color: #333;
+}
+</style>
+</head>
+<body>
+<div class="dialog">
+  <div class="dia-con1">
+    <div class="tc_right form_box"> {eju:form formid="2"}
+      <form method="post" id="{$field.form_name}" action="{$field.action}" onsubmit="{$field.submit}">
+        <p class="tc_right_p1">将为您严格保密电话号码，请放心通话</p>
+        
+        <p class="tc_right_p2 sct_ipt">
+          <input type="text" class="ipt" id="{$field.attr_2}" name="{$field.attr_2}" placeholder="请输入您的{$field.itemname_2}">
+          <span class="placeholder">请输入您的{$field.itemname_2}</span> </p>
+        <p class="tc_right_p4">
+          <input type="submit"  value="立即提交">
+          </p>
+        {$field.hidden}
+      </form>
+      {/eju:form} </div>
+  </div>
+</div>
+</body>
+</html>

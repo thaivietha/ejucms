@@ -1,0 +1,36 @@
+/*footer start*/
+.footer-v5{background:#3b4144; min-width:1200px;}
+.aboutcopy,.links-v5{border-bottom:1px solid rgba(134, 144, 153, 0.3); padding:20px 0;}
+.conyfiv{padding:10px 0;}
+.aboutcopy ul li{float:left; margin:0 20px 0 0; height:24px; overflow:hidden;}
+.aboutcopy ul li a{color:#fff; font-size:14px; line-height:24px;}
+
+.conyfiv p,.conyfiv p a{color:#869099; font-size:12px;}
+.conyfiv p{line-height:22px;}
+.conyfiv p span{padding:0 8px;color:#3f3f3f;}
+
+
+.footer-v5 .linkrow{height: 22px;overflow: hidden;margin-top: 5px;color: #869099;}
+.footer-v5 .linkrow.on{height: auto;overflow: visible;}
+.footer-v5 .ftlinkswrap{*height: 100%;*overflow: hidden;}
+.footer-v5 .ftlinkswrap,
+.footer-v5 .szdhwrap .szdh-item{position: relative;padding-left: 78px;padding-right: 50px;}
+.footer-v5 .ftlinkswrap .linkstit-v5,
+.footer-v5 .szdhwrap .szdh-item .szdh-lab{position: absolute;top:0;left: 0;font-size:12px;line-height:22px; color:#869099;}
+.footer-v5 .ftlinkswrap .linkscont-v5,
+.footer-v5 .szdhwrap .szdh-item .szdh-list{line-height: 22px;font-size: 12px;}
+.footer-v5 .ftlinkswrap .footmore{display: block;width:20px; height:15px; background:url(../img/icons_v5.png) top right no-repeat; cursor:pointer; position:absolute; right:0; top:3px;}
+.footer-v5 .linkrow.on .ftlinkswrap .footmore{background-position:right -35px;}
+.footer-v5 .linkrow .alinklist li,
+.footer-v5 .szdhwrap .szdh-item .szdh-list li{float:left;padding-right: 15px;line-height: 22px;}
+.footer-v5 .linkrow .alinklist a,
+.footer-v5 .szdhwrap .szdh-item .szdh-list a{font-size:12px;color:#869099;white-space: nowrap;}
+
+.footer-v5 .szdhwrap{padding: 5px 0;*display: none;}
+.footer-v5 .linkrow.on .szdhwrap{*display: block;}
+.footer-v5 .szdhwrap .szdh-item{padding-top:5px;padding-bottom: 5px;}
+.footer-v5 .szdhwrap .szdh-item .szdh-lab{top:5px;}
+.footer-v5 .szdhwrap .szdh-item .szdh-detail{position: absolute;top:27px;left:0;right: 50px;z-index: 3;padding-top: 5px;display: none;}
+.footer-v5 .szdhwrap .szdh-item .szdh-detail ul{background: #262626;padding: 5px 10px;}
+.footer-v5 .links-v5{padding:10px 0 15px;}
+/*footer end*/

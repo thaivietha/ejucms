@@ -1,0 +1,15 @@
+/* login reg */
+.login-bg{height:700px;overflow:hidden;background:url("../img/login_bg.jpg") no-repeat top center}
+.w1200{clear:both;margin:0 auto;width:1200px;position:relative;}
+.w1200 .txt{text-align: center;line-height: 30px;margin-top: 20px;font-size: 12px;color: #999;}
+.layadmin-user-login-main{background:#fff}
+.layadmin-user-login-main{margin:70px auto 0;margin-right:0;border-radius:10px;background:rgba(255,255,255,.9)}
+.layadmin-user-login-header{text-align:left}
+.layadmin-user-login-box{padding:10px 20px}
+.layadmin-user-login-header p{color:#666;font-size:18px}
+.layui-btn{background-color:#f60}
+.layadmin-link{color:#f60!important}
+.layadmin-user-login-other {padding-top:0px;}
+.layui-btn-primary {border: 1px solid #f60;color: #fff;}
+
+

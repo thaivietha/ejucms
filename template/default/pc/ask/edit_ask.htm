@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>提问-问答中心</title>
+    <meta name="renderer" content="webkit" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+    <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/wenda.css">
+    {eju:static file="ask/skin/css/ask.css" /}
+    {eju:static file="/public/static/common/js/jquery.min.js"/}
+    {eju:static file="/public/plugins/layer-v3.1.0/layer.js"/}
+    {eju:static file="ask/skin/js/ask.js"/}
+
+    {eju:static file="skin/css/public.css" /}
+    {eju:static file="ask/skin/css/AskCommonCss.css" /}
+    {eju:static file="ask/skin/css/add.css" /}
+    {eju:static file="ask/skin/css/navigation20141112.css" /}
+
+
+</head>
+
+<body>
+<!-- 头部 -->
+{eju:include file="header.htm"/}
+<!-- END -->
+
+<main class="mian-body container">
+    <div id="headSecondNav">
+        <div class="nav clearfix">
+            <div class="nav-left">
+                <div class="nav-item"> <a href="{$eju.field.NewDateUrl}" class="item-a">最新问题</a> </div>
+                <div class="line"></div>
+                <div class="nav-item"> <a href="{$eju.field.HotUrl}" class="item-a">热门问题</a> </div>
+                <div class="line"></div>
+                <div class="nav-item"> <a href="{$eju.field.SolveUrl}" class="item-a">常见问题</a> </div>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+    <div class="MainContent">
+        <section class="breadcrum">  </section>
+        <div class="content clearfix">
+            <section class="main880">
+                <input type="hidden" name="aid" id="aid" value="{$eju.field.aid}">
+                <div class="ask-wrapper">
+                    <div class="ask-intro">
+                        <h3>请描述您的问题 <span class="f12">（必填）</span></h3>
+                        <div class="input-wrapper">
+                            <div class="inputBox">
+                                <input type="text"  name="title" id="title" value="{$eju.field.Info.ask_title}" placeholder="最少输入6个字哦~" class="input-cont" />
+                                <span class="input-count"><em id="asktitlenum">0</em>/50</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 补充内容begin -->
+                    <div class="supply-cont clearfix">
+                        <div class="supply-btnbox clearfix">
+                            <div class="supply-btn" id="showsupplementcontext"> 问题描述</div>
+                        </div>
+                        <script type="text/javascript">
+                            window.UEDITOR_HOME_URL = "__ROOT_DIR__/public/plugins/Ueditor/";
+                        </script>
+                        {eju:static file="/public/plugins/Ueditor/ueditor.config.js"/}
+                        {eju:static file="/public/plugins/Ueditor/ueditor.all.min.js"/}
+                        {eju:static file="/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"/}
+                        <div class="supply-area" id="supplementcontext" style="padding: 0px 0px 0px 0px;">
+                            <textarea placeholder="请输入补充内容" class="span12 ckeditor" id="content" name="content" style="width: 75%;">{$eju.field.Info.content}</textarea>
+                        </div>
+                        <script type="text/javascript">
+                            UE.getEditor('content',{
+                                serverUrl :"{:url('user/Uploadify/index',array('savepath'=>'weapp'))}",
+                                zIndex: 999,
+                                initialFrameWidth: "135%", //初化宽度
+                                initialFrameHeight: 300, //初化高度
+                                focus: false, //初始化时，是否让编辑器获得焦点true或false
+                                maximumWords: 99999,
+                                removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+                                pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+                                autoHeightEnabled: false,
+                                toolbars: [["forecolor", "backcolor", "removeformat", "|", "simpleupload", "unlink"]],
+                            });
+
+                            //必须在提交前渲染编辑器；
+                            function content() {
+                                //判断编辑模式状态:0表示【源代码】HTML视图；1是【设计】视图,即可见即所得；-1表示不可用
+                                if(UE.getEditor("content").queryCommandState('source') != 0) {
+                                    UE.getEditor("content").execCommand('source'); //切换到【设计】视图
+                                }
+                            }
+                        </script>
+                    </div>
+                    <a href="javascript:void(0);" class="btn-submit" data-url="{$eju.field.EditAskUrl}" onclick="SubmitData(this);">提交问题</a> </div>
+            </section>
+            <div class="sidebar clearfix">
+                <div class="mf-ask" style="">
+                    <div class="sidebar">
+                        <dl class="quick-text">
+                            <dt>如何能获得快速准确的回答？</dt>
+                            <dd>
+                                <div class="num">1</div>
+                                <div class="text">问题标题描述准确；</div>
+                            </dd>
+                            <dd>
+                                <div class="num">2</div>
+                                <div class="text">如果标题描述不清，可使用详细内容继续描述；</div>
+                            </dd>
+                            <dd>
+                                <div class="num">3</div>
+                                <div class="text">如果是楼盘相关的问题，请输入正确的楼盘名称；</div>
+                            </dd>
+                            <dd>
+                                <div class="num">4</div>
+                                <div class="text">适当的增加悬赏会吸引更多用户回答哦~</div>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <div id="PayAskAlert" class="pop6_7 pop6_12" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript">
+    function SubmitData(obj) {
+        if (!$('#title').val()) {
+            layer.msg('请填写问题标题！', {time: 1500, icon: 2});
+            $('#title').focus();
+            return false;
+        }
+        if (!UE.getEditor("content").getContent()) {
+            layer.msg('请填写问题描述！', {time: 1500, icon: 2});
+            return false;
+        }
+        var aid = $('#aid').val();
+        var title = $('#title').val();
+        var content = UE.getEditor("content").getContent();
+        layer_loading('正在处理');
+        $.ajax({
+            url: $(obj).data('url'),
+            data: {aid:aid,title:title,content:content},
+            type:'post',
+            dataType:'json',
+            success:function(res){
+                layer.closeAll();
+                if (1 == res.code) {
+                    layer.msg(res.msg, {time: 1000},function(){
+                        window.location.href = res.url;
+                    });
+                } else {
+                    layer.msg(res.msg, {time: 1500, icon: 2});
+                }
+            },
+            error : function() {
+                layer.closeAll();
+                layer.alert('网络失败，请刷新页面后重试', {icon: 5, closeBtn: 0});
+            }
+        });
+    }
+</script>
+{eju:include file="footer.htm"/}
+</body>
+</html>

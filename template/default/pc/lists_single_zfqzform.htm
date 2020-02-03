@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/about.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/zfform.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body class="new">
+<!-- topBar S --> 
+{eju:include file="header.htm"/} 
+<!-- topBar E --> 
+
+<!-- 资讯详情 S-->
+<div class="flash">
+  <div class="con_wrap comWidth clearfix"> 
+    <div class="bnzf-kuang">
+
+<div class="title" style="font-size: 30px;color: #333;">为您提供求租房源信息发布<div style="font-size: 16px;color:  #333;">免费咨询电话：{eju:global name='web_attr_2' /}</div></div>
+<div class="bnzf-kuangBg">
+
+
+
+<div class="cl"></div>
+<div class="ids_1" style="">
+    <!--区域-->
+    <div class="form_h">
+        <div class="form_l"><i>*</i>您想在哪里租</div>
+        <div class="form_r">
+            <div class="my_xl xx">
+                <input type="text" class="my_xl_input qy" value="" style="position:absolute;top:-9999px;">
+                <div class="my_xl_txt">请选择区域</div>
+                <div class="my_xl_btn"></div>
+                <ul class="my_xl_list" style="display: none;">
+                    <li class="">沈河区</li>
+                    <li class="">大东区</li>
+                    <li class="">皇姑区</li>
+                    <li class="">和平区</li>
+                    <li class="">铁西区</li>
+                    <li class="">于洪区</li>
+                    <li class="">浑南区</li>
+                    <li class="">沈北新区</li>
+                    <li class="">苏家屯</li>
+                </ul>
+            </div>
+            <div class="error error_qy">请选择区域</div>
+        </div>
+        <div class="cl"></div>
+    </div>
+    <!--方式-->
+    <div class="form_h">
+        <div class="form_l"><i>*</i>您的租房方式</div>
+        <div class="form_r">
+            <div class="my_xl xx">
+                <input type="text" class="my_xl_input lx" value="" style="position:absolute;top:-9999px;">
+                <div class="my_xl_txt">请选择租房方式</div>
+                <div class="my_xl_btn"></div>
+                <ul class="my_xl_list" style="display: none;">
+                    <li class="">整租</li>
+                    <li class="">合租</li>
+                    <!--<li class="">床位</li>-->
+                </ul>
+            </div>
+            <div class="error error_lx">请选择租房方式</div>
+        </div>
+        <div class="cl"></div>
+    </div>
+    
+    <!--价格-->
+    <div class="form_h">
+        <div class="form_l"><i>*</i>您的价格预算</div>
+        <div class="form_r">
+            <div class="my_xl xx">
+                <input type="text" class="my_xl_input jg" value="" style="position:absolute;top:-9999px;">
+                <div class="my_xl_txt">请选择价格</div>
+                <div class="my_xl_btn"></div>
+                <ul class="my_xl_list" style="display: none;">
+                    <li class="">35万以下</li>
+                    <li class="">35-50万</li>
+                    <li class="">50-80万</li>
+                    <li class="">80-100万</li>
+                    <li class="">100-120万</li>
+                    <li class="">120-150万</li>
+                    <li class="">150万以上</li>
+                </ul>
+            </div>
+            <div class="error error_jg">请选择价格</div>
+        </div>
+        <div class="cl"></div>
+    </div>
+    <!--户型-->
+    <div class="form_h">
+        <div class="form_l"><i>*</i>您想租几居室</div>
+        <div class="form_r">
+            <div class="my_xl xx">
+                <input type="text" class="my_xl_input hx" value="" style="position:absolute;top:-9999px;">
+                <div class="my_xl_txt">请选择户型</div>
+                <div class="my_xl_btn"></div>
+                <ul class="my_xl_list" style="display: none;">
+                    <li class="">一居</li>
+                    <li class="">二居</li>
+                    <li class="">三居</li>
+                    <li class="">四居</li>
+                    <li class="">五居及以上</li>
+                </ul>
+            </div>
+            <div class="error error_hx">请选择户型</div>
+        </div>
+        <div class="cl"></div>
+    </div>
+    <!--手机-->
+    <div class="form_h">
+        <div class="form_l"><i>*</i>您的手机号码</div>
+        <div class="form_r">
+            <input type="text" class="" maxlength="11" placeholder="请输入手机号码">
+            <div class="error error_tel">请输入手机号码</div>
+        </div>
+        <div class="cl"></div>
+    </div>
+    <!--验证码-->
+    <div class="form_h">
+        <div class="form_l">　</div>
+        <div class="form_r">
+            <input type="text" class="yzm">
+            <a class="yzm_btn">获取验证码</a>
+            <a class="yzm_btn_time">获取验证码</a>
+            <div class="cl"></div>
+            <div class="error error_yzm">验证码不正确</div>
+        </div>
+        <div class="cl"></div>
+    </div>
+    <!--手机-->
+    <div class="form_h">
+        <div class="form_l">描　　　　述</div>
+        <div class="form_r">
+            <textarea class="ms" rows="5" cols="10" placeholder="补充说点什么吧..."></textarea>
+        </div>
+        <div class="cl"></div>
+    </div>
+</div>
+
+
+<div class="cl"></div>
+<div class="form_btn"><a id="submit">提交</a></div>
+
+</div>
+
+<!--提交成功-->
+<div class="success_bg" style="display: none;"></div>
+<div class="success_tc" style="display: none;">
+    <div class="su_left"><img src="http://static.fangxiaoer.com/web/images/sy/formulate/tj_success.png" alt="成功"></div>
+    <div class="su_right">
+        <div class="su_cg">亲，您的需求已提交成功，</div>
+        <p>置业管家会及时跟您联系，请耐心等待！</p>
+    </div>
+    <img src="http://static.fangxiaoer.com/web/images/sy/formulate/succ_close.png" class="su_close" alt="关闭">
+</div>
+
+
+<script type="text/javascript" src="http://static.fangxiaoer.com/js/my_xiala.js"></script>
+<script src="http://static.fangxiaoer.com/js/jquery.datetimepicker.js"></script>
+<script>
+
+    $('#datetimepicker_mask').datetimepicker({
+        //    mask: '9999/19/39 29:59'
+    });
+
+</script>
+
+<script>
+    $(function () {
+        //取值显示
+        var url = window.location.href;
+        var r = "0";
+        if (url.indexOf("ids=") > 0) {
+            var ly = url.indexOf("&ly")
+            if (ly == "-1") {
+                ly = url.length
+            } else {
+                var lys = url.substring(url.indexOf("ly=") + 3, url.length)
+                r="1"
+            }
+            var url_id = url.substring(url.indexOf("ids=") + 4, ly);
+            if (url_id == "7") { url_id="1"}
+            $(".form_qh li a").each(function () {
+                var href = $(this).attr("href")
+                href = href.substring(href.indexOf("ids=") + 4, ly)
+                if (href == url_id) { $(this).addClass("hover") }
+            })
+            $(".ids_" + url_id).show()
+        } else {
+            $(".form_qh li a").eq(0).addClass("hover")
+            $(".ids_1").show()
+        }
+
+        if (r=="1") {
+            $(".form_qh li").each(function () {
+                $(this).find("a").attr("href", $(this).find("a").attr("href") + "&ly=" + lys)
+            })
+        }
+
+        //商业
+        $(".syfs li").click(function () {
+            if ($(this).index() == "0") {
+                $(".form_l span").html("您的价格预算")
+                $(".sydw").html("万元")
+            } else {
+                $(".form_l span").html("您的租金预算")
+                $(".sydw").html("万元/年")
+            }
+        })
+
+        //成功关闭
+        $(".su_close").click(function () {
+            window.location.reload()
+        })
+        //划出下拉 关闭下拉
+        $(".my_xl").hover(function(){},function(){
+            $(this).find(".my_xl_list").hide()
+        })
+        //电话判断
+        if(lys == "baidu"){
+            $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-827-0275")
+        }else if (lys == "360") {
+            $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-832-1608")
+        }else if (lys == "sogou") {
+            $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-891-5885")
+        }else if (lys == "shenma") {
+            $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-871-7636")
+        }else{
+            if (url_id == "2" || url_id == "3" || url_id == "4") {
+                $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-893-9709")
+            } else if (url_id == "6") {
+                $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-893-9870")
+            } else{
+                $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-893-9575")
+            }
+        }
+    })
+</script>
+
+
+
+
+<div class="cl"></div>
+</div>
+  </div>
+</div>
+
+{eju:include file="footer.htm"/} 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+    });
+</script> 
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</body>
+</html>

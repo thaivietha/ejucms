@@ -1,0 +1,228 @@
+
+.detail-info .new-houxq-info {
+	width: 580px;
+	float: right;
+	box-sizing: border-box;
+	padding: 20px 10px 20px 0px;
+}
+.detail-info .new-houxq-info .houxq-price {
+	font-size: 18px;
+	color: #e91c35;
+}
+.detail-info .news-houxq-right-top {
+	padding-left: 30px;
+}
+.detail-info .new-houxq-info .houxq-price span {
+	font-size: 16px;
+}
+.detail-info .new-houxq-info .houxq-price em {
+	font-size: 30px;
+}
+.detail-info .new-houxq-info .houxq-price-timeout {
+	font-size: 12px;
+	padding-top: 10px;
+	color: #a9b6ca;
+}
+.detail-info .new-houxq-info .houxq-price-timeout span {
+	font-size: 14px;
+}
+.detail-info .new-houxq-info .houxq-price-tool {
+	text-align: right;
+	font-size: 14px;
+	color: #999;
+	padding-top: 20px;
+}
+.detail-info .new-houxq-info .houxq-price-tool a {
+	color: #999;
+	font-size: 13px;
+}
+.detail-info .new-houxq-info .news-houxq-box {
+	padding: 0 30px;
+	margin-top: 5px;
+	width: 100%;
+	height: auto;
+}
+
+.detail-info .new-houxq-info .news-houxq-box .time {
+	font-size: 16px;
+	color: #e91c35;
+	margin-top: 20px;
+}
+.detail-info .new-houxq-info .news-houxq-box .time i {
+	background-color: #e91c35;
+	padding: 1px 2px;
+	color: #fff;
+	margin: 0 2px;
+}
+.detail-info .new-houxq-info .news-houxq-base {
+	margin-top: 15px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ededed;
+}
+.detail-info .new-houxq-info .news-houxq-base li {
+	height: 29px;
+	line-height: 29px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #333;
+	font-size: 14px;
+}
+.detail-info .new-houxq-info .news-houxq-base.col2 li {
+	width: 50%;
+	float: left;
+}
+.detail-info .new-houxq-info .news-houxq-base li.col1 {
+	width: 100%;
+}
+.detail-info .new-houxq-info .news-houxq-base li label {
+	color: #999;
+}
+.detail-info .new-houxq-info .news-houxq-base li a {
+	color: #999;
+	margin-left: 8px;
+}
+.detail-info .new-houxq-info .news-houxq-base li a .lpt_icon{background: url(../img/icon_tixing.png) no-repeat 0 0;
+    display: inline-flex;width:14px; height:14px; margin-right:4px; _margin-right:2px; overflow:hidden;}
+.detail-info .new-houxq-info .news-houxq-base li span {
+	width: 350px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.detail-info .new-houxq-info .news-houxq-base li span a {
+	color: #6d798c;
+}
+.detail-info .new-houxq-info .villagenum{
+    background: #f4f4f4;
+    font-size: 20px;
+    width: 100%;
+    line-height: 55px;
+    margin-top: 22px;
+    height:  55px;
+    float:  left;
+}
+.detail-info .new-houxq-info .villagenum .con{
+    text-align: center;
+}
+.detail-info .new-houxq-info .villagenum span{
+    color: #ff5200;
+    padding-right: 50px;
+}
+
+
+
+.detail-row .second-box {
+	padding: 10px 0;
+}
+.detail-row .second-box li {
+	width: 210px;
+	height: 200px;
+	float: left;
+	margin-right: 20px;
+}
+.detail-row .second-box li:nth-child(4n) {
+	margin-right: 0;
+}
+.detail-row .second-box li .img {
+	position: relative;
+	height: 150px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+.detail-row .second-box li .img .mask {
+	width: 100%;
+	box-sizing: border-box;
+}
+.detail-row .second-box li .img img {
+	width: 100%;
+}
+.detail-row .second-box li .img .name {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.detail-row .second-box li .price {
+	color: #D32F2F;
+}
+
+
+.detail-right .right-row h2 i{
+	  display: block;
+  width: 4px;
+  height: 18px;
+  background: #ff5200;
+  float: left;
+  margin-top: 14px;
+  margin-right: 10px;
+}
+
+.detail-right .recommon-houxq ul li{
+  width: 100%;
+  overflow: hidden;
+  padding: 14px 0 8px 0;
+  border-bottom: 1px solid #eaeaea;
+  position: relative;
+}
+.detail-right .recommon-houxq ul li a{
+  display: block;
+  text-decoration: none;
+}
+.detail-right .recommon-houxq ul li a:hover{}
+.detail-right .recommon-houxq ul li:last-child{ border-bottom:none}
+.detail-right .recommon-houxq ul li img{
+  width: 245px;
+  height: 187px;
+}
+.detail-right .recommon-houxq ul li .imgBottm{
+  position: absolute;
+  top: 171px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 14px;
+  line-height: 30px;
+}
+.detail-right .recommon-houxq ul li .imgBottm span{
+  padding-left: 12px;
+}
+.detail-right .recommon-houxq ul li .imgBottm span+span{
+  float: right;
+  padding-right: 12px;
+}
+.detail-right .recommon-houxq ul li .oneH{
+  margin-top: 7px;
+  overflow: hidden;
+  color: #333;
+  font-size: 14px;
+}
+.detail-right .recommon-houxq ul li .oneH span{
+  font-size: 14px;
+}
+.detail-right .recommon-houxq ul li .oneH p{
+  float: right;
+}
+.detail-right .recommon-houxq ul li .twoH{
+  margin-top: 0px;
+  overflow: hidden;
+}
+.detail-right .recommon-houxq ul li .twoH p{
+  float: left;
+}
+.detail-right .recommon-houxq ul li .twoH p>span{
+  margin-right: 10px;
+  color: #333;
+}
+.detail-right .recommon-houxq ul li .twoH p>span+span{}
+.detail-right .recommon-houxq ul li .twoH div{
+  float: right;
+  color: #ff5200;
+  font-size: 14px;
+}
+.detail-right .recommon-houxq ul li .twoH div span{
+  /* font-weight: bold; */
+}
+.detail-right .recommon-houxq ul li .twoH div i{
+  font-size: 14px;
+}

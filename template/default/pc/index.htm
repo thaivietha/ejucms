@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{eju:global name='web_title' /}</title>
+<meta name="description" content="{eju:global name='web_description' /}" />
+<meta name="keywords" content="{eju:global name='web_keywords' /}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/swiper.min.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/index.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/jquery.slide-packer.css">
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/swiper.min.js"></script>
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.slide-packer.js"></script>
+</head>
+<body>
+<div class="index"> 
+  <!-- topBar S --> 
+  {eju:include file="header.htm"/} 
+  <!-- topBar E --> 
+  
+  <!-- banner S -->
+  
+  <div class="banner" >
+    <div class="banner-2"> 
+      <!--图片轮播-->
+      <div class="carousel-inner">
+        <div class="swiper-container">
+          <div class="swiper-wrapper"> {eju:adv pid='1'}
+            <div class="swiper-slide"><a href="{$field.links}" style="background-image:url({$field.litpic});" target="_blank" class=""></a></div>
+            {/eju:adv} </div>
+        </div>
+        <div class="swiper-pagination swiper-pagination-white"></div>
+        <div class="fxe_banner"> <a class="prev" href="javascript:void(0)" style="left: 10%;"></a> <a class="next" href="javascript:void(0)" style="right: 10%;"></a> </div>
+      </div>
+      <script>
+		//轮播图初始化
+		var swiper = new Swiper('.swiper-container', {
+		pagination: '.swiper-pagination',
+		paginationClickable: '.swiper-pagination',
+		nextButton: '.next',
+		prevButton: '.prev',
+		spaceBetween: 30,
+		effect: 'fade',
+		centeredSlides: true,
+		autoplay: 5000,
+		autoplayDisableOnInteraction: false,
+		loop: true
+        });
+    </script>
+      <div class="search-box">
+        <div class="opacity"></div>
+        <div class="search-content">
+          <div class="search-type"> <a href="javascript:;" class="active" data-uri="/loupan.html">新房</a> <a href="javascript:;" data-uri="/esf.html">二手</a> <a href="javascript:;" data-uri="/chuzu.html">出租</a> <a href="javascript:;" data-uri="/xiaoqu.html">小区</a> </div>
+          <div class="search-input clearfix" id="ser1"> <i></i> {eju:searchform channelid='9' type='default'}
+            <form  method="get" action="{$field.action}">
+              <input type="text" name="keywords" class="search-input-text fl" placeholder="输入关键词搜索">
+              <button  type="submit"  class="search-btn fl"></button>
+              {$field.hidden}
+            </form>
+            {/eju:searchform} </div>
+          <div class="search-keyword"> <span>热门搜索：</span> {eju:arclist typeid='1' flag='a' orderby='new' limit='0,3' id='field'}<a href="{$field.arcurl}" target="_blank">{$field.title}</a>
+              {/eju:arclist} </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- banner E --> <!-- menu S -->
+  <div class="label_menu">
+    <div class="newtool">
+      <div class="newtoolnr">
+        <div class="Ntd">
+          <div class="tjf10"></div>
+          
+          <div class="s3"> <a href="{eju:type typeid='1'}{$field.typeurl}{/eju:type}" target="_blank">买房</a> </div>
+          
+          <div class="s2">
+            <p> 
+            {eju:type typeid='1'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            {eju:type typeid='11'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            </p>
+            <p> 
+            {eju:type typeid='3'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            </p>
+            </div>
+        </div>
+        <div class="Ntd mal01">
+          <div class="s3"> <a href="{eju:type typeid='36'}{$field.typeurl}{/eju:type}" target="_blank">卖房</a> </div>
+          <div class="s2">
+            <p> 
+            {eju:type typeid='36'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            </p>
+            <p> <a href="#" target="_blank" >查房价</a> </p>
+          </div>
+        </div>
+        <div class="Ntd mal01">
+          <div class="s3"> <a href="{eju:type typeid='21'}{$field.typeurl}{/eju:type}" target="_blank">租房</a> </div>
+          <div class="s2">
+            <p> 
+            {eju:type typeid='21'}
+            <a href="{$field.typeurl}" target="_blank">找租房</a> 
+            {/eju:type}
+            </p>
+            <p> 
+            {eju:type typeid='32'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            </p>
+          </div>
+        </div>
+        <div class="Ntd mal01">
+          <div class="s3"> <a href="{eju:type typeid='24'}{$field.typeurl}{/eju:type}" target="_blank">商用</a> </div>
+          <div class="s2">
+            <p> 
+            {eju:type typeid='24'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            {eju:type typeid='27'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            </p>
+            <p> 
+            {eju:type typeid='25'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            {eju:type typeid='28'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            </p>
+          </div>
+        </div>
+        <div class="Ntd mal01 nob">
+          <div class="s3"> <a href="{eju:type typeid='17'}{$field.typeurl}{/eju:type}" target="_blank" id="dsy_D03_62">其他</a> </div>
+          <div class="s2">
+            <p> 
+            {eju:type typeid='17'}
+            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
+            {/eju:type}
+            <a href="{eju:diyurl type='map' /}" target="_blank">地图找房</a> 
+            </p>
+            <p> 
+            <a href="{eju:diyurl type='map' /}" target="_blank">地图找房</a> 
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- menu E --> <!-- 内容 S-->
+  <div class="wrap">
+    <div class="comWidth bgfff"> 
+      <!-- 热门房子 S -->
+      <div class="hot_house">
+        <div class="hot_house">
+          <ul class="poster clearfix">
+            {eju:adv pid='2' row='4'}
+            <li><a href="{$field.links}" {$field.target}><img alt="{$field.title}" src="{$field.litpic}" width="100%"></a></li>
+            {/eju:adv}
+          </ul>
+        </div>
+      </div>
+      <!-- 热门房子 E -->
+      <div class="rent_house cm_wrap">
+        <div class="hostit clearfix">
+          <ul class="r_nav fr" id="rec_house">
+            <li class="active"> <a href="javascript:;">特价楼盘</a></li>
+            <li> <a href="javascript:;">刚需楼盘</a></li>
+            <li> <a href="javascript:;">热销楼盘</a></li>
+          </ul>
+        </div>
+        <div class="content"> 
+          <!-- 楼盘列表 S -->
+          <div class="build_list" id="rec_house_box">
+            <ul class="clearfix" >
+              {eju:arclist typeid='1' flag='h' orderby='new' limit='0,4' id='field'}
+              <li> <a href="{$field.arcurl}" target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> <span class="img_ft"><em>查看详情</em> <span class="txt_box clearfix"> <span class="tit">{$field.title}</span> </span> <span class="tit_bg"></span> </span> </span> <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.average_price"}<i class="price">{$field.average_price}</i>{$field.price_units}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
+              {/eju:arclist}
+            </ul>
+            <ul class="clearfix" style="display:none;">
+              {eju:arclist typeid='1' flag='c' orderby='new' limit='0,4' id='field'}
+              <li> <a href="{$field.arcurl}" target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> <span class="img_ft"><em>查看详情</em> <span class="txt_box clearfix"> <span class="tit">{$field.title}</span> </span> <span class="tit_bg"></span> </span> </span> <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.average_price"}<i class="price">{$field.average_price}</i>{$field.price_units}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
+              {/eju:arclist}
+            </ul>
+            <ul class="clearfix" style="display:none;">
+              {eju:arclist typeid='1' flag='a' orderby='new' limit='0,4' id='field'}
+              <li> <a href="{$field.arcurl}" target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> <span class="img_ft"><em>查看详情</em> <span class="txt_box clearfix"> <span class="tit">{$field.title}</span> </span> <span class="tit_bg"></span> </span> </span> <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.average_price"}<i class="price">{$field.average_price}</i>{$field.price_units}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
+              {/eju:arclist}
+            </ul>
+          </div>
+          <!-- 楼盘列表 E --> 
+        </div>
+      </div>
+      <div class="poster-margin-top">
+        <ul class="poster clearfix">
+          {eju:ad aid='9'}
+          <li><a href="{$field.links}" {$field.target}><img alt="{$field.title}" src="{$field.litpic}" width="100%"></a></li>
+          {/eju:ad}
+        </ul>
+      </div>
+      <!--资讯中心--> 
+      {eju:channelartlist typeid='2' }
+      <div class="news cm_wrap">
+        <div class="head clearfix">
+          <h2 class="icon-news fl">{eju:field name='typename' /}</h2>
+          <ul class="r_nav fr">
+            {eju:channel type='son'}
+            <li> <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> </li>
+            {/eju:channel}
+          </ul>
+        </div>
+        <div class="content clearfix">
+          <div class="news-left fl">
+            <div class="news-left-slide">
+              <div class="slider slider-6">
+                <div class="switchable-box poster">
+                  <ul class="switchable-content">
+                    {eju:adv pid='4' }
+                    <li><a style="background-image:url({$field.litpic});" href="{$field.links}" title="{$field.title}" target="_blank"><img src="{$field.litpic}" title="{$field.title}" width="100%"  /></a></li>
+                    {/eju:adv}
+                    </li>
+                  </ul>
+                  <div class="ui-arrow"><a class="ui-prev"></a><a class="ui-next"></a></div>
+                </div>
+              </div>
+              <script>
+             $(function(){
+             $('body').find('.slider-6').slide({
+			 effect: 'fade', 
+			 speed: 'slow',
+			 navCls: 'switchable-nav',
+			 contentCls: 'switchable-content',
+			 caption: false,
+		 	 prevBtnCls:'ui-prev',
+			 nextBtnCls:'ui-next',
+			 evtype: 'click'
+			 });
+			 });
+           </script> 
+            </div>
+            <ul class="news-left-list clearfix">
+              {eju:arclist flag='a' orderby='new' row='2' id='field'}
+              <li> <a href="{$field.arcurl}" target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}" width="180" height="140"> <span class="img_ft"> <span class="txt_box clearfix"> <span class="tit fl">{$field.title}</span> </span> <span class="tit_bg"></span> </span> </span> </a> </li>
+              {/eju:arclist}
+            </ul>
+          </div>
+          <ul class="news-center fl">
+            {eju:arclist orderby='new' limit='0,1' flag='h' id='field'}
+            <li>
+              <h2> <a href="{$field.arcurl}" target="_blank">{$field.title}</a> </h2>
+              <p>{$field.seo_description|html_msubstr=###,0,45,true}</p>
+            </li>
+            {/eju:arclist}    
+            {eju:arclist orderby='new' limit='1,10' noflag='h' id='field'}
+            <li class="nowarp"> <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> | <a href="{$field.arcurl}" title="{$field.title}" target="_blank">{$field.title}</a> </li>
+            {/eju:arclist}
+          </ul>
+          {eju:type typeid='6'}
+          <div class="news-right build_shoppers fr">
+            <div class="r_box">
+              <div class="sct_item buy_way">
+                <h3>{$field.typename}</h3>
+                <ul class="list" style="height:auto;">
+                  {eju:arclist orderby='new' row='13' noflag='h' id='field'}
+                  <li class="clearfix"><s>{$i}</s><a href="{$field.typeurl}" target="_blank">{$field.title}</a></li>
+                  {/eju:arclist}
+                </ul>
+              </div>
+            </div>
+          </div>
+          {/eju:type} </div>
+      </div>
+      {/eju:channelartlist} 
+      <!--资讯中心-->
+      <div class="poster-margin-top"> {eju:ad aid='12'}
+        <ul class="poster clearfix">
+          <li><a href="{$field.links}" {$field.target}><img alt="{$field.title}" src="{$field.litpic}" width="100%"></a></li>
+        </ul>
+        {/eju:ad} </div>
+      <!-- 新房 S -->
+      <div class="build_shoppers cm_wrap">
+        <div class="head clearfix">
+          <h2 class="fl margin-right-120">新房</h2>
+          <ul class="r_nav fl" id="tab-2">
+            {eju:sqlview table="channelfield" addwhere="name='characteristic' and channel_id=9"}
+            {eju:volist name='$field.dfvalue|explode=",",###' id='field1'}
+            <li class="{eju:eq name='$e' value='1'}active{/eju:eq}"><a href="javascript:;">{$field1}</a>
+              <div class="b_l"></div>
+            </li>
+            {/eju:volist}
+            {/eju:sqlview}
+          </ul>
+          <div class="map fr ">
+          <a href="{eju:diyurl type='map' /}">地图找房</a>
+          </div>
+        </div>
+        <div class="content clearfix"> 
+          <!-- 筛选 S-->
+          <div class="l_box fl"> {eju:screening typeid='1' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2' addfields='province_id,city_id,area_id,characteristic,manage_type,average_price'}
+            {eju:volist name='$field.list' id='vo' limit='0,4'}
+            <ul class="filter-row">
+              <li class="filter-row-title iconfont">{$vo.title}</li>
+              <li class="filter-val"> {eju:volist name='$vo.dfvalue' id='vo2' row='10'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+              <li class="filter-more" style="display: none;"> {eju:volist name='$vo.dfvalue' id='vo2'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+            </ul>
+            {/eju:volist}
+            {$field.hidden}
+            {/eju:screening} </div>
+          <!-- 筛选 E--> 
+          <!-- 楼盘列表 S -->
+          <div class="c_box build_list fl">
+            <div id="content-box"> 
+             {eju:sqlview table="channelfield" addwhere="name='characteristic' and channel_id=9"}
+              {eju:volist name='$field.dfvalue|explode=",",###' id='field1'}
+              <ul class="clearfix" {eju:neq name='$i' value='1'}style="display:none;"{/eju:neq}>
+                {eju:sqlarclist  table="archives" addwhere="channel=9 and is_del=0 and FIND_IN_SET('$field1',characteristic)"  addfields='average_price,characteristic'  orderby="a.aid desc" jointable="[['table'=>'xinfang_system d','map'=>'a.aid = d.aid','method'=>'LEFT']]" limit='0,6' id="vo_xinfang"}
+                <li> <a href="{$vo_xinfang.arcurl}"  target="_blank" title="{$vo_xinfang.title}"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$vo_xinfang.litpic}" class="lazy" alt="{$vo_xinfang.title}"> <span class="img_ft"> <span class="txt_box clearfix"> <span class="tit fl">{$vo_xinfang.title}</span> </span> <span class="tit_bg"></span> </span> </span> 
+                <span class="ft clearfix"> <span class="fr area">{$vo_xinfang.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$vo_xinfang.average_price"}<i class="price">{$vo_xinfang.average_price}</i>{$vo_xinfang.price_units}{eju:else /}<i class="price">价格待定</i>{/eju:notempty}</span> </span>
+                <span class="ft clearfix nowarp">{eju:volist name='$vo_xinfang.characteristic' id='vo' row='3'} <i class="item ">{$vo}</i> {/eju:volist}</span> </a> 
+                </li>
+                {/eju:sqlarclist}
+              </ul>
+              {/eju:volist}
+              {/eju:sqlview} </div>
+          </div>
+          <!-- 楼盘列表 E --> 
+          <!-- 购房指南 && 楼盘导购 S-->
+          <div class="l_box lastly_open fr">
+            <h3>近期开盘</h3>
+            <ul class="list">
+              <li class="item">
+                <h4 class="tit">热盘推荐</h4>
+                <ol>
+                  {eju:arclist typeid='1' orderby='new' row='10' id='field'}
+                  <li class="clearfix"> <a href="{$field.arcurl}" target="_blank" class="name fl">{$field.title}</a> <span class="price fr">{eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</span> </li>
+                  {/eju:arclist}
+                </ol>
+                <div class="l_l">
+                  <div class="c"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <!-- 购房指南 && 新房 E--> 
+        </div>
+      </div>
+      <!-- 新房 E -->
+      <div class="poster-margin-top"> {eju:ad aid='15'}
+        <ul class="poster clearfix">
+          <li><a href="{$field.links}" title="{$field.title}" {$field.target}><img alt="{$field.title}" src="{$field.litpic}" width="100%"></a></li>
+        </ul>
+        {/eju:ad} </div>
+      <!-- 楼盘导购 S -->
+      <div class="new_house cm_wrap">
+        <div class="head clearfix">
+          <h2 class="fl margin-right-120">楼盘导购</h2>
+          <ul class="r_nav fl" id="tab-1">
+            <li class="active"> <a href="{eju:type typeid='3'}{$field.typeurl}{/eju:type}" target="_blank">新房团购</a>
+              <div class="b_l"></div>
+            </li>
+            <li> <a href="{eju:type typeid='1'}{$field.typeurl}{/eju:type}" target="_blank">人气楼盘</a>
+              <div class="b_l"></div>
+            </li>
+          </ul>
+          <div class="map fr ">
+          <a href="{eju:diyurl type='map' /}">地图找房</a>
+          </div>
+        </div>
+        <div class="content clearfix"> 
+          <!-- 最近开盘 S-->
+          <div class="l_box fl">
+            <div class="kanfang">
+              <h4 class="fl">看房报名</h4>
+              <div class="fr">已有 <span class="num">43</span> 人报名 </div>
+              <div id="bmtip"></div>
+            </div>
+            <!-- 预约看房 S -->
+            <div class="appoint">
+              <div class="form_box"> {eju:form formid="1"}
+                <form method="post" id="{$field.form_name}" action="{$field.action}" onsubmit="{$field.submit}">
+                  <div class="sct clearfix">
+                    <div class="sct_ipt">
+                      <input type="text" class="ipt"  id="{$field.attr_1}" name="{$field.attr_1}" placeholder="{$field.itemname_1}">
+                      <span class="placeholder">{$field.itemname_1}</span> </div>
+                  </div>
+                  <div class="sct clearfix">
+                    <div class="sct_ipt">
+                      <input type="text" class="ipt"  id="{$field.attr_4}" name="{$field.attr_4}" placeholder="{$field.itemname_4}">
+                      <span class="placeholder">{$field.itemname_4}</span> </div>
+                  </div>
+                  <div class="sct btn_area">
+                    <input type="submit" value="立即提交" class="sbm subscribe-btn">
+                  </div>
+                  {$field.hidden}
+                </form>
+                {/eju:form} </div>
+            </div>
+            <!-- 预约看房 E --> 
+            <!-- 看房团 S -->
+            <div class="look_team">
+              <div class="list" id="subscribe">
+                <ul>
+                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 张**&nbsp;130*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 王**&nbsp;136*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 李**&nbsp;135*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 刘**&nbsp;134*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 蔡**&nbsp;137*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 陈**&nbsp;139*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 徐**&nbsp;130*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                </ul>
+              </div>
+            </div>
+            <!-- 看房团 E --> 
+            
+          </div>
+          <!-- 最近开盘 E--> 
+          <!-- 楼盘列表 S -->
+          <div class="c_box build_list fl">
+            <div id="house-content-box">
+              <ul class="clearfix">
+                {eju:arclist typeid='3' orderby='new' row='6' id='field' addfields="price,end_time"}
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                {eju:arcview aid='$field.joinaid'  id='field2'}
+                <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.price"}<i class="price">{$field.price}</i>{$field.price_units}{eju:else /}暂无{/eju:notempty}</span>
+                <span class="ftuan clearfix nowarp"> 截止时间：{$field.end_time|MyDate='Y-m-d',###} </span> </a> </li>
+                {/eju:arcview}
+                {/eju:arclist}
+              </ul>
+              <ul class="clearfix" style="display:none;">
+                {eju:arclist typeid='1' orderby='new' row='6' id='field'}
+                <li> <a href="{$field.arcurl}"  target="_blank" > <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.average_price"}<i class="price">{$field.average_price}</i>{$field.price_units}{eju:else /}暂无{/eju:notempty}</span> </span> 
+                <span class="ft clearfix nowarp">{eju:volist name='$field.characteristic' id='vo' row='3'} <i class="item ">{$vo}</i> {/eju:volist}</span>
+                </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+          </div>
+          <!-- 楼盘列表 E --> 
+          <!-- 房产资讯 S --> 
+          {eju:channelartlist typeid='5'}
+          <div class="r_box house_news fr">
+            <div class="hd clearfix">
+              <h3>{eju:field name='typename' /}</h3>
+              <a href="{eju:field name='typeurl' /}" title="{eju:field name='typename' /}" target="_blank" class="more">更多 &gt;</a> </div>
+            <div class="list">
+              <ul>
+                <li>
+                  <ol>
+                    {eju:arclist orderby='new' row='12' noflag='h' id='field' mod='6'}
+                    <li {eju:eq name='$mod' value='1'}class="on"{/eju:eq}><a href="{$field.typeurl}" target="_blank">{$field.title}</a></li>
+                    {/eju:arclist}
+                  </ol>
+                </li>
+              </ul>
+            </div>
+          </div>
+          {/eju:channelartlist} 
+          <!-- 房产资讯 E --> 
+        </div>
+      </div>
+      
+      <!-- 楼盘导购 E -->
+      <div class="poster-margin-top"> {eju:ad aid='16'}
+        <ul class="poster clearfix">
+          <li><a href="{$field.links}" title="{$field.title}" {$field.target}><img alt="{$field.title}" src="{$field.litpic}" width="100%"></a></li>
+        </ul>
+        {/eju:ad} </div>
+      <!-- 二手房 S -->
+      <div class="sed_house cm_wrap ">
+        <div class="head clearfix">
+          <h2 class="fl margin-right-120">二手房出租房</h2>
+          <ul class="r_nav fl" id="tab-3">
+            {eju:type typeid='11'}
+            <li class="active"> <a href="{$field.typeurl}" target="_blank" title="{$field.typename}">{$field.typename}</a>
+              <div class="b_l"></div>
+            </li>
+            {/eju:type} 
+            {eju:type typeid='12'}
+            <li> <a href="{$field.typeurl}" target="_blank" title="{$field.typename}">{$field.typename}</a>
+              <div class="b_l"></div>
+            </li>
+            {/eju:type} 
+            {eju:type typeid='10'}
+            <li> <a href="{$field.typeurl}" target="_blank" title="{$field.typename}">{$field.typename}</a>
+              <div class="b_l"></div>
+            </li>
+            {/eju:type}
+          </ul>
+          <div class="map fr ">
+          <a href="{eju:diyurl type='mapershou' /}">地图找房</a>
+          </div>
+        </div>
+        <div class="content clearfix"> 
+          
+          <!-- 楼盘列表 S -->
+          <div class="b_box ezxld_list fl" id="second-content-box">
+            <div  class="clearfix">
+              <div class="l_box fl"> 
+               {eju:screening typeid='11' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
+                {eju:volist name='$field.list' id='vo' limit='0,4'}
+                <ul class="filter-row ezxsx">
+                  <li class="filter-row-title iconfont">{$vo.title}</li>
+                  <li class="filter-val"> {eju:volist name='$vo.dfvalue' id='vo2' row='10'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                  <li class="filter-more" style="display: none;"> {eju:volist name='$vo.dfvalue' id='vo2'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                </ul>
+                {/eju:volist}
+                {$field.hidden}
+                {/eju:screening} 
+                </div>
+              <ul class="list">
+                {eju:arclist orderby='new' row='6' id='field' typeid='11'}
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
+                <span class="ft clearfix nowarp">{$field.area_id|get_area_name} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.room}室{$field.living_room}厅-{$field.area}{$field.area_unit}</span> <span class="fl"><i class="price">{eju:notempty name="$field.total_price"}{$field.total_price}</i>{$field.total_price_unit}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+            <div  class="clearfix" style="display: none;">
+              <div class="l_box fl"> {eju:screening typeid='12' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
+                {eju:volist name='$field.list' id='vo' limit='0,4'}
+                <ul class="filter-row ezxsx">
+                  <li class="filter-row-title iconfont">{$vo.title}</li>
+                  <li class="filter-val"> {eju:volist name='$vo.dfvalue' id='vo2' row='10'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                  <li class="filter-more" style="display: none;"> {eju:volist name='$vo.dfvalue' id='vo2'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                </ul>
+                {/eju:volist}
+                {$field.hidden}
+                {/eju:screening} </div>
+              <ul class="list">
+                {eju:arclist orderby='new' row='6' id='field' typeid='12'}
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
+                <span class="ft clearfix nowarp">{$field.area_id|get_area_name} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.room}室{$field.living_room}厅-{$field.area}{$field.area_unit}</span> <span class="fl">{eju:notempty name="$field.total_price"}<i class='price'>{$field.total_price}</i>{$field.price_units}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+            <div  class="clearfix" style="display: none;">
+              <div class="l_box fl"> {eju:screening typeid='10' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
+                {eju:volist name='$field.list' id='vo' limit='0,4'}
+                <ul class="filter-row ezxsx">
+                  <li class="filter-row-title iconfont">{$vo.title}</li>
+                  <li class="filter-val"> {eju:volist name='$vo.dfvalue' id='vo2' row='10'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                  <li class="filter-more" style="display: none;"> {eju:volist name='$vo.dfvalue' id='vo2'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                </ul>
+                {/eju:volist}
+                {$field.hidden}
+                {/eju:screening} </div>
+              <ul class="list">
+                {eju:arclist orderby='new' row='6' id='field' typeid='10'}
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
+                <span class="ft clearfix">  {$field.area_id|get_area_name}-{$field.title}</span>
+                <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.building_age}年建成</span> <span class="fl"><i class="price">{$field.average_price}</i>{$field.price_units}</span> </span> </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+          </div>
+          <!-- 楼盘列表 E --> 
+          <!-- 优秀导购员 S -->
+          <div class="r_box top_director fr">
+            <div class="release-news clearfix"> <a href="#" title="" target="_blank"> <i class="font-index-1"></i>发布二手 </a> <a href="#" title="" target="_blank"> <i class="font-index-2"></i>发布出租 </a> <a href="#" title="" target="_blank"> <i class="font-index-3"></i>发布求购 </a> <a href="#" title="" target="_blank"> <i class="font-index-4"></i>发布求租 </a></div>
+            <ul class="broker" data-tag="jpjjr">
+              <li> <a href="#" target="_blank"> <img alt="星语心愿" width="56" height="56" class="lazy" data-original="https://house.08cms.com/uploads/house/000/00/00/1/000/010/855b4e0650f9a356094798e5a596b5e1.jpg" src="https://house.08cms.com/uploads/house/000/00/00/1/000/010/855b4e0650f9a356094798e5a596b5e1.jpg" style="display: block;"> </a>
+                <div>
+                  <p> <a href="#" target="_blank" class="f-color">星语心愿</a> </p>
+                  <p>手机：12587459685</p>
+                  <p>售 <span class="f-color"> 0 </span>套，租 <span class="f-color"> 0 </span>套 </p>
+                </div>
+              </li>
+              <li> <a href="#" target="_blank"> <img alt="青草" width="56" height="56" class="lazy" data-original="https://house.08cms.com/uploads/house/000/00/00/1/000/009/bedea81ccad4f3045e03248f0a9bd224.jpg" src="https://house.08cms.com/uploads/house/000/00/00/1/000/009/bedea81ccad4f3045e03248f0a9bd224.jpg" style="display: block;"> </a>
+                <div>
+                  <p> <a href="#" target="_blank" class="f-color">青草</a> </p>
+                  <p>手机：13365487458</p>
+                  <p>售 <span class="f-color"> 0 </span>套，租 <span class="f-color"> 0 </span>套 </p>
+                </div>
+              </li>
+              <li> <a href="#" target="_blank"> <img alt="青草" width="56" height="56" class="lazy" data-original="https://house.08cms.com/uploads/house/000/00/00/1/000/009/bedea81ccad4f3045e03248f0a9bd224.jpg" src="https://house.08cms.com/uploads/house/000/00/00/1/000/009/bedea81ccad4f3045e03248f0a9bd224.jpg" style="display: block;"> </a>
+                <div>
+                  <p> <a href="#" target="_blank" class="f-color">青草</a> </p>
+                  <p>手机：13365487458</p>
+                  <p>售 <span class="f-color"> 0 </span>套，租 <span class="f-color"> 0 </span>套 </p>
+                </div>
+              </li>
+            </ul>
+            <div class="clearfix"> <a href="#" target="_blank" class="more-broker">更多经纪人</a> </div>
+          </div>
+          <!-- 优秀导购员 E --> 
+        </div>
+      </div>
+      <!-- 二手房 E -->
+      <div class="poster-margin-top"> {eju:ad aid='18'}
+        <ul class="poster clearfix">
+          <li><a href="{$field.links}" {$field.target}><img alt="{$field.title}" src="{$field.litpic}" width="100%"></a></li>
+        </ul>
+        {/eju:ad} </div>
+      <!-- 商铺-写字楼 S -->
+      <div class="sed_house cm_wrap ">
+        <div class="head clearfix">
+          <h2 class="fl margin-right-120">商业地产</h2>
+          <ul class="r_nav fl" id="tab-4">
+            {eju:type typeid='24'}
+            <li class="active"> <a href="{$field.typeurl}" target="_blank">商铺出售</a>
+              <div class="b_l"></div>
+            </li>
+            {/eju:type} 
+            {eju:type typeid='27'}
+            <li> <a href="{$field.typeurl}" target="_blank">写字楼出售</a>
+              <div class="b_l"></div>
+            </li>
+            {/eju:type} 
+            {eju:type typeid='25'}
+            <li> <a href="{$field.typeurl}" target="_blank">商铺出租</a>
+              <div class="b_l"></div>
+            </li>
+            {/eju:type}
+            {eju:type typeid='28'}
+            <li> <a href="{$field.typeurl}" target="_blank">写字楼出租</a>
+              <div class="b_l"></div>
+            </li>
+            {/eju:type}
+          </ul>
+          <div class="mffb fr ">
+          <a href="{eju:diyurl type='mapshopcs' /}">免费发布</a>
+          </div>
+        </div>
+        <div class="content clearfix"> 
+          
+          <!-- 楼盘列表 S -->
+          <div class="b_box ezxld_list fl" id="spxzl-content-box">
+            <div  class="clearfix">
+              <div class="l_box fl"> 
+                {eju:screening typeid='24' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
+                {eju:volist name='$field.list' id='vo' limit='0,4'}
+                <ul class="filter-row ezxsx">
+                  <li class="filter-row-title iconfont">{$vo.title}</li>
+                  <li class="filter-val"> {eju:volist name='$vo.dfvalue' id='vo2' row='10'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                  <li class="filter-more" style="display: none;"> {eju:volist name='$vo.dfvalue' id='vo2'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                </ul>
+                {/eju:volist}
+                {$field.hidden}
+                {/eju:screening} </div>
+              <ul class="list">
+                {eju:arclist orderby='new' row='6' id='field' typeid='24'}
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
+                <span class="ft clearfix nowarp">{$field.area_id|get_area_name} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.room}室{$field.living_room}厅-{$field.area}{$field.area_unit}</span> <span class="fl"><i class="price">{eju:notempty name="$field.total_price"}{$field.total_price}</i>{$field.total_price_unit}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+            <div  class="clearfix" style="display: none;">
+              <div class="l_box fl"> 
+                {eju:screening typeid='27' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
+                {eju:volist name='$field.list' id='vo' limit='0,4'}
+                <ul class="filter-row ezxsx">
+                  <li class="filter-row-title iconfont">{$vo.title}</li>
+                  <li class="filter-val"> {eju:volist name='$vo.dfvalue' id='vo2' row='10'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                  <li class="filter-more" style="display: none;"> {eju:volist name='$vo.dfvalue' id='vo2'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                </ul>
+                {/eju:volist}
+                {$field.hidden}
+                {/eju:screening} 
+              </div>
+              <ul class="list">
+                {eju:arclist orderby='new' row='6' id='field' typeid='27'}
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
+                <span class="ft clearfix nowarp">{$field.area_id|get_area_name} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.room}室{$field.living_room}厅-{$field.area}{$field.area_unit}</span> <span class="fl">{eju:notempty name="$field.total_price"}<i class='price'>{$field.total_price}</i>{$field.total_price_unit}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+            <div  class="clearfix" style="display: none;">
+              <div class="l_box fl"> 
+                {eju:screening typeid='25' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
+                {eju:volist name='$field.list' id='vo' limit='0,4'}
+                <ul class="filter-row ezxsx">
+                  <li class="filter-row-title iconfont">{$vo.title}</li>
+                  <li class="filter-val"> {eju:volist name='$vo.dfvalue' id='vo2' row='10'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                  <li class="filter-more" style="display: none;"> {eju:volist name='$vo.dfvalue' id='vo2'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                </ul>
+                {/eju:volist}
+                {$field.hidden}
+                {/eju:screening} 
+              </div>
+              <ul class="list">
+                {eju:arclist orderby='new' row='6' id='field' typeid='25'}
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
+                <span class="ft clearfix nowarp">{$field.area_id|get_area_name} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.city_id|get_city_name}</span> <span class="fl"><i class="price">{$field.total_price}</i>{$field.price_units}</span> </span> </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+            <div  class="clearfix" style="display: none;">
+              <div class="l_box fl"> {eju:screening typeid='28' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
+                {eju:volist name='$field.list' id='vo' limit='0,4'}
+                <ul class="filter-row ezxsx">
+                  <li class="filter-row-title iconfont">{$vo.title}</li>
+                  <li class="filter-val"> {eju:volist name='$vo.dfvalue' id='vo2' row='10'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                  <li class="filter-more" style="display: none;"> {eju:volist name='$vo.dfvalue' id='vo2'} <a {$vo2.onClick} target="_blank">{$vo2.name}</a> {/eju:volist} </li>
+                </ul>
+                {/eju:volist}
+                {$field.hidden}
+                {/eju:screening} </div>
+              <ul class="list">
+                {eju:arclist orderby='new' row='6' id='field' typeid='28'}
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
+                <span class="ft clearfix nowarp">{$field.area_id|get_area_name} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.city_id|get_city_name}</span> <span class="fl"><i class="price">{$field.total_price}</i>{$field.price_units}</span> </span> </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+          </div>
+          <!-- 楼盘列表 E --> 
+          <!-- 优秀导购员 S --> 
+          
+          {eju:channelartlist typeid='7'}
+          <div class="r_box house_news fr">
+            <div class="sct_item buy_way">
+              <div class="hd clearfix">
+                <h3>{eju:field name='typename' /}</h3>
+                <a href="{eju:field name='typeurl' /}" title="{eju:field name='typename' /}" target="_blank" class="more">更多 &gt;</a> </div>
+              <ul class="list office-list">
+                {eju:arclist orderby='new' row='12' noflag='h' id='field'}
+                <li class="clearfix"><a href="{$field.typeurl}" target="_blank">{$field.title}</a></li>
+                {/eju:arclist}
+              </ul>
+            </div>
+          </div>
+          {/eju:channelartlist} 
+          <!-- 优秀导购员 E --> 
+        </div>
+      </div>
+      <!-- 商铺-写字楼 E -->
+      <div class="poster-margin-top"> {eju:ad aid='18'}
+        <ul class="poster clearfix">
+          <li><a href="{$field.links}" {$field.target}><img alt="{$field.title}" src="{$field.litpic}" width="100%"></a></li>
+        </ul>
+        {/eju:ad} </div>
+       
+      <div class="cm_wrap order_modl clearfix"> 
+        <div class="fcphb index_block">
+            <div class="index_title">
+                <h1 class="index_h1 bnzf_h1">
+                    <span>房产排行榜</span>
+                    <a href="{eju:type typeid='1' id='field'}{$field.typeurl}{/eju:type}" target="_blank"><i></i><label>楼盘搜索</label></a>
+                </h1>
+                <a href="{eju:type typeid='2' id='field'}{$field.typeurl}{/eju:type}" target="_blank" class="fr index_title_right">
+                    <span class="index_icon lskx_icon lou_wei"></span>
+                    楼市快讯
+                </a>
+            </div>
+            <div class="rplp">
+                <h3>热门楼盘</h3>
+                <ul>
+                   {eju:arclist channelid='9' orderby='click' row='10' id='field'}
+                    <li><s>{$i}</s><p class="n1"><a href="{$field.arcurl}" target="_blank">{$field.title}</a></p>
+                        <p class="n2">{eju:notempty name="$field.average_price"}<i>{$field.average_price}</i>{$field.price_units}{eju:else /}房价待定{/eju:notempty}</p>
+                    </li>
+                    {/eju:arclist}
+                </ul>
+            </div>
+            <div class="zxzx">
+                <h3>最热咨询</h3>
+                <ul>
+                   {eju:ask id="field" bestanswer="off"}
+					{$field.hidden}
+					{eju:volist name="$field.AskData" id="vo"}
+                    <li><s>{$i}</s><p class="n1"><a href="{$vo.AskUrl}" target="_blank">{$vo.ask_title}</a></p>
+                        <p class="n2">{$vo.click}</p>
+                    </li>
+                    {/eju:volist}
+                   {/eju:ask}
+                </ul>
+            </div>
+            <div class="rmxq">
+                <h3>热门小区</h3>
+                <ul>
+                   {eju:arclist channelid='11' orderby='new' row='10' id='field'}
+                    <li><s>{$i}</s><p class="n1"><a href="{$field.arcurl}" target="_blank">{$field.title}</a></p>
+                        <p class="n2">二手房{eju:sonarccount table='archives' map="[$field['aid'],0,12]" mapkey="['joinaid','is_del','channel']"/}套</p>
+                        <p class="n3">租房{eju:sonarccount table='archives' map="[$field['aid'],0,13]" mapkey="['joinaid','is_del','channel']"/}套</p>
+                    </li>
+                   {/eju:arclist}
+                </ul>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 内容 E--> 
+</div>
+{eju:include file="footer.htm"/} 
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/placeholder.js"></script> 
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/echarts.common.min.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script>
+    $(function(){
+        $('#tab-1 li').on('mouseover',function(){
+            $(this).addClass('active').siblings().removeClass('active');
+            var index = $(this).index(),box = $('#house-content-box').children().hide().eq(index);
+            box.show();
+            var i = box.find('img'),s = i.attr('src'),o = i.data('original');
+            if(s != o)
+            {
+                box.find("img.lazy").lazyload({
+                    threshold : 100,
+                    effect : "fadeIn",
+                    event: "showstop"
+                });
+            }
+        });
+        $('#tab-2 li').on('mouseover',function(){
+            $(this).addClass('active').siblings().removeClass('active');
+            var index = $(this).index(),box = $('#content-box').children().hide().eq(index);
+            box.show();
+            var i = box.find('img'),s = i.attr('src'),o = i.data('original');
+            if(s != o)
+
+            {
+                box.find("img.lazy").lazyload({
+                    threshold : 100,
+                    effect : "fadeIn",
+                    event: "showstop"
+                });
+            }
+        });
+        $('#tab-3 li').on('mouseover',function(){
+            $(this).addClass('active').siblings().removeClass('active');
+            var index = $(this).index(),box = $('#second-content-box').children().hide().eq(index);
+            box.show();
+            var i = box.find('img'),s = i.attr('src'),o = i.data('original');
+            if(s != o)
+            {
+                box.find("img.lazy").lazyload({
+                    threshold : 100,
+                    effect : "fadeIn",
+                    event: "showstop"
+                });
+            }
+        });
+		$('#tab-4 li').on('mouseover',function(){
+            $(this).addClass('active').siblings().removeClass('active');
+            var index = $(this).index(),box = $('#spxzl-content-box').children().hide().eq(index);
+            box.show();
+            var i = box.find('img'),s = i.attr('src'),o = i.data('original');
+            if(s != o)
+            {
+                box.find("img.lazy").lazyload({
+                    threshold : 100,
+                    effect : "fadeIn",
+                    event: "showstop"
+                });
+            }
+        });
+        $('#rec_house li').on('mouseover',function(){
+            $(this).addClass('active').siblings().removeClass('active');
+            var index = $(this).index(),box = $('#rec_house_box').children().hide().eq(index);
+            box.show();
+            var i = box.find('img'),s = i.attr('src'),o = i.data('original');
+            if(s != o)
+            {
+                box.find("img.lazy").lazyload({
+                    threshold : 100,
+                    effect : "fadeIn",
+                    event: "showstop"
+                });
+            }
+        });
+        $("#second_tab .tit").on('click',function(){
+            var index = $(this).index();
+            $(this).addClass('active').siblings().removeClass('active');
+            $("#second_content").children().hide().eq(index).show();
+        });
+        $("#house_tab .tit").on('click',function(){
+            var index = $(this).index();
+            $(this).addClass('active').siblings().removeClass('active');
+            $("#house_content").children().hide().eq(index).show();
+        });
+        $("img.lazy").lazyload({
+            threshold : 100,
+            effect : "fadeIn"
+            //event: "scrollstop"
+        });
+		$(".filter-row").hover(function(){
+            var more = $(this).find(".filter-more"),c = more.html().replace(/[\r\n]/g,""),len = $.trim(c).length;
+            if(len > 0){
+                more.show();
+            }
+        },function(){
+            $(".filter-more").hide();
+        });
+		$("#subscribe").Scroll({line:4,speed:1000,timer:3000});
+		$(".search-type a").on('click',function(){
+            var url = $(this).data('uri');
+            $(this).addClass('active').siblings().removeClass('active');
+            $("#form").attr('action',url);
+        });
+        $(".search-btn").on('click',function(){
+            $("#form").submit();
+        });
+    });
+</script>
+</body>
+</html>

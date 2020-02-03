@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}-相册</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body>
+<!-- topBar S -->
+{eju:include file="header.htm"/} 
+<!-- topBar E -->
+
+<link type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/prettyphoto.css" rel="stylesheet" />
+<!-- 楼盘详情 S-->
+<div class="newhouse_detail"> 
+ {eju:include file="main_xinfang.htm"/}
+  <div class="con_wrap comWidth clearfix">
+    <div class="picture_wrap">
+      <ul class="tab_nav clearfix">
+        <li><a href="{$eju.param.root_dir}/index.php?m=home&c=View&a=index&aid={$eju.field.aid}&dirname={$eju.field.dirname}&column=photo&{$eju.param.url_screen_var}=1" class="{eju:eq name='$eju.param.photo_type'}active{/eju:eq}">全部（{$eju.field.photo_list|count}）</a></li>
+        {eju:fanglist type="photo" id="field" group="photo_type"}  
+		  <li><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','photo_type'=>$field.photo_type])}" name=".cate_{$field.photo_type}" {eju:eq name='$eju.param.photo_type' value='$field.photo_type'}class="active"{/eju:eq}>{$field.photo_type}({$field.count})</a></li>
+		  {/eju:fanglist}
+              
+        
+      </ul>
+      <ul class="list_box clearfix" id="photo">
+        {eju:empty name="$eju['param']['photo_type']"}
+        {eju:fanglist name="$eju.field.photo_list" id="vo"}
+        <li> <a href="{$vo.photo_pic}" title="{$vo.photo_title}" rel="prettyPhoto[]"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$vo.photo_pic}" class="lazy">
+          <div class="mask">
+            <p class="name">{$vo.photo_title}{$vo.photo_type}</p>
+            <div class="opacity"></div>
+          </div>
+          </a> </li>
+        {/eju:fanglist}
+        {eju:else /}
+        {eju:sqlarclist map="[$eju['field']['aid'],0,$eju['param']['photo_type']]" mapkey="['aid','is_del','photo_type']" table="xinfang_photo" id="vo"}
+        <li> <a href="{$vo.photo_pic}" title="{$vo.photo_title}" rel="prettyPhoto[]"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$vo.photo_pic}" class="lazy">
+          <div class="mask">
+            <p class="name">{$vo.photo_title}{$vo.photo_type}</p>
+            <div class="opacity"></div>
+          </div>
+          </a> </li>
+        {/eju:sqlarclist}
+        {/eju:empty}
+      </ul>
+    </div>
+  </div>
+</div>
+<!-- 楼盘详情 E--> 
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.prettyphoto.js"></script> 
+<script>
+    $(function(){
+        $("#photo:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true});
+    });
+</script>
+{eju:include file="footer.htm"/}
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+    });
+</script>
+</body>
+</html>

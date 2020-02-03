@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body class='new'>
+<!-- topBar S -->
+{eju:include file="header.htm"/} 
+<!-- topBar E --> 
+
+<!-- 资讯 S-->
+<div class="flash">
+  <div class="con_wrap comWidth clearfix">
+    <div class="page_tit"> <a href="javascript:;" rel="nofollow">您的位置：</a> {eju:position style='' /} </div>
+    
+    <div class="leftArea cm_leftAre">
+    {eju:channel type='son' id='field' }
+     <div class="af-gdlist shadow">
+     <div class="af-gdlist-head"> <a class="" href="{$field.typeurl}" target="_blank"><span class="af-more">更多&gt;&gt;</span></a>
+          <h2 class="" data="{$field.typename}">{$field.typename}</h2>
+        </div>
+      <ul class="flash_list clearfix">
+       {eju:arclist row="4" orderby='new' id='field2'}
+        <li> <a href="{$field2.arcurl}" target="_blank">
+          <div class="l_img fl"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field2.litpic}" class="lazy" alt="{$field2.title}"> </div>
+          <div class="r_con fr">
+            <h3>{$field2.title}</h3>
+            <p class="desc">{$field2.seo_description|html_msubstr=###,0,70,true}<font>[详情]</font></p>
+            <div class="f_box"> <span>{$field2.author}&nbsp;&nbsp;{$field2.add_time|MyDate='Y-m-d H:i:s',###}</span> <span class="view">{$field2.click}</span> </div>
+          </div>
+          </a> </li>
+        {/eju:arclist}
+      </ul>
+      </div>
+      {/eju:channel}
+    </div>
+    
+    <div class="rightArea cm_rightArea "> 
+      <!-- 热文排行 S -->
+      <div class="hot_artc shadow">
+        <div class="title">
+          <h3>最新动态</h3>
+        </div>
+        <div class="con_box">
+          <ul class="clearfix">
+            {eju:arclist typeid='2' orderby='new' row='10' id='field'}
+            <li> <a href="{$field.arcurl}" target="_blank"> <span class="order ">{$i}</span> {$field.title} </a> </li>
+            {/eju:arclist}
+          </ul>
+        </div>
+      </div>
+      <!-- 热文排行 E --> 
+      <!-- 热门楼盘 S -->
+
+      <!-- 热门楼盘 E -->
+      <div class="hot_build shadow">
+        <div class="title">
+          <h3>推荐楼盘</h3>
+        </div>
+        <div class="con_box">
+          <ul class="list clearfix">
+            {eju:arclist channelid='9' flag='c' orderby='new' row='4' id='field' addfields='price_time'}
+            <li> <a href="{$field.arcurl}" target="_blank">
+              <div class="img"> <img src="{$field.litpic}" alt="{$field.title}"> </div>
+              <div class="con">
+                <p class="name">{$field.title}</p>
+                <div class="clearfix">
+                  <p class="price fl">{eju:notempty name="$field.average_price"}<b>{$field.average_price}</b>{$field.price_units}{eju:else /}暂无{/eju:notempty}</p>
+                  <p class="address fr" title="{$field.city_id|get_city_name}">{$field.city_id|get_city_name}</p>
+                </div>
+              </div>
+              </a> </li>
+            {/eju:arclist}     
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 资讯 E-->
+
+{eju:include file="footer.htm"/}
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+    });
+</script>
+</body>
+</html>

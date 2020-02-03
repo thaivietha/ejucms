@@ -1,0 +1,1 @@
+document.write('<ul class="poster clearfix"></ul>');

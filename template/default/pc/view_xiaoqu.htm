@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/xiaoqu.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.qrcode.min.js"></script>
+</head>
+<body>
+<!-- topBar S --> 
+{eju:include file="header.htm"/} 
+<!-- topBar E -->
+
+<div class="detail-main">
+  <div class="position">
+    <div class="fix-width"> <a href="javascript:;" rel="nofollow">您的位置：</a> {eju:position style="" /} </div>
+  </div>
+  <div class="house-title">
+    <div class="fix-width clearfix">
+      <div class="house-qrcode fl" id="qrcode" >
+        <div class="layer_wei" style="display: none;" id="layer_wei">
+          <p>手机看房<br>
+            更方便</p>
+        </div>
+      </div>
+      <script>
+			$(function(){
+				$('#qrcode').qrcode('{$eju.field.arcurl}');
+				$("#qrcode").mouseover(function(){
+					$("#layer_wei").show();
+				});
+				$("#qrcode").mouseleave(function(){
+					$("#layer_wei").hide();
+				});
+			})
+			
+
+		</script>
+      <div class="house-tags fl">
+        <h1>{$eju.field.title}</h1>
+        <div class="tags"> {eju:volist name="$eju.field.characteristic" id="vo"}<span>{$vo}</span>{/eju:volist}</div>
+      </div>
+    </div>
+  </div>
+  <div class="fix-width">
+    <div class="detail-info clearfix">
+      <div class="slides-box width600 fl">
+        <div class="slides-big-box width600">
+          <ul>
+            {eju:volist name="$eju.field.photo_list" id="vo"}
+            <li> <a href="javascript:;"><img src="{$vo.photo_pic}" alt="{$eju.field.title}"></a> </li>
+            {/eju:volist}
+          </ul>
+          <a href="javascript:;" class="slides-icon slides-big-left"></a> <a href="javascript:;" class="slides-icon slides-big-right"></a> </div>
+        <div class="slides-small"> <a href="javascript:;" class="prev iconfont">&#xe62a;</a> <a href="javascript:;" class="next iconfont">&#xe9d1;</a>
+          <ul class="slides-small-box width600">
+            {eju:volist name="$eju.field.photo_list" id="vo"}
+            <li> <a href="javascript:;"><img src="{$vo.photo_pic}" alt="{$eju.field.title}"></a> </li>
+            {/eju:volist}
+          </ul>
+        </div>
+      </div>
+      <div class="new-houxq-info">
+        <div class="news-houxq-right-top">
+          <div class="houxq-price"> <span> 均价：</span><em>{$eju.field.average_price}</em>{$eju.field.price_units}
+            <div class="houxq-price-tool fr"> <a href="#" title="" target="_blank"><i class="iconfont">&#xe752;</i> 房贷计算器</a> </div>
+          </div>
+        </div>
+        <div class="news-houxq-box">
+          <ul class="news-houxq-base col2 clearfix">
+            <li>
+              <label>物业类型 ：</label>
+              {eju:volist name="$eju.field.manage_type" id="vo"}{$vo}&nbsp;{/eju:volist}</li>
+            <li>
+              <label>建筑类型 ：</label>
+              {eju:volist name="$eju.field.building_type" id="vo"}{$vo}&nbsp;{/eju:volist}</li>
+            <li>
+              <label>建筑年代 ：</label>
+              {eju:notempty name="$eju.field.building_age"}{$eju.field.building_age}{$eju.field.building_age_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li>
+              <label>产权年限 ：</label>
+              {eju:notempty name="$eju.field.property"}{$eju.field.property}{$eju.field.property_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li>
+              <label>占地面积 ：</label>
+              {eju:notempty name="$eju.field.floor_area"}{$eju.field.floor_area}{$eju.field.floor_area_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li>
+              <label>建筑面积 ：</label>
+              {eju:notempty name="$eju.field.building_area"}{$eju.field.building_area}{$eju.field.building_area_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li>
+              <label>容&nbsp;积&nbsp;&nbsp;率 ：</label>
+              {eju:notempty name="$eju.field.plot_ratio"}{$eju.field.plot_ratio}{$eju.field.plot_ratio_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li>
+              <label>绿&nbsp;化&nbsp;&nbsp;率 ：</label>
+              {eju:notempty name="$eju.field.greening_rate"}{$eju.field.greening_rate}{$eju.field.greening_rate_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li>
+              <label>规划户数 ：</label>
+              {eju:notempty name="$eju.field.households"}{$eju.field.households}{$eju.field.households_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li>
+              <label>车位情况 ：</label>
+              {eju:notempty name="$eju.field.carport"}{$eju.field.carport}{$eju.field.carport_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li>
+              <label>物&nbsp;业&nbsp;&nbsp;费 ：</label>
+              {eju:notempty name="$eju.field.property_fee"}{$eju.field.property_fee}{$eju.field.property_fee_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li class="col1">
+              <label>物业公司 ：</label>
+              {eju:notempty name="$eju.field.manage_company"}{$eju.field.manage_company}{eju:else /}暂无{/eju:notempty}</li>
+            <li class="col1">
+              <label>开&nbsp;发&nbsp;&nbsp;商 ：</label>
+              {eju:notempty name="$eju.field.developer"}{$eju.field.developer}{eju:else /}暂无{/eju:notempty}</li>
+            <li class="col1">
+              <label>小区地址 ：</label>
+              {eju:notempty name="$eju.field.address"}{$eju.field.address}{eju:else /}暂无{/eju:notempty} <a href="{eju:diyurl type='mapxiaoqu' /}">查看地图<i class="iconfont">&#xe9d1;</i> </a></li>
+          </ul>
+          <div class="villagenum">
+            <div class="con"> 二手房房源：<a href="#"><span>{eju:sonarccount table='archives' map="[$eju['field']['aid'],0,12]" mapkey="['joinaid','is_del','channel']"/}套</span></a> 租房房源：<a href="#"><span>{eju:sonarccount table='archives' map="[$eju['field']['aid'],0,13]" mapkey="['joinaid','is_del','channel']"/}套</span></a> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-gray">
+    <div class="fix-width">
+      <div class="detail-content clearfix">
+        <div class="detail-left fl">
+          <div class="detail-row">
+            <div class="title">小区简介</div>
+            <div class="house-info">
+              {$eju.field.content}
+              
+            </div>
+          </div>
+          <div class="detail-row margin-top20">
+            <div class="title">二手房 <a href="{eju:type typeid='11'}{$field.typeurl}{/eju:type}" title="" class="more fr">更多</a> </div>
+            <div class="second-box">
+              <ul class="lists clearfix">
+                {eju:arclist typeid="11" joinaid="$eju.field.aid" orderby='new' limit="0,4" id="field"}
+                <li> <a href="{$field.arcurl}" title="{$field.title}">
+                  <div class="img"> <img src="{$field.litpic}" width="200" height="150" alt="{$field.title}">
+                    <div class="mask">
+                      <p class="fl name">{$field.title}</p>
+                      <div class="opacity"></div>
+                    </div>
+                  </div>
+                  <div class="ft_con clearfix">
+                    <p class="type_area fl">{$field.room}{$field.living_room}-{$field.area}㎡</p>
+                    <p class="price fr">{$field.total_price}<i>{$field.total_price_unit}</i></p>
+                  </div>
+                  </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+          </div>
+          <div class="detail-row margin-top20">
+            <div class="title">出租房 <a href="{eju:type typeid='12'}{$field.typeurl}{/eju:type}" title="" class="more fr">更多</a> </div>
+            <div class="second-box">
+              <ul class="lists clearfix">
+                {eju:arclist typeid="12" joinaid="$eju.field.aid" orderby='new' limit="0,4" id="field"}
+                <li> <a href="{$field.arcurl}" title="{$field.title}">
+                  <div class="img"> <img src="{$field.litpic}" width="200" height="150" alt="{$field.title}">
+                    <div class="mask">
+                      <p class="fl name">{$field.hire_type}&middot;{$field.title}</p>
+                      <div class="opacity"></div>
+                    </div>
+                  </div>
+                  <div class="ft_con clearfix">
+                    <p class="type_area fl">{$field.room}{$field.living_room}-{$field.area}㎡</p>
+                    <p class="price fr">{$field.total_price}<i>{$field.price_units}</i></p>
+                  </div>
+                  </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="detail-right fr">
+          <div class="right-row">
+            <h2><i></i>相似小区</h2>
+            <div class="recommon-houxq">
+              <ul>
+                {eju:arclist channelid='11' orderby='rand' limit='0,4' id='field'}
+                <li> <a href="{$field.arcurl}" target="_blank"> <img src="{$field.litpic}" alt="{$field.title}">
+                  <div class="imgBottm"> <span>{$field.title}</span> </div>
+                  <div class="oneH"> <span class="tuijian_price" style="color: #ff5200;"> <span style="font-weight:bold"> {eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty} </span> </span> <span class="gaiare" style="float: right">{$field.city_id|get_city_name}-{$field.area_id|get_area_name}</span> </div>
+                  </a> </li>
+                {/eju:arclist}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-content clearfix">
+        <div class="detail-row margin-top20">
+          <div class="title">周边配套 </div>
+          <div class="map-box">
+            <div id="map"></div>
+            <div class="map-mart">
+              <div class="map-mart-title" id="map-keyword"> <a href="javascript:;" class="active">银行</a> <a href="javascript:;">交通</a> <a href="javascript:;">购物</a> <a href="javascript:;">学校</a> <a href="javascript:;">医院</a> </div>
+              <ul class="map-mart-lists" id="result">
+              </ul>
+            </div>
+          </div>
+          <script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/39ab8a29b2a14bb28d8f98301d331dfe.js"></script> 
+          <script src="{eju:global name='web_templets_pc' /}/skin/js/peitao.js"></script> 
+          <script>
+    var lng = "{$eju.field.lng}";
+    var lat = "{$eju.field.lat}";
+    var streetView = 0;
+    BMapApplication.title    = "{$eju.field.title}";
+    BMapApplication.price = "{$eju.field.average_price}{$eju.field.price_units}";
+    BMapApplication.saleStatus = "1";
+    BMapApplication.init({"lng" : lng, "lat" : lat, "mapContainerId" : "map"});
+    BMapApplication.getAreaMap("银行", "bank");
+    $(function() {
+        $("#map-keyword a").on("click", function (evt) {
+            $(this).addClass("active").siblings().removeClass("active");
+            var iElem = $(this);
+            BMapApplication.getAreaMap(iElem.text(), iElem.attr("search-flag"));
+            evt.stopPropagation();
+        });
+    });
+</script> 
+        </div>
+      </div>
+      <div class="itr_box margin-top20" id="same-estate">
+        <ul class="lbtitle bigtit" id="js_jrtab_ul">
+          <li class="hover" id="js_jrtab_0" data-index="0">猜你喜欢</li>
+          <li id="js_jrtab_1" class="" data-index="1">为您推荐</li>
+        </ul>
+        <div class=" itr_box_con">
+          <div class="huxing_cont" id="js_jrtabi_0" style="">
+            <ul class="photo_album pt_h200" style="padding-top: 20px; padding-bottom: 10px;" id="divMaylikeUl">
+              {eju:arclist orderby='rand' limit='0,5' id='field'}
+              <li style="position:relative;">
+                <div class="map_comment">
+                  <div class="dh_c_alone_img">
+                    <p><a href="{$field.arcurl}" target="_blank"> <img class="imgts" alt="{$field.title}" src="{$field.litpic}" border="0" width="220"></a></p>
+                  </div>
+                </div>
+                <div class="photo_album_txt f14 text_left"> <span class="photo_album_txt_p"> <a href="{$field.arcurl}" target="_blank" title=""><b>{$field.title}</b></a> </span> <span style="width:222px;">均价：<b class="red01">{eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</b></span> </div>
+              </li>
+              {/eju:arclist}
+            </ul>
+          </div>
+          <!--同价位楼盘-->
+          <div class="huxing_cont " id="js_jrtabi_1" style="display: none;">
+            <ul id="xfptxq_B23_02" class="photo_album pt_h200" style="padding-top: 20px; padding-bottom: 10px;">
+              {eju:arclist flag='c' orderby='new' limit='0,5' id='field'}
+              <li style="position:relative;">
+                <div class="map_comment">
+                  <div class="dh_c_alone_img">
+                    <p><a href="{$field.arcurl}" target="_blank"> <img class="imgts" alt="{$field.title}" src="{$field.litpic}" border="0" width="220"></a></p>
+                  </div>
+                </div>
+                <div class="photo_album_txt f14 text_left"> <span class="photo_album_txt_p"> <a href="{$field.arcurl}" target="_blank" title=""><b>{$field.title}</b></a> </span> <span style="width:222px;">均价：<b class="red01">{eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</b></span> </div>
+              </li>
+              {/eju:arclist}
+            </ul>
+          </div>
+        </div>
+      </div>
+     <div class="bottom"></div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.superslide.2.1.1.js"></script> 
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/scroll_nav.js"></script> 
+<script>
+    $(function(){
+        
+        jQuery(".slides-box").slide({
+            titCell:".slides-small-box li",
+            mainCell:".slides-big-box ul",
+            prevCell:".slides-big-left",
+            nextCell:".slides-big-right",
+            delayTime:200,
+            effect:"left",
+            autoPlay:false,
+            trigger:"click",
+            startFun: function(i, p) {
+                if (i == 0) {
+                    jQuery(".slides-small .prev").click()
+                } else if (i % 4 == 0) {
+                    jQuery(".slides-small .next").click()
+                }
+            }
+        });
+        jQuery(".slides-box .slides-small").slide({ mainCell:"ul",delayTime:100,vis:4,scroll:4,effect:"left",autoPage:true,prevCell:".prev",nextCell:".next",pnLoop:false });
+        jQuery(".excellent-box").slide({titCell:".slide-pages ul",mainCell:".row-lists",autoPage:true,interTime:3500,effect:"left",autoPlay:true,scroll:4,vis:4,trigger:"click"});
+
+
+    });
+
+</script> 
+{eju:include file="footer.htm"/} 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+    });
+	$(function(){
+		$('#js_jrtab_ul li').mouseover(function(){
+			var index = $(this).data('index');
+			$('#js_jrtabi_0,#js_jrtabi_1').hide();
+			$('#js_jrtabi_'+index).show();
+			$('#js_jrtab_ul li').removeClass('hover');
+			$(this).addClass('hover');
+		}).mouseout(function(){
+			var index = $(this).data('index');
+			$('#js_jrtabi_0,#js_jrtabi_1').hide();
+			$('#js_jrtabi_'+index).show();
+			$('#js_jrtab_ul li').removeClass('hover');
+			$(this).addClass('hover');
+		});
+	});
+</script>
+</body>
+</html>

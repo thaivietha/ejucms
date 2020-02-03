@@ -1,0 +1,59 @@
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.qrcode.min.js"></script>
+ <!-- 页面标识 S-->
+  <div class="position">
+    <div class="fix-width"> <a href="javascript:;" rel="nofollow">您的位置：</a> {eju:position style='' /} > {$eju.field.title} </div>
+  </div>
+  <!-- 页面标识 E-->
+   <div class="house-title">
+    <div class="fix-width clearfix">
+      <div class="house-qrcode fl" id="qrcode" >
+        <div class="layer_wei" style="display: none;" id="layer_wei">
+          <p>手机看房<br>
+            更方便</p>
+        </div>
+      </div>
+      <script>
+			$(function(){
+				$('#qrcode').qrcode('{$eju.field.arcurl}');
+				$("#qrcode").mouseover(function(){
+					$("#layer_wei").show();
+				});
+				$("#qrcode").mouseleave(function(){
+					$("#layer_wei").hide();
+				});
+			})
+			
+
+		</script>
+      <div class="house-tags fl">
+        <h1>{$eju.field.title}</h1>
+        <div class="tags"> <span>{$eju.field.sale_status}</span> {eju:volist name='$eju.field.characteristic' id='vo'}<span>{$vo}</span>{/eju:volist}</div>
+      </div>
+      <div class="liue fr">
+        <p class="font14"> 售楼处电话 </p>
+        <p><span id="build_centerphone_header"><i style="color:#e8380d;">{$eju.field.sale_phone}</i>{eju:notempty name="$eju.field.phone_code"}&nbsp;<span>转</span>&nbsp;{$eju.field.phone_code}{/eju:notempty}</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="fix-width nav_house">
+    <div class="house_move_act">
+      <ul>
+        <li {eju:empty name='$eju.param.column'} class="hover"{/eju:empty}> <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath])}" >楼盘主页</a> </li>
+        <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='information'} class="hover"{/eju:eq}{/eju:notempty}>
+        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'information'])}" >楼盘动态</a>
+        </li>
+        <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='huxing'} class="hover"{/eju:eq}{/eju:notempty}>
+        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing'])}"  >在售户型</a>
+        </li>
+        <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='photo'} class="hover"{/eju:eq}{/eju:notempty}>
+        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo'])}" >楼盘相册</a>
+        </li>
+        <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='detail'} class="hover"{/eju:eq}{/eju:notempty}>
+        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'detail'])}" >楼盘信息</a>
+        </li>
+        <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='ask'} class="hover"{/eju:eq}{/eju:notempty}>
+        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'ask'])}" >楼盘问答</a>
+        </li>
+      </ul>
+    </div>
+  </div>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body class='new'>
+<!-- topBar S -->
+{eju:include file="header.htm"/} 
+<!-- topBar E --> 
+
+<!-- 资讯 S-->
+<div class="flash">
+  <div class="con_wrap comWidth clearfix">
+    <div class="page_tit"> <a href="javascript:;" rel="nofollow">您的位置：</a> {eju:position style='' /} </div>
+    <div class="leftArea cm_leftArea shadow">
+      <div class="sub_nav">
+      <ul>
+        <li><a href="{$eju.field.ptypeurl}" {eju:gt name="$eju.field.has_children" value="0"}class="active"{/eju:gt}>全部<span class="redTabG"></span></a> </li>
+        {eju:channel type='first' id='field' currentstyle='active' row='50'}
+        <li><a href="{$field.typeurl}" class="{$field.currentstyle}">{$field.typename}<span class="redTabG"></span></a></li>
+        {/eju:channel}
+      </ul>
+      </div>
+      <ul class="flash_list clearfix">
+       {eju:list pagesize="8" titlelen="28" orderby='new'}
+        <li> <a href="{$field.arcurl}" target="_blank">
+          <div class="l_img fl"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> </div>
+          <div class="r_con fr">
+            <h3>{$field.title}</h3>
+            <p class="desc">{$field.seo_description|html_msubstr=###,0,70,true}<font>[详情]</font></p>
+            <div class="f_box"> <span>{$field.author}&nbsp;&nbsp;{$field.add_time|MyDate='Y-m-d H:i:s',###}</span> <span class="view">{$field.click}</span> </div>
+          </div>
+          </a> </li>
+        {/eju:list}
+      </ul>
+      <div class="page_list clearfix">
+        <ul class="pagination">
+          {eju:pagelist listitem="pageno,pre,next" listsize="10"/}
+        </ul>
+      </div>
+    </div>
+    <div class="rightArea cm_rightArea "> 
+      <!-- 热文排行 S -->
+      <div class="hot_artc shadow">
+        <div class="title">
+          <h3>最新动态</h3>
+        </div>
+        <div class="con_box">
+          <ul class="clearfix">
+            {eju:arclist typeid='2' orderby='new' row='10' id='field'}
+            <li> <a href="{$field.arcurl}" target="_blank"> <span class="order ">{$i}</span> {$field.title} </a> </li>
+            {/eju:arclist}
+          </ul>
+        </div>
+      </div>
+      <!-- 热文排行 E --> 
+      <!-- 热门楼盘 S -->
+
+      <!-- 热门楼盘 E -->
+      <div class="hot_build shadow">
+        <div class="title">
+          <h3>推荐楼盘</h3>
+        </div>
+        <div class="con_box">
+          <ul class="list clearfix">
+            {eju:arclist channelid='9' flag='c' orderby='new' row='4' id='field' addfields='price_time'}
+            <li> <a href="{$field.arcurl}" target="_blank">
+              <div class="img"> <img src="{$field.litpic}" alt="{$field.title}"> </div>
+              <div class="con">
+                <p class="name">{$field.title}</p>
+                <div class="clearfix">
+                  <p class="price fl">{eju:notempty name="$field.average_price"}<b>{$field.average_price}</b>{$field.price_units}{eju:else /}暂无{/eju:notempty}</p>
+                  <p class="address fr" title="{$field.city_id|get_city_name}">{$field.city_id|get_city_name}</p>
+                </div>
+              </div>
+              </a> </li>
+            {/eju:arclist}     
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 资讯 E-->
+
+{eju:include file="footer.htm"/}
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+    });
+</script>
+</body>
+</html>

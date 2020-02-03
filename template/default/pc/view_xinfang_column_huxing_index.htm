@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}-户型详情</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body>
+<!-- topBar S -->
+{eju:include file="header.htm"/} 
+<!-- topBar E --> 
+
+<!-- 楼盘详情 S-->
+<div class="newhouse_detail"> 
+ {eju:include file="main_xinfang.htm"/}
+ {eju:sqlview table="xinfang_huxing" aid="$eju['param']['sid']"  id="vo_view"}
+  <div class="con_wrap comWidth clearfix">
+    <div class="houseType_detail">
+      <ul class="tab_nav clearfix">
+        <li><a href="{:arcurl('home/View/index', array('dirname'=>$eju.field.dirname,'aid'=>$eju.field.aid,'column'=>'huxing'))}" class="{empty name='$eju.param.room'}active{/empty}">全部（<span>{eju:sonarccount  map="[$eju['field']['aid']]" mapkey="['aid']" table="xinfang_huxing" /}</span>）</a></li>
+        {eju:fanglist type="huxing" id="field" group="huxing_room"}
+		 <li><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','room'=>$field.huxing_room])}" name=".tab_{$field.huxing_room}" class="{eq name='$eju.param.room' value='$field.huxing_room'}active{/eq}">{$field.huxing_room|number2chinese}居室(<span class="room-cate">{$field.count}</span>)</a></li>
+       {/eju:fanglist}
+      </ul>
+      <div class="tab_scroll clearfix"> <a class="sPrev" href="javascript:void(0)">←</a>
+        <div class="scroll_wrap">
+          <ul>
+           {eju:fanglist name="$eju.field.huxing_list" id="vo"}
+            <li> <a class="{eju:eq name='$eju.param.sid' value='$vo.huxing_id'}active{/eju:eq}" data-id="{$vo.huxing_id}" href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.aid,'dirname'=>$eju.field.dirname,'dirpath'=>$eju.field.dirpath,'column'=>'huxing','sid'=>$vo.huxing_id])}">
+              <p>{$vo.huxing_room}室{$vo.huxing_living_room}厅{$vo.huxing_toilet}卫{$vo.huxing_kitchen}厨<i class="saleTypeIcon saleTypeIcon1">{$vo.sale_status}</i></p>
+              <p>{$vo.huxing_area}㎡</p>
+              </a> </li>
+           {/eju:fanglist}
+          </ul>
+        </div>
+        <a class="sNext" href="javascript:void(0)">→</a> </div>
+        <script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/new_house.js"></script>
+      <div class="w huxingMain"><!--基本信息-->
+        <div class="number">
+          <h1>户型图（<span class="index">1</span>/<span class="all">1</span>）</h1>
+        </div>
+        <div class="pic">
+          <div class="show">
+            <div class="lunbo" style="width: 800px;"> <a class="various1" target="_blank"><img lang="lay_6604" src="{$vo_view.huxing_pic}" alt="{$vo_view.huxing_litpic}"></a> </div>
+          </div>
+
+          <div class="look">
+            <h1>查看大图</h1>
+          </div>
+        </div>
+        <div class="right">
+          <div class="style" style="margin: 0"> 
+            <!--<p th:text="${roomOne.houseTypeStr}"></p>--> 
+            {$vo_view.huxing_title} 
+            <!--<i th:text="${roomOne.state}" >
+                </i>--> 
+            <s class="saleTypeIcon saleTypeIcon1 titleTypeR">{$vo_view.sale_status}</s> </div>
+          
+          <div class="info">
+            <ul class="type_wei_wun" style="border-bottom: 1px solid #eee;margin-bottom: 20px;padding-bottom: 28px;">
+              <li class="huxing_wei">
+                <label>户　　型</label>
+                <p>{$vo_view.huxing_room}室{$vo_view.huxing_living_room}厅{$vo_view.huxing_toilet}卫{$vo_view.huxing_kitchen}厨</p>
+              </li>
+              
+              <div class="cl"></div>
+              <li class="jian_wei">
+                <label>建筑面积</label>
+                <p>{$vo_view.huxing_area}㎡</p>
+              </li>
+              <div class="cl"></div>
+            </ul>
+            <div class="price">
+              <label>参考价格</label>
+              <ul>
+                <li>{eju:notempty name="$eju.field.average_price"}<i>{$eju.field.average_price}</i>{$eju.field.price_units}{eju:else /}暂无{/eju:notempty} </li>
+                <a class="getChangeBtn J_dialog" data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form'/}">获取最新价格变动 </a>
+              </ul>
+            </div>
+            <div class="price" style="margin-top:0px;display: block;border-bottom: 1px solid #eee;margin-bottom: 10px;padding-bottom: 12px;">
+              <label>参考总价</label>
+              <ul>
+                <li><i>{$vo_view.huxing_price}</i>万元/套</li>
+              </ul>
+            </div>
+            <ul>
+              <li class="hid">
+                <label>项目特色</label>
+                
+                {eju:volist name='$vo_view.huxing_characteristic|explode=",",###' id='field1'}
+                <span class="t{$i}">{$field1}</span>
+                {/eju:volist}
+                </li>
+              <div class="cl"></div>
+              <li style="overflow: hidden;">
+                <label>户型解析</label>
+                <p class="huxing_p">{$vo_view.huxing_remark}</p>
+              </li>
+            </ul>
+          </div>
+          <!--<div class="tel ">--> 
+          <!--   <div class="tel1" style="line-height: 33px;margin-top: 24px;"><i>售楼处咨询电话</i><b> <th:block th:text="${houseInfo.sortelTel}"></th:block>&nbsp;&nbsp;</b> </div>-->
+          <div class="tel1" style="line-height: 33px;margin-top: 24px;"><i>售楼处咨询电话</i><b>{$eju.field.sale_phone}</b> {eju:notempty name="$eju.field.phone_code"} 转 <b>{$eju.field.phone_code}</b>{/eju:notempty}</div>
+          <div class="cl"></div>
+          <div class="tel2 " style="display: block;margin-right: 8px !important;"> <a class="J_dialog " data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form'/}" style="cursor:pointer ; display: block;margin-top: 5px;">免费通话</a> </div>
+          <div></div>
+          <!-- </div>--> 
+        </div>
+        <div class="cl"></div>
+      </div>
+    </div>
+  </div>
+  <div class="layer_box" style="display: none;">
+    <table>
+      <tbody>
+        <tr>
+          <td><div class="layer">
+              <h1>{$vo_view.huxing_title}（{$vo_view.huxing_room}室{$vo_view.huxing_living_room}厅{$vo_view.huxing_toilet}卫{$vo_view.huxing_kitchen}厨）</h1>
+              <div class="photo">
+                <div class="lunbo" style="width: 1200px; left: 0px;">
+                  <ul>
+                    <li> <img src="{$vo_view.huxing_pic}" alt="{$vo_view.huxing_title}"> </li>
+                    <div class="clearfix"></div>
+                  </ul>
+                </div>
+              </div>
+              <div class="close"> <img src="{eju:global name='web_templets_pc' /}/skin/img/closea.png"> </div>
+              
+            </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {/eju:sqlview}
+</div>
+<!-- 楼盘详情 E--> 
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.superslide.2.1.1.js"></script> 
+<script>
+    jQuery(".tab_scroll").slide({
+        mainCell:"ul",
+        delayTime:100,
+        vis:9,
+        scroll:4,
+        effect:"left",
+        autoPage:true,
+        prevCell:".sPrev",
+        nextCell:".sNext",
+        pnLoop:false
+    });
+   
+    var total = 0;
+    $(function(){
+        $(".room-cate").each(function(){
+            total += parseInt($(this).text());
+        });
+        $("#total").text(total);
+    });
+</script>
+{eju:include file="footer.htm"/}
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+	  $('.J_dialog').on('click',function(){
+            var me=$(this),w = 420,h = 270,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri');
+            url = url + '?house_id='+house_id+'&type='+type+'&model='+model;
+            layer.open({
+                type: 2,
+                title: false,
+                fix:true,
+                move:false,
+                area: [w+'px', h+'px'],
+                shade: 0.5,
+                closeBtn: 1,
+                shadeClose: true,
+                content: url
+            });
+        });
+        
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+<script type="text/javascript">
+  function showTime(tuanid, time_distance) {
+
+  	this.tuanid = tuanid;
+  	//PHP时间是秒，JS时间是微秒
+      var timestamp = (new Date()).getTime();
+  	this.time_distance = time_distance * 1000 - timestamp;
+  }
+  showTime.prototype.setTimeShow = function () {
+  	var timer = $("#lefttime_" + this.tuanid);
+  	var btn_baoming = $("#btn_baoming_" + this.tuanid);
+  	var str_time;
+  	var int_day, int_hour, int_minute, int_second;
+  	time_distance = this.time_distance;
+  	this.time_distance = this.time_distance - 1000;
+  	if (time_distance > 0) {
+  		int_day = Math.floor(time_distance / 86400000);
+  		time_distance -= int_day * 86400000;
+  		int_hour = Math.floor(time_distance / 3600000);
+  		time_distance -= int_hour * 3600000;
+  		int_minute = Math.floor(time_distance / 60000);
+  		time_distance -= int_minute * 60000;
+  		int_second = Math.floor(time_distance / 1000);
+  		if (int_hour < 10)
+  			int_hour = "0" + int_hour;
+  		if (int_minute < 10)
+  			int_minute = "0" + int_minute;
+  		if (int_second < 10)
+  			int_second = "0" + int_second;
+  		str_time = "距离报名结束还有<em class='data-day'>"+int_day + "</em>天<em class='data-hour'>" + int_hour + "</em>小时<em class='data-minute'>" + int_minute + "</em>分钟<em class='data-sec'>" + int_second + "</em>秒";
+  		timer.html(str_time);
+  		var self = this;
+  		setTimeout(function () { self.setTimeShow(); }, 1000); //D:正确
+  	} else {
+  		btn_baoming.html("报名结束");
+          btn_baoming.prop("class"," but191");
+  		timer.text("结束");
+  		return;
+  	}
+  }
+  </script>
+</head>
+<body>
+<!-- topBar S -->
+{eju:include file="header.htm"/} 
+<!-- topBar E -->
+
+<link rel="stylesheet" href="{eju:global name='web_templets_pc' /}/skin/css/group.css">
+<div class="searBar ">
+  <div class="comWidth clearfix">
+    <div class="sear_box fl">
+      {eju:searchform channelid='9' type='default' typeid='1'}
+      <form  method="get" action="{$field.action}">
+        <div class="ipt_area fl">
+          <input type="text" name="keywords" id="keywords" autocomplete="off" placeholder="输入楼盘名称" class="ipt">
+          <span class="placeholder">输入楼盘名称</span>
+          <ul id="search-box">
+          </ul>
+        </div>
+        <div class="btn_area fl">
+          <input type="submit" class="sbm_btn" value="搜索">
+        </div>
+        {$field.hidden}
+      </form>
+      {/eju:searchform} </div>
+    <a href="{eju:diyurl type='map' /}" class="map_btn fr">地图找房</a> </div>
+ 
+  
+</div>
+<div class="comWidth"> 
+  <!-- 页面标识 S-->
+  <div class="page_tit position-bottom"> <a href="javascript:;">您的位置：</a> {eju:position style='' /} </div>
+  <!-- 页面标识 E--> 
+</div>
+<div class="comWidth clearfix">
+ {eju:list addfields="apply_num,end_time,description,price" pagesize="10" titlelen="20" orderby='new' id='field'}
+  <div class="group_list"> <span class="group_img"> <a href="{$field.arcurl}"> <img data-original="{$field.litpic}" alt="{$field.title}" src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" class="lazy" > </a> </span>
+   {eju:arcview aid='$field.joinaid'  id='field2'}
+    <div class="group_l_r">
+      <div class="clearfix">
+        <div class="group_l_r1">
+          <div class="group_l_r1_m1"> <b><a href="{$field.arcurl}">{$field.title} </a></b>
+            <p><span class="gr_add">楼盘位置：秀英区</span><span>均价：{$field2.average_price}{$field2.average_price_units}</span><span>团购价：{$field.price}{$field.price_unit}</span></p>
+          </div>
+          <div class="group_l_r1_m2">
+            <p>团购优惠：{$field.description}</p>
+            <p><span><a href="{$field.arcurl}">了解详情</a></span></p>
+          </div>
+        </div>
+        <div class="group_l_r2">
+          <p><span class="text19">已有{$field.apply_num}</span>人报名</p>
+          {eju:if condition="$field.end_time > time()"} 
+                <a id="btn_baoming_{$e}" class="J_dialog but19" href="javascript:;" data-id="26" data-model="house" data-type="4" data-uri="{eju:diyurl type='form' /}">立即报名</a> 
+              {else /} 
+                <a id="btn_baoming_{$e}" class="J_dialog but191" href="javascript:;" data-id="26" data-model="house" data-type="4" data-uri="{eju:diyurl type='form' /}">报名结束</a> 
+              {/eju:if}
+              <script type="text/javascript">
+                  var st = new showTime("{$e}","{$field.end_time}");
+                  st.setTimeShow();
+              </script> 
+          </div>
+      </div>
+      <div class="group_l_r3"> 
+      <p id="lefttime_{$e}"></p>
+      
+      </div>
+    </div>
+    {/eju:arcview}
+  </div>
+  {/eju:list}
+  <div class="page_list clearfix">
+	<ul class="pagination">
+	  {eju:pagelist listitem="index,end,pageno,pre,next" listsize="10"/}
+	</ul>
+  </div>
+</div>
+<script>
+    $(function(){
+        $('.J_dialog').on('click',function(){
+            var me=$(this),w = 315,h = 270,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri');
+            url = url + '?house_id='+house_id+'&type='+type+'&model='+model;
+            layer.open({
+                type: 2,
+                title: false,
+                fix:true,
+                move:false,
+                area: [w+'px', h+'px'],
+                shade: 0.5,
+                closeBtn: 1,
+                shadeClose: true,
+                content: url
+            });
+        });
+        setTimeout(takeCount,1000);
+    });
+    function takeCount() {
+        setTimeout("takeCount()", 1000);
+        $(".time-remain").each(function(){
+            var obj = $(this);
+            var tms = obj.data("down");
+            if (tms>0) {
+                tms = parseInt(tms)-1;
+                var days = Math.floor(tms / (1 * 60 * 60 * 24));
+                var hours = Math.floor(tms / (1 * 60 * 60)) % 24;
+                var minutes = Math.floor(tms / (1 * 60)) % 60;
+                var seconds = Math.floor(tms / 1) % 60;
+
+                if (days < 0) days = 0;
+                if (hours < 0) hours = 0;
+                if (minutes < 0) minutes = 0;
+                if (seconds < 0) seconds = 0;
+                obj.find("[time_id='d']").html(days);
+                obj.find("[time_id='h']").html(hours);
+                obj.find("[time_id='m']").html(minutes);
+                obj.find("[time_id='s']").html(seconds);
+                obj.data("down",tms);
+            }
+        });
+    }
+
+</script>
+{eju:include file="footer.htm"/}
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+    });
+</script>
+</body>
+</html>

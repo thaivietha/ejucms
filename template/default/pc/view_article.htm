@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body class="new">
+<!-- topBar S --> 
+{eju:include file="header.htm"/} 
+<!-- topBar E --> 
+
+<!-- 资讯详情 S-->
+<div class="flash">
+  <div class="con_wrap comWidth clearfix">
+  <!-- 页面标识 S-->
+     <div class="page_tit"> <a href="javascript:;" rel="nofollow">您的位置：</a> {eju:position style='' /} </div>
+  <!-- 页面标识 E--> 
+    <div class="leftArea cm_leftArea "> 
+      <!-- 文章详情 S-->
+      <div class="artc_detail ">
+        <div class="shadow">
+        <div class="head">
+          <h1>{$eju.field.title}</h1>
+          <div class="sub clearfix tc">
+            <span class="news_type">{$eju.field.author}</span> <span>{$eju.field.add_time|MyDate='Y-m-d H:i:s',###}</span> 
+          </div>
+        </div>
+        <div class="con_box"> 
+         {$eju.field.content}
+         </div>
+          
+        {eju:notempty name='$eju.field.xinfang' /}
+        <div class="house-info"> 
+         <a href="{$eju.field.xinfang.arcurl}" target="_blank">
+          <dl class="clearfix">
+            <dt><img src="{$eju.field.xinfang.litpic}" alt="{$eju.field.xinfang.title}" data-bd-imgshare-binded="1"></dt>
+            <dd class="title">{$eju.field.xinfang.title}</dd>
+            <dd class="price">均价：<span>{eju:notempty name="$eju.field.xinfang.average_price"}<strong>{$eju.field.xinfang.average_price}</strong>{$eju.field.xinfang.price_units}{eju:else /}暂无{/eju:notempty}</span></dd>
+            <dd class="address">地址：{$eju.field.xinfang.address}</dd>
+            <dd class="telphone">电话：<span>{$eju.field.xinfang.sale_phone}</span></dd>
+          </dl>
+          </a> 
+        </div>
+        {/eju:notempty} 
+        <div class="f_share clearfix">
+    
+          <div class="fr">
+            <p>分享到：</p>
+            <div style="float:left;">
+              <div class="bdsharebuttonbox" style="display:inline-block;vertical-align: middle;"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+             
+            </div>
+          </div>
+        </div>
+		</div>
+        <div class="relative_artc shadow" style=' margin-top:20px;'>
+          <div class="title">
+            <h3>随便看看</h3>
+            
+          </div>
+          <ul class="list clearfix">
+            {eju:arclist orderby='new' row='10' id='field'}
+            <li> <span class="time">{$field.add_time|MyDate='Y-m-d',###}</span> <a href="{$field.arcurl}" target="_blank">{$field.title}</a> </li>
+            {/eju:arclist}
+          </ul>
+        </div>
+      </div>
+      <!-- 文章详情 E--> 
+    </div>
+    <div class="rightArea cm_rightArea "> 
+      <!-- 热文排行 S -->
+      <div class="hot_artc">
+        <div class="title"><span></span>
+          <h3>最新动态</h3>
+        </div>
+        <div class="con_box">
+          <ul class="clearfix">
+            {eju:arclist typeid='2' orderby='new' row='10' id='field'}
+            <li> <a href="{$field.arcurl}" target="_blank"> <span class="order ">{$i}</span> {$field.title} </a> </li>
+            {/eju:arclist}
+          </ul>
+        </div>
+      </div>
+      <!-- 热文排行 E --> 
+      <!-- 热门楼盘 S -->
+      <div class="hot_build">
+        <div class="title"><span></span>
+          <h3>最新楼盘</h3>
+        </div>
+        <div class="con_box">
+          <ul class="list clearfix">
+            {eju:arclist channelid='9' orderby='new' limit='0,2' id='field' addfields='price_time'}
+            <li> <a href="{$field.arcurl}" target="_blank">
+              <div class="img"> <img src="{$field.litpic}" alt="{$field.title}"> </div>
+              <div class="con">
+                <p class="name">{$field.title}</p>
+                <div class="clearfix">
+                  <p class="price fl">{eju:notempty name="$field.average_price"}<b>{$field.average_price}</b>{$field.price_units}{eju:else /}暂无{/eju:notempty}</p>
+                  <p class="address fr" title="{$field.city_id|get_city_name}">{$field.city_id|get_city_name}</p>
+                </div>
+              </div>
+              </a> </li>
+            {/eju:arclist}
+          </ul>
+        </div>
+      </div>
+      <!-- 热门楼盘 E -->
+      <div class="hot_build">
+        <div class="title"><span></span>
+          <h3>推荐楼盘</h3>
+        </div>
+        <div class="con_box">
+          <ul class="list clearfix">
+            {eju:arclist channelid='9' flag='c' orderby='new' row='4' id='field' addfields='price_time'}
+            <li> <a href="{$field.arcurl}" target="_blank">
+              <div class="img"> <img src="{$field.litpic}" alt="{$field.title}"> </div>
+              <div class="con">
+                <p class="name">{$field.title}</p>
+                <div class="clearfix">
+                  <p class="price fl">{eju:notempty name="$field.average_price"}<b>{$field.average_price}</b>{$field.price_units}{eju:else /}暂无{/eju:notempty}</p>
+                  <p class="address fr" title="{$field.city_id|get_city_name}">{$field.city_id|get_city_name}</p>
+                </div>
+              </div>
+              </a> </li>
+            {/eju:arclist}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 资讯详情 E--> 
+
+{eju:include file="footer.htm"/} 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+    });
+</script>
+ <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script> 
+</body>
+</html>

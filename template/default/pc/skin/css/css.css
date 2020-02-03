@@ -1,0 +1,6785 @@
+@import "iconfont.css";
+@font-face {
+	font-family: 'dinot-bold';   /*字体名称*//*/font/*/
+	src: url('../fonts/dinot-bold.woff');       /*字体源文件*/
+}
+/* 地图找房 */
+.map_house .sele_sear {
+	padding: 8px 0;
+	height: 32px;
+	position: relative;
+}
+.map_house .sele_sear:after {
+	display: block;
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 1px;
+	background: #dedede;
+}
+.map_house .sele_sear .sear {
+	width: 250px;
+	border: 1px solid #dedede;
+	height: 30px;
+}
+.map_house .sele_sear .sear .sele_type select {
+	width: 75px;
+	height: 30px;
+	outline: none;
+	font-size: 12px;
+	color: #616161;
+	border: 0;
+	cursor: pointer;
+}
+.map_house .sele_sear .sear .ipt_area {
+	width: 210px;
+	overflow: hidden;
+	position: relative;
+	height: 30px;
+}
+.map_house .sele_sear .sear .ipt_area .ipt {
+	width: 189px;
+	padding: 3px 10px;
+	border-left: 1px solid #dedede;
+	line-height: 24px;
+	color: #333;
+}
+.map_house .sele_sear .sear .ipt_area .placeholder {
+	line-height: 30px;
+	padding: 0 10px;
+}
+.map_house .sele_sear .sear .btn_area {
+	width: 40px;
+	height: 30px;
+}
+.map_house .sele_sear .sear .btn_area .btn {
+	width: 100%;
+	height: 30px;
+	background: url(../img/icon16.png) center no-repeat;
+	border: 0;
+	cursor: pointer;
+}
+.map_house .sele_sear .sele_list .item {
+	border: 1px solid #dedede;
+	margin-left: 20px;
+}
+.map_house .sele_sear .sele_list select {
+	width: 100px;
+	height: 30px;
+	outline: none;
+	font-size: 14px;
+	color: #616161;
+	overflow: hidden;
+	cursor: pointer;
+}
+.map_house .sele_sear .sele_list .btn {
+	width: 60px;
+	height: 30px;
+	padding: 0;
+	border: 0;
+	cursor: pointer;
+}
+.map_house .main {
+	position: absolute;
+	top: 98px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #000;/* 地图找房 S*//* 地图找房 E*/
+}
+.map_house .main .l_box {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 460px;
+}
+.map_house .main .map {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.map_house .main .map #map {
+	width: 100%;
+	height: 100%;
+}
+.map_house .main .map img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.map_house .main .map .title {
+	width: 100px;
+	height: 100px;
+	background: url(../img/icon23.png) center no-repeat;
+	border-radius: 50%;
+	overflow: hidden;
+	position: absolute;
+}
+.map_house .main .map .title p {
+	color: #fff;
+	line-height: 30px;
+	text-align: center;
+}
+.map_house .main .map .title .area {
+	font-size: 15px;
+	margin-top: 20px;
+}
+.map_house .main .map .title .num {
+	font-size: 14px;
+}
+.map_house .main .map .title .num strong {
+	font-size: 20px;
+}
+.map_house .main .r_box {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 460px;/* 楼盘列表 S *//* 楼盘列表 E */
+}
+.map_house .main .r_box .house_list {
+	width: 460px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	top: 0;
+	background: #fff;
+}
+.map_house .main .r_box .house_list .hd {
+	height: 36px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	padding: 0 20px;
+	background: #fff;
+}
+.map_house .main .r_box .house_list .hd .b_l {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 1px;
+	background: #dedede;
+}
+.map_house .main .r_box .house_list .hd .tab {
+	position: relative;
+	z-index: 2;
+}
+.map_house .main .r_box .house_list .hd .tab li {
+	float: left;
+	margin-right: 26px;
+}
+.map_house .main .r_box .house_list .hd .tab a {
+	height: 34px;
+	display: block;
+	font-size: 12px;
+	color: #313131;
+	line-height: 34px;
+	padding: 0 10px;
+}
+.map_house .main .r_box .house_list .hd .tab a.active {
+	border-bottom: 2px solid #ff6600;
+	color: #f60;
+}
+.map_house .main .r_box .house_list .hd .tab .up {
+	background: url(../img/icon17.png) right center no-repeat;
+}
+.map_house .main .r_box .house_list .hd .tab .down {
+	background: url(../img/icon18.png) right center no-repeat;
+}
+.map_house .main .r_box .house_list .hd .sale_type li {
+	float: left;
+	line-height: 34px;
+	margin-right: 20px;
+}
+.map_house .main .r_box .house_list .hd .sale_type li .chkb {
+	vertical-align: middle;
+	position: relative;
+	top: -1px;
+}
+.map_house .main .r_box .house_list .hd .sale_type li .un_sale {
+	color: #ff6600;
+}
+.map_house .main .r_box .house_list .scroll {
+	position: absolute;
+	top: 36px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: auto;
+}
+.map_house .main .r_box .house_list .bd li {
+	padding: 20px 0px 20px 20px;
+	border-bottom: 1px solid #dedede;
+	position: relative;
+}
+.map_house .main .r_box .house_list .bd li a {
+	display: block;
+	height: 90px;
+}
+.map_house .main .r_box .house_list .bd li img {
+	display: block;
+}
+.map_house .main .r_box .house_list .bd li .c_con {
+	width: 250px;
+	margin-left: 10px;
+}
+.map_house .main .r_box .house_list .bd li .c_con .t {
+	height: 38px;
+	overflow: hidden;
+}
+.map_house .main .r_box .house_list .bd li .c_con h3 {
+	float: left;
+	line-height: 19px;
+	font-size: 14px;
+	color: #2e2e2e;
+	font-weight: normal;
+}
+.map_house .main .r_box .house_list .bd li .c_con .sale_type {
+	display: block;
+	float: left;
+	height: 19px;
+	width: 28px;
+	background: url(../img/icon20.png) no-repeat;
+	padding-left: 7px;
+	color: #fff;
+	font-size: 12px;
+	margin-left: 8px;
+}
+.map_house .main .r_box .house_list .bd li .c_con .c {
+	line-height: 18px;
+	height: 28px;
+}
+.map_house .main .r_box .house_list .bd li .c_con .c span {
+	color: #616161;
+	font-size: 12px;
+}
+.map_house .main .r_box .house_list .bd li .c_con .b {
+	height: 24px;
+	overflow: hidden;
+	margin-left: -8px;
+}
+.map_house .main .r_box .house_list .bd li .c_con .b .item {
+	display: block;
+	float: left;
+	width: 70px;
+	height: 24px;
+	line-height: 24px;
+	text-align: center;
+	font-size: 12px;
+	margin-left: 8px;
+}
+.map_house .main .r_box .house_list .bd li .c_con .b .item1 {
+	background: #d8ebfe;
+	color: #62abf0;
+}
+.map_house .main .r_box .house_list .bd li .c_con .b .item2 {
+	background: #fdede2;
+	color: #fb9b7d;
+}
+.map_house .main .r_box .house_list .bd li .c_con .b .item3 {
+	color: #D98314!important;
+	background-color: #FFF5EB!important;
+}
+.map_house .main .r_box .house_list .bd li .r_con {
+	height: 90px;
+	overflow: hidden;
+}
+.map_house .main .r_box .house_list .bd li .r_con .price {
+	line-height: 90px;
+	font-size: 16px;
+	position: absolute;
+	right: 5px;
+}
+.map_house .main .r_box .house_list .bd li .r_con strong {
+	font-size: 20px;
+	font-weight: bold;
+}
+.map_house .main .r_box .sele_look_type {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 66px;
+}
+.map_house .main .r_box .sele_look_type a {
+	display: block;
+	height: 64px;
+	margin-bottom: 20px;
+}
+.map_house .main .r_box .sele_look_type a .icon {
+	display: block;
+	height: 40px;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.map_house .main .r_box .sele_look_type a p {
+	font-size: 14px;
+	line-height: 24px;
+	color: #fff;
+	text-align: center;
+}
+.map_house .main .r_box .sele_look_type a.active {
+	background: #474952;
+}
+.map_house .main .r_box .sele_look_type .area .icon {
+	background-image: url(../img/icon21.png);
+}
+.map_house .main .r_box .sele_look_type .subway .icon {
+	background-image: url(../img/icon22.png);
+}
+/* page_tit */
+.page_tit {
+	height: 48px;
+	line-height: 48px;
+	color: #999;
+}
+.page_tit a {
+	font-size: 12px;
+	color: #999;
+}
+/* 房子列表筛选栏公共样式 */
+.seleBar {
+	border: 1px solid #eee;
+	font-size: 12px;
+}
+.seleBar .box {
+	padding: 10px;
+}
+.seleBar .item {
+	padding: 2px 0;
+}
+.seleBar .list, .seleBar .list li, .seleBar h3 {
+	float: left;
+}
+.seleBar .list {
+	width: 1104px;
+	margin-left: -24px;
+}
+.seleBar .list li {
+	margin-left: 24px;
+	line-height: 28px;
+}
+.seleBar h3 {
+	float: left;
+	width: 68px;
+	text-align: right;
+	margin-right: 22px;
+}
+.seleBar h3, .seleBar a {
+	display: block;
+	font-size: 12px;
+	line-height: 28px;
+	cursor: pointer;
+}
+.seleBar h3, .seleBar a b {
+	font-weight: normal
+}
+.seleBar select, .seleBar .chcb, .seleBar .btn, .seleBar label {
+	cursor: pointer;
+}
+.seleBar select {
+	width: 100px;
+	padding-left: 5px;
+	height: 28px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+.seleBar .chcb {
+	position: relative;
+	top: -1px;
+	vertical-align: middle;
+}
+.seleBar .btn {
+	border-width: 1px;
+	border-style: solid;
+	width: 60px;
+	height: 28px;
+	line-height: 28px;
+ *line-height: 24px;
+	text-align: center;
+	border-radius: 4px;
+	color: #fff;
+}
+/* 页面左边区域 和 右边宽度公共样式 */
+.cm_leftArea {
+	width: 895px;
+}
+.cm_rightArea {
+	width: 284px;
+}
+.cm_house {
+	padding-bottom: 30px;
+}
+/* 房子列表  */
+.houseList_wrap {
+	margin-top: 25px;/*二手房标签样式*//*经纪人列表*/
+}
+.listHeader {
+	padding-right: 0;
+	height: 56px;
+	line-height: 56px;
+	background: #fafafc;
+	padding-left: 21px;
+	color: #1d364c;
+	font-size: 16px;
+	border-right: 1px solid #ededed;
+	border-left: 1px solid #ededed;
+	border-top: 1px solid #ededed
+}
+.listHeader .hover img {
+	display: none
+}
+.listHeader .hover .hover_sun {
+	display: inline-block
+}
+.listHeader a {
+	display: inline-block;
+	height: 60px;
+	float: right;
+	font-size: 16px;
+	width: 72px
+}
+.listHeader a.allHouses {
+	margin-right: 10px;
+	border-right: 1px solid #ededed;
+}
+.listHeader .hover {
+	color: #ff5200
+}
+.listHeader a .map {
+	display: inline-block;
+	width: 30px;
+	height: 60px;
+	background: url(../img/img_map.png) no-repeat 0 21px;
+	float: left
+}
+.allHouses {
+	float: left!important;
+	width: 87px!important
+}
+.void_sun {
+	float: left!important;
+	width: 101px!important;
+	border-right: 1px solid #eee;
+	border-left: 1px solid #eee;
+	padding-left: 20px;
+	padding-right: 20px
+}
+.void_sun img {
+	margin-top: 20px;
+	margin-right: 10px
+}
+.listHeader a {
+	height: 57px;
+	text-decoration: none
+}
+.lp_count .sort {
+	margin-right: 10px
+}
+.void_sun:hover {
+	text-decoration: none
+}
+.map_sun {
+	font-size: 14px!important;
+	text-decoration: none
+}
+.panorama {
+	float: left!important;
+	width: 101px!important;
+	border-right: 1px solid #eee;
+	border-left: 1px solid #eee;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+.panorama img {
+	margin-top: 18px;
+	margin-right: 10px;
+}
+.panorama .hover_sun {
+	display: none;
+}
+.lp_count {
+	height: auto;
+	padding: 0;
+	border: 1px solid #ededed;
+}
+.lp_con {
+	float: left;
+	line-height: 56px;
+	padding-left: 16px;
+	font-size: 12px;
+	color: #999
+}
+.lp_count span {
+	color: #f60;
+	padding: 0 5px;
+	font-size: 14px
+}
+.lp_con a.allHouses {
+	height: 59px;
+	line-height: 59px;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	float: left!important;
+	width: 87px!important;
+}
+.lp_con a.allHouses {
+	margin-right: 10px;
+	border-right: 1px solid #ededed;
+}
+.lp_con a.hover {
+	color: #ff5200
+}
+#sortParam {
+	margin-top: 15px
+}
+.lp_count .sort {
+	height: 57px;
+	line-height: 42px;
+	background: #fff;
+	float: right;
+}
+.lp_count .sort p {
+	float: left;
+	margin: 16px 0 0 20px;
+}
+.lp_count .sort .dealbiao {
+	float: right;
+	margin-right: 30px;
+}
+.lp_count .sort .dealbiao a {
+	color: #FFF;
+	background: #ff5200;
+	width: 93px;
+	display: inline-block;
+	text-align: center;
+	border-radius: 100px;
+	line-height: 26px;
+	height: 27px;
+	float: right;
+	text-decoration: none;
+	background: -webkit-linear-gradient(90deg, #ffd000, #ff5200); /* Safari 5.1 - 6.0 */
+	background: -o-linear-gradient(90deg, #ffd000, #ff5200); /* Opera 11.1 - 12.0 */
+	background: -moz-linear-gradient(90deg, #ffd000, #ff5200); /* Firefox 3.6 - 15 */
+	background: linear-gradient(90deg, #ffd000, #ff5200); /* 标准的语法 */
+}
+.lp_count .sort #sortParam a {
+	padding: 0 9px;
+	float: left;
+	margin-left: -1px;
+	height: 26px;
+	line-height: 26px;
+}
+.lp_count .sort #sortParam a:hover {
+	color: #ff5200;
+}
+.lp_count .sort #sortParam a+a+a+a+a:hover {
+	background: #ff5200;
+	color: #fff;
+	text-decoration: none;
+	padding: 0 15px 0 16px
+}
+.lp_count .sort #sortParam a.sort_jg {
+	background: url(../img/salePriseIcon_05.png) no-repeat;
+	border: none;
+}
+.lp_count .sort #sortParam a.sort_jg {
+	padding: 0 15px 0 16px;
+	background-position: 46px 7px;
+}
+.lp_count .sort #sortParam a.down {
+	background: url(../img/salePriseIcon_03.png) no-repeat;
+	padding: 0 15px 0 16px;
+}
+.lp_count .sort #sortParam a.up {
+	background: url(../img/salePriseIcon_033.png) no-repeat;
+	padding: 0 15px 0 16px;
+}
+.lp_count .sort #sortParam a.hover {
+	color: #ff5200;
+}
+.lp_count .sort #sortParam a.up {
+	background-position: 46px 7px;
+}
+.lp_count .sort #sortParam a.down {
+	background-position: 46px 7px;
+}
+.houseList_wrap .head {
+	height: 44px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	padding-right: 30px;
+}
+.houseList_wrap .head h2 {
+	float: left;
+}
+.houseList_wrap .head h2 a {
+	display: block;
+	width: 120px;
+	line-height: 44px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: normal;
+}
+.houseList_wrap .head h2 a.active, .houseList_wrap .head h2 a:hover {
+	color: #fff;
+	border-radius: 4px 4px 0 0;
+}
+.houseList_wrap .head .tab li {
+	float: left;
+	margin-left: 30px;
+}
+.houseList_wrap .head .tab li:first-child a {
+	background: none;
+}
+.houseList_wrap .head .tab a {
+	display: block;
+	font-size: 16px;
+	color: #616161;
+	line-height: 46px;
+	background: url(../img/icon24.png) right center no-repeat;
+	padding-right: 10px;
+}
+.houseList_wrap .head .tab a.activeup {
+	color: #CC5681;
+	background: url(../img/sort-up.png) right center no-repeat;
+}
+.houseList_wrap .head .tab a.activedown {
+	color: #CC5681;
+	background: url(../img/sort-down.png) right center no-repeat;
+}
+.houseList_wrap .head .tab a .icon {
+	vertical-align: middle;
+	margin-left: 8px;
+}
+.houseList_wrap .list_con {
+	border-left: 1px solid #ededed;
+	border-right: 1px solid #ededed;
+	border-bottom: 0;
+}
+.houseList_wrap .list_con li {
+	padding: 30px 0;
+	float: left;
+	width: 100%;
+	border-bottom: 1px dashed #e2e2e2;
+}
+.houseList_wrap .list_con li:hover {
+	background-color: #f8f8f8;
+}
+.houseList_wrap .list_con .l_img, .houseList_wrap .list_con .r_con {
+	display: block;
+	z-index: 0;
+	position: relative;
+}
+.houseList_wrap .list_con .l_img {
+	height: 160px;
+	padding: 0px 12px 0px 18px;
+}
+.icon_yhq {
+	position: absolute;
+	top: 0;
+	left: 18px;
+	display: inline-block;
+	color: #fff;
+	font-size: 12px;
+	height: 24px;
+	padding: 0 8px;
+	line-height: 24px;
+	background: linear-gradient(90deg, rgba(255,89,84,1) 0%, rgba(255,49,46,1) 100%);
+	border-radius: 0px 0px 6px 0px;
+}
+.houseList_wrap .list_con .l_img img {
+	display: block;
+	width: 220px;
+	height: 100%;
+}
+.houseList_wrap .list_con .r_con {
+	width: 638px;
+	z-index: 0;
+	position: relative;
+}
+.houseList_wrap .list_con .r_con .info {
+	margin-right: 10px;
+}
+.houseList_wrap .list_con h3 {
+	color: #3b4144;
+	margin-right: 10px;
+	height: 32px;
+	display: block;
+	max-width: 440px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: bold;
+	white-space: nowrap;
+	font-size: 24px;
+}
+.houseList_wrap .list_con a:hover h3 {
+	color: #D32F2F;
+}
+.houseList_wrap .list_con .user-info i {
+	font-size: 16px;
+	color: #D32F2F;
+	margin-right: 5px;
+}
+.houseList_wrap .list_con .user-info span {
+	margin-right: 10px;
+}
+.houseList_wrap .list_con p {
+	margin: 18px 0 12px;
+	color: #869099;
+	font-size: 14px;
+	width: 440px;
+	height: 19px;
+	line-height: 19px;
+	overflow: hidden;
+}
+.houseList_wrap .list_con p.hi {
+	margin: 9px 0 9px;
+}
+.houseList_wrap .list_con p.shop {
+	margin: 10px 0 8px;
+}
+.houseList_wrap .list_con p span {
+}
+.houseList_wrap .list_con p.attr span {
+	margin-right: 10px;
+}
+.houseList_wrap .list_con p .l {
+	padding: 0 3px;
+}
+.houseList_wrap .list_con p .address {
+	margin-right: 15px;
+}
+.houseList_wrap .list_con p .address a {
+	margin: 18px 0 12px;
+	color: #869099;
+	font-size: 14px;
+	width: 440px;
+	height: 19px;
+	line-height: 19px;
+	overflow: hidden;
+    vertical-align: bottom;
+}
+.houseList_wrap .list_con .ft_con {
+	height: 30px;
+	line-height: 30px;
+	font-size: 16px;
+	color: #333;
+}
+.houseList_wrap .list_con .ft_con b {
+	color: #ea3c3d;
+}
+.houseList_wrap .list_con .label_list {
+	display: block;
+	margin-top: 8px;
+}
+.houseList_wrap .list_con .label_list .item {
+	display: inline-block;
+	height: 28px;
+	border: 1px solid;
+	text-align: center;
+	line-height: 28px;
+	margin-top: 5px;
+	padding: 0 10px;
+}
+.houseList_wrap .list_con .label_list .item1 {
+	color: #6884c3;
+	border-color: #6884c3;
+}
+.houseList_wrap .list_con .label_list .item2 {
+	color: #66bb6a;
+	border-color: #66bb6a;
+}
+.houseList_wrap .list_con .label_list .item3 {
+	color: #ffc107;
+	border-color: #ffc107;
+}
+.houseList_wrap .list_con .label_list .item4 {
+	color: #ff7043;
+	border-color: #ff7043;
+}
+.houseList_wrap .list_con .label_list .item5 {
+	color: #f0a0a0;
+	border-color: #f0a0a0;
+}
+.houseList_wrap .list_con .label_list .item6 {
+	color: #7986cb;
+	border-color: #7986cb;
+}
+.houseList_wrap .list_con .label_list .item7 {
+	color: #81c784;
+	border-color: #81c784;
+}
+.houseList_wrap .list_con .label_list .item8 {
+	color: #6ac5ef;
+	border-color: #6ac5ef;
+}
+.houseList_wrap .list_con .price {
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 12px;
+	font-size: 14px;
+}
+.houseList_wrap .list_con .price h5 {
+	color: #FF6263;
+	font-size: 16px;
+	font-weight: normal;
+	width: 280px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: right;
+}
+.houseList_wrap .list_con .price h2 {
+	color: #333;
+	font-size: 14px;
+	font-weight: normal;
+	width: 280px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-align: right;
+}
+.houseList_wrap .list_con .price strong {
+	font-size: 32px;
+	font-weight: normal;
+}
+.houseList_wrap .list_con .price p {
+	font-size: 14px;
+	line-height: 100%;
+	color: #666;
+}
+.houseList_wrap .sh_house_list .label_list .item1, .houseList_wrap .sh_house_list .label_list .item5 {
+	color: #f0a0a0;
+	background: #ffebee;
+	border-color: #ffebee;
+}
+.houseList_wrap .sh_house_list .label_list .item2, .houseList_wrap .sh_house_list .label_list .item6 {
+	color: #7986cb;
+	border-color: #e8eaf6;
+	background: #e8eaf6;
+}
+.houseList_wrap .sh_house_list .label_list .item3, .houseList_wrap .sh_house_list .label_list .item7 {
+	color: #81c784;
+	border-color: #e8f5e9;
+	background: #e8f5e9;
+}
+.houseList_wrap .sh_house_list .label_list .item4, .houseList_wrap .sh_house_list .label_list .item8 {
+	color: #6ac5ef;
+	border-color: #e0f7fa;
+	background: #e0f7fa;
+}
+.houseList_wrap .agent_list li {
+	padding: 30px 0;
+	float: left;
+	width: 100%;
+	border-bottom: 1px dashed #e2e2e2;
+}
+.houseList_wrap .agent_list span {
+	display: block;
+}
+.houseList_wrap .agent_list a, .houseList_wrap .agent_list .l_img, .houseList_wrap .agent_list .r_con {
+	display: block;
+	height: 160px;
+	position: relative;
+}
+.houseList_wrap .agent_list .l_img img {
+	margin-top: 30px;
+	display: block;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+.houseList_wrap .agent_list .r_con {
+	width: 740px;
+	position: relative;
+}
+.houseList_wrap .agent_list .r_con p {
+	line-height: 36px;
+	font-size: 16px;
+	color: #333;
+}
+.houseList_wrap .agent_list .r_con p.name {
+	font-size: 20px;
+}
+.houseList_wrap .agent_list .r_con .star_list {
+	margin: 7px 20px 0;
+}
+.houseList_wrap .agent_list .r_con .star_list li {
+	width: 22px;
+	padding: 0;
+	border: 0;
+}
+.houseList_wrap .agent_list .label_list {
+	display: block;
+	margin-top: 8px;
+}
+.houseList_wrap .agent_list .label_list .item {
+	display: inline-block;
+	width: 82px;
+	height: 28px;
+	border-width: 1px;
+	border-style: solid;
+	text-align: center;
+	line-height: 28px;
+}
+.houseList_wrap .agent_list .phone {
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	margin-top: -20px;
+	height: 40px;
+	line-height: 40px;
+	font-size: 32px;
+	padding-left: 40px;
+	background: url(../img/icon42.png) left center no-repeat;
+}
+/*  经纪人详情*/
+.agent_detail .list_con li {
+	width: 96%;
+	padding: 20px 2%;
+}
+.broker-tags i {
+	display: inline-block;
+	padding: 3px 10px;
+	border-width: 1px;
+	border-style: solid;
+}
+.agent_detail .list_con .r_con {
+	width: 600px;
+}
+.newhouse h3 img {
+	vertical-align: middle;
+}
+.newhouse .label_list .item {
+	background: #f0f0f0;
+	color: #333;
+	border: 0 !important;
+}
+.newhouse .tab_nav {
+	height: 70px;
+	/*margin-left: -20px;*/
+	border-bottom: 1px solid #eee;
+}
+.newhouse .tab_nav li {
+	float: left;
+	margin-left: 20px;
+}
+.newhouse .tab_nav li a {
+	display: block;
+	font-size: 15px;
+	line-height: 70px;
+	color: #333;
+}
+/* 楼盘详情 */
+.house_detail {
+	padding-bottom: 60px;/* 优质二手房 *//*小区成交记录*/
+  /* 附近小区 */
+  /* 楼盘动态 */
+  /* 时间轴 */
+  /* 户型介绍 */
+  /* 用户问答 */
+  /* 楼栋信息  */
+  /* 楼盘详情 */
+}
+.house_detail .main_info {
+	margin-bottom: 30px;
+}
+.house_detail .main_info .hd_box {
+	padding: 15px 0;
+}
+.house_detail .main_info .hd_box h2 {
+	font-size: 24px;
+	line-height: 30px;
+	color: #2c2c2d;
+	font-weight: 500;
+}
+.house_detail .main_info .hd_box .collect_btn {
+	display: block;
+	width: 90px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 1px solid #ccc;
+	color: #666;
+	cursor: pointer;
+}
+.house_detail .main_info .con_box .leftArea {
+	width: 670px;
+	height: 490px;
+}
+.house_detail .main_info .con_box .leftArea .l_slide {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .bigImg {
+	height: 404px;
+	position: relative;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .bigImg li img {
+	display: block;
+	max-width: 666px;
+	height: 396px;
+	margin: auto;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .smallScroll {
+	margin-top: 10px;
+	height: 80px;
+	width: 670px;
+	position: relative;
+	overflow: hidden;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .sPrev, .house_detail .main_info .con_box .leftArea .l_slide .sNext {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 30px;
+	height: 80px;
+	text-indent: -9999px;
+	background: #000000 url(../img/icon35.png) no-repeat 0 center;
+	opacity: .5;
+	-moz-opacity: .5;
+	filter: alpha(opacity=50);
+	z-index: 111;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .sPrev:hover, .house_detail .main_info .con_box .leftArea .l_slide .sNext:hover {
+	opacity: 1;
+	-moz-opacity: 1;
+	filter: alpha(opacity=100);
+}
+.house_detail .main_info .con_box .leftArea .l_slide .sNext {
+	left: auto;
+	right: 0;
+	background-position: -30px center;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .smallImg {
+/*margin-left: -10px;*/
+}
+.house_detail .main_info .con_box .leftArea .l_slide .smallImg ul {
+	height: 80px;
+	width: 9999px;
+	overflow: hidden;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .smallImg li {
+	float: left;
+	margin-left: 5px;
+	width: 160px;
+	cursor: pointer;
+	display: inline;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .smallImg img {
+	display: block;
+	border: 1px solid #dcdddd;
+	width: 158px;
+	height: 78px;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .smallImg .on img {
+	border-color: #f00;
+}
+.house_detail .main_info .con_box .rightArea {
+	width: 480px;
+}
+.house_detail .main_info .con_box .rightArea .price {
+	line-height: 48px;
+	height: 48px;
+	font-size: 0;
+}
+.house_detail .main_info .con_box .rightArea .price span {
+	font-size: 18px;
+	color: #666;
+}
+.house_detail .main_info .con_box .rightArea .price strong {
+	font-size: 48px;
+}
+.house_detail .main_info .con_box .rightArea .calc a {
+	display: block;
+	line-height: 48px;
+	font-size: 18px;
+	color: #666;
+	background: url(../img/icon31.png) left center no-repeat;
+	padding-left: 30px;
+}
+.house_detail .main_info .con_box .rightArea .col_1 {
+	line-height: 50px;
+	height: 50px;
+	overflow: hidden;
+	border-bottom: 1px solid #F6F6F8;
+}
+.house_detail .main_info .con_box .rightArea .col_1 span {
+	font-size: 16px;
+}
+.house_detail .main_info .con_box .rightArea .col_1 .label {
+	color: #919191;
+}
+.house_detail .main_info .con_box .rightArea .col_1 .desc {
+	color: #313131;
+}
+.house_detail .main_info .con_box .rightArea .agent_info {
+	margin-top: 10px;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .c_con {
+	margin-left: 15px;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .new-house.c_con {
+	width: 338px;
+	overflow: hidden;
+	margin-left: 0;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .c_con p {
+	line-height: 36px;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .c_con .name {
+	color: #313131;
+	font-size: 20px;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .c_con .phone {
+	margin-top: 10px;
+	font-size: 30px;
+	text-align: left;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .new-house.c_con .phone {
+	font-size: 27px;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .c_con .star_list {
+	margin-left: 10px;
+	padding-top: 7px;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .r_con .btn {
+	display: block;
+	width: 85px;
+	height: 42px;
+	line-height: 42px;
+	padding-left: 55px;
+	background-position: 20px center;
+	background-repeat: no-repeat;
+	font-size: 15px;
+	border: 1px solid;
+	border-radius: 4px;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .r_con .consult {
+	border-color: #3d93eb;
+	color: #3d93eb;
+	background-image: url(../img/icon27.png);
+}
+.house_detail .main_info .con_box .rightArea .agent_info img {
+	border-radius: 50%;
+	width: 90px;
+	height: 90px;
+	position: relative;
+	top: 0;
+}
+.house_detail .main_info .con_box .rightArea .agent_info .r_con .appoint {
+	margin-top: 6px;
+	border-color: #ff6600;
+	color: #fff;
+	background-image: url(../img/icon28.png);
+	background-color: #ff6600;
+}
+.house_detail .main_info .con_box .t_box {
+	margin-bottom: 20px;
+}
+.house_detail .main_info .con_box .col_3_list li {
+	float: left;
+	width: 160px;
+	padding-bottom: 24px;
+}
+.house_detail .main_info .con_box .col_3_list li .tit {
+	font-size: 26px;
+	color: #313131;
+	line-height: 58px;
+	height: 58px;
+}
+.house_detail .main_info .con_box .col_3_list li .txt {
+	font-size: 16px;
+	color: #919191;
+	line-height: 100%;
+}
+.house_detail .main_info .con_box .col_2_list li {
+	float: left;
+	width: 240px;
+}
+.house_detail .main_info .con_box .col_2_list li p {
+	float: left;
+	font-size: 16px;
+	color: #919191;
+	line-height: 36px;
+}
+.house_detail .main_info .con_box .col_2_list li .tit {
+	width: 80px;
+	color: #313131;
+}
+.house_detail .main_info .con_box .col_2_list li .txt {
+	width: 160px;
+}
+.con_box table {
+	background-color: #eee;
+}
+.con_box table tr {
+	background-color: #fff;
+}
+.house_detail .scroll_nav_wrap {
+	height: 60px;
+	position: relative;
+}
+.house_detail .scroll_nav {
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	position: relative;
+	width: 100%;
+	left: 0;
+	top: 0;
+	z-index: 999;
+}
+.house_detail .scroll_nav li {
+	float: left;
+}
+.house_detail .scroll_nav li a {
+	display: block;
+	padding: 0 20px;
+	height: 45px;
+	line-height: 45px;
+	color: #313131;
+}
+.house_detail .con_wrap {
+/*房屋配套*/
+  /* 基本信息 */
+  /* 房屋亮点 */
+  /* 房源相册 */
+  /* 小区简介 */
+  /*周边配套*/
+  /* 相似房源 */
+}
+.house_detail .con_wrap .leftArea {
+	width: 895px;
+}
+.house_detail .con_wrap .leftArea .con_box {
+	padding: 10px 0;
+	line-height: 24px;
+}
+.house_detail .con_wrap .title {
+	border: none;
+	border-bottom: 1px solid #eee;
+}
+.house_detail .con_wrap .title h2 {
+	float: left;
+	font-size: 24px;
+	font-weight: normal;
+	color: #313131;
+	line-height: 72px;
+}
+.house_detail .con_wrap .title .more {
+	display: block;
+	float: right;
+	line-height: 72px;
+	font-size: 16px;
+	color: #333;
+}
+.house_detail .con_wrap .title .tab_hd li {
+	float: left;
+	line-height: 72px;
+	margin-right: 20px;
+}
+.house_detail .con_wrap .title .tab_hd li a {
+	font-size: 16px;
+	color: #333;
+}
+.house_detail .con_wrap .question .title a:hover {
+	color: #fff !important;
+}
+.house_detail .con_wrap .house_support, .house_detail .con_wrap .basis_info {
+	padding: 40px 0;
+	border-bottom: 1px solid #eee;
+}
+.house_detail .con_wrap .house_support h4, .house_detail .con_wrap .basis_info h4 {
+	width: 165px;
+	float: left;
+	font-size: 18px;
+	color: #666;
+	font-weight: normal;
+}
+.house_detail .con_wrap .house_support h4 {
+	width: 80px;
+}
+.house_detail .con_wrap .house_support ul, .house_detail .con_wrap .basis_info ul {
+	width: 730px;
+}
+.house_detail .con_wrap .house_support ul, .house_detail .con_wrap .basis_info ul, .house_detail .con_wrap .house_support li, .house_detail .con_wrap .basis_info li {
+	float: left;
+}
+.house_detail .con_wrap .house_support li, .house_detail .con_wrap .basis_info li {
+	width: 100px;
+	text-align: center;
+	padding: 0 10px;
+	height: 86px;
+}
+.house_detail .con_wrap .house_support li .icon_img, .house_detail .con_wrap .basis_info li .icon_img {
+	font-size: 0;
+	height: 40px;
+}
+.house_detail .con_wrap .house_support li img, .house_detail .con_wrap .basis_info li img {
+	vertical-align: top;
+}
+.house_detail .con_wrap .house_support li p, .house_detail .con_wrap .basis_info li p {
+	font-size: 15px;
+	color: #313131;
+	text-align: center;
+	line-height: 25px;
+}
+.house_detail .con_wrap .basis_info {
+	padding: 20px 0;
+}
+.house_detail .con_wrap .basis_info h4 {
+	line-height: 42px;
+}
+.house_detail .con_wrap .basis_info li {
+	width: 220px;
+	text-align: center;
+	padding: 0 10px;
+	height: 42px;
+}
+.house_detail .con_wrap .basis_info li p {
+	font-size: 15px;
+	color: #313131;
+	float: left;
+	line-height: 42px;
+	text-align: left;
+}
+.house_detail .con_wrap .basis_info li .tit {
+	width: 80px;
+	color: #919191;
+}
+.house_detail .con_wrap .basis_info li .txt {
+	width: 140px;
+}
+.house_detail .con_wrap .bright_sopt {
+	padding: 20px 0;
+	border-bottom: 1px solid #eee;
+}
+.house_detail .con_wrap .bright_sopt h4 {
+	width: 115px;
+	float: left;
+	font-size: 18px;
+	color: #666;
+	font-weight: normal;
+	line-height: 25px;
+}
+.house_detail .con_wrap .bright_sopt .desc {
+	width: 730px;
+	float: left;
+	font-size: 14px;
+	color: #666;
+	line-height: 25px;
+}
+.house_detail .con_wrap .house_picture ul {
+	margin-left: -31px;
+}
+.house_detail .con_wrap .house_picture li {
+	float: left;
+	width: 432px;
+	height: 253px;
+	margin-top: 30px;
+	margin-left: 31px;
+}
+.house_detail .con_wrap .house_picture a, .house_detail .con_wrap .house_picture img, .house_detail .con_wrap .house_picture span {
+	display: block;
+}
+.house_detail .con_wrap .house_picture a {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.house_detail .con_wrap .house_picture .label {
+	width: 80px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	background: #d35808;
+	font-size: 15px;
+	color: #fff;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+.house_detail .con_wrap .cmnt_profile .con_box {
+	margin-top: 30px;
+}
+.house_detail .con_wrap .cmnt_profile .l_box {
+	width: 540px;
+}
+.house_detail .con_wrap .cmnt_profile .l_box .cmnt_name {
+	font-size: 24px;
+	font-weight: bold;
+	color: #313131;
+	line-height: 100%;
+}
+.house_detail .con_wrap .cmnt_profile .l_box .pro_list {
+	padding-top: 20px;
+}
+.house_detail .con_wrap .cmnt_profile .l_box .pro_list li {
+	float: left;
+	width: 180px;
+}
+.house_detail .con_wrap .cmnt_profile .l_box .pro_list span {
+	display: block;
+	line-height: 34px;
+	height: 34px;
+	overflow: hidden;
+	float: left;
+}
+.house_detail .con_wrap .cmnt_profile .l_box .pro_list .tit {
+	width: 70px;
+	color: #919191;
+}
+.house_detail .con_wrap .cmnt_profile .l_box .pro_list .txt {
+	color: #313131;
+}
+.house_detail .con_wrap .cmnt_profile .l_box .ft_desc {
+	line-height: 34px;
+}
+.house_detail .con_wrap .cmnt_profile .l_box .ft_desc span {
+	color: #313131;
+}
+.house_detail .con_wrap .cmnt_profile .r_box img {
+	display: block;
+	width: 288px;
+	height: 190px;
+}
+.house_detail .con_wrap .near_support .con_box {
+	margin-top: 30px;
+}
+.house_detail .con_wrap .near_support .map {
+	width: 795px;
+	height: 469px;
+	border: 1px solid #eee;
+}
+.house_detail .con_wrap .near_support .r_box {
+	margin-left: 20px;
+	padding: 20px 10px;
+	border: 1px solid #eee;
+	width: 360px;
+	height: 428px;
+}
+.house_detail .con_wrap .near_support .r_box .nav {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+.house_detail .con_wrap .near_support .r_box .nav li {
+	float: left;
+}
+.house_detail .con_wrap .near_support .r_box .nav a {
+	display: block;
+	width: 60px;
+	height: 34px;
+	line-height: 34px;
+	text-align: center;
+}
+.house_detail .con_wrap .near_support .r_box .tab_nav {
+	border-bottom: 1px solid #eee;
+}
+.house_detail .con_wrap .near_support .r_box .tab_nav a {
+	display: block;
+	float: left;
+	line-height: 54px;
+	background-position: left center;
+	background-repeat: no-repeat;
+	padding-left: 27px;
+	padding-right: 27px;
+}
+.house_detail .con_wrap .near_support .r_box .tab_nav .subway {
+	background-image: url(../img/icon29.png);
+}
+.house_detail .con_wrap .near_support .r_box .tab_nav .subway.active {
+	background-image: url(../img/icon29_on.png);
+}
+.house_detail .con_wrap .near_support .r_box .tab_nav .bus {
+	background-image: url(../img/icon30.png);
+}
+.house_detail .con_wrap .near_support .r_box .tab_nav .bus.active {
+	background-image: url(../img/icon30_on.png);
+}
+.house_detail .con_wrap .near_support .r_box .info_list {
+	height: 410px;
+	overflow: auto;
+}
+.house_detail .con_wrap .near_support .r_box .info_list li {
+	float: left;
+	border-bottom: 1px dashed #eee;
+	padding: 6px 0;
+	width: 100%;
+	cursor: pointer;
+}
+.house_detail .con_wrap .near_support .r_box .info_list .tit, .house_detail .con_wrap .near_support .r_box .info_list p {
+	line-height: 32px;
+}
+.house_detail .con_wrap .near_support .r_box .info_list .tit {
+	color: #484848;
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+.house_detail .con_wrap .near_support .r_box .info_list.subway .tit {
+	background-image: url(../img/icon29_on.png);
+}
+.house_detail .con_wrap .near_support .r_box .info_list.bus .tit {
+	background-image: url(../img/icon30_on.png);
+}
+.house_detail .con_wrap .similar_house .list {
+	margin-left: -20px;
+}
+.house_detail .con_wrap .similar_house .list li {
+	float: left;
+	width: 285px;
+	margin-left: 20px;
+	margin-top: 20px;
+	padding-bottom: 10px;
+}
+.house_detail .con_wrap .similar_house .list .img {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+.img .mask, .list_box .mask {
+	height: 40px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 0 10px;
+}
+.img .mask p, .list_box .mask p {
+	font-size: 14px;
+	line-height: 40px;
+	color: #fff;
+	position: relative;
+	z-index: 89;
+}
+.img .opacity, .list_box .opacity {
+	background: #000;
+}
+.house_detail .con_wrap .similar_house .list a, .house_detail .con_wrap .similar_house .list img {
+	display: block;
+	width: 100%;
+}
+.house_detail .con_wrap .similar_house .list img {
+	height: 192px;
+}
+.list .name, .list_box .name {
+	line-height: 54px;
+	height: 54px;
+	overflow: hidden;
+	color: #313131;
+	font-weight: normal;
+	font-size: 16px;
+}
+.house_detail .con_wrap .similar_house .list .ft_con p {
+	line-height: 36px;
+	font-size: 16px;
+	color: #919191;
+}
+.house_detail .con_wrap .similar_house .list .ft_con .type_area {
+	color: #333;
+}
+.house_detail .con_wrap .similar_house .list .ft_con p strong {
+	font-size: 30px;
+}
+.house_detail .top_sh_house .con_box .list {
+	margin-left: -29px;
+}
+.house_detail .top_sh_house .con_box .list li {
+	width: 202px;
+	margin-left: 29px;
+}
+.house_detail .top_sh_house .con_box .list li img {
+	display: block;
+	height: 150px;
+}
+.deal_record .table_wrap th, .deal_record .table_wrap td {
+	line-height: 54px;
+	text-align: left;
+	font-size: 16px;
+	color: #333;
+	font-weight: normal;
+}
+.deal_record .table_wrap td {
+	border-top: 1px dashed #eee;
+}
+.house_detail .near_cmnt .img .name {
+	font-size: 20px !important;
+}
+.house_detail .dynamic {
+	width: 750px;
+}
+.house_detail .dynamic .list {
+	height: 224px;
+	overflow: auto;
+}
+.house_detail .dynamic .list li {
+	padding: 10px 0;
+	border-bottom: 1px dashed #eee;
+}
+.house_detail .dynamic .list .label {
+	width: 78px;
+	height: 28px;
+	text-align: center;
+	line-height: 28px;
+	border: 1px solid #ff7043;
+	color: #ff7043;
+}
+.house_detail .dynamic .list .r_con {
+	width: 650px;
+}
+.house_detail .dynamic .list .tit a {
+	font-size: 14px;
+	line-height: 30px;
+	color: #313131;
+}
+.house_detail .dynamic .list .time {
+	font-size: 16px;
+	line-height: 30px;
+	color: #919191;
+}
+.house_detail .dynamic .list .desc {
+	font-size: 14px;
+	line-height: 24px;
+	color: #919191;
+}
+.house_detail .time_line {
+	width: 400px;
+}
+.house_detail .time_line .list li {
+	padding: 26px 0 26px 52px;
+	position: relative;
+}
+.house_detail .time_line .list .l_con {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 52px;
+	overflow: hidden;
+}
+.house_detail .time_line .list .l_con span {
+	display: block;
+	position: absolute;
+}
+.house_detail .time_line .list .l_con .c {
+	width: 16px;
+	height: 16px;
+	top: 33px;
+	left: 50%;
+	margin-left: -8px;
+	background: #ff6600;
+	border-radius: 50%;
+	z-index: 2;
+}
+.house_detail .time_line .list .l_con .l {
+	width: 100%;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+	background: url(../img/icon5.png) center top repeat-y;
+}
+.house_detail .time_line .list li:first-child .l_con .l {
+	top: 33px !important;
+}
+.house_detail .time_line .list .r_con .time, .house_detail .time_line .list .r_con .txt {
+	height: 30px;
+	line-height: 30px;
+	color: #919191;
+	font-size: 16px;
+}
+.house_detail .house_type .picScroll {
+	width: 100%;
+	margin: 10px auto;
+	position: relative;
+	background: #fff;
+	overflow: hidden;
+}
+.house_detail .house_type .picScroll .prev, .house_detail .house_type .picScroll .next {
+	display: block;
+	position: absolute;
+	top: 50px;
+	left: 0px;
+	width: 30px;
+	height: 60px;
+	background: #000000 url(../img/icon35.png) 0 center no-repeat;
+	z-index: 111;
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+	filter: alpha(opacity=50);
+}
+.house_detail .house_type .picScroll .prev:hover, .house_detail .house_type .picScroll .next:hover {
+	opacity: 1;
+	-moz-opacity: 1;
+	filter: alpha(opacity=100);
+}
+.house_detail .house_type .picScroll .next {
+	left: auto;
+	right: 0px;
+	background-position: -30px center;
+}
+.house_detail .house_type .picScroll .tempWrap {
+	margin-left: -25px;
+}
+.house_detail .house_type .picScroll ul {
+	overflow: hidden;
+	zoom: 1;
+}
+.house_detail .house_type .picScroll ul li {
+	width: 220px;
+	float: left;
+	overflow: hidden;
+	margin-left: 25px;
+}
+.house_detail .house_type .picScroll ul .img {
+	display: block;
+	width: 218px;
+	height: 158px;
+	border: 1px solid #eee;
+	position: relative;
+}
+.house_detail .house_type .picScroll ul .img p {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 40px;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	font-size: 14px;
+	color: #fff;
+}
+.house_detail .house_type .picScroll ul .img p.on {
+	background: #31c526;
+}
+.house_detail .house_type .picScroll ul .img p.off {
+	background: #f00;
+}
+.house_detail .house_type .picScroll ul .img p.for {
+	background: #f60;
+}
+.house_detail .house_type .picScroll ul img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	background: url(../img/loading.gif) center center no-repeat;
+}
+.house_detail .question .list li {
+	padding: 15px;
+	border-bottom: 1px dashed #eee;
+}
+.house_detail .question .list li .ask, .house_detail .question .list li .anser, .house_detail .question .list li .time {
+	font-size: 16px;
+	color: #919191;
+	line-height: 24px;
+	padding-left: 40px;
+}
+.house_detail .question .list li .ask {
+	color: #333;
+	background: url(../img/icon37.png) left top no-repeat;
+}
+.house_detail .question .list li .anser {
+	margin: 10px 0;
+}
+.house_detail .build_picture .list li .name {
+	text-align: center !important;
+}
+.house_detail .buildNum_info {
+	padding-top: 20px;
+	padding-bottom: 20px;
+	border-top: 0;
+}
+.house_detail .buildNum_info .l_con {
+	width: 580px;
+	height: 360px;
+	position: relative;
+	overflow: hidden;
+}
+.house_detail .buildNum_info .l_con .label {
+	width: 80px;
+	height: 90px;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	padding-top: 10px;
+	border-radius: 4px;
+	overflow: hidden;
+}
+.house_detail .buildNum_info .l_con .label .opacity {
+	background: #000;
+}
+.house_detail .buildNum_info .l_con .label .item {
+	padding: 4px 10px;
+}
+.house_detail .buildNum_info .l_con .label span {
+	display: block;
+	height: 18px;
+	width: 22px;
+	float: left;
+	color: #fff;
+	position: relative;
+	z-index: 11;
+	border-radius: 4px;
+}
+.house_detail .buildNum_info .l_con .label .txt {
+	line-height: 18px;
+	width: 32px;
+	margin-left: 6px;
+}
+.house_detail .buildNum_info .l_con .label .on {
+	background: #009944;
+}
+.house_detail .buildNum_info .l_con .label .for {
+	background: #ff6600;
+}
+.house_detail .buildNum_info .l_con .label .off {
+	background: #919191;
+}
+.house_detail .buildNum_info .l_con .tit {
+	position: absolute;
+	z-index: 111;
+	width: 74px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 14px;
+	color: #fff;
+	background: #009944;
+}
+.house_detail .buildNum_info .l_con .tit .riangle {
+	position: absolute;
+	top: 30px;
+	left: 10px;
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 18px solid transparent;
+	border-top: 12px solid #009944;
+}
+.house_detail .buildNum_info .l_con .tit.on {
+	background: #009944;
+}
+.house_detail .buildNum_info .l_con .tit.on .riangle {
+	border-top-color: #009944;
+}
+.house_detail .buildNum_info .l_con .tit.for {
+	background: #ff6600;
+}
+.house_detail .buildNum_info .l_con .tit.for .riangle {
+	border-top-color: #ff6600;
+}
+.house_detail .buildNum_info .l_con .tit.off {
+	background: #919191;
+}
+.house_detail .buildNum_info .l_con .tit.off .riangle {
+	border-top-color: #919191;
+}
+.house_detail .buildNum_info .r_con {
+	width: 310px;
+}
+.house_detail .buildNum_info .r_con .tab_nav {
+	width: 100%;
+	height: 30px;
+	position: relative;
+	overflow-x: auto;
+}
+.house_detail .buildNum_info .r_con .tab_nav .b_l {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: #919191;
+}
+.house_detail .buildNum_info .r_con .tab_nav li {
+	float: left;
+	width: 80px;
+	margin-left: 0;
+}
+.house_detail .buildNum_info .r_con .tab_nav a {
+	position: relative;
+	z-index: 2;
+	display: block;
+	line-height: 28px;
+	border-bottom: 2px solid #919191;
+	text-align: center;
+}
+.house_detail .buildNum_info .r_con .m_info {
+	margin-top: 10px;
+}
+.house_detail .buildNum_info .r_con .m_info li {
+	float: left;
+	width: 50%;
+	height: 36px;
+	line-height: 36px;
+}
+.house_detail .buildNum_info .r_con .m_info li span {
+	color: #333;
+}
+.house_detail .buildNum_info .r_con .s_info h4 {
+	height: 30px;
+	line-height: 30px;
+	padding-left: 20px;
+	background: #f0f0f0;
+	color: #333;
+}
+.house_detail .buildNum_info .r_con .s_info .table {
+	width: 100%;
+}
+.house_detail .buildNum_info .r_con .s_info .table li {
+	float: left;
+	width: 100%;
+}
+.house_detail .buildNum_info .r_con .s_info .table .tbd {
+	height: 150px;
+	overflow: auto;
+}
+.house_detail .buildNum_info .r_con .s_info .table ol li:first-child {
+	width: 50%;
+}
+.house_detail .buildNum_info .r_con .s_info .table ol li {
+	width: 25%;
+	line-height: 24px;
+	padding: 3px 0;
+	color: #333;
+}
+.house_detail .build_detail table {
+	margin-top: 20px;
+}
+.house_detail .build_detail tr {
+	border-bottom: 1px solid #eee;
+}
+.house_detail .build_detail td {
+	padding: 10px 20px;
+}
+.house_detail .build_detail td span {
+	font-size: 16px;
+	color: #2e2e2e;
+}
+/* 新房详情 */
+.newhouse_detail {
+	padding-bottom: 60px;
+}
+.newhouse_detail .page_tit {
+	background: #f0f0f0;
+}
+.newhouse_detail .head {
+	padding-top: 20px;
+}
+.newhouse_detail .head h2, .newhouse_detail .head .sale_state, .newhouse_detail .head ul {
+	float: left;
+}
+.newhouse_detail .head h2 {
+	line-height: 50px;
+	font-size: 30px;
+	color: #333;
+}
+.newhouse_detail .head .sale_state {
+	width: 40px;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	font-size: 14px;
+	color: #fff;
+	margin-top: 13px;
+}
+.newhouse_detail .head .sale_state.on {
+	background: #009944;
+}
+.newhouse_detail .head .sale_state.for {
+	background: #ff6600;
+}
+.newhouse_detail .head .sale_state.off {
+	background: #919191;
+}
+.newhouse_detail .head .collect_btn {
+	float: right;
+	display: block;
+	width: 90px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	border: 1px solid #666;
+	color: #666;
+	cursor: pointer;
+	margin-top: 10px;
+}
+.newhouse_detail .head .label_list {
+	margin-left: 50px;
+}
+.newhouse_detail .head .label_list li {
+	float: left;
+	margin-left: 10px;
+	height: 24px;
+	line-height: 24px;
+	margin-top: 13px;
+	padding: 0 6px;
+}
+.newhouse_detail h3 img {
+	vertical-align: middle;
+}
+.newhouse_detail .label_list .item {
+	background: #f0f0f0;
+	color: #333;
+	border: 0 !important;
+}
+.newhouse_detail .tab_nav {
+	height: 55px;
+	/*margin-left: -20px;*/
+	border-bottom: 1px solid #eee;
+}
+.newhouse_detail .tab_nav li {
+	float: left;
+	margin-left: 20px;
+}
+.newhouse_detail .tab_nav li a {
+	display: block;
+	font-size: 15px;
+	line-height: 35px;
+	color: #333;
+}
+.newhouse_detail .main_info {
+	margin-bottom: 30px;
+}
+.newhouse_detail .main_info .t_box {
+	margin-bottom: 20px;
+}
+.newhouse_detail .house_detail {
+	padding-bottom: 0;
+}
+/* 楼盘快讯 */
+.sub_nav {
+	height: 50px;
+	line-height: 50px;
+	position: relative;
+	overflow: hidden;
+	border-bottom: 1px solid #ededed;
+}
+.sub_nav .b_l {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: #919191;
+}
+.sub_nav li {
+	float: left;
+}
+.sub_nav a {
+	position: relative;
+	z-index: 2;
+	width: 100px;
+	display: block;
+	text-align: center;
+	font-size: 16px;
+}
+.redTabG {
+	display: block;
+	width: 42px;
+	height: 2px;
+	margin: auto;
+	margin-top: -2px;
+}
+.flash {
+	padding-bottom: 60px;
+}
+.flash .leftArea {
+	width: 880px !important;
+}
+.flash .rightArea {
+	width: 300px !important;
+}
+.flash_list li {
+	float: left;
+	padding: 24px 0;
+	margin: 0 20px;
+	border-bottom: 1px solid #f0f0f0;
+}
+.flash_list a {
+	display: block;
+}
+.flash_list .l_img {
+	width: 210px;
+	height: 140px;
+	margin-right: 15px;
+}
+.flash_list .l_img img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.flash_list .r_con {
+	width: 600px;
+}
+.flash_list .r_con h3 {
+	font-size: 20px;
+	height: 25px;
+	line-height: 25px;
+	color: #333;
+	font-weight: normal;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.flash_list .r_con .desc {
+	margin-top: 15px;
+	font-size: 14px;
+	height: 48px;
+	line-height: 24px;
+	overflow: hidden;
+	color: #333;
+}
+.flash_list .r_con .f_box span {
+	display: block;
+	float: left;
+	height: 20px;
+	line-height: 20px;
+	margin-top: 7px;
+	font-size: 14px;
+	color: #999;
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+.flash_list .r_con .f_box .time {
+	background-image: url(../img/icon34.png);
+}
+.flash_list .r_con .f_box .view {
+	margin-left: 20px;
+	padding-left: 20px;
+	background-image: url(../img/icon33.png);
+}
+.artc_detail .head {
+	color: #333;
+	text-align: center;
+	padding: 32px 0 20px 0;
+}
+.artc_detail .head h1 {
+	font-size: 24px;
+	font-weight: normal;
+	color: #333;
+}
+.artc_detail .head span {
+	display: inline-block;
+	line-height: 40px;
+	background-position: left center;
+	background-repeat: no-repeat;
+	color: #999;
+	padding-left: 10px;
+	font-size: 12px;
+}
+.artc_detail .head .news_type {
+	padding-left: 0;
+}
+.artc_detail .head .view {
+	margin-right: 20px;
+	background-image: url(../img/icon33.png);
+}
+.artc_detail .head .time {
+	margin-left: 20px;
+	background-image: url(../img/icon34.png);
+}
+.artc_detail .head .share {
+	background-image: url(../img/icon36.png);
+}
+.artc_detail .con_box {
+	font-size: 16px;
+	line-height: 29px;
+	padding: 15px 32px !important;
+}
+.artc_detail .con_box img {
+	max-width: 100%;
+}
+.artc_detail .con_box em, .artc_detail .con_box i {
+	font-style: italic;
+}
+.artc_detail .con_box p {
+	font-size: 16px;
+	line-height: 29px;
+	text-indent: 2em;
+}
+.artc_detail .f_share {
+	border-bottom: 1px dashed #eee;
+	padding-bottom: 10px;
+}
+.artc_detail .f_share p, .artc_detail .f_share li, .artc_detail .f_share ul {
+	float: left;
+}
+.artc_detail .f_share p, .artc_detail .f_share li {
+	line-height: 24px;
+	height: 24px;
+}
+.artc_detail .f_share li {
+	width: 24px;
+	text-align: center;
+}
+.artc_detail .f_share .wb, .artc_detail .f_share .qq, .artc_detail .f_share .rr, .artc_detail .f_share .wx {
+	background-position: center center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+.artc_detail .f_share .wb {
+	background-image: url(../img/icon38.png);
+}
+.artc_detail .f_share .qq {
+	background-image: url(../img/icon39.png);
+}
+.artc_detail .f_share .rr {
+	background-image: url(../img/icon40.png);
+}
+.artc_detail .f_share .wx {
+	background-image: url(../img/icon41.png);
+}
+.artc_detail .statement {
+	font-size: 13px;
+	color: #999;
+	text-indent: 2em;
+	line-height: 24px;
+	padding: 10px 0;
+}
+.artc_detail .relative_artc .title {
+	width: 100%;
+	height: 58px;
+	position: relative;
+	border-bottom: 1px solid #ccc;
+}
+.artc_detail .relative_artc .title h3 {
+	float: left;
+	height: 100%;
+	line-height: 58px;
+	font-size: 16px;
+	font-weight: normal;
+	color: #313131;
+	padding-left: 19px;
+}
+.artc_detail .relative_artc .title .more {
+	display: block;
+	float: right;
+	line-height: 58px;
+	font-size: 16px;
+	color: #f50;
+}
+.artc_detail .relative_artc .title .b_l {
+	position: absolute;
+	left: 19px;
+	bottom: -1px;
+	width: 70px;
+	height: 1px;
+	z-index: 11;
+}
+.artc_detail .relative_artc .list {
+	padding: 10px 0;
+}
+.artc_detail .relative_artc .list li {
+	margin: 0 20px;
+	position: relative;
+}
+.artc_detail .relative_artc .list li a, .artc_detail .relative_artc .list li span {
+	display: block;
+	font-size: 16px;
+	color: #313131;
+	height: 36px;
+	line-height: 36px;
+}
+.artc_detail .relative_artc .list li a {
+	float: left;
+	width: 720px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.artc_detail .relative_artc .list li a:hover {
+	text-decoration: underline;
+}
+.artc_detail .relative_artc .list li .time {
+	float: right;
+}
+/* 动态列表 */
+.dynamic_list li {
+	padding-left: 126px;
+	position: relative;
+}
+.dynamic_list li .l_con {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	width: 126px;
+	margin: 30px 0;
+}
+.dynamic_list li .l_con .time {
+	width: 80px;
+	height: 26px;
+	text-align: center;
+	line-height: 26px;
+	float: left;
+}
+.dynamic_list li .l_con .c_l {
+	float: left;
+	width: 30px;
+	text-align: center;
+	font-size: 0;
+	height: 100%;
+	line-height: 26px;
+}
+.dynamic_list li .l_con .c_l .c {
+	font-size: 0;
+	padding: 5px;
+	border-radius: 50%;
+	position: relative;
+	z-index: 2;
+	text-indent: 9999px;
+}
+.dynamic_list li .l_con .c_l .l {
+	display: block;
+	position: absolute;
+	left: 80px;
+	top: 0;
+	bottom: 0;
+	width: 30px;
+	background: url(../img/icon5.png) center top repeat-y;
+}
+.dynamic_list li .r_con {
+	padding: 30px 0;
+	border-bottom: 1px dashed #999;
+}
+.dynamic_list li .r_con h3 {
+	font-size: 18px;
+	color: #333;
+	font-weight: normal;
+	line-height: 26px;
+}
+.dynamic_list li .r_con p {
+	font-size: 16px;
+	color: #666;
+	line-height: 26px;
+}
+.dynamic_list li .r_con a {
+	font-size: 16px;
+}
+/* 新房相册 */
+.picture_wrap {
+	padding-bottom: 20px;
+}
+.picture_wrap .list_box {
+	margin-left: -20px;
+}
+.picture_wrap .list_box li {
+	float: left;
+	overflow: hidden;
+	margin-left: 20px;
+	margin-top: 20px;
+	position: relative;
+}
+.picture_wrap .list_box li img {
+	display: block;
+	width: 285px;
+	height: 205px;
+}
+/* 新房户型 */
+.houseType_wrap {
+	padding-bottom: 20px;
+}
+.houseType_wrap .list_box {
+	margin-left: -20px;
+}
+.houseType_wrap .list_box li {
+	float: left;
+	overflow: hidden;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+.houseType_wrap .list_box li .img {
+	width: 283px;
+	height: 203px;
+	border: 1px solid #eee;
+	position: relative;
+}
+.houseType_wrap .list_box li .img img {
+	display: block;
+	height: 100%;
+	margin: 0 auto;
+}
+.houseType_wrap .list_box li .sale_state {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 40px;
+	height: 24px;
+	text-align: center;
+	line-height: 24px;
+	font-size: 14px;
+	color: #fff;
+}
+.houseType_wrap .list_box li .sale_state.on {
+	background: #009944;
+}
+.houseType_wrap .list_box li .sale_state.for {
+	background: #ff6600;
+}
+.houseType_wrap .list_box li .sale_state.off {
+	background: #919191;
+}
+.houseType_wrap .list_box li .con {
+	margin-top: 10px;
+}
+.houseType_wrap .list_box li .con p {
+	font-size: 15px;
+	height: 25px;
+	line-height: 25px;
+	overflow: hidden;
+	color: #333;
+}
+.houseType_wrap .list_box li .con p span {
+	float: right;
+}
+/* 户型详情 */
+.houseType_detail .tab_scroll {
+	margin: 30px 0;
+	width: 100%;
+	height: 56px;
+	position: relative;
+}
+.houseType_detail .tab_scroll .sPrev, .houseType_detail .tab_scroll .sNext {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 30px;
+	height: 56px;
+	text-indent: -9999px;
+	background: #000000 url(../img/icon35.png) no-repeat 0 center;
+	opacity: .5;
+	-moz-opacity: .5;
+	filter: alpha(opacity=50);
+	z-index: 111;
+}
+.houseType_detail .tab_scroll .sPrev:hover, .houseType_detail .tab_scroll .sNext:hover {
+	opacity: 1;
+	-moz-opacity: 1;
+	filter: alpha(opacity=100);
+}
+.houseType_detail .tab_scroll .sNext {
+	left: auto;
+	right: 0;
+	background-position: -30px center;
+}
+.houseType_detail .tab_scroll .scroll_wrap {
+	width: 1126px;
+	margin: 0 auto;
+	height: 56px;
+	overflow: hidden;
+}
+.houseType_detail .tab_scroll .scroll_wrap li {
+	float: left;
+	margin-left: 12px;
+}
+.houseType_detail .tab_scroll .scroll_wrap li a {
+	display: block;
+	width: 146px;
+	height: 48px;
+	padding: 3px 0;
+	border: 1px solid #efefef;
+	overflow: hidden;
+}
+.houseType_detail .tab_scroll .scroll_wrap li p {
+	font-size: 14px;
+	color: #333;
+	line-height: 24px;
+	text-align: center;
+}
+.houseType_detail .bigImg_slide {
+	height: auto;
+	position: relative;
+	border: 1px solid #eee;
+}
+.houseType_detail .bigImg_slide .prev, .houseType_detail .bigImg_slide .next {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	display: block;
+	width: 30px;
+	height: 56px;
+	margin-top: -28px;
+	text-indent: -9999px;
+	background: #000000 url(../img/icon35.png) no-repeat 0 center;
+	opacity: .5;
+	-moz-opacity: .5;
+	filter: alpha(opacity=50);
+	z-index: 111;
+}
+.houseType_detail .bigImg_slide .prev:hover, .houseType_detail .bigImg_slide .next:hover {
+	opacity: 1;
+	-moz-opacity: 1;
+	filter: alpha(opacity=100);
+}
+.houseType_detail .bigImg_slide .next {
+	left: auto;
+	right: 0;
+	background-position: -30px center;
+}
+.houseType_detail .info_box {
+	width: 300px;
+}
+.houseType_detail .info_box .info_list {
+	width: 100%;
+}
+.houseType_detail .info_box .info_list li {
+	float: left;
+	width: 100%;
+}
+.houseType_detail .info_box .info_list li span {
+	display: block;
+	float: left;
+	font-size: 15px;
+	color: #333;
+	line-height: 36px;
+}
+.houseType_detail .info_box .info_list li span strong {
+	font-size: 20px;
+}
+.houseType_detail .info_box .hotline .tit {
+	font-size: 18px;
+	line-height: 36px;
+	color: #ff5203;
+}
+.houseType_detail .info_box .hotline .num {
+	font-size: 24px;
+	color: #ff5203;
+}
+/* 我的问答 */
+.question .title {
+	border: 1px solid #eee;
+	padding: 10px;
+	margin: 30px 0 10px;
+}
+.question .title h3 {
+	font-size: 20px;
+	color: #313131;
+	float: left;
+	width: 700px;
+	margin-bottom: 10px;
+}
+.question .title a {
+	float: right;
+	display: block;
+	height: 48px;
+	width: 120px;
+	color: #fff;
+	text-align: center;
+	line-height: 48px;
+	font-size: 16px;
+	border-radius: 4px;
+	margin-bottom: 10px;
+}
+.question .title a.anser_link {
+	background: #1ca459;
+}
+.question .title .ipt_box {
+	display: none;
+	float: left;
+	width: 100%;
+}
+.question .title .ipt_box textarea {
+	float: left;
+	width: 100%;
+	padding: 4px 10px;
+	height: 80px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	line-height: 20px;
+	font-size: 14px;
+	border: 1px solid #efefef;
+}
+.question .title .ipt_box .btn {
+	float: right;
+	margin: 10px;
+	width: 80px;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 4px;
+	text-align: center;
+}
+.question .question_list li {
+	float: left;
+	width: 100%;
+	padding: 20px 0;
+	position: relative;
+	border-bottom: 1px dashed #eee;
+}
+.question .question_list li .ask, .question .question_list li .anser, .question .question_list li .time {
+	padding-left: 40px;
+	width: 610px;
+}
+.question .question_list li .ask {
+	background: url(../img/icon43.png) left center no-repeat;
+}
+.question .question_list li .ask a {
+	display: block;
+	font-size: 16px;
+	color: #313131;
+	font-weight: normal;
+	line-height: 30px;
+}
+.question .question_list li .ask a:hover {
+	text-decoration: underline;
+}
+.question .question_list li .anser {
+	margin-top: 10px;
+	background: url(../img/icon44.png) left 4px no-repeat;
+}
+.question .question_list li .anser p {
+	font-size: 14px;
+	line-height: 24px;
+	color: #919191;
+}
+.question .question_list li .time {
+	margin-top: 10px;
+	font-size: 14px;
+	line-height: 24px;
+	color: #919191;
+}
+.question .question_list li .anser_num {
+	padding: 10px;
+	width: 40px;
+	height: 40px;
+	border: 1px solid #1ca459;
+	border-radius: 50%;
+	overflow: hidden;
+	position: absolute;
+	top: 50%;
+	margin-top: -35px;
+	right: 0;
+}
+.question .question_list li .anser_num p {
+	color: #1ca459;
+	line-height: 20px;
+	text-align: center;
+}
+.question .question_detail li {
+	padding: 30px 0;
+	float: left;
+	width: 100%;
+	border-bottom: 1px dashed #e2e2e2;
+}
+.question .question_detail span {
+	display: block;
+}
+.question .question_detail a, .question .question_detail .l_img, .question .question_detail .r_con {
+	display: block;
+	position: relative;
+}
+.question .question_detail .l_img img {
+	display: block;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+}
+.question .question_detail .r_con {
+	width: 780px;
+	position: relative;
+}
+.question .question_detail .r_con .name {
+	line-height: 22px;
+	font-size: 20px;
+	color: #333;
+}
+.question .question_detail .r_con .star_list {
+	margin: 0px 20px;
+}
+.question .question_detail .r_con .star_list li {
+	width: 22px;
+	padding: 0;
+	border: 0;
+}
+.question .question_detail .r_con .anser_txt {
+	margin-top: 6px;
+	line-height: 24px;
+	font-size: 16px;
+	color: #666;
+}
+.comment_list li {
+	float: left;
+	width: 100%;
+}
+.comment_list li .user_toux {
+	font-size: 0;
+}
+.comment_list li .user_toux img {
+	border-radius: 50%;
+	vertical-align: top;
+}
+.comment_list li .r_con {
+	margin-left: 30px;
+	width: 750px !important;
+	height: auto !important;
+}
+.comment_list li .r_con .hd p {
+	line-height: 32px;
+	font-size: 14px;
+	color: #919191;
+}
+.comment_list li .r_con .hd .name {
+	font-size: 16px;
+	color: #313131;
+}
+.comment_list li .r_con .con p {
+	line-height: 25px;
+}
+.comment_list li .r_con .ft {
+	padding-top: 10px;
+}
+.comment_list li .r_con .ft .zan_btn {
+	display: inline-block;
+	padding-left: 20px;
+	height: 32px;
+	line-height: 32px;
+	background: url(../img/icon45.png) left no-repeat;
+	vertical-align: middle;
+	margin-right: 10px;
+	cursor: pointer;
+}
+.comment_list li .r_con .ft .cai_btn {
+	display: inline-block;
+	padding-left: 20px;
+	height: 32px;
+	line-height: 32px;
+	background: url(../img/bad.png) left no-repeat;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.comment_list li .r_con .ft .zan_btn.on {
+	background-image: url(../img/icon46.png);
+}
+.comment_list li .r_con .ft .cai_btn.on {
+	background-image: url(../img/bad-active.png);
+}
+.comment_list li .r_con .ft span {
+	color: #666;
+}
+/* 经纪人详情 */
+.agent_detail {
+	background: #f0f0f0;
+}
+.agent_detail .cm_rightArea, .agent_detail .cm_leftArea {
+	background: #fff;
+	padding-bottom: 60px;
+}
+.agent_info {
+	margin-top: 30px;
+}
+.agent_info .m_wrap {
+	width: 208px;
+	margin: 0 auto;
+}
+.agent_info .toux {
+	text-align: center;
+	font-size: 0;
+}
+.agent_info .toux img {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	vertical-align: top;
+	border: 1px solid #eee;
+}
+.agent_info .btn_row {
+	width: 100%;
+	text-align: center;
+	margin: 10px 0;
+}
+.agent_info .btn_row a {
+	display: inline-block;
+	margin: 0 6px;
+	width: 84px;
+	font-size: 15px;
+	color: #333;
+	border: 1px solid #eee;
+	height: 32px;
+	line-height: 32px;
+}
+.agent_info .phone {
+	text-align: center;
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	font-size: 28px;
+	overflow: hidden;
+}
+.agent_info .info_list {
+	margin-top: 20px;
+}
+.agent_info .info_list li {
+	float: left;
+	width: 100%;
+}
+.agent_info .info_list p {
+	font-size: 16px;
+	color: #313131;
+	line-height: 36px;
+}
+.agent_info .info_list .star_list li {
+	width: 22px;
+}
+.agent_info .label_list {
+	display: block;
+	margin-top: 10px;
+	font-size: 0;
+}
+.agent_info .label_list .item {
+	display: inline-block;
+	width: 82px;
+	height: 28px;
+	border-width: 1px;
+	border-style: solid;
+	text-align: center;
+	line-height: 28px;
+	font-size: 14px;
+	margin: 6px 10px;
+}
+/* cm_rightArea */
+.cm_rightArea {
+/* 推荐房源 */
+  /*推荐楼盘*/
+  /* 购房宝典 */
+  /* 热文排行 */
+  /* 热门楼盘 */
+}
+.cm_rightArea .mt_73 {
+	margin-top: 25px;
+}
+.cm_rightArea .mt_30 {
+	margin-top: 30px;
+}
+.cm_rightArea .mt_25 {
+	margin-top: 25px;
+}
+.cm_rightArea .pd {
+	padding: 0 19px;
+}
+.cm_rightArea .bd {
+	border: 1px solid #ccc;
+}
+.cm_rightArea .sale_btn {
+	display: block;
+	width: 100%;
+	text-align: center;
+	border-width: 1px;
+	border-style: solid;
+	height: 40px;
+	line-height: 40px;
+	margin-bottom: 15px;
+	font-size: 18px;
+}
+.cm_rightArea .title {
+	padding: 0 15px;
+	line-height: 35px;
+	position: relative;
+	font-weight: 400;
+	border-bottom: 1px solid #eaeaea;
+}
+.cm_rightArea .con_box {
+	padding: 18px 0px;
+}
+.cm_rightArea .title span {
+	display: inline-block;
+	width: 4px;
+	height: 18px;
+	margin-bottom: -3px;
+	border-radius: 50px;
+	background: #ff5200;
+	margin-right: 8px;
+}
+.cm_rightArea .title h3 {
+	height: 100%;
+	line-height: 50px;
+	font-size: 18px;
+	font-weight: 400;
+	display: inline-block;
+}
+.cm_rightArea .title .b_l {
+	position: absolute;
+	left: 19px;
+	bottom: -1px;
+	width: 70px;
+	height: 1px;
+	z-index: 11;
+}
+.cm_rightArea .rcmd_house {
+	border: 1px solid #ccc;
+}
+.cm_rightArea .rcmd_house .con_box {
+	padding: 18px;
+}
+.cm_rightArea .rcmd_house li {
+	width: 100%;
+	float: left;
+}
+.cm_rightArea .rcmd_house a, .cm_rightArea .rcmd_house img {
+	display: block;
+	width: 100%;
+}
+.cm_rightArea .rcmd_house img {
+	height: 160px;
+}
+.cm_rightArea .rcmd_house .con {
+	padding: 12px 0;
+}
+.cm_rightArea .rcmd_house .row p {
+	line-height: 32px;
+	font-size: 16px;
+	color: #313131;
+}
+.cm_rightArea .rcmd_house .row .type_area {
+}
+.cm_rightArea .rcmd_house .row p.name {
+	width: 158px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.cm_rightArea .rcmd_build {
+	border: 1px solid #eaeaea;
+}
+.cm_rightArea .rcmd_build .con_box {
+	padding: 18px;
+}
+.cm_rightArea .rcmd_build ul {
+	margin-top: -20px;
+}
+.cm_rightArea .rcmd_build li {
+	margin-top: 20px;
+}
+.cm_rightArea .rcmd_build a {
+	display: block;
+}
+.cm_rightArea .rcmd_build img {
+	display: block;
+}
+.cm_rightArea .rcmd_build .r_con {
+	width: 110px;
+}
+.cm_rightArea .rcmd_build .r_con p {
+	color: #919191;
+	line-height: 18px;
+	height: 19px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.cm_rightArea .rcmd_build .r_con .name {
+	color: #313131;
+}
+.cm_rightArea .rcmd_build .r_con b {
+	font-size: 14px;
+}
+.cm_rightArea .rcmd_build .r_con .address {
+	padding: 13px 0;
+}
+.cm_rightArea .buy_way {
+	border: 1px solid #ccc;
+}
+.cm_rightArea .buy_way .list li {
+	list-style-position: inside;
+	list-style-type: disc;
+	padding-left: 15px;
+	height: 28px;
+	line-height: 28px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.cm_rightArea .buy_way .list a {
+	color: #616161;
+}
+.cm_rightArea .buy_way .list a:hover {
+	text-decoration: underline;
+}
+.cm_rightArea .house_klg li {
+	list-style: none !important;
+}
+.cm_rightArea .hot_artc {
+	background: #fff;
+	margin-bottom: 20px;
+}
+.cm_rightArea .hot_artc li {
+	height: 30px;
+	padding: 0 15px;
+}
+.cm_rightArea .hot_artc li a, .cm_rightArea .hot_artc li p {
+	padding: 8px 0;
+	line-height: 16px;
+	font-size: 14px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.cm_rightArea .hot_artc li .name {
+	width: 150px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.cm_rightArea .hot_artc li a {
+	display: block;
+	padding-left: 24px;
+	position: relative;
+	color: #666;
+}
+.cm_rightArea .hot_artc li a:hover, .cm_rightArea .hot_artc li a:hover .name {
+	text-decoration: underline;
+}
+.cm_rightArea .hot_artc li span {
+	display: block;
+}
+.cm_rightArea .hot_artc li .order {
+	display: block;
+	width: 16px;
+	height: 16px;
+	line-height: 16px;
+	text-align: center;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	margin-top: -8px;
+	color: #fff;
+	background: #cccccc;
+	font-size: 12px;
+}
+.cm_rightArea .hot_build {
+	background: #fff;
+}
+.cm_rightArea .hot_build .list {
+}
+.cm_rightArea .hot_build .list li {
+	float: left;
+	width: 130px;
+	margin-left: 14px;
+}
+.cm_rightArea .hot_build .list a {
+	display: block;
+}
+.cm_rightArea .hot_build .list .img {
+	border: 1px solid #eee;
+	padding: 2px;
+	width: 124px;
+	height: 90px;
+}
+.cm_rightArea .hot_build .list .img img {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.cm_rightArea .hot_build .list .con p {
+	font-size: 14px;
+	height: 24px;
+	line-height: 24px;
+	overflow: hidden;
+}
+.cm_rightArea .hot_build .list .con p.address {
+	width: 48px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.cm_rightArea .for_anser {
+	padding: 0 19px;
+	border: 1px solid #ccc;
+}
+.cm_rightArea .for_anser .con_box {
+	padding: 19px 0;
+}
+.cm_rightArea .for_anser .con_box li {
+	border-bottom: 1px dashed #eee;
+	padding-bottom: 10px;
+}
+.cm_rightArea .for_anser li a {
+	font-size: 15px;
+	color: #666;
+	display: block;
+	line-height: 30px;
+	font-weight: normal;
+}
+.cm_rightArea .for_anser li a:hover {
+	text-decoration: underline;
+}
+.cm_rightArea .for_anser li p {
+	font-size: 14px;
+	color: #919191;
+}
+.comment-box {
+	padding: 0 20px;
+}
+.comment-head {
+	padding: 10px 0;
+	margin-top: 30px;
+}
+.comment-box .comment-head .comment-point, .comment-tag {
+	float: left;
+}
+.comment-box .comment-head span {
+	font-size: 14px;
+}
+.comment-box .comment-head span i {
+	font-size: 12px;
+	display: inline-block;
+	cursor: pointer;
+}
+.comment-head .comment-point {
+	margin-right: 20px;
+}
+.comment-head .comment-point i {
+	width: 18px;
+	height: 17px;
+	background: url(../img/icon26.png) center center no-repeat;
+}
+.comment-head .comment-point i.on {
+	background: url(../img/icon25.png) center center no-repeat;
+}
+.comment-head .comment-tags i {
+	padding: 3px 10px;
+	border: 1px solid #ccc;
+}
+.comment-head .comment-tags i.on {
+	border-width: 1px;
+	border-style: solid;
+}
+.comment-content textarea {
+	width: 100%;
+	height: 150px;
+	border: 1px solid #ccc;
+	resize: none;
+	padding: 10px;
+}
+.send-btn {
+	padding: 5px 20px;
+	border: none;
+	cursor: pointer;
+}
+.comment-btn {
+	text-align: right;
+	padding: 15px 0;
+}
+.house-status {
+	color: #fff;
+	padding: 3px 5px;
+	font-size: 12px;
+	font-weight: normal;
+}
+.house-status-1 {
+	background-color: #009944;
+}
+.house-status-2 {
+	background-color: #31c526;
+}
+.house-status-3 {
+	background-color: #ff0000;
+}
+.house-status-4 {
+	background-color: #999;
+}
+.house-status-5 {
+	background-color: #f60;
+}
+.phone-text {
+	font-size: 14px;
+}
+.discount {
+	width: 730px;
+	height: 60px;
+	overflow: hidden;
+	background-image: url(../img/discount.jpg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	margin-bottom: 30px;
+	padding: 10px 230px 10px 240px;
+	color: #fff;
+	line-height: 22px;
+	font-size: 14px;
+	position: relative;
+}
+.discount a {
+	position: absolute;
+	display: block;
+	width: 170px;
+	height: 50px;
+	top: 20px;
+	right: 20px;
+}
+/**红包**/
+.red-packet {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: block;
+	width: 41px;
+	height: 41px;
+	z-index: 99;
+	background: url(../img/hongbao.png) center center no-repeat;
+}
+.hb-right {
+	position: fixed;
+	z-index: 1000;
+	right: 10px;
+	top: 45%;
+	width: 182px;
+	height: 205px;
+	background-image: url(../img/hongbao_bg.png);
+}
+.hb-p1 {
+	color: #ff3300;
+	font-size: 16px;
+	line-height: 28px;
+	margin-left: 13px;
+	margin-top: 100px;
+	text-align: center;
+}
+.hb-p1 strong {
+	font-weight: bold;
+	font-size: 24px;
+}
+.hb-p2 {
+	color: #e83532;
+	font-size: 12px;
+	margin-left: 30px;
+}
+.detailPopClose {
+	cursor: pointer;
+	background: url("../img/close.png") no-repeat scroll left center;
+	height: 30px;
+	position: absolute;
+	right: 0;
+	top: -30px;
+	width: 30px;
+}
+.house-content {
+	line-height: 25px;
+	margin-top: 20px;
+	padding-bottom: 10px;
+}
+.house-content img {
+	display: block;
+	max-width: 100%;
+	width: auto;
+	margin: 0 auto;
+}
+/**问答**/
+.question-left {
+	width: 890px;
+	float: left;
+}
+.question-right {
+	width: 290px;
+	float: right;
+	border: 1px solid #ccc;
+}
+.question {
+	margin-bottom: 20px;
+}
+.question .question-pannel {
+	height: 40px;
+	border-bottom: 1px dotted #CBCBCB;
+	padding: 5px 0;
+}
+.question .question-pannel a {
+	display: inline-block;
+	margin-right: 10px;
+	padding: 0 10px;
+	height: 30px;
+	line-height: 30px;
+}
+.question-lists li {
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 1px dotted #CBCBCB;
+}
+.question-lists li dd {
+	display: inline-block;
+	width: 92px;
+}
+.question-lists li dd:first-child {
+	width: 600px;
+}
+.question-lists li .answered {
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	background: #edfefa;
+	border: 1px #a9f7e4 solid;
+	font-weight: normal;
+	display: block;
+	margin: 5px 0;
+	text-align: center;
+	color: #1eb48f;
+	font-size: 12px;
+	border-radius: 2px;
+}
+.question-lists li .wait-answer {
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	background: #edfefa;
+	border: 1px #a9f7e4 solid;
+	font-weight: normal;
+	display: block;
+	margin: 5px 0;
+	text-align: center;
+	color: #f44b00;
+	font-size: 12px;
+	border-radius: 2px;
+}
+.question-right-title {
+	padding: 0 10px;
+	border-bottom: 1px solid #ccc;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+}
+.question-right-title span {
+	position: relative;
+	display: inline-block;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+.question-right-lists {
+	padding: 10px 5px;
+}
+.question-right-lists li {
+	float: left;
+	width: 130px;
+	padding: 5px;
+}
+.question-right-lists li dl {
+	width: 100%;
+	text-align: center;
+}
+.question-right-lists li dt {
+	height: 85px;
+	overflow: hidden;
+}
+.question-right-lists li dl img {
+	width: 100%;
+	box-sizing: border-box;
+	display: block;
+	margin: auto auto;
+	padding: 2px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+.question-right-lists li dd span {
+	font-size: 15px;
+	font-weight: bold;
+	padding: 0 5px;
+}
+.position-bottom {
+	border-bottom: 1px dotted #ccc;
+	margin-bottom: 10px;
+}
+.question-house-title {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.ask_show01 {
+	border: 1px #ddd solid;
+	padding: 10px 25px;
+	margin-bottom: 15px;
+}
+.ask_show01_n1 {
+	margin-bottom: 15px;
+}
+.ask_show01_n1 h2 {
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	border-bottom: 1px #ddd solid;
+	background: url(../img/ico50.png) 0 5px no-repeat;
+	padding-left: 26px;
+}
+.ask_show01_n1 p {
+	line-height: 24px;
+	color: #999;
+	font-size: 12px;
+}
+.ask_show01_n2 h2 {
+	height: 30px;
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+.but36 {
+	height: 30px;
+	line-height: 30px;
+	background-color: #1ca459;
+	font-weight: normal;
+	padding: 5px 15px;
+	color: #fff;
+}
+a.but36 {
+	text-decoration: none;
+	color: #fff
+}
+.ask_show01_n2 p {
+	margin-bottom: 10px;
+}
+.submit-btn {
+	padding: 5px 15px;
+}
+.inp09 {
+	border: 1px #ddd solid;
+	padding: 3px 6px;
+	line-height: 24px;
+	color: #666;
+	font-size: 12px;
+	width: 98%;
+	height: 60px;
+}
+.ask_show01_n2_sp {
+	display: block;
+	float: right;
+}
+.ask_show02 {
+	border: 1px #ddd solid;
+	padding: 15px;
+	margin-bottom: 15px;
+}
+.ask_show02 h1 {
+	height: 30px;
+	font-size: 14px;
+	border-bottom: 1px #ddd solid;
+	background: url(../img/ico51.png) 0 2px no-repeat;
+	padding-left: 24px;
+	color: #434343
+}
+.ask_show03 {
+	border-bottom: 1px dotted #ccc;
+	padding: 15px 0
+}
+.ask_show03_img {
+	width: 52px;
+	height: 52px;
+	border: 1px #ddd solid;
+	float: left;
+	margin-right: 10px;
+}
+.ask_show03_t {
+	float: left;
+	width: 760px;
+}
+.ask_show03_t h2 {
+	font-size: 12px;
+	color: #999;
+	font-weight: normal;
+}
+.ask_show03_t_s1 {
+	display: block;
+	float: right;
+	color: #999;
+	margin-bottom: 6px;
+}
+.ask_show03_t p {
+	margin: 6px 0;
+	color: #7b7b7b
+}
+.ask_show04 {
+	margin-bottom: 15px;
+	border: 1px #ddd solid;
+	padding: 15px;
+}
+.ask_show04 h1 {
+	font-size: 14px;
+}
+.ask_show04 ul {
+	margin: 10px 0;
+}
+.ask_show04 li {
+	height: 32px;
+	line-height: 32px;
+	border-bottom: 1px dotted #ccc;
+}
+.ask_show04 .ask_title .more {
+	float: right;
+	font-weight: 400;
+}
+.ask_info {
+	padding: 8px;
+	margin-bottom: 10px;
+	font-size: 14px;
+	line-height: 22px;
+	color: #666666;
+	padding-top: 0px;
+}
+#ask_answer {
+	display: none;
+}
+.ask_house {
+	height: 30px;
+	line-height: 30px;
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+.ask_house a {
+	color: #e8380d;
+	font-weight: bold;
+	font-size: 14px;
+}
+.ask_house a:hover {
+	text-decoration: underline;
+}
+.ask_house span {
+	color: #999;
+	padding: 0px 10px
+}
+.question-answer-number {
+	color: #ff0000;
+	font-size: 14px;
+	padding: 0 2px;
+}
+.house-info {
+	margin: 20px auto;
+	width: 640px;
+	min-height: 164px;
+	border: 1px solid #eeeeee;
+	overflow: hidden;
+}
+.house-info dl {
+	position: relative;
+	margin: 20px;
+}
+.house-info dl dt {
+	position: relative;
+	float: left;
+	width: 186px;
+	margin-right: 20px;
+}
+.house-info dl dt img {
+	width: 100%;
+	display: block;
+}
+.house-info dd {
+	line-height: 30px;
+}
+.house-info dd.price span {
+	font-size: 18px;
+	color: #D32F2F;
+}
+.house-info dd.title {
+	font-size: 16px;
+	color: #333333;
+	font-weight: bold;
+}
+.house-info dd.telphone span {
+	font-size: 16px;
+	color: #D32F2F;
+}
+.search-tab {
+	border-bottom: 1px solid #ddd;
+	padding: 10px;
+}
+.search-tab a i {
+	margin-right: 5px;
+}
+.search-tab a {
+	display: inline-block;
+	position: relative;
+	background-color: #e5e5e5;
+	margin-right: 10px;
+	width: 120px;
+	float: left;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+}
+.search-tab a.active {
+	border-bottom: 1px solid #fff;
+}
+.search-tab a.active:after {
+	font-family: iconfont;
+	left: 55px;
+	content: "\e6aa";
+	position: absolute;
+	bottom: -22px;
+	font-size: 24px;
+}
+.house_detail .con_wrap .similar_house .list .ft_con p strong i {
+	font-size: 14px;
+	margin-left: 3px;
+}
+.houseList_wrap .list_con .price strong i {
+	font-size: 14px;
+}
+.house_detail .main_info .con_box .rightArea .price strong i {
+	font-size: 16px;
+	color: #666;
+	margin-left: 3px;
+}
+.top-icon {
+	background-color: #D32F2F;
+	color: #fff;
+	display: inline-block;
+	vertical-align: middle;
+	height: 18px;
+	line-height: 18px;
+	font-size: 12px;
+	font-weight: 400;
+	padding: 0 3px;
+	margin-left: 5px;
+}
+.video-play {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -15px;
+	margin-top: -15px;
+	width: 50px;
+	height: 50px;
+}
+.video-play-btn {
+	position: absolute;
+	display: inline-block;
+	width: 50px;
+	height: 50px;
+	left: 50%;
+	top: 50%;
+	margin-left: -25px;
+	margin-top: -25px;
+	background-image: url(../img/video.png);
+	background-size: 50px;
+	background-repeat: no-repeat;
+}
+.house_detail .main_info .con_box .leftArea .l_slide .smallImg img.video-play {
+	width: 30px;
+	height: 30px;
+	border: none;
+}
+.school_lists {
+	padding-top: 20px;
+}
+.school_lists li {
+	width: 50%;
+	float: left;
+	box-sizing: border-box;
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.school_lists li:nth-child(2n-1) {
+	padding-right: 10px;
+}
+.school_lists li:nth-child(2n) {
+	padding-left: 10px;
+}
+.school_lists li img {
+	width: 180px;
+	height: 130px;
+	margin-right: 15px;
+}
+.school_lists li h2 {
+	font-weight: 400;
+	margin-bottom: 5px;
+}
+.school_lists li .school_text {
+	line-height: 30px;
+	font-size: 14px;
+	padding: 5px 0;
+}
+.school_lists li .school_text span {
+	padding: 5px 15px;
+	color: #f0a0a0;
+	background-color: #ffebee;
+}
+.school_hot li {
+	line-height: 35px;
+}
+.school_hot li span {
+	color: #666;
+}
+.school_hot li a:hover {
+	color: #D32F2F;
+}
+.school_detail {
+	padding-top: 20px;
+}
+.school_detail img {
+	width: 350px;
+}
+.school_title {
+	font-size: 26px;
+	font-weight: 500;
+	margin-bottom: 10px;
+}
+.school_detail .school_detail_desc {
+	margin-left: 20px;
+}
+.school_detail .school_detail_desc li {
+	line-height: 40px;
+	color: #333;
+}
+.school_detail .school_detail_desc li i {
+	font-size: 16px;
+	color: #D32F2F;
+	font-weight: 800;
+}
+.school_detail .school_detail_desc li span {
+	color: #a3a3a3;
+}
+.comment-list .comment-row {
+	border-bottom: 1px solid #eee;
+	padding: 10px 0;
+}
+.comment-list .comment-row-avatar {
+	width: 45px;
+	height: 45px;
+	margin-right: 15px;
+}
+.comment-list .comment-row-avatar img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.comment-list .comment-row-content {
+	width: 840px;
+}
+.comment-list .comment-row .username {
+	color: #333;
+	margin-right: 20px;
+}
+.comment-list .comment-row-integral {
+	padding: 5px 0;
+}
+.comment-list .comment-row-integral .star {
+	display: inline-block;
+	width: 112px;
+	height: 17px;
+	background-image: url(../img/star.png);
+	background-repeat: no-repeat;
+	background-position: 0 -25px;
+}
+.comment-list .comment-row-integral .star.integral {
+	background-position: 0 0;
+}
+.comment-list .comment-row-per {
+	margin-left: 10px;
+}
+.comment-list .comment-reply {
+	text-align: right;
+	margin-top: 10px;
+}
+.comment-list .comment-reply em {
+	font-size: 12px;
+	color: #999;
+}
+.comment-list .comment-reply-content {
+	margin-top: 10px;
+}
+.comment-list .comment-reply-content .comment-row {
+	border-bottom: none;
+	border-top: 1px solid #eee;
+	padding-top: 10px;
+}
+.comment-list .comment-reply-content .comment-row-content {
+	width: 800px;
+}
+.comment-list .support {
+	background-repeat: no-repeat;
+}
+.comment-list .reply {
+	background-repeat: no-repeat;
+	margin-left: 5px;
+}
+.comment-list .reply-content {
+	background-repeat: no-repeat;
+	margin-left: 5px;
+}
+.comment-list .support:before {
+	font-family: "iconfont";
+	content: "\e665";
+	font-weight: 500;
+	margin-right: 3px;
+}
+.comment-list .reply:before {
+	font-family: "iconfont";
+	content: "\e61f";
+	font-size: 16px;
+	font-weight: 500;
+	vertical-align: middle;
+	margin-right: 3px;
+}
+.comment-list .reply-content:before {
+	font-family: "iconfont";
+	content: "\e601";
+	font-size: 18px;
+	font-weight: 500;
+	vertical-align: middle;
+	margin-right: 3px;
+}
+.comment-list .comment-row.question-list .comment-row-content {
+	width: 900px;
+	font-size: 14px;
+	color: #101d37;
+	font-weight: 700;
+}
+.comment-list .comment-row.question-list {
+	border: none;
+}
+.comment-list .comment-row.question-list .comment-row-content span {
+	background-color: #fa5741;
+	font-size: 12px;
+	color: #fff;
+	padding: 0 2px;
+	display: inline-block;
+	height: 16px;
+	border-radius: 2px;
+	line-height: 16px;
+	margin-right: 15px;
+}
+.comment-list .comment-row.question-list .comment-reply-content .comment-row-content {
+	width: 800px;
+	font-weight: normal;
+}
+.comment-list .comment-row.question-list .comment-reply-content .comment-row {
+	border: none;
+}
+.comment-list .comment-row.question-list .comment-reply-content {
+	border-bottom: 1px solid #f2f2f2;
+}
+.comment-list .comment-row.question-list .comment-reply-content .comment-row-time {
+	margin-bottom: 5px;
+}
+.select-score {
+	margin-bottom: 10px;
+}
+.select-score .select-score-left {
+	width: 550px;
+}
+.select-score .select-score-right {
+	padding-left: 30px;
+	border-left: 1px solid #ccc;
+}
+.select-score li {
+	line-height: 35px;
+}
+.select-score li * {
+	vertical-align: middle;
+}
+.select-score .score-name {
+	color: #000;
+}
+.select-score .score-grade {
+	height: 17px;
+}
+.select-score .score-grade i {
+	display: inline-block;
+	width: 18px;
+	height: 17px;
+	background-image: url(../img/icon26.png);
+	margin-left: 3px;
+	cursor: pointer;
+}
+.select-score .score-grade i.on {
+	background-image: url(../img/icon25.png);
+}
+.select-score .score-desc {
+	margin-left: 20px;
+}
+.color-red {
+	color: #ff0000;
+}
+.select-score .select-score-right .score-average {
+	font-size: 18px;
+}
+.select-score .select-score-right .score-average-point {
+	font-size: 14px;
+}
+.select-score .select-score-right .score-average-point span {
+	font-size: 30px;
+}
+.select-score .select-score-right .score-average-desc {
+	font-size: 12px;
+	color: #999;
+}
+.verify {
+	margin-top: 10px;
+}
+.verify * {
+	vertical-align: middle;
+}
+.verify span, .verify img {
+	cursor: pointer;
+}
+.verify input {
+	border: 1px solid #efefef;
+	width: 100px;
+	height: 35px;
+	line-height: 30px;
+}
+.comment-reply-box {
+	margin-top: 10px;
+	display: none;
+}
+.comment-reply-box textarea {
+	border: 1px solid #efefef;
+	height: 80px;
+	width: 100%;
+	border-radius: 5px;
+	padding: 10px;
+	box-sizing: border-box;
+}
+.comment-reply-box .btn {
+	margin: 10px;
+	width: 80px;
+	height: 36px;
+	line-height: 36px;
+	border-radius: 4px;
+	text-align: center;
+	background: #d32f2f;
+	color: #ffffff;
+}
+.fix-width {
+	width: 1200px;
+	margin: 0 auto;
+}
+.position {
+	height: 40px;
+	line-height: 40px;
+	background-color: #f7f8fc;
+	border-bottom: #c8c8c8;
+	font-size: 14px;
+	color: #9c9c9c;
+}
+.position a {
+	color: #9c9c9c;
+}
+.house-title {
+	width: 100%;
+	height: 70px;
+	padding: 10px 0;
+}
+.house-title .house-qrcode {
+	width: 60px;
+	height: 60px;
+	padding-top: 5px;
+	margin-right: 10px;
+	position: relative;
+}
+.house-title .house-qrcode canvas {
+	width: 100%;
+	height: 100%;
+}
+#qrcode .layer_wei {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, .85);
+}
+#qrcode .layer_wei p {
+	font-size: 12px;
+	font-weight: 400;
+	text-align: center;
+	line-height: 18px;
+	padding-top: 15px;
+}
+.house-title .house-tags {
+	font-size: 12px;
+	color: #b3b3b3;
+}
+.house-title .house-tags h1 {
+	font-size: 27px;
+	color: #1d334a;
+	max-width: 900px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-weight: 400;
+	padding-bottom: 5px;
+}
+.house-title .house-tags span {
+	border: 1px solid #e5e5e5;
+	color: #869099;
+	padding: 2px 6px;
+	margin-right: 3px;
+	font-size: 12px;
+}
+.house-title .house-tags span:first-child {
+	color: #fff;
+}
+.house-title .house-follow {
+	padding-top: 45px;
+	color: #7699cc;
+	font-size: 13px;
+}
+house-title .house-follow a {
+	color: #7699cc;
+}
+.house-title .house-follow .follow:before {
+	font-family: "iconfont";
+	content: "\e665";
+	font-size: 15px;
+	margin-right: 3px;
+	vertical-align: middle;
+}
+.house-title .house-follow .follow.on:before {
+	content: "\e641";
+	color: #D32F2F;
+}
+.house-title .house-follow .follow.on {
+	color: #D32F2F;
+}
+.house-title .house-follow .subscribe:before {
+	font-family: "iconfont";
+	content: "\e671";
+	font-size: 13px;
+	margin-right: 3px;
+}
+/*楼盘选项卡切换*/
+.house_move_act {
+}
+.house_move_act ul {
+	overflow: hidden;
+	height: 50px;
+}
+.nav_house {
+	line-height: 50px;
+	height: 50px;
+	text-align: center;
+	margin-bottom: 20px;
+	background: #f5f5f5;
+}
+.nav_house li {
+	float: left;
+	margin: 0 2px;
+	color: #ff6600;
+	line-height: 46px;
+}
+.nav_house li a {
+	display: inline-block;
+	padding: 0 24px;
+	font-size: 16px;
+	height: 48px;
+}
+.nav_house a.ewm {
+	float: right;
+	position: relative;
+	cursor: pointer;
+	margin-right: 25px;
+	background: url(../img/ico_ewm.gif) no-repeat left;
+	padding-left: 25px
+}
+.nav_house span {
+	display: none;
+	position: absolute;
+	z-index: 1000;
+	border: 1px solid #cccdd4;/* padding:15px; */
+	background: #fff;
+	right: -25px;
+	width: 200px;
+	height: 120px;
+}
+.nav_house a.ewm:hover span {
+	display: block
+}
+.nav_house a.ewm i {
+	color: #888;
+	float: left;
+	text-align: left;
+	line-height: 31px;
+	margin-top: 11px;
+}
+.nav_house a.ewm img {
+	width: 120px;
+	margin-bottom: -14px;
+	float: left;
+}
+/*end*/
+
+
+.detail-main .fix-header {
+	width: 100%;
+	height: 54px;
+	display: none;
+	position: fixed;
+	z-index: 99999;
+	background-color: #303035;
+	top: 0;
+}
+.detail-main .fix-header .fixnav {
+	width: 100%;
+	height: 50px;
+	background: url(../img/fixnav_bg.jpg) repeat-x;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 10000;
+}
+.detail-main .fix-header .fixnav_tit {
+	float: left;
+	display: inline;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 15px 0 0;
+	font-size: 22px;
+	margin-top: 10px;
+}
+.detail-main .fix-header .fixnav_tit span {
+	color: #c00;
+}
+.detail-main .fix-header .fixnav_num {
+	font-size: 18px;
+	font-weight: bold;
+	margin-left: 15px;
+}
+.detail-main .fix-header .fixnav_tit h2 {
+	float: left;
+	display: inline;
+	font-size: 20px;
+}
+.detail-main .fix-header .fixnav_tit h2 a {
+	text-decoration: none;
+	color: #fff;
+}
+.detail-main .fix-header .fixnav_tit h2 a:hover {
+	color: #c00;
+	text-decoration: none !important;
+}
+.detail-main .fix-header .fixnav_tit a .t_icon {
+	background-position: -247px -41px;
+}
+
+/*通栏搜索框*/ 
+.detail-main .fix-header .tbsearch {
+	float: right;
+	width: 600px;
+	height: 30px;
+	padding-left: 3px;
+	margin: 10px 0px 0 0;
+}
+.detail-main .fix-header .tbsearch input {
+	float: left;
+}
+.detail-main .fix-header .tbsearch .tbsearchinput {
+	width: 490px;
+	height: 20px;
+	line-height: 20px;
+	padding: 5px 0;
+	background: #fff;
+	border: none;
+	outline: 0 none;
+	box-sizing: content-box;
+	vertical-align: middle;
+}
+.detail-main .fix-header .tbsearch .tbsearchbtns {
+	cursor: pointer;
+	width: 90px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 16px;
+	color: #fff;
+	background: #df0303;
+	border: none;
+}
+.detail-main .fix-header .tbsearch .tbsearchbtns:hover {
+	background: #c00;
+}
+.detail-main .fix-header .house-nav {
+	font-size: 0;
+}
+.detail-main .fix-header .house-nav li {
+	font-size: 14px;
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+	line-height: 50px;
+}
+.detail-main .fix-header .house-nav li a {
+	color: #9399a5;
+	display: inline-block;
+	height: 50px;
+	box-sizing: border-box;
+}
+.detail-main .fix-header .house-nav li.active a {
+	color: #fff;
+	border-bottom: 2px solid #fff;
+}
+.detail-main .fix-header .house-nav li.last {
+	width: auto;
+	float: right;
+	color: #fff;
+	font-size: 16px;
+	font-family: Georgia;
+}
+.detail-main .fix-header .house-nav li.last i {
+	font-size: 18px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+.detail-info {
+	margin-top: 30px;
+}
+.detail-info .slides-box {
+	width: 600px;
+	height: 518px;
+}
+.detail-info .slides-box .slides-big-box {
+	position: relative;
+	width: 600px;
+	height: 400px;
+	margin-bottom: 10px;
+	line-height: 400px;
+	overflow: hidden;
+}
+.detail-info .slides-box .slides-big-box li {
+	text-align: center;
+	overflow: hidden;
+}
+.detail-info .slides-box .slides-big-box li img {
+	width: 100%;
+	height: 400px;
+}
+.detail-info .slides-box .slides-big-box.width600 li img {
+	max-width: 600px;
+}
+.detail-info .slides-box .slides-big-box .slides-icon {
+	display: inline-block;
+	width: 40px;
+	height: 80px;
+	position: absolute;
+	top: 50%;
+	margin-top: -40px;
+}
+.detail-info .slides-box .slides-big-box a.slides-big-left {
+	left: 0;
+	background-color: #333;
+	opacity: .5;
+	background-image: url(../img/arrow_left04.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.detail-info .slides-box .slides-big-box a.slides-big-right {
+	right: 0;
+	background-color: #333;
+	opacity: .5;
+	background-image: url(../img/arrow_right04.png);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.detail-info .slides-box .slides-small-box {
+	width: 600px;
+	height: 80px;
+}
+.detail-info .slides-box .slides-small-box li {
+	position: relative;
+	float: left;
+	width: 142px;
+	margin-right: 20px;
+}
+.detail-info .slides-box .slides-small-box li img {
+	width: 142px;
+	height: 80px;
+}
+.detail-info .slides-box .slides-small-box li:last-child {
+	margin-right: 0;
+}
+.detail-info .slides-box .slides-small-box li.nomargin {
+	margin-right: 0;
+}
+.detail-info .slides-box .slides-small-box li h2 {
+	position: absolute;
+	font-weight: 300;
+	bottom: 0;
+	color: #fff;
+	font-size: 14px;
+	background-color: rgba(0,0,0,.5);
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	width: 100%;
+}
+.detail-info .slides-box.width600, .detail-info .slides-box .slides-big-box.width600, .detail-info .slides-box .slides-small-box.width600, .detail-info .slides-box.width600 .slides-small {
+	width: 600px;
+}
+.detail-info .slides-box .slides-small-box.width600 li {
+	margin-right: 11px;
+	width: 142px;
+	height: 80px;
+	overflow: hidden;
+}
+.detail-info .slides-box .slides-small-box.width600 li img {
+	width: 142px;
+}
+.detail-info .slides-box .slides-small-box.width600 li img.video-play {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -15px;
+	margin-top: -15px;
+	width: 30px;
+	height: 30px;
+}
+.detail-info .slides-box .slides-small {
+	width: 600px;
+	height: 80px;
+	overflow: hidden;
+	position: relative;
+}
+.detail-info .slides-box .slides-small .prev, .detail-info .slides-box .slides-small .next {
+	position: absolute;
+	z-index: 9;
+	color: #fff;
+	text-align: center;
+	font-size: 35px;
+	line-height: 80px;
+	display: inline-block;
+	height: 80px;
+	width: 30px;
+	background-color: rgba(0,0,0,.3);
+}
+.detail-info .slides-box .slides-small .next {
+	right: 0;
+}
+.detail-info .detail-house-info {
+	width: 380px;
+	height: 590px;
+	box-shadow: 1px 1px 5px #ccc;
+	padding: 0 20px;
+	margin-bottom: 20px;
+}
+.detail-info .detail-house-info .house-price {
+	font-size: 40px;
+	color: #D32F2F;
+}
+.detail-info .detail-house-info .house-price .price-btn {
+	display: inline-block;
+	float: right;
+	background-color: #fff;
+	width: 80px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	color: #e91c35;
+	font-size: 18px;
+	margin-top: 5px;
+	border-radius: 5px;
+}
+.detail-info .detail-house-info .house-price span, .detail-info .detail-house-info .house-price i {
+	font-size: 30px;
+}
+.detail-info .detail-house-info .house-price a {
+	float: right;
+	font-size: 12px;
+	color: #7699cc;
+	margin-top: 20px;
+}
+.detail-info .detail-house-info .house-price a.blue {
+	font-size: 14px;
+	color: #7699cc;
+}
+.detail-info .detail-house-info .house-price a.blue.active {
+	font-size: 14px;
+	color: #e91c35;
+}
+.detail-info .detail-house-info .house-price a i {
+	font-size: 12px;
+}
+.detail-info .detail-house-info .house-first-pay {
+	margin-top: 20px;
+}
+.detail-info .detail-house-info .tags span {
+	background-color: #fff1f1;
+	color: #fb7475;
+	font-size: 12px;
+	padding: 2px 5px;
+	margin-right: 5px;
+}
+.detail-info .new-house-info {
+	width: 580px;
+	float: right;
+	box-sizing: border-box;
+	padding: 20px 10px 20px 0px;
+	border: 1px solid #ededed;
+}
+.detail-info .new-house-info .house-price {
+	font-size: 18px;
+	color: #e91c35;
+}
+.detail-info .news-house-right-top {
+	padding-left: 30px;
+}
+.detail-info .new-house-info .house-price span {
+	font-size: 16px;
+}
+.detail-info .new-house-info .house-price em {
+	font-size: 30px;
+}
+.detail-info .new-house-info .house-price-timeout {
+	font-size: 12px;
+	padding-top: 10px;
+	color: #a9b6ca;
+}
+.detail-info .new-house-info .house-price-timeout span {
+	font-size: 14px;
+}
+.detail-info .new-house-info .house-price-tool {
+	text-align: right;
+	font-size: 14px;
+	color: #999;
+	padding-top: 20px;
+}
+.detail-info .new-house-info .house-price-tool a {
+	color: #999;
+	font-size: 13px;
+}
+.detail-info .new-house-info .news-house-box {
+	padding: 0 30px;
+	margin-top: 5px;
+	width: 490px;
+	height: auto;
+}
+.detail-info .new-house-info .news-house-box .time {
+	font-size: 16px;
+	color: #e91c35;
+	margin-top: 20px;
+}
+.detail-info .new-house-info .news-house-box .time i {
+	background-color: #e91c35;
+	padding: 1px 2px;
+	color: #fff;
+	margin: 0 2px;
+}
+.detail-info .new-house-info .news-house-base {
+	margin-top: 15px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ededed;
+}
+.detail-info .new-house-info .news-house-base li {
+	height: 29px;
+	line-height: 29px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #333;
+	font-size: 14px;
+}
+.detail-info .new-house-info .news-house-base li label {
+	color: #999;
+}
+.detail-info .new-house-info .news-house-base li a {
+	color: #999;
+	margin-left: 8px;
+}
+.detail-info .new-house-info .news-house-base li a .lpt_icon{background: url(../img/icon_tixing.png) no-repeat 0 0;
+    display: inline-flex;width:14px; height:14px; margin-right:4px; _margin-right:2px; overflow:hidden;}
+.detail-info .new-house-info .news-house-base li span {
+	width: 350px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.detail-info .new-house-info .news-house-base li span a {
+	color: #6d798c;
+}
+.detail-info .new-house-info .new-house-telphone {
+	margin-top: 10px;
+}
+.detail-info .new-house-info .new-house-telbox {
+	color: #D32F2F;
+	font-size: 28px;
+}
+.detail-info .new-house-info .new-house-telbox .telx {
+	float: left;
+	width: auto;
+	font-family: dinot-bold;
+	color: #333;
+	font-size: 30px;
+}
+.detail-info .new-house-info .new-house-telbox .telx i {
+	font-size: 14px;
+	color: #a6a6a6;
+	font-weight: normal;
+	margin-right: 6px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+}
+.detail-info .new-house-info .new-house-telbox .telx b {
+	font-size: 14px;
+}
+.detail-info .new-house-info .new-house-telbox span {
+	padding: 2px 5px;
+	margin-right: 20px;
+	border-radius: 2px;
+}
+.detail-info .new-house-info .new-house-telbox span i {
+	font-size: 30px;
+}
+.detail-info .new-house-info .new-house-telqrcode {
+	position: relative;
+	margin-top: 10px;
+}
+.detail-info .new-house-info .new-house-telqrcode span {
+	border-radius: 2px;
+	border: 1px solid #CEE2F7;
+	color: #5186ff;
+	font-size: 14px;
+	box-shadow: 1px 1px 2px #EEF2FB;
+	padding: 5px 15px;
+}
+.detail-info .new-house-info .new-house-qrcode {
+	position: absolute;
+	display: none;
+	color: #425571;
+	text-align: center;
+	padding-top: 20px;
+	top: 27px;
+	left: 0;
+	width: 115px;
+	height: 117px;
+	background-image: url(../img/qrcode-tel-bg.png);
+	background-repeat: no-repeat;
+}
+.detail-info .new-house-info .new-house-qrcode img {
+	width: 110px;
+	height: 110px;
+	margin-top: 3px;
+}
+.detail-info .new-house-info .new-house-telqrcode:hover .new-house-qrcode {
+	display: block;
+}
+.detail-info .new-house-info button {
+	margin-top: 30px;
+	text-align: center;
+	cursor: pointer;
+	width: 180px;
+	float: left;
+	border-radius: 3px;
+	font-size: 16px;
+	height: 44px;
+	line-height: 44px;
+	background: #ffefe7;
+	border: none;
+	margin-right: 15px;
+	color: #ff6600;
+	box-shadow: none;
+}
+.detail-info .new-house-info button+button {
+	background: #ff5200;
+	color: #fff;
+}
+.detail-info .new-house-info .consult-now.special {
+	margin-top: 18px;
+	height: 50px;
+	line-height: 50px;
+}
+.detail-info .new-house-info .news-house-base.special li {
+	height: 35px;
+	overflow: hidden;
+}
+.detail-info .detail-house-info .broker-info .address {
+	font-size: 14px;
+	color: #425571;
+	padding-bottom: 15px;
+	line-height: 30px;
+	line-height: 1;
+}
+.detail-info .detail-house-info .broker-info .address i {
+	font-size: 20px;
+	color: #e91c35;
+}
+.detail-info .detail-house-info .broker-info .address span {
+	display: inline-block;
+	width: 290px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.detail-info .detail-house-info .broker-info .address a {
+	color: #688cc1;
+}
+.detail-info .detail-house-info .house-tag-box {
+	border-top: 1px solid #efefef;
+	border-bottom: 1px solid #efefef;
+	margin-top: 10px;
+	padding-top: 20px;
+}
+.detail-info .detail-house-info .house-tag-box li {
+	width: 33.33%;
+	float: left;
+	text-align: center;
+	margin-bottom: 25px;
+	font-size: 14px;
+	color: #cccccc;
+}
+.detail-info .detail-house-info .house-tag-box li .house-tag {
+	font-size: 18px;
+	color: #425571;
+	padding-top: 18px;
+}
+.detail-info .detail-house-info .broker-info {
+	padding-top: 30px;
+}
+.detail-info .detail-house-info .broker-info .broker-avatar {
+	width: 200px;
+}
+.detail-info .detail-house-info .broker-info .broker-avatar img {
+	width: 60px;
+	height: 60px;
+	margin-right: 10px;
+	float: left;
+	border-radius: 50%;
+}
+.detail-info .detail-house-info .broker-info .broker-avatar p {
+	color: #425571;
+}
+.detail-info .detail-house-info .broker-info .broker-avatar .broker-name {
+	font-size: 18px;
+	padding: 5px 0 10px;
+}
+.detail-info .detail-house-info .broker-info .broker-qrcode-phone {
+	width: 100px;
+	color: #425571;
+	font-size: 12px;
+	text-align: center;
+}
+.detail-info .detail-house-info .broker-info .broker-qrcode-phone img {
+	width: 100px;
+	height: 100px;
+}
+.detail-info .detail-house-info .house-telphone {
+	font-size: 20px;
+	color: #e91c35;
+	padding-left: 10px;
+	margin-top: 10px;
+}
+.detail-info .detail-house-info .house-telphone i {
+	font-size: 20px;
+}
+.detail-info .detail-house-info .house-consult {
+	padding: 0 10px;
+	margin-top: 20px;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+}
+.detail-info .detail-house-info .house-consult a {
+	display: block;
+	background-color: #e91c35;
+	color: #fff;
+	border-radius: 5px;
+	box-shadow: 1px 1px 10px #ccc;
+	font-size: 18px;
+}
+.detail-info .detail-house-info .house-first-pay em {
+	display: inline-block;
+	padding: 0 8px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	font-size: 14px;
+	font-weight: 400;
+	border: 1px solid #D32F2F;
+	border-radius: 25px;
+	color: #D32F2F;
+}
+.bmf {
+	background: url(../img/bmf.png) left top;
+	padding-bottom: 5px;
+	margin: 25px 0px 25px 0px;
+}
+.bmfa {
+	text-align: center;
+	height: 100px;
+	width: 240px;
+	border-right: 1px dashed #FF801a;
+	margin-top: 27px;
+}
+.bmfb {
+	width: 670px;
+	padding: 10px 10px 0 30px;
+}
+.bmfb1 {
+	font-size: 19px;
+	font-weight: bold;
+	color: #FFFFFF
+}
+.bmfb2 span {
+	display: block;
+	float: left;
+	padding-left: 35px;
+	margin-right: 15px;
+	height: 30px;
+	line-height: 30px;
+	color: #FFFF00;
+}
+.bmfb2a {
+	background: url(../img/bnmficon1.png) no-repeat left center;
+}
+.bmfb2b {
+	background: url(../img/bnmficon2.png) no-repeat left center;
+}
+.bmfb2c {
+	background: url(../img/bnmficon3.png) no-repeat left center;
+}
+.bmfb3 {
+	float: left;
+	color: #fff;
+}
+.bmfb3 u {
+	text-decoration: none;
+	display: block;
+	float: left;
+	color: #ffffff;
+}
+.bmfb3 .end-date .pri-txt span {
+	margin: 0 10px;
+	border-radius: 4px;
+	background: #4f4242;
+	padding: 0 3px;
+	text-align: center;
+	color: #ffffff;
+}
+.bmfb3 .bmrs {
+	margin-left: 30px;
+	color: #fff;
+	height: 24px;
+	line-height: 24px;
+	padding-right: 5px;
+	padding-left: 24px;
+	background: url(../img/bnmficon6.png) no-repeat left center;
+}
+.bmfc {
+	margin-top: 20px;
+	width: 230px;
+	height: 100px;
+	border-left: 1px dashed #FF801a;
+}
+.bmfc a {
+	display: block;
+	width: 207px;
+	height: 58px;
+	background: url(../img/qgbtn.png) no-repeat;
+	font-size: 30px;
+	color: #501103;
+	text-align: center;
+	line-height: 58px;
+	margin: 20px 0 0 19px;
+}
+.bmfc a:hover {
+	text-decoration: none;
+}
+.detail-content {
+	padding-top: 20px;
+}
+.detail-left {
+	width: 920px;
+}
+.detail-content .detail-row {
+	background-color: #fff;
+	padding: 0 10px;
+	box-shadow: 1px 1px 8px #ddd;
+}
+.detail-content .detail-row .title {
+	height: 50px;
+	line-height: 50px;
+	margin: 0 20px auto;
+	font-size: 20px;
+	font-weight: 400;
+	color: #222;
+	border-bottom: 1px solid #f2f2f2;
+}
+.detail-content .detail-row .title a {
+	font-size: 14px;
+	color: #999;
+}
+.detail-content .detail-row .title a.more:after {
+	font-family: "iconfont";
+	content: "\e603";
+}
+.detail-content .detail-row .news-lists {
+	margin: 0 20px auto;
+}
+.detail-content .detail-row .news-lists li {
+	border-bottom: 1px dashed #f2f2f2;
+	padding: 10px 0;
+}
+.detail-content .detail-row .news-lists li h2 {
+	font-size: 16px;
+	color: #000;
+	line-height: 30px;
+	font-weight: normal;
+}
+.detail-content .detail-row .news-lists li h2 span {
+	font-size: 14px;
+	color: #999;
+	margin-left: 20px;
+}
+.detail-content .detail-row .news-lists li p {
+	color: #666;
+	line-height: 24px;
+	margin-top: 10px;
+}
+.detail-content .detail-row .news-lists li h2 em {
+	border: 1px solid #ff3333;
+	color: #ff3333;
+	font-size: 12px;
+	padding: 2px 5px;
+	border-radius: 4px;
+	margin-right: 20px;
+}
+.detail-content .detail-row .room-count {
+	margin-right: 20px;
+}
+.detail-content .detail-row .room-count a {
+	color: #333;
+	margin-left: 10px;
+}
+.detail-content .detail-row .room-lists {
+	padding-bottom: 30px;
+}
+.detail-content .detail-row .room-lists .room-row {
+	margin-top: 30px;
+	width: 1140px;
+	margin: 0 auto;
+	padding: 15px 0 35px 0;
+	border-bottom: 1px solid #ededed;
+}
+.detail-content .detail-row .room-lists .room-row .pic-box {
+	width: 180px;
+	height: 135px;
+	margin-right: 20px;
+	position: relative;
+}
+.detail-content .detail-row .room-lists .room-row .pic-box img {
+	width: 100%;
+	height: 100%;
+}
+.detail-content .detail-row .room-lists .room-row .pic-box span {
+	position: absolute;
+	top: 0;
+	left: 20px;
+	font-size: 12px;
+	padding: 2px 5px;
+	background-color: rgba(0,0,0,.5);
+	color: #fcbf6e;
+}
+.detail-content .detail-row .room-lists .room-row .room-info {
+	width: 400px;
+}
+.detail-content .detail-row .room-lists .room-row .room-info h2 {
+	font-size: 20px;
+	line-height: 30px;
+	font-weight: bold;
+	color: #333;
+}
+.detail-content .detail-row .room-lists .room-row .room-info ul {
+	font-size: 0;
+	padding: 10px 0;
+}
+.detail-content .detail-row .room-lists .room-row .room-info ul li {
+	display: inline-block;
+	width: 25%;
+	font-size: 18px;
+	color: #2e2e2e;
+}
+.detail-content .detail-row .room-lists .room-row .room-info ul li h3 {
+	font-weight: normal;
+}
+.detail-content .detail-row .room-lists .room-row .room-info ul li p {
+	color: #333;
+	line-height: 31px;
+	font-size: 14px;
+	overflow: hidden;
+}
+.detail-content .detail-row .room-lists .room-row .room-info ul li:first-child h3 {
+	color: #D32F2F;
+}
+.detail-content .detail-row .room-lists .room-row .room-info .suanjia a {
+	font-size: 14px;
+	color: #ff6100;
+}
+.detail-content .detail-row .room-lists .room-row .room-info .suanjia button {
+	float: right;
+	width: 90px;
+	height: 30px;
+	background-color: #D32F2F;
+	color: #fff;
+	border-radius: 3px;
+}
+.detail-content .detail-row .room-lists .room-row .newHouseHxRight {
+	float: right;
+	width: 220px;
+	margin-top: 40px;
+	text-align: right;
+}
+.detail-content .detail-row .room-lists .room-row .newHouseHxRight .hxPrise {
+	font-size: 14px;
+	color: #ff5200;
+	line-height: 31px;
+	overflow: hidden;
+}
+.detail-content .detail-row .room-lists .room-row .newHouseHxRight .hxPrise>div {
+	display: inline-block;
+	float: right
+}
+.detail-content .detail-row .room-lists .room-row .newHouseHxRight .hxPrise>span {
+	float: right;
+	line-height: 37px;
+}
+.detail-content .detail-row .room-lists .room-row .newHouseHxRight .hxPrise .yfyj {
+	font-size: 30px;
+}
+.detail-content .detail-row .room-lists .room-row .newHouseHxRight .hxPrise .yfyj p {
+	font-size: 24px;
+	float: right;
+}
+.detail-content .detail-row .room-lists .room-row .newHouseHxRight .hxPrise span {
+	font-family: dinot-bold;
+}
+.detail-content .detail-row .room-lists .room-row .newHouseHxRight .getChangePzBtn {
+	width: 126px;
+	height: 24px;
+	line-height: 24px;
+	color: #fff;
+	background: #ff6100;
+	border-radius: 2px;
+	margin-top: 11px;
+	cursor: pointer;
+	/* position: absolute; */
+	margin-left: 10px;
+}
+.detail-content .detail-row .photo-lists {
+	font-size: 0;
+	padding-bottom: 20px;
+	width: 1130px;
+	margin: 0 auto;
+}
+.detail-content .detail-row .photo-lists li {
+	width: 210px;
+	height: 190px;
+	margin-top: 20px;
+	float: left;
+	text-align: center;
+	font-size: 12px;
+	margin-right: 20px;
+	display: inline-block;
+}
+.detail-content .detail-row .photo-lists li img {
+	width: 100%;
+	height: 160px;
+}
+.detail-content .detail-row .photo-lists li:nth-child(5n) {
+	margin-right: 0;
+}
+.detail-content .detail-row .base-info {
+	padding-top: 20px;
+	width: 100%;
+	margin: 0 auto;
+}
+.detail-content .detail-row .base-info li {
+	width: 50%;
+	float: left;
+	position: relative;
+	font-size: 14px;
+	color: #333;
+	min-height: 40px;
+	line-height: 20px;
+	padding-left: 90px;
+	box-sizing: border-box;
+}
+.detail-content .detail-row .base-info li label {
+	position: absolute;
+	left: 0;
+	color: #969696;
+}
+.detail-content .detail-row .base-info li.industry span {
+	margin-right: 5px;
+}
+.detail-content .detail-row .house-info {
+	font-size: 14px;
+	color: #425571;
+	line-height: 24px;
+	width: 100%;
+	border: none;
+    padding: 20px 0px;
+	margin: 0 auto;
+}
+.detail-content .detail-row .house-info img {
+	max-width: 900px;
+}
+.detail-content .detail-row .pano-box {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.map-box {
+	margin-top: 20px;
+	padding-bottom: 20px;
+	width: 1180px;
+	height: 400px;
+	position: relative;
+}
+.map-box #map {
+	width: 1180px;
+	height: 400px;
+}
+.map-box .map-label {
+	height: 100px;
+	width: 170px;
+	position: absolute;
+	background-image: url(../img/map-label-bg.png);
+	background-repeat: no-repeat;
+	background-position: -2px;
+}
+.map-box .map-label h2 {
+	padding: 0 5px;
+	box-sizing: border-box;
+	width: 135px;
+	overflow: hidden;
+	text-align: center;
+	font-size: 16px;
+	height: 35px;
+	line-height: 35px;
+}
+.map-box .map-label .map-label-price {
+	text-align: center;
+	height: 35px;
+	line-height: 35px;
+	box-sizing: border-box;
+	font-size: 14px;
+	color: #425571;
+	padding-right: 33px;
+	position: absolute;
+	top: 35px;
+	width: 100%;
+}
+.map-box .map-label .map-label-price span {
+	font-size: 18px;
+	color: #e91c35;
+}
+.map-box .map-mart {
+	position: absolute;
+	font-size: 12px;
+	top: 20px;
+	right: 20px;
+	background-color: #fff;
+	width: 323px;
+	height: 360px;
+}
+.map-box .map-mart .map-mart-title {
+	height: 45px;
+	line-height: 45px;
+}
+.map-box .map-mart .map-mart-title a {
+	display: inline-block;
+	width: 47px;
+	text-align: center;
+	color: #425571;
+}
+.map-box .map-mart .map-mart-lists {
+	padding: 0 15px;
+	height: 310px;
+	overflow-y: auto;
+}
+.map-box .map-mart .map-mart-lists li {
+	height: 22px;
+	line-height: 22px;
+	color: #425571;
+	cursor: pointer;
+	cursor: pointer;
+	overflow: hidden;
+}
+.map-box .map-mart .map-mart-lists li i {
+	width: 20px;
+	height: 55px;
+	display: inline-block;
+	vertical-align: top;
+	background-image: url(../img/map-qipao.png);
+	background-repeat: no-repeat;
+	margin-right: 5px;
+	background-position: left center;
+	text-align: center;
+	color: #fff;
+}
+.map-box .map-mart .map-mart-lists li .text {
+	width: 130px;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.mart-info li {
+	width: 16.6%;
+	float: left;
+	height: 60px;
+	line-height: 60px;
+}
+.mart-info li img {
+	width: 30px;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+.width1200 .map-box {
+	width: 1200px;
+}
+.width1200 .map-box #map {
+	width: 1200px;
+}
+.detail-right {
+	width: 265px;
+}
+.detail-right .news-guide {
+	padding: 0 15px;
+}
+.detail-right .news-guide .news-guide-title {
+	font-size: 18px;
+	color: #1d334a;
+	height: 60px;
+	line-height: 60px;
+}
+.detail-right .news-guide .news-guide-title a {
+	color: #919090;
+	font-size: 12px;
+}
+.detail-right .news-guide .news-guide-lists .pic-box {
+	width: 65px;
+	height: 50px;
+	overflow: hidden;
+	float: left;
+	margin-right: 10px;
+}
+.detail-right .news-guide .news-guide-lists .pic-box img {
+	width: 100%;
+	height: 100%;
+}
+.detail-right .news-guide .news-guide-lists li {
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+.detail-right .news-guide .news-guide-lists li a {
+	color: #1d1d1d;
+}
+.detail-right .news-guide .news-guide-lists li a:hover {
+	color: #e91c35;
+}
+.detail-right .news-guide .news-guide-lists li h3 {
+	font-weight: normal;
+	font-size: 12px;
+}
+.detail-right .float-layer {
+	width: 100%;
+	position: relative;
+	z-index: 999;
+}
+.detail-right .right-row {
+	width: 245px;
+	background-color: #fff;
+	padding: 0 10px;
+	box-shadow: 1px 1px 5px #ddd;
+}
+.detail-right .right-row.fix {
+	/*position: fixed;*/
+	top: 55px;
+}
+.detail-right .right-row.absolute {
+	position: absolute;
+}
+.detail-right .right-row h2 {
+	height: auto;
+	line-height: 47px;
+	font-size: 20px;
+	font-weight: 400;
+	color: #222;
+	border-bottom: 1px solid #f2f2f2;
+}
+.detail-right .right-row h2 span {
+	font-size: 12px;
+	color: #999;
+}
+.detail-right .right-form {
+	padding-top: 20px;
+}
+.detail-right .right-form .form-type label {
+	margin-right: 30px;
+	font-size: 14px;
+}
+.detail-right .right-form .form-type p {
+	line-height: 30px;
+}
+.detail-right .right-form .form-input .input-txt {
+	height: 40px;
+	border: 1px solid #eaeaea;
+	border-radius: 3px;
+	width: 100%;
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin-top: 15px;
+}
+.detail-right .right-form .button {
+	margin-top: 24px;
+	padding-bottom: 23px;
+}
+.detail-right .right-form .button button {
+	width: 100%;
+	height: 40px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.detail-right .right-house h2 {
+	font-size: 18px;
+	color: #1d334a;
+}
+.detail-right .right-house h2 span {
+	background-color: #D32F2F;
+	color: #fff;
+	padding: 0 5px;
+	border-radius: 2px;
+	margin-left: 10px;
+}
+.detail-right .right-house .layer-price {
+	font-size: 24px;
+	color: #D32F2F;
+	padding: 15px 0;
+}
+.detail-right .right-house .layer-price span {
+	font-size: 12px;
+}
+.detail-right .right-house .telphone {
+	text-align: center;
+	padding: 20px 0;
+}
+.detail-right .right-house .telphone span {
+	padding: 5px 10px;
+	border-radius: 5px;
+	font-size: 16px;
+	box-shadow: 2px 2px 2px #ccc;
+}
+.detail-right .right-house .telphone span i {
+	font-size: 18px;
+	vertical-align: middle;
+}
+.detail-right .right-house .qrcode {
+	text-align: center;
+	padding-top: 5px;
+	font-size: 16px;
+}
+.detail-right .right-house .qrcode img {
+	width: 140px;
+	height: 140px;
+	margin-top: 15px;
+}
+.itr_box {
+	background-color: #fff;
+	box-shadow: 1px 1px 8px #ddd;
+}
+.itr_box .bigtit {
+	background-color: #fff;
+	height: 62px;
+	line-height: 62px;
+	padding: 0 10px;
+	font-size: 20px;
+	color: #000;
+	border-bottom: 1px solid #e4e4e4;
+	font-weight: bold;
+}
+.lbtitle {
+	padding-left: 0;
+}
+.lbtitle li {
+	float: left;
+	height: 60px;
+	line-height: 60px;
+	margin-right: 30px;
+	font-size: 20px;
+	text-align: center;
+	overflow: hidden;
+	cursor: pointer;
+	font-weight: 400;
+    color: #222;
+}
+.lbtitle li.hover {
+	color: #ff3333;
+	border-bottom: 2px solid #ff3333
+}
+.itr_box_con {
+	position: relative;
+	z-index: 99;
+	top: -8px;
+}
+.pa_rt {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+.ptlist_tip_1, .ptlist_tip_2 {
+	display: inline-block;
+	height: 19px;
+	line-height: 19px;
+	padding: 0 6px;
+	color: #fff;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	overflow: hidden;
+	background: #f88123;
+}
+.ptlist_tip_2 {
+	background: #60bd0a;
+}
+.ptlist_tip_1:hover {
+	background: #f60;
+}
+.ptlist_tip_2:hover {
+	background: #690;
+}
+.ptlist_tip_1 a, .ptlist_tip_1 a:hover, .ptlist_tip_2 a, .ptlist_tip_2 a:hover {
+	color: #fff!important;
+	text-decoration: none!important;
+}
+.photo_album_txt span {
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 14px;
+	color: #999
+}
+.huxing_cont {
+	margin: 20px 0px 0;
+	clear: both;
+	overflow: hidden;
+}
+.photo_album {
+	clear: both;
+	overflow: hidden;
+	padding: 10px 20px 30px 20px;
+}
+.photo_album li {
+	float: left;
+	width: 200px;
+	margin: 0;
+	margin-right: 40px;
+	display: inline;
+}
+.photo_album li {
+	height: auto;
+}
+.photo_album li:last-child {
+	margin-right: 0px;
+}
+.photo_album_txt {
+	width: 200px;
+	float: left;
+	margin-top: 12px;
+	font-size: 14px;
+	overflow: hidden;
+	height: 60px;
+	line-height: 20px;
+}
+.photo_album_txt span {
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 14px;
+	color: #999
+}
+.photo_album_txt span a {
+	font-size: 14px;
+	color: #333333
+}
+.photo_album_txt p {
+	width: 130px;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	float: left;
+}
+.red01 {
+	color: #ff3333!important;
+}
+.map_comment {
+	display: inline;
+	float: left;
+	width: 200px;
+	height: 150px;
+	overflow: hidden;
+	position: relative;
+	background: #e3e3e3;
+}
+.dh_c_alone_img {
+	width: 200px;
+	height: 150px;
+	background: #e3e3e3;
+	position: relative;
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	overflow: hidden;
+	cursor: pointer;
+}
+.dh_c_alone_img p {
+	position: static;
+	top: 50%;
+}
+.dh_c_alone_img p img {
+	position: static;
+	top: -50%;
+	left: -50%;
+	overflow: hidden;
+	cursor: pointer;
+}
+.detail-info .new-house-info .news-house-base.col2 li {
+	width: 50%;
+	float: left;
+}
+.detail-info .new-house-info .news-house-base li.col1 {
+	width: 100%;
+}
+.detail-row .second-box {
+	padding: 10px 0;
+}
+.detail-row .second-box li {
+	width: 210px;
+	height: 200px;
+	float: left;
+	margin-right: 20px;
+}
+.detail-row .second-box li:nth-child(4n) {
+	margin-right: 0;
+}
+.detail-row .second-box li .img {
+	position: relative;
+	height: 150px;
+	width: 100%;
+	margin-bottom: 10px;
+}
+.detail-row .second-box li .img .mask {
+	width: 100%;
+	box-sizing: border-box;
+}
+.detail-row .second-box li .img img {
+	width: 100%;
+}
+.detail-row .second-box li .img .name {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.detail-row .second-box li .price {
+	color: #D32F2F;
+}
+.excellent-house .row-lists.height265 li {
+	height: 265px;
+}
+.detail-right .recommon-house {
+	padding-bottom: 15px;
+}
+.detail-right .recommon-house li {
+	margin-top: 15px;
+	display: flex;
+}
+.detail-right .recommon-house li .pic-box {
+	float: left;
+	width: 100px;
+	height: 75px;
+}
+.detail-right .recommon-house li .pic-box img {
+	width: 100%;
+	height: 100%;
+}
+.detail-right .recommon-house li .info {
+	float: left;
+	margin-left: 10px;
+	width: 135px;
+}
+.detail-right .recommon-house li .info h3 {
+	white-space: nowrap;
+	color: #333;
+}
+.detail-right .recommon-house li .info p {
+	margin-top: 5px;
+}
+.detail-right .recommon-house li .info p span {
+	color: #D32F2F;
+}
+/*2019.12.27 新增*/
+
+.container-super {
+	width: 1200px;
+	margin: 0 auto;
+	position: relative;
+	display: block;
+}
+.lp-pb-check, .lp-pb-px {
+	height: 48px;
+	border: 1px solid #eee;
+	border-top: none;
+	background: #f8f8f8;
+	font-size: 12px;
+}
+.lp-pb-check {
+	border-bottom: none;
+}
+.lp-pb-check1 {
+	float: left;
+	padding-left: 30px;
+	line-height: 48px;
+	color: #3b4144;
+}
+.lp-pb-check2, .lp-pb-px1 {
+	float: left;
+	margin-left: 23px;
+	position: relative;
+	width: 1060px;
+}
+.lp-pb-check2 ul {
+	overflow: hidden;
+	height: 48px;
+	float: left;
+}
+.lp-pb-check2 ul li {
+	float: left;
+	padding: 2px 5px;
+	margin-top: 12px;
+	margin-right: 10px;
+}
+.lp-pb-check2 ul li.rese {
+	border: none;
+    color: #ff5200;
+}
+.lp-pb-check2 ul li.rese a{
+	padding-left: 20px;
+    background: url(../img/delete_blue.png)no-repeat left center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 16px;
+    display: inline-block;
+    float: left;
+}
+.lp-pb-check2 ul li a {
+	font-weight: normal;
+}
+.lp-pb-check2 ul li:hover a {
+	color: #fff;
+	cursor: pointer;
+}
+.lp-pb-check2 ul li b {
+	padding-left: 10px;
+	font-size: 12px;
+}
+.lp-pb-check3 {
+	position: absolute;
+	right: 21px;
+	line-height: 48px;
+	top: 0;
+	color: #3b4144;
+}
+.lp-pb-check3 strong {
+	color: #3b4144;
+}
+.lp-pb-clear {
+	width: 40px;
+	height: 15px;
+	color: #6d6d6d;
+	float: left;
+	display: block;
+	margin-top: 18px;
+	padding-left: 15px;
+	background-position: -388px -70px;
+}
+.lp-pb-clear:hover {
+	color: #11a43c;
+	background-position: -388px -103px;
+}
+.lp-pb-px1 ul {
+	line-height: 48px;
+	height: 48px;
+}
+.lp-pb-px1 ul li {
+	float: left;
+	margin-right: 35px;
+	cursor: pointer;
+}
+.lp-pb-px1 ul li span {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	padding-left: 5px;
+*zoom:1;
+}
+.lp-pb-px1 ul li:hover {
+	color: #11a43c;
+}
+.lp-pb-px1 ul li a:hover {
+	color: #11a43c;
+}
+.lp-pb-pxIcon1 {
+	background-position: -385px -137px;
+}
+.lp-pb-pxIcon2 {
+	background-position: -385px -166px;
+}
+.lp-pb-pxIcon3 {
+	background-position: -385px -465px;
+}
+.index-icon {
+	background-image: url(../img/index_icon.png);
+	background-repeat: no-repeat;
+}
+/*新闻中心*/
+body.new {
+	background: #f5f5f5
+}
+.shadow {
+	background-color: #ffffff;
+	box-shadow: 0px 2px 6px 2px #c3c3c34a;
+}
+/*筛选*/
+.item .select_box {
+	width: 96px;
+	height: 25px;
+	float: left;
+	position: relative;
+	text-align: left;
+	z-index: 10;
+	margin: 0 8px 0 0;
+}
+.item .select_info {
+	background: url(../img/sale_xl.gif) no-repeat;
+	width: 73px;
+	height: 25px;
+	line-height: 25px;
+	font-size: 12px;
+	padding: 0 20px 0 7px;
+	cursor: pointer;
+}
+.item .select_box ul {
+	position: absolute;
+	background: #fff;
+	width: 94px;
+	border: 1px solid #ccc !important;
+	top: 23px;
+	display: none;
+	overflow-y: overlay;
+	max-height: 200px;
+	overflow: auto;
+}
+.item .select_box ul li {
+	height: 30px;
+	line-height: 30px;
+	border: none;/* padding-left: 6px; */
+	cursor: pointer;
+	font-size: 12px;
+}
+.item .select_box ul li a {
+	width: 93%;
+	height: 100%;
+	display: block;
+	padding-left: 6px;
+}
+.item .select_box ul li a:hover {
+	background: #f5f5f5;
+}
+.item .select_box ul li:hover a {
+	color: #333;
+	text-decoration: none;
+}
+.item .select_box:hover ul {
+	display: block
+}
+/*二手房*/
+.esfjg {
+	border: #ddd 1px solid;
+	border-top: none;
+	line-height: 40px;
+	height: 40px;
+	position: relative;
+}
+.esfjgtit {
+	position: absolute;
+	left: 15px;
+	top: 0;
+	z-index: 1;
+	line-height: 40px;
+	height: 40px;
+	overflow: hidden;
+	font-size: 12px;
+}
+.esfjgtit strong {
+	padding: 0 3px;
+}
+.esfjg ul li {
+	float: right;
+	padding: 0 15px;
+	overflow: hidden;
+	height: 40px;
+}
+.esfjg ul li a {
+	line-height: 40px;
+	font-size: 12px;
+}
+.esfjg ul li a i {
+	width: 13px;
+	height: 40px;
+	background: url(../img/esfico.png) right -278px no-repeat;
+	display: inline-block;
+	overflow: hidden;
+	vertical-align: top;
+}
+.esfjg ul li.secnav a, .esfjg ul li.secnavj a {
+	color: #4ba634;
+}
+.esfjg ul li.secnav a i {
+	background-position: right -336px;
+}
+.esfjg ul li.secnavj a i {
+	background-position: right -307px;
+}
+/*新房电话*/
+.liue {
+	margin-top: 10px;
+	padding: 0px 0 0 55px;
+	background: url(../img/tel_icon_animate.gif) 0 5px no-repeat;
+}
+.liue p {
+	font-size: 22px;
+	color: #3b4144;
+}
+.liue p.font14 {
+	font-size: 20px;
+}
+/*新房简介*/
+.house-con {
+	padding: 10px 0;
+	font-size: 14px;
+	color: #425571;
+	line-height: 24px;
+	width: 1140px;
+	margin: 0 auto;
+}
+/*新闻封面*/
+.af-gdlist {
+	padding-bottom: 32px;
+	margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+.af-gdlist-head {
+	padding: 10px 20px;
+	width: auto;
+	margin-bottom: 20px;
+	color: #444444;
+	border-bottom: 1px solid #ddd;
+}
+span.af-more {
+	height: 57px;
+	line-height: 30px;
+	float: right;
+	color: #444444;
+}
+.af-gdlist-head h2 {
+	font-size: 20px;
+	font-weight: 700;
+	height: 36px;
+}
+.af-gdlist-head h2 a {
+	font-size: 20px;
+	color: #01bdf3;
+	display: block;
+	line-height: 47px;
+	height: 46px;
+	float: left;
+	margin: 0px 20px 0 0;
+	border-bottom: 1px solid #01bdf3;
+}
+/*户型在售样式*/
+.saleTypeIcon {
+	margin-left: 5px;
+	background: #ff5200;
+	color: #FFF;
+	line-height: 18px;
+	font-size: 12px;
+	padding: 0 2px;
+	border-radius: 2px;
+}
+.saleTypeIcon1 {
+	background: #ff5200;
+}
+.saleTypeIcon2 {
+	background: #ffa626;
+}
+.saleTypeIcon3 {
+	background: #ecf0f3;
+	color: #8099af
+}
+/*户型报价*/
+.houseType_detail .info_box .info_list .baojia a {
+	display: inline-block;
+	margin-left: 10px;
+	width: 126px;
+	line-height: 24px;
+	color: #fff;
+	cursor: pointer;
+	background: #ff5200;
+	text-align: center;
+	border-radius: 2px;
+	float: left;
+	margin-top: 8px;
+}
+.getChangeBtn:hover {
+	background: #ff5200;
+	color: #fff;
+	text-decoration: underline;
+}
+.houseType_detail .info_box .hotline .telbao {
+	float: left;
+	margin: 7px 0px 0 0px !important;
+}
+.houseType_detail .info_box .hotline .telbao a {
+	width: 120px;
+	float: left;
+	height: 30px;
+	background: #ff6600;
+	border: none;
+	border-radius: 5px;
+	color: #FFF;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	text-align: center;
+	line-height: 30px;
+}
+.houseType_detail .info_box .info_list li span strong {
+	font-size: 28px;
+	font-weight: bold;
+	font-family: dinot-bold;
+}
+.houseType_detail .info_box .hotline .num {
+	color: #ff5203;
+	font-size: 28px;
+	font-family: dinot-bold;
+}
+.houseType_detail .info_box .info_list .tit {
+	float: left;
+	color: #999;
+	line-height: 34px;
+	margin-right: 10px;
+}
+.houseType_detail .info_box .info_list .txt {
+	float: left;
+	color: #000;
+}
+.houseType_detail .info_box .hotline {
+	margin-top: 50px;
+}
+/*左*/
+.huxingMain .pic {
+	width: 400px;/* height:400px; */
+	float: left;
+	padding: 0 68px;
+	position: relative;
+	border-right: 1px solid #ededed;
+}
+.huxingMain .pic img {
+	width: 400px;
+	height: auto;
+	cursor: pointer;
+}
+.huxingMain .pic .show {
+	overflow: hidden;
+	margin-top: 20px;
+}
+.huxingMain .pic .show .lunbo {
+	position: relative
+}
+.huxingMain .pic .left_btn {
+	background-color: #bfbfbf;
+	position: absolute;
+	left: 0;
+	top: 136px;
+	cursor: pointer;
+	display: none
+}
+.huxingMain .pic .left_btn img {
+	width: 22px;
+	height: 43px;
+	padding: 32px 14px;
+}
+.huxingMain .pic .right_btn {
+	background-color: #bfbfbf;
+	position: absolute;
+	right: 0;
+	top: 136px;
+	cursor: pointer;
+	display: none;
+}
+.huxingMain .pic .right_btn img {
+	width: 22px;
+	height: 43px;
+	padding: 32px 14px;
+}
+.huxingMain .pic .right_btn:hover {
+	background-color: #5c5c5c
+}
+.huxingMain .pic .left_btn:hover {
+	background-color: #5c5c5c
+}
+.huxingMain .pic .number h1 {
+	text-align: center;
+	font-size: 14px;
+	font-weight: normal;
+	color: #333333
+}
+.huxingMain .pic .show .look {
+	background-color: rgba(0,0,0,0.5);
+	position: absolute;
+	right: 68px;
+	bottom: 0;
+}
+.huxingMain .pic .show .look h1 {
+	font-size: 12px;
+	color: #fff;
+	line-height: 30px;
+	padding-right: 11px;
+	padding-left: 30px;
+	background-image: url(../img/Magnifier.png);
+	background-repeat: no-repeat;
+	background-position: 11px;
+	cursor: pointer;
+}
+/*右*/
+.huxingMain .right {
+	float: right;
+	width: 530px;/* margin-left:60px; */
+	position: relative;
+	overflow: hidden;
+	margin-right: 52px;
+}
+.huxingMain .right .info {
+	color: #808082;/* border-bottom: 1px solid #eee; */
+}
+.huxingMain .right .info li {
+	line-height: 34px;
+	overflow: hidden;
+	font-size: 14px;
+}
+.huxingMain .right .info li label, .huxingMain .right .info div label {
+	float: left;
+	color: #999;
+	line-height: 34px;
+	margin-right: 27px;
+}
+.huxingMain .right .info li p {
+	float: left;
+	color: #000;
+}
+.huxingMain .right .info li a {
+	float: left;
+	border: 1px solid #eee;
+}
+.huxingMain .right .info li span {
+	margin-right: 10px;
+	float: left;
+	padding: 0 20px;
+	color: #FFF;
+	line-height: 28px;
+	margin-top: 4px;
+}
+.huxingMain .right .info li span.t1 {
+	background: #23b4ff;
+}
+.huxingMain .right .info li span.t2 {
+	background: #7cd301;
+}
+.huxingMain .right .info li span.t3 {
+	background: #905be0;
+}
+.huxingMain .right .info li span.t4 {
+	background: #23b4ff;
+}
+.huxingMain .right .info li span.t5 {
+	background: #7cd301;
+}
+.huxingMain .right .info li span.t6 {
+	background: #905be0;
+}
+
+.huxingMain .right .tel1 {
+	float: left;
+	margin: 10px 0 0 0px !important;
+}
+.huxingMain .right .tel1 b {
+	font-size: 28px;
+	font-family: dinot-bold;
+}
+.huxingMain .right .tel1 i {
+	color: #999;
+	margin-right: 10px
+}
+.huxingMain .right .tel1 b b {
+	font-size: 14px;
+	padding: 0 2px;
+}
+.huxingMain .right .tel2 {
+	float: left;
+	margin: 7px 0px 0 0px !important;
+	display: none;
+}
+.huxingMain .right .tel2 a {
+	width: 120px;
+	float: left;
+	height: 30px;
+	background: #ff6600;
+	border: none;
+	border-radius: 5px;
+	color: #FFF;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	text-align: center;
+	line-height: 30px;
+}
+.huxingMain .right .tel3 {
+	float: left;
+	font-size: 12px;
+	color: #a3a3a3;
+	font-weight: normal;
+	background: url(../img/time.gif) no-repeat left;
+	padding-left: 30px;
+	margin-top: 20px;
+	width: 70px;
+}
+.huxingMain .right .price p {
+	width: 70px;
+	float: left;
+	font-size: 14px;
+	line-height: 40px;
+}
+.huxingMain .right .price ul {
+	float: left;
+	width: 446px;
+}
+.huxingMain .right .price ul .prices {
+	float: left
+}
+.huxingMain .right .price li {
+	float: left;
+	line-height: 34px;
+	font-size: 14px;
+	padding: 0 5px;
+	color: #000;
+}
+.huxingMain .right .price li img {
+	vertical-align: bottom;
+	margin-bottom: 8px;
+	margin-left: 5px;
+}
+.huxingMain .right .price i {
+	font-size: 28px;
+	color: #ff6600;
+	font-weight: bold;
+	font-family: dinot-bold;
+}
+.huxingMain .right .price s {
+	color: #333;
+	padding: 0 5px
+}
+.huxingMain .right .price em {
+	font-size: 28px;
+	color: #ff6600;
+}
+.huxingMain .right .price {
+	height: 40px;
+}
+.huxingMain .right .style {
+	font-size: 24px;
+	color: #333;/* margin: 60px auto 10px; */
+	width: 1210px;
+	height: 28px;
+	font-weight: bold;
+	line-height: 24px;
+	overflow: hidden;
+}
+.huxingMain .right .style .roomTitle {
+	float: left;
+}
+.huxingMain .right .style .titleIcon {
+	float: left;
+	margin-top: -5px;
+	margin-left: 10px;
+}
+.huxingMain .right .style i {
+	font-size: 12px;
+	border: 1px solid #Ff5200;
+	padding: 2px 7px;
+	color: #ff5200;
+	margin-left: 10px;
+	font-weight: normal;
+	color: #668ae9 !important;
+	vertical-align: 5px;
+}
+.huxingMain .right .style p {
+	float: left;
+	width: 42px;
+	height: 48px;
+	font-size: 12px;
+	line-height: 44px;
+	background: url(../img/greenFlag.gif) 0px 0px no-repeat;
+	text-align: center;
+	color: #fff;
+	margin-right: 20px;
+}
+.huxingMain .right .style p.sp {
+	background-position: 0px -54px;
+}
+/* 户型 */
+.huxingMain {
+	border: 1px solid #ededed;
+	padding: 30px 0;
+	margin-top: 25px;
+	margin: 0 auto;
+	width: 1200px !important;
+}
+.huxing_wei {
+	float: left;
+	width: 188px;
+	line-height: 14px !important;
+	margin-top: 30px;
+}
+.huxing_wei label {
+	line-height: 14px !important;
+}
+.type_wei {
+	float: left;
+	width: 188px;
+	line-height: 14px !important;
+	margin-top: 30px;
+}
+.type_wei label {
+	line-height: 14px !important;
+}
+.jian_wei {
+	float: left;
+	width: 188px;
+	line-height: 14px !important;
+	margin-top: 30px;
+}
+.jian_wei label {
+	line-height: 14px !important;
+}
+.zhengf_wei {
+	float: left;
+	width: 188px;
+	margin-top: 20px;
+}
+.layer_box {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 100000;
+	display: none;
+}
+.layer_box table {
+	width: 100%;
+	height: 100%;
+	;
+}
+.layer_box table .layer {
+	width: 900px;
+	height: 710px;
+	background-color: #000;
+	margin: 0 auto;
+	position: relative;
+}
+.layer_box table .layer ul li img {
+	max-width: 600px;
+}
+.layer_box table .layer .close {
+	position: absolute;
+	;
+	top: 20px;
+	right: 20px;
+	cursor: pointer;
+}
+.layer_box table .layer ul li {
+	width: 600px;
+	height: 600px;
+}
+.layer_box .layer .left_btn {
+	position: absolute;
+	left: 40px;
+	top: 50%;
+}
+.layer_box .layer .right_btn {
+	position: absolute;
+	right: 40px;
+	top: 50%;
+}
+.layer_box .layer .lunbo {
+	position: relative;
+}
+.layer_box .layer .left_btn img {
+	margin-top: -40px;
+	cursor: pointer;
+}
+.layer_box .layer .right_btn img {
+	margin-top: -40px;
+	cursor: pointer;
+}
+.layer_box .layer .photo {
+	overflow: hidden;
+	width: 600px;
+	margin: 0 auto;
+}
+.layer_box .layer .photo ul li {
+	float: left;
+}
+.layer_box .layer .photo ul li img {
+	display: block;
+	margin: 0 auto;
+}
+.layer_box .layer h1 {
+	text-align: center;
+	font-size: 14px;
+	font-weight: normal;
+	color: #fff;
+	padding-top: 23px;
+	padding-bottom: 20px
+}
+.layer_box .layer .left_btn .hover {
+	display: none
+}
+.layer_box .layer .right_btn .hover {
+	display: none
+}
+.layer_box .layer .left_btn:hover img {
+	display: none
+}
+.layer_box .layer .left_btn:hover .hover {
+	display: block
+}
+.layer_box .layer .right_btn:hover img {
+	display: none
+}
+.layer_box .layer .right_btn:hover .hover {
+	display: block
+}
+.houseType_detail .bigImg_slide .huxing_p {
+	width: 437px
+}
+.number h1 {
+	margin-left: 227px;
+	font-size: 14px;
+	font-weight: normal
+}
+.pic .look {
+	background-color: rgba(0,0,0,0.5);
+	position: absolute;
+	right: 68px;
+	bottom: 0;
+}
+.pic .look h1 {
+	font-size: 12px;
+	color: #fff;
+	line-height: 30px;
+	padding-right: 11px;
+	padding-left: 30px;
+	background-image: url(../img/Magnifier.png);
+	background-repeat: no-repeat;
+	background-position: 11px;
+	cursor: pointer;
+}
+.layer_box {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.7);
+	z-index: 99999;
+	display: none;
+}
+.layer_box table {
+	width: 100%;
+	height: 100%;
+	;
+}
+/*新房详情*/
+.housesLeft {
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
+	border: 0;
+	width: 922px;
+	float: left;
+	padding-top: 0;
+}
+.Basics_box {
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 1px solid #ededed;
+	padding-bottom: 15px
+}
+.Basics_box .title_sun h1 {
+	font-size: 18px;
+	color: #333333;
+	height: 18px;
+	line-height: 18px;
+	padding-top: 24px
+}
+.Basics_box .content {
+	margin-top: 22px
+}
+.Basics_box .content ul li {
+	width: 50%;
+	float: left;
+	height: 32px;
+	line-height: 32px
+}
+.Basics_box .content .bottom_wei {
+	border-top: 1px dashed #ededed;
+	margin-top: 11px;
+	padding-top: 11px
+}
+.Mansion .title_sun h1 {
+	font-size: 18px;
+	color: #333333;
+	height: 18px;
+	line-height: 18px;
+	padding-top: 24px
+}
+.Mansion .content {
+	margin-top: 22px
+}
+.Mansion .content ul li {
+	width: 50%;
+	float: left;
+	height: 32px;
+	line-height: 32px
+}
+.Mansion {
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 1px solid #ededed;
+	padding-bottom: 15px;
+	margin-top: 11px
+}
+.Villa .title_sun h1 {
+	font-size: 18px;
+	color: #333333;
+	height: 18px;
+	line-height: 18px;
+	padding-top: 24px
+}
+.Villa .content {
+	margin-top: 22px
+}
+.Villa .content ul li {
+	width: 50%;
+	float: left;
+	height: 32px;
+	line-height: 32px
+}
+.Villa {
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 1px solid #ededed;
+	padding-bottom: 15px;
+	margin-top: 11px
+}
+.shops .title_sun h1 {
+	font-size: 18px;
+	color: #333333;
+	height: 18px;
+	line-height: 18px;
+	padding-top: 24px
+}
+.shops .content {
+	margin-top: 22px
+}
+.shops .content ul li {
+	width: 50%;
+	float: left;
+	height: 32px;
+	line-height: 32px
+}
+.shops {
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 1px solid #ededed;
+	padding-bottom: 15px;
+	margin-top: 11px
+}
+.sale .content ul li table {
+	border-collapse: collapse;
+	margin-top: 12px;
+	width: 100%;
+	border-left: 1px solid #ededed;
+}
+.sale .content ul li table thead tr td {
+	text-align: center
+}
+.sale .content ul li table tbody tr {
+	border-top: 1px solid #ededed
+}
+.sale .content ul li table tbody tr td {
+	border-right: 1px solid #ededed
+}
+.sale .content ul li table tbody tr td:nth-child(3n) {
+	border-right: 0;
+	padding-left: 20px
+}
+.sale .title_sun h1 {
+	font-size: 18px;
+	color: #333333;
+	height: 18px;
+	line-height: 18px;
+	padding-top: 24px
+}
+.sale .content {
+	margin-top: 22px
+}
+.sale .content ul li {
+	height: auto;
+	line-height: 32px
+}
+.sale .content ul li a {
+	color: #ff5200;
+	text-decoration: none;
+	margin-right: 10px;
+}
+.sale {
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 1px solid #ededed;
+	padding-bottom: 15px;
+	margin-top: 11px
+}
+.project {
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 1px solid #ededed;
+	padding-bottom: 15px;
+	margin-top: 11px
+}
+.project .title_sun h1 {
+	font-size: 18px;
+	color: #333333;
+	height: 18px;
+	line-height: 18px;
+	padding-top: 24px
+}
+.project .content {
+	margin-top: 23px
+}
+.project .content p {
+	font-size: 14px;
+	color: #333333;
+	line-height: 30px
+}
+.Developers {
+	padding-left: 30px;
+	padding-right: 30px;
+	border: 1px solid #ededed;
+	padding-bottom: 15px;
+	margin-top: 11px
+}
+.Developers .title_sun h1 {
+	font-size: 18px;
+	color: #333333;
+	height: 18px;
+	line-height: 18px;
+	padding-top: 24px
+}
+.Developers .content {
+	margin-top: 23px
+}
+.Developers .content p {
+	font-size: 14px;
+	color: #333333;
+	line-height: 30px
+}
+.houseRight .right-form {
+	padding-top: 20px;
+}
+.houseRight .right-form .form-type label {
+	margin-right: 30px;
+	font-size: 14px;
+}
+.houseRight .right-form .form-type p {
+	line-height: 30px;
+}
+.houseRight .right-form .form-input .input-txt {
+	height: 40px;
+	border: 1px solid #eaeaea;
+	border-radius: 3px;
+	width: 100%;
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin-top: 15px;
+}
+.houseRight .right-form .button {
+	margin-top: 20px;
+	padding-bottom: 20px;
+}
+.houseRight .right-form .button button {
+	width: 100%;
+	height: 40px;
+	border-radius: 3px;
+	cursor: pointer;
+	background-color: #ff5200;
+	color: #ffffff;
+}
+.house-title .house-qrcode {
+	width: 60px;
+	height: 60px;
+	padding-top: 5px;
+	margin-right: 10px;
+	position: relative;
+}
+.newhouse_detail .position {
+	height: 40px;
+	line-height: 40px;
+	background-color: #f7f8fc;
+	border-bottom: #c8c8c8;
+	font-size: 14px;
+	color: #9c9c9c;
+}
+.getChangeBtn {
+	display: inline-block;
+	width: 126px;
+	line-height: 24px;
+	color: #fff;
+	cursor: pointer;
+	background: #ff5200;
+	text-align: center;
+	border-radius: 2px;
+	float: left;
+	margin-top: 8px;
+}
+.getChangeBtn:hover {
+	background: #ff5200;
+	color: #fff
+}
+.cl {
+	clear: both;
+	font-size: 1px;
+	line-height: 0px;
+	height: 0px;
+}
+/*新房列表找房*/
+.zsfw {
+	padding-bottom: 12px;
+	background: #fff;
+	margin: 25px 0 20px 0;
+	border: 1px solid #eaeaea;
+}
+.zsfw ul {
+	width: 260px;
+	margin: 0 auto;
+	margin-top: 8px;
+}
+.zsfw ul li {
+	overflow: hidden;
+	padding-bottom: 8px;
+}
+.zsfw ul li textarea {
+	width: 97%;
+	padding: 1%;
+	height: 60px;
+	resize: none;
+	margin: 0;
+	display: block;
+	border: 1px solid #eaeaea;
+}
+.zsfw ul li span {
+	font-size: 14px;
+	display: block;
+	float: left;
+	width: 67px;
+	display: none;
+}
+.zsfw ul li div {
+	float: left;
+	width: 100%;
+}
+.zsfw ul li div select {
+	width: 100%;
+	height: 28px;
+	border: 1px solid #eaeaea;
+}
+.zsfw ul li input {
+	width: 95%;
+	border: 1px solid #eaeaea;
+	height: 28px;
+	padding: 0 5px;
+	float: left;
+}
+.zsfw ul li p {
+	display: block;
+	width: 86px;
+	margin-left: 4px;
+	color: #333;
+	/* border: 1px solid #ff5200; */
+	text-align: center;
+	line-height: 30px;
+	cursor: pointer;
+	font-size: 12px;
+	float: left;
+	background: #f2f2f2;
+}
+.zsfw ul li .fxe_validateCode {
+	display: none;
+	background: #e7e7e7;
+	color: #626262;
+}
+.zsfw .btn {
+	color: #ffffff;
+	width: 100% !important;
+	display: block;
+	text-align: center;
+	line-height: 36px;
+	font-size: 14px;
+	font-weight: 400;
+	cursor: pointer;
+	/* border: 1px solid #ff6100; */
+	height: 36px;
+	padding: 0;
+	margin-bottom: 5px !important;
+	background: #ff6100 !important;
+	border-radius: 0 !important;
+	line-height: 36px !important;
+	margin-top: 0 !important;
+}
+.form_phone {
+	width: 260px;
+	margin: 0 auto
+}
+.recommend {
+	border: 1px solid #eaeaea;
+	margin-top: 20px;
+	background: #fff;
+	margin-bottom: 24px;
+	position: relative
+}
+.recommend .title {
+	display: none
+}
+.recommend dt {
+	line-height: 50px;
+	font-size: 18px;
+	font-weight: 400;
+	border-bottom: 1px solid #eaeaea;
+	padding: 0 16px
+}
+.recommend dt span {
+	display: inline-block;
+	width: 4px;
+	height: 18px;
+	margin-bottom: -1px;
+	border-radius: 50px;
+	background: #ff5200;
+	margin-right: 8px
+}
+.recommend dd {
+	overflow: hidden;
+	font-size: 12px;
+	color: #666;
+	height: 36px;
+	line-height: 36px;
+	padding: 0 16px
+}
+.recommend dd>div a {
+	text-decoration: none
+}
+.recommend dd>div span {
+	display: inline-block;
+	width: 103px;
+	color: #444;
+	text-decoration: none;
+	text-overflow: ellipsis;
+	white-space: nowrap
+}
+.recommend dd>div .hover {
+	color: #ff5200
+}
+.recommend dd>div p {
+	display: inline-block;
+	width: 30px;
+	color: #cecece;
+	font-size: 14px;
+	font-family: Arial
+}
+.recommend dd>div b {
+	display: inline-block;
+	text-align: right;
+	width: 76px;
+	color: #ff5200;
+	font-weight: 400
+}
+.recommend dd>a {
+	overflow: hidden;
+	display: block;
+	text-decoration: none
+}
+.recommend dd>a img {
+	width: 80px;
+	height: 60px;
+	display: block;
+	float: left;
+	margin: 4px 20px 10px 20px
+}
+.recommend dd>a div {
+	float: left
+}
+.recommend dd>a div p {
+	line-height: 20px
+}
+.recommend li {
+	background: 0 0
+}
+.recommend li:hover a {
+	text-decoration: none;
+	color: #ff5200
+}
+.unstyled {
+	margin-top: 18px
+}
+.hot li {
+	font-size: 12px;
+	line-height: 14px;
+	color: #666;
+	background: url(../img/news_d.gif) no-repeat 0 17px;
+	padding-left: 15px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-bottom: 23px
+}
+.hot li.news_list_tit {
+	font-weight: 700;
+	font-size: 14px;
+	background: 0 0
+}
+
+.bottom{height: 30px;}
+
+i.play{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(../img/index_play.png) no-repeat 50% 50%;
+	background-size: auto;
+	background-size: 17% 23%;
+}

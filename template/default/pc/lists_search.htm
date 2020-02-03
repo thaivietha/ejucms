@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>搜索页_{$eju.field.keywords}_{eju:global name="web_name" /}</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body>
+<!-- topBar S -->
+{eju:include file="header.htm"/}
+<!-- topBar E --> 
+
+<!-- 楼盘列表 S--> 
+<!-- 搜索栏 S -->
+<div class="searBar ">
+  <div class="comWidth clearfix">
+    <div class="sear_box fl"> 
+     {eju:searchform channelid='9' type='default' typeid='1'}
+      <form  method="get" action="{$field.action}">
+        <div class="ipt_area fl">
+          <input type="text" name="keywords" id="keywords" autocomplete="off" placeholder="输入楼盘名称" class="ipt">
+          <span class="placeholder">输入楼盘名称</span>
+          <ul id="search-box">
+          </ul>
+        </div>
+        <div class="btn_area fl">
+          <input type="submit" class="sbm_btn" value="搜索">
+        </div>
+        {$field.hidden}
+      </form>
+      {/eju:searchform} </div>
+    <a href="{eju:diyurl type='map' /}" class="map_btn fr">地图找房</a> </div>
+</div>
+<!-- 搜索栏 E -->
+<div class="cm_house">
+  <div class="comWidth"> 
+    <!-- 页面标识 S-->
+    <div class="page_tit"> <a href="javascript:;" rel="nofollow">您的位置：</a> {eju:position style='' /} </div>
+    <!-- 页面标识 E--> 
+    <!-- 筛选栏 S -->
+    <div class="seleBar">
+      <div class="box"> 
+       {eju:screening id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='不限' opencity='2'}
+        {eju:volist name='$field.list' id='vo'  }
+        <div class="item clearfix">
+          <h3>{$vo.title} :</h3>
+          <ul class="list">
+            {eju:volist name='$vo.dfvalue' id='vo2'}
+            <li class="{$vo2.currentstyle}"><a {$vo2.onClick}>{$vo2.name}</a></li>
+            {/eju:volist}
+          </ul>
+        </div>
+        {/eju:volist}
+        {$field.hidden}
+        {/eju:screening} 
+        </div>
+    </div>
+    <!-- 筛选栏 E -->
+    <div class="main clearfix"> 
+      <!-- 房子列表 S -->
+      <div class="houseList_wrap leftArea cm_leftArea newhouse">
+        <div class="head clearfix">
+          <div class="tit fl">
+            <h2><a class="active">全部楼盘</a></h2>
+          </div>
+          <div class="tab fr">
+            <ul>
+              {eju:orderlist id='field' addfields='average_price' currentstyle='active' upstyle='down' downstyle='up' alltxt='默认排序' }
+              {eju:volist name='$field.list' id='vo'}
+              <li> <a href="javascript:;" {$vo.onClick} class="{$vo.currentstyle}{eju:notempty name='$vo.classstyle'}{$vo.classstyle}{/eju:notempty}">{$vo.title} </a> </li>
+              {/eju:volist}
+              {$field.hidden}
+              {/eju:orderlist}
+            </ul>
+          </div>
+        </div>
+        <div class="list_con">
+          <ul class="clearfix">
+            {eju:list pagesize='10' titlelen='30' infolen='160' orderby='new'}
+            <li> <span class="l_img fl"> <a href="{$field.arcurl}" title="{$field.title}"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> </a> </span> <span class="r_con fr">
+              <h3> <a href="{$field.arcurl}" title="{$field.title}"> {$field.title} <span class="house-status house-status-1">{$field.sale_status}</span> </a> </h3>
+              
+              <p><span class="info">户型：{$field.main_unit}</span></p>
+              
+              <p> <span class="tit">{$field.province_id|get_province_name}-{$field.city_id|get_city_name}</span> <span class="address">{$field.address} </span> </p>
+              <span class="label_list clearfix">
+              {eju:volist name='$field.characteristic' id='vo'}
+				<i class="item ">{$vo}</i>
+			  {/eju:volist} 
+              </span> 
+              <span class="price">
+              <h5>{eju:notempty name="$field.average_price"}<strong>{$field.average_price}</strong>{$field.price_units}{eju:else /}暂无{/eju:notempty}</h5>
+              </span> </span> </a> </li>
+            {/eju:list}
+          </ul>
+        </div>
+        <div class="page_list clearfix">
+          <ul class="pagination">
+            {eju:pagelist listitem="index,end,pageno,pre,next" listsize="10"/}
+          </ul>
+        </div>
+      </div>
+      <!-- 房子列表 E --> 
+      <!-- 右边内容 S -->
+      <div class="cm_rightArea rightArea"> 
+        <!-- 推荐楼盘 S -->
+        <div class="rcmd_build mt_25">
+          <div class="title">
+            <h3>推荐楼盘</h3>
+            <p class="b_l"></p>
+          </div>
+          <div class="con_box">
+           
+            <ul class="list">
+             {eju:arclist typeid='1' flag='c' orderby='new' limit='0,5' id='field'}
+              <li class="clearfix"> <a href="{$field.arcurl}" title="{$field.title}">
+                <div class="fl l_img"> <img src="{$field.litpic}" width="120" height="80" alt=""> </div>
+                <div class="fr r_con">
+                  <p class="name">{$field.title}</p>
+                  <p class="address">{$field.city_id|get_city_name}</p>
+                  <p class="price"><b>{eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</b></p>
+                </div>
+                </a> </li>
+            {/eju:arclist}  
+            </ul>
+          </div>
+        </div>
+        <!-- 推荐楼盘 E --> 
+      </div>
+      <!-- 右边内容 E --> 
+    </div>
+  </div>
+</div>
+<!-- 楼盘列表 S--> 
+
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script> 
+<script type="text/javascript">
+$(function(){
+
+	$('body').on('click',function(){
+		$('#search-box').hide();
+	});
+})
+</script>
+{eju:include file="footer.htm"/}
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+$("img.lazy").lazyload({
+	threshold : 100,
+	effect : "fadeIn"
+	//event: "scrollstop"
+});
+
+</script>
+</body>
+</html>

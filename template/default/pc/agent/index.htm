@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$eju.field.username}的店铺</title>
+    <meta name="description" content="{$eju.field.seo_description}" />
+    <meta name="keywords" content="{$eju.field.seo_keywords}" />
+    <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/jingjiren.css">
+    <script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body>
+<!-- topBar S -->
+{eju:include file="header.htm"/}
+<!-- topBar E -->
+
+<!-- 搜索栏 S -->
+{eju:include file="agent/search.htm"/}
+<!-- 搜索栏 E -->
+<!-- 楼盘列表 S-->
+<div class="cm_house">
+    <div class="comWidth">
+        <!-- 页面标识 S-->
+        {eju:include file="agent/identify.htm"/}
+        <!-- 页面标识 E-->
+
+        <div class="main clearfix">
+            <!-- 二手房列表 S-->
+            <div class="houseList_wrap leftArea cm_leftArea">
+                <div class="agentInfoMain" style="float: left;position: relative;overflow: inherit;">
+                    <ul>
+                        <li>
+                            <h4>经纪人等级<i></i></h4>
+                        </li>
+                        <li> <span>经纪人等级：</span>
+                            <p> <s class="icon-xy level-icon1"> {$eju.field.level_name} </s> </p>
+                        </li>
+                        <li>
+                            <h4>个人资料<i></i></h4>
+                        </li>
+                        <li> <span>服务宣言：</span>
+                            <p>{$eju.field.content}</p>
+                        </li>
+                        <li> <span>咨询电话：</span>
+                            <p>{$eju.field.mobile}</p>
+                        </li>
+                        <li>
+                            <h4>服务信息<i></i></h4>
+                        </li>
+                        <li> <span>所属机构：</span>
+                            <p>{$eju.field.company}</p>
+                        </li>
+                        <li> <span>主营区域：</span>
+                            <p>
+                            {eju:volist name="$eju.field.service_area" id="vo"}
+                                <span style="margin-left: 10px;">{$vo.name}</span>
+                            {/eju:volist}
+                            </p>
+                        </li>
+                        <li> <span>主营小区：</span>
+                            <ul>
+                                {eju:volist name="$eju.field.service_xiaoqu" id="vo"}
+                                <li> <a href="{$vo.arcurl}" target="_blank"> {$vo.title} </a> </li>
+                                {/eju:volist}
+                            </ul>
+                        </li>
+                        {eju:notempty name="$eju.field.license"}
+                        <li style="cursor: pointer;padding-top: 20px;" onmouseenter="showLicense(this)" onmouseleave="hideLicense(this)">
+                            <span>公司执照编码：</span>
+                            <span style="color:#999;"> {$eju.field.license} </span>
+                        </li>
+                        {/eju:notempty}
+                        {eju:notempty name="$eju.field.license_img"}
+                        <div class="license" onmouseenter="showLicense(this)" onmouseleave="hideLicense(this)" style="display: none;">
+                            <img src="{$eju.field.license_img} " class="license_img">
+                        </div>
+                        {/eju:notempty}
+                        <div style="clear: both;"></div>
+                    </ul>
+                </div>
+            </div>
+            <script>
+                function showLicense(e) {
+                    $(".license").show();
+                }
+                function hideLicense(e) {
+                    $(".license").hide();
+                }
+            </script>
+            <!-- 二手房列表 E-->
+            <!-- 右边内容 S -->
+            <div class="cm_rightArea rightArea">
+                <!-- 我要卖房 S -->
+                {eju:user type='login'} <a href="{$field.url}" class="sale_btn mt_25">我要卖房</a> {$field.hidden}
+                {/eju:user} <a href="#" class="sale_btn ">我要求购</a>
+                <!-- 我要卖房 E -->
+                <!-- 最新房源 S -->
+                <div class="rcmd_house new_house ">
+                    <div class="title"><span></span>
+                        <h3>推荐房源</h3>
+                    </div>
+                    <div class="con_box">
+                        <ul class="clearfix">
+                            {eju:arclist channelid='12' screen='0' orderby='new' row='3' id='field'}
+                            <li> <a href="{$field.arcurl}"  target="_blank" title="{$field.title}">
+                                <div class="img"> <img src="{$field.litpic}" alt="{$field.title}"> </div>
+                                <div class="con">
+                                    <div class="row clearfix">
+                                        <p class="name fl">{$field.title}</p>
+                                        <p class="price fr">{eju:notempty name="$field.total_price"}{$field.total_price}{$field.total_price_unit}{eju:else /}暂无{/eju:notempty}</p>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <p class="type fl">{$field.room}室{$field.living_room}厅</p>
+                                        <p class="area fr">{$field.area}㎡</p>
+                                    </div>
+                                </div>
+                            </a> </li>
+                            {/eju:arclist}
+                        </ul>
+                    </div>
+                </div>
+                <!-- 最新房源 E -->
+                <!-- 购房知识 S -->
+                <div class="buy_way house_klg mt_25">
+                    <div class="title"><span></span>
+                        <h3>购房知识</h3>
+                    </div>
+                    <div class="con_box">
+                        <ul class="list">
+                            {eju:arclist typeid='5' screen='0' orderby='new' row='10' id='field'}
+                            <li class="clearfix"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></li>
+                            {/eju:arclist}
+                        </ul>
+                    </div>
+                </div>
+                <!-- 购房知识S -->
+            </div>
+            <!-- 右边内容 E -->
+        </div>
+    </div>
+</div>
+<!-- 楼盘列表 S-->
+
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#select select").on('change',function(){
+            var uri = $(this).find("option:selected").data('uri');
+            window.location.href = uri;
+        });
+        $("#keyword").on('keyup click',function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            var keyword = $(this).val(),url = $(this).data('uri'),box = $('#search-box');
+            $.get(url,{keyword: $.trim(keyword)},function(result){
+                if(result.code == 1)
+                {
+                    var gettpl = document.getElementById('template').innerHTML;
+                    laytpl(gettpl).render(result.data, function(html){
+                        $('#search-box').html(html);
+                    });
+                    box.show();
+                }else{
+                    box.hide();
+                }
+            });
+        });
+        $('body').on('click',function(){
+            $('#search-box').hide();
+        });
+    })
+</script>
+{eju:include file="footer.htm"/}
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script>
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script>
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+        $('.follow').on('click',function(){
+            var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+            $.post(url,{house_id:house_id,model:model},function(result){
+                if(result.code == 1)
+                {
+                    layer.msg(result.msg,{icon:1});
+                    if(me.hasClass('on'))
+                    {
+                        me.removeClass('on').text(result.text);
+                    }else{
+                        me.addClass('on').text(result.text);
+                    }
+                }else{
+                    layer.msg(result.msg,{icon:2});
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

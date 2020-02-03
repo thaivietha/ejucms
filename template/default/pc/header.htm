@@ -1,0 +1,57 @@
+<div class="topBar">
+  <div class="comWidth clearfix">
+    <div class="logo fl"> <a href="{eju:global name='web_cmsurl' /}" title="{eju:global name='web_name' /}"> <img src="{eju:global name='web_logo' /}" alt="{eju:global name='web_name' /}" /> </a> </div>
+    
+    <div class="fl sele_city"> <a href="javascript:;"  class="sele_city_btn">{$eju.region.name}<img src="{eju:global name='web_templets_pc' /}/skin/img/icon15.png" alt="" class="icon"></a>
+      <div class="city_list clearfix"> <i class="city-close">关闭</i>
+        <dl class="clearfix">
+          {eju:region type='selflevel' opencity='1,2,3' row='60' id='field' currentstyle="hot" groupby="initial"}
+            <dd><a href="javascript:;">{$key}</a></dd>
+            {eju:volist name="$field" id="vo"}
+            <dd class="{$vo.currentstyle}"><a href="{$vo.domainurl}" title="{$vo.name}">{$vo.name}</a></dd>
+            {/eju:volist}
+          {/eju:region}
+        </dl>
+      </div>
+    </div>
+    <div class="navBar fl">
+      <ul class="nav_list fl">
+        <li {eju:eq name='$Think.const.CONTROLLER_NAME' value='Index'}class="active"{/eju:eq}> <a href="{eju:global name='web_cmsurl' /}">首页</a> </li>
+        
+        {eju:channel type='top' currentstyle="active" id="field"}
+        <li class="{$field.currentstyle}"> <a href="{$field.typeurl}">{$field.typename}</a>
+         {eju:if condition="(empty($field.children) neq true) or (in_array($field.typeid,[1,11,12]))"}
+          <ul>
+            {eju:channel name="$field.children" row="100" id="field2"}
+            <li><a href="{$field2.typeurl}">{$field2.typename}</a></li>
+            {/eju:channel}
+            {eju:eq name='$field.typeid' value='1'}
+             <li><a href="{eju:diyurl type='map' /}">地图找房</a></li>
+            {/eju:eq}
+            {eju:eq name='$field.typeid' value='11'}
+             <li><a href="{eju:diyurl type='mapershou' /}">地图找房</a></li>
+            {/eju:eq}
+            {eju:eq name='$field.typeid' value='12'}
+             <li><a href="{eju:diyurl type='mapzufang' /}">地图找房</a></li>
+            {/eju:eq}
+          </ul>
+            {/eju:if}
+          </li>
+        {/eju:channel}
+      </ul>
+    </div>
+    <div class="log_link fr"> 
+      <!-- 未登录状态 -->
+      <div class="not_log"> 
+       {eju:user type='open'}
+        {eju:user type='login'} <a href="{$field.url}" id="{$field.id}">登录</a> / 
+        {$field.hidden}
+        {/eju:user}
+        {eju:user type='reg'} <a href="{$field.url}" id="{$field.id}">注册</a> {$field.hidden}
+        {/eju:user}
+        {eju:user type='logout'} <a href="{$field.url}" id="{$field.id}">退出</a> {$field.hidden}
+        {/eju:user}
+        {/eju:user} </div>
+    </div>
+  </div>
+</div>
