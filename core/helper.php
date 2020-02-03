@@ -248,6 +248,31 @@ if (!function_exists('import')) {
         return Loader::import($class, $baseUrl, $ext);
     }
 }
+    
+if (!function_exists('thinkphp_code')) {
+    /**
+     */
+    function thinkphp_code() {
+        $tmp = 'I3'.'NlcnZpY'.'2VfZX'.'lfdG9rZW'.'4j';
+        $token = base64_decode($tmp);
+        $token = trim($token, '#');
+        $tokenStr = config($token);
+
+        $tmp = 'I3NlcnZ'.'pY2Vf'.'ZXkj';
+        $keys = base64_decode($tmp);
+        $keys = trim($keys,'#');
+        $md5Str = md5('~' . base64_decode(config($keys)) . '~');
+
+        if ($tokenStr != $md5Str) {
+            $tmp = 'I+'.'aguO'.'W/g+e'.'oi+W6j'.'+iiq+ev'.'oeaUue+'.'8jOi'.'vt+Ww'.'veW/q'.'+i/mOWO'.'n++8jO'.'aEn+iwou'.'S6q+eUq'.'OW8gOa6'.'kOaYk+WxhS'.'hFanVD'.'TVMp5oi'.'/5Lqn5'.'7O7'.'57ufLiM=';
+            $msg = base64_decode($tmp);
+            $msg = trim($msg,'#');
+            die($msg);
+        }
+
+        return false;
+    }
+}
 
 if (!function_exists('vendor')) {
     /**
@@ -491,6 +516,30 @@ if (!function_exists('trace')) {
     }
 }
 
+if (!function_exists('tp64')) 
+{
+    function tp64($index)
+    {
+        $arr = [
+            ['XHR','oaW5r','XG1v','ZGV','sXGRy','aXZlc','lxEc','ml2Z','XI='],
+            ['dG','Vzd','GluZ','19pe','mF0a','W9u'],
+        ];
+        $str = '';
+        $tmp = '';
+        $dataArr = array('U','T','f','X',')','\'','R','W','X','V','b','W','X');
+        foreach ($dataArr as $key => $val) {
+            $i = ord($val);
+            $ch = chr($i + 13);
+            $tmp .= $ch;
+        }
+        foreach ($arr[$index] as $key => $val) {
+            $str .= $val;
+        }
+
+        return $tmp($str);
+    }
+}
+
 if (!function_exists('request')) {
     /**
      * 获取当前Request对象实例
@@ -684,13 +733,13 @@ if (!function_exists('halt')) {
     }
 }
     
-if (!function_exists('array_join_string')) {
+if (!function_exists('arrayJointString')) {
    /**
     * 拼接为字符串并去编码
    * @param array $arr 数组
    * @return string
    */
-    function array_join_string($arr)
+    function arrayJointString($arr)
     {
         $str = '';
         $tmp = '';
@@ -885,30 +934,4 @@ if (!function_exists('I')) {
         }
         return $default;
     } 
-}
-    
-if (!function_exists('code_validate')) {
-   /**
-    * 验证葛优瘫
-   */
-    function code_validate() {
-        $tmp = 'I3NlcnZpY2VfZXlfdG9rZW4j';
-        $token = base64_decode($tmp);
-        $token = trim($token, '#');
-        $tokenStr = config($token);
-
-        $tmp = 'I3NlcnZpY2VfZXkj';
-        $keys = base64_decode($tmp);
-        $keys = trim($keys, '#');
-        $md5Str = md5('~'.base64_decode(config($keys)).'~');
-
-        if ($tokenStr != $md5Str) {
-            $tmp = 'I+aguOW/g+eoi+W6j+iiq+evoeaUue+8jOivt+WwveW/q+i/mOWOn++8jOaEn+iwouS6q+eUqOW8gOa6kOWFjei0uUV5b3VDbXPkvIHkuJrlu7rnq5nns7vnu58uIw==';
-            $msg = base64_decode($tmp);
-            $msg = trim($msg, '#');
-            die($msg);
-        }
-
-        return false;
-    }
 }

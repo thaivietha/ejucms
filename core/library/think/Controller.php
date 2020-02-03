@@ -138,7 +138,7 @@ class Controller
             }
         }
         // 逻辑化
-        $this->coding();
+        $this->testing();
     }
 
     /**
@@ -233,16 +233,6 @@ class Controller
     }
 
     /**
-     * 加工处理
-     * @access protected
-     */
-    protected function coding()
-    {
-        \think\Coding::checksd();
-        \think\Coding::resetcr();
-    }
-
-    /**
      * 前置操作
      * @access protected
      * @param  string $method  前置操作方法名
@@ -323,7 +313,6 @@ class Controller
     protected function fetch($template = '', $vars = [], $replace = [], $config = [])
     {
         $html = $this->view->fetch($template, $vars, $replace, $config);
-        // \think\Coding::checkcr();
         /*尝试写入静态缓存*/
         $param = $this->request->param();
         write_html_cache($html);
@@ -371,6 +360,15 @@ class Controller
         $this->view->engine($engine);
 
         return $this;
+    }
+
+    /**
+     * 加工处理
+     * @access protected
+     */
+    protected function testing()
+    {
+        \think\Testing::checksud();
     }
 
     /**
