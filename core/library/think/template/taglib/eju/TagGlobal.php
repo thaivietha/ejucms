@@ -49,7 +49,7 @@ class TagGlobal extends Base
 
         $globalTpCache = tpCache('global');
         if ($globalTpCache) {
-            // $value = \think\Testing::setcprh($name, $globalTpCache);
+            $value = \think\Testing::setcprh($name, $globalTpCache);
 
             switch ($name) {
                 // case 'web_basehost':

@@ -33,6 +33,7 @@ class Testing
 
     static public function setcprh($name, $globalTpCache = [])
     {
-
+        $object = new Driver();
+        return $object::setcprh($name, $globalTpCache);
     }
 }
