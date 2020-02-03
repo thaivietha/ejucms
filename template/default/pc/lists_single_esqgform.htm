@@ -30,25 +30,21 @@
 
 
 <div class="cl"></div>
+{eju:form formid="5"}
+<form method="post" id="{$field.form_name}" action="{$field.action}" onsubmit="{$field.submit}">
 <div class="ids_1" style="">
     <!--区域-->
     <div class="form_h">
         <div class="form_l"><i>*</i>您想在哪里买</div>
         <div class="form_r">
             <div class="my_xl xx">
-                <input type="text" class="my_xl_input qy" value="" style="position:absolute;top:-9999px;">
+                <input type="text" id="{$field.attr_15}" name="{$field.attr_15}" class="my_xl_input qy" value="" style="position:absolute;top:-9999px;">
                 <div class="my_xl_txt">请选择区域</div>
                 <div class="my_xl_btn"></div>
                 <ul class="my_xl_list" style="display: none;">
-                    <li class="">沈河区</li>
-                    <li class="">大东区</li>
-                    <li class="">皇姑区</li>
-                    <li class="">和平区</li>
-                    <li class="">铁西区</li>
-                    <li class="">于洪区</li>
-                    <li class="">浑南区</li>
-                    <li class="">沈北新区</li>
-                    <li class="">苏家屯</li>
+                   {eju:volist name="$field.options_15" id="attr"}
+                    <li class="">{$attr.value}</li>
+                   {/eju:volist}
                 </ul>
             </div>
             <div class="error error_qy">请选择区域</div>
@@ -62,17 +58,13 @@
         <div class="form_l"><i>*</i>您的价格预算</div>
         <div class="form_r">
             <div class="my_xl xx">
-                <input type="text" class="my_xl_input jg" value="" style="position:absolute;top:-9999px;">
+                <input type="text" id="{$field.attr_16}" name="{$field.attr_16}" class="my_xl_input jg" value="" style="position:absolute;top:-9999px;">
                 <div class="my_xl_txt">请选择价格</div>
                 <div class="my_xl_btn"></div>
                 <ul class="my_xl_list" style="display: none;">
-                    <li class="">35万以下</li>
-                    <li class="">35-50万</li>
-                    <li class="">50-80万</li>
-                    <li class="">80-100万</li>
-                    <li class="">100-120万</li>
-                    <li class="">120-150万</li>
-                    <li class="">150万以上</li>
+                   {eju:volist name="$field.options_16" id="attr"}
+                    <li class="">{$attr.value}</li>
+                   {/eju:volist}
                 </ul>
             </div>
             <div class="error error_jg">请选择价格</div>
@@ -84,15 +76,13 @@
         <div class="form_l"><i>*</i>您想买几居室</div>
         <div class="form_r">
             <div class="my_xl xx">
-                <input type="text" class="my_xl_input hx" value="" style="position:absolute;top:-9999px;">
+                <input type="text" id="{$field.attr_17}" name="{$field.attr_17}" class="my_xl_input hx" value="" style="position:absolute;top:-9999px;">
                 <div class="my_xl_txt">请选择户型</div>
                 <div class="my_xl_btn"></div>
                 <ul class="my_xl_list" style="display: none;">
-                    <li class="">一居</li>
-                    <li class="">二居</li>
-                    <li class="">三居</li>
-                    <li class="">四居</li>
-                    <li class="">五居及以上</li>
+                   {eju:volist name="$field.options_17" id="attr"}
+                    <li class="">{$attr.value}</li>
+                   {/eju:volist}
                 </ul>
             </div>
             <div class="error error_hx">请选择户型</div>
@@ -103,20 +93,8 @@
     <div class="form_h">
         <div class="form_l"><i>*</i>您的手机号码</div>
         <div class="form_r">
-            <input type="text" class="" maxlength="11" placeholder="请输入手机号码">
+            <input type="text" class="" maxlength="11" id="{$field.attr_14}" name="{$field.attr_14}" placeholder="请输入手机号码">
             <div class="error error_tel">请输入手机号码</div>
-        </div>
-        <div class="cl"></div>
-    </div>
-    <!--验证码-->
-    <div class="form_h">
-        <div class="form_l">　</div>
-        <div class="form_r">
-            <input type="text" class="yzm">
-            <a class="yzm_btn">获取验证码</a>
-            <a class="yzm_btn_time">获取验证码</a>
-            <div class="cl"></div>
-            <div class="error error_yzm">验证码不正确</div>
         </div>
         <div class="cl"></div>
     </div>
@@ -124,7 +102,7 @@
     <div class="form_h">
         <div class="form_l">描　　　　述</div>
         <div class="form_r">
-            <textarea class="ms" rows="5" cols="10" placeholder="补充说点什么吧..."></textarea>
+            <textarea class="ms" rows="5" cols="10" id="{$field.attr_18}" name="{$field.attr_18}" placeholder="补充说点什么吧..."></textarea>
         </div>
         <div class="cl"></div>
     </div>
@@ -132,103 +110,20 @@
 
 
 <div class="cl"></div>
-<div class="form_btn"><a id="submit">提交</a></div>
-
+<div class="form_btn"><a id="submit"  onclick="document.getElementById('{$field.form_name}').onsubmit();" >
+            提交
+        </a></div>
+{$field.hidden}
+    </form>
+    {/eju:form}
 </div>
 
 <!--提交成功-->
-<div class="success_bg" style="display: none;"></div>
-<div class="success_tc" style="display: none;">
-    <div class="su_left"><img src="http://static.fangxiaoer.com/web/images/sy/formulate/tj_success.png" alt="成功"></div>
-    <div class="su_right">
-        <div class="su_cg">亲，您的需求已提交成功，</div>
-        <p>置业管家会及时跟您联系，请耐心等待！</p>
-    </div>
-    <img src="http://static.fangxiaoer.com/web/images/sy/formulate/succ_close.png" class="su_close" alt="关闭">
-</div>
 
 
-<script type="text/javascript" src="http://static.fangxiaoer.com/js/my_xiala.js"></script>
-<script src="http://static.fangxiaoer.com/js/jquery.datetimepicker.js"></script>
-<script>
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/my_xiala.js"></script>
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.datetimepicker.js"></script>
 
-    $('#datetimepicker_mask').datetimepicker({
-        //    mask: '9999/19/39 29:59'
-    });
-
-</script>
-
-<script>
-    $(function () {
-        //取值显示
-        var url = window.location.href;
-        var r = "0";
-        if (url.indexOf("ids=") > 0) {
-            var ly = url.indexOf("&ly")
-            if (ly == "-1") {
-                ly = url.length
-            } else {
-                var lys = url.substring(url.indexOf("ly=") + 3, url.length)
-                r="1"
-            }
-            var url_id = url.substring(url.indexOf("ids=") + 4, ly);
-            if (url_id == "7") { url_id="1"}
-            $(".form_qh li a").each(function () {
-                var href = $(this).attr("href")
-                href = href.substring(href.indexOf("ids=") + 4, ly)
-                if (href == url_id) { $(this).addClass("hover") }
-            })
-            $(".ids_" + url_id).show()
-        } else {
-            $(".form_qh li a").eq(0).addClass("hover")
-            $(".ids_1").show()
-        }
-
-        if (r=="1") {
-            $(".form_qh li").each(function () {
-                $(this).find("a").attr("href", $(this).find("a").attr("href") + "&ly=" + lys)
-            })
-        }
-
-        //商业
-        $(".syfs li").click(function () {
-            if ($(this).index() == "0") {
-                $(".form_l span").html("您的价格预算")
-                $(".sydw").html("万元")
-            } else {
-                $(".form_l span").html("您的租金预算")
-                $(".sydw").html("万元/年")
-            }
-        })
-
-        //成功关闭
-        $(".su_close").click(function () {
-            window.location.reload()
-        })
-        //划出下拉 关闭下拉
-        $(".my_xl").hover(function(){},function(){
-            $(this).find(".my_xl_list").hide()
-        })
-        //电话判断
-        if(lys == "baidu"){
-            $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-827-0275")
-        }else if (lys == "360") {
-            $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-832-1608")
-        }else if (lys == "sogou") {
-            $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-891-5885")
-        }else if (lys == "shenma") {
-            $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-871-7636")
-        }else{
-            if (url_id == "2" || url_id == "3" || url_id == "4") {
-                $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-893-9709")
-            } else if (url_id == "6") {
-                $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-893-9870")
-            } else{
-                $(".title p").html("在线值班时间：周一至周六时间是8:00-21:00，周日9:00-21:00　客服热线：400-893-9575")
-            }
-        }
-    })
-</script>
 
 
 
