@@ -1,0 +1,1 @@
+<div class="footer"> Powered by  <a href="http://www.ejucms.com" target="_blank">EjuCms</a></div>
