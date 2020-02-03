@@ -1,2 +1,0 @@
-mbname = д╛хо╥Г╦Я
-cmsversion = v1.0.0
