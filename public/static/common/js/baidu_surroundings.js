@@ -1,4 +1,4 @@
-var letter=new Array("A","B","C","D","E","F","G","H","I","J");
+var letter=new Array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 
 var column = ["商业","交通","教育","医疗"];
 //多个关键字搜索数组初化始:数据依次为商业,交通,教育,医疗
@@ -208,22 +208,32 @@ function myBuildInfo(index, bid, bname, address){
 // 添加标注
 
 function addMarker(point, index,selectIndex){
-
     if(selectIndex>10){
-
-        selectIndex=12;
-
+        // selectIndex=12;
     }
 
-    var myIcon = new BMap.Icon("//api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+    // var myIcon = new BMap.Icon("//api.map.baidu.com/img/markers.png", new BMap.Size(23, 25), {
+    //     offset: new BMap.Size(10, 25),
+    //     imageOffset: new BMap.Size(0, 0 - (selectIndex-1) * 25)
+    // });
+    // var marker = new BMap.Marker(point, {icon: myIcon});
 
-        offset: new BMap.Size(10, 25),
+    // var marker = new BMap.Marker(point);
+    // var myIcon=new BMap.Icon('../images/surroundings/position.png',new BMap.Size(23,35));
+    // marker.setIcon(myIcon);
 
-        imageOffset: new BMap.Size(0, 0 - (selectIndex-1) * 25)
 
+    var marker = new BMap.Marker(point);  // 创建标注
+    marker.setIcon(new BMap.Icon('//map.baidu.com/newmap/static/common/images/mk_14e51b4.gif',new BMap.Size(34,24),{
+        imageOffset:new BMap.Size(0,0)
+    }));
+    console.log(selectIndex);
+    var label = new BMap.Label(selectIndex,{offset:new BMap.Size(3,0)});
+    label.setStyle({
+        background:'none',color:'#fff',border:'none'
     });
+    marker.setLabel(label);
 
-    var marker = new BMap.Marker(point, {icon: myIcon});
 
     mp.addOverlay(marker);
 
@@ -532,12 +542,13 @@ function sortOrder(pm,map_result,map_tab){
             function(index, value)
             {
                 zbcount++;
-                var marker = addMarker(value._point,index,zbcount);
+                var key = i*10 + index + 1;
+                var marker = addMarker(value._point,index,key);
                 var openInfoWinFun = addInfoWindow(marker,value._poi,i,index);
                 openInfoWinFuns.push(openInfoWinFun);
                 var selected="";
                 result.push('<li id="list' + i +'_'+ index + '" style="cursor: pointer;" onclick="openInfoWinFuns[' + start + ']()">');
-                result.push('<span class="lp-map-s20 icons fl">'+letter[index]+'</span>');
+                result.push('<span class="lp-map-s20 icons fl">'+key+'</span>');
                 result.push('<span class="fl lp-map-s22 gray3">' + value._title.replace(new RegExp(value._keyword,"g"),value._keyword) + '</span>');
                 result.push('<span class="lp-map-s21">'+value._distance+'米</span>');
                 result.push('</li>');
