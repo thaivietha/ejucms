@@ -72,6 +72,9 @@ class Index extends Base
             }
         }
         $this->assign('quickMenu',$quickMenu);
+        // 内容管理
+        $contentManage = $this->contentManage();
+        $this->assign('contentManage',$contentManage);
         // 内容统计
         $contentTotal = $this->contentTotalList();
         $this->assign('contentTotal',$contentTotal);
@@ -291,6 +294,27 @@ class Index extends Base
         }
 
         return $quickentryList;
+    }
+
+    /**
+     * 内容管理
+     * @return [type] [description]
+     */
+    public function contentManage()
+    {
+        $data = [];
+        $channel_list = model('Channeltype')->getArctypeChannel('yes');
+        foreach ($channel_list as $key => $val) {
+            if (in_array($val['id'], [6])) {
+                continue;
+            }
+            $data[$val['id']] = [
+                'id'    => $val['id'],
+                'nid'    => $val['nid'],
+            ];
+        }
+
+        return $data;
     }
 
     /**

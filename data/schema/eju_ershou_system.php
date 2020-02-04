@@ -102,9 +102,9 @@ return array (
   'kitchen' => 
   array (
     'name' => 'kitchen',
-    'type' => 'enum(\'0\',\'1厨\',\'2厨\',\'3厨\')',
+    'type' => 'enum(\'0厨\',\'1厨\',\'2厨\',\'3厨\')',
     'notnull' => false,
-    'default' => '0',
+    'default' => '0厨',
     'primary' => false,
     'autoinc' => false,
   ),
