@@ -85,7 +85,7 @@
     color: #ff5200;
 }
 
-.house-title .house-tags span:first-child {
+.house-title .house-tags span.status {
     background: #ff5200;
     border: 1px solid #ff5200;
 }

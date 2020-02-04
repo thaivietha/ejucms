@@ -28,28 +28,16 @@
   </div>
   <div class="house-title">
     <div class="fix-width clearfix">
-      <div class="house-qrcode fl" id="qrcode" >
-        <div class="layer_wei" style="display: none;" id="layer_wei">
-          <p>手机看房<br>
-            更方便</p>
-        </div>
-      </div>
-      <script>
-			$(function(){
-				$('#qrcode').qrcode('{$eju.field.arcurl}');
-				$("#qrcode").mouseover(function(){
-					$("#layer_wei").show();
-				});
-				$("#qrcode").mouseleave(function(){
-					$("#layer_wei").hide();
-				});
-			})
-			
-
-		</script>
+      
       <div class="house-tags fl">
         <h1>{$eju.field.title}</h1>
-        <div class="tags" style="padding-top:5px;"> 更新时间：{$eju.field.add_time|MyDate='Y-m-d',###} / 浏览：{eju:arcclick /} </div>
+        <div class="tags" style="padding-top:5px;">
+        {eju:diyfield type='checkbox' id='characteristic' name='$eju.field.characteristic'}
+         <span>{$characteristic.value}</span>
+        {/eju:diyfield}
+         <span>{$eju.field.manage_type}</span>
+        
+        更新时间：{$eju.field.add_time|MyDate='Y-m-d',###} / 浏览：{eju:arcclick /} </div>
       </div>
       <!--<div class="house-follow fr"><a href="javascript:;" class="subscribe J_dialog" data-id="14" data-model="second_house" data-type="1" data-uri="{eju:diyurl type='form'/}">预约看房</a> </div>-->
     </div>
@@ -85,9 +73,7 @@
       </div>
       <div class="spcsdetail-house-info fr">
         <div class="second-box">
-          <div class="house-price"> {eju:notempty name="$eju.field.total_price"}<b>{$eju.field.total_price}</b>{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}&nbsp;&nbsp;</div>
-          <div class="tags"> </div>
-          <div class="house-first-pay"> </div>
+          <div class="house-price"> {eju:notempty name="$eju.field.total_price"}<b>{$eju.field.total_price}</b>{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}&nbsp;&nbsp;<span>{$eju.field.average_price}{$eju.field.average_price_unit}</span><span>（价格可面议）</span></div>
         </div>
         <div class="basic">
           <ul>

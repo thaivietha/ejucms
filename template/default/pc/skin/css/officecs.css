@@ -65,8 +65,8 @@
 }
 .detail-info .occsdetail-house-info .house-price span, .detail-info .occsdetail-house-info .house-price i {
 	font-size: 14px;
-    margin-left: 32px;
-    color: #666;
+    margin-left: 20px;
+    color: #333;
 }
 .detail-info .occsdetail-house-info .house-price a {
 	float: right;

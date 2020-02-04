@@ -4008,7 +4008,7 @@ a.but36 {
 	margin-right: 3px;
 	font-size: 12px;
 }
-.house-title .house-tags span:first-child {
+.house-title .house-tags span.status {
 	color: #fff;
 }
 .house-title .house-follow {
@@ -5562,6 +5562,9 @@ house-title .house-follow a {
     margin-left: 16px;
     display: inline-block;
     float: left;
+}
+.lp-pb-check2 ul li.rese a{
+	color: #333;
 }
 .lp-pb-check2 ul li a {
 	font-weight: normal;
