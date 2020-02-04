@@ -150,13 +150,13 @@
               {$eju.field.manage_type}</li>
             <li>
               <label>使用率</label>
-              {$eju.field.diy_syl}{$eju.field.diy_syl_unit}</li>
+              {eju:notempty name="$eju.field.diy_syl"}{$eju.field.diy_syl}{$eju.field.diy_syl_unit}{eju:else /}暂无数据{/eju:notempty}</li>
             <li>
               <label>楼层</label>
               {$eju.field.floor_count}{$eju.field.floor_count_unit}/{$eju.field.floo_type}</li>
              <li>
               <label>工位数</label>
-              {$eju.field.diy_gws}{$eju.field.diy_gws_unit}</li>
+              {eju:notempty name="$eju.field.diy_gws"}{$eju.field.diy_gws}{$eju.field.diy_gws_unit}{eju:else /}暂无数据{/eju:notempty}</li>
              <li>
               <label>注册</label>
               {$eju.field.diy_sfzc}</li>

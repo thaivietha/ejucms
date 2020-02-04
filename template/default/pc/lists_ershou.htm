@@ -170,7 +170,9 @@
         <a href="{$field.url}" class="sale_btn mt_25">我要卖房</a> 
         {$field.hidden}
         {/eju:user}
-        <a href="#" class="sale_btn ">我要求购</a> 
+        {eju:type typeid='31'}
+        <a href="{$field.typeurl}" class="sale_btn ">我要求购</a> 
+        {/eju:type}
         <!-- 我要卖房 E --> 
         <!-- 最新房源 S -->
         <div class="rcmd_house new_house ">

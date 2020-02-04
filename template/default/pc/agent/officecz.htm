@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{$eju.field.seo_title}</title>
+    <title>{$eju.field.username}的店铺</title>
     <meta name="description" content="{$eju.field.seo_description}" />
     <meta name="keywords" content="{$eju.field.seo_keywords}" />
     <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -20,76 +20,94 @@
 <!-- topBar E -->
 
 <!-- 搜索栏 S -->
-<div class="searBar ">
-    <div class="comWidth clearfix">
-        <div class="sear_box fl">
-            {eju:searchform type='default' typeid='23'}
-            <form  method="get" action="{$field.action}">
-                <div class="ipt_area fl">
-                    <input type="text" name="keywords" id="keywords" value="{$Request.param.keywords}" autocomplete="off" placeholder="请输入姓名、手机号、所属公司名称查找经纪人" class="ipt">
-                    <span class="placeholder">输入房源名称</span>
-                    <ul id="search-box">
-                    </ul>
-                </div>
-                <div class="btn_area fl">
-                    <input type="submit" class="sbm_btn" value="搜索">
-                </div>
-                {$field.hidden}
-            </form>
-            {/eju:searchform}
-        </div>
-        <a href="{eju:diyurl type='mapershou' /}" class="map_btn fr">地图找房</a> </div>
-</div>
+{eju:include file="agent/search.htm"/}
 <!-- 搜索栏 E -->
 <!-- 楼盘列表 S-->
 <div class="cm_house">
     <div class="comWidth">
         <!-- 页面标识 S-->
-        <div class="page_tit"> <a href="javascript:;" rel="nofollow">您的位置：</a> {eju:position style='' /} </div>
+        {eju:include file="agent/identify.htm"/}
         <!-- 页面标识 E-->
-        
+
         <div class="main clearfix">
             <!-- 二手房列表 S-->
             <div class="houseList_wrap leftArea cm_leftArea">
-                <div class="jjr_bot">
-                   
-                    <div class="cl"></div>
-                </div>
-                <div class="cl"></div>
 
-                <div class="list_jjr sh_house_list" >
+                {eju:screening id='field' typeid='28' currentstyle='active'  region='on' show='2' alltxt='全部' opencity='1' addfields="total_price,area,room" present='on'}
+                <div class="contentCtn">
+                    {eju:volist name='$field.list' id='vo'}
+                    <div class="my_xl">
+                        <input name="hidden0" type="hidden" id="hidden0" class="my_xl_input" value="">
+                        <div class="my_xl_txt" id="zongjia">{$vo.screen}</div>
+                        <div class="my_xl_btn"></div>
+                        <ul class="my_xl_list">
+                            {eju:volist name='$vo.dfvalue' id='vo2'}
+                            <a class="{$vo2.currentstyle}" {$vo2.onClick}>
+                                <li data-key="PriceBase" value="">{$vo2.name}</li>
+                            </a>
+                            {/eju:volist}
+                        </ul>
+                    </div>
+                    {/eju:volist}
+                    {eju:searchform type='default' typeid='28' id='field1' present='on'}
+                    <form  method="get" action="{$field1.action}">
+                    <div class="houseSearch">
+                        <input type="hidden" name="users_id" id="users_id"   value="{$eju.field.id}">
+                        <input type="text" id="keywords" name="keywords" class="searchInput" value="{$Request.param.keywords}" autocomplete="off" placeholder="请输入查询的小区">
+                        <input type="submit" name="button" id="bottonss"  class="searchBtn" value="">
+                    </div>
+                        {$field1.hidden}
+                    </form>
+                    {/eju:searchform}
+                    <p><i></i><a href="{$field.resetUrl}" >清空筛选条件</a></p>
+                </div>
+                {$field.hidden}
+                {/eju:screening}
+
+                <div class="cl"></div>
+                <div class="list_con sh_house_list" >
                     <ul class="clearfix">
-                        {eju:userslist pagesize='20' is_saleman='1' titlelen='30' infolen='160' orderby='add_time'}
+                        {eju:list pagesize='2' users_id='$eju.field.id' typeid='28' titlelen='30' orderby='new' addfields='building_age' }
                         <li>
-                            <a href="{$field.arcurl}" class="agentImge" target="_blank"><img src="{$field.litpic}" alt=""></a>
-                            <div>
-                                <div>
-                                    <a href="{$field.arcurl}" target="_blank" style="border-right:none;"><h4>{$field.username}</h4></a>
-                                    <!--<s class="icon-xy level-icon1" style="float: left;width: 80px;">
-                                        {$field.level_name}
-                                    </s>-->
-                                </div>
-                                <p>所属门店：<span>{$field.company}</span> </p>
-                                <p class="xq">主营小区：
-                                    {eju:volist name="$field.service_xiaoqu" id="vo"}
-                                    <a href="{$vo.arcurl}" target="_blank">{$vo.title}</a>
-                                    {/eju:volist}
-                                </p>
-                                <p>主营区域：
-                                    {eju:volist name="$field.service_area" id="vo"}
-                                    <span>{$vo.name}</span>
-                                    {/eju:volist}
-                                </p>
-                            </div>
-                            <span><i class="organePhone"></i>{$field.mobile}</span>
+                            <a href="{$field.arcurl}" title="{$field.title}">
+                                <span class="l_img fl">
+                                    <img src="{$field.litpic}" alt="{$field.title}">
+                                </span>
+                                <span class="r_con fr">
+                                    <h3>{$field.title}</h3>
+                                    <p class="hi">
+                                        <span class="info">{$field.room}{$field.room_unit}{$field.living_room}{$field.living_room_unit}{$field.toilet}{$field.toilet_unit}</span>
+                                        <span class="l">|</span> <span class="info">{$field.area}{$field.area_unit}</span> <span class="l">|</span>
+                                        <span class="info">{$field.aspect}</span> <span class="l">|</span>
+                                        <span class="info">{$field.fitment}</span>
+                                    </p>
+                                    <p class="hi">
+                                        <span class="tit">{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview} </span>
+                                        <span class="address">{$field.address}</span>
+                                    </p>
+                                    <p class="user-info hi">
+                                        <span><i class="iconfont">&#xe605;</i>置业顾问：{$field.sale_name}</span>
+                                    </p>
+                                    <span class="label_list clearfix"> {eju:volist name="$field.characteristic" id="vo"} <i class="item item{$i}">{$vo}</i> {/eju:volist} </span>
+                                    <span class="price">
+                                         <h5><strong>{eju:notempty name="$field.total_price"}{$field.total_price}<i>{$field.total_price_unit}</i>{eju:else /}暂无{/eju:notempty}</strong></h5>
+                                    </span>
+                                </span>
+                            </a>
                         </li>
-                        {/eju:userslist}
+                        {/eju:list}
                     </ul>
                 </div>
-
+                <div style="display: none" id="countlist_none" data-count="{eju:countlist /}"></div>
+                <!--<script  type="text/javascript">-->
+                    <!--$(function(){-->
+                        <!--var count = $("#countlist_none").data("count");-->
+                        <!--$("#search_count").html(count);-->
+                    <!--});-->
+                <!--</script>-->
                 <div class="page_list clearfix">
                     <ul class="pagination">
-                        {eju:pagelist listitem="index,end,pageno,pre,next" listsize="10"/}
+                        {eju:pagelist listitem="pageno,pre,next" listsize="5"/}
                     </ul>
                 </div>
             </div>
@@ -97,13 +115,8 @@
             <!-- 右边内容 S -->
             <div class="cm_rightArea rightArea">
                 <!-- 我要卖房 S -->
-                {eju:user type='login'}
-                <a href="{$field.url}" class="sale_btn mt_25">我要卖房</a>
-                {$field.hidden}
-                {/eju:user}
-                {eju:type typeid='31'}
-				<a href="{$field.typeurl}" class="sale_btn ">我要求购</a> 
-				{/eju:type}
+                {eju:user type='login'} <a href="{$field.url}" class="sale_btn mt_25">我要卖房</a> {$field.hidden}
+                {/eju:user} <a href="#" class="sale_btn ">我要求购</a>
                 <!-- 我要卖房 E -->
                 <!-- 最新房源 S -->
                 <div class="rcmd_house new_house ">
@@ -209,6 +222,5 @@
             });
         });
     });
-</script>
 </body>
 </html>
