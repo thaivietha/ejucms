@@ -444,8 +444,19 @@ class Field extends Base
             if ($info['ifmain'] == 2){    //此字段为主表2的字段
                 $table = PREFIX.$table_name.'_system';
             }
+
             $sql = " ALTER TABLE `$table` CHANGE COLUMN `{$old_name}` $ntabsql ";
-            if (false !== Db::execute($sql)) {
+
+            try{
+                $exe_result = Db::execute($sql);
+            }catch (\Exception $exception){
+                $update_sql = "UPDATE `$table` SET `{$post['name']}` ='';";
+                Db::execute($update_sql);
+                $exe_result = Db::execute($sql);
+            }
+
+
+            if (false !== $exe_result) {
                 //将空数据变更为默认值
                 $update_sql = "UPDATE `$table` SET `{$post['name']}` ='$new_dfvalue' WHERE `{$post['name']}`='0' or `{$post['name']}`='' or `{$post['name']}` is NULL;";
                 Db::execute($update_sql);

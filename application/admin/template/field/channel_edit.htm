@@ -30,6 +30,7 @@
                         <option value="{$vo.name}" data-ifoption="{$vo.ifoption|default=0}" {eq name="$info.dtype" value="$vo.name"}selected{/eq}>{$vo.title}</option>
                         {/volist}
                       </select>
+                        <input type="hidden" name="old_dtype" value="{$info.dtype}"/>
                     </div>
                   </div>
                   <div class="layui-form-item none" id='region_db_div'>
