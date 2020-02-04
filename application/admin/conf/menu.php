@@ -12,6 +12,7 @@
  */
 
 // 内容管理
+/*
 $archives_child = [];
 $channel_list = model('Channeltype')->getArctypeChannel('yes');
 foreach ($channel_list as $key => $val) {
@@ -49,6 +50,8 @@ foreach ($channel_list as $key => $val) {
         'child'=>[],
     ];
 }
+*/
+
 /*静态生成*/
 $seo_html_arr = [];
 if (2 == tpCache('seo.seo_pseudo')) {
@@ -81,8 +84,8 @@ return  [
         'id'=>1000,
         'parent_id'=>0,
         'name' => '内容管理',
-        'controller'=>'',
-        'action'=>'',
+        'controller'=>'Archives',
+        'action'=>'index_manage',
         'url'=>'',
         'target'=>'_self',
         'icon'  => 'layui-icon-file-b',
@@ -90,7 +93,7 @@ return  [
         'is_menu'=>1,
         'is_modules'=>1,
         'is_quick'=>0,
-        'child'=>$archives_child,
+        'child'=>[],
     ],
     '2000'=>[
         'id'=>2000,

@@ -71,6 +71,27 @@ class Archives extends Base
     }
 
     /**
+     * 内容管理 - 新版
+     */
+    public function index_manage()
+    {
+        $contentManage = [];
+        $channel_list = model('Channeltype')->getArctypeChannel('yes');
+        foreach ($channel_list as $key => $val) {
+            if (in_array($val['id'], [6])) {
+                continue;
+            }
+            $contentManage[$val['id']] = [
+                'id'    => $val['id'],
+                'nid'    => $val['nid'],
+            ];
+        }
+        $this->assign('contentManage',$contentManage);
+
+        return $this->fetch();
+    }
+
+    /**
      * 内容管理 - 所有文档列表风格（只针对eju_archives表，排除单页记录）
      */
     public function index_archives(){

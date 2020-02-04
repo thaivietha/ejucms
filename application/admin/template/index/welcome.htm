@@ -89,123 +89,33 @@
         </div>
       </div>
     </div>
-  
+    
     <div class="layui-row layui-col-space15">
       <div class="layui-col-md12">
         <div class="layui-card">
-          <div class="layui-card-header">内容管理</div>
+          <div class="layui-card-header">快捷导航</div>
           <div class="layui-card-body">
             <div class="console-menu">
-               <ul class="layui-row layui-col-space10 pt10 pb20">
-                  {if condition="!empty($contentManage[9])"}
+               <ul class="layui-row layui-col-space10">
+                {volist name='$quickMenu' id='vo'}
+                 {notempty name="$vo.is_menu"}
                   <li class="layui-col-xs3 layui-col-md2">
-                    <div class="admin-ico-nav">
-                      <i class="iconfont icon-haiwaixinfang "></i>
-                      <cite>新房</cite> 
-                      <a lay-href="{:url('Xinfang/index', ['channel'=>9])}">新房列表</a>
-                      {if condition="!empty($contentManage[10])"}
-                      <a lay-href="{:url('Tuan/index', ['channel'=>10])}">团购列表</a>
-                      {/if}
-                    </div>
+                    <a lay-href="{:url($vo.controller.'/'.$vo.action, $vo.vars)}" lay-text="{$vo.laytext}">
+                      <i class="layui-icon"><cite>{$vo.title}</cite></i>
+                    </a>
                   </li>
-                  {/if}
-                  {if condition="!empty($contentManage[1])"}
-                  <li class="layui-col-xs3 layui-col-md2 ">
-                   <div class="admin-ico-nav">
-                     <i  class="iconfont icon-xinwen"></i>
-                     <cite>资讯</cite> 
-                     <a lay-href="{:url('Article/index', ['channel'=>1])}">资讯列表</a><a lay-href="{:url('Article/index', ['channel'=>1,'openurl'=>url('Article/add')])}">资讯新增</a>
-                   </div>
+                 {/notempty}
+                {/volist}
+                <li class="layui-col-xs3 layui-col-md2">
+                    <a href="javascript:void(0);" id="quickMenuAdd">
+                      <cite><i style="font-size: 30px" class="layui-icon layui-icon-add-1"></i></cite>
+                    </a>
                   </li>
-                  {/if}
-                  {if condition="!empty($contentManage[11])"}
-                  <li class="layui-col-xs3 layui-col-md2 ">
-                     <div class="admin-ico-nav">
-                       <i  class="iconfont icon-xiaoquguanli"></i>
-                       <cite>小区</cite> 
-                       <a lay-href="{:url('Xiaoqu/index', ['channel'=>11])}">小区列表</a><a lay-href="{:url('Xiaoqu/index', ['channel'=>11,'openurl'=>url('Xiaoqu/add')])}">小区新增</a>
-                     </div>
-                  </li>
-                  {/if}
-                  {if condition="!empty($contentManage[12])"}
-                  <li class="layui-col-xs3 layui-col-md2 ">
-                     <div class="admin-ico-nav">
-                       <i  class="iconfont icon-ershoufang"></i>
-                       <cite>二手房</cite> 
-                       <a lay-href="{:url('Ershou/index', ['channel'=>12])}">二手房列表</a><a lay-href="{:url('Ershou/index', ['channel'=>12,'openurl'=>url('Ershou/add')])}">二手房新增</a>
-                     </div>
-                  </li>
-                  {/if}
-                  {if condition="!empty($contentManage[13])"}
-                  <li class="layui-col-xs3 layui-col-md2 ">
-                     <div class="admin-ico-nav">
-                       <i  class="iconfont icon-xiaoquchuzuanli"></i>
-                       <cite>租房</cite> 
-                       <a lay-href="{:url('Zufang/index', ['channel'=>13])}">租房列表</a><a lay-href="{:url('Zufang/index', ['channel'=>13,'openurl'=>url('Zufang/add')])}">租房新增</a>
-                     </div>
-                  </li>
-                  {/if}
-                  {if condition="!empty($contentManage[14]) || !empty($contentManage[15])"}
-                  <li class="layui-col-xs3 layui-col-md2 ">
-                     <div class="admin-ico-nav">
-                       <i  class="iconfont icon-daochuSVG-"></i>
-                       <cite>商铺</cite> 
-                       {if condition="!empty($contentManage[14])"}
-                       <a lay-href="{:url('Shopcs/index', ['channel'=>14])}">商铺出售</a>
-                       {/if}
-                       {if condition="!empty($contentManage[15])"}
-                       <a lay-href="{:url('Shopcz/index', ['channel'=>15])}">商铺出租</a>
-                       {/if}
-                     </div>
-                  </li>
-                  {/if}
-                  {if condition="!empty($contentManage[16]) || !empty($contentManage[17])"}
-                  <li class="layui-col-xs3 layui-col-md2 ">
-                     <div class="admin-ico-nav">
-                       <i  class="iconfont icon-xiezilou"></i>
-                       <cite>写字楼</cite> 
-                       {if condition="!empty($contentManage[16])"}
-                       <a lay-href="{:url('Officecs/index', ['channel'=>16])}">写字楼出售</a>
-                       {/if}
-                       {if condition="!empty($contentManage[17])"}
-                       <a lay-href="{:url('Officecz/index', ['channel'=>17])}">写字楼出租</a>
-                       {/if}
-                     </div>
-                  </li>
-                  {/if}
                 </ul>
              </div> 
           </div>
         </div>
       </div>
-    </div>
-    
-    <div class="layui-row layui-col-space15">
-      <div class="layui-col-md12">
-            <div class="layui-card">
-              <div class="layui-card-header">快捷导航</div>
-              <div class="layui-card-body">
-                <div class="console-menu">
-                   <ul class="layui-row layui-col-space10">
-                    {volist name='$quickMenu' id='vo'}
-                     {notempty name="$vo.is_menu"}
-                      <li class="layui-col-xs3 layui-col-md2">
-                        <a lay-href="{:url($vo.controller.'/'.$vo.action, $vo.vars)}" lay-text="{$vo.laytext}">
-                          <i class="layui-icon"><cite>{$vo.title}</cite></i>
-                        </a>
-                      </li>
-                     {/notempty}
-                    {/volist}
-                    <li class="layui-col-xs3 layui-col-md2">
-                        <a href="javascript:void(0);" id="quickMenuAdd">
-                          <cite><i style="font-size: 30px" class="layui-icon layui-icon-add-1"></i></cite>
-                        </a>
-                      </li>
-                    </ul>
-                 </div> 
-              </div>
-            </div>
-          </div>
     </div>
     <div class="layui-row layui-col-space15">
       <div class="layui-col-md8">
@@ -232,62 +142,62 @@
         <div class="layui-card">
           <div class="layui-card-header">服务器信息</div>
           <div class="layui-card-body layui-text">
-          <table class="layui-table">
-            <colgroup>
-            <col width="150">
-            <col>
-            </colgroup>
-            <tbody>
-            <tr>
-              <td>服务器操作系统：</td>
-              <td>{$sys_info.os}</td>
-            </tr>
-            <tr>
-              <td>服务器域名/IP：</td>
-              <td>{$sys_info.domain} / [ {$sys_info.ip} ]</td>
-            </tr>
-            <tr>
-              <td>服务器环境：</td>
-              <td>{$sys_info.web_server}</td>
-            </tr>
-            <tr>
-              <td>PHP 版本：</td>
-              <td>{$sys_info.phpv}</td>
-            </tr>
-            <tr>
-              <td>Mysql 版本：</td>
-              <td>{$sys_info.mysql_version}</td>
-            </tr>
-            <tr>
-              <td>GD 版本：</td>
-              <td>{$sys_info.gdinfo}</td>
-            </tr>
-            <tr>
-              <td>文件上传限制：</td>
-              <td>{$sys_info.fileupload}</td>
-            </tr>
-            <tr>
-              <td>最大占用内存：</td>
-              <td>{$sys_info.memory_limit}</td>
-            </tr>
-            <tr>
-              <td>POST限制：</td>
-              <td>{$sys_info.postsize|default='unknown'}</td>
-            </tr>
-            <tr>
-              <td>最大执行时间：</td>
-              <td>{$sys_info.max_ex_time}</td>
-            </tr>
-            <tr>
-              <td>Zip支持：</td>
-              <td>{$sys_info.zip}</td>
-            </tr>
-            <tr>
-              <td>Zlib支持：</td>
-              <td>{$sys_info.zlib}</td>
-            </tr>
-            </tbody>
-          </table>
+            <table class="layui-table">
+              <colgroup>
+              <col width="150">
+              <col>
+              </colgroup>
+              <tbody>
+              <tr>
+                <td>服务器操作系统：</td>
+                <td>{$sys_info.os}</td>
+              </tr>
+              <tr>
+                <td>服务器域名/IP：</td>
+                <td>{$sys_info.domain} / [ {$sys_info.ip} ]</td>
+              </tr>
+              <tr>
+                <td>服务器环境：</td>
+                <td>{$sys_info.web_server}</td>
+              </tr>
+              <tr>
+                <td>PHP 版本：</td>
+                <td>{$sys_info.phpv}</td>
+              </tr>
+              <tr>
+                <td>Mysql 版本：</td>
+                <td>{$sys_info.mysql_version}</td>
+              </tr>
+              <tr>
+                <td>GD 版本：</td>
+                <td>{$sys_info.gdinfo}</td>
+              </tr>
+              <tr>
+                <td>文件上传限制：</td>
+                <td>{$sys_info.fileupload}</td>
+              </tr>
+              <tr>
+                <td>最大占用内存：</td>
+                <td>{$sys_info.memory_limit}</td>
+              </tr>
+              <tr>
+                <td>POST限制：</td>
+                <td>{$sys_info.postsize|default='unknown'}</td>
+              </tr>
+              <tr>
+                <td>最大执行时间：</td>
+                <td>{$sys_info.max_ex_time}</td>
+              </tr>
+              <tr>
+                <td>Zip支持：</td>
+                <td>{$sys_info.zip}</td>
+              </tr>
+              <tr>
+                <td>Zlib支持：</td>
+                <td>{$sys_info.zlib}</td>
+              </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
