@@ -69,6 +69,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="layui-table-cell wauto">
+                                                            <span class="none span_attr_values">系统自动关联当前区域的下级</span>
                                                             <textarea name="attr_values[]"  placeholder="筛选项中间用英文,隔开" class="layui-textarea  min-h56"></textarea>
                                                         </div>
                                                     </td>
@@ -172,6 +173,22 @@
 
         });
 
+        // 字段类型选择
+        function set_input_type(obj)
+        {
+            var input_type =  $(obj).val();
+            var tr_obj = $(obj).parent().parent().parent();
+            var attr_values_obj = tr_obj.find('textarea[name^=attr_values]');
+            var span_attr_values_obj = tr_obj.find('span.span_attr_values');
+            if ('region' == input_type) {
+                attr_values_obj.hide();
+                span_attr_values_obj.show();
+            } else {
+                attr_values_obj.show();
+                span_attr_values_obj.hide();
+            }
+        }
+
         //新增字段
         function addtr() {
             var last_div =  '<tr>' +
@@ -189,6 +206,7 @@
                 '	</td>' +
                 '	<td>' +
                 '		<div class="layui-table-cell wauto">' +
+                '           <span class="none span_attr_values">系统自动关联当前区域的下级</span>' +
                 '			<textarea name="attr_values[]" placeholder="筛选项中间用英文,隔开" class="layui-textarea  min-h56"></textarea>' +
                 '		</div>' +
                 '	</td>' +

@@ -1083,7 +1083,7 @@ if (!function_exists('get_province_list')){
     {
         $result = extra_cache('global_get_province_list');
         if (empty($result)) {
-            $result = M('region')->field('id, name,domain')
+            $result = M('region')->field('id, name, domain, parent_id')
                 ->where('level',1)
                 ->where('status',1)
                 ->order("sort_order asc")
@@ -1103,7 +1103,7 @@ if (!function_exists('get_city_list')){
     {
         $result = extra_cache('global_get_city_list');
         if (empty($result)) {
-            $result = M('region')->field('id, name')
+            $result = M('region')->field('id, name, parent_id')
                 ->where('level',2)
                 ->getAllWithIndex('id');
             extra_cache('global_get_city_list', $result);
@@ -1122,7 +1122,7 @@ if (!function_exists('get_area_list')){
     {
         $result = extra_cache('global_get_area_list');
         if (empty($result)) {
-            $result = M('region')->field('id, name')
+            $result = M('region')->field('id, name, parent_id')
                 ->where('level',3)
                 ->getAllWithIndex('id');
             extra_cache('global_get_area_list', $result);

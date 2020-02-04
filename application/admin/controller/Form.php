@@ -25,12 +25,11 @@ class Form extends Base
             'radio'         => '单选项',
             'checkbox'      => '多选项',
             'select'        => '下拉框',
+            'region'        => '区域类型',
             'switch'        => '开关',
         ];
-
-
-
     }
+    
     /*
      * 标签调用
      */
@@ -344,7 +343,7 @@ class Form extends Base
         }
 
         // 字段类型
-        $field_type_html = '<select name="input_type[]" lay-ignore>';
+        $field_type_html = '<select name="input_type[]" lay-ignore onchange="set_input_type(this);">';
         foreach ($this->field_type_list as $key => $val) {
             $field_type_html .= '<option value="'.$key.'">'.$val.'</option>';
         }
@@ -472,7 +471,7 @@ class Form extends Base
         $assign_data['form_attr_list'] = $form_attr_list;
 
         // 字段类型
-        $field_type_html = '<select name="input_type[]" lay-ignore>';
+        $field_type_html = '<select name="input_type[]" lay-ignore onchange="set_input_type(this);">';
         foreach ($this->field_type_list as $key => $val) {
             $field_type_html .= '<option value="'.$key.'">'.$val.'</option>';
         }

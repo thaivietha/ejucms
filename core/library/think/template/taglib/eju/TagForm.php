@@ -88,6 +88,27 @@ class TagForm extends Base
             $itemname = 'itemname_'.$attr_id;
             $result[$itemname] = $val['attr_name'];
             /*
+             * 区域类型，自动定位关联下级区域
+             */
+            if ($val['input_type'] == 'region') {
+                $regionInfo = \think\Cookie::get("regionInfo");
+                $region_id = !empty($regionInfo['id']) ? intval($regionInfo['id']) : 0;
+                if (!empty($region_id)) {
+                    $level = !empty($regionInfo['level']) ? intval($regionInfo['level']) : 0;
+                    $regionList = [];
+                    if (1 == $level) {
+                        $regionList = group_same_key(get_city_list(), 'parent_id');
+                    } else if (2 == $level) {
+                        $regionList = group_same_key(get_area_list(), 'parent_id');
+                    }
+                    if (!empty($regionList[$region_id])) {
+                        $val['attr_values'] = implode(',', get_arr_column($regionList[$region_id], 'name'));
+                    } else {
+                        $val['attr_values'] = '';
+                    }
+                }
+            }
+            /*
              * 筛选内容
              */
             if (!empty($val['attr_values'])) {
