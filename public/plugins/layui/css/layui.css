@@ -1403,6 +1403,7 @@ a cite {
 	color: #999!important;
 	padding: 0 5px!important
 }
+
 .layui-btn {
 	display: inline-block;
 	height: 35px;
@@ -1426,6 +1427,9 @@ a cite {
 	opacity: 1;
 	filter: alpha(opacity=100)
 }
+.layui-ton {
+	display:block;
+    margin-bottom: 10px;}
 .layui-btn+.layui-btn {
 	margin-left: 2px
 }
