@@ -71,7 +71,7 @@
                         <li>
                             <a href="{$field.arcurl}" title="{$field.title}">
                                 <span class="l_img fl">
-                                    <img src="{$field.litpic}" alt="{$field.title}">
+                                   <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">
                                 </span>
                                 <span class="r_con fr">
                                     <h3>{$field.title}</h3>
@@ -171,11 +171,7 @@
 <script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
 <script src="{eju:global name='web_templets_pc' /}/skin/js/form_xl.js"></script> 
 <script>
-        function qingchu() {
-            setTimeout(function () {
-                location.href = "/agent/second/"+"197642";
-            },500);
-        }
+        
         $(function() {
             $("#bottonss").click(function() {
                 var dd = $("#hidden0").val();

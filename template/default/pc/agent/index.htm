@@ -94,52 +94,7 @@
             </script>
             <!-- 二手房列表 E-->
             <!-- 右边内容 S -->
-            <div class="cm_rightArea rightArea">
-                <!-- 我要卖房 S -->
-                {eju:user type='login'} <a href="{$field.url}" class="sale_btn mt_25">我要卖房</a> {$field.hidden}
-                {/eju:user} <a href="#" class="sale_btn ">我要求购</a>
-                <!-- 我要卖房 E -->
-                <!-- 最新房源 S -->
-                <div class="rcmd_house new_house ">
-                    <div class="title"><span></span>
-                        <h3>推荐房源</h3>
-                    </div>
-                    <div class="con_box">
-                        <ul class="clearfix">
-                            {eju:arclist channelid='12' screen='0' orderby='new' row='3' id='field'}
-                            <li> <a href="{$field.arcurl}"  target="_blank" title="{$field.title}">
-                                <div class="img"> <img src="{$field.litpic}" alt="{$field.title}"> </div>
-                                <div class="con">
-                                    <div class="row clearfix">
-                                        <p class="name fl">{$field.title}</p>
-                                        <p class="price fr">{eju:notempty name="$field.total_price"}{$field.total_price}{$field.total_price_unit}{eju:else /}暂无{/eju:notempty}</p>
-                                    </div>
-                                    <div class="row clearfix">
-                                        <p class="type fl">{$field.room}室{$field.living_room}厅</p>
-                                        <p class="area fr">{$field.area}㎡</p>
-                                    </div>
-                                </div>
-                            </a> </li>
-                            {/eju:arclist}
-                        </ul>
-                    </div>
-                </div>
-                <!-- 最新房源 E -->
-                <!-- 购房知识 S -->
-                <div class="buy_way house_klg mt_25">
-                    <div class="title"><span></span>
-                        <h3>购房知识</h3>
-                    </div>
-                    <div class="con_box">
-                        <ul class="list">
-                            {eju:arclist typeid='5' screen='0' orderby='new' row='10' id='field'}
-                            <li class="clearfix"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></li>
-                            {/eju:arclist}
-                        </ul>
-                    </div>
-                </div>
-                <!-- 购房知识S -->
-            </div>
+            
             <!-- 右边内容 E -->
         </div>
     </div>
