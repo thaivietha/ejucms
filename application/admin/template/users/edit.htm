@@ -25,15 +25,15 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label"><b>*</b>用户名</label>
+                            <label class="layui-form-label">{eju:if condition="$Request.param.back eq 'index'"}<b>*</b>{/eju:if}用户名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="username" id="username" lay-verify="required" value="{$info.username}" class="layui-input">
+                                <input type="text" name="username" id="username" {eju:if condition="$Request.param.back eq 'index'"}lay-verify="required"{/eju:if} value="{$info.username}" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">真实姓名</label>
+                            <label class="layui-form-label">{eju:if condition="$Request.param.back eq 'saleman_list'"}<b>*</b>{/eju:if}真实姓名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="true_name" id="true_name"  value="{$info.true_name}" class="layui-input">
+                                <input type="text" name="true_name" id="true_name" {eju:if condition="$Request.param.back eq 'saleman_list'"}lay-verify="required"{/eju:if}  value="{$info.true_name}" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -169,7 +169,7 @@
                         </div>
                         <div class="layui-form-item">
                             <div class="layui-input-block">
-                                <input type="hidden" name="id" value="{$info.id}"/>
+                                <input type="hidden" name="id" value="{$info.users_id}"/>
                                 <input type="hidden" value="{$Request.param.back}" name="back" />
                                 <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
                             </div>

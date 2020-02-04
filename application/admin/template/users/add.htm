@@ -25,15 +25,15 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label"><b>*</b>用户名</label>
+                            <label class="layui-form-label">{eju:if condition="$Request.param.back eq 'index'"}<b>*</b>{/eju:if}用户名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="username" id="username" lay-verify="required" value="" class="layui-input">
+                                <input type="text" name="username" id="username" {eju:if condition="$Request.param.back eq 'index'"}lay-verify="required"{/eju:if} value="" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">真实姓名</label>
+                            <label class="layui-form-label">{eju:if condition="$Request.param.back eq 'saleman_list'"}<b>*</b>{/eju:if}真实姓名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="true_name" id="true_name"  value="" class="layui-input">
+                                <input type="text" name="true_name" id="true_name" {eju:if condition="$Request.param.back eq 'saleman_list'"}lay-verify="required"{/eju:if} value="" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -83,13 +83,13 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">服务区域</label>
                             <div class="layui-input-inline layadmin-layer-demo" id="service_area">
-                                <button class="layui-btn layui-ton" data-type="select_region">选择区域</button>
+                                <button class="layui-btn" data-type="select_region">选择区域</button>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">服务小区</label>
                             <div class="layui-input-inline layadmin-layer-demo" id="service_xiaoqu">
-                                <button class="layui-btn layui-ton" data-type="select_xiaoqu">选择小区</button>
+                                <button class="layui-btn" data-type="select_xiaoqu">选择小区</button>
                             </div>
                         </div>
                         <div class="layui-form-item">

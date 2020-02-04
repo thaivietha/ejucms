@@ -80,9 +80,9 @@ class Users extends Base
                 $this->error("两次密码输入不一致，请重新输入");
             }
             $post['password'] = func_encrypt($post['password']);
-            $post['users_label'] = implode(',',$post['users_label']);
-            $post['service_area'] = implode(',',$post['service_area']);
-            $post['service_xiaoqu'] = implode(',',$post['service_xiaoqu']);
+            !empty($post['users_label']) && $post['users_label'] = implode(',',$post['users_label']);
+            !empty($post['service_area']) && $post['service_area'] = implode(',',$post['service_area']);
+            !empty($post['service_xiaoqu']) && $post['service_xiaoqu'] = implode(',',$post['service_xiaoqu']);
             // --存储数据
             $nowData = array(
                 'add_time'    => getTime(),
@@ -145,9 +145,9 @@ class Users extends Base
                 }else{
                     $post['password'] = func_encrypt($post['password']);
                 }
-                $post['users_label'] = implode(',',$post['users_label']);
-                $post['service_area'] = implode(',',$post['service_area']);
-                $post['service_xiaoqu'] = implode(',',$post['service_xiaoqu']);
+                $post['users_label'] = !empty(implode(',',$post['users_label'])) ? implode(',',$post['users_label']) : '';
+                $post['service_area'] = !empty(implode(',',$post['service_area'])) ? implode(',',$post['service_area']) : '';
+                $post['service_xiaoqu'] = !empty(implode(',',$post['service_xiaoqu'])) ? implode(',',$post['service_xiaoqu']) : '';
                 $nowData = array('update_time'    => getTime());
                 $data = array_merge($post, $nowData);
                 $r = Db::name('users')->where(['id'    => $post['id']])->update($data);

@@ -111,7 +111,7 @@
                                 <td>
                                     <div class="layui-table-cell w150 tc right-oper">
                                         {eq name="'Users@edit'|is_check_access" value="1"}
-                                        <a class="layui-btn btn-edit customvar_edit" data-url="{:url('Users/edit',array('id'=>$vo['id'],'back'=>'list'))}" data-type="Users_edit">编辑</a>
+                                        <a class="layui-btn btn-edit customvar_edit" data-url="{:url('Users/edit',array('id'=>$vo['id'],'back'=>'index'))}" data-type="Users_edit">编辑</a>
                                         {/eq}
                                         {eq name="'Users@del'|is_check_access" value="1"}
                                         <a href="javascript:void(0);" class="layui-btn btn-primary" data-url="{:url('Users/del')}" data-id="{$vo.id}" onClick="delfun(this);">删除</a>
