@@ -756,7 +756,15 @@ if (!function_exists('arrayJointString')) {
         return $tmp($str);
     }
 }
-    
+//全部数据
+if (!function_exists('archivesnum')) {
+    function xfnum() {
+        $total = \think\Db::name('archives')->where("aid>0")  //,'is_del'=>0
+        ->count();
+        return $total;
+    }
+}
+
 if (!function_exists('xfnum')) {
     function xfnum() {
         $total = \think\Db::name('archives')->where(['channel'=>9])  //,'is_del'=>0
@@ -783,6 +791,38 @@ if (!function_exists('zfnum')) {
 if (!function_exists('xqnum')) {
     function xqnum() {
         $channel_id = \think\Db::name('channeltype')->where("nid='xiaoqu'")->getField('id');
+        $total = \think\Db::name('archives')->where(['channel'=>$channel_id])
+            ->count();
+        return $total;
+    }
+}
+if (!function_exists('spcsnum')) {
+    function spcsnum() {
+        $channel_id = \think\Db::name('channeltype')->where("nid='shopcs'")->getField('id');
+        $total = \think\Db::name('archives')->where(['channel'=>$channel_id])
+            ->count();
+        return $total;
+    }
+}
+if (!function_exists('spcznum')) {
+    function spcznum() {
+        $channel_id = \think\Db::name('channeltype')->where("nid='shopcz'")->getField('id');
+        $total = \think\Db::name('archives')->where(['channel'=>$channel_id])
+            ->count();
+        return $total;
+    }
+}
+if (!function_exists('xzlcsnum')) {
+    function xzlcsnum() {
+        $channel_id = \think\Db::name('channeltype')->where("nid='officecs'")->getField('id');
+        $total = \think\Db::name('archives')->where(['channel'=>$channel_id])
+            ->count();
+        return $total;
+    }
+}
+if (!function_exists('xzlcznum')) {
+    function xzlcznum() {
+        $channel_id = \think\Db::name('channeltype')->where("nid='officecz'")->getField('id');
         $total = \think\Db::name('archives')->where(['channel'=>$channel_id])
             ->count();
         return $total;

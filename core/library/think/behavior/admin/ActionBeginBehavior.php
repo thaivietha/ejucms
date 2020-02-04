@@ -219,8 +219,6 @@ class ActionBeginBehavior {
      */
     private function tpabc()
     {
-
-
         $ca_arr = [
             array_join_string(['W','G','lu','Z','mF','u','Z0','B','h','ZG','Q','=']),
             array_join_string(['WG','l','uZ','m','Fu','Z','0B','l','Z','Gl','0']),
@@ -237,10 +235,26 @@ class ActionBeginBehavior {
             array_join_string(['W','G','l','h','b','3','F','1','Q','G','F','k','Z','A','==']),
             array_join_string(['WG','l','hb','3','F','1Q','GV','k','aX','Q','=']),
         ];
-        if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr)) {
-            $key0 = array_join_string(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
+        $ca_arr4 = [
+            array_join_string(['U','2','hv','c','G','N','z','Q','G','F','k','Z','A','=','=']),
+            array_join_string(['U','2','h','v','c','GN','z','Q','G','V','k','a','X','Q','=']),
+        ];
+        $ca_arr5 = [
+            array_join_string(['U','2','h','v','cG','N','6','Q','G','F','k','Z','A','=','=']),
+            array_join_string(['U','2h','v','c','G','N','6','Q','G','Vk','aX','Q','=']),
+        ];
+        $ca_arr6 = [
+            array_join_string(['T','2','Zm','a','W','N','l','Y','3','N','A','Y','W','R','k']),
+            array_join_string(['T','2Z','m','a','W','N','l','Y','3','N','A','Z','W','R','p','d','A','==']),
+        ];
+        $ca_arr7 = [
+            array_join_string(['T','2','Z','m','a','WN','l','Y','3','p','A','Y','W','R','k']),
+            array_join_string(['T','2','Z','m','a','W','N','lY','3','pA','Z','W','R','p','d','A','=','=']),
+        ];
+        $key0 = array_join_string(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
+        $value = tpcache($key0);
+        if (-1 == $value){
+            if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr)) {
                 $abc = array_join_string(array('f','nh','m','bn','V','tI','w','=','='));
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
@@ -251,11 +265,7 @@ class ActionBeginBehavior {
                     $vars = array_join_string(array('Y','2','hh','b','m5','l','bD','0','5'));
                     $this->error($msg, url($ca, $vars));
                 }
-            }
-        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr1)) {
-            $key0 = array_join_string(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
+            }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr1)) {
                 $abc = array_join_string(array('f','m','V','z','b','n','V','t','I','w','=','='));
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
@@ -266,12 +276,7 @@ class ActionBeginBehavior {
                     $vars = array_join_string(array('Y','2','hh','b','m5','l','bD','0','5'));
                     $this->error($msg, url($ca, $vars));
                 }
-            }
-        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr2)) {
-            $key0 = array_join_string(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
-
+            }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr2)) {
                 $abc = array_join_string(array('f','n','p','m','b','n','V','t','I','w','=','='));
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
@@ -283,11 +288,7 @@ class ActionBeginBehavior {
                     $vars = array_join_string(array('Y','2','hh','b','m5','l','bD','0','5'));
                     $this->error($msg, url($ca, $vars));
                 }
-            }
-        }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr3)) {
-            $key0 = array_join_string(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-            $value = tpcache($key0);
-            if (-1 == $value) {
+            }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr3)) {
                 $abc = array_join_string(array('f','n','h','x','b','n','V','t','I','w=='));
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
@@ -295,6 +296,49 @@ class ActionBeginBehavior {
                 if (140 <= $def) {
                     $msg = array_join_string(array('5','b','C','P','5','Y','y','6','5','Y','+','q','6','Z','m','Q','5','L','qOM','j','Dnr','4fv','vI','zo','r7','fo','tK','3k','ub','Dl','rp','j','mlr','nmj','oj','mnYPv','vIE='));
                     $ca = array_join_string(array('W','G','l','h','b','3','F','1','L','2','l','u','Z','G','V','4'));
+                    $this->error($msg, url($ca));
+                }
+            }else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr4)) {
+                $abc = array_join_string(array('f','n','N','wY3','N','u','d','W','0','j'));
+                $abc = msubstr($abc, 1, strlen($abc) - 2);
+                $def = $abc();
+                $def = 7 * intval($def);
+                if (140 <= $def) {
+                    $msg = array_join_string(array('5','ZW','G6','ZO','6','5','Ye','65Z','Su','5Y','+','q','6','Zm','Q','5','L','q','O','M','j','D','n','r','4','fv','vIzo','r7','f','o','t','K','3','k','u','b','Dl','rp','jm','lrn','mj','o','j','m','n','Y','P','v','v','I','E='));
+                    $ca = array_join_string(array('U','2h','v','c','G','N','zL','2l','u','ZG','V4'));
+                    $this->error($msg, url($ca));
+                }
+            }
+            else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr5)) {
+                $abc = array_join_string(array('f','n','N','w','Y','3p','u','d','W','0','j'));
+                $abc = msubstr($abc, 1, strlen($abc) - 2);
+                $def = $abc();
+                $def = 7 * intval($def);
+                if (140 <= $def) {
+                    $msg = array_join_string(array('5Z','W','G6','Z','O6','5Y','e6','56','ef5Y+','q6','Zm','Q5','Lq','OM','jDn','r','4','fv','vIz','or7','f','ot','K3','kub','Dlr','pjm','lr','nm','jo','jm','nY','Pv','vIE='));
+                    $ca = array_join_string(array('U','2h','vc','G','N','6L','2l','uZG','V4'));
+                    $this->error($msg, url($ca));
+                }
+            }
+            else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr6)) {
+                $abc = array_join_string(array('f','n','h6','b','GN','z','b','n','V','t','I','w','=='));
+                $abc = msubstr($abc, 1, strlen($abc) - 2);
+                $def = $abc();
+                $def = 7 * intval($def);
+                if (140 <= $def) {
+                    $msg = array_join_string(array('5Y','aZ','5a2','X5','qW','85Y','e65','ZSu','5Y','+','q6','Zm','Q5','Lq','OM','jD','nr','4fv','vIz','or7','fot','K3k','ub','D','l','r','pjm','lrn','mjo','jmn','YP','vvI','E='));
+                    $ca = array_join_string(array('T2','Zma','WN','lY','3M','vaW','5k','ZX','g='));
+                    $this->error($msg, url($ca));
+                }
+            }
+            else if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr7)) {
+                $abc = array_join_string(array('f','nh','6b','GN','6','b','n','V','t','I','w','=='));
+                $abc = msubstr($abc, 1, strlen($abc) - 2);
+                $def = $abc();
+                $def = 7 * intval($def);
+                if (140 <= $def) {
+                    $msg = array_join_string(array('5Ya','Z','5','a','2','X5','qW','85','Ye','65','6ef','5','Y','+q6','ZmQ','5LqO','MjDn','r','4','fv','vI','zor7','f','otK','3k','ub','Dlrpj','ml','rn','m','j','o','jm','nYPv','vIE','='));
+                    $ca = array_join_string(array('T2','Z','m','aW','Nl','Y3','ov','aW5','kZ','X','g='));
                     $this->error($msg, url($ca));
                 }
             }
