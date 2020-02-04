@@ -53,7 +53,7 @@
                     <form  method="get" action="{$field1.action}">
                     <div class="houseSearch">
                         <input type="hidden" name="users_id" id="users_id"   value="{$eju.field.id}">
-                        <input type="text" id="keywords" name="keywords" class="searchInput" value="{$Request.param.keywords}" autocomplete="off" placeholder="请输入查询的小区">
+                        <input type="text" id="keywords" name="keywords" class="searchInput" value="{$Request.param.keywords}" autocomplete="off" placeholder="请输入商铺名称">
                         <input type="submit" name="button" id="bottonss"  class="searchBtn" value="">
                     </div>
                         {$field1.hidden}
@@ -113,59 +113,30 @@
             </div>
             <!-- 二手房列表 E-->
             <!-- 右边内容 S -->
-            <div class="cm_rightArea rightArea">
-                <!-- 我要卖房 S -->
-                {eju:user type='login'} <a href="{$field.url}" class="sale_btn mt_25">我要卖房</a> {$field.hidden}
-                {/eju:user} <a href="#" class="sale_btn ">我要求购</a>
-                <!-- 我要卖房 E -->
-                <!-- 最新房源 S -->
-                <div class="rcmd_house new_house ">
-                    <div class="title"><span></span>
-                        <h3>推荐房源</h3>
-                    </div>
-                    <div class="con_box">
-                        <ul class="clearfix">
-                            {eju:arclist channelid='12' screen='0' orderby='new' row='3' id='field'}
-                            <li> <a href="{$field.arcurl}"  target="_blank" title="{$field.title}">
-                                <div class="img"> <img src="{$field.litpic}" alt="{$field.title}"> </div>
-                                <div class="con">
-                                    <div class="row clearfix">
-                                        <p class="name fl">{$field.title}</p>
-                                        <p class="price fr">{eju:notempty name="$field.total_price"}{$field.total_price}{$field.total_price_unit}{eju:else /}暂无{/eju:notempty}</p>
-                                    </div>
-                                    <div class="row clearfix">
-                                        <p class="type fl">{$field.room}室{$field.living_room}厅</p>
-                                        <p class="area fr">{$field.area}㎡</p>
-                                    </div>
-                                </div>
-                            </a> </li>
-                            {/eju:arclist}
-                        </ul>
-                    </div>
-                </div>
-                <!-- 最新房源 E -->
-                <!-- 购房知识 S -->
-                <div class="buy_way house_klg mt_25">
-                    <div class="title"><span></span>
-                        <h3>购房知识</h3>
-                    </div>
-                    <div class="con_box">
-                        <ul class="list">
-                            {eju:arclist typeid='5' screen='0' orderby='new' row='10' id='field'}
-                            <li class="clearfix"><a href="{$field.arcurl}" title="{$field.title}">{$field.title}</a></li>
-                            {/eju:arclist}
-                        </ul>
-                    </div>
-                </div>
-                <!-- 购房知识S -->
-            </div>
-            <!-- 右边内容 E -->
+      <div class="cm_rightArea rightArea">
+        <div class="contentRight">
+          <h2>服务信息</h2>
+          <!--所属机构-->
+          <div>
+            <div class="box"> 
+              <p class="jjr_1">所属机构</p>
+              <span>{$eju.field.company}</span>  </div>
+          </div>
+          <div class="box">
+            <p class="jjr_3">主营区域</p>
+            {eju:volist name="$eju.field.service_area" id="vo"} <span>{$vo.name}</span> {/eju:volist} </div>
+          <div class="box">
+            <p class="jjr_4">主营小区</p>
+            {eju:volist name="$eju.field.service_xiaoqu" id="vo"} <span> <a href="{$vo.arcurl}" target="_blank"> {$vo.title} </a> </span> {/eju:volist} </div>
         </div>
+      </div>
+      <!-- 右边内容 E --> 
     </div>
+  </div>
 </div>
-<!-- 楼盘列表 S-->
+<!-- 楼盘列表 S--> 
 
-<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script>
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script> 
 <script type="text/javascript">
     $(function(){
         $("#select select").on('change',function(){
@@ -193,10 +164,70 @@
             $('#search-box').hide();
         });
     })
-</script>
-{eju:include file="footer.htm"/}
-<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script>
-<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script>
+</script> 
+{eju:include file="footer.htm"/} 
+
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/form_xl.js"></script> 
+<script>
+        function qingchu() {
+            setTimeout(function () {
+                location.href = "/agent/second/"+"197642";
+            },500);
+        }
+        $(function() {
+            $("#bottonss").click(function() {
+                var dd = $("#hidden0").val();
+                var dd1 = $("#Hidden1").val();
+                var dd2 = $("#Hidden2").val();
+                //模糊搜索字段
+                var dds = $("#xiaoquid").val();
+                // var sou = "68680";
+                if (dd != null && dd !="") {
+                    dd = "-p"+dd;
+                }
+                if (dd1 != null && dd1 != "") {
+                    dd1 = "-a"+dd1;
+                }
+                if (dd2 != null && dd2 != "") {
+                    dd2 = "-l"+dd2;
+                }
+                
+
+            });
+        });
+        $(function() {
+            var hr = window.location.href;
+            var str=hr.split("_");
+            var zj = str[1];
+            getData(zj, "#hidden0", "#zongjia");
+            var mj = str[2];
+            getData(mj, "#Hidden1", "#mianji");
+            var hx = str[3];
+            getData(hx, "#Hidden2", "#huxing");
+            var xq = str[4];
+            if (xq != "" && xq != null) {
+                $("#xiaoquid").val(decodeURIComponent(xq));
+            }
+
+            //var name0 = $("#hidden0").pasaleHouse(".my_xl").find(".my_xl_list li[value=" + mj + "]").html();
+            //$("#zongjia").html(name0);
+        })
+        function getData(name, num, adds) {
+            if (name != -1 && name != "" && name != null) {
+                $(num).val(name);
+                var bb = $(num).pasaleHouse(".my_xl").find(".my_xl_list li[value=" + name + "]").html();
+                $(adds).html(bb);
+                var container = $("body"),
+                    scrollTo = $('.content');
+                container.scrollTop(0);
+                container.scrollTop(
+                    scrollTo.offset().top - container.offset().top + container.scrollTop()
+                );
+            }
+        }
+    </script>
 <script>
     $("img.lazy").lazyload({
         threshold : 100,
@@ -222,5 +253,6 @@
             });
         });
     });
+	</script>
 </body>
 </html>

@@ -216,3 +216,17 @@
 .agentInfoRz img{}
 #right .zsfw .btn{width: 195px;}
 
+/*经纪人右侧*/
+.contentRight{margin-top: 25px;border: 1px solid #ccc;padding: 15px;}
+.contentRight h2{color:#333;font-size:18px;text-align:left;margin: 0;text-indent: 5px;padding-bottom: 5px;border-bottom: 1px #ededed solid;font-weight: normal;}
+.contentRight .box{text-align:left;border-bottom:1px #f2f2f2 dashed;line-height:30px;margin-top: 6px;}
+.contentRight .box:last-child{border:none;}
+.contentRight .box p{padding-left: 28px;background: url(../img/jjr_ico.png) no-repeat;margin-left: 10px;}
+.contentRight .box span{display:block;color:#999;padding-left:38px;}
+.contentRight .box span a{color: #999;}
+.contentRight .box span a:hover{text-decoration: underline;}
+
+.contentRight .box p.jjr_1{background-position: 0px -78px;}
+.contentRight .box p.jjr_2{background-position: 0px -108px;}
+.contentRight .box p.jjr_3{background-position: 0px -135px;}
+.contentRight .box p.jjr_4{background-position: 0px -163px;}

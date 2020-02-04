@@ -411,14 +411,14 @@
             <div class="look_team">
               <div class="list" id="subscribe">
                 <ul>
-                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 张**&nbsp;130*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 王**&nbsp;136*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 李**&nbsp;135*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 刘**&nbsp;134*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 蔡**&nbsp;137*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 陈**&nbsp;139*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 徐**&nbsp;130*** &nbsp; 报名了<a href="https://house.08cms.com/topic/detail/120.html" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
                 </ul>
               </div>
             </div>
@@ -430,10 +430,10 @@
           <div class="c_box build_list fl">
             <div id="house-content-box">
               <ul class="clearfix">
-                {eju:arclist typeid='3' orderby='new' row='6' id='field' addfields="price,end_time"}
+                {eju:arclist typeid='3' orderby='new' row='6' id='field' addfields="price,end_time,"}
                 <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
                 {eju:arcview aid='$field.joinaid'  id='field2'}
-                <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.price"}<i class="price">{$field.price}</i>{$field.price_units}{eju:else /}暂无{/eju:notempty}</span>
+                <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.price"}<i class="price">{$field.price}</i>{$field.price_unit}{eju:else /}暂无{/eju:notempty}</span>
                 <span class="ftuan clearfix nowarp"> 截止时间：{$field.end_time|MyDate='Y-m-d',###} </span> </a> </li>
                 {/eju:arcview}
                 {/eju:arclist}
