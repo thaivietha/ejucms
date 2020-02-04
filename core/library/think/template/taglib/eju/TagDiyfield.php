@@ -54,7 +54,7 @@ class TagDiyfield extends Base
                         $data = $list;
                     }
                     break;
-                
+
                 case 'radio': // 单选项
                 case 'select': // 下拉框
                 case 'checkbox': // 多选项

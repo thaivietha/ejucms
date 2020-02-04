@@ -2550,17 +2550,17 @@ class Eju extends Taglib
         } else {
             $name = $this->autoBuildVar($name);
         }
-
+        $name1 = '$heiheihei';  //中间参数，不改变原来的值
         // 查询数据库获取的数据集
         $parseStr .= ' $tagDiyfield = new \think\template\taglib\eju\TagDiyfield;';
-        $parseStr .= $name . ' = $tagDiyfield->getDiyfield('.$name.', "'.$type.'");';
+        $parseStr .= $name1 . ' = $tagDiyfield->getDiyfield('.$name.', "'.$type.'");';
 
-        $parseStr .= 'if(is_array(' . $name . ') || ' . $name . ' instanceof \think\Collection || ' . $name . ' instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k=0;';
+        $parseStr .= 'if(is_array(' . $name1 . ') || ' . $name1 . ' instanceof \think\Collection || ' . $name1 . ' instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k=0;';
         // 设置了输出数组长度
         if (0 != $offset || 'null' != $length) {
-            $parseStr .= '$__LIST__ = is_array(' . $name . ') ? array_slice(' . $name . ',' . $offset . ',' . $length . ', true) : ' . $name . '->slice(' . $offset . ',' . $length . ', true); ';
+            $parseStr .= '$__LIST__ = is_array(' . $name1 . ') ? array_slice(' . $name1 . ',' . $offset . ',' . $length . ', true) : ' . $name1 . '->slice(' . $offset . ',' . $length . ', true); ';
         } else {
-            $parseStr .= ' $__LIST__ = ' . $name . ';';
+            $parseStr .= ' $__LIST__ = ' . $name1 . ';';
         }
         $parseStr .= 'if( count($__LIST__)==0 ) : echo htmlspecialchars_decode("' . $empty . '");';
         $parseStr .= 'else: ';
