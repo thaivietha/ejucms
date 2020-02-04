@@ -75,7 +75,7 @@ class Users extends Model
         }else{
             $where = "is_del=0 and status=1";
         }
-        $result =self::field('id,username,mobile')
+        $result =self::field('id,username,true_name,mobile')
             ->where($where)
             ->getAllWithIndex('id');
 

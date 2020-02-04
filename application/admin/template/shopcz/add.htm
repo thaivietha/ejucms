@@ -186,7 +186,7 @@
                                     <select name="users_id" id="users_id"   lay-filter="users_id">
                                         <option value="0">请选择经纪人</option>
                                         {eju:volist name='$users_list' id='vo'}
-                                        <option data-name="{$vo.username}"  data-mobile="{$vo.mobile}"  value="{$vo.id}" {eju:compare name="$field.users_id" type="eq" value="$vo.id" } selected="true" {/eju:compare}>{$vo.username}</option>
+                                        <option data-name="{$vo.true_name}"  data-mobile="{$vo.mobile}"  value="{$vo.id}" {eju:compare name="$field.users_id" type="eq" value="$vo.id" } selected="true" {/eju:compare}>{$vo.true_name}</option>
                                         {/eju:volist}
                                     </select>
                                 </div>
