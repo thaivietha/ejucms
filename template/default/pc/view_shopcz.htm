@@ -39,7 +39,7 @@
         {eju:diyfield type='checkbox' id='supporting' name='$eju.field.supporting'}
          <span>{$supporting.value}</span>
         {/eju:diyfield}
-        更新时间：{$eju.field.add_time|MyDate='Y-m-d',###} / 浏览：{eju:arcclick /} </div>
+        更新时间：{$eju.field.add_time|MyDate='Y-m-d',###} / 浏览：{eju:arcclick /}次 </div>
       </div>
       <!--<div class="house-follow fr"><a href="javascript:;" class="subscribe J_dialog" data-id="14" data-model="second_house" data-type="1" data-uri="{eju:diyurl type='form'/}">预约看房</a> </div>-->
     </div>
@@ -75,7 +75,7 @@
       </div>
       <div class="spcsdetail-house-info fr">
         <div class="second-box">
-          <div class="house-price">{eju:notempty name="$eju.field.total_price"}<b>{$eju.field.total_price}</b>{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}&nbsp;&nbsp;<span>{$eju.field.average_price}{$eju.field.average_price_unit}</span><span>（价格可面议）</span></div>
+          <div class="house-price">{eju:notempty name="$eju.field.total_price"}<b>{$eju.field.total_price}</b>{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}&nbsp;&nbsp;<span>{$eju.field.average_price}{$eju.field.average_price_unit}</span><span>{$eju.field.diy_jgmy}</span></div>
         </div>
         <div class="basic">
           <ul>
@@ -162,10 +162,10 @@
               面宽{$eju.field.diy_miankuan}{$eju.field.diy_miankuan_unit}，层高{$eju.field.diy_cenggao}{$eju.field.diy_cenggao_unit}，进深{$eju.field.diy_jinshen}{$eju.field.diy_jinshen_unit}</li>
             <li>
               <label>客流人群</label>
-              {$eju.field.diy_klrq}</li>
+              {eju:notempty name="$eju.field.diy_klrq"}{$eju.field.diy_klrq}{eju:else /}暂无数据{/eju:notempty}</li>
              <li>
               <label>相关费用</label>
-              {$eju.field.diy_xgfy}</li>
+              {eju:notempty name="$eju.field.diy_xgfy"}{$eju.field.diy_xgfy}{eju:else /}暂无数据{/eju:notempty}</li>
           </ul>
         </div>
           <div class="detail-row margin-top20">
@@ -183,7 +183,7 @@
             </ul>
           </div>
           <div class="detail-row margin-top20">
-            <div class="titlespcz">相册 </div>
+            <div class="titlespcz">图片 </div>
             <ul class="photo-lists clearfix" id="photo">
               {eju:fanglist name="$eju.field.photo_list" id="field"}
               <li> <a href="{$field.photo_pic}" title="{$field.photo_title}" rel="prettyPhoto[]"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.photo_pic}" class="lazy" />

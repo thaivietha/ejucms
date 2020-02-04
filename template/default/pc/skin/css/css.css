@@ -5811,6 +5811,7 @@ span.af-more {
 	font-size: 12px;
 	padding: 0 2px;
 	border-radius: 2px;
+	text-decoration: none;
 }
 .saleTypeIcon1 {
 	background: #ff5200;

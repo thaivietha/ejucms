@@ -36,8 +36,10 @@
          <span>{$characteristic.value}</span>
         {/eju:diyfield}
          <span>{$eju.field.manage_type}</span>
-        
-        更新时间：{$eju.field.add_time|MyDate='Y-m-d',###} / 浏览：{eju:arcclick /} </div>
+        {eju:diyfield type='checkbox' id='supporting' name='$eju.field.supporting'}
+         <span>{$supporting.value}</span>
+        {/eju:diyfield}
+        更新时间：{$eju.field.add_time|MyDate='Y-m-d',###} / 浏览：{eju:arcclick /}次 </div>
       </div>
       <!--<div class="house-follow fr"><a href="javascript:;" class="subscribe J_dialog" data-id="14" data-model="second_house" data-type="1" data-uri="{eju:diyurl type='form'/}">预约看房</a> </div>-->
     </div>
@@ -73,7 +75,7 @@
       </div>
       <div class="spcsdetail-house-info fr">
         <div class="second-box">
-          <div class="house-price"> {eju:notempty name="$eju.field.total_price"}<b>{$eju.field.total_price}</b>{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}&nbsp;&nbsp;<span>{$eju.field.average_price}{$eju.field.average_price_unit}</span><span>（价格可面议）</span></div>
+          <div class="house-price"> {eju:notempty name="$eju.field.total_price"}<b>{$eju.field.total_price}</b>{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}&nbsp;&nbsp;<span>{$eju.field.average_price}{$eju.field.average_price_unit}</span><span>{$eju.field.diy_jgmy}</span></div>
         </div>
         <div class="basic">
           <ul>
@@ -123,15 +125,53 @@
     <div class="fix-width">
       <div class="detail-content clearfix">
         <div class="detail-left fl">
-          
           <div class="detail-row">
-            <div class="titlespcs">房源描述 </div>
+          <div class="titlespcs">概况 </div>
+          <ul class="base-info clearfix">
+            <li>
+              <label>总价</label>
+              {eju:notempty name="$eju.field.total_price"}{$eju.field.total_price}{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}</li>
+            <li>
+              <label>单价</label>
+              {$eju.field.average_price}{$eju.field.average_price_unit}</li>
+            <li>
+              <label>建筑面积</label>
+              {$eju.field.area}{$eju.field.area_unit}</li>
+            <li>
+              <label>楼层</label>
+              {$eju.field.floor_count}{$eju.field.floor_count_unit}/{$eju.field.floo_type}</li>
+            <li>
+              <label>商铺类型</label>
+              {$eju.field.manage_type}</li>
+            <li>
+              <label>规格</label>
+              面宽{$eju.field.diy_miankuan}{$eju.field.diy_miankuan_unit}，层高{$eju.field.diy_cenggao}{$eju.field.diy_cenggao_unit}，进深{$eju.field.diy_jinshen}{$eju.field.diy_jinshen_unit}</li>
+            <li>
+              <label>经营状态</label>
+              {$eju.field.diy_jyzt}</li>
+            <li>
+              <label>经营类型</label>
+              {eju:diyfield type='checkbox' id='industry' name='$eju.field.industry'}{$industry.value},{/eju:diyfield}</li>
+            <li>
+              <label>预期收益</label>
+              {eju:notempty name="$eju.field.diy_yqsy"}{$eju.field.diy_yqsy}{eju:else /}暂无数据{/eju:notempty}</li>
+            
+            <li>
+              <label>客流人群</label>
+              {eju:notempty name="$eju.field.diy_klrq"}{$eju.field.diy_klrq}{eju:else /}暂无数据{/eju:notempty}</li>
+             <li>
+              <label>相关费用</label>
+              {eju:notempty name="$eju.field.diy_xgfy"}{$eju.field.diy_xgfy}{eju:else /}暂无数据{/eju:notempty}</li>
+          </ul>
+        </div>
+          <div class="detail-row margin-top20">
+            <div class="titlespcs">描述 </div>
             <div class="house-content">
               <p >{$eju.field.content}</p>
             </div>
           </div>
           <div class="detail-row margin-top20">
-            <div class="titlespcs">房屋配套 </div>
+            <div class="titlespcs">配套 </div>
             <ul class="mart-info clearfix">
               {eju:volist name="$eju.field.supporting" id="vo"}
               <li><img src="{$vo|get_supporting_icon=###}" />{$vo}</li>
@@ -139,7 +179,7 @@
             </ul>
           </div>
           <div class="detail-row margin-top20">
-            <div class="titlespcs">房源相册 </div>
+            <div class="titlespcs">图片 </div>
             <ul class="spcsphoto-lists clearfix" id="photo">
               {eju:fanglist name="$eju.field.photo_list" id="field"}
               <li> <a href="{$field.photo_pic}" title="{$field.photo_title}" rel="prettyPhoto[]"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.photo_pic}" class="lazy" />
@@ -152,9 +192,9 @@
         <div class="detail-right fr">
           <div class="right-row">
             <div class="esrecommend">
-              <h1><i class="shugang"></i>同区域您可能感兴趣的房源</h1>
+              <h1><i class="shugang"></i>猜你喜欢</h1>
               <ul>
-                {eju:arclist  channelid="14" joinaid="$eju.field.joinaid"  orderby='rand' row='6' id="field"}
+                {eju:arclist  channelid="14" orderby='rand' row='6' id="field"}
                 <li> <a href="{$field.arcurl}" target="_blank">
                   <div> <img src="{$field.litpic}" alt="{$field.title}"> <b>{$field.title}</b>
                     <p>{$field.area}{$field.area_unit}</p>
@@ -163,7 +203,7 @@
                 {/eju:arclist} 
                 
 
-                <a href="{eju:type typeid='24'}{$field.typeurl}{/eju:type}" target="_blank">查看更多房源 &gt;</a>
+                <a href="{eju:type typeid='24'}{$field.typeurl}{/eju:type}" target="_blank">查看更多 &gt;</a>
               </ul>
             </div>
           </div>
@@ -191,7 +231,7 @@
       </div>
       <div class="itr_box margin-top20">
         <ul class="lbtitle bigtit" id="js_jrtab_ul">
-          <li class="hover" id="js_jrtab_0" data-index="0">猜你喜欢</li>
+          <li class="hover" id="js_jrtab_0" data-index="0">看了又看</li>
           <li id="js_jrtab_1" class="" data-index="1">为您推荐</li>
         </ul>
         <div class=" itr_box_con">
