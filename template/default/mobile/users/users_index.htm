@@ -28,6 +28,18 @@
                                                     <div class="layui-table-cell w120 tc"><span>出租房（条）</span></div>
                                                 </th>
                                                 <th class="w120 tc">
+                                                    <div class="layui-table-cell w120 tc"><span>商铺出售（条）</span></div>
+                                                </th>
+                                                <th class="w120 tc">
+                                                    <div class="layui-table-cell w120 tc"><span>商铺出租（条）</span></div>
+                                                </th>
+                                                <th class="w120 tc">
+                                                    <div class="layui-table-cell w120 tc"><span>写字楼出售（条）</span></div>
+                                                </th>
+                                                <th class="w120 tc">
+                                                    <div class="layui-table-cell w120 tc"><span>写字楼出租（条）</span></div>
+                                                </th>
+                                                <th class="w120 tc">
                                                     <div class="layui-table-cell w120 tc"><span>全部（条）</span></div>
                                                 </th>
                                             </tr>
@@ -38,13 +50,25 @@
                                                     <div class="layui-table-cell w120 tc">今日发布</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.day_ershou_send}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][1]['num']|default='0'}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.day_zufang_send}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][3]['num']|default='0'}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.day_send}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][5]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][7]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][9]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][11]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$content.day_send|default='0'}</div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -52,13 +76,25 @@
                                                     <div class="layui-table-cell w120 tc">总发布</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.ershou_send}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][1]['num']|default='0'}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.zufang_send}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][3]['num']|default='0'}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.all_send}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][5]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][7]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][9]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][11]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$content.all_send|default='0'}</div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -66,13 +102,25 @@
                                                     <div class="layui-table-cell w120 tc">今日置顶</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.day_ershou_top}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][2]['num']|default='0'}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.day_zufang_top}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][4]['num']|default='0'}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.day_top}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][6]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][8]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][10]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[1][22]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$content.day_top|default='0'}</div>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -80,13 +128,25 @@
                                                     <div class="layui-table-cell w120 tc">总置顶</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.ershou_top}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][2]['num']|default='0'}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.zufang_top}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][4]['num']|default='0'}</div>
                                                 </td>
                                                 <td>
-                                                    <div class="layui-table-cell w120 tc">{$content.all_top}</div>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][6]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][8]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][10]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$count[2][12]['num']|default='0'}</div>
+                                                </td>
+                                                <td>
+                                                    <div class="layui-table-cell w120 tc">{$content.all_top|default='0'}</div>
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -164,12 +224,15 @@
                                         <th class="w120 tc">
                                             <div class="layui-table-cell w120 tc"><span>共置顶(条)</span></div>
                                         </th>
-                                        <th class="w230 tc">
-                                            <div class="layui-table-cell w230 tc" style="border-bottom: 1px solid #e6e6e6;"><span>审核</span></div>
-                                            <div class="layui-table-cell w230 tc">
+                                        <th class="w610 tc">
+                                            <div class="layui-table-cell w610 tc" style="border-bottom: 1px solid #e6e6e6;"><span>发布需审核</span></div>
+                                            <div class="layui-table-cell w610 tc">
                                                 <span class="layui-table-cell w100 tc fl">二手房</span>
                                                 <span class="layui-table-cell w100 tc fl">出租房</span>
-
+                                                <span class="layui-table-cell w100 tc fl">商铺出售</span>
+                                                <span class="layui-table-cell w100 tc fl">商铺出租</span>
+                                                <span class="layui-table-cell w100 tc fl">写字楼出售</span>
+                                                <span class="layui-table-cell w100 tc fl">写字楼出租</span>
                                             </div>
                                         </th>
                                     </tr>
@@ -201,9 +264,13 @@
                                             <div class="layui-table-cell w120 tc">{empty name="$vo.fee_all_top"}不限{else /}{$vo.fee_all_top}条{/empty}</div>
                                         </td>
                                         <td>
-                                            <div class="layui-table-cell w230 tc">
+                                            <div class="layui-table-cell w610 tc">
                                                 <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_ershou']" value='1'}是{else /}否{/eq}</span>
                                                 <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_zufang']" value='1'}是{else /}否{/eq}</span>
+                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_shopcs']" value='1'}是{else /}否{/eq}</span>
+                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_shopcz']" value='1'}是{else /}否{/eq}</span>
+                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_officecs']" value='1'}是{else /}否{/eq}</span>
+                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_officecz']" value='1'}是{else /}否{/eq}</span>
                                             </div>
                                         </td>
                                     </tr>

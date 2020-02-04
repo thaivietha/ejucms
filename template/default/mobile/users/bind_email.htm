@@ -51,8 +51,8 @@
                     dataType:'json',
                     success:function(res){
                         if(res.code == 1){
-                            countdown();
                             layer.msg(res.msg, {time: 2000});
+                            countdown();
                         }else{
                             $("#email_button").val('点击发送');
                             $("#email_button").removeAttr("disabled");
@@ -105,6 +105,25 @@
                     return false;
                 });
             });
+            function countdown(){
+                // 倒计时
+                var setTime;
+                var time = {php}echo config('global.email_send_time');{/php};
+                setTime = setInterval(function(){
+                    if(0 >= time){
+                        clearInterval(setTime);
+                        return;
+                    }
+                    time--;
+                    $("#email_button").html(time+'秒');
+                    $("#email_button").attr('disabled', 'disabled');
+
+                    if(time == 0){
+                        $("#email_button").html('点击发送');
+                        $("#email_button").removeAttr("disabled");
+                    }
+                },1000);
+            }
         </script>
 </body>
 </html>

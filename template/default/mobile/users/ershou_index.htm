@@ -115,9 +115,9 @@
                                 </td>
                                 <td>
                                     <div class="layui-table-cell w300 tc right-oper">
-                                        <!--<a data-url="{:url('Archives/stick',array('id'=>$vo['aid'],'type'=>'2'))}" class="layui-btn btn-edit customvar_stick" >-->
-                                            <!--置顶-->
-                                        <!--</a>-->
+                                        <a onclick="stickfun(this)" data-url="{:url('Archives/stick',array('type'=>'2'))}" data-id="{$vo.aid}"  class="layui-btn btn-edit" >
+                                            置顶
+                                        </a>
                                         <a data-url="{:url($table.'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}" class="layui-btn btn-edit customvar_edit" >
                                             编辑
                                         </a>
@@ -140,6 +140,9 @@
                     <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary" >
                     <a  class="layui-btn layui-btn-primary"   href="javascript:;" onclick="batch_del(this,'ids');" id="batch_del_all" data-url="{:url('Archives/del')}" data-deltype="pseudo0">
                         批量删除
+                    </a>
+                    <a  class="layui-btn layui-btn-primary"   href="javascript:;" onclick="batch_stick(this,'ids');" id="batch_stick_all" data-url="{:url('Archives/stick',array('type'=>'2'))}" >
+                        批量置顶
                     </a>
                 </div>
             </div>
