@@ -160,23 +160,37 @@ class TagChannel extends Base
         }
         $this->hidden_arr = $arr;
         if ($next){
-
             $this->getNext(get_arr_column($arr,'id'));
         }
-
-
         if ($this->hidden_arr) {
+            $pointto_id_arr = [];
+            $pointto_arr = [];
+            foreach ($this->hidden_arr as $key => $val){
+                if ($val['pointto_id']){
+                    $pointto_id_arr[] = $val['pointto_id'];
+                }
+                if (!empty($pointto_id_arr)){
+                    $map = array(
+                        'id'   => ['in'=>$pointto_id_arr],
+                        'status'  => 1,
+                        'is_del'    => 0,
+                    );
+                    $pointto_arr = db('arctype')->where($map)->getAllWithIndex("id");
+                }
+            }
             $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', array(), 'id');
             foreach ($this->hidden_arr as $key => $val) {
                 /*获取指定路由模式下的URL*/
-                if ($val['is_part'] == 1) {
+                if ($val['is_part'] == 1) {     //外部链接
                     $val['typeurl'] = $val['typelink'];
+                }else if($val['pointto_id'] && !empty($pointto_arr[$val['pointto_id']])){     //指向其他栏目
+                    $ctl_name = $ctl_name_list[$pointto_arr[$val['pointto_id']]['current_channel']]['ctl_name'];
+                    $val['typeurl'] = typeurl('home/'.$ctl_name."/lists", $pointto_arr[$val['pointto_id']]);
                 } else {
                     $ctl_name = $ctl_name_list[$val['current_channel']]['ctl_name'];
                     $val['typeurl'] = typeurl('home/'.$ctl_name."/lists", $val);
                 }
                 /*--end*/
-
                 /*标记栏目被选中效果*/
                 if ($val['id'] == $this->tid) {
                     $val['currentstyle'] = $this->currentstyle;
@@ -184,10 +198,8 @@ class TagChannel extends Base
                     $val['currentstyle'] = '';
                 }
                 /*--end*/
-
                 // 封面图
                 $val['litpic'] = handle_subdir_pic($val['litpic']);
-
                 $this->hidden_arr[$key] = $val;
             }
         }
@@ -239,12 +251,13 @@ class TagChannel extends Base
             ->order('c.parent_id asc, c.sort_order asc, c.id')
             ->cache(true,EYOUCMS_CACHE_TIME,"arctype")
             ->select();
+        $res = convert_arr_key($res,'id');
         /*--end*/
         if ($res) {
             $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', array(), 'id');
             foreach ($res as $key => $val) {
                 /*获取指定路由模式下的URL*/
-                if ($val['is_part'] == 1) {
+                if ($val['is_part'] == 1) {  //获取外部链接
                     $val['typeurl'] = $val['typelink'];
                     if (!is_http_url($val['typeurl'])) {
                         $typeurl = '//'.request()->host();
@@ -254,6 +267,9 @@ class TagChannel extends Base
                         $typeurl .= '/'.trim($val['typeurl'], '/');
                         $val['typeurl'] = $typeurl;
                     }
+                }else if($val['pointto_id'] && !empty($res[$val['pointto_id']])){       //指向其他栏目
+                    $ctl_name = $ctl_name_list[$res[$val['pointto_id']]['current_channel']]['ctl_name'];
+                    $val['typeurl'] = typeurl('home/'.$ctl_name."/lists", $res[$val['pointto_id']]);
                 } else {
                     $ctl_name = $ctl_name_list[$val['current_channel']]['ctl_name'];
                     $val['typeurl'] = typeurl('home/'.$ctl_name."/lists", $val);
@@ -421,7 +437,7 @@ class TagChannel extends Base
             $module = request()->module();
             foreach ($res as $key => $val) {
                 /*获取指定路由模式下的URL*/
-                if ($val['is_part'] == 1) {
+                if ($val['is_part'] == 1) {     //外部链接
                     $val['typeurl'] = $val['typelink'];
                     if (!is_http_url($val['typeurl'])) {
                         $typeurl = '//'.request()->host();
@@ -431,6 +447,9 @@ class TagChannel extends Base
                         $typeurl .= '/'.trim($val['typeurl'], '/');
                         $val['typeurl'] = $typeurl;
                     }
+                }else if($val['pointto_id'] && !empty($res[$val['pointto_id']])){   //指向其他栏目
+                    $ctl_name = $ctl_name_list[$res[$val['pointto_id']]['current_channel']]['ctl_name'];
+                    $val['typeurl'] = typeurl('home/'.$ctl_name."/lists", $res[$val['pointto_id']]);
                 } else {
                     $ctl_name = $ctl_name_list[$val['current_channel']]['ctl_name'];
                     $val['typeurl'] = typeurl('home/'.$ctl_name."/lists", $val);

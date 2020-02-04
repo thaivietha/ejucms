@@ -65,6 +65,21 @@
                                     </div>
                                   </div>
                                   {/gt}
+
+                                  <div class="layui-form-item">
+                                    <label class="layui-form-label">跳转栏目</label>
+                                    <div class="layui-input-inline">
+                                      <select id="pointto_id" name="pointto_id">
+                                        {$select_pointto_html}
+                                      </select>
+                                    </div>
+                                    <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                      <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                      <div class="layui-form-inline2 ey_helptips_txt">跳转栏目</div>
+                                    </div>
+                                  </div>
+
+
                                   <div class="layui-form-item none">
                                     <label class="layui-form-label">文件保存目录</label>
                                     <div class="layui-input-inline">
@@ -75,6 +90,7 @@
                                       <div class="layui-form-inline2 ey_helptips_txt">生成的文章HTML页面会存放在该目录下</div>
                                     </div>
                                   </div>
+
                                   <div class="layui-form-item">
                                     <label class="layui-form-label">隐藏栏目</label>
                                     <div class="layui-input-inline w70">

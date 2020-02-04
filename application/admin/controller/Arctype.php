@@ -59,10 +59,10 @@ class Arctype extends Base
         // 目录列表
         $arctypeLogic = new ArctypeLogic(); 
         $where['is_del'] = '0'; // 回收站功能
-        $where['current_channel'] = ['gt',0]; // 非自定义（问答）
+        $where['current_channel'] = ['egt',0]; // 非自定义（问答）
         $arctype_list = $arctypeLogic->arctype_list(0, 0, false, 0, $where, false);
         foreach ($arctype_list as $key=>$val){
-            $arctype_list[$key]['channeltypename'] = $channeltype_list[$val['current_channel']]['title'];
+            $arctype_list[$key]['channeltypename'] = !empty($channeltype_list[$val['current_channel']]['title']) ? $channeltype_list[$val['current_channel']]['title'] : '指向栏目';
             $arctype_list[$key]['typeurl'] = get_typeurl($val);
         }
 
@@ -206,6 +206,22 @@ class Arctype extends Base
         $assign_data['channeltype'] = 6;
         $assign_data['nid'] = 'arctype';
         /*--end*/
+//跳转栏目
+        $select_pointto_html = '<option value="0" data-grade="-1" data-dirpath="'.tpCache('seo.seo_html_arcdir').'">无跳转</option>';
+        $arctype_max_level = intval(config('global.arctype_max_level'));
+        $arctypeLogic = new ArctypeLogic();
+        $options = $arctypeLogic->arctype_list(0, 0, false, $arctype_max_level - 1);
+        foreach ($options AS $var)
+        {
+            $select_pointto_html .= '<option value="' . $var['id'] . '" data-grade="' . $var['grade'] . '" data-dirpath="'.$var['dirpath'].'"';
+            $select_pointto_html .= '>';
+            if ($var['level'] > 0)
+            {
+                $select_pointto_html .= str_repeat('&nbsp;', $var['level'] * 4);
+            }
+            $select_pointto_html .= htmlspecialchars(addslashes($var['typename'])) . '</option>';
+        }
+        $this->assign('select_pointto_html',$select_pointto_html);
 
         $this->assign($assign_data);
         return $this->fetch();
@@ -349,7 +365,25 @@ class Arctype extends Base
         }
         $this->assign('select_html',$select_html);
         $this->assign('hasChildren',$hasChildren);
-
+        //跳转栏目
+        $select_pointto_html = '<option value="0" data-grade="-1" data-dirpath="'.tpCache('seo.seo_html_arcdir').'">无跳转</option>';
+        $selected = $info['pointto_id'];
+        $arctype_max_level = intval(config('global.arctype_max_level'));
+        $arctypeLogic = new ArctypeLogic();
+        $options = $arctypeLogic->arctype_list(0, $selected, false, $arctype_max_level - 1);
+        foreach ($options AS $var)
+        {
+            $select_pointto_html .= '<option value="' . $var['id'] . '" data-grade="' . $var['grade'] . '" data-dirpath="'.$var['dirpath'].'"';
+            $select_pointto_html .= ($selected == $var['id']) ? "selected='ture'" : '';
+            $select_pointto_html .= ($id == $var['id']) ? "disabled='ture' style='background-color:#f5f5f5;' " : '';
+            $select_pointto_html .= '>';
+            if ($var['level'] > 0)
+            {
+                $select_pointto_html .= str_repeat('&nbsp;', $var['level'] * 4);
+            }
+            $select_pointto_html .= htmlspecialchars(addslashes($var['typename'])) . '</option>';
+        }
+        $this->assign('select_pointto_html',$select_pointto_html);
         /* 模型 */
         $map = array(
             'status'    => 1,

@@ -73,6 +73,7 @@ class ArctypeLogic extends Model
                 ->order('c.parent_id asc, c.sort_order asc, c.id')
                 ->cache($is_cache,EYOUCMS_CACHE_TIME,"arctype")
                 ->select();
+            $res = convert_arr_key($res,'id');
         }
 
         if (empty($res) == true)
