@@ -31,8 +31,10 @@
     
     <div class="main clearfix"> 
       <!-- 二手房列表 S-->
-      <div class="houseList_wrap leftArea cm_leftArea"> {eju:screening id='field' typeid='19' currentstyle='active'  region='on' show='2' alltxt='全部' opencity='1' addfields="total_price,area,room" present='on'}
-        <div class="contentCtn"> {eju:volist name='$field.list' id='vo'}
+      <div class="houseList_wrap leftArea cm_leftArea"> 
+       {eju:screening id='field' typeid='19' currentstyle='active'  region='on' show='2' alltxt='全部' opencity='1' addfields="total_price,area,room" present='on'}
+        <div class="contentCtn"> 
+         {eju:volist name='$field.list' id='vo'}
           <div class="my_xl">
             <input name="hidden0" type="hidden" id="hidden0" class="my_xl_input" value="">
             <div class="my_xl_txt" id="zongjia">{$vo.screen}</div>
