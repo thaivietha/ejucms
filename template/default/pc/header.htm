@@ -30,6 +30,9 @@
             {/eju:eq}
             {eju:eq name='$field.typeid' value='11'}
              <li><a href="{eju:diyurl type='mapershou' /}">地图找房</a></li>
+             {eju:type typeid='20' id="field"}
+             <li><a href="{$field.typeurl}">{$field.typename}</a></li>
+             {/eju:type}
             {/eju:eq}
             {eju:eq name='$field.typeid' value='12'}
              <li><a href="{eju:diyurl type='mapzufang' /}">地图找房</a></li>
