@@ -619,26 +619,31 @@
           <!-- 优秀导购员 S -->
           <div class="r_box top_director fr">
             <div class="release-news clearfix">
-              <a href="#" title="" target="_blank"> <i class="font-index-1"></i>发布二手 </a>
-              <a href="#" title="" target="_blank"> <i class="font-index-2"></i>发布出租 </a>
-              <a href="#" title="" target="_blank"> <i class="font-index-3"></i>发布求购 </a>
-              <a href="#" title="" target="_blank"> <i class="font-index-4"></i>发布求租 </a>
+            {eju:user type='open'}
+             {eju:user type='login'} 
+              <a href="{$field.url}" title="" target="_blank"> <i class="font-index-1"></i>发布二手 </a>
+              <a href="{$field.url}" title="" target="_blank"> <i class="font-index-2"></i>发布出租 </a>
+              <a href="{$field.url}" title="" target="_blank"> <i class="font-index-3"></i>发布求购 </a>
+              <a href="{$field.url}" title="" target="_blank"> <i class="font-index-4"></i>发布求租 </a>
+              {$field.hidden}
+             {/eju:user}
+            {/eju:user}
             </div>
             <ul class="broker" data-tag="jpjjr">
-              {eju:userslist pagesize='20' is_saleman='1' is_count='12,13' titlelen='30' infolen='160' orderby='add_time' pagesize='3'}
+              {eju:userslist is_saleman='1' is_count='12,13' titlelen='30' infolen='160' orderby='add_time' pagesize='3'}
               <li>
-                <a href="#" target="_blank">
-                  <img alt="{$field.true_name}" width="56" height="56" class="lazy" data-original="{$field.litpic}" src="{$field.litpic}" style="display: block;">
+                <a href="{$field.arcurl}" target="_blank">
+                  <img alt="{$field.username}" width="56" height="56" class="lazy" data-original="{$field.litpic}" src="{$field.litpic}" style="display: block;">
                 </a>
                 <div>
-                  <p> <a href="{$field.arcurl}" target="_blank" class="f-color">{$field.true_name}</a> </p>
+                  <p> <a href="{$field.arcurl}" target="_blank" class="f-color">{$field.username}</a> </p>
                   <p>手机：{$field.mobile}</p>
                   <p>售 <span class="f-color"> {$field.count_12} </span>套，租 <span class="f-color"> {$field.count_13} </span>套 </p>
                 </div>
               </li>
               {/eju:userslist}
             </ul>
-            <div class="clearfix"> <a href="#" target="_blank" class="more-broker">更多经纪人</a> </div>
+            <div class="clearfix"> <a href="{eju:type typeid='20'}{$field.typeurl}{/eju:type}" target="_blank" class="more-broker">更多经纪人</a> </div>
           </div>
           <!-- 优秀导购员 E --> 
         </div>
