@@ -1403,9 +1403,7 @@ a cite {
 	color: #999!important;
 	padding: 0 5px!important
 }
-.layui-ton {
-	display:block;
-    margin-bottom: 10px;}
+
 .layui-btn {
 	display: inline-block;
 	height: 35px;
@@ -1544,6 +1542,9 @@ a cite {
 .layui-btn-fluid {
 	width: 100%
 }
+.layui-ton {
+	display:block;
+    margin-bottom: 10px;}
 .layui-input, .layui-select, .layui-textarea {
 	height: 35px;
 	line-height: 1.3;
