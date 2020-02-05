@@ -32,6 +32,10 @@ class TagUsersList extends Base
      */
     public function getUserslist($param = array(), $pagesize = 10, $orderby = '', $orderway = '', $thumb = ''){
         $param = array_merge(input('param.'), $param);
+        $is_count_arr = [];
+        if (!empty($param['is_count'])){
+            $is_count_arr = explode(',',$param['is_count']);
+        }
         $result = false;
         empty($orderway) && $orderway = 'desc';
         // 给排序字段加上表别名
@@ -148,6 +152,13 @@ class TagUsersList extends Base
                     }
                 }
                 $arcval['service_xiaoqu'] = $service_xiaoqu;
+                //经纪人数据统计
+                if (!empty($is_count_arr)){
+                    foreach ($is_count_arr as $v){
+                        $arcval['count_'.$v] = Db::name("archives")->where(['users_id'=>$arcval['users_id'],'is_del'=>0,'status'=>1,'channel'=>['in',$v]])->count();
+                    }
+                }
+
                 //内页路由
                 $resultUrl = $this->UsersLoginc->GetUrlData(['users_id'=>$val['id']]);
                 $arcval = array_merge($resultUrl,$arcval);

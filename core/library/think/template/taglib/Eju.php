@@ -80,7 +80,7 @@ class Eju extends Taglib
         //表单标签
         'inputform'=> ['attr' => 'formid,name,empty,id,success,class'],
         //表单标签
-        'form' => ['attr' => 'formid,success,empty,id,mod,key,before,beforeSubmit'],
+        'form' => ['attr' => 'formid,success,empty,id,mod,key,before,beforeSubmit,is_count,is_list'],
         //子表信息个数标签
         'sonarccount'=>['attr' => 'aid,map,mapkey,table,group,where,map', 'close' => 0],
         //子表信息单条显示
@@ -110,7 +110,7 @@ class Eju extends Taglib
         //显示关联沙盘内容（单楼盘）
         'sand'  =>['attr' => 'id,key,mod,field,aid'],
         //经纪人列表
-        'userslist'       => ['attr' => 'pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,thumb,is_saleman,level'],
+        'userslist'       => ['attr' => 'pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,thumb,is_saleman,level,is_count'],
 
     ];
     /*
@@ -131,9 +131,10 @@ class Eju extends Taglib
         $titlelen = !empty($tag['titlelen']) && is_numeric($tag['titlelen']) ? intval($tag['titlelen']) : 100;
         $infolen = !empty($tag['infolen']) && is_numeric($tag['infolen']) ? intval($tag['infolen']) : 160;
 
-
         $is_saleman = isset($tag['is_saleman']) ? $tag['is_saleman'] : '';      //是否内部经纪人
         $level = isset($tag['level']) ? $tag['level'] : '';   //经纪人级别
+        $is_count = isset($tag['is_count']) ? $tag['is_count'] : '';       //获取二手房、租房等数据条数,填写需要统计的channel_id
+
         $parseStr = '<?php ';
         // 声明变量
         // 查询数据库获取的数据集
@@ -142,6 +143,7 @@ class Eju extends Taglib
         $parseStr .= '      "noflag"=> "'.$noflag.'",';
         $parseStr .= '      "is_saleman"=> "'.$is_saleman.'",';
         $parseStr .= '      "level"=> "'.$level.'",';
+        $parseStr .= '      "is_count"=> "'.$is_count.'",';
         $parseStr .= ' );';
         // $parseStr .= ' $orderby = "'.$orderby.'";';
         $parseStr .= ' $tagUsersList = new \think\template\taglib\eju\TagUsersList;';
@@ -685,11 +687,14 @@ class Eju extends Taglib
         $empty  = isset($tag['empty']) ? $tag['empty'] : '';
         $empty  = htmlspecialchars($empty);
 
+        $is_count     = !empty($tag['is_count']) ? $tag['is_count'] : '';       //计算已报名个数
+        $is_list = isset($tag['is_list']) ? $tag['is_list'] : '';       //是否获取已报名列表
+
         $parseStr = '<?php ';
 
         // 查询数据库获取的数据集
         $parseStr .= ' $tagForm = new \think\template\taglib\eju\TagForm;';
-        $parseStr .= ' $_result = $tagForm->getForm('.$formid.', "'.$success.'", "'.$beforeSubmit.'");';
+        $parseStr .= ' $_result = $tagForm->getForm('.$formid.', "'.$success.'", "'.$beforeSubmit.'","'.$is_count.'","'.$is_list.'");';
         $parseStr .= ' if(is_array($_result) || $_result instanceof \think\Collection || $_result instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k=0;';
         $parseStr .= ' $__LIST__ = $_result;';
 

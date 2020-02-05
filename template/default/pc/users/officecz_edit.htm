@@ -9,8 +9,23 @@
     .w135{
         width: 135px !important;
     }
-    .ui-helper-hidden-accessible{
-        display: none;
+    .input_div{
+        background-color: #fff;
+        position:absolute;
+        z-index: 999;
+        width: 100%;
+        box-shadow: 1px 2px 4px rgba(50, 50, 50, 0.4);
+        display: block;
+    }
+    .input_div .soption{
+        float: left;
+        width: 92%;
+        line-height: 26px;
+        padding:0 4%;
+        display:block;
+    }
+    .input_div .soption:hover{
+        background-color: #eee;
     }
 </style>
 <div class="layui-fluid" id="LAY-component-layer-list">
@@ -41,6 +56,8 @@
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="hidden" id="joinaid" name="joinaid" value="{$field.joinaid}" />
                                                                 <input type="text" onblur="check_xiaoqu()" value="{$xiaoquTitle}" name="xiaoqu_title" id="xiaoqu_title"  placeholder="丰祥花苑" lay-verify="check_xiaoqu_title" class="layui-input">
+                                                                <div class="input_div" id="input_div" style="display: none">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <script>
@@ -52,7 +69,6 @@
                                                                         delay:300,      //触发时间
                                                                         minLength:1,    //最小触发长度
                                                                         source: function (request, response) {
-
                                                                             $.ajax({
                                                                                 async: false,   //调用方式：同步
                                                                                 type: "POST",
@@ -62,29 +78,35 @@
                                                                                     "keywords": request.term
                                                                                 },
                                                                                 success: function (data) {
-
-                                                                                    response($.map(data, function (item) {
-                                                                                        return {
-                                                                                            label:item.title,         //label为下拉框显示的标签
-                                                                                            value:item.title,         //value选中后显示的值
-                                                                                            aid: item.aid,
-                                                                                        }
-                                                                                    }));
+                                                                                    if (data.constructor === Object){
+                                                                                        $.map(data,function (item) {
+                                                                                            var span = $('<span onclick="select_soption(this)" class="soption" data-aid="'+item.aid+'" data-title="'+item.title+'">'+item.title+'</span>');
+                                                                                            $(".input_div").append(span);
+                                                                                        });
+                                                                                        $(".input_div").show();
+                                                                                    }else{      //获取到空数据
+                                                                                        $(".input_div").hide();
+                                                                                    }
                                                                                 }
                                                                                 ,error:function (data) {
                                                                                 }
                                                                             });
                                                                         }
-                                                                        ,select: function (event, ui) {
-                                                                            $("#title").val(ui.item.value);
-                                                                            $("#joinaid").val(ui.item.aid);
-                                                                            $("#region_div").hide();
-                                                                            $("#address_div").hide();
-                                                                            $("#map_div").hide();
-                                                                        }
                                                                     });
                                                                 }
                                                             });
+                                                            function select_soption(obj) {
+                                                                var title = $(obj).data('title');
+                                                                var aid = $(obj).data('aid');
+                                                                $("#title").val(title);
+                                                                $("#xiaoqu_title").val(title);
+                                                                $("#joinaid").val(aid);
+                                                                $("#region_div").hide();
+                                                                $("#address_div").hide();
+                                                                $("#map_div").hide();
+                                                                $("#input_div").empty();
+                                                                $("#input_div").hide();
+                                                            }
                                                             function check_xiaoqu(){
                                                                 var timeout = 0;//延时处理
                                                                 var joinaid = $("#joinaid").val();

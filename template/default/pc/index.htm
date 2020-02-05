@@ -51,17 +51,69 @@
 		loop: true
         });
     </script>
+      <style>
+        #ser_xinfang i{
+          top: -7px;
+          left: 28px;
+        }
+        #ser_ershou i{
+          top: -7px;
+          left: 108px;
+        }
+        #ser_zufang i{
+          top: -7px;
+          left: 188px;
+        }
+        #ser_xiaoqu i{
+          top: -7px;
+          left: 272px;
+        }
+      </style>
       <div class="search-box">
         <div class="opacity"></div>
         <div class="search-content">
-          <div class="search-type"> <a href="javascript:;" class="active" data-uri="/loupan.html">新房</a> <a href="javascript:;" data-uri="/esf.html">二手</a> <a href="javascript:;" data-uri="/chuzu.html">出租</a> <a href="javascript:;" data-uri="/xiaoqu.html">小区</a> </div>
-          <div class="search-input clearfix" id="ser1"> <i></i> {eju:searchform channelid='9' type='default'}
-            <form  method="get" action="{$field.action}">
+          <div class="search-type">
+            <a href="javascript:;" class="active" data-mode="xinfang">新房</a>
+            <a href="javascript:;"  data-mode="ershou">二手</a>
+            <a href="javascript:;"  data-mode="zufang">出租</a>
+            <a href="javascript:;"  data-mode="xiaoqu">小区</a>
+          </div>
+          <div class="search-input clearfix" id="ser_xinfang"> <i></i>
+            {eju:searchform channelid='9' typeid='1' type='default'}
+            <form id="form_xinfang" method="get" action="{$field.action}">
               <input type="text" name="keywords" class="search-input-text fl" placeholder="输入关键词搜索">
-              <button  type="submit"  class="search-btn fl"></button>
+              <button  type="submit"data-mode="xinfang" class="search-btn fl"></button>
               {$field.hidden}
             </form>
-            {/eju:searchform} </div>
+            {/eju:searchform}
+          </div>
+          <div style="display: none" class="search-input clearfix" id="ser_ershou"> <i></i>
+            {eju:searchform channelid='12' typeid='11' type='default'}
+            <form id="form_ershou" method="get" action="{$field.action}">
+              <input type="text" name="keywords" class="search-input-text fl" placeholder="输入关键词搜索">
+              <button  type="submit" data-mode="ershou" class="search-btn fl"></button>
+              {$field.hidden}
+            </form>
+            {/eju:searchform}
+          </div>
+          <div style="display: none" class="search-input clearfix" id="ser_zufang"> <i></i>
+            {eju:searchform channelid='13' typeid='12' type='default'}
+            <form id="form_zufang" method="get" action="{$field.action}">
+              <input type="text" name="keywords" class="search-input-text fl" placeholder="输入关键词搜索">
+              <button  type="submit" data-mode="zufang" class="search-btn fl"></button>
+              {$field.hidden}
+            </form>
+            {/eju:searchform}
+          </div>
+          <div style="display: none" class="search-input clearfix" id="ser_xiaoqu"> <i></i>
+            {eju:searchform channelid='11' typeid='10' type='default'}
+            <form id="form_xiaoqu" method="get" action="{$field.action}">
+              <input type="text" name="keywords" class="search-input-text fl" placeholder="输入关键词搜索">
+              <button  type="submit" data-mode="xiaoqu" class="search-btn fl"></button>
+              {$field.hidden}
+            </form>
+            {/eju:searchform}
+          </div>
           <div class="search-keyword"> <span>热门搜索：</span> {eju:arclist typeid='1' flag='a' orderby='new' limit='0,3' id='field'}<a href="{$field.arcurl}" target="_blank">{$field.title}</a>
               {/eju:arclist} </div>
         </div>
@@ -379,15 +431,16 @@
         </div>
         <div class="content clearfix"> 
           <!-- 最近开盘 S-->
+          {eju:form formid="1" is_count='1' is_list='1'}
           <div class="l_box fl">
             <div class="kanfang">
               <h4 class="fl">看房报名</h4>
-              <div class="fr">已有 <span class="num">43</span> 人报名 </div>
+              <div class="fr">已有 <span class="num">{$field.count}</span> 人报名 </div>
               <div id="bmtip"></div>
             </div>
             <!-- 预约看房 S -->
             <div class="appoint">
-              <div class="form_box"> {eju:form formid="1"}
+              <div class="form_box">
                 <form method="post" id="{$field.form_name}" action="{$field.action}" onsubmit="{$field.submit}">
                   <div class="sct clearfix">
                     <div class="sct_ipt">
@@ -402,28 +455,23 @@
                   <div class="sct btn_area">
                     <input type="submit" value="立即提交" class="sbm subscribe-btn">
                   </div>
-                  {$field.hidden}
                 </form>
-                {/eju:form} </div>
+                </div>
             </div>
-            <!-- 预约看房 E --> 
+            <!-- 预约看房 E -->
             <!-- 看房团 S -->
             <div class="look_team">
               <div class="list" id="subscribe">
                 <ul>
-                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
-                  <li class="clearfix now"> 刘**&nbsp;138*** &nbsp; 报名了<a href="#" class="" target="_blank" title="盛世华南商铺">盛世华南商铺</a> </li>
+                  {eju:volist name="$field.list" id="vo"}
+                  <li class="clearfix now"> {$vo.4}&nbsp;{$vo.1} &nbsp; 报名了<a href="javascript:;" class="" target="_blank" title="{$vo.5}">{$vo.5}</a> </li>
+                  {/eju:volist}
                 </ul>
               </div>
             </div>
-            <!-- 看房团 E --> 
-            
+            <!-- 看房团 E -->
+            {$field.hidden}
+            {/eju:form}
           </div>
           <!-- 最近开盘 E--> 
           <!-- 楼盘列表 S -->
@@ -433,7 +481,7 @@
                 {eju:arclist typeid='3' orderby='new' row='6' id='field' addfields="price,end_time,"}
                 <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
                 {eju:arcview aid='$field.joinaid'  id='field2'}
-                <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.price"}<i class="price">{$field.price}</i>{$field.price_unit}{eju:else /}暂无{/eju:notempty}</span>
+                <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.price"}<i class="price">{$field.price}</i>{$field2.price_units}{eju:else /}暂无{/eju:notempty}</span>
                 <span class="ftuan clearfix nowarp"> 截止时间：{$field.end_time|MyDate='Y-m-d',###} </span> </a> </li>
                 {/eju:arcview}
                 {/eju:arclist}
@@ -569,29 +617,25 @@
           <!-- 楼盘列表 E --> 
           <!-- 优秀导购员 S -->
           <div class="r_box top_director fr">
-            <div class="release-news clearfix"> <a href="#" title="" target="_blank"> <i class="font-index-1"></i>发布二手 </a> <a href="#" title="" target="_blank"> <i class="font-index-2"></i>发布出租 </a> <a href="#" title="" target="_blank"> <i class="font-index-3"></i>发布求购 </a> <a href="#" title="" target="_blank"> <i class="font-index-4"></i>发布求租 </a></div>
+            <div class="release-news clearfix">
+              <a href="#" title="" target="_blank"> <i class="font-index-1"></i>发布二手 </a>
+              <a href="#" title="" target="_blank"> <i class="font-index-2"></i>发布出租 </a>
+              <a href="#" title="" target="_blank"> <i class="font-index-3"></i>发布求购 </a>
+              <a href="#" title="" target="_blank"> <i class="font-index-4"></i>发布求租 </a>
+            </div>
             <ul class="broker" data-tag="jpjjr">
-              <li> <a href="#" target="_blank"> <img alt="星语心愿" width="56" height="56" class="lazy" data-original="https://house.08cms.com/uploads/house/000/00/00/1/000/010/855b4e0650f9a356094798e5a596b5e1.jpg" src="https://house.08cms.com/uploads/house/000/00/00/1/000/010/855b4e0650f9a356094798e5a596b5e1.jpg" style="display: block;"> </a>
+              {eju:userslist pagesize='20' is_saleman='1' is_count='12,13' titlelen='30' infolen='160' orderby='add_time' pagesize='3'}
+              <li>
+                <a href="#" target="_blank">
+                  <img alt="{$field.true_name}" width="56" height="56" class="lazy" data-original="{$field.litpic}" src="{$field.litpic}" style="display: block;">
+                </a>
                 <div>
-                  <p> <a href="#" target="_blank" class="f-color">星语心愿</a> </p>
-                  <p>手机：12587459685</p>
-                  <p>售 <span class="f-color"> 0 </span>套，租 <span class="f-color"> 0 </span>套 </p>
+                  <p> <a href="{$field.arcurl}" target="_blank" class="f-color">{$field.true_name}</a> </p>
+                  <p>手机：{$field.mobile}</p>
+                  <p>售 <span class="f-color"> {$field.count_12} </span>套，租 <span class="f-color"> {$field.count_13} </span>套 </p>
                 </div>
               </li>
-              <li> <a href="#" target="_blank"> <img alt="青草" width="56" height="56" class="lazy" data-original="https://house.08cms.com/uploads/house/000/00/00/1/000/009/bedea81ccad4f3045e03248f0a9bd224.jpg" src="https://house.08cms.com/uploads/house/000/00/00/1/000/009/bedea81ccad4f3045e03248f0a9bd224.jpg" style="display: block;"> </a>
-                <div>
-                  <p> <a href="#" target="_blank" class="f-color">青草</a> </p>
-                  <p>手机：13365487458</p>
-                  <p>售 <span class="f-color"> 0 </span>套，租 <span class="f-color"> 0 </span>套 </p>
-                </div>
-              </li>
-              <li> <a href="#" target="_blank"> <img alt="青草" width="56" height="56" class="lazy" data-original="https://house.08cms.com/uploads/house/000/00/00/1/000/009/bedea81ccad4f3045e03248f0a9bd224.jpg" src="https://house.08cms.com/uploads/house/000/00/00/1/000/009/bedea81ccad4f3045e03248f0a9bd224.jpg" style="display: block;"> </a>
-                <div>
-                  <p> <a href="#" target="_blank" class="f-color">青草</a> </p>
-                  <p>手机：13365487458</p>
-                  <p>售 <span class="f-color"> 0 </span>套，租 <span class="f-color"> 0 </span>套 </p>
-                </div>
-              </li>
+              {/eju:userslist}
             </ul>
             <div class="clearfix"> <a href="#" target="_blank" class="more-broker">更多经纪人</a> </div>
           </div>
@@ -903,12 +947,15 @@
         });
 		$("#subscribe").Scroll({line:4,speed:1000,timer:3000});
 		$(".search-type a").on('click',function(){
-            var url = $(this).data('uri');
+            var mode = $(this).data('mode');
+            console.log(mode);
             $(this).addClass('active').siblings().removeClass('active');
-            $("#form").attr('action',url);
+            $(".search-input").hide();
+            $("#ser_"+mode).show();
         });
         $(".search-btn").on('click',function(){
-            $("#form").submit();
+            var mode = $(this).data('mode');
+            $("#form_"+mode).submit();
         });
     });
 </script>

@@ -39,7 +39,7 @@ class TagForm extends Base
     /**
      * 获取表单数据
      */
-    public function getForm($formid = '', $success = '', $beforeSubmit = '')
+    public function getForm($formid = '', $success = '', $beforeSubmit = '',$is_count = '',$is_list = '')
     {
         if (empty($formid)) {
             echo '标签form报错：缺少属性 formid 值。';
@@ -56,7 +56,6 @@ class TagForm extends Base
             echo '标签form报错：该表单不存在。';
             return false;
         }
-
         $form_attr = model('form_attr')->where([
                 'form_id'   => $form['id'],
                 'is_del'    => 0,
@@ -65,7 +64,14 @@ class TagForm extends Base
             echo '标签form报错：表单没有新增字段。';
             return false;
         }
-
+        $baoming_count = 0;
+        $baominglist = $value_list = [];
+        if ($is_count){
+            $baoming_count = Db::name('form_list')->where("form_id=".$formid)->count();
+        }
+        if ($is_list){
+            $value_list = Db::name('form_value')->where("form_id=".$formid)->order('list_id asc')->select();
+        }
         $ajax_form = input('param.ajax_form/d'); // 是否ajax弹窗报名，还是页面显示报名
         $md5 = md5(getTime().uniqid(mt_rand(), TRUE));
         $funname = 'f'.md5("eju_form_token_{$form['id']}".$md5);
@@ -80,6 +86,15 @@ class TagForm extends Base
         ";   //检测规则
         foreach ($form_attr as $key=>$val){
             $attr_id = $val['attr_id'];
+            foreach ($value_list as $k=>$v){
+                if ($attr_id == $v['attr_id']){
+                    if ($val['is_default']){
+                        $baominglist[$v['list_id']][$attr_id] =  mb_substr($v['attr_value'], 0, 3) . '***';
+                    }else{
+                        $baominglist[$v['list_id']][$attr_id] =  mb_substr($v['attr_value'], 0, 1) . '**';
+                    }
+                }
+            }
             /*字段名称*/
             $name = 'attr_'.$attr_id;
             $result[$name] = $name;
@@ -269,7 +284,10 @@ EOF;
         $result['hidden'] = $hidden;
         $result['action'] = url('api/Ajax/form_submit', [], true, false, 1);
         $result['submit'] = "return {$submit}();";
+        $result['count'] = $baoming_count;
+        $result['list'] = $baominglist;
 
         return [$result];
     }
 }
+
