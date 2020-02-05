@@ -1,0 +1,272 @@
+{include file="public/layout" /}
+<body>
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.config.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.all.min.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/lang/zh-cn/zh-cn.js" /}
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="">
+                    <form class="layui-form" id="post_form" action="{:url('Minipro/about_conf')}"  wid100 onsubmit="return false;">
+                        <div class="layui-tab  layui-tab-card">
+                            <ul class="layui-tab-title">
+                                <!-- <li><a href="{:url('Minipro/global_conf')}"><span>1.常规配置</span></a></li> -->
+                                <li><a href="{:url('Minipro/home_conf')}"><span>1.首页配置</span></a></li>
+                                <li class="layui-this">2.联系我们</li>
+                                <li><a href="{:url('Minipro/setting')}"><span>3.生成小程序</span></a></li>
+                                <li><a href="{:url('Minipro/lists')}"><span>收客列表</span></a></li>
+                            </ul>
+                            <div class="layui-tab-content web-system " style="padding:10px 0">
+                                <!--常规选项-->
+                                <div class="layui-tab-item layui-show">
+                                    <div class="layui-row layui-col-space15">
+                                        <div class="layui-col-md12">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body" pad15>
+                                                    <div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">标题</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="webname" value="{$row.webname|default=''}" class="layui-input" />
+                                                            </div>
+                                                            <div class="layui-input-inline layadmin-layer-demo ">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">LOGO图片</label>
+                                                            <div class="layui-input-inline">
+                                                                <div class="upload-box">
+                                                                    <div class="upload-img fl">
+                                                                        <div class="icaction none">
+                                                                            <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_logo_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                            <span class="load_images"><a href="javascript:void(0);" data-inputid="logo_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                        </div>
+                                                                        <div class="cover-bg none"></div>
+                                                                        <img id="img_logo_local" src="{$row.logo_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                    </div>
+                                                                    <div class="upload-right fl">
+                                                                        <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'logo_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                        <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'logo_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                        <input name="logo_local" id="logo_local" placeholder="图片地址" value="{$row.logo_local|default=''}" class="layui-input">
+                                                                        <input type="hidden" name="old_logo_local" value="{$row.logo_local|default=''}" class="layui-input">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="ey_helptips_txt">建议尺寸 60*60 (像素) 的gif或jpg文件，图片最好在2M以内</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">banner图片</label>
+                                                            <div class="layui-input-inline">
+                                                                <div class="upload-box">
+                                                                    <div class="upload-img fl">
+                                                                        <div class="icaction none">
+                                                                            <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_banner_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                            <span class="load_images"><a href="javascript:void(0);" data-inputid="banner_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                        </div>
+                                                                        <div class="cover-bg none"></div>
+                                                                        <img id="img_banner_local" src="{$row.banner_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                    </div>
+                                                                    <div class="upload-right fl">
+                                                                        <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'banner_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                        <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'banner_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                        <input name="banner_local" id="banner_local" placeholder="图片地址" value="{$row.banner_local|default=''}" class="layui-input">
+                                                                        <input type="hidden" name="old_banner_local" value="{$row.banner_local|default=''}" class="layui-input">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="ey_helptips_txt">建议尺寸 600*360 (像素) 的gif或jpg文件，图片最好在2M以内</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">手机号</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="mobile" value="{$row.mobile|default=''}" class="layui-input" />
+                                                            </div>
+                                                            <div class="layui-input-inline layadmin-layer-demo ">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">微信号</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="weixin" value="{$row.weixin|default=''}" class="layui-input" />
+                                                            </div>
+                                                            <div class="layui-input-inline layadmin-layer-demo ">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">QQ号</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="qq" value="{$row.qq|default=''}" class="layui-input" />
+                                                            </div>
+                                                            <div class="layui-input-inline layadmin-layer-demo ">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">E-mail邮箱</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="email" value="{$row.email|default=''}" class="layui-input" />
+                                                            </div>
+                                                            <div class="layui-input-inline layadmin-layer-demo ">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">具体地址</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="address" value="{$row.address|default=''}" class="layui-input" />
+                                                            </div>
+                                                            <div class="layui-input-inline layadmin-layer-demo ">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">经度,纬度</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="coordinate" value="{$row.coordinate|default=''}" class="layui-input" />
+                                                                <p>用于导航，通过<a href="http://lbs.qq.com/tool/getpoint/" target="_blank"> <u>坐标拾取器</u> </a>获取纬度,经度</p>
+                                                            </div>
+                                                            <div class="layui-input-inline layadmin-layer-demo ">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">标题</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="title" value="{$row.title|default=''}" class="layui-input" />
+                                                            </div>
+                                                            <div class="layui-input-inline layadmin-layer-demo ">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- HTML文本 start -->
+                                                        <div class="layui-form-item">
+                                                            <span class="edit-box-tit">详细内容</span>
+                                                            <div class="edit-box-con">
+                                                                <div class="edit-box-textarea2">
+                                                                    <textarea class="span12 ckeditor" id="chk_content" name="content">{$row.content|default=''}</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt"></div>
+                                                            </div>
+                                                        </div>
+                                                        <script type="text/javascript">
+                                                            UE.getEditor('chk_content',{
+                                                                serverUrl :"{:url('Ueditor/index',array('savepath'=>'ueditor'))}",
+                                                                zIndex: 999,
+                                                                initialFrameWidth: "100%", //初化宽度
+                                                                initialFrameHeight: 450, //初化高度
+                                                                focus: false, //初始化时，是否让编辑器获得焦点true或false
+                                                                maximumWords: 99999,
+                                                                removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+                                                                pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+                                                                autoHeightEnabled: false,
+                                                                toolbars: ueditor_toolbars
+                                                            });
+
+                                                            //必须在提交前渲染编辑器；
+                                                            function chk_content() {
+                                                                //判断编辑模式状态:0表示【源代码】HTML视图；1是【设计】视图,即可见即所得；-1表示不可用
+                                                                if(UE.getEditor("chk_content").queryCommandState('source') != 0) {
+                                                                    UE.getEditor("chk_content").execCommand('source'); //切换到【设计】视图
+                                                                }
+                                                            }
+                                                        </script>
+                                                        <!-- HTML文本 end -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-container layadmin-layer-demo">
+                            <button class="layui-btn layui-btn-sm" lay-submit lay-filter="formSubmit">确认提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        // 鼠标事件，加载查看大图和删除图片
+        $(".upload-img").live('mouseover', function(){
+            $(this).find('div.icaction').show();
+            $(this).find('div.cover-bg').show();
+        }).live('mouseout', function(){
+            $(this).find('div.icaction').hide();
+            $(this).find('div.cover-bg').hide();
+        });
+
+    });
+
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+            ,element = layui.element
+            ,layer = layui.layer
+            ,form = layui.form;
+
+        element.render();
+
+        //监听提交
+        form.on('submit(formSubmit)', function(data){
+            var load = layer_loading();
+            data.field._ajax = 1;
+            console.log(data.field);
+
+            $.ajax({
+                type : 'post',
+                url : "{:url('Minipro/about_conf')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        layer.msg(res.msg, {icon: 1, time: 1500}, function(){
+                            window.location.reload();
+                        });
+                    }else{
+                        showErrorMsg(res.msg);
+                    }
+                },
+                error: function(e){
+                    console.log('fail');
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        });
+
+    });
+
+</script>
+
+{include file="public/footer" /}

@@ -52,35 +52,6 @@ class Archives extends Model
             if (1 == $row['channel']) { // 文章模型
                 $articleModel = new \app\home\model\Article();
                 $rowExt = $articleModel->getInfo($aid);
-            } else if (2 == $row['channel']) { // 产品模型
-                $productModel = new \app\home\model\Product();
-                $rowExt = $productModel->getInfo($aid);
-                /*产品参数*/
-                $productAttrModel = new \app\home\model\ProductAttr();
-                $attr_list = $productAttrModel->getProAttr($aid);
-                $row['attr_list'] = $attr_list;
-                // 产品相册
-                $productImgModel = new \app\home\model\ProductImg();
-                $image_list = $productImgModel->getProImg($aid);
-                foreach ($image_list as $key => $val) {
-                    $val['image_url'] = get_default_pic($val['image_url'], $litpic_remote);
-                    $image_list[$key] = $val;
-                }
-                $row['image_list'] = $image_list;
-            } else if (3 == $row['channel']) { // 图集模型
-                $imagesModel = new \app\home\model\Images();
-                $rowExt = $imagesModel->getInfo($aid);
-                // 图集相册
-                $imagesUploadModel = new \app\home\model\ImagesUpload();
-                $image_list = $imagesUploadModel->getImgUpload($aid);
-                foreach ($image_list as $key => $val) {
-                    $val['image_url'] = get_default_pic($val['image_url'], $litpic_remote);
-                    $image_list[$key] = $val;
-                }
-                $row['image_list'] = $image_list;
-            } else if (4 == $row['channel']) { // 下载模型
-                $downloadModel = new \app\home\model\Download();
-                $rowExt = $downloadModel->getInfo($aid);
             }
             $rowExt = $this->fieldLogic->getChannelFieldList($rowExt, $row['channel']); // 自定义字段的数据格式处理
             /*--end*/

@@ -178,10 +178,16 @@ class Controller
         if (is_null($request)) {
             $request = Request::instance();
         }
+
         $mobileurl = '';
         $subDomain = $request->subDomain();
         $web_mobile_domain = config('ey_config.web_mobile_domain');
         $web_region_domain = config('ey_config.web_region_domain');
+
+        if (empty($web_mobile_domain) || in_array($request->module(), ['admin']) || $request->isAjax()) {
+            $data['is_mobile'] = isMobile() ? 1 : 0;
+            return $data;
+        }
 
         if (isMobile()) {
             if (empty($web_region_domain)) { // 关闭子站点

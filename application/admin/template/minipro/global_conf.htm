@@ -1,0 +1,648 @@
+{include file="public/layout" /}
+<body>
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="">
+                    <form class="layui-form" id="post_form" action="{:url('Minipro/global_conf')}"  wid100 onsubmit="return false;">
+                        <div class="layui-tab  layui-tab-card">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this">1.常规配置</li>
+                                <li><a href="{:url('Minipro/home_conf')}"><span>2.首页配置</span></a></li>
+                                <li><a href="{:url('Minipro/about_conf')}"><span>3.联系我们</span></a></li>
+                                <li><a href="{:url('Minipro/setting')}"><span>4.生成小程序</span></a></li>
+                            </ul>
+                            <div class="layui-tab-content web-system " style="padding:10px 0">
+                                <!--常规选项-->
+                                <div class="layui-tab-item layui-show">
+                                    <div class="layui-row layui-col-space15">
+                                        <div class="layui-col-md12">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body" pad15>
+                                                    <div class="" lay-filter="">
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">全局前景色</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="color" style="padding: 0;width: 35px; " name="sel_color" value="{$row.sel_color|default=''}" lay-verify="required" class="layui-input">
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">菜单字体颜色</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="color" style="padding: 0;width: 35px;" name="menu_color" value="{$row.menu_color|default=''}" lay-verify="required"class="layui-input">
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">顶部标题文本</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="nav_title" value="{$row.nav_title|default=''}" lay-verify="required" class="layui-input">
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">顶部标题颜色</label>
+                                                            <div class="layui-input-block">
+                                                                <input type="radio" name="front_color" value="#ffffff" title="白色" {if condition="'#ffffff' == $row['front_color'] || !isset($row['front_color'])"}checked="checked"{/if}>
+                                                                <input type="radio" name="front_color" value="#000000" title="黑色" {if condition="'#000000' == $row['front_color'] || '#000000' == $row['front_color']"}checked="checked"{/if}>
+                                                                <div>
+                                                                    小程序官方只支持黑、白两种颜色
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--{include file="field/addonextitem" /}-->
+                                                    <!--折叠面板--stra-->
+                                                    <!--菜单一-->
+                                                    <div class="layui-collapse mt20" lay-filter="component-panel">
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title" style="color: #777;font-weight: bold;">底部菜单一</h2>
+                                                            <div class="layui-colla-content layui-show">
+                                                                <div class="" wid100 lay-filter="">
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单一显示</label>
+                                                                        <div class="layui-input-block">
+                                                                            <input type="checkbox" name="m1_show" lay-skin="switch" lay-filter="switchTest1" lay-text="是|否" {if condition="!isset($row.m1_show) OR $row.m1_show eq 1"} checked{/if} >
+                                                                            <input type="hidden" name="m1_show" value="{$row.m1_show|default='0'}" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单一名称</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="m1_name" value="{$row.m1_name|default=''}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo ">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">尽量控制4个字符之内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单一链接</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="m1_path_key" id="m1_path_key" lay-filter="path_key" >
+                                                                                {volist name="$pages_list" id="vo"}
+                                                                                <option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row['m1_path_key']) AND $row['m1_path_key'] == $key"}selected{/if}>{$vo.title}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                            <div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m1_typeid_div">
+                                                                                <select name="m1_typeid" id="m1_typeid" lay-filter="choose">
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <input type="hidden" value="{$row.m1_typeid|default=''}" id="1_typeid" class="typeid">
+                                                                            <div class="m1_typeid_div_input" style="display: none;margin-top: 20px;">
+                                                                                <input type="hidden" name="m1_typeid" id="m1_typeid" class="layui-input" value="{$row.m1_typeid|default=''}">
+                                                                                <input type="text" disabled name="m1_title" id="m1_title" class="layui-input" value="{$row.m1_title|default=''}" style="margin-bottom: 20px;display: none;">
+                                                                                <button class="layui-btn " data-type="select_article" data-id="1" onclick="jump(this);">选择文档</button>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单一默认图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m1_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m1_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m1_img_local" src="{$row.m1_img_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m1_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m1_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="m1_img_local" id="m1_img_local" placeholder="图片地址" value="{$row.m1_img_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="old_m1_img_local" value="{$row.m1_img_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 108* 108 (像素) 的gif或jpg文件，图片最好在2M以内!<br/>如果无法正常显示新上传图标，清空浏览器缓存后访问。</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单一选中图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m1_selimg_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m1_selimg_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m1_selimg_local" src="{$row.m1_selimg_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m1_selimg_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m1_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="m1_selimg_local" id="m1_selimg_local" placeholder="图片地址" value="{$row.m1_selimg_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="old_m1_selimg_local" value="{$row.m1_selimg_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 108* 108 (像素) 的gif或jpg文件，图片最好在2M以内!<br/>如果无法正常显示新上传图标，清空浏览器缓存后访问。</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <!--菜单二-->
+                                                    <div class="layui-collapse mt20" lay-filter="component-panel">
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title" style="color: #777;font-weight: bold;">底部菜单二</h2>
+                                                            <div class="layui-colla-content layui-show">
+                                                                <div class="" wid100 lay-filter="">
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单二显示</label>
+                                                                        <div class="layui-input-block">
+                                                                            <input type="checkbox" {if condition="!isset($row.m2_show) OR $row.m2_show eq 1"} checked{/if} name="m2_show" lay-skin="switch" lay-filter="switchTest2" lay-text="是|否">
+                                                                            <input type="hidden" name="m2_show" value="{$row.m2_show|default='0'}" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单二名称</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="m2_name" value="{$row.m2_name|default=''}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo ">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">尽量控制4个字符之内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单二链接</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="m2_path_key" id="m2_path_key" lay-filter="path_key">
+                                                                                {volist name="$pages_list" id="vo"}
+                                                                                <option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row['m2_path_key']) AND $row['m2_path_key'] == $key"} selected {/if}>{$vo.title}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                            <div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m2_typeid_div">
+                                                                                <select name="m2_typeid" id="m2_typeid" lay-filter="choose">
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <input type="hidden" value="{$row.m2_typeid|default=''}" class="typeid" id="2_typeid">
+                                                                            <div class="m2_typeid_div_input" style="display: none;margin-top: 20px;">
+                                                                                <input type="hidden" name="m2_typeid" id="m2_typeid" class="layui-input" value="{$row.m2_typeid|default=''}">
+                                                                                <input type="text" disabled name="m2_title" id="m2_title" class="layui-input" value="{$row.m2_title|default=''}" style="margin-bottom: 20px;display: none;">
+                                                                                <button class="layui-btn " data-type="select_article" data-id="2" onclick="jump(this);">选择文档</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单二默认图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m2_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m2_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m2_img_local" src="{$row.m2_img_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m2_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m2_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="m2_img_local" id="m2_img_local" placeholder="图片地址" value="{$row.m2_img_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="old_m2_img_local" value="{$row.m2_img_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 108* 108 (像素) 的gif或jpg文件，图片最好在2M以内!<br/>如果无法正常显示新上传图标，清空浏览器缓存后访问。</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单二选中图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m2_selimg_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m2_selimg_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m2_selimg_local" src="{$row.m2_selimg_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m2_selimg_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m2_selimg_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="m2_selimg_local" id="m2_selimg_local" placeholder="图片地址" value="{$row.m2_selimg_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="old_m2_selimg_local" value="{$row.m2_selimg_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 108* 108 (像素) 的gif或jpg文件，图片最好在2M以内!<br/>如果无法正常显示新上传图标，清空浏览器缓存后访问。</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <!--菜单三-->
+                                                    <div class="layui-collapse mt20" lay-filter="component-panel">
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title" style="color: #777;font-weight: bold;">底部菜单三</h2>
+                                                            <div class="layui-colla-content layui-show">
+                                                                <div class="" wid100 lay-filter="">
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单三显示</label>
+                                                                        <div class="layui-input-block">
+                                                                            <input type="checkbox" {if condition="!isset($row.m3_show) OR $row.m3_show eq 1"} checked{/if}  name="m3_show" lay-skin="switch" lay-filter="switchTest3" lay-text="是|否">
+                                                                            <input type="hidden" name="m3_show" value="{$row.m3_show|default='0'}" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单三名称</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="m3_name" value="{$row.m3_name|default=''}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo ">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">尽量控制4个字符之内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单三链接</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="m3_path_key" id="m3_path_key" lay-filter="path_key">
+                                                                                {volist name="$pages_list" id="vo"}
+                                                                                <option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row['m3_path_key']) AND $row['m3_path_key'] == $key"}selected{/if}>{$vo.title}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                            <div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m3_typeid_div">
+                                                                                <select name="m3_typeid" id="m3_typeid"  lay-filter="choose">
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <input type="hidden" value="{$row.m3_typeid|default=''}" class="typeid" id="3_typeid">
+                                                                            <div class="m3_typeid_div_input" style="display: none;margin-top: 20px;">
+                                                                                <input type="hidden" name="m3_typeid" id="m3_typeid" class="layui-input" value="{$row.m3_typeid|default=''}">
+                                                                                <input type="text" disabled name="m3_title" id="m3_title" class="layui-input" value="{$row.m3_title|default=''}" style="margin-bottom: 20px;display: none;">
+                                                                                <button class="layui-btn " data-type="select_article" data-id="3" onclick="jump(this);">选择文档</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单三默认图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m3_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m3_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m3_img_local" src="{$row.m3_img_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m3_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m3_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="m3_img_local" id="m3_img_local" placeholder="图片地址" value="{$row.m3_img_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="old_m3_img_local" value="{$row.m3_img_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 108* 108 (像素) 的gif或jpg文件，图片最好在2M以内!<br/>如果无法正常显示新上传图标，清空浏览器缓存后访问。</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单三选中图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m3_selimg_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m3_selimg_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m3_selimg_local" src="{$row.m3_selimg_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m3_selimg_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m3_selimg_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="m3_selimg_local" id="m3_selimg_local" placeholder="图片地址" value="{$row.m3_selimg_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="old_m3_selimg_local" value="{$row.m3_selimg_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 108* 108 (像素) 的gif或jpg文件，图片最好在2M以内!<br/>如果无法正常显示新上传图标，清空浏览器缓存后访问。</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <!--菜单四-->
+                                                    <div class="layui-collapse mt20" lay-filter="component-panel">
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title" style="color: #777;font-weight: bold;">底部菜单四</h2>
+                                                            <div class="layui-colla-content layui-show">
+                                                                <div class="" wid100 lay-filter="">
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单四显示</label>
+                                                                        <div class="layui-input-block">
+                                                                            <input type="checkbox" {if condition="!isset($row.m4_show) OR $row.m4_show eq 1"} checked{/if} name="m4_show" lay-skin="switch" lay-filter="switchTest4" lay-text="是|否">
+                                                                            <input type="hidden" name="m4_show" value="{$row.m4_show|default='0'}" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单四名称</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="m4_name" value="{$row.m4_name|default=''}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo ">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">尽量控制4个字符之内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单四链接</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="m4_path_key" id="m4_path_key" lay-filter="path_key">
+                                                                                {volist name="$pages_list" id="vo"}
+                                                                                <option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row['m4_path_key']) AND $row['m4_path_key'] == $key"}selected{/if}>{$vo.title}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                            <div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m4_typeid_div">
+                                                                                <select name="m4_typeid" id="m4_typeid" lay-filter="choose">
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <input type="hidden" value="{$row.m4_typeid|default=''}" class="typeid" id="4_typeid">
+                                                                            <div class="m4_typeid_div_input" style="display: none;margin-top: 20px;">
+                                                                                <input type="hidden" name="m4_typeid" id="m4_typeid" class="layui-input" value="{$row.m4_typeid|default=''}">
+                                                                                <input type="text" disabled name="m4_title" id="m4_title" class="layui-input" value="{$row.m4_title|default=''}" style="margin-bottom: 20px;display: none;">
+                                                                                <button class="layui-btn " data-type="select_article" data-id="4" onclick="jump(this);">选择文档</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单四默认图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m4_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m4_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m4_img_local" src="{$row.m4_img_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m4_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m4_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="m4_img_local" id="m4_img_local" placeholder="图片地址" value="{$row.m4_img_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="old_m4_img_local" value="{$row.m4_img_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 108* 108 (像素) 的gif或jpg文件，图片最好在2M以内!<br/>如果无法正常显示新上传图标，清空浏览器缓存后访问。</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">菜单四选中图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m4_selimg_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m4_selimg_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m4_selimg_local" src="{$row.m4_selimg_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m4_selimg_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m4_selimg_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="m4_selimg_local" id="m4_selimg_local" placeholder="图片地址" value="{$row.m4_selimg_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="old_m4_selimg_local" value="{$row.m4_selimg_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 108* 108 (像素) 的gif或jpg文件，图片最好在2M以内!<br/>如果无法正常显示新上传图标，清空浏览器缓存后访问。</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--折叠面板--end-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                <div class="button-container layadmin-layer-demo">
+                    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="formSubmit">确认提交</button>
+                    <button class="layui-btn layui-btn-sm layui-btn-primary"  data-type="return_parent">返回</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+        // 鼠标事件，加载查看大图和删除图片
+        $(".upload-img").live('mouseover', function(){
+            $(this).find('div.icaction').show();
+            $(this).find('div.cover-bg').show();
+        }).live('mouseout', function(){
+            $(this).find('div.icaction').hide();
+            $(this).find('div.cover-bg').hide();
+        });
+
+    });
+    var formNew;
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+            ,element = layui.element
+            ,layer = layui.layer
+            ,form = formNew = layui.form;
+
+        element.render();
+
+        select_path($('#m1_path_key'));
+        select_path($('#m2_path_key'));
+        select_path($('#m3_path_key'));
+        select_path($('#m4_path_key'));
+
+        //监听自定义开关
+        form.on('switch', function(data){
+            var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+
+            if (data.elem.checked) {
+                this.value = 1;
+            } else {
+                this.value = 0;
+            }
+            $("input[name='"+elemId+"']").val(this.value);
+        });
+        //监听链接选择
+        form.on('select(choose)', function(data){
+            $('input[name='+data.elem.id+']').val(data.elem.value);
+        });
+
+        //监听链接
+        form.on('select(path_key)', function(data){
+            var pathkey = data.elem.value;
+            var showtext = $('#'+data.elem.id).find('option:selected').data('showtext');
+            var showtextObj = $('#'+data.elem.id).parent().find('div[class=layui-input-block]');
+            var div_id = showtextObj[0].id;
+            var select = $('#'+div_id).find('select');
+            if (true == showtext) {
+                if (pathkey == 5){
+                    $('#' + div_id).css('display', 'none');
+                    $('.'+div_id+'_input').css('display','block');
+                } else {
+                    $.ajax({
+                        type : 'post',
+                        url : "{:url('Minipro/getTypeList')}",
+                        data : {id:pathkey},
+                        dataType : 'json',
+                        success : function(res){
+                            if (res.code == 1){
+                                select[0].innerHTML = res.data;
+                                form.render();
+                            }
+                        },
+                        error: function(e){
+                            console.log('fail');
+                        }
+                    });
+                    $('.'+div_id+'_input').css('display','none');
+                    $('#'+div_id).css('display','block');
+                }
+            } else {
+                $('#'+div_id+'_input').css('display','none');
+                $('#' + div_id).css('display', 'none');
+            }
+        });
+
+        //监听提交
+        form.on('submit(formSubmit)', function(data){
+            var load = layer_loading();
+            data.field._ajax = 1;
+
+            $.ajax({
+                type : 'post',
+                url : "{:url('Minipro/global_conf')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        parent.window.location.href = res.url;
+                    }else{
+                        showErrorMsg(res.msg);
+                    }
+                },
+                error: function(e){
+                    console.log('fail');
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        });
+
+// 菜单链接
+        function select_path(obj)
+        {
+            var pathkey = $(obj).val();
+            var showtext = $(obj).find('option:selected').data('showtext');
+            var showtextObj = $(obj).parent().find('div[class=layui-input-block]');
+            var div_id = showtextObj[0].id;
+            var select = $('#'+div_id).find('select');
+
+            var input = $(obj).parent().find('input[class=typeid]');
+            var selected = $('#'+input[0].id).val();
+            if (true == showtext) {
+                if (pathkey==5){
+                    $('#'+div_id).css('display','none');
+                    $('.'+div_id+'_input').css('display','block');
+                    var title = div_id.slice(0,2)+'_title';
+                    $('#'+title).css('display','block');
+                } else {
+                    $.ajax({
+                        type : 'post',
+                        url : "{:url('Minipro/getTypeList')}",
+                        data : {id:pathkey,selected:selected},
+                        dataType : 'json',
+                        success : function(res){
+                            if (res.code == 1){
+                                select[0].innerHTML = res.data;
+                                form.render();
+                            }
+                        },
+                        error: function(e){
+                            console.log('fail');
+                        }
+                    });
+                    $('.'+div_id+'_input').css('display','none');
+                    $('#'+div_id).css('display','block');
+                }
+            } else {
+                $('#'+div_id).css('display','none');
+            }
+        }
+
+    });
+
+    //选择楼盘回调
+    function set_article_back(recall){
+        $("input[name=m"+recall['sort']+"_typeid]").val(recall['aid']);
+        $("input[id=m"+recall['sort']+"_title]").val(recall['title']);
+        $("input[id=m"+recall['sort']+"_title]").css('display','block');
+    }
+    function jump(obj) {     //文档关联管理
+        var id = $(obj).data('id');
+        var article = layer.open({
+            type : 2,
+            title : '选择文档',
+            area : ['500px','500px'],
+            shade : 0.2,
+            iframeAuto:true,
+            content : "{:url('Minipro/ajax_archives_list')}"+'&func=set_article_back&sym=1&sort='+id,
+            end : function(){
+
+            }
+        });
+        layer.full(article);
+    }
+
+
+</script>
+
+{include file="public/footer" /}

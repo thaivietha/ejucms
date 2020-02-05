@@ -16,6 +16,7 @@ var ueditor_toolbars = [[
 ]];
 
 var layer_tips; // 全局提示框的对象
+var ey_unknown_error = '未知错误，无法继续！';
 
 $(function(){
 
