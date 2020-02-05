@@ -122,8 +122,10 @@
            {eju:list pagesize='10' titlelen='30' infolen='160' orderby='new' addfields='supporting,building_age,property'}
             <li>  <span class="l_img fl"> 
               <a href="{$field.arcurl}"> 
-              <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> </span> <span class="r_con fr">
+              <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> </span> 
               </a>
+              <span class="r_con fr">
+              
               <h3> <a href="{$field.arcurl}"> {$field.title} </a> </h3>
               <p class="hi"> <span class="info">{$field.hire_type}</span><span class="l">|</span> <span class="info">{$field.room}{$field.living_room}{$field.toilet}</span><span class="l">|</span> <span class="info">{$field.area}{$field.area_unit}</span><span class="l">|</span> <span class="info">{$field.aspect}</span><span class="l">|</span> <span class="info">{$field.fitment}</span> </p>
               <p class="hi"> <span class="address">{eju:arcview aid='$field.joinaid' id='field2'}<a href="{$field2.arcurl}">{$field2.title}</a>{/eju:arcview}</span> <span class="address">{$field.address}</span> </p>
