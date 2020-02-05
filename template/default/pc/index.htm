@@ -464,7 +464,7 @@
             <div class="look_team">
               <div class="list" id="subscribe">
                 <ul>
-                  {eju:volist name="$field.list" id="vo"}
+                  {eju:volist name="$field.list" id="vo" limit='0,10'}
                   <li class="clearfix now"> {$vo.4}&nbsp;{$vo.1} &nbsp; 报名了<a href="javascript:;" class="" target="_blank" title="{$vo.5}">{$vo.5}</a> </li>
                   {/eju:volist}
                 </ul>
