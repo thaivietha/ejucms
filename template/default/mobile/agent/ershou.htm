@@ -53,8 +53,8 @@
   </div>
 </div>
 <div class="y_homelist_list" >
-  <ul id="lists0004">
-  {eju:list pagesize='2' users_id='$eju.field.id' typeid='19' titlelen='30' orderby='new' addfields='building_age' }
+  <ul>
+  {eju:list pagesize='1' users_id='$eju.field.id' typeid='19' titlelen='30' orderby='new' addfields='building_age' }
     <li class="c">
       <div class="y_img">
         <p class="y_tu"><a href="{$field.arcurl}"><img src="{$field.litpic}" alt="{$field.title}"></a></p>
@@ -72,13 +72,13 @@
     </li>
    {/eju:list} 
   </ul>
-  <div class="page_list clearfix">
+  
+</div>
+<div class="page_list clearfix">
     <ul class="pagination">
       {eju:pagelist listitem="pageno,pre,next" listsize="1"/}
     </ul>
   </div>
-</div>
-
 <!--底部开始-->
 <nav class="bar bar-tab fixbom"> 
 <a class="tab-item {eju:eq name="$Request.action" value='index'}act{/eju:eq}" href="{$eju.field.arcurl}"> <span class="icon font-f-58"></span> <span class="tab-label"> 简介 </span> </a> 

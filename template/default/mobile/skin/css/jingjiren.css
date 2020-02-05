@@ -1050,7 +1050,7 @@
 .page_list a,.page_list li span,
 .page_list .more {
     display: inline-block;
-    height: 24px;
+    height: 24px ;
     line-height: 22px;
     border: #ddd 1px solid;
     margin-left: 4px;

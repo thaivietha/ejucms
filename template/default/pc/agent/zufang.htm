@@ -91,6 +91,8 @@
                                     <span class="label_list clearfix"> {eju:volist name="$field.characteristic" id="vo"} <i class="item item{$i}">{$vo}</i> {/eju:volist} </span>
                                     <span class="price">
                                          <h5><strong>{eju:notempty name="$field.total_price"}{$field.total_price}<i>{$field.total_price_unit}</i>{eju:else /}暂无{/eju:notempty}</strong></h5>
+                                         <h2>{eju:notempty name="$field.average_price"}{$field.average_price}{$field.average_price_unit}{eju:else /}暂无{/eju:notempty}</h2>
+
                                     </span>
                                 </span>
                             </a>
