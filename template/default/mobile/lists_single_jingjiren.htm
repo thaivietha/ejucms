@@ -31,33 +31,27 @@
   </div>
 </div>
 <div class="jjrlist" >
-  <div class="dllong"> <span>亲，你想成为房地产经纪人吗？</span> <a href="https://house.08cms.com/register">马上注册</a> </div>
+ {eju:user type='open'}
+  {eju:user type='reg'}
+  <div class="dllong"> <span>亲，你想成为房地产经纪人吗？</span> <a href="{$field.url}">马上注册</a> </div>
+   {$field.hidden}
+  {/eju:user}
+ {/eju:user}
   <div class="list-block">
     <ul id="lists0004">
-      <li><a href="https://house.08cms.com/member/j_d_ds/155" class="item-content p-default jjr">
-        <div class="item-media"><img src="https://house.08cms.com/uploads/house/000/00/00/1/000/005/a9a2f8de2d44f21e8879652a81154c24.jpg"></div>
+     {eju:userslist pagesize='20' is_saleman='1' titlelen='30' infolen='160' orderby='add_time' is_count='12,13'}
+      <li><a href="{$field.arcurl}" class="item-content p-default jjr">
+        <div class="item-media"><img src="{$field.litpic}"></div>
         <div class="item-inner">
           <div class="item-title-row w100">
-            <div class="item-list-title item-title item-title-p0 ">王琴</div>
-            <div class="item-after lh mt5"><span class="button button-danger button-sm">售</span><span>4</span>套 <span class="button button-sm">租</span><span>5</span>套 </div>
+            <div class="item-list-title item-title item-title-p0 ">{$field.username}</div>
+            <div class="item-after lh mt5"><span class="button button-danger button-sm">售</span><span>{$field.count_12} </span>套 <span class="button button-sm">租</span><span>{$field.count_13} </span>套 </div>
           </div>
-          <div class="item-subtitle item-subtitle-ex"> 服务等级&nbsp;:&nbsp;<img src="https://house.08cms.com/bundles/house/images/defaultlevel/ico_5.gif" title="五级" style="vertical-align: middle;"></div>
-          <div class="item-subtitle item-subtitle-ex"> 联系电话&nbsp;:&nbsp; <b>13365487458</b></div>
-          <div class="item-subtitle item-subtitle-ex"> 服务区域&nbsp;:&nbsp;<span>万江区,南城区,东城区</span></div>
+          <div class="item-subtitle item-subtitle-ex"> 联系电话&nbsp;:&nbsp; <b>{$field.mobile}</b></div>
+          <div class="item-subtitle item-subtitle-ex"> 服务区域&nbsp;:&nbsp;<span>{eju:volist name="$field.service_area" id="vo"}<e>{$vo.name}<e>{/eju:volist}</span></div>
         </div>
         </a></li>
-      <li><a href="https://house.08cms.com/member/j_d_ds/155" class="item-content p-default jjr">
-        <div class="item-media"><img src="https://house.08cms.com/uploads/house/000/00/00/1/000/005/a9a2f8de2d44f21e8879652a81154c24.jpg"></div>
-        <div class="item-inner">
-          <div class="item-title-row w100">
-            <div class="item-list-title item-title item-title-p0 ">王琴</div>
-            <div class="item-after lh mt5"><span class="button button-danger button-sm">售</span><span>4</span>套 <span class="button button-sm">租</span><span>5</span>套 </div>
-          </div>
-          <div class="item-subtitle item-subtitle-ex"> 服务等级&nbsp;:&nbsp;<img src="https://house.08cms.com/bundles/house/images/defaultlevel/ico_5.gif" title="五级" style="vertical-align: middle;"></div>
-          <div class="item-subtitle item-subtitle-ex"> 联系电话&nbsp;:&nbsp; <b>13365487458</b></div>
-          <div class="item-subtitle item-subtitle-ex"> 服务区域&nbsp;:&nbsp;<span>万江区,南城区,东城区</span></div>
-        </div>
-        </a></li>
+      {/eju:userslist}
         
     </ul>
     <div style="height:40px;"></div>

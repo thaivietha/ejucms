@@ -286,6 +286,9 @@
 	color: #989898;
 	font-size: 0.625rem;
 }
+.jjrlist .list-block ul li .jjr .item-inner .item-subtitle span e{
+	margin-right: 5px;
+}
 .jjgslist .item-media img {
 	width: 3.4375rem !important;
 	height: 3.4375rem !important;

@@ -131,10 +131,11 @@ body {
     display:block
 }
 #nav ul.ui-nav li img {
-    width: 58px;
-    height: 58px;
+    width: 48px;
+    height: 48px;
     margin: auto;
     display: block;
+	margin-bottom: 5px;
 }
 #nav ul.ui-nav li p {
     display: block;
