@@ -76,13 +76,11 @@
                                 <span class="r_con fr">
                                     <h3>{$field.title}</h3>
                                     <p class="hi">
-                                        <span class="info">{$field.room}{$field.room_unit}{$field.living_room}{$field.living_room_unit}{$field.toilet}{$field.toilet_unit}</span>
-                                        <span class="l">|</span> <span class="info">{$field.area}{$field.area_unit}</span> <span class="l">|</span>
-                                        <span class="info">{$field.aspect}</span> <span class="l">|</span>
-                                        <span class="info">{$field.fitment}</span>
+                                        <span class="info">类型：{$field.manage_type}</span>
+                                        <span class="l">|</span> <span class="info">面积：{$field.area}{$field.area_unit}</span> 
                                     </p>
                                     <p class="hi">
-                                        <span class="tit">{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview} </span>
+                                        <span class="tit">{$field.area_id|get_area_name}-</span>
                                         <span class="address">{$field.address}</span>
                                     </p>
                                     <p class="user-info hi">
@@ -90,7 +88,8 @@
                                     </p>
                                     <span class="label_list clearfix"> {eju:volist name="$field.characteristic" id="vo"} <i class="item item{$i}">{$vo}</i> {/eju:volist} </span>
                                     <span class="price">
-                                         <h5><strong>{eju:notempty name="$field.total_price"}{$field.total_price}<i>{$field.total_price_unit}</i>{eju:else /}暂无{/eju:notempty}</strong></h5>
+                                         <h5>{eju:notempty name="$field.average_price"}<strong>{$field.average_price}</strong>{$field.average_price_unit}{eju:else /}暂无{/eju:notempty}</h5>
+										 <h2>{eju:notempty name="$field.total_price"}{$field.total_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</h2>
                                     </span>
                                 </span>
                             </a>

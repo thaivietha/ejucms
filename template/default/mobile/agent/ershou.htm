@@ -54,7 +54,7 @@
 </div>
 <div class="y_homelist_list" >
   <ul>
-  {eju:list pagesize='1' users_id='$eju.field.id' typeid='19' titlelen='30' orderby='new' addfields='building_age' }
+  {eju:list pagesize='6' users_id='$eju.field.id' typeid='19' titlelen='30' orderby='new' addfields='building_age' }
     <li class="c">
       <div class="y_img">
         <p class="y_tu"><a href="{$field.arcurl}"><img src="{$field.litpic}" alt="{$field.title}"></a></p>
@@ -65,7 +65,7 @@
           <p class="y_titlezufang"><span>{$field.title}</span></p>
           <p class="y_shijian">{$field.area}㎡<span class="l">|</span>{$field.room}室{$field.living_room}厅<span class="l">|</span>{$field.aspect}</p>
           <p class="y_address"> {$field.address}</p>
-          <p class="y_tese y_lptese_color c">{eju:volist name='$field.characteristic' id='vo' row='4'}<i>{$vo}</i>{/eju:volist}</p>
+          <p class="y_tese y_lptese_color c">{eju:volist name='$field.characteristic' id='vo' row='3'}<i>{$vo}</i>{/eju:volist}</p>
           </a></div>
         <div class="y_text_jiage"><span>{eju:notempty name="$field.total_price"}{$field.total_price}<i>{$field.total_price_unit}</i>{eju:else /}暂无{/eju:notempty}</span></div>
       </div>
