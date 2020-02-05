@@ -89,9 +89,9 @@ class TagForm extends Base
             foreach ($value_list as $k=>$v){
                 if ($attr_id == $v['attr_id']){
                     if ($val['is_default']){
-                        $baominglist[$v['list_id']][$attr_id] =  mb_substr($v['attr_value'], 0, 3) . '***';
+                        $baominglist[$v['list_id']][$attr_id] =  mb_substr($v['attr_value'], 0, 3, 'utf-8') . '***';
                     }else{
-                        $baominglist[$v['list_id']][$attr_id] =  mb_substr($v['attr_value'], 0, 1) . '**';
+                        $baominglist[$v['list_id']][$attr_id] =  mb_substr($v['attr_value'], 0, 1, 'utf-8') . '**';
                     }
                 }
             }
