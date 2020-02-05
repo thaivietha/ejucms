@@ -36,15 +36,6 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
-  'pointto_id' => 
-  array (
-    'name' => 'pointto_id',
-    'type' => 'int(10) unsigned',
-    'notnull' => false,
-    'default' => '0',
-    'primary' => false,
-    'autoinc' => false,
-  ),
   'typename' => 
   array (
     'name' => 'typename',

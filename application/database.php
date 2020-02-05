@@ -15,13 +15,13 @@ return array(
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '121.41.77.4',
+    'hostname'        => 'qdm723413135.my3w.com',
     // 数据库名
-    'database'        => 'ejucms_demo4',
+    'database'        => 'qdm723413135_db',
     // 用户名
-    'username'        => 'root',
+    'username'        => 'qdm723413135',
     // 密码
-    'password'        => 'chengx2008',
+    'password'        => '12345678x@',
     // 端口
     'hostport'        => '3306',
     // 连接dsn
