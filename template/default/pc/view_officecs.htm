@@ -131,20 +131,24 @@
           <div class="titleoccs">概况 </div>
           <ul class="base-info clearfix">
             <li>
-              <label>日租</label>
-              {$eju.field.average_price}{$eju.field.average_price_unit}</li>
+              <label>售价</label>
+              {eju:notempty name="$eju.field.total_price"}{$eju.field.total_price}{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}</li>
+            
             <li>
               <label>性质</label>
               {$eju.field.diy_xingzhi}</li>
             <li>
-              <label>月租</label>
-              {eju:notempty name="$eju.field.total_price"}{$eju.field.total_price}{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}</li>
+              <label>单价</label>
+              {$eju.field.average_price}{$eju.field.average_price_unit}</li>
             <li>
               <label>面积</label>
               {$eju.field.area}{$eju.field.area_unit}</li>
             <li>
               <label>装修</label>
               {$eju.field.fitment}</li>
+            <li>
+              <label>等级</label>
+              {$eju.field.level}</li>
             <li>
               <label>类型</label>
               {$eju.field.manage_type}</li>

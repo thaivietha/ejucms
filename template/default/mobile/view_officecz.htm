@@ -49,38 +49,40 @@
         <div class="data-cell"> <span class="lab">租金</span> <span class="num oneline">{$eju.field.total_price}{$eju.field.price_units}</span> </div>
         <div class="data-cell"> <span class="lab">建筑面积</span> <span class="num oneline">{$eju.field.area}{$eju.field.area_unit}</span> </div>
         <div class="data-cell"> <span class="lab">类型</span> <span class="num oneline">{$eju.field.manage_type}</span> </div>
-
       </div>
       <div class="m_esdatav2_style c"> {eju:volist name='$eju.field.characteristic' id='vo'}<i>{$vo}</i>{/eju:volist}</div>
       <ul class="house-info clearfix">
-        <li><span>楼层：</span> {$eju.field.floo_type}/{$eju.field.floor_count}{$eju.field.floor_count_unit} </li>
-        <li><span>装修：</span> {$eju.field.fitment} </li>
-        <li><span>用途：</span> {$eju.field.manage_type} </li>
-        <li><span>产权：</span> {eju:notempty name="$eju.field.xiaoqu.property"}{$eju.field.property}{$eju.field.property_unit}{eju:else /}暂无数据{/eju:notempty} </li>
-        <li><span>年代：</span> {eju:notempty name="$eju.field.xiaoqu.building_age"}{$eju.field.building_age}{$eju.field.building_age_unit}{eju:else /}暂无数据{/eju:notempty} </li>
-        
-        {eju:notempty name="$eju.field.xiaoqu.title"}
-        <li> <a href="{$eju.field.xiaoqu.arcurl}"><span>小区：</span>{$eju.field.xiaoqu.title} <i class="ads"></i></a></li>
-        {eju:else /}
-        {/eju:notempty}
-        <li class="full_w sw"> <span>支付方式：</span>{$eju.field.pay_way} </li>
-        <li class="full_w sw"> <span>是否分割：</span>{$eju.field.division} </li>
-        <li class="full_w sw"> <span>商铺地址：</span> {$eju.field.xiaoqu.address} </li>
+        <li> <span>日租：</span> {$eju.field.average_price}{$eju.field.average_price_unit}</li>
+        <li> <span>性质：</span> {$eju.field.diy_xingzhi}</li>
+        <li> <span>月租：</span> {eju:notempty name="$eju.field.total_price"}{$eju.field.total_price}{$eju.field.total_price_unit}{eju:else /}暂无{/eju:notempty}</li>
+        <li> <span>面积：</span> {$eju.field.area}{$eju.field.area_unit}</li>
+        <li> <span>付款：</span> {$eju.field.pay_way}</li>
+        <li> <span>等级：</span> {$eju.field.level}</li>
+        <li> <span>类型：</span> {$eju.field.manage_type}</li>
+        <li> <span>楼层：</span> {$eju.field.floor_count}{$eju.field.floor_count_unit}/{$eju.field.floo_type}</li>
+        <li> <span>使用率：</span> {$eju.field.diy_syl}{$eju.field.diy_syl_unit}</li>
+        <li> <span>装修：</span> {$eju.field.fitment}</li>
+        <li> <span>工位数：</span> {$eju.field.diy_gws}{$eju.field.diy_gws_unit}</li>
+        <li> <span>注册：</span> {$eju.field.diy_sfzc}</li>
+        <li> <span>楼盘：</span> {$eju.field.xiaoqu.title}</li>
+        <li> <span>分割：</span> {$eju.field.division}</li>
+        <li class="full_w sw"> <span>起租期：</span> {$eju.field.diy_qzq}</li>
+        <li class="full_w sw"> <span>地址：</span> {$eju.field.xiaoqu.address}</li>
+        <li class="full_w sw"> <span>相关费用</span> {eju:notempty name="$eju.field.diy_xgfy"}{$eju.field.diy_xgfy}{eju:else /}暂无数据{/eju:notempty}</li>
       </ul>
     </div>
     
     <!-- 房源描述 -->
-
+    
     <div class="house-comment">
       <div class="ct-head">
-        <p class="p1">房源描述</p>
+        <p class="p1">描述</p>
         <p class="p2">经纪人对房源的见解</p>
         <div class="avatar-frame"> <a href="javascript:;"> {notempty name="$eju.field.saleman"} <img src="{$eju.field.saleman.saleman_pic}" alt="{$eju.field.saleman.saleman_name}"> {else /} <img src="{eju:global name='web_templets_pc' /}/skin/img/noavatar.jpg" alt="头像"> {/notempty} </a> </div>
       </div>
       <div class="ct-con spill-txt twoline" style="" id="intro"> {$eju.field.content|html_msubstr=###}<a href="javascript:;" class="acheck">展开</a> </div>
     </div>
     
-
     <!-- 楼盘经纬度 -->
     
     <div id="longitude" data-jwd="{$eju.field.lng},{$eju.field.lat}"></div>
@@ -91,19 +93,12 @@
       </div>
       {eju:surroundings field="$eju['field']" canvas="map_canvas" tag="heihei" select="active" total="total" tab="lp-map-tab" result="result"}
       <div class="map-mart">
-        <div class="map-mart-title" id="map-keyword">
-          {eju:volist name="$field.list" id="vo"}
-          <a href="javascript:;" class="heihei" onclick="select_around({$key});">{$vo}</a>
-          {/eju:volist}
-        </div>
+        <div class="map-mart-title" id="map-keyword"> {eju:volist name="$field.list" id="vo"} <a href="javascript:;" class="heihei" onclick="select_around({$key});">{$vo}</a> {/eju:volist} </div>
         <ul class="map-mart-lists" id="result">
         </ul>
       </div>
       {$field.hidden}
-      {/eju:surroundings}
-    </div>
-
-
+      {/eju:surroundings} </div>
     <div class="xiaoqu-box mt28">
       <div class="title"><a href="{$eju.field.xiaoqu.arcurl}">{$eju.field.xiaoqu.title}<span class="title-remark">小区详情</span></a></div>
       <div class="subcon">
@@ -114,7 +109,7 @@
         <div class="media"> <img src="{$eju.field.xiaoqu.litpic}"> </div>
       </div>
     </div>
-
+    
     <!-- 底部推荐 -->
     
     <div class="mod_box link">
@@ -218,7 +213,7 @@ $(function(){
 	},false); 
 });
 
-</script>
+</script> 
 <script type="text/javascript">
     /*小区介绍折叠效果*/
 	$("#intro").height(function(index,height){
@@ -249,7 +244,7 @@ $(function(){
 	  $("#zaizu_a").addClass("current");
 	  $("#zaishou_a").removeClass("current");
   }
-</script> 
+</script>
 <div style="display: none;">{eju:arcclick /}</div>
 </body>
 </html>

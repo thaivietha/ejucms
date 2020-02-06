@@ -76,14 +76,14 @@
     <!-- 房源描述 -->
     <div class="house-comment">
       <div class="ct-head">
-        <p class="p1">房源描述</p>
+        <p class="p1">描述</p>
         <p class="p2">经纪人对房源的见解</p>
         <div class="avatar-frame"> <a href="javascript:;"> {notempty name="$eju.field.saleman"} <img src="{$eju.field.saleman.saleman_pic}" alt="{$eju.field.saleman.saleman_name}"> {else /} <img src="{eju:global name='web_templets_pc' /}/skin/img/noavatar.jpg" alt="头像"> {/notempty} </a> </div>
       </div>
       <div class="ct-con spill-txt twoline" style="" id="intro"> {$eju.field.content|html_msubstr=###}<a href="javascript:;" class="acheck">展开</a> </div>
     </div>
     <div class="m_espeitao">
-      <div class="title"><a href="javascript:;">房屋配套</a></div>
+      <div class="title"><a href="javascript:;">配套</a></div>
       <ul class="house-confi-point2">
         {eju:volist name="$eju.field.supporting" id="vo"}
         <li>
