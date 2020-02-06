@@ -15,7 +15,14 @@
         obj.attributes['href'].value = 'javascript:void(0);'; // 禁止a标签跳转
         //步骤二:设置请求的url参数,参数一是请求的类型,参数二是请求的url,可以带参数,动态的传递参数starName到服务端
         obj.innerHTML = loading;
-        ajax.open("get", root_dir+"/index.php?m=api&c=Ajax&a=arcpagelist&_ajax=1&page="+page+"&pagesize="+pagesize+"&tagid="+tagid+"&tagidmd5="+tagidmd5, true);
+        var lianjie = root_dir+"/index.php?m=api&c=Ajax&a=arcpagelist&_ajax=1&page="+page+"&pagesize="+pagesize+"&tagid="+tagid+"&tagidmd5="+tagidmd5;
+        var request_obj = GetRequest();
+        for( key  in request_obj){
+            if (key !== 'm' && key !== 'c' && key !== 'a' && key !== '_screen' && key !== 'tid'){
+                lianjie += "&"+key+"="+request_obj[key];
+            }
+        }
+        ajax.open("get",lianjie , true);
         //步骤三:发送请求
         ajax.send();
         //步骤四:注册事件 onreadystatechange 状态改变就会调用
@@ -50,4 +57,19 @@
                 }
           　}
         }  
+    }
+    function GetRequest()
+    {
+        var url = location.search;   //获取url中"?"符后的字串
+        var theRequest = new Object();
+        if (url.indexOf("?") != -1)
+        {
+            var str = url.substr(1);
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++)
+            {
+                theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+            }
+        }
+        return theRequest;
     }
