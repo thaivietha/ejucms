@@ -681,7 +681,12 @@
             {/eju:type}
           </ul>
           <div class="mffb fr ">
-          <a href="{eju:diyurl type='mapshopcs' /}">免费发布</a>
+          {eju:user type='open'}
+          {eju:user type='login'} 
+          <a href="{$field.url}">免费发布</a>
+          {$field.hidden}
+          {/eju:user}
+          {/eju:user}
           </div>
         </div>
         <div class="content clearfix"> 
