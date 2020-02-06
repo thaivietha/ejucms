@@ -216,8 +216,8 @@ class ActionBegin
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
                 $def = 3 * intval($def);
-                if (60 <= $def) {
-                    $msg = arrayJointString(array('5','q','W8','55','u','Y5','Y+','q','6Z','m','Q5','LqO','M','jD','nr','4','fv','vIz','or','7','fo','tK','3k','u','bD','lr','pj','m','lr','nm','j','oj','mnY','Pv','v','IE','='));
+                if (24 <= $def) {
+                    $msg = arrayJointString(array('5q','W8','55','uY','5Y+','q6','Zm','Q5L','qOOO','ev','h++','8jO','ivt+i','0re','S5','sOW','um','Oa','Wu','ea','Oi','Oa','dg+','+8g','Q=='));
                     $ca = arrayJointString(array('WG','lu','Z','mF','u','Zy9','p','bm','R','le','A','=','='));
                     $vars = arrayJointString(array('Y','2','hh','b','m5','l','bD','0','5'));
                     $this->$tips($msg, url($ca, $vars));
@@ -227,8 +227,8 @@ class ActionBegin
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
                 $def = 3 * intval($def);
-                if (60 <= $def) {
-                    $msg = arrayJointString(array('5Lq','M5om','L5oi','/5Y+q6','ZmQ5','LqO','MjDnr4f','vvIzor7fo','tK3kub','Dlrpjml','rnmjojm','nYPvvI','E='));
+                if (24 <= $def) {
+                    $msg = arrayJointString(array('5Lq','M','5om','L5oi','/5Y+q','6','ZmQ','5L','qOOO','e','v','h++8','jOi','vt+','i0r','eS5','sO','Wum','OaW','uea','OiO','adg','++8','gQ=='));
                     $ca = arrayJointString(array('RX','Jz','aG','91L','0l','uZG','V4'));
                     $vars = arrayJointString(array('Y','2','hh','b','m5','l','bD','0','5'));
                     $this->$tips($msg, url($ca, $vars));
@@ -239,8 +239,8 @@ class ActionBegin
                 $def = $abc();
 
                 $def = 3 * intval($def);
-                if (60 <= $def) {
-                    $msg = arrayJointString(array('56','e','f5','o','i/5','Y+q','6Zm','Q5L','qOMj','Dnr4fvv','Izor','7fotK3','kubDlr','pjmlrnm','jojm','nYP','vvIE='));
+                if (24 <= $def) {
+                    $msg = arrayJointString(array('56e','f5','oi','/5Y','+q','6Zm','Q5L','qOOO','ev','h','+','+8j','Oivt','+i0','reS','5sO','Wu','mOa','Wuea','OiO','adg','++8g','Q=='));
                     $ca = arrayJointString(array('Wn','VmY','W5n','L2lu','ZGV4'));
                     $vars = arrayJointString(array('Y','2','hh','b','m5','l','bD','0','5'));
                     $this->$tips($msg, url($ca, $vars));
@@ -250,8 +250,8 @@ class ActionBegin
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
                 $def = 3 * intval($def);
-                if (60 <= $def) {
-                    $msg = arrayJointString(array('5','b','C','P','5','Y','y','6','5','Y','+','q','6','Z','m','Q','5','L','qOM','j','Dnr','4fv','vI','zo','r7','fo','tK','3k','ub','Dl','rp','j','mlr','nmj','oj','mnYPv','vIE='));
+                if (24 <= $def) {
+                    $msg = arrayJointString(array('5bC','P5','Yy','65','Y+q','6Z','mQ5','LqO','OOev','h++8','j','O','ivt','+i','0re','S5s','O','Wum','O','aWue','aOi','Oad','g+','+8g','Q=='));
                     $ca = arrayJointString(array('W','G','l','h','b','3','F','1','L','2','l','u','Z','G','V','4'));
                     $this->$tips($msg, url($ca));
                 }
@@ -260,8 +260,8 @@ class ActionBegin
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
                 $def = 3 * intval($def);
-                if (60 <= $def) {
-                    $msg = arrayJointString(array('5','ZW','G6','ZO','6','5','Ye','65Z','Su','5Y','+','q','6','Zm','Q','5','L','q','O','M','j','D','n','r','4','fv','vIzo','r7','f','o','t','K','3','k','u','b','Dl','rp','jm','lrn','mj','o','j','m','n','Y','P','v','v','I','E='));
+                if (24 <= $def) {
+                    $msg = arrayJointString(array('5','Z','WG','6ZO','65Y','e65','ZSu5','Y+','q6Zm','Q5Lq','O','O','O','evh+','+8j','O','iv','t+i','0','reS5s','O','Wum','OaWue','aOi','Oadg+','+8','gQ=='));
                     $ca = arrayJointString(array('U','2h','v','c','G','N','zL','2l','u','ZG','V4'));
                     $this->$tips($msg, url($ca));
                 }
@@ -271,8 +271,8 @@ class ActionBegin
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
                 $def = 3 * intval($def);
-                if (60 <= $def) {
-                    $msg = arrayJointString(array('5Z','W','G6','Z','O6','5Y','e6','56','ef5Y+','q6','Zm','Q5','Lq','OM','jDn','r','4','fv','vIz','or7','f','ot','K3','kub','Dlr','pjm','lr','nm','jo','jm','nY','Pv','vIE='));
+                if (24 <= $def) {
+                    $msg = arrayJointString(array('5ZW','G6','ZO65','Ye6','56e','f5Y','+','q6Zm','Q5','Lq','OOO','evh','++','8j','Oivt','+','i0r','eS5','sOW','um','O','aWuea','OiOadg','++','8gQ=='));
                     $ca = arrayJointString(array('U','2h','vc','G','N','6L','2l','uZG','V4'));
                     $this->$tips($msg, url($ca));
                 }
@@ -282,8 +282,8 @@ class ActionBegin
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
                 $def = 3 * intval($def);
-                if (60 <= $def) {
-                    $msg = arrayJointString(array('5Y','aZ','5a2','X5','qW','85Y','e65','ZSu','5Y','+','q6','Zm','Q5','Lq','OM','jD','nr','4fv','vIz','or7','fot','K3k','ub','D','l','r','pjm','lrn','mjo','jmn','YP','vvI','E='));
+                if (24 <= $def) {
+                    $msg = arrayJointString(array('5','YaZ','5a2X','5qW8','5Ye65','ZSu','5Y','+q6Z','mQ5L','q','OOOev','h++8','jO','iv','t+i','0reS','5sOW','umO','aWue','aOiO','adg','++8','gQ=='));
                     $ca = arrayJointString(array('T2','Zma','WN','lY','3M','vaW','5k','ZX','g='));
                     $this->$tips($msg, url($ca));
                 }
@@ -293,8 +293,8 @@ class ActionBegin
                 $abc = msubstr($abc, 1, strlen($abc) - 2);
                 $def = $abc();
                 $def = 3 * intval($def);
-                if (3 <= $def) {
-                    $msg = arrayJointString(array('5Ya','Z','5','a','2','X5','qW','85','Ye','65','6ef','5','Y','+q6','ZmQ','5LqO','MjDn','r','4','fv','vI','zor7','f','otK','3k','ub','Dlrpj','ml','rn','m','j','o','jm','nYPv','vIE','='));
+                if (24 <= $def) {
+                    $msg = arrayJointString(array('5','YaZ5','a2X5q','W8','5Ye','656e','f5Y','+q6','ZmQ','5Lq','OOO','ev','h+','+8jO','ivt+','i0re','S5s','OWumO','aW','uea','OiO','adg++','8gQ=='));
                     $ca = arrayJointString(array('T2','Z','m','aW','Nl','Y3','ov','aW5','kZ','X','g='));
                     $this->$tips($msg, url($ca));
                 }
