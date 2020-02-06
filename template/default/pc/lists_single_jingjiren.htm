@@ -23,11 +23,11 @@
 <div class="searBar ">
     <div class="comWidth clearfix">
         <div class="sear_box fl">
-            {eju:searchform type='default' typeid='23'}
+            {eju:searchform type='default' typeid='20'}
             <form  method="get" action="{$field.action}">
                 <div class="ipt_area fl">
                     <input type="text" name="keywords" id="keywords" value="{$Request.param.keywords}" autocomplete="off" placeholder="请输入姓名、手机号、所属公司名称查找经纪人" class="ipt">
-                    <span class="placeholder">输入房源名称</span>
+                    <span class="placeholder">请输入姓名</span>
                     <ul id="search-box">
                     </ul>
                 </div>
@@ -50,7 +50,7 @@
         
         <div class="main clearfix">
             <!-- 二手房列表 S-->
-            <div class="houseList_wrap leftArea cm_leftArea">
+            <div class="leftArea cm_leftArea">
                 <div class="jjr_bot">
                    
                     <div class="cl"></div>
@@ -98,7 +98,7 @@
             <div class="cm_rightArea rightArea">
                 <!-- 我要卖房 S -->
                 {eju:user type='login'}
-                <a href="{$field.url}" class="sale_btn mt_25">我要卖房</a>
+                <a href="{$field.url}" class="sale_btn ">我要卖房</a>
                 {$field.hidden}
                 {/eju:user}
                 {eju:type typeid='31'}

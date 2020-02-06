@@ -100,7 +100,12 @@
   color: #fff;
 }
 .topBar .log_link .not_log a {
-  color: #ededed;
+	color: #ededed;
+	text-align: center;
+	line-height: 50px;
+	outline: none;
+	position: relative;
+	z-index: 1;
 }
 .topBar .log_link .not_log a:hover{
   color:#fff;

@@ -21,7 +21,7 @@
 <!-- 头部 --> 
 {eju:include file="header.htm"/} 
 <!-- END -->
-<div class="search flexbox ask_top" id="searchbox">
+<div class="search flexbox ask_top" id="searchbox" style="border-bottom:none;">
   <!--<div class="searbox" id="new_searchtext">-->
     <!--<div class="inputbox" id="wapasksy_D01_05"> <a class="input" href="javascript:void(0);" ><i></i>请输入您的问题</a> </div>-->
   <!--</div>-->
@@ -46,7 +46,7 @@
           </div>
           <div id="answer_edit" class="answer-edit"  style="display: none;">
             {eju:empty name="$canAnswer"}
-            <div id="container" class="edui-default" >
+            <div id="container" class="edui-default">
               <div id="edui1" class="edui-editor edui-default" style="text-indent: 0.5em; height:40px; z-index: 5; border:1px solid #ff6600; padding-top: 6px;">^-^我来说两句，请先
                 <a href="{:url('user/Users/login')}" style="color: red;">登录</a>
                 <em>·</em>
@@ -55,7 +55,7 @@
             </div>
             {eju:else/}
             <textarea placeholder="请输入答案" id="ask_content" name="ask_content" ></textarea>
-            <a href="javascript:void(0);" style="float: right;width: 120px;height: 33px;line-height: 33px;text-align: center;color:#fff;font-size: 14px;border-radius: 4px;background: #ff5200;" class="i-submit-btn"  data-url="{$eju.field.AddAnswerUrl}" onclick="return answer_submit(this);" id="answersubmit">提交回答</a>
+            <a href="javascript:void(0);" style="float: right;width: 120px;height: 33px;line-height: 33px;text-align: center;color:#fff;font-size: 14px;border-radius: 4px;background: #ff5200;margin-top: 10px;" class="i-submit-btn"  data-url="{$eju.field.AddAnswerUrl}" onclick="return answer_submit(this);" id="answersubmit">提交回答</a>
             <span style="float: left;margin: 10px 10px 0 0;cursor: pointer;color:#333;" onclick="hide_answer()" class="btn-toggle">收起<i class="btn-upjt btn-downjt"></i> </span>
             {/eju:empty}
             <div class="clear"></div>
