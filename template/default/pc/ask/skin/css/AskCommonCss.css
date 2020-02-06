@@ -142,7 +142,7 @@ a {
 	float: right;
 	border-radius: 2px
 }
-.Ans_list, .ask-daily, .ask-expert, .ask-type, .ask-wrapper, .bbsBox, .dailyBox, .drawing, .fangBox, .hot-tj, .hot-zt, .houseBox, .jp-zhishi, .loginBox, .loupan, .lp-cur, .questionArea, .questionBox, .quick-ask, .rankBox, .readBox, .related, .related-news, .replyBox, .samePrice, .tj-expert, .type-box {
+.Ans_list, .ask-daily, .ask-expert, .ask-type, .ask-wrapper, .bbsBox, .dailyBox, .drawing, .fangBox, .hot-tj, .hot-zt, .houseBox, .jp-zhishi, .loginBox, .loupan, .lp-cur, .questionArea, .questionBox, .quick-ask, .rankBox, .readBox, .related, .related-news, .replyBox, .samePrice, .tj-expert, .type-box, .page_list{
 	border-radius: 2px;
 	background: #fff;
 	box-shadow: 3px 3px 3px #dfdfdf
@@ -497,7 +497,7 @@ a {
 .app-listBox .jt {
 	width: 16px;
 	height: 9px;
-	background: url(//static.soufunimg.com/homepage/new/fang905bj/newsV3/images/navjt.gif) no-repeat;
+	background: url(../images/navjt.gif) no-repeat;
 	position: absolute;
 	right: 20%;
 	top: -9px

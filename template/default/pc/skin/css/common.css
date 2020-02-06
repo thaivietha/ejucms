@@ -307,7 +307,7 @@ background:#fff;
 .pagination{ float: right;}
 .page_list li{display:inline;}
 .page_list {
-    padding: 20px 0;
+    padding: 20px 30px;
     font-size: 14px;
     color: #666;
 	background: #fff;

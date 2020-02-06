@@ -48,37 +48,52 @@
       <div class="point-data">
         <div class="data-cell"> <span class="lab">售价</span> <span class="num oneline">{$eju.field.total_price}{$eju.field.total_price_unit}</span> </div>
         <div class="data-cell"> <span class="lab">建筑面积</span> <span class="num oneline">{$eju.field.area}{$eju.field.area_unit}</span> </div>
-        <div class="data-cell"> <span class="lab">类型</span> <span class="num oneline">{$eju.field.manage_type}</span> </div>
+        <div class="data-cell"> <span class="lab">分割</span> <span class="num oneline">{$eju.field.division}</span> </div>
 
       </div>
       <div class="m_esdatav2_style c"> {eju:volist name='$eju.field.characteristic' id='vo'}<i>{$vo}</i>{/eju:volist}</div>
       <ul class="house-info clearfix">
-        <li><span>楼层：</span> {$eju.field.floo_type}/{$eju.field.floor_count}{$eju.field.floor_count_unit} </li>
-        <li><span>装修：</span> {$eju.field.fitment} </li>
-        <li><span>用途：</span> {$eju.field.manage_type} </li>
-        <li><span>产权：</span> {eju:notempty name="$eju.field.xiaoqu.property"}{$eju.field.property}{$eju.field.property_unit}{eju:else /}暂无数据{/eju:notempty} </li>
+        <li><span>单价：</span> {$eju.field.average_price}{$eju.field.average_price_unit} </li>
+        <li><span>楼层：</span> {$eju.field.floor_count}{$eju.field.floor_count_unit}/{$eju.field.floo_type} </li>
+        <li><span>类型：</span> {$eju.field.manage_type} </li>
+        <li><span>状态：</span> {$eju.field.diy_jyzt} </li>
         <li><span>年代：</span> {eju:notempty name="$eju.field.xiaoqu.building_age"}{$eju.field.building_age}{$eju.field.building_age_unit}{eju:else /}暂无数据{/eju:notempty} </li>
         
         {eju:notempty name="$eju.field.xiaoqu.title"}
         <li> <a href="{$eju.field.xiaoqu.arcurl}"><span>小区：</span>{$eju.field.xiaoqu.title} <i class="ads"></i></a></li>
         {eju:else /}
         {/eju:notempty}
-		<li class="full_w sw"> <span>是否分割：</span>{$eju.field.division} </li>
-        <li class="full_w sw"> <span>适合经营：</span>{eju:diyfield type='checkbox' id='industry' name='$eju.field.industry'}{$industry.value}<i></i>{/eju:diyfield} </li>
-        <li class="full_w sw"> <span>商铺地址：</span> {$eju.field.xiaoqu.address} </li>
+		<li class="full_w sw"> <span>商铺规格：</span>面宽{$eju.field.diy_miankuan}{$eju.field.diy_miankuan_unit}，层高{$eju.field.diy_cenggao}{$eju.field.diy_cenggao_unit}，进深{$eju.field.diy_jinshen}{$eju.field.diy_jinshen_unit} </li>
+       
+        <li class="full_w sw"> <span>经营类型：</span> {eju:diyfield type='checkbox' id='industry' name='$eju.field.industry'}{$industry.value}<i></i>{/eju:diyfield} </li>
+        <li class="full_w sw"> <span>预期收益：</span> {eju:notempty name="$eju.field.diy_yqsy"}{$eju.field.diy_yqsy}{eju:else /}暂无数据{/eju:notempty} </li>
+        <li class="full_w sw"> <span>客流人群：</span> {eju:notempty name="$eju.field.diy_klrq"}{$eju.field.diy_klrq}{eju:else /}暂无数据{/eju:notempty} </li>
+        <li class="full_w sw"> <span>相关费用：</span> {eju:notempty name="$eju.field.diy_xgfy"}{$eju.field.diy_xgfy}{eju:else /}暂无数据{/eju:notempty} </li>
       </ul>
     </div>
     
     <!-- 房源描述 -->
     <div class="house-comment">
       <div class="ct-head">
-        <p class="p1">房源描述</p>
+        <p class="p1">描述</p>
         <p class="p2">经纪人对房源的见解</p>
         <div class="avatar-frame"> <a href="javascript:;"> {notempty name="$eju.field.saleman"} <img src="{$eju.field.saleman.saleman_pic}" alt="{$eju.field.saleman.saleman_name}"> {else /} <img src="{eju:global name='web_templets_pc' /}/skin/img/noavatar.jpg" alt="头像"> {/notempty} </a> </div>
       </div>
       <div class="ct-con spill-txt twoline" style="" id="intro"> {$eju.field.content|html_msubstr=###}<a href="javascript:;" class="acheck">展开</a> </div>
     </div>
 
+   
+   <div class="m_espeitao">
+      <div class="title"><a href="javascript:;">配套</a></div>
+      <ul class="house-confi-point2">
+        {eju:volist name="$eju.field.supporting" id="vo"}
+        <li>
+          <div class="ico_img"> <img src="{$vo|get_supporting_icon=###}" alt=""> </div>
+          <p>{$vo}</p>
+        </li>
+        {/eju:volist}
+      </ul>
+    </div>
     <!-- 楼盘经纬度 -->
     
     <div id="longitude" data-jwd="{$eju.field.lng},{$eju.field.lat}"></div>

@@ -25,7 +25,7 @@
     <div class="con_wrap" id="main">
       <!-- 楼盘详情 S -->
       <div class="con_left">
-        {eju:ask id="field" bestanswer="off" pagesize='2'}
+        {eju:ask id="field" bestanswer="off" pagesize='10'}
         <div class="housesLeft">
           <div class="housesTitle">关于
             {$eju.field.title}
@@ -37,13 +37,16 @@
           <ul class="houseAnswer">
             {eju:volist name="$field.AskData" id="vo"}
             <li>
-              <div class="houseAnswerTitle">{$vo.content}</div>
-              <div class="houseAnswerPhone"><b>{$vo.username}</b><span>{$vo.add_time}</span> </div>
+             <a href="{$vo.AskUrl}">
+              <div class="houseAnswerTitle">{$vo.ask_title}</div>
+               </a>
+              <div class="houseAnswerPhone"><b>{$vo.username}</b><span>{$vo.add_time|MyDate="Y-m-d H:i:s",###}</span> </div>
               {eju:volist name="$vo.AnswerData" id="vo2"}
               <div class="houseAnswerContent">
                 <span>{$vo2.username}回复：</span> {$vo2.content}
               </div>
               {/eju:volist}
+             
             </li>
             {/eju:volist}
           </ul>

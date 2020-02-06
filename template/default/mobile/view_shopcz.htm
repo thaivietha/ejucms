@@ -47,26 +47,29 @@
       <div class="m_esdatav2_title c"> <em>{$eju.field.title}</em> <i>{$eju.field.sale_status}</i> </div>
       <div class="point-data">
         <div class="data-cell"> <span class="lab">租金</span> <span class="num oneline">{$eju.field.total_price}{$eju.field.price_units}</span> </div>
-        <div class="data-cell"> <span class="lab">建筑面积</span> <span class="num oneline">{$eju.field.area}{$eju.field.area_unit}</span> </div>
+        <div class="data-cell"> <span class="lab">面积</span> <span class="num oneline">{$eju.field.area}{$eju.field.area_unit}</span> </div>
         <div class="data-cell"> <span class="lab">类型</span> <span class="num oneline">{$eju.field.manage_type}</span> </div>
 
       </div>
       <div class="m_esdatav2_style c"> {eju:volist name='$eju.field.characteristic' id='vo'}<i>{$vo}</i>{/eju:volist}</div>
       <ul class="house-info clearfix">
+        <li><span>押付：</span>{$eju.field.pay_way}</li>
+        <li><span>起租：</span>{$eju.field.diy_qzq}</li>
         <li><span>楼层：</span> {$eju.field.floo_type}/{$eju.field.floor_count}{$eju.field.floor_count_unit} </li>
         <li><span>装修：</span> {$eju.field.fitment} </li>
         <li><span>用途：</span> {$eju.field.manage_type} </li>
-        <li><span>产权：</span> {eju:notempty name="$eju.field.xiaoqu.property"}{$eju.field.property}{$eju.field.property_unit}{eju:else /}暂无数据{/eju:notempty} </li>
-        <li><span>年代：</span> {eju:notempty name="$eju.field.xiaoqu.building_age"}{$eju.field.building_age}{$eju.field.building_age_unit}{eju:else /}暂无数据{/eju:notempty} </li>
         
         {eju:notempty name="$eju.field.xiaoqu.title"}
         <li> <a href="{$eju.field.xiaoqu.arcurl}"><span>小区：</span>{$eju.field.xiaoqu.title} <i class="ads"></i></a></li>
         {eju:else /}
         {/eju:notempty}
-        <li class="full_w sw"> <span>支付方式：</span>{$eju.field.pay_way} </li>
         <li class="full_w sw"> <span>是否分割：</span>{$eju.field.division} </li>
-        <li class="full_w sw"> <span>适合经营：</span>{eju:diyfield type='checkbox' id='industry' name='$eju.field.industry'}{$industry.value}<i></i>{/eju:diyfield} </li>
-        <li class="full_w sw"> <span>商铺地址：</span> {$eju.field.xiaoqu.address} </li>
+        <li class="full_w sw"> <span>商铺性质：</span>{$eju.field.diy_spxz}</li>
+        <li class="full_w sw"> <span>经营状态：</span>{$eju.field.diy_jyzt}</li>
+        <li class="full_w sw"> <span>经营类型：</span>{eju:diyfield type='checkbox' id='industry' name='$eju.field.industry'}{$industry.value}<i></i>{/eju:diyfield} </li>
+        <li class="full_w sw"> <span>商铺规格：</span>面宽{$eju.field.diy_miankuan}{$eju.field.diy_miankuan_unit}，层高{$eju.field.diy_cenggao}{$eju.field.diy_cenggao_unit}，进深{$eju.field.diy_jinshen}{$eju.field.diy_jinshen_unit}</li>
+        <li class="full_w sw"> <span>客流人群：</span>{eju:notempty name="$eju.field.diy_klrq"}{$eju.field.diy_klrq}{eju:else /}暂无数据{/eju:notempty}</li>
+        <li class="full_w sw"> <span>相关费用：</span>{eju:notempty name="$eju.field.diy_xgfy"}{$eju.field.diy_xgfy}{eju:else /}暂无数据{/eju:notempty}</li>
       </ul>
     </div>
     
