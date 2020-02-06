@@ -3379,10 +3379,10 @@
 	font-weight: bold;
 	padding: 0 5px;
 }
-.position-bottom {
+/*.position-bottom {
 	border-bottom: 1px dotted #ccc;
 	margin-bottom: 10px;
-}
+}*/
 .question-house-title {
 	text-overflow: ellipsis;
 	overflow: hidden;
