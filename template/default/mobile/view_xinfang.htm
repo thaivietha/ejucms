@@ -26,8 +26,7 @@
 </head>
 <body>
 <div id="serachBox2">
-  <div class="body_box"> 
-   {eju:include file="header.htm" /}
+  <div class="body_box"> {eju:include file="header.htm" /}
     <div style="height:50px;" class="m_v2head"></div>
     
     <!-- 楼盘导航 -->
@@ -137,6 +136,7 @@
       </div>
       <a name="m_Matching"></a> 
       
+      
       <!-- 动态通知 -->
       
       <div class="y_lpyhtz">
@@ -150,7 +150,52 @@
       </div>
       <div class="m_hotlP_gd"><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'information'])}">更多动态</a></div>
     </div>
-    <!-- 周边配套 -->
+    
+    
+    <!-- 楼盘问答 -->
+      <div class="Consultation">
+    <div class="ltation_box">
+        <div class="tlt">
+            <h1>楼盘问答</h1>
+                <a href="/askList/1421-1.htm">
+                    <span class="ck">查看全部</span>
+                    <span class="detail_icon go_icon"></span>
+                </a>
+        </div>
+    </div>
+    <div style="overflow:hidden;">
+        <div class="tation_ul">
+            <ul>
+                <div class="tation_li">
+                    <div class="tation_left"><img src="https://static.fangxiaoer.com/m/static/images/coin/pageist_img_question.png" alt=""></div>
+                    <div class="tation_right">
+                        <a href="/askList/1421-1.htm">
+                            <div class="tation_right_name">
+                                <h1>158****9040</h1>
+                                <h2>2020.02.03</h2>
+                            </div>
+                            <div class="tation_right_con">多层都是多大面积的啊？</div>
+                            <div class="tation_right_huifu">
+                                <li>
+                                    <p><span>房小二网客服回复：</span>您好，宏发浣花溪多层85-95平，欢迎选购。</p>
+                                </li>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </ul>
+            <div class="evat_box1" id="askNow">
+                <a href="javascript:void(0);">
+                    <h1>我要提问</h1>
+                </a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+    <!-- 周边配套 --> 
+    
+    
     <!-- 楼盘经纬度 -->
     <div id="longitude" data-jwd="{$eju.field.lng},{$eju.field.lat}"></div>
     <div id="details">
@@ -160,22 +205,13 @@
       </div>
       {eju:surroundings field="$eju['field']" canvas="map_canvas" tag="heihei" select="active" total="total" tab="lp-map-tab" result="result"}
       <div class="map-mart">
-        <div class="map-mart-title" id="map-keyword">
-          {eju:volist name="$field.list" id="vo"}
-          <a href="javascript:;" class="heihei" onclick="select_around({$key});">{$vo}</a>
-          {/eju:volist}
-        </div>
+        <div class="map-mart-title" id="map-keyword"> {eju:volist name="$field.list" id="vo"} <a href="javascript:;" class="heihei" onclick="select_around({$key});">{$vo}</a> {/eju:volist} </div>
         <ul class="map-mart-lists" id="result">
         </ul>
       </div>
       {$field.hidden}
-      {/eju:surroundings}
-    </div>
-
-
-
-
-
+      {/eju:surroundings} </div>
+    
     <!-- 报名看房 -->
     <div class="m_bmkf"> <a class="btn5" href="javascript:;"> <img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_16.png" alt=""> </a> </div>
     <!-- 底部推荐 -->
@@ -210,11 +246,7 @@
         </ul>
       </div>
     </div>
-    
   </div>
-  
-
-  
 </div>
 
 <!--底部开始--> 
