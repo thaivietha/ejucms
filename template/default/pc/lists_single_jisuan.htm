@@ -787,33 +787,43 @@
         </div>
       </div>
     </div>
-    <div class="excellent-house margin-top20">
-      <div class="excellent-title"> 为您推荐 </div>
-      <div class="excellent-box">
-        <ul class="row-lists clearfix">
-          {eju:arclist typeid='1' flag='c' orderby='new' limit='0,8' id='field'}
-            <li>
-              <div class="pic-box"> <a href="{$field.arcurl}" title="{$field.title}"> <img  src="{$field.litpic}" alt="{$field.title}">
-                <h2 class="house-title">{$field.title}</h2>
-                </a> </div>
-              <div class="padding-left-20">
-                <div class="house-price-box">均价{eju:notempty name="$field.average_price"}<span class="color-red">{$field.average_price}</span>{$field.price_units}{eju:else /}暂无{/eju:notempty}</div>
-                <div class="house-address"> [{$field.city_id|get_city_name}]{$field.address}</div>
-                <div class="house-tags">
-                {eju:volist name='$field.characteristic' id='vo'}
-				<span>{$vo}</span>
-			    {/eju:volist} 
-                </div>
-              </div>
-            </li>
-            {/eju:arclist}  
+    <div class="itr_box margin-top20" id="same-estate">
+        <ul class="lbtitle bigtit" id="js_jrtab_ul">
+          <li class="hover" id="js_jrtab_0" data-index="0">猜你喜欢</li>
+          <li id="js_jrtab_1" class="" data-index="1">为您推荐</li>
         </ul>
-        <div class="slide-pages">
-          <ul>
-          </ul>
+        <div class=" itr_box_con">
+          <div class="huxing_cont" id="js_jrtabi_0" style="">
+            <ul class="photo_album pt_h200" style="padding-top: 20px; padding-bottom: 10px;" id="divMaylikeUl">
+             {eju:arclist typeid='1' orderby='rand' limit='0,5' id='field'}
+              <li style="position:relative;"> 
+                <div class="map_comment">
+                  <div class="dh_c_alone_img">
+                    <p><a href="{$field.arcurl}" target="_blank"> <img class="imgts" alt="{$field.title}" src="{$field.litpic}" border="0" width="220"></a></p>
+                  </div>
+                </div>
+                <div class="photo_album_txt f14 text_left"> <span class="photo_album_txt_p"> <a href="{$field.arcurl}" target="_blank" title=""><b>{$field.title}</b></a> </span> <span style="width:222px;">均价：<b class="red01">{eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</b></span> </div>
+              </li>
+              {/eju:arclist}
+            </ul>
+          </div>
+          <!--同价位楼盘-->
+          <div class="huxing_cont " id="js_jrtabi_1" style="display: none;">
+            <ul id="xfptxq_B23_02" class="photo_album pt_h200" style="padding-top: 20px; padding-bottom: 10px;">
+             {eju:arclist typeid='1' flag='c' orderby='new' limit='0,5' id='field'}
+              <li style="position:relative;"> 
+                <div class="map_comment">
+                  <div class="dh_c_alone_img">
+                    <p><a href="{$field.arcurl}" target="_blank"> <img class="imgts" alt="{$field.title}" src="{$field.litpic}" border="0" width="220"></a></p>
+                  </div>
+                </div>
+                <div class="photo_album_txt f14 text_left"> <span class="photo_album_txt_p"> <a href="{$field.arcurl}" target="_blank" title=""><b>{$field.title}</b></a> </span> <span style="width:222px;">均价：<b class="red01">{eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</b></span> </div>
+              </li>
+              {/eju:arclist}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </div>
 <script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.superslide.2.1.1.js"></script> 
@@ -857,6 +867,21 @@
            });
        });
     });
+	$(function(){
+		$('#js_jrtab_ul li').mouseover(function(){
+			var index = $(this).data('index');
+			$('#js_jrtabi_0,#js_jrtabi_1').hide();
+			$('#js_jrtabi_'+index).show();
+			$('#js_jrtab_ul li').removeClass('hover');
+			$(this).addClass('hover');
+		}).mouseout(function(){
+			var index = $(this).data('index');
+			$('#js_jrtabi_0,#js_jrtabi_1').hide();
+			$('#js_jrtabi_'+index).show();
+			$('#js_jrtab_ul li').removeClass('hover');
+			$(this).addClass('hover');
+		});
+	});
 </script>
 </body>
 </html>
