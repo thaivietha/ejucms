@@ -20,6 +20,7 @@
 
 {eju:static file="skin/css/jingjiren.css" /}
 {eju:static file="skin/css/color.css" /}
+{eju:static file="skin/fonts/alifonts/iconfont.css" /}
 </head>
 
 <body>
@@ -51,16 +52,40 @@
 </div>
 
 <!--底部开始-->
-
 <nav class="bar bar-tab fixbom"> 
-<a class="tab-item {eju:eq name="$Request.action" value='index'}act{/eju:eq}" href="{$eju.field.arcurl}"> <span class="icon font-f-58"></span> <span class="tab-label"> 简介 </span> </a> 
-<a class="tab-item {eju:eq name="$Request.action" value='ershou'}act{/eju:eq}" href="{$eju.field.ershouurl}"> <span class="icon font-f-100"></span> <span class="tab-label"> 二手房 </span> </a> 
-<a class="tab-item {eju:eq name="$Request.action" value='zufang'}act{/eju:eq}" href="{$eju.field.zufangurl}"> <span class="icon font-f-68"></span> <span class="tab-label"> 租房 </span> </a> 
-<a class="tab-item {eju:eq name="$Request.action" value='shopcs'}act{/eju:eq}" href="{$eju.field.shopcsurl}"> <span class="icon font-f-68"></span> <span class="tab-label"> 商铺出售 </span> </a> 
-<a class="tab-item {eju:eq name="$Request.action" value='shopcz'}act{/eju:eq}" href="{$eju.field.shopczurl}"> <span class="icon font-f-23"></span> <span class="tab-label"> 商铺出租 </span> </a> 
-<a class="tab-item {eju:eq name="$Request.action" value='officecs'}act{/eju:eq}" href="{$eju.field.officecsurl}"> <span class="icon font-f-23"></span> <span class="tab-label"> 写字楼出售 </span> </a> 
-<a class="tab-item {eju:eq name="$Request.action" value='officecz'}act{/eju:eq}" href="{$eju.field.officeczurl}"> <span class="icon font-f-23"></span> <span class="tab-label"> 写字楼出租 </span> </a> 
+	 <a class="tab-item {eju:eq name="$Request.action" value='index'}act{/eju:eq}" href="{$eju.field.arcurl}">
+	   <i class="iconfont icon-jijingren"></i> 
+	   <span class="tab-label"> 简介 </span> 
+	 </a> 
+	 <a class="tab-item {eju:eq name="$Request.action" value='ershou'}act{/eju:eq}" href="{$eju.field.ershouurl}">
+		 <i class="iconfont icon-ershoufang"></i> 
+		<span class="tab-label"> 二手房 </span> 
+	</a> 
+	<a class="tab-item {eju:eq name="$Request.action" value='zufang'}act{/eju:eq}" href="{$eju.field.zufangurl}">
+	   <i class="iconfont icon-zufang"></i> 
+	  <span class="tab-label"> 租房 </span> 
+	</a> 
+	<a class="tab-item {eju:eq name="$Request.action" value='shopcs'}act{/eju:eq}" href="{$eju.field.shopcsurl}"> 
+	   <i class="iconfont icon-shangpucs"></i> 
+	  <span class="tab-label"> 商铺出售 </span> 
+	</a> 
+	<a class="tab-item jjr-iconbox" >
+	   <i class="iconfont icon-down"></i>  
+	</a>
+	<a class="tab-item {eju:eq name="$Request.action" value='shopcz'}act{/eju:eq}" href="{$eju.field.shopczurl}">
+	   <i class="iconfont icon-shangpucz"></i> 
+	  <span class="tab-label"> 商铺出租 </span> 
+	</a>
+	 <a class="tab-item {eju:eq name="$Request.action" value='officecs'}act{/eju:eq}" href="{$eju.field.officecsurl}">
+	    <i class="iconfont icon-xiezilou"></i> 
+	   <span class="tab-label"> 写字楼出售 </span> 
+	 </a> 
+	 <a class="tab-item {eju:eq name="$Request.action" value='officecz'}act{/eju:eq}" href="{$eju.field.officeczurl}">
+	   <i class="iconfont icon-xiezilouchuzu"></i> 
+	   <span class="tab-label"> 写字楼出租 </span> 
+	 </a> 
 </nav>
+
 <!--底部结束--> 
 {eju:static file="skin/js/jquery-3.2.1.min.js" /} 
 {eju:static file="skin/js/swiper-3.4.2.min.js" /}
@@ -69,5 +94,19 @@
 {eju:static file="skin/css/layer-animate.css" /}
 {eju:static file="skin/js/search_public.js" /} 
 {eju:static file="skin/js/details.js" /}
+<script >
+	//经纪人导航显示更多
+	$(document).ready(function(){
+	  $(".jjr-iconbox").on("click",function () {  	  		  
+	   if( $(".jjr-iconbox").children('i').hasClass('icon-down')){
+	  	 $(".jjr-iconbox").children('i').removeClass('icon-down').addClass('icon-up');
+	  	  $(".jjr-iconbox").parent().css("height","6.25rem"); 
+	   }else{
+		   $(".jjr-iconbox").children('i').removeClass('icon-up').addClass('icon-down');
+		    $(".jjr-iconbox").parent().css("height","3.125rem"); 
+	   }
+	  });
+	});
+</script>
 </body>
 </html>
