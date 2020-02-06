@@ -153,11 +153,12 @@
     
     
     <!-- 楼盘问答 -->
+      {eju:ask id="field" bestanswer="off" pagesize='10'}
       <div class="Consultation">
     <div class="ltation_box">
         <div class="tlt">
             <h1>楼盘问答</h1>
-                <a href="/askList/1421-1.htm">
+                <a href="{$field.UsersIndexUrl}">
                     <span class="ck">查看全部</span>
                     <span class="detail_icon go_icon"></span>
                 </a>
@@ -166,26 +167,32 @@
     <div style="overflow:hidden;">
         <div class="tation_ul">
             <ul>
+                {eju:volist name="$field.AskData" id="vo"}
                 <div class="tation_li">
-                    <div class="tation_left"><img src="https://static.fangxiaoer.com/m/static/images/coin/pageist_img_question.png" alt=""></div>
+                    <div class="tation_left">
+                        <img src="https://static.fangxiaoer.com/m/static/images/coin/pageist_img_question.png" alt="">
+                    </div>
                     <div class="tation_right">
-                        <a href="/askList/1421-1.htm">
+                        <a href="{$vo.AskUrl}">
                             <div class="tation_right_name">
-                                <h1>158****9040</h1>
-                                <h2>2020.02.03</h2>
+                                <h1>{$vo.username}</h1>
+                                <h2>{$vo.add_time|MyDate="Y-m-d H:i:s",###}</h2>
                             </div>
-                            <div class="tation_right_con">多层都是多大面积的啊？</div>
+                            <div class="tation_right_con">{$vo.ask_title}</div>
                             <div class="tation_right_huifu">
+                                {eju:volist name="$vo.AnswerData" id="vo2"}
                                 <li>
-                                    <p><span>房小二网客服回复：</span>您好，宏发浣花溪多层85-95平，欢迎选购。</p>
+                                    <p><span>{$vo2.username}回复：</span> {$vo2.content}</p>
                                 </li>
+                                {/eju:volist}
                             </div>
                         </a>
                     </div>
                 </div>
+                {/eju:volist}
             </ul>
             <div class="evat_box1" id="askNow">
-                <a href="javascript:void(0);">
+                <a href="{$field.AddAskUrl}">
                     <h1>我要提问</h1>
                 </a>
             </div>
@@ -193,6 +200,7 @@
        
     </div>
 </div>
+      {/eju:ask}
     <!-- 周边配套 --> 
      <a name="m_Matching"></a> 
     

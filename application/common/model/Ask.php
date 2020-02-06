@@ -362,6 +362,7 @@ class Ask extends Model
             /*头像处理*/
             $value['litpic'] = get_head_pic($value['litpic']);
             $result['AskData'][$key]['litpic'] = $value['litpic'];
+            $result['AskData'][$key]['username'] = !empty($value['username']) ? $value['username'] : '游客';
             /* END */
             $result['AskData'][$key]['ask_title'] = htmlspecialchars_decode($value['ask_title']);
             $result['AskData'][$key]['content'] = htmlspecialchars_decode($value['content']);

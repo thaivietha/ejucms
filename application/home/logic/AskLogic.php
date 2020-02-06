@@ -103,7 +103,7 @@ class AskLogic
         $result['EditAskUrl'] = url('home/Ask/edit_ask', ['ask_id'=>$param['ask_id']]);
 
         // 用户问题首页
-        $result['UsersIndexUrl'] = url('home/Ask/ask_index');
+        $result['UsersIndexUrl'] = empty($param['aid']) ? url('home/Ask/index') :  url('home/Ask/index', ['aid'=>$param['aid']]);
 
         // 编辑回答url
         $result['EditAnswer'] = url('home/Ask/ajax_edit_answer');
