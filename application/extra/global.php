@@ -44,6 +44,8 @@ return array(
     'arc_seo_description_length' => 125,
     // 栏目最多级别
     'arctype_max_level' => 3,
+    // 导航菜单最多级别
+    'navig_max_level' => 2,
     // 模型标识
     'channeltype_list' => $channeltype_list,
     // 发布文档的模型ID

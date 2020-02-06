@@ -255,4 +255,12 @@ return [
         'is_modules'    => 1,
         'auths' => 'Ask@*,Answer@*',
     ],
+    [
+        'id' => 28,
+        'menu_id' => 6009,
+        'menu_id2' => 6000,
+        'name'  => '导航管理',
+        'is_modules'    => 1,
+        'auths' => 'Navigation@*',
+    ],
 ];

@@ -861,6 +861,28 @@ class System extends Base
 ';
                     }
                     break;
+                
+                case 'navigation':
+                    {
+$position_id = input('post.position_id/d');
+$msg = <<<EOF
+<div style="color:red"> 
+导航标签调用方法
+<br/>
+复制下方代码在需要放置导航的模板文件里进行粘贴
+</div>
+<br/>
+<div id='ShopOpenCode'>
+{eju:navigation position_id='{$position_id}' id="navig"} <br/>
+{$space}&lt;li&gt;<br/>
+{$space}{$space}&lt;img src="{\$navig.navig_pic}" style="width: 40px; height: 40px;"><br/>
+{$space}{$space}&lt;a href="{\$navig.navig_url}" {\$navig.target} {\$navig.nofollow}>{\$navig.navig_name}&lt;/a&gt;<br/>
+{$space}&lt;/li&gt;<br/>
+{/eju:navigation}
+</div>
+EOF;
+                    }
+                    break;
 
                 default:
                     # code...

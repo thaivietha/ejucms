@@ -1,0 +1,261 @@
+{include file="public/layout" /}
+<body class="nav-more nav-more2">
+  <div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="web-system">
+            <div class="layui-tab layui-tab-card">
+              <ul class="layui-tab-title">
+                {volist name="$PosiData" id="pt"}
+                  <li class="{eq name='$pt.position_id' value='$position_id'}layui-this{else/}{/eq}"><a href="{:url('Navigation/index', ['position_id'=>$pt.position_id])}">{$pt.position_name}</a></li>
+                {/volist}
+              </ul>
+              <div class="layui-tab-content web-system" style="padding:10px 0">
+                <div class="layui-tab-item layui-show">
+                  <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md12">
+                      <div class="layui-card">
+                        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                            <div class="layui-form-item" style="margin-top: -10px;">
+                                <div class="fl">
+                                    <a data-url="{:url('Navigation/add', array('position_id'=>$position_id))}" class="layui-btn navigation_add" style="border-color:#3db9b2; color: #fff; padding: 0 15px;height: 35px;line-height: 35px;border-radius: 2px;" data-title="新增顶级菜单">新增顶级菜单</a>
+                                    <a class="layui-btn btn-primary" onclick="tag_call('navigation', '{$position_id}');" style="border-color:#fff; color: #333; padding: 0 15px;height: 35px;line-height: 35px;border-radius: 2px; border-color: #e6e6e6;" data-title="标签调用">标签调用</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card-body " style="overflow-x: scroll">
+                            <div class="layui-table-box">
+                                <div class="layui-table-body layui-table-main right-oper" style="margin: 0;">
+                                    <table id="table1" class="layui-table" lay-filter="table1"></table>
+                                    <!-- 新窗口 -->
+                                    <script type="text/html" id="targetTpl">
+                                        <input type="checkbox" name="target" data-navig_id="{{d.navig_id}}" value="{{d.target}}" lay-skin="switch" lay-text="是|否" lay-filter="target" {{ d.target == 1 ? 'checked class="yes"' : ' class="no"' }}>
+                                    </script>
+                                    <!-- 状态 -->
+                                    <script type="text/html" id="switchTpl">
+                                        <input type="checkbox" name="status" data-navig_id="{{d.navig_id}}" value="{{d.status}}" lay-skin="switch" lay-text="正常|停用" lay-filter="status" {{ d.status == 1 ? 'checked class="yes"' : ' class="no"' }}>
+                                    </script>
+                                    <!-- 操作列 -->
+                                    <script type="text/html" id="oper-col">
+                                        <a class="layui-btn btn-edit edit" lay-event="edit">编辑</a>
+                                        <a class="layui-btn btn-primary more mr10" >更多</a>
+                                        {{ d.grade < {$navig_max_level - 1} ? '<a class="layui-btn btn-primary" lay-event="addson">增加子菜单</a>' : '<a class="layui-btn btn-primary" lay-event="">不支持增加</a>' }}
+                                        {eq name="'Navigation@del'|is_check_access" value="1"}
+                                        <a class="layui-btn btn-del" lay-event="del" data-url="{:url('Navigation/del')}" data-id="{{d.navig_id}}">删除</a>
+                                        {/eq}
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+  </div>
+
+<script>
+    var json_navig_list = {$navig_list|json_encode};
+    layui.config({
+        base: '__SKIN__/', //静态资源所在路径
+        version:'{$version}'
+    }).extend({
+        index: 'lib/index', //主入口模块
+        treetable: 'treetable-lay/treetable'//树形栏目
+    }).use([ 'table', 'treetable','index','layer'], function () {
+        var $ = layui.$
+            ,form = layui.form
+            ,treetable = layui.treetable
+            ,table = layui.table;
+        
+        
+        // 渲染表格
+        var renderTable = function () {
+            layer.load(2);
+            treetable.render({
+                treeColIndex: 1,
+                treeSpid: 0,    //为顶级栏目时的parent_id值
+                treeIdName: 'navig_id',
+                treePidName: 'parent_id',
+                treeDefaultClose: false,
+                treeLinkage: false,
+                elem: '#table1',
+//                url: layui.setter.base +'json/ey_json/arctype.js?v={$version}',
+                page: false,
+                data:json_navig_list,
+                cols: [[
+                    {field: 'navig_id', title: 'ID', width: 80}
+                    ,{field: 'navig_name', title: '<a href="javascript:;" class="arctype-btn-expand"  id="btn-expand" style="display: none;"></a><a href="javascript:;" class="arctype-btn-fold" id="btn-fold"></a>菜单名称', minWidth: 300}
+                    ,{field: 'target', title: '新窗口打开', width: 120,align:'center',templet: '#targetTpl', unresize: true}
+                    ,{field: 'status', title: '状态', width: 100, align:'center',templet: '#switchTpl', unresize: true}
+                    ,{field: 'sort_order', title: '排序', width: 80,align:'center',edit:'text'}
+                    ,{field:'oper-col', title: '操作', width: 135,align:'center',templet: '#oper-col'}
+                ]],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+        };
+
+        renderTable();
+
+        $('#btn-expand').click(function () {
+            $('#btn-expand').hide();
+            $('#btn-fold').show();
+            treetable.expandAll('#table1');
+        });
+
+        $('#btn-fold').click(function () {
+            $('#btn-expand').show();
+            $('#btn-fold').hide();
+            treetable.foldAll('#table1');
+        });
+
+        $('#btn-refresh').click(function () {
+            renderTable();
+        });
+
+        $('.navigation_add').click(function(){
+            navigation_opt('新增顶级菜单', $(this).data('url'));
+        });
+
+        function navigation_opt(title, url)
+        {
+            var iframes = layer.open({
+                type: 2,
+                title: title,
+                fixed: true, //不固定
+                shadeClose: false,
+                shade: 0.3,
+                content: url
+            });
+            layer.full(iframes);
+        }
+
+        //监听工具条
+        table.on('tool(table1)', function (obj) {
+            var layEvent = obj.event;
+            var data = obj.data;
+            if (layEvent === 'addson') {
+                var url = eyou_basefile+"?m=admin&c=Navigation&a=add&position_id="+data.position_id+"&parent_id="+data.navig_id;
+                navigation_opt('新增子菜单', url);
+            } else if (layEvent === 'edit'){
+                var url = eyou_basefile+"?m=admin&c=Navigation&a=edit&navig_id="+data.navig_id;
+                navigation_opt('编辑菜单', url);
+            }else if (layEvent === 'del'){
+                delfun(this);
+            }
+
+        });
+        //监听编辑框
+        table.on('edit(table1)', function (obj) {
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,field = obj.field; //得到字段
+            this.value = value;
+            changeTableVal('navig_list','navig_id',data.navig_id,field,this);
+            
+        });
+        //新窗口操作
+        form.on('switch(target)', function(obj){
+            if (obj.value ==0){
+                this.value = 1;
+            }else{
+                this.value = 0;
+            }
+            var dataid = $(this).attr('data-navig_id');
+            changeTableVal('navig_list','navig_id',dataid,'target',this);
+        });
+        //状态操作
+        form.on('switch(status)', function(obj){
+            if (obj.value ==0){
+                this.value = 1;
+            }else{
+                this.value = 0;
+            }
+            var dataid = $(this).attr('data-navig_id');
+            changeTableVal('navig_list','navig_id',dataid,'status',this);
+        });
+        
+        //栏目更多弹出按钮触发事件
+        $(document).off('mousedown','.layui-table-grid-down').
+            on('mousedown','.layui-table-grid-down',function (event) {
+                table._tableTrCurrr = $(this).closest('td');
+            });
+         $(document).off('click','.layui-table-tips-main [lay-event]').
+            on('click','.layui-table-tips-main [lay-event]',function (event) {
+                var elem = $(this);
+                var tableTrCurrr =  table._tableTrCurrr;
+                if(!tableTrCurrr){
+                    return;
+                }
+                var layerIndex = elem.closest('.layui-table-tips').attr('times');
+                layer.close(layerIndex);
+                table._tableTrCurrr.find('[lay-event="' + elem.attr('lay-event') + '"]').first().click();
+         });
+
+    });
+    
+    function delfun(obj){
+        layer.confirm('<font color="#ff0000">如有子菜单将一起清空</font>，确认删除？', {
+            title: false,
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            layer_loading('正在处理');
+            // 确定
+            $.ajax({
+                type : 'post',
+                url : $(obj).attr('data-url'),
+                data : {del_id:$(obj).attr('data-id')},
+                dataType : 'json',
+                success : function(data){
+                    layer.closeAll();
+                    if(data.code == 1){
+                        layer.msg(data.msg, {icon: 1});
+                        window.location.reload();
+                    }else{
+                        layer.alert(data.msg, {icon: 2, title:false});  //alert(data);
+                    }
+                }
+            })
+        }, function(index){
+            layer.close(index);
+        });
+        return false;
+    }
+
+    // 标签调用
+    function tag_call(name, position_id) {
+        $.ajax({
+            type: "POST",
+            url: "{:url('System/ajax_tag_call', ['_ajax'=>1])}",
+            data: {name:name, position_id:position_id},
+            dataType: 'json',
+            success: function (res) {
+                if(res.code == 1){
+                    //询问框
+                    var confirm = layer.confirm(res.data.msg, {
+                        title: false,
+                        closeBtn : 0,
+                        area: ['50%','50%'],
+                        btn: ['关闭']
+                    }, function (){
+                        layer.close(confirm);
+                    });  
+                } else {
+                    layer.alert(res.msg, {icon: 2, title:false});
+                }
+            },
+            error:function(){
+                layer.alert(ey_unknown_error, {icon: 2, title:false});
+            }
+        });
+    }
+
+</script>
+{include file="public/footer" /}

@@ -24,15 +24,8 @@
                         {eq name="'Archives@index'|is_check_access" value="1"}
                         <a class="layui-btn btn-primary" lay-event="detail">内容</a>
                         {/eq}
-                        {if condition="d.grade < ($arctype_max_level - 1)"}
-                        <a class="layui-btn btn-primary" lay-event="addson">增加子栏目</a>
-                        {else /}
-                        <a class="layui-btn btn-primary" lay-event="">不支持增加</a>
-                        {/if}
-
-                        <a class="layui-btn  btn-primary" lay-event="preview">
-                            预览
-                        </a>
+                        {{ d.grade < {$arctype_max_level - 1} ? '<a class="layui-btn btn-primary" lay-event="addson">增加子栏目</a>' : '<a class="layui-btn btn-primary" lay-event="">不支持增加</a>' }}
+                        <a class="layui-btn  btn-primary" lay-event="preview">预览</a>
                         {eq name="'Arctype@pseudo_del'|is_check_access" value="1"}
                         <a class="layui-btn btn-del" lay-event="del" data-url="{:url('Arctype/pseudo_del')}" data-id="{{d.id}}" data-typename="{{d.typename}}" data-deltype="pseudo" >删除</a>
                         {/eq}

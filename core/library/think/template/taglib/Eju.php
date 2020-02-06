@@ -111,6 +111,8 @@ class Eju extends Taglib
         'sand'  =>['attr' => 'id,key,mod,field,aid'],
         //经纪人列表
         'userslist'       => ['attr' => 'pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,thumb,is_saleman,level,is_count'],
+        // 导航标签
+        'navigation' => ['attr' => 'position_id,row,id,name,key,empty,mod,titlelen,orderby,orderway,alltxt'],
 
     ];
     /*
@@ -3016,5 +3018,56 @@ class Eju extends Taglib
             return $parseStr;
         }
         return;
+    }
+
+    /**
+     * navigation标签解析 获取导航列表
+     * 格式：
+     * {eju:navigation titlelen='30' infolen='160' id='navig'}
+     *  <li><a href="{$navig.navig_url}">{$navig.navig_name}</a></li>
+     * {/eju:navigation}
+     * @access public
+     * @param array $tag 标签属性
+     * @param string $content 标签内容
+     * @return string|void
+     */
+    public function tagNavigation($tag, $content)
+    {
+        $name   = isset($tag['name']) ? $tag['name'] : '';
+        $id     = isset($tag['id']) ? $tag['id'] : 'field';
+        $key    = !empty($tag['key']) ? $tag['key'] : 'i';
+        $empty  = isset($tag['empty']) ? $tag['empty'] : '';
+        $empty  = htmlspecialchars($empty);
+        $mod    = !empty($tag['mod']) && is_numeric($tag['mod']) ? $tag['mod'] : '2';
+        $row    = !empty($tag['row']) ? intval($tag['row']) : 0;
+        $orderby    = isset($tag['orderby']) ? $tag['orderby'] : 'sort_order';
+        $orderway = isset($tag['orderway']) ? $tag['orderway'] : 'asc';
+        $titlelen = !empty($tag['titlelen']) && is_numeric($tag['titlelen']) ? intval($tag['titlelen']) : 100;
+        $position_id  = !empty($tag['position_id']) ? $tag['position_id'] : '';
+        $position_id  = $this->varOrvalue($position_id);
+
+
+       $parseStr = '<?php ';
+        // 查询数据库获取的数据集
+        $parseStr .= ' $tagNavigation = new \think\template\taglib\eju\TagNavigation;';
+        $parseStr .= ' $_result = $tagNavigation->getNavigation('.$position_id.', "'.$orderby.'", "'.$orderway.'");';
+        $parseStr .= ' if(is_array($_result) || $_result instanceof \think\Collection || $_result instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;';
+        $parseStr .= ' $__LIST__ = $_result;';
+
+        $parseStr .= 'if( count($__LIST__)==0 ) : echo htmlspecialchars_decode("' . $empty . '");';
+        $parseStr .= 'else: ';
+        $parseStr .= 'foreach($__LIST__ as $key=>$' . $id . '): ';
+        $parseStr .= '$' . $key . '= intval($key) + 1;?>';
+        $parseStr .= '<?php $mod = ($' . $key . ' % ' . $mod . ' ); ?>';
+        $parseStr .= $content;
+        $parseStr .= '<?php ++$e; ?>';
+        $parseStr .= '<?php endforeach;';
+        $parseStr .= 'endif; else: echo htmlspecialchars_decode("' . $empty . '");endif; ?>';
+        $parseStr .= '<?php $'.$id.' = []; ?>';
+
+        if (!empty($parseStr)) {
+            return $parseStr;
+        }
+        return false;
     }
 }
