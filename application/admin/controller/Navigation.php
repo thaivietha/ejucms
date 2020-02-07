@@ -148,6 +148,7 @@ class Navigation extends Base
                 $data = array_merge($post, $newData);
                 $insertId = $this->navig_list_db->add($data);
                 if($insertId){
+                    \think\Cache::clear('navig_list');
                     adminLog('新增导航菜单：'.$data['navig_name']);
                     $this->success("操作成功!", url('Navigation/index', ['position_id'=>$post['position_id']]));
                 }
@@ -232,7 +233,7 @@ class Navigation extends Base
                     'update_time'  => getTime()
                 );
                 $data = array_merge($post, $newData);
-                $ResultID = $this->navig_list_db->update($data);
+                $ResultID = $this->navig_list_db->cache(true, null, "navig_list")->update($data);
                 if($ResultID){
                     adminLog('更新导航菜单：'.$data['navig_name']);
                     $this->success("操作成功", url('Navigation/index', ['position_id'=>$post['position_id']]));
@@ -309,7 +310,7 @@ class Navigation extends Base
             $post['del_id'] = eyIntval($post['del_id']);
             /*当前栏目信息*/
             $row = $this->navig_list_db->field('navig_name')->where('navig_id', 'IN', $post['del_id'])->find();
-            $r = $this->navig_list_db->delete($post['del_id']);
+            $r = $this->navig_list_db->cache(true, null, "navig_list")->delete($post['del_id']);
             if (false !== $r) {
                 adminLog('删除导航菜单：' . $row['navig_name']);
                 $this->success('删除成功');

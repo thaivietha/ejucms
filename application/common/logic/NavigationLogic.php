@@ -137,35 +137,40 @@ class NavigationLogic extends Model
     public function ForegroundFunction()
     {
         return [
-            0 => [
+            [
                 'title' => '首页',
                 'code'   => 'home_Index_index',
                 'url'   => '/',
             ],
-            1 => [
+            [
+                'title' => '问答',
+                'code'   => 'home_Ask_index',
+                'url'   => url('home/Ask/index'),
+            ],
+            [
                 'title' => '地图找房',
                 'code'   => 'home_Map_index',
                 'url'   => url('home/Map/index'),
             ],
-            2 => [
+            [
                 'title' => '地图找二手房',
                 'code'   => 'home_Map_ershou',
                 'url'   => url('home/Map/ershou'),
             ],
-            3 => [
+            [
                 'title' => '地图找租房',
                 'code'   => 'home_Map_zufang',
                 'url'   => url('home/Map/zufang'),
             ],
-            4 => [
+            [
                 'title' => '地图找小区',
                 'code'   => 'home_Map_xiaoqu',
                 'url'   => url('home/Map/xiaoqu'),
             ],
-            5 => [
-                'title' => '问答',
-                'code'   => 'home_Ask_index',
-                'url'   => url('home/Ask/index'),
+            [
+                'title' => '房贷计算器',
+                'code'   => 'home_Tool_jisuanqi',
+                'url'   => url('home/Tool/jisuanqi'),
             ],
         ];
     }
