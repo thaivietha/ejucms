@@ -127,19 +127,15 @@ class Navigation extends Base
                     if (empty($post['navig_name'])) $this->error("请填写导航名称");
                     if (empty($post['navig_url'])) $this->error("请填写导航链接");
                 }
-                
-                /*封面图的本地/远程图片处理*/
-                $is_remote = !empty($post['is_remote']) ? $post['is_remote'] : 0;
-                $litpic = '';
-                if (1 == $is_remote) {
-                    $litpic = $post['litpic_remote'];
-                } else {
-                    $litpic = $post['navig_pic'];
-                }
-                /*--end*/
 
                 // url格式化
                 $post['navig_url'] = htmlspecialchars_decode($post['navig_url']);
+
+                // 根据菜单ID获取最新的最顶级菜单ID
+                if (intval($post['parent_id']) > 0) {
+                    $navig_row = M('navig_list')->field('navig_id,topid')->where('navig_id', $post['parent_id'])->find();
+                    $post['topid'] = !empty($navig_row['topid']) ? $navig_row['topid'] : $navig_row['navig_id'];
+                }
 
                 $newData = array(
                     'sort_order' => 100,
@@ -152,7 +148,7 @@ class Navigation extends Base
                 $data = array_merge($post, $newData);
                 $insertId = $this->navig_list_db->add($data);
                 if($insertId){
-                    adminLog('新增导航：'.$data['navig_name']);
+                    adminLog('新增导航菜单：'.$data['navig_name']);
                     $this->success("操作成功!", url('Navigation/index', ['position_id'=>$post['position_id']]));
                 }
             }
@@ -209,35 +205,26 @@ class Navigation extends Base
         if (IS_POST) {
             $post = input('post.');
             if(!empty($post)){
-
                 if (empty($post['arctype_sync'])) {
                     if (empty($post['navig_name'])) $this->error("请填写导航名称");
                     if (empty($post['navig_url'])) $this->error("请填写导航链接");
-                }
-                
-                /*封面图的本地/远程图片处理*/
-                $is_remote = !empty($post['is_remote']) ? $post['is_remote'] : 0;
-                $litpic = '';
-                if (1 == $is_remote) {
-                    $litpic = $post['litpic_remote'];
-                } else {
-                    $litpic = $post['navig_pic'];
-                }
-                /*--end*/
-
-                // 当前更改的等级
-                $grade = 0; 
-                // 根据菜单ID获取最新的最顶级模型ID
-                if (intval($post['parent_id']) > 0) {
-                    $navig_row = M('navig_list')->field('grade')->where('navig_id', $post['parent_id'])->find();
-                    $grade = $navig_row['grade'] + 1;
                 }
 
                 // url格式化
                 $post['navig_url'] = htmlspecialchars_decode($post['navig_url']);
 
+                // 当前更改的等级
+                $grade = 0; 
+                // 根据菜单ID获取最新的最顶级菜单ID
+                if (intval($post['parent_id']) > 0) {
+                    $navig_row = M('navig_list')->field('navig_id,grade,topid')->where('navig_id', $post['parent_id'])->find();
+                    $grade = $navig_row['grade'] + 1;
+                    $post['topid'] = !empty($navig_row['topid']) ? $navig_row['topid'] : $navig_row['navig_id'];
+                }
+
                 $newData = array(
                     'grade' => $grade,
+                    'arctype_sync'  => !empty($post['arctype_sync']) ? 1 : 0,
                     'target'    => !empty($post['target']) ? 1 : 0,
                     'nofollow'    => !empty($post['nofollow']) ? 1 : 0, 
                     'is_del' => 0,
@@ -247,7 +234,7 @@ class Navigation extends Base
                 $data = array_merge($post, $newData);
                 $ResultID = $this->navig_list_db->update($data);
                 if($ResultID){
-                    adminLog('修改导航：'.$data['navig_name']);
+                    adminLog('更新导航菜单：'.$data['navig_name']);
                     $this->success("操作成功", url('Navigation/index', ['position_id'=>$post['position_id']]));
                 }
             }

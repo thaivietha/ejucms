@@ -11,9 +11,9 @@
                             <ul class="layui-tab-title">
                                 <!-- <li><a href="{:url('Minipro/global_conf')}"><span>1.常规配置</span></a></li> -->
                                 <li><a href="{:url('Minipro/home_conf')}"><span>1.首页配置</span></a></li>
-                                <li><a href="{:url('Minipro/about_conf')}"><span>2.联系我们</span></a></li>
-                                <li class="layui-this">3.生成小程序</li>
-                                <li><a href="{:url('Minipro/lists')}"><span>收客列表</span></a></li>
+                                <!-- <li><a href="{:url('Minipro/about_conf')}"><span>2.联系我们</span></a></li> -->
+                                <li class="layui-this">2.生成小程序</li>
+                                <li><a href="{:url('Minipro/lists')}"><span>3.收客列表</span></a></li>
                             </ul>
                             <div class="layui-tab-content web-system " style="padding:10px 0">
                                 <!--常规选项-->
@@ -127,7 +127,7 @@
                                                                         <div class="layui-form-inline2 ey_helptips_txt none"></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="layui-form-item">
+                                                                <!-- <div class="layui-form-item">
                                                                     <label class="layui-form-label"><b>*</b>导航标题</label>
                                                                     <div class="layui-input-inline">
                                                                         <input type="text" name="navTitle" value="{$row.navTitle|default=''}" class="layui-input" />
@@ -136,7 +136,7 @@
                                                                         <div class="layui-form-mid layui-word-aux ey_helptips"></div>
                                                                         <div class="layui-form-inline2 ey_helptips_txt none"></div>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                                 <div class="layui-form-item">
                                                                     <label class="layui-form-label"><b>*</b>小程序描述</label>
                                                                     <div class="layui-input-inline">
@@ -254,11 +254,11 @@
                 $('input[name=domain]').focus();
                 return false;
             }
-            if(!$.trim($('input[name=navTitle]').val())){
-                showErrorMsg('导航标题不能为空！');
-                $('input[name=navTitle]').focus();
-                return false;
-            }
+            // if(!$.trim($('input[name=navTitle]').val())){
+            //     showErrorMsg('导航标题不能为空！');
+            //     $('input[name=navTitle]').focus();
+            //     return false;
+            // }
             if(!$.trim($('#intro').val())){
                 showErrorMsg('小程序描述不能为空！');
                 $('#intro').focus();

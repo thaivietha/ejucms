@@ -43,6 +43,7 @@ class NavigationLogic extends Model
     public function GetAllArctype($type_id = 0)
     {
         $where = [
+            'current_channel'   => ['egt', 0],
             'is_del' => 0,
             'status' => 1
         ];
@@ -135,30 +136,36 @@ class NavigationLogic extends Model
     // 前台功能列表
     public function ForegroundFunction()
     {
-        return $ReturnData = [
+        return [
             0 => [
                 'title' => '首页',
-                'url'   => "web_cmsurl"
+                'code'   => 'home_Index_index',
+                'url'   => '/',
             ],
             1 => [
                 'title' => '地图找房',
-                'url'   => "map_index"
+                'code'   => 'home_Map_index',
+                'url'   => url('home/Map/index'),
             ],
             2 => [
                 'title' => '地图找二手房',
-                'url'   => "map_ershou"
+                'code'   => 'home_Map_ershou',
+                'url'   => url('home/Map/ershou'),
             ],
             3 => [
                 'title' => '地图找租房',
-                'url'   => "map_zufang"
+                'code'   => 'home_Map_zufang',
+                'url'   => url('home/Map/zufang'),
             ],
             4 => [
                 'title' => '地图找小区',
-                'url'   => "map_xiaoqu"
+                'code'   => 'home_Map_xiaoqu',
+                'url'   => url('home/Map/xiaoqu'),
             ],
             5 => [
                 'title' => '问答',
-                'url'   => "ask_index"
+                'code'   => 'home_Ask_index',
+                'url'   => url('home/Ask/index'),
             ],
         ];
     }

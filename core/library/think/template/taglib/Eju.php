@@ -112,8 +112,7 @@ class Eju extends Taglib
         //经纪人列表
         'userslist'       => ['attr' => 'pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,thumb,is_saleman,level,is_count'],
         // 导航标签
-        'navigation' => ['attr' => 'position_id,row,id,name,key,empty,mod,titlelen,orderby,orderway,alltxt'],
-
+        'navig' => ['attr' => 'position_id,navigid,notnavigid,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit'],
     ];
     /*
      * 经纪人列表模块
@@ -3021,53 +3020,101 @@ class Eju extends Taglib
     }
 
     /**
-     * navigation标签解析 获取导航列表
-     * 格式：
-     * {eju:navigation titlelen='30' infolen='160' id='navig'}
-     *  <li><a href="{$navig.navig_url}">{$navig.navig_name}</a></li>
-     * {/eju:navigation}
+     * navig 标签解析 用于获取导航菜单列表
+     * 格式：type:son表示下级导航菜单,self表示同级导航菜单,top顶级导航菜单
+     * {eju:navig navigid='1' type='son' row='10' empty='' name='' id='' key='' titlelen='' offset='' mod='' currentstyle='active'}
+     *  <li><a href='{$field:navig_link}'>{$field:navig_name}</a> </li> 
+     * {/eju:navig}
      * @access public
      * @param array $tag 标签属性
      * @param string $content 标签内容
      * @return string|void
      */
-    public function tagNavigation($tag, $content)
+    public function tagNavig($tag, $content)
     {
-        $name   = isset($tag['name']) ? $tag['name'] : '';
+        $navigid  = !empty($tag['navigid']) ? $tag['navigid'] : '';
+        $navigid  = $this->varOrvalue($navigid);
+
+        $notnavigid  = !empty($tag['notnavigid']) ? $tag['notnavigid'] : '';
+        $notnavigid  = $this->varOrvalue($notnavigid);
+
+        $name   = !empty($tag['name']) ? $tag['name'] : '';
+        $type   = !empty($tag['type']) ? $tag['type'] : 'son';
+        $currentstyle   = !empty($tag['currentstyle']) ? $tag['currentstyle'] : '';
         $id     = isset($tag['id']) ? $tag['id'] : 'field';
         $key    = !empty($tag['key']) ? $tag['key'] : 'i';
         $empty  = isset($tag['empty']) ? $tag['empty'] : '';
         $empty  = htmlspecialchars($empty);
         $mod    = !empty($tag['mod']) && is_numeric($tag['mod']) ? $tag['mod'] : '2';
-        $row    = !empty($tag['row']) ? intval($tag['row']) : 0;
-        $orderby    = isset($tag['orderby']) ? $tag['orderby'] : 'sort_order';
-        $orderway = isset($tag['orderway']) ? $tag['orderway'] : 'asc';
         $titlelen = !empty($tag['titlelen']) && is_numeric($tag['titlelen']) ? intval($tag['titlelen']) : 100;
-        $position_id  = !empty($tag['position_id']) ? $tag['position_id'] : '';
+        $offset = !empty($tag['offset']) && is_numeric($tag['offset']) ? intval($tag['offset']) : 0;
+        $row = !empty($tag['row']) && is_numeric($tag['row']) ? intval($tag['row']) : 10;
+        if (!empty($tag['limit'])) {
+            $limitArr = explode(',', $tag['limit']);
+            $offset = !empty($limitArr[0]) ? intval($limitArr[0]) : 0;
+            $row = !empty($limitArr[1]) ? intval($limitArr[1]) : 0;
+        }
+        $position_id  = !empty($tag['position_id']) ? $tag['position_id'] : 0;
         $position_id  = $this->varOrvalue($position_id);
 
+        $parseStr = '<?php ';
+        // 声明变量
+        /*typeid的优先级别从高到低：装修数据 -> 标签属性值 -> 外层标签navigartlist属性值*/
+        $parseStr .= ' $navigid = '.$navigid.';';
+        $parseStr .= ' if(empty($navigid) && isset($navigartlist["navig_id"]) && !empty($navigartlist["navig_id"])) : $navigid = intval($navigartlist["navig_id"]); endif; ';
+        /*--end*/
+        $parseStr .= ' $row = '.$row.';';
 
-       $parseStr = '<?php ';
-        // 查询数据库获取的数据集
-        $parseStr .= ' $tagNavigation = new \think\template\taglib\eju\TagNavigation;';
-        $parseStr .= ' $_result = $tagNavigation->getNavigation('.$position_id.', "'.$orderby.'", "'.$orderway.'");';
-        $parseStr .= ' if(is_array($_result) || $_result instanceof \think\Collection || $_result instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;';
-        $parseStr .= ' $__LIST__ = $_result;';
+        if ($name) { // 从模板中传入数据集
+            $symbol     = substr($name, 0, 1);
+            if (':' == $symbol) {
+                $name = $this->autoBuildVar($name);
+                $parseStr .= '$_result=' . $name . ';';
+                $name = '$_result';
+            } else {
+                $name = $this->autoBuildVar($name);
+            }
+
+            $parseStr .= 'if(is_array(' . $name . ') || ' . $name . ' instanceof \think\Collection || ' . $name . ' instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k=0;';
+            // 设置了输出数组长度
+            if (0 != $offset || 'null' != $row) {
+                $parseStr .= '$__LIST__ = is_array(' . $name . ') ? array_slice(' . $name . ',' . $offset . ',' . $row . ', true) : ' . $name . '->slice(' . $offset . ',' . $row . ', true); ';
+            } else {
+                $parseStr .= ' $__LIST__ = ' . $name . ';';
+            }
+
+        } else { // 查询数据库获取的数据集
+            $parseStr .= ' $tagNavig = new \think\template\taglib\eju\TagNavig;';
+            $parseStr .= ' $_result = $tagNavig->getNavig('.$position_id.', $navigid, "'.$type.'", "'.$currentstyle.'", '.$notnavigid.');';
+            $parseStr .= ' if(is_array($_result) || $_result instanceof \think\Collection || $_result instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k=0;';
+            // 设置了输出数组长度
+            if (0 != $offset || 'null' != $row) {
+                $parseStr .= '$__LIST__ = is_array($_result) ? array_slice($_result,' . $offset . ', $row, true) : $_result->slice(' . $offset . ', $row, true); ';
+            } else {
+                $parseStr .= ' if(intval($row) > 0) :';
+                $parseStr .= ' $__LIST__ = is_array($_result) ? array_slice($_result,' . $offset . ', $row, true) : $_result->slice(' . $offset . ', $row, true); ';
+                $parseStr .= ' else:';
+                $parseStr .= ' $__LIST__ = $_result;';
+                $parseStr .= ' endif;';
+            }
+        }
 
         $parseStr .= 'if( count($__LIST__)==0 ) : echo htmlspecialchars_decode("' . $empty . '");';
         $parseStr .= 'else: ';
         $parseStr .= 'foreach($__LIST__ as $key=>$' . $id . '): ';
+        $parseStr .= '$' . $id . '["navig_name"] = text_msubstr($' . $id . '["navig_name"], 0, '.$titlelen.', false);';
+
+        $parseStr .= ' $__LIST__[$key] = $_result[$key] = $' . $id . ';';
         $parseStr .= '$' . $key . '= intval($key) + 1;?>';
         $parseStr .= '<?php $mod = ($' . $key . ' % ' . $mod . ' ); ?>';
         $parseStr .= $content;
-        $parseStr .= '<?php ++$e; ?>';
-        $parseStr .= '<?php endforeach;';
-        $parseStr .= 'endif; else: echo htmlspecialchars_decode("' . $empty . '");endif; ?>';
-        $parseStr .= '<?php $'.$id.' = []; ?>';
+        $parseStr .= '<?php ++$e;$k++; ?>';
+        $parseStr .= '<?php endforeach; endif; else: echo htmlspecialchars_decode("' . $empty . '");endif; ?>';
+        $parseStr .= '<?php $'.$id.' = []; ?>'; // 清除变量值，只限于在标签内部使用
 
         if (!empty($parseStr)) {
             return $parseStr;
         }
-        return false;
+        return;
     }
 }

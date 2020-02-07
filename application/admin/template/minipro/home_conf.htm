@@ -10,9 +10,9 @@
                             <ul class="layui-tab-title">
                                 <!-- <li><a href="{:url('Minipro/global_conf')}"><span>1.常规配置</span></a></li> -->
                                 <li class="layui-this">1.首页配置</li>
-                                <li><a href="{:url('Minipro/about_conf')}"><span>2.联系我们</span></a></li>
-                                <li><a href="{:url('Minipro/setting')}"><span>3.生成小程序</span></a></li>
-                                <li><a href="{:url('Minipro/lists')}"><span>收客列表</span></a></li>
+                                <!-- <li><a href="{:url('Minipro/about_conf')}"><span>2.联系我们</span></a></li> -->
+                                <li><a href="{:url('Minipro/setting')}"><span>2.生成小程序</span></a></li>
+                                <li><a href="{:url('Minipro/lists')}"><span>3.收客列表</span></a></li>
                             </ul>
                             <div class="layui-tab-content web-system " style="padding:10px 0">
                                 <!--常规选项-->
@@ -28,13 +28,13 @@
                                                             <h2 class="layui-colla-title" style="color: #777;font-weight: bold;">幻灯片</h2>
                                                             <div class="layui-colla-content layui-show">
                                                                 <div class="" wid100 lay-filter="">
-                                                                    <div class="layui-form-item">
+                                                                    <!-- <div class="layui-form-item">
                                                                         <label class="layui-form-label">幻灯片显示</label>
                                                                         <div class="layui-input-block">
                                                                             <input type="checkbox" name="swipers[show]" lay-skin="switch" lay-filter="switchTest1" lay-text="是|否" {if condition="!isset($row.swipers.show) OR $row.swipers.show eq 1"} checked{/if} >
                                                                             <input type="hidden" name="swipers[show]" value="{$row.swipers.show|default='0'}" />
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <div class="layui-form-item">
                                                                         <label class="layui-form-label">有封面文档</label>
                                                                         <div class="layui-input-inline">
@@ -507,7 +507,7 @@
                                                         <div class="layui-colla-item">
                                                             <h2 class="layui-colla-title" style="color: #777;font-weight: bold;">列表</h2>
                                                             <div class="layui-colla-content layui-show">
-                                                                <div class="layui-form-item">
+                                                                <!-- <div class="layui-form-item">
                                                                     <label class="layui-form-label">列表显示</label>
                                                                     <div class="layui-input-block">
                                                                         <input type="checkbox" {if condition="!isset($row.article.show) OR $row.article.show eq 1"} checked{/if} name="article[show]" lay-skin="switch" lay-filter="switchTest7" lay-text="是|否">
@@ -523,7 +523,7 @@
                                                                         <div class="layui-form-mid layui-word-aux ey_helptips"></div>
                                                                         <div class="layui-form-inline2 ey_helptips_txt none"></div>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                                 <!--<div class="layui-form-item">-->
                                                                     <!--<label class="layui-form-label">栏目</label>-->
                                                                     <!--<div class="layui-input-inline">-->
@@ -564,7 +564,7 @@
                                                                         <div class="layui-form-inline2 ey_helptips_txt none"></div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="layui-form-item">
+                                                                <!-- <div class="layui-form-item">
                                                                     <label class="layui-form-label">MORE链接</label>
                                                                     <div class="layui-input-inline">
                                                                         <select name="article[more_path_key]" id="article_more_path_key" lay-filter="path_key">
@@ -584,7 +584,7 @@
                                                                             <button class="layui-btn " data-id="8" onclick="jump(this);">选择文档</button>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
 
@@ -645,7 +645,7 @@
         select_path($('#cate_m3_path_key'));
         select_path($('#cate_m4_path_key'));
         // select_path($('#images_more_path_key'));
-        select_path($('#article_more_path_key'));
+        // select_path($('#article_more_path_key'));
         //频道初始化赋值
         check_channel();
 

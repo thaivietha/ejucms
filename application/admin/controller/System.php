@@ -41,11 +41,17 @@ class System extends Base
             }
             Db::name("arctype")->where("channeltype=-1 and current_channel=-1")->setField(['typename'=>$param['typename']]);
             if ($param['question_status']){
-                $r = Db::name("arctype")->where("current_channel=-1 and channeltype=-1")->setField(['is_hidden'=>0]);
+                $r = Db::name("arctype")->where("current_channel=-1 and channeltype=-1")->update([
+                    'is_hidden' => 0,
+                    'update_time'   => getTime(),
+                ]);
             }else{
-                $r = Db::name("arctype")->where("current_channel=-1 and channeltype=-1")->setField(['is_hidden'=>1]);
+                $r = Db::name("arctype")->where("current_channel=-1 and channeltype=-1")->update([
+                    'is_hidden' => 1,
+                    'update_time'   => getTime(),
+                ]);
             }
-            if ($r){
+            if ($r !== false){
                 \think\Cache::clear('arctype');
             }
 //            $param['web_keywords'] = str_replace('，', ',', $param['web_keywords']);

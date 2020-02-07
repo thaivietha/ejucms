@@ -435,6 +435,7 @@ class Minipro extends Base
                 $this->error('小程序模板nid不存在');
             }
             $post['domain'] = trim($post['domain'], '/');
+            $post['navTitle'] = !empty($post['navTitle']) ? $post['navTitle'] : tpCache('web.web_name');
 
             /*同步数据到服务器*/
             $response = httpRequest($this->logic->get_api_url("/index.php?m=api&c=CmsMiniproClient&a=minipro"), "POST", $post);

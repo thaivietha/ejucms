@@ -47,7 +47,7 @@
                         <select lay-filter="FunctionData">
                             <option value="0" id="default" selected="true">功能页面</option>
                             {volist name="Function" id="vo"}
-                                <option value="{$vo.url}" data-title="{$vo.title}">{$vo.title}</option>
+                                <option value="{$vo.code}" data-title="{$vo.title}">{$vo.title}</option>
                             {/volist}
                         </select>
                     </div>
@@ -58,7 +58,7 @@
                         {$ArctypeHtml}
                     </div>
                     <div class="layui-input-inline w100">
-                        <input type="checkbox" lay-skin="primary" name="arctype_sync" id="arctype_sync" lay-filter="arctype_sync" {eq name="$NavigList.arctype_sync" value="1"} value="1" checked="checked" {else/} value="0" {/eq} title="栏目同步">
+                        <input type="checkbox" lay-skin="primary" name="arctype_sync" id="arctype_sync" lay-filter="arctype_sync" value="1" {eq name="$NavigList.arctype_sync" value="1"} checked="checked" {/eq} title="栏目同步">
                     </div>
                   </div>
                   <div class="layui-form-item">

@@ -125,6 +125,7 @@ class Minipro extends Model
             $map = array(
                 'is_head' => 1,
                 'status'  => 1,
+//                'lang'    => $this->home_lang,
                 'is_del'  => 0,
             );
             $num = 8;
@@ -1100,25 +1101,28 @@ class Minipro extends Model
         // 超时后，断掉邮件发送
         function_exists('set_time_limit') && set_time_limit(10);
 
-            $send_email_scene = config('send_email_scene');
-            $scene = $send_email_scene[1]['scene'];
-            $web_name = tpCache('web.web_name');
-            $web_name = $web_name.'-收客通知';
-            $html = '';
-            if ($param['type']==1){
-                $html = "<p style='text-align: left;'>类型:降价通知</p>";
-            }elseif ($param['type']==2){
-                $html = "<p style='text-align: left;'>类型:开盘通知</p>";
-            }
-            $html .= "<p style='text-align: left;'>楼盘名称:".$param['title']."</p>";
-            $html .= "<p style='text-align: left;'>客户联系方式:".$param['mobile']."</p>";
-            $html .= "<p style='text-align: left;'>来源:网站后台>小程序管理>收客列表 </p>";
-            // 发送邮件
-            $to = tpCache('smtp.smtp_from_eamil');
-            $res = '';
-            if ($to){
-                $res = send_email($to,$web_name,$html, $scene);
-            }
-            return $res;
+        $user = $this->getValue('minipro');
+        $email = $user['email'];
+
+        $send_email_scene = config('send_email_scene');
+        $scene = $send_email_scene[1]['scene'];
+        $web_name = tpCache('web.web_name');
+        $web_name = $web_name.'-收客通知';
+        $html = '';
+        if ($param['type']==1){
+            $html = "<p style='text-align: left;'>类型:降价通知</p>";
+        }elseif ($param['type']==2){
+            $html = "<p style='text-align: left;'>类型:开盘通知</p>";
+        }
+        $html .= "<p style='text-align: left;'>楼盘名称:".$param['title']."</p>";
+        $html .= "<p style='text-align: left;'>客户联系方式:".$param['mobile']."</p>";
+        $html .= "<p style='text-align: left;'>来源:网站后台>小程序管理>收客列表 </p>";
+        // 发送邮件
+        $from = tpCache('smtp.smtp_user');
+        $res = '';
+        if ($from && $email){
+            $res = send_email($email,$web_name,$html, $scene);
+        }
+        return $res;
     }
 }

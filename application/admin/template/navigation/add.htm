@@ -40,7 +40,7 @@
                         <select lay-filter="FunctionData">
                             <option value="0" id="default" selected="true">功能页面</option>
                             {volist name="Function" id="vo"}
-                                <option value="{$vo.url}" data-title="{$vo.title}">{$vo.title}</option>
+                                <option value="{$vo.code}" data-title="{$vo.title}">{$vo.title}</option>
                             {/volist}
                         </select>
                     </div>

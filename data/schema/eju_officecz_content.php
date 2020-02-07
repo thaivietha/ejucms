@@ -81,63 +81,18 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
-  'sfbhwyf' => 
+  'junjia_tian' => 
   array (
-    'name' => 'sfbhwyf',
-    'type' => 'varchar(200)',
-    'notnull' => false,
-    'default' => '',
-    'primary' => false,
-    'autoinc' => false,
-  ),
-  'diy_xingzhi' => 
-  array (
-    'name' => 'diy_xingzhi',
-    'type' => 'enum(\'新房写字楼\',\'二手写字楼\')',
-    'notnull' => false,
-    'default' => '新房写字楼',
-    'primary' => false,
-    'autoinc' => false,
-  ),
-  'diy_qzq' => 
-  array (
-    'name' => 'diy_qzq',
-    'type' => 'varchar(200)',
-    'notnull' => false,
-    'default' => '',
-    'primary' => false,
-    'autoinc' => false,
-  ),
-  'diy_syl' => 
-  array (
-    'name' => 'diy_syl',
+    'name' => 'junjia_tian',
     'type' => 'float(9,2)',
     'notnull' => false,
     'default' => '0.00',
     'primary' => false,
     'autoinc' => false,
   ),
-  'diy_gws' => 
+  'sfbhwyf' => 
   array (
-    'name' => 'diy_gws',
-    'type' => 'int(10)',
-    'notnull' => false,
-    'default' => '0',
-    'primary' => false,
-    'autoinc' => false,
-  ),
-  'diy_sfzc' => 
-  array (
-    'name' => 'diy_sfzc',
-    'type' => 'enum(\'可注册\',\'不可注册\',\'暂无数据\')',
-    'notnull' => false,
-    'default' => '可注册',
-    'primary' => false,
-    'autoinc' => false,
-  ),
-  'diy_xgfy' => 
-  array (
-    'name' => 'diy_xgfy',
+    'name' => 'sfbhwyf',
     'type' => 'varchar(200)',
     'notnull' => false,
     'default' => '',
