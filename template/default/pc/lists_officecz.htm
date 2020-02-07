@@ -174,7 +174,9 @@
         <a href="{$field.url}" class="sale_btn ">我要出售</a> 
         {$field.hidden}
         {/eju:user}
-        <a href="#" class="sale_btn ">企业选址</a> 
+        {eju:type typeid='34'}
+        <a href="{$field.typeurl}" class="sale_btn ">企业选址</a> 
+        {/eju:type}
         <!-- 推荐楼盘 S -->
         <div class="rcmd_build mt_25">
           <div class="title">
