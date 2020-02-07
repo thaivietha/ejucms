@@ -61,7 +61,7 @@
                   <td>当前版本</td>
                   <td>
                     {$sys_info.curent_version|default='v1.0.0'}
-                    {notempty name="$is_eyou_authortoken"}
+                    {notempty name="$is_think_business"}
                     <a href="http://www.ejucms.com/shengjihuizong/" target="_blank" style="padding-left: 15px;">更新日志</a>
                     {/notempty}
                  </td>
@@ -72,7 +72,7 @@
                 </tr>
                 <tr>
                   <td>商用许可</td>
-                  {notempty name="$is_eyou_authortoken"}
+                  {notempty name="$is_think_business"}
                   <td style="padding-bottom: 0;">
                     <div class="layui-btn-container">
                       <a href="http://www.ejucms.com/baojiafuwu/" target="_blank" class="layui-btn layui-btn-danger layui-btn layui-btn-sm">购买授权</a>

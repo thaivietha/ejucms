@@ -66,9 +66,9 @@
                                     <td class="gray_bg">程序名称：</td>
                                     <td>{$sys_info.web_name|default='Ejucms企业网站管理系统'}</td>
                                     <td class="gray_bg">版权所有：</td>
-                                    <td>{notempty name="$is_eyou_authortoken"}盗版必究{else /}正版软件{/notempty}</td>
+                                    <td>{notempty name="$is_think_business"}盗版必究{else /}正版软件{/notempty}</td>
                                 </tr>
-                                {notempty name="$is_eyou_authortoken"}
+                                {notempty name="$is_think_business"}
                                 <tr>
                                     <td class="gray_bg">更新日志：</td>
                                     <td><a href="http://www.ejucms.com/shengjihuizong/" target="_blank">查看</a></td>

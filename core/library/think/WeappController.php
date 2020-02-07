@@ -133,9 +133,9 @@ class WeappController
     protected function _initialize()
     {
         /*---------*/
-        $is_eyou_authortoken = session('web_is_authortoken');
-        $is_eyou_authortoken = !empty($is_eyou_authortoken) ? $is_eyou_authortoken : 0;
-        $this->assign('is_eyou_authortoken', $is_eyou_authortoken);
+        $is_think_business = session('is_think_business');
+        $is_think_business = !empty($is_think_business) ? $is_think_business : 0;
+        $this->assign('is_think_business', $is_think_business);
         /*--end*/
     }
 

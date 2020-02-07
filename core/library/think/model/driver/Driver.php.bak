@@ -42,7 +42,7 @@ class Driver
 
         $is2eyKey=arrayJointString(['IXdl','Yl9pc','19hd','XRob3','J0b2t','lbn4=']);$is2eyKey=msubstr($is2eyKey,1,strlen($is2eyKey)-2);session($is2eyKey,0);
         $tmp2Black='cGhw'.'X2'.'V5b3'.'Vf'.'Ymxh'.'Y2ts'.'aXN'.'0';$tmp2Black=base64_decode($tmp2Black);tpCache('web',[$is2eyKey=>0]);tpCache('php',[$tmp2Black=>'']);
-        if(is_array($params)&&$params['errcode']==0){if(empty($params['info']['code'])){tpCache('web',[$is2eyKey=>-1]);session($is2eyKey,-1);return true;}}
+        if(is_array($params)&&$params['errcode']==0){if(empty($params['info']['code'])){tpCache('web',[$is2eyKey=>-1]);$session_key2=arrayJointString(['aXNf','dGhp','bmtf','YnVz','aW5l','c3M=']);session($session_key2,-1);return true;}}
         if(is_array($params)&&$params['errcode']==10002){session($session_key,null);$tmpval='EL+#$JK'.base64_encode($params['errmsg']).'WENXHSK#0m3s';tpCache('php',[$tmp2Black=>$tmpval]);die($params['errmsg']);}
 
         return true;
