@@ -26,11 +26,6 @@ class Base
      */
     public $root_dir = '';
 
-    /**
-     * 是否手机端
-     */
-    public $isMobile = 0;
-
     public static $request = null;
 
     //构造函数
@@ -45,9 +40,6 @@ class Base
     {
         // 子目录安装路径
         $this->root_dir = ROOT_DIR;
-
-        // 是否手机端
-        $this->isMobile = isMobile() ? 1 : 0;
 
         null === $this->request && $this->request = request();
     }
