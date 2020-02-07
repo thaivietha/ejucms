@@ -184,195 +184,6 @@ class Minipro extends Model
     }
 
     /**
-     * 文档列表
-     * @param string $param 查询条件的数组
-     * @param int $page 页码
-     * @param int $pagesize 每页记录数
-     */
-    public function getArchivesList($param = array(), $page = 1, $pagesize = null, $field = 'aid,title,litpic,seo_description,add_time')
-    {
-        $param['arcrank'] = isset($param['arcrank']) ? $param['arcrank'] : -1;
-        $pagesize         = empty($pagesize) ? config('paginate.list_rows') : $pagesize;
-        $cacheKey         = "model-" . $this->nid . "-getArchivesList-" . json_encode($param) . "-{$page}-{$pagesize}-{$field}";
-        $result           = cache($cacheKey);
-        if (empty($result)) {
-            $condition = array();
-
-            // 应用搜索条件
-            foreach (['channel', 'typeid', 'flag', 'arcrank', 'keyword'] as $key) {
-
-                if (isset($param[$key]) && ('' !== $param[$key] || null !== $param[$key])) {
-
-                    if ('typeid' == $key) {
-                        if (!empty($param[$key])) {
-                            if (is_string($param[$key]) && stristr($param[$key], ',')) {
-                                // 指定多个栏目ID
-                                $typeid = func_preg_replace(array('，'), ',', $param[$key]);
-                                $typeid = explode(',', $typeid);
-                            } else if (is_string($param[$key]) && !stristr($param[$key], ',')) {
-                                /*当前栏目ID，以及所有子栏目ID*/
-                                $channel_info = Db::name('Arctype')->field('id,current_channel')->where(['id' => ['eq', $param[$key]], 'is_del' => 0])->find();
-                                $childrenRow  = model('Arctype')->getHasChildren($param[$key]);
-                                foreach ($childrenRow as $k2 => $v2) {
-                                    if ($channel_info['current_channel'] != $v2['current_channel']) {
-                                        unset($childrenRow[$k2]); // 排除不是同一模型的栏目
-                                    }
-                                }
-                                $typeid = get_arr_column($childrenRow, 'id');
-                                /*--end*/
-                            }
-                            $condition[$key] = array('IN', $typeid);
-                        }
-                    } else if ('channel' == $key) {
-                        if (!empty($param[$key])) {
-                            if (is_string($param[$key])) {
-                                $channel = func_preg_replace(array('，'), ',', $param[$key]);
-                                $channel = explode(',', $channel);
-                            }
-                            $condition[$key] = array('IN', $channel);
-                        }
-                    } else if ('flag' == $key) {
-                        $tmp_key_arr = array();
-                        $flag_arr    = explode(",", $param[$key]);
-                        foreach ($flag_arr as $k2 => $v2) {
-                            if ($v2 == "c") {
-                                array_push($tmp_key_arr, 'is_recom');
-                            } elseif ($v2 == "h") {
-                                array_push($tmp_key_arr, 'is_head');
-                            } elseif ($v2 == "a") {
-                                array_push($tmp_key_arr, 'is_special');
-                            } elseif ($v2 == "j") {
-                                array_push($tmp_key_arr, 'is_jump');
-                            }
-                        }
-                        $tmp_key_str             = implode('|', $tmp_key_arr);
-                        $condition[$tmp_key_str] = array('eq', 1);
-                    } else if ('arcrank' == $key) {
-                        $condition[$key] = array('gt', $param[$key]);
-                    } else if ('keyword' == $key) {
-                        $condition['title'] = array('like', "%" . $param[$key] . "%");
-                    } else {
-                        $condition[$key] = array('eq', $param[$key]);
-                    }
-                }
-            }
-            $paginate = array(
-                'page' => $page,
-            );
-
-            $pages = Db::name('archives')->field($field)
-                ->where($condition)
-                ->where([
-                    'channel' => ['NEQ', 6],
-                    'is_del'  => 0
-                ])
-                ->order('sort_order asc, aid desc')
-                ->cache(true, EYOUCMS_CACHE_TIME, "minipro")
-                ->paginate($pagesize, false, $paginate);
-
-            $list = array();
-            foreach ($pages->items() as $key => $val) {
-                /*封面图*/
-                if (isset($val['litpic'])) {
-                    if (empty($val['litpic'])) {
-                        $val['is_litpic'] = 0; // 无封面图
-                    } else {
-                        $val['is_litpic'] = 1; // 有封面图
-                    }
-                    $val['litpic'] = get_default_pic($val['litpic'], true); // 默认封面图
-                }
-                /*--end*/
-                if (isset($val['add_time'])) {
-                    $val['add_time'] = date('Y-m-d', $val['add_time']);
-                }
-                array_push($list, $val);
-            }
-
-            $result = array(
-                'conf' => array(
-                    'hasMore' => ($page < $pages->lastPage()) ? 1 : 0,
-                ),
-                'list' => $list,
-            );
-
-            cache($cacheKey, $result, null, 'minipro');
-        }
-
-        return $result;
-    }
-
-    /**
-     * 文档详情
-     * @param int $aid 文档ID
-     */
-    public function getArchivesView($aid = '')
-    {
-        $aid      = intval($aid);
-        $cacheKey = "model-" . $this->nid . "-getArchivesView-{$aid}";
-        $result   = cache($cacheKey);
-        if (empty($result)) {
-            $status = 0;
-            $msg    = 'Request Error!';
-            $row    = array();
-            if (0 < $aid) {
-                $archivesModel = new \app\home\model\Archives;
-                $row           = $archivesModel->getViewInfo($aid, true);
-                $status        = 1;
-                if (0 > $row['status']) {
-                    $msg = '文档尚未审核，非作者本人无权查看';
-                }
-                /*--end*/
-                $row['add_time']    = date('Y-m-d', $row['add_time']); // 格式化发布时间
-                $row['update_time'] = date('Y-m-d', $row['update_time']); // 格式化更新时间
-                $row['content']     = $this->get_httpimgurl($row['content']); // 转换内容图片为http路径
-
-                /* 上一篇 */
-                $preRow = Db::name('archives')->field('a.aid, a.typeid, a.title')
-                    ->alias('a')
-                    ->where([
-                        'a.typeid'  => $row['typeid'],
-                        'a.aid'     => ['lt', $aid],
-                        'a.status'  => 1,
-                        'a.is_del'  => 0,
-                        'a.arcrank' => ['EGT', 0],
-                    ])
-                    ->order('a.aid desc')
-                    ->find();
-
-                /* 下一篇 */
-                $nextRow = Db::name('archives')->field('a.aid, a.typeid, a.title')
-                    ->alias('a')
-                    ->where([
-                        'a.typeid'  => $row['typeid'],
-                        'a.aid'     => ['gt', $aid],
-                        'a.status'  => 1,
-                        'a.is_del'  => 0,
-                        'a.arcrank' => ['EGT', 0],
-                    ])
-                    ->order('a.aid asc')
-                    ->find();
-            }
-
-            $result = array(
-                'conf'    => array(
-                    'status'       => $status,
-                    'msg'          => $msg,
-                    'attrTitle'    => '参数列表',
-                    'contentTitle' => '详情介绍',
-                    'shareTitle'   => $row['title'] . '_' . tpCache('web.web_name'),
-                ),
-                'row'     => $row,
-                'preRow'  => $preRow,
-                'nextRow' => $nextRow,
-            );
-
-            cache($cacheKey, $result, null, 'minipro');
-        }
-
-        return $result;
-    }
-
-    /**
      * 单页栏目详情
      * @param int $typeid 栏目ID
      */
@@ -627,12 +438,12 @@ class Minipro extends Model
      * @param int $page 页码
      * @param int $pagesize 每页记录数
      */
-    public function getArchivesListNew($param = array(), $page = 1, $pagesize = null, $field = 'a.aid,a.title,a.litpic,a.seo_description,a.add_time,a.province_id,a.city_id')
+    public function getArchivesList($param = array(), $page = 1, $pagesize = null, $field = 'a.aid,a.title,a.litpic,a.seo_description,a.add_time,a.province_id,a.city_id')
     {
         $param['arcrank'] = isset($param['arcrank']) ? $param['arcrank'] : -1;
         $pagesize         = empty($pagesize) ? config('paginate.list_rows') : $pagesize;
         $args     = func_get_args();
-        $cacheKey = "api-model-" . $this->nid . "-getArchivesListNew-{$args}";
+        $cacheKey = "api-model-" . $this->nid . "-getArchivesList-{$args}";
         $result   = cache($cacheKey);
         $status   = 1;
         if (true || empty($result)) {
@@ -758,6 +569,7 @@ class Minipro extends Model
                     ->order($order)
 //                ->cache(true, EYOUCMS_CACHE_TIME, "minipro")
                     ->paginate($pagesize, false, $paginate);
+
                 //如果没有数据,就输出推荐
                 if($param['sym']<1){
                     if (count($pages) == 0) {
@@ -770,7 +582,6 @@ class Minipro extends Model
                             ])
                             ->where('arcrank', '>', '-1')
                             ->order('sort_order asc, aid desc')
-//                    ->fetchSql(true)
 //                ->cache(true, EYOUCMS_CACHE_TIME, "minipro")
                             ->paginate($pagesize, false, $paginate);
                     }
@@ -896,11 +707,11 @@ class Minipro extends Model
      * 文档详情
      * @param int $aid 文档ID
      */
-    public function getArchivesViewNew($aid = '')
+    public function getArchivesView($aid = '')
     {
         $aid      = intval($aid);
         $args     = func_get_args();
-        $cacheKey = "api-model-" . $this->nid . "-getArchivesViewNew-{$args}";
+        $cacheKey = "api-model-" . $this->nid . "-getArchivesView-{$args}";
         $result   = cache($cacheKey);
         if (true || empty($result)) {
 //            $status = 0;
@@ -915,7 +726,16 @@ class Minipro extends Model
                         ->find($aid);
                     $row['ejucms_huxing']      = Db::name('xinfang_huxing')->where(['aid' => $aid, 'is_del' => 0])->order('sort_order asc')->select();
                     $row['ejucms_huxing_area'] = Db::name('xinfang_huxing')->field('aid,min(huxing_area) as min,max(huxing_area) as max')->where(['aid' => $aid, 'is_del' => 0])->group('aid')->find();
-                    $row['ejucms_photo']       = Db::name('xinfang_photo')->where(['aid' => $aid, 'is_del' => 0])->select();
+                    $row['ejucms_photo']       = Db::name('xinfang_photo')->field('aid,photo_type,count(*) as count')->where(['aid' => $aid, 'is_del' => 0])->group('photo_type')->order('sort_order')->select();
+                    $photos  = Db::name('xinfang_photo')->where(['aid' => $aid, 'is_del' => 0])->select();
+                    foreach ($row['ejucms_photo'] as $key => $value){
+                        foreach ($photos as $k => $v){
+                            if ($value['photo_type'] == $v['photo_type']){
+                                $v['photo_pic'] = get_default_pic($v['photo_pic'], true);
+                                $row['ejucms_photo'][$key]['photo'][] = $v;
+                            }
+                        }
+                    }
                     //相关推荐
                     $relatedRow = $this->getRecomList($channel);
                 } elseif ($channel == 11) {
@@ -1009,6 +829,10 @@ class Minipro extends Model
                     if (!empty($row['ejucms_saleman']['saleman_pic'])) {
                         $row['ejucms_saleman']['saleman_pic'] = get_default_pic($row['ejucms_saleman']['saleman_pic'], true);
                     }
+                }
+                //价格有效期
+                if (!empty($row['price_time'])) {
+                    $row['price_time'] = date('Y-m-d', $row['price_time']);
                 }
                 //开盘时间
                 if (!empty($row['opening_time'])) {
@@ -1225,6 +1049,13 @@ class Minipro extends Model
         return $result;
     }
 
+    /**
+     * 收客信息
+     * @param $param
+     * @return array
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
+     */
     public function getPhone($param)
     {
         //查重
@@ -1241,6 +1072,7 @@ class Minipro extends Model
                 'type'=>$param['type'],
                 'aid'=>$param['aid']])
                 ->update([
+                    'mobile'=>$param['mobile'],
                     'ip'=>$param['ip'],
                     'update_time'=>$param['update_time']
                 ]);
@@ -1249,6 +1081,7 @@ class Minipro extends Model
             $data = Db::name('minipro_info')->insert($param);
         }
         if($data){
+            $this->send_email($param);
             $result = array(
                 'conf'      => array(
                     'status' => 1,
@@ -1259,4 +1092,33 @@ class Minipro extends Model
         }
     }
 
+    /**
+     * 邮箱发送
+     */
+    public function send_email($param=[])
+    {
+        // 超时后，断掉邮件发送
+        function_exists('set_time_limit') && set_time_limit(10);
+
+            $send_email_scene = config('send_email_scene');
+            $scene = $send_email_scene[1]['scene'];
+            $web_name = tpCache('web.web_name');
+            $web_name = $web_name.'-收客通知';
+            $html = '';
+            if ($param['type']==1){
+                $html = "<p style='text-align: left;'>类型:降价通知</p>";
+            }elseif ($param['type']==2){
+                $html = "<p style='text-align: left;'>类型:开盘通知</p>";
+            }
+            $html .= "<p style='text-align: left;'>楼盘名称:".$param['title']."</p>";
+            $html .= "<p style='text-align: left;'>客户联系方式:".$param['mobile']."</p>";
+            $html .= "<p style='text-align: left;'>来源:网站后台>小程序管理>收客列表 </p>";
+            // 发送邮件
+            $to = tpCache('smtp.smtp_from_eamil');
+            $res = '';
+            if ($to){
+                $res = send_email($to,$web_name,$html, $scene);
+            }
+            return $res;
+    }
 }

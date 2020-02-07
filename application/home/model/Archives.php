@@ -53,6 +53,7 @@ class Archives extends Model
                 $articleModel = new \app\home\model\Article();
                 $rowExt = $articleModel->getInfo($aid);
             }
+
             $rowExt = $this->fieldLogic->getChannelFieldList($rowExt, $row['channel']); // 自定义字段的数据格式处理
             /*--end*/
 

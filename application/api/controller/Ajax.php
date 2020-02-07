@@ -476,8 +476,5 @@ class Ajax extends Base
         }
         $this->error('访问错误');
     }
-    /*
-     * 获取小区ajax列表
-     */
 
 }

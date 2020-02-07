@@ -72,7 +72,6 @@ class Minipro extends Base
             ->where($whereCate)
             ->group('a.current_channel')
             ->order('b.sort_order asc')
-//            ->fetchSql(true)
             ->select();
         /*--end*/
 
@@ -113,6 +112,10 @@ class Minipro extends Base
         exit(json_encode($data));
     }
 
+    /**
+     * 获取地区
+     * @param string $channel
+     */
     public function region($channel = '')
     {
         $data = $this->modelObj->getRegion($channel);
@@ -155,8 +158,7 @@ class Minipro extends Base
             $map['sym'] = 1;
         }
 
-        $data = $this->modelObj->getArchivesListNew($map, $page, $num);
-//        $data = $this->modelObj->getArchivesList($map, $page);
+        $data = $this->modelObj->getArchivesList($map, $page, $num);
         /*--end*/
         exit(json_encode($data));
     }
@@ -166,8 +168,7 @@ class Minipro extends Base
      */
     public function view($aid)
     {
-//        $data = $this->modelObj->getArchivesView($aid);
-        $data = $this->modelObj->getArchivesViewNew($aid);
+        $data = $this->modelObj->getArchivesView($aid);
 
         exit(json_encode($data));
     }
@@ -268,8 +269,6 @@ class Minipro extends Base
                     exit(json_encode($errCode));
                 }
             }
-//        $data = $this->modelObj->getPhone($post);
-//        exit(json_encode($data));
         }
     }
 }

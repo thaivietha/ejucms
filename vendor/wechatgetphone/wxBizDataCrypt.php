@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ¶ÔÎ¢ÐÅÐ¡³ÌÐòÓÃ»§¼ÓÃÜÊý¾ÝµÄ½âÃÜÊ¾Àý´úÂë.
+ * å¯¹å¾®ä¿¡å°ç¨‹åºç”¨æˆ·åŠ å¯†æ•°æ®çš„è§£å¯†ç¤ºä¾‹ä»£ç .
  *
  * @copyright Copyright (c) 1998-2014 Tencent Inc.
  */
@@ -13,57 +13,57 @@ include_once "errorCode.php";
 class WXBizDataCrypt
 {
     private $appid;
-    private $sessionKey;
+	private $sessionKey;
 
-    /**
-     * ¹¹Ôìº¯Êý
-     * @param $sessionKey string ÓÃ»§ÔÚÐ¡³ÌÐòµÇÂ¼ºó»ñÈ¡µÄ»á»°ÃÜÔ¿
-     * @param $appid string Ð¡³ÌÐòµÄappid
-     */
-    public function __construct( $appid, $sessionKey)
-    {
-        $this->sessionKey = $sessionKey;
-        $this->appid = $appid;
-    }
+	/**
+	 * æž„é€ å‡½æ•°
+	 * @param $sessionKey string ç”¨æˆ·åœ¨å°ç¨‹åºç™»å½•åŽèŽ·å–çš„ä¼šè¯å¯†é’¥
+	 * @param $appid string å°ç¨‹åºçš„appid
+	 */
+	public function __construct( $appid, $sessionKey)
+	{
+		$this->sessionKey = $sessionKey;
+		$this->appid = $appid;
+	}
 
 
-    /**
-     * ¼ìÑéÊý¾ÝµÄÕæÊµÐÔ£¬²¢ÇÒ»ñÈ¡½âÃÜºóµÄÃ÷ÎÄ.
-     * @param $encryptedData string ¼ÓÃÜµÄÓÃ»§Êý¾Ý
-     * @param $iv string ÓëÓÃ»§Êý¾ÝÒ»Í¬·µ»ØµÄ³õÊ¼ÏòÁ¿
-     * @param $data string ½âÃÜºóµÄÔ­ÎÄ
+	/**
+	 * æ£€éªŒæ•°æ®çš„çœŸå®žæ€§ï¼Œå¹¶ä¸”èŽ·å–è§£å¯†åŽçš„æ˜Žæ–‡.
+	 * @param $encryptedData string åŠ å¯†çš„ç”¨æˆ·æ•°æ®
+	 * @param $iv string ä¸Žç”¨æˆ·æ•°æ®ä¸€åŒè¿”å›žçš„åˆå§‹å‘é‡
+	 * @param $data string è§£å¯†åŽçš„åŽŸæ–‡
      *
-     * @return int ³É¹¦0£¬Ê§°Ü·µ»Ø¶ÔÓ¦µÄ´íÎóÂë
-     */
-    public function decryptData( $encryptedData, $iv, &$data )
-    {
-        if (strlen($this->sessionKey) != 24) {
-            return ErrorCode::$IllegalAesKey;
-        }
-        $aesKey=base64_decode($this->sessionKey);
+	 * @return int æˆåŠŸ0ï¼Œå¤±è´¥è¿”å›žå¯¹åº”çš„é”™è¯¯ç 
+	 */
+	public function decryptData( $encryptedData, $iv, &$data )
+	{
+		if (strlen($this->sessionKey) != 24) {
+			return ErrorCode::$IllegalAesKey;
+		}
+		$aesKey=base64_decode($this->sessionKey);
 
+        
+		if (strlen($iv) != 24) {
+			return ErrorCode::$IllegalIv;
+		}
+		$aesIV=base64_decode($iv);
 
-        if (strlen($iv) != 24) {
-            return ErrorCode::$IllegalIv;
-        }
-        $aesIV=base64_decode($iv);
+		$aesCipher=base64_decode($encryptedData);
 
-        $aesCipher=base64_decode($encryptedData);
+		$result=openssl_decrypt( $aesCipher, "AES-128-CBC", $aesKey, 1, $aesIV);
 
-        $result=openssl_decrypt( $aesCipher, "AES-128-CBC", $aesKey, 1, $aesIV);
-
-        $dataObj=json_decode( $result );
-        if( $dataObj  == NULL )
-        {
-            return ErrorCode::$IllegalBuffer;
-        }
-        if( $dataObj->watermark->appid != $this->appid )
-        {
-            return ErrorCode::$IllegalBuffer;
-        }
-        $data = $result;
-        return ErrorCode::$OK;
-    }
+		$dataObj=json_decode( $result );
+		if( $dataObj  == NULL )
+		{
+			return ErrorCode::$IllegalBuffer;
+		}
+		if( $dataObj->watermark->appid != $this->appid )
+		{
+			return ErrorCode::$IllegalBuffer;
+		}
+		$data = $result;
+		return ErrorCode::$OK;
+	}
 
 }
 
