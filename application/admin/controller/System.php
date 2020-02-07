@@ -868,24 +868,33 @@ class System extends Base
                     }
                     break;
                 
-                case 'navigation':
+                case 'navig':
                     {
 $position_id = input('post.position_id/d');
 $msg = <<<EOF
 <div style="color:red"> 
-导航标签调用方法
-<br/>
 复制下方代码在需要放置导航的模板文件里进行粘贴
 </div>
 <br/>
-<div id='ShopOpenCode'>
-{eju:navigation position_id='{$position_id}' id="navig"} <br/>
-{$space}&lt;li&gt;<br/>
-{$space}{$space}&lt;img src="{\$navig.navig_pic}" style="width: 40px; height: 40px;"><br/>
-{$space}{$space}&lt;a href="{\$navig.navig_url}" {\$navig.target} {\$navig.nofollow}>{\$navig.navig_name}&lt;/a&gt;<br/>
-{$space}&lt;/li&gt;<br/>
-{/eju:navigation}
-</div>
+【一级导航标签写法：】<br/>
+{eju:navig position_id='{$position_id}' type='top' currentstyle="active" id="field"} <br/>
+&lt;li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="{\$field.navig_pic}" width="40" height="40"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="{\$field.navig_url}" {\$field.target} {\$field.nofollow}>{\$field.navig_name}&lt;/a&gt;<br/>
+&lt;/li&gt;<br/>
+{/eju:navig}
+<br/><br/>
+【二级导航标签写法：】<br/>
+{eju:navig position_id='{$position_id}' type='top' currentstyle="active" id="field"} <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="{\$field.navig_url}" class='{\$field.currentstyle}' {\$field.target} {\$field.nofollow}>{\$field.navig_name}&lt;/a&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{eju:notempty name="\$field.children"}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{eju:navig name="\$field.children" id="field2"}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li class='{\$field2.currentstyle}'&gt;&lt;a href="{\$field2.navig_url}" {\$field2.target} {\$field2.nofollow}>{\$field2.navig_name}&lt;/a&gt;&lt;/li&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{/eju:navig}<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;{/eju:notempty}<br/>
+{/eju:navig}
 EOF;
                     }
                     break;

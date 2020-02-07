@@ -64,8 +64,9 @@ class TagNavig extends Base
      * @param boolean $self 包括自己本身
      * @author wengxianhu by 2018-4-26
      */
-    public function getNavig($position_id = '', $navigid = '', $type = 'top', $currentstyle = '', $notnavigid = '')
+    public function getNavig($position_id = '', $navigid = '', $type = '', $currentstyle = '', $notnavigid = '')
     {
+        $type = !empty($type) ? $type : 'top';
         $this->currentstyle = $currentstyle;
         $this->position_id = intval($position_id);
         $navigid  = !empty($navigid) ? $navigid : $this->navigid;

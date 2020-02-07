@@ -20,7 +20,7 @@
                             <div class="layui-form-item" style="margin-top: -10px;">
                                 <div class="fl">
                                     <a data-url="{:url('Navigation/add', array('position_id'=>$position_id))}" class="layui-btn navigation_add" style="border-color:#3db9b2; color: #fff; padding: 0 15px;height: 35px;line-height: 35px;border-radius: 2px;" data-title="新增顶级菜单">新增顶级菜单</a>
-                                    <a class="layui-btn btn-primary" onclick="tag_call('navigation', '{$position_id}');" style="border-color:#fff; color: #333; padding: 0 15px;height: 35px;line-height: 35px;border-radius: 2px; border-color: #e6e6e6;" data-title="标签调用">标签调用</a>
+                                    <a class="layui-btn btn-primary" onclick="tag_call('navig', '{$position_id}');" style="border-color:#fff; color: #333; padding: 0 15px;height: 35px;line-height: 35px;border-radius: 2px; border-color: #e6e6e6;" data-title="标签调用">标签调用</a>
                                 </div>
                             </div>
                         </div>
@@ -242,7 +242,7 @@
                     var confirm = layer.confirm(res.data.msg, {
                         title: false,
                         closeBtn : 0,
-                        area: ['50%','50%'],
+                        area: ['60%','650px'],
                         btn: ['关闭']
                     }, function (){
                         layer.close(confirm);

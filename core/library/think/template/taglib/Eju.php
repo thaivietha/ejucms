@@ -3039,7 +3039,7 @@ class Eju extends Taglib
         $notnavigid  = $this->varOrvalue($notnavigid);
 
         $name   = !empty($tag['name']) ? $tag['name'] : '';
-        $type   = !empty($tag['type']) ? $tag['type'] : 'son';
+        $type   = !empty($tag['type']) ? $tag['type'] : '';
         $currentstyle   = !empty($tag['currentstyle']) ? $tag['currentstyle'] : '';
         $id     = isset($tag['id']) ? $tag['id'] : 'field';
         $key    = !empty($tag['key']) ? $tag['key'] : 'i';
@@ -3048,7 +3048,7 @@ class Eju extends Taglib
         $mod    = !empty($tag['mod']) && is_numeric($tag['mod']) ? $tag['mod'] : '2';
         $titlelen = !empty($tag['titlelen']) && is_numeric($tag['titlelen']) ? intval($tag['titlelen']) : 100;
         $offset = !empty($tag['offset']) && is_numeric($tag['offset']) ? intval($tag['offset']) : 0;
-        $row = !empty($tag['row']) && is_numeric($tag['row']) ? intval($tag['row']) : 10;
+        $row = !empty($tag['row']) && is_numeric($tag['row']) ? intval($tag['row']) : 100;
         if (!empty($tag['limit'])) {
             $limitArr = explode(',', $tag['limit']);
             $offset = !empty($limitArr[0]) ? intval($limitArr[0]) : 0;
