@@ -179,6 +179,10 @@
     float: left;
     margin-left: 0;
 }
+.agentInfoMain ul li ul li.xq{
+    float: left;
+	margin-right: 10px;
+}
 .agentInfoMain ul li ul li a{
     color: #0f6ac8;
 }
