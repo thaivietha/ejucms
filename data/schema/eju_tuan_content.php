@@ -84,9 +84,9 @@ return array (
   'price' => 
   array (
     'name' => 'price',
-    'type' => 'decimal(10,2)',
+    'type' => 'int(10) unsigned',
     'notnull' => false,
-    'default' => '0.00',
+    'default' => '0',
     'primary' => false,
     'autoinc' => false,
   ),

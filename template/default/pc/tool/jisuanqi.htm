@@ -1,0 +1,887 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$eju.field.seo_title}</title>
+    <meta name="description" content="{$eju.field.seo_description}" />
+    <meta name="keywords" content="{$eju.field.seo_keywords}" />
+    <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+    <script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+</head>
+<body>
+<!-- topBar S -->
+{eju:include file="header.htm"/}
+<!-- topBar E -->
+
+<link rel="stylesheet" href="{eju:global name='web_templets_pc' /}/skin/css/calculator.css">
+<div style="background-color: #fff;">
+    <div class="comWidth">
+        <!-- 页面标识 S-->
+        <div class="page_tit"> <a href="javascript:;" rel="nofollow">您的位置：</a>{eju:position style="" /} </div>
+    </div>
+</div>
+<div class="calculator">
+    <div class="fix-width calculator">
+        <h5><span>贷款计算器</span></h5>
+        <div class="dll_calculator w">
+            <div class="dll_calculatorcont clearfix" id="J_Calculator_Wrap" style="">
+                <ul class="dll_calculatorul" id="J_Calculator_Nav">
+                    <li class="cur"> <i class="iconfont">&#xe688;</i> <span class="ctit">贷款计算器</span> </li>
+                    <li class=""> <i class="iconfont">&#xe64b;</i> <span class="ctit">税费计算器</span> </li>
+                    <li class=""> <i class="iconfont">&#xe60a;</i> <span class="ctit">公积金额度计算</span> </li>
+                    <li class=""> <i class="iconfont">&#xe60b;</i> <span class="ctit">提前还款计算器</span> </li>
+                </ul>
+                <div id="J_Calculator_Con">
+                    <div id="loan_calculate_wrap" style="display: block;">
+                        <div class="dll_calculatelistwrap">
+                            <ul class="dll_calculatelist">
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">还款方式</label>
+                                    <div class="inputboxlist clearfix">
+                                        <!-- 加类名current显示下拉框 -->
+                                        <div class="loantype "> <span id="refund_type" data-val="1" class="loantit">等额本息</span> <i class="icon06"></i>
+                                            <ul class="typelist">
+                                                <li data-val="1">等额本息</li>
+                                                <li data-val="2">等额本金</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">贷款类别</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span id="loan_type" data-val="1" class="loantit">商贷</span> <i class="icon06"></i>
+                                            <ul class="typelist">
+                                                <li data-val="1">商贷</li>
+                                                <li data-val="2">公积金</li>
+                                                <li data-val="3">组合贷</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" id="LJ_calculation_type">
+                                    <label for="" class="labeltext">计算方式</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span id="loan_totalprice_type" data-val="1" class="loantit">根据贷款总额</span> <i class="icon06"></i>
+                                            <ul class="typelist">
+                                                <li data-val="1">根据贷款总额</li>
+                                                <li data-val="2">根据单价和面积</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" id="single_price_wrap" style="display: none;">
+                                    <label for="" class="labeltext">单　价</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" placeholder="请输入单价">
+                                            <span class="loanunit">元/m²</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" id="area_size_wrap" style="display: none;">
+                                    <label for="" class="labeltext">面　积</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" placeholder="请输入平米数">
+                                            <span class="loanunit">m²</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" id="total_price_wrap">
+                                    <label for="" class="labeltext">总　价</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" placeholder="请输入总价">
+                                            <span class="loanunit">万元</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" id="LJ_zuhe_shangyexing" style="display:none;">
+                                    <label for="" class="labeltext">商业性</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" placeholder="">
+                                            <span class="loanunit">元</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" id="LJ_zuhe_gongjijin" style="display:none;">
+                                    <label for="" class="labeltext">公积金</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" placeholder="">
+                                            <span class="loanunit">元</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" id="LJ_mortgage_type_wrap" style="display:none;">
+                                    <label for="" class="labeltext">按揭成数</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span id="mortgage_type" data-val="0.9" class="loantit">9成</span> <i class="icon06"></i>
+                                            <ul class="typelist" style="height: 200px;overflow: auto;">
+                                                <li data-val="0.1">1成</li>
+                                                <li data-val="0.2">2成</li>
+                                                <li data-val="0.3">3成</li>
+                                                <li data-val="0.4">4成</li>
+                                                <li data-val="0.5">5成</li>
+                                                <li data-val="0.6">6成</li>
+                                                <li data-val="0.7">7成</li>
+                                                <li data-val="0.8">8成</li>
+                                                <li data-val="0.9">9成</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">按揭年数</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span id="mortgage_month" data-val="240" class="loantit">20年（240期）</span> <i class="icon06"></i>
+                                            <ul class="typelist" style="height: 200px;overflow: auto;">
+                                                <li data-val="360">30年(360个月)</li>
+                                                <li data-val="348">29年(348个月)</li>
+                                                <li data-val="336">28年(336个月)</li>
+                                                <li data-val="324">27年(324个月)</li>
+                                                <li data-val="312">26年(312个月)</li>
+                                                <li data-val="300">25年(300个月)</li>
+                                                <li data-val="288">24年(288个月)</li>
+                                                <li data-val="264">22年(264个月)</li>
+                                                <li data-val="252">21年(252个月)</li>
+                                                <li data-val="240">20年(240个月)</li>
+                                                <li data-val="228">19年(228个月)</li>
+                                                <li data-val="216">18年(216个月)</li>
+                                                <li data-val="204">17年(204个月)</li>
+                                                <li data-val="192">16年(192个月)</li>
+                                                <li data-val="180">15年(180个月)</li>
+                                                <li data-val="168">14年(168个月)</li>
+                                                <li data-val="156">13年(156个月)</li>
+                                                <li data-val="144">12年(144个月)</li>
+                                                <li data-val="132">11年(132个月)</li>
+                                                <li data-val="120">10年(120个月)</li>
+                                                <li data-val="108">9年(108个月)</li>
+                                                <li data-val="96">8年(96个月)</li>
+                                                <li data-val="84">7年(84个月)</li>
+                                                <li data-val="72">6年(72个月)</li>
+                                                <li data-val="60">5年(60个月)</li>
+                                                <li data-val="48">4年(48个月)</li>
+                                                <li data-val="36">3年(36个月)</li>
+                                                <li data-val="24">2年(24个月)</li>
+                                                <li data-val="12">1年(12个月)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">利　率</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span id="interest_rate" data-val="1" class="loantit">15年10月24日利率基准</span> <i class="icon06"></i>
+                                            <ul class="typelist" id="LJ_interests_list" style="height:200px;overflow:auto;">
+                                                <li data-val="0">自定义利率</li>
+                                                <li data-val="1">15年10月24日利率基准</li>
+                                                <li data-val="2">15年10月24日利率上限(1.1倍)</li>
+                                                <li data-val="3">15年10月24日利率下限(95折)</li>
+                                                <li data-val="4">15年10月24日利率下限(9折)</li>
+                                                <li data-val="5">15年10月24日利率下限(85折)</li>
+                                                <li data-val="6">15年10月24日利率下限(8折)</li>
+                                                <li data-val="7">15年10月24日利率下限(7折)</li>
+                                                <li data-val="8">15年08月26日利率上限(1.1倍)</li>
+                                                <li data-val="9">15年08月26日利率基准</li>
+                                                <li data-val="10">15年08月26日利率下限(85折)</li>
+                                                <li data-val="11">15年08月26日利率下限(7折)</li>
+                                                <li data-val="12">15年06月28日利率上限(1.1倍)</li>
+                                                <li data-val="13">15年06月28日利率基准</li>
+                                                <li data-val="14">15年06月28日利率下限(85折)</li>
+                                                <li data-val="15">15年06月28日利率下限(7折)</li>
+                                                <li data-val="16">15年05月11日利率上限(1.1倍)</li>
+                                                <li data-val="17">15年05月11日利率基准</li>
+                                                <li data-val="18">15年05月11日利率下限(85折)</li>
+                                                <li data-val="19">15年05月11日利率下限(7折)</li>
+                                                <li data-val="20">15年02月28日利率上限(1.1倍)</li>
+                                                <li data-val="21">15年02月28日利率基准</li>
+                                                <li data-val="22">15年02月28日利率下限(85折)</li>
+                                                <li data-val="23">15年02月28日利率下限(7折)</li>
+                                                <li data-val="24">14年11月22日利率上限(1.1倍)</li>
+                                                <li data-val="25">14年11月22日利率基准</li>
+                                                <li data-val="26">14年11月22日利率下限(85折)</li>
+                                                <li data-val="27">14年11月22日利率下限(7折)</li>
+                                                <li data-val="28">12年07月06日新利率上限(1.1倍)</li>
+                                                <li data-val="29">12年07月06日新利率基准</li>
+                                                <li data-val="30">12年07月06日新利率下限(8折)</li>
+                                                <li data-val="31">12年07月06日新利率下限(85折)</li>
+                                                <li data-val="32">12年06月08日新利率上限(1.1倍)</li>
+                                                <li data-val="33">12年06月08日新利率基准</li>
+                                                <li data-val="34">12年06月08日新利率下限(8折)</li>
+                                                <li data-val="35">12年06月08日新利率下限(85折)</li>
+                                                <li data-val="36">11年07月07日新利率上限(1.1倍)</li>
+                                                <li data-val="37">11年07月07日新利率上限(1.05倍)</li>
+                                                <li data-val="38">11年07月07日新利率基准</li>
+                                                <li data-val="39">11年07月07日新利率下限(9折)</li>
+                                                <li data-val="40">11年07月07日新利率下限(85折)</li>
+                                                <li data-val="41">11年07月07日新利率下限(7折)</li>
+                                                <li data-val="42">11年04月06日利率上限(1.1倍)</li>
+                                                <li data-val="43">11年04月06日利率基准</li>
+                                                <li data-val="44">11年04月06日利率下限(85折)</li>
+                                                <li data-val="45">11年02月09日利率上限(1.1倍)</li>
+                                                <li data-val="46">11年02月09日利率基准</li>
+                                                <li data-val="47">11年02月09日利率下限(85折)</li>
+                                                <li data-val="48">10年12月26日利率上限(1.1倍)</li>
+                                                <li data-val="49">10年12月26日利率基准</li>
+                                                <li data-val="50">10年12月26日利率下限(85折)</li>
+                                                <li data-val="51">10年10月20日利率上限(1.1倍)</li>
+                                                <li data-val="52">10年10月20日利率基准</li>
+                                                <li data-val="53">10年10月20日利率下限(85折)</li>
+                                                <li data-val="54">08年12月23日第二套房(1.1倍)</li>
+                                                <li data-val="55">08年12月23日利率基准</li>
+                                                <li data-val="56">08年12月23日利率上限(1.1倍)</li>
+                                                <li data-val="57">08年12月23日利率下限(85折)</li>
+                                                <li data-val="58">08年12月23日利率下限(7折)</li>
+                                                <li data-val="59">08年11月27日第二套房</li>
+                                                <li data-val="60">08年11月27日利率基准</li>
+                                                <li data-val="61">08年11月27日利率上限</li>
+                                                <li data-val="62">08年11月27日利率下限</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" style="width:66%;float:right;" id="LJ_loanType_shangye">
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney w190" style="width:135px;">
+                                            <input type="text" id="LJ_calculate_discount" value="10.0">
+                                            <span class="loanunit" id="LJ_calculate_discount_text">折</span> </div>
+                                        <div class="inputmoney w190" style="width:116px;">
+                                            <input type="text" id="LJ_calculate_loan_interest">
+                                            <span class="loanunit">%</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" style="width:66%;float:right;display:none;" id="LJ_loanType_gongjijin">
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney w190" style="width:135px;border-bottom: 0;height: 20px;">
+                                            <!-- <input type="text" id="LJ_calculate_discount" value="10.0"> -->
+                                            <span class="loanunit">公积金贷款利率</span> </div>
+                                        <div class="inputmoney w190" style="width:135px;">
+                                            <input type="text" id="LJ_calculate_fund_interest">
+                                            <span class="loanunit">%</span> </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="calculatebtn clearfix"> <a href="" class="cbtn" id="loan_calculate_btn">计 算</a> <span class="resetbtn" id="loan_cacel_btn">重置</span> </div>
+                        </div>
+                        <div class="dll_result">
+                            <h3> 月均还款 <br>
+                                <em id="LJ_perMonth_payment">0</em><i>元</i> </h3>
+                            <div class="calculateresult" id="LJ_payment_info">
+                                <ul class="calculatecont">
+                                    <li> <span class="calcutit">房款总额</span> <span class="cmoney"><em id="LJ_loan_total_price">0</em>元</span> </li>
+                                    <li> <span class="calcutit">贷款总额</span> <span class="cmoney"><em id="LJ_loan_total_price_loan">0</em>元</span> </li>
+                                    <li> <span class="calcutit">还款总额</span> <span class="cmoney"><em id="LJ_loan_total_price_huankuan">0</em>元</span> </li>
+                                    <li> <span class="calcutit">支付利息款</span> <span class="cmoney"><em id="LJ_loan_total_price_interest">0</em>元</span> </li>
+                                    <li> <span class="calcutit">首期付款 </span> <span class="cmoney"><em id="LJ_loan_firstPatment">0</em>元</span> </li>
+                                    <li> <span class="calcutit">贷款月数 </span> <span class="cmoney"><em id="LJ_loan_mortgage_month">0</em>月</span> </li>
+                                </ul>
+                                <a href="javascript:void(0);" class="detailbtn" id="LJ_detailBtn_open" style="display:none;" target="_self">查看明细</a> </div>
+                            <div class="calculateresult scrollbar" id="LJ_monthPayemnt" style="display:none;">
+                                <ul class="calculatecont" style="height:250px;overflow-y:auto;">
+                                    <li> <span class="calcutit">第1月</span> <span class="cmoney"><em>0</em>元</span> </li>
+                                </ul>
+                                <!-- <span class="scrollbars">
+                                                    <i class="bar"></i>
+                                                </span> -->
+                                <a href="javascript:void(0);" class="detailbtn" id="LJ_detailBtn_close" target="_self">关闭明细</a> </div>
+                            <p class="prompttext"><i class="iconfont">&#xe60d;</i>以上结果仅供参考，房产计算结果最终以实际交易金为准<br>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="taxes_calculate_wrap" style="display: none">
+                        <div class="dll_calculatelistwrap">
+                            <ul class="dll_calculatelist">
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">单　价</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" id="taxes_single_price" placeholder="请输入单价">
+                                            <span class="loanunit">元/m²</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">面　积</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" id="taxes_area_size" placeholder="请输入平米数">
+                                            <span class="loanunit">m²</span> </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="calculatebtn clearfix"> <a href="" class="cbtn" id="taxes_calculate_btn">计 算</a> <span class="resetbtn" id="taxes_cacel_btn">重置</span> </div>
+                        </div>
+                        <div class="dll_result">
+                            <h3> 税费总计 <br>
+                                <em>0</em><i>元</i> </h3>
+                            <div class="calculateresult">
+                                <ul class="calculatecont">
+                                    <li> <span class="calcutit">房款总额</span> <span class="cmoney"><em>0</em>元</span> </li>
+                                    <li> <span class="calcutit">契税</span> <span class="cmoney"><em>0</em>元</span> </li>
+                                    <li> <span class="calcutit">印花税</span> <span class="cmoney"><em>0</em>元</span> </li>
+                                    <li> <span class="calcutit">公证费</span> <span class="cmoney"><em>0</em>元</span> </li>
+                                    <li> <span class="calcutit">手续费 </span> <span class="cmoney"><em>0</em>元</span> </li>
+                                    <li> <span class="calcutit">维修基金 </span> <span class="cmoney"><em>0</em>元</span> </li>
+                                    <li> <span class="calcutit">其他费用 </span> <span class="cmoney"><em>0</em>元</span> </li>
+                                </ul>
+                            </div>
+                            <p class="prompttext"><i class="iconfont">&#xe60d;</i>以上结果仅供参考，房产计算结果最终以实际交易金为准<br>
+                        </div>
+                    </div>
+                    <div id="fund_calculate_wrap" style="display: none">
+                        <div class="dll_calculatelistwrap">
+                            <ul class="dll_calculatelist">
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">个人月缴存</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" id="personal_deposite" placeholder="请输入存额">
+                                            <span class="loanunit">元</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">缴存比例</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" id="personal_deposite_ratio" placeholder="请输入缴存比例">
+                                            <span class="loanunit">%</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">配偶月缴存</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" id="spouse_deposite" placeholder="请输入存额">
+                                            <span class="loanunit">元</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">缴存比例</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" id="spouse_deposite_ratio" placeholder="请输入缴存比例">
+                                            <span class="loanunit">%</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">房屋估价</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" placeholder="请输入房屋估价" id="LJ_evaluation">
+                                            <span class="loanunit">元</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">贷款申请年限</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="inputmoney">
+                                            <input type="text" id="house_evaluate" placeholder="请输入时间">
+                                            <span class="loanunit">年</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">房屋性质</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span class="loantit" id="house_property" data-val="1">政策型住房</span> <i class="icon06"></i>
+                                            <ul class="typelist">
+                                                <li data-val="1">政策型住房</li>
+                                                <li data-val="2">其他</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">个人信用等级</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span class="loantit" id="credit_level" data-val="1">AAA级</span> <i class="icon06"></i>
+                                            <ul class="typelist">
+                                                <li data-val="1">AAA级</li>
+                                                <li data-val="2">AA级</li>
+                                                <li data-val="3">其他</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="calculatebtn clearfix"> <a href="" class="cbtn" id="fund_calculate_btn">计 算</a> <span class="resetbtn" id="fund_cacel_btn">重置</span> </div>
+                        </div>
+                        <div class="dll_result">
+                            <h3> 最高贷款额度 <br>
+                                <em id="LJ_maxFundMount">0</em><i>元</i> </h3>
+                        </div>
+                    </div>
+                    <div id="refund_calculate_wrap" style="display: none">
+                        <div class="dll_calculatelistwrap">
+                            <ul class="dll_calculatelist">
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">还款类型</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype w164"> <span id="refund_type1" data-val="1" class="loantit">商贷</span> <i class="icon06"></i>
+                                            <ul class="typelist">
+                                                <li data-val="1">商贷</li>
+                                                <li data-val="2">公积金贷</li>
+                                            </ul>
+                                        </div>
+                                        <div class="inputmoney w190">
+                                            <input type="text" id="refund_price" placeholder="请输入数字">
+                                            <span class="loanunit">万元</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">原贷款期限</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span id="refund_deadline" data-val="240" class="loantit">20年（240期）</span> <i class="icon06"></i>
+                                            <ul class="typelist" style="height: 200px;overflow: auto;">
+                                                <li data-val="12">1年(12个月)</li>
+                                                <li data-val="24">2年(24个月)</li>
+                                                <li data-val="36">3年(36个月)</li>
+                                                <li data-val="48">4年(48个月)</li>
+                                                <li data-val="60">5年(60个月)</li>
+                                                <li data-val="72">6年(72个月)</li>
+                                                <li data-val="84">7年(84个月)</li>
+                                                <li data-val="96">8年(96个月)</li>
+                                                <li data-val="108">9年(108个月)</li>
+                                                <li data-val="120">10年(120个月)</li>
+                                                <li data-val="132">11年(132个月)</li>
+                                                <li data-val="144">12年(144个月)</li>
+                                                <li data-val="156">13年(156个月)</li>
+                                                <li data-val="168">14年(168个月)</li>
+                                                <li data-val="180">15年(180个月)</li>
+                                                <li data-val="192">16年(192个月)</li>
+                                                <li data-val="204">17年(204个月)</li>
+                                                <li data-val="216">18年(216个月)</li>
+                                                <li data-val="228">19年(228个月)</li>
+                                                <li data-val="240">20年(240个月)</li>
+                                                <li data-val="252">21年(252个月)</li>
+                                                <li data-val="264">22年(264个月)</li>
+                                                <li data-val="276">23年(276个月)</li>
+                                                <li data-val="288">24年(288个月)</li>
+                                                <li data-val="300">25年(300个月)</li>
+                                                <li data-val="312">26年(312个月)</li>
+                                                <li data-val="324">27年(324个月)</li>
+                                                <li data-val="336">28年(336个月)</li>
+                                                <li data-val="348">29年(348个月)</li>
+                                                <li data-val="360">30年(360个月)</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">利　　率</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span id="refund_interest_rate" data-val="1" class="loantit">15年10月24日利率基准</span> <i class="icon06"></i>
+                                            <ul class="typelist" id="LJ_refund_interests_list" style="height:240px;overflow-y:auto;">
+                                                <li data-val="0">自定义利率</li>
+                                                <li data-val="1">15年10月24日利率基准</li>
+                                                <li data-val="2">15年10月24日利率上限(1.1倍)</li>
+                                                <li data-val="3">15年10月24日利率下限(95折)</li>
+                                                <li data-val="4">15年10月24日利率下限(9折)</li>
+                                                <li data-val="5">15年10月24日利率下限(85折)</li>
+                                                <li data-val="6">15年10月24日利率下限(8折)</li>
+                                                <li data-val="7">15年10月24日利率下限(7折)</li>
+                                                <li data-val="8">15年08月26日利率上限(1.1倍)</li>
+                                                <li data-val="9">15年08月26日利率基准</li>
+                                                <li data-val="10">15年08月26日利率下限(85折)</li>
+                                                <li data-val="11">15年08月26日利率下限(7折)</li>
+                                                <li data-val="12">15年06月28日利率上限(1.1倍)</li>
+                                                <li data-val="13">15年06月28日利率基准</li>
+                                                <li data-val="14">15年06月28日利率下限(85折)</li>
+                                                <li data-val="15">15年06月28日利率下限(7折)</li>
+                                                <li data-val="16">15年05月11日利率上限(1.1倍)</li>
+                                                <li data-val="17">15年05月11日利率基准</li>
+                                                <li data-val="18">15年05月11日利率下限(85折)</li>
+                                                <li data-val="19">15年05月11日利率下限(7折)</li>
+                                                <li data-val="20">15年02月28日利率上限(1.1倍)</li>
+                                                <li data-val="21">15年02月28日利率基准</li>
+                                                <li data-val="22">15年02月28日利率下限(85折)</li>
+                                                <li data-val="23">15年02月28日利率下限(7折)</li>
+                                                <li data-val="24">14年11月22日利率上限(1.1倍)</li>
+                                                <li data-val="25">14年11月22日利率基准</li>
+                                                <li data-val="26">14年11月22日利率下限(85折)</li>
+                                                <li data-val="27">14年11月22日利率下限(7折)</li>
+                                                <li data-val="28">12年07月06日新利率上限(1.1倍)</li>
+                                                <li data-val="29">12年07月06日新利率基准</li>
+                                                <li data-val="30">12年07月06日新利率下限(8折)</li>
+                                                <li data-val="31">12年07月06日新利率下限(85折)</li>
+                                                <li data-val="32">12年06月08日新利率上限(1.1倍)</li>
+                                                <li data-val="33">12年06月08日新利率基准</li>
+                                                <li data-val="34">12年06月08日新利率下限(8折)</li>
+                                                <li data-val="35">12年06月08日新利率下限(85折)</li>
+                                                <li data-val="36">11年07月07日新利率上限(1.1倍)</li>
+                                                <li data-val="37">11年07月07日新利率上限(1.05倍)</li>
+                                                <li data-val="38">11年07月07日新利率基准</li>
+                                                <li data-val="39">11年07月07日新利率下限(9折)</li>
+                                                <li data-val="40">11年07月07日新利率下限(85折)</li>
+                                                <li data-val="41">11年07月07日新利率下限(7折)</li>
+                                                <li data-val="42">11年04月06日利率上限(1.1倍)</li>
+                                                <li data-val="43">11年04月06日利率基准</li>
+                                                <li data-val="44">11年04月06日利率下限(85折)</li>
+                                                <li data-val="45">11年02月09日利率上限(1.1倍)</li>
+                                                <li data-val="46">11年02月09日利率基准</li>
+                                                <li data-val="47">11年02月09日利率下限(85折)</li>
+                                                <li data-val="48">10年12月26日利率上限(1.1倍)</li>
+                                                <li data-val="49">10年12月26日利率基准</li>
+                                                <li data-val="50">10年12月26日利率下限(85折)</li>
+                                                <li data-val="51">10年10月20日利率上限(1.1倍)</li>
+                                                <li data-val="52">10年10月20日利率基准</li>
+                                                <li data-val="53">10年10月20日利率下限(85折)</li>
+                                                <li data-val="54">08年12月23日第二套房(1.1倍)</li>
+                                                <li data-val="55">08年12月23日利率基准</li>
+                                                <li data-val="56">08年12月23日利率上限(1.1倍)</li>
+                                                <li data-val="57">08年12月23日利率下限(85折)</li>
+                                                <li data-val="58">08年12月23日利率下限(7折)</li>
+                                                <li data-val="59">08年11月27日第二套房</li>
+                                                <li data-val="60">08年11月27日利率基准</li>
+                                                <li data-val="61">08年11月27日利率上限</li>
+                                                <li data-val="62">08年11月27日利率下限</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" style="width:100%;float:right;" id="LJ_refundType_shangye">
+                                    <div class="inputboxlist clearfix" style="float:right;">
+                                        <div class="inputmoney w190" style="width:135px;">
+                                            <input type="text" id="LJ_refund_discount" value="10.0">
+                                            <span class="loanunit" id="LJ_refund_discount_text">折</span> </div>
+                                        <div class="inputmoney w190" style="width:135px;">
+                                            <input type="text" id="LJ_refund_loan_interest">
+                                            <span class="loanunit">%</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix" style="width:100%;float:right;display:none;" id="LJ_refundType_gongjijin">
+                                    <div class="inputboxlist clearfix" style="float:right;">
+                                        <div class="inputmoney w190" style="width:135px;border-bottom: 0;height: 20px;">
+                                            <!-- <input type="text" id="LJ_calculate_discount" value="10.0"> -->
+                                            <span class="loanunit">公积金贷款利率</span> </div>
+                                        <div class="inputmoney w190" style="width:135px;">
+                                            <input type="text" id="LJ_refund_fund_interest">
+                                            <span class="loanunit">%</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">首次还款时间</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype w164" id="first_refund_year"> <span id="refund_first_year" data-val="2016" class="loantit">2016</span> <i class="icon06"></i>
+                                            <ul class="typelist" style="height: 200px;overflow: auto;">
+                                                <li data-val="2007">2007</li>
+                                                <li data-val="2008">2008</li>
+                                                <li data-val="2009">2009</li>
+                                                <li data-val="2010">2010</li>
+                                                <li data-val="2011">2011</li>
+                                                <li data-val="2012">2012</li>
+                                                <li data-val="2013">2013</li>
+                                                <li data-val="2014">2014</li>
+                                                <li data-val="2015">2015</li>
+                                                <li data-val="2016">2016</li>
+                                                <li data-val="2017">2017</li>
+                                                <li data-val="2018">2018</li>
+                                                <li data-val="2019">2019</li>
+                                                <li data-val="2020">2020</li>
+                                                <li data-val="2021">2021</li>
+                                                <li data-val="2022">2022</li>
+                                                <li data-val="2023">2023</li>
+                                                <li data-val="2024">2024</li>
+                                                <li data-val="2025">2025</li>
+                                                <li data-val="2026">2026</li>
+                                                <li data-val="2027">2027</li>
+                                                <li data-val="2028">2028</li>
+                                                <li data-val="2029">2029</li>
+                                                <li data-val="2030">2030</li>
+                                                <li data-val="2031">2031</li>
+                                                <li data-val="2032">2032</li>
+                                                <li data-val="2033">2033</li>
+                                                <li data-val="2034">2034</li>
+                                                <li data-val="2035">2035</li>
+                                                <li data-val="2036">2036</li>
+                                                <li data-val="2037">2037</li>
+                                                <li data-val="2038">2038</li>
+                                                <li data-val="2039">2039</li>
+                                                <li data-val="2040">2040</li>
+                                                <li data-val="2041">2041</li>
+                                                <li data-val="2042">2042</li>
+                                                <li data-val="2043">2043</li>
+                                                <li data-val="2044">2044</li>
+                                                <li data-val="2045">2045</li>
+                                                <li data-val="2046">2046</li>
+                                                <li data-val="2047">2047</li>
+                                                <li data-val="2048">2048</li>
+                                                <li data-val="2049">2049</li>
+                                                <li data-val="2050">2050</li>
+                                                <li data-val="2051">2051</li>
+                                                <li data-val="2052">2052</li>
+                                                <li data-val="2053">2053</li>
+                                                <li data-val="2054">2054</li>
+                                                <li data-val="2055">2055</li>
+                                                <li data-val="2056">2056</li>
+                                                <li data-val="2057">2057</li>
+                                                <li data-val="2058">2058</li>
+                                                <li data-val="2059">2059</li>
+                                                <li data-val="2060">2060</li>
+                                                <li data-val="2061">2061</li>
+                                                <li data-val="2062">2062</li>
+                                                <li data-val="2063">2063</li>
+                                                <li data-val="2064">2064</li>
+                                                <li data-val="2065">2065</li>
+                                                <li data-val="2066">2066</li>
+                                                <li data-val="2067">2067</li>
+                                                <li data-val="2068">2068</li>
+                                                <li data-val="2069">2069</li>
+                                            </ul>
+                                        </div>
+                                        <span class="year">年</span>
+                                        <div class="loantype w164"> <span id="refund_first_month" data-val="12" class="loantit">12</span> <i class="icon06"></i>
+                                            <ul class="typelist" style="height: 200px;overflow: auto;">
+                                                <li data-val="1">1</li>
+                                                <li data-val="2">2</li>
+                                                <li data-val="3">3</li>
+                                                <li data-val="4">4</li>
+                                                <li data-val="5">5</li>
+                                                <li data-val="6">6</li>
+                                                <li data-val="7">7</li>
+                                                <li data-val="8">8</li>
+                                                <li data-val="9">9</li>
+                                                <li data-val="10">10</li>
+                                                <li data-val="11">11</li>
+                                                <li data-val="12">12</li>
+                                            </ul>
+                                        </div>
+                                        <span class="month">月</span> </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">提前还款时间</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype w164" id="advance_refund_year"> <span id="refund_ahead_year" data-val="2016" class="loantit">2016</span> <i class="icon06"></i>
+                                            <ul class="typelist" style="height: 200px;overflow: auto;">
+                                                <li data-val="2007">2007</li>
+                                                <li data-val="2008">2008</li>
+                                                <li data-val="2009">2009</li>
+                                                <li data-val="2010">2010</li>
+                                                <li data-val="2011">2011</li>
+                                                <li data-val="2012">2012</li>
+                                                <li data-val="2013">2013</li>
+                                                <li data-val="2014">2014</li>
+                                                <li data-val="2015">2015</li>
+                                                <li data-val="2016">2016</li>
+                                                <li data-val="2017">2017</li>
+                                                <li data-val="2018">2018</li>
+                                                <li data-val="2019">2019</li>
+                                                <li data-val="2020">2020</li>
+                                                <li data-val="2021">2021</li>
+                                                <li data-val="2022">2022</li>
+                                                <li data-val="2023">2023</li>
+                                                <li data-val="2024">2024</li>
+                                                <li data-val="2025">2025</li>
+                                                <li data-val="2026">2026</li>
+                                                <li data-val="2027">2027</li>
+                                                <li data-val="2028">2028</li>
+                                                <li data-val="2029">2029</li>
+                                                <li data-val="2030">2030</li>
+                                                <li data-val="2031">2031</li>
+                                                <li data-val="2032">2032</li>
+                                                <li data-val="2033">2033</li>
+                                                <li data-val="2034">2034</li>
+                                                <li data-val="2035">2035</li>
+                                                <li data-val="2036">2036</li>
+                                                <li data-val="2037">2037</li>
+                                                <li data-val="2038">2038</li>
+                                                <li data-val="2039">2039</li>
+                                                <li data-val="2040">2040</li>
+                                                <li data-val="2041">2041</li>
+                                                <li data-val="2042">2042</li>
+                                                <li data-val="2043">2043</li>
+                                                <li data-val="2044">2044</li>
+                                                <li data-val="2045">2045</li>
+                                                <li data-val="2046">2046</li>
+                                                <li data-val="2047">2047</li>
+                                                <li data-val="2048">2048</li>
+                                                <li data-val="2049">2049</li>
+                                                <li data-val="2050">2050</li>
+                                                <li data-val="2051">2051</li>
+                                                <li data-val="2052">2052</li>
+                                                <li data-val="2053">2053</li>
+                                                <li data-val="2054">2054</li>
+                                                <li data-val="2055">2055</li>
+                                                <li data-val="2056">2056</li>
+                                                <li data-val="2057">2057</li>
+                                                <li data-val="2058">2058</li>
+                                                <li data-val="2059">2059</li>
+                                                <li data-val="2060">2060</li>
+                                                <li data-val="2061">2061</li>
+                                                <li data-val="2062">2062</li>
+                                                <li data-val="2063">2063</li>
+                                                <li data-val="2064">2064</li>
+                                                <li data-val="2065">2065</li>
+                                                <li data-val="2066">2066</li>
+                                                <li data-val="2067">2067</li>
+                                                <li data-val="2068">2068</li>
+                                                <li data-val="2069">2069</li>
+                                            </ul>
+                                        </div>
+                                        <span class="year">年</span>
+                                        <div class="loantype w164"> <span id="refund_ahead_month" data-val="12" class="loantit">12</span> <i class="icon06"></i>
+                                            <ul class="typelist" style="height: 200px;overflow: auto;">
+                                                <li data-val="1">1</li>
+                                                <li data-val="2">2</li>
+                                                <li data-val="3">3</li>
+                                                <li data-val="4">4</li>
+                                                <li data-val="5">5</li>
+                                                <li data-val="6">6</li>
+                                                <li data-val="7">7</li>
+                                                <li data-val="8">8</li>
+                                                <li data-val="9">9</li>
+                                                <li data-val="10">10</li>
+                                                <li data-val="11">11</li>
+                                                <li data-val="12">12</li>
+                                            </ul>
+                                        </div>
+                                        <span class="month">月</span> </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">提前还款方式</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span id="refund_ahead_type" data-val="1" class="loantit">一次性提前还清</span> <i class="icon06"></i>
+                                            <ul class="typelist">
+                                                <li data-val="1">一次性提前还清</li>
+                                                <li data-val="2">部分提前还清</li>
+                                            </ul>
+                                        </div>
+                                        <div class="inputmoney mt20" id="refund_ahead_price_wrap" style="display:none;">
+                                            <input type="text" id="refund_ahead_price" placeholder="请输入数字">
+                                            <span class="loanunit">万元</span> </div>
+                                    </div>
+                                </li>
+                                <li class="clearfix">
+                                    <label for="" class="labeltext">还款类型</label>
+                                    <div class="inputboxlist clearfix">
+                                        <div class="loantype"> <span id="refund_option" data-val="1" class="loantit">缩短还款年限</span> <i class="icon06"></i>
+                                            <ul class="typelist">
+                                                <li data-val="1">缩短还款年限</li>
+                                                <li data-val="2">减少月还款额</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="calculatebtn clearfix"> <a href="" class="cbtn" id="refund_calculate_btn">计 算</a> <span class="resetbtn" id="refund_cacel_btn">重置</span> </div>
+                        </div>
+                        <!-- 加类名newstate显示红色二态 -->
+                        <div class="dll_result newstate">
+                            <h3> 节省利息支出 <br>
+                                <em id="LJ_ahead_jslxzc">0</em><i>元</i> </h3>
+                            <div class="calculateresult">
+                                <ul class="calculatecont">
+                                    <li> <span class="calcutit">原月还款额</span> <span class="cmoney"><em id="LJ_ahead_ykhke">0</em>元</span> </li>
+                                    <li> <span class="calcutit">原最后还款期</span> <span class="cmoney"><em id="LJ_ahead_yzhhkq"></em></span> </li>
+                                    <li> <span class="calcutit">已还款总额</span> <span class="cmoney"><em id="LJ_ahead_yhkze">0</em>元</span> </li>
+                                    <li> <span class="calcutit">已还利息额</span> <span class="cmoney"><em id="LJ_ahead_yhlxe">0</em>元</span> </li>
+                                    <li> <span class="calcutit">该月一次还款额</span> <span class="cmoney"><em id="LJ_ahead_month_gyyihke">0</em>元</span> </li>
+                                    <li> <span class="calcutit">下月起月还款额</span> <span class="cmoney"><em id="LJ_ahead_xyqyhke">0</em>元</span> </li>
+                                    <li> <span class="calcutit">新的最后还款期</span> <span class="cmoney"><em id="LJ_ahead_xdzhhkq"></em></span> </li>
+                                </ul>
+                                <span class="scrollbars"> <i class="bar"></i> </span> </div>
+                            <p class="prompttext"><i class="iconfont">&#xe60d;</i>以上结果仅供参考，房产计算结果最终以实际交易金为准</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="itr_box margin-top20" id="same-estate">
+            <ul class="lbtitle bigtit" id="js_jrtab_ul">
+                <li class="hover" id="js_jrtab_0" data-index="0">猜你喜欢</li>
+                <li id="js_jrtab_1" class="" data-index="1">为您推荐</li>
+            </ul>
+            <div class=" itr_box_con">
+                <div class="huxing_cont" id="js_jrtabi_0" style="">
+                    <ul class="photo_album pt_h200" style="padding-top: 20px; padding-bottom: 10px;" id="divMaylikeUl">
+                        {eju:arclist typeid='1' orderby='rand' limit='0,5' id='field'}
+                        <li style="position:relative;">
+                            <div class="map_comment">
+                                <div class="dh_c_alone_img">
+                                    <p><a href="{$field.arcurl}" target="_blank"> <img class="imgts" alt="{$field.title}" src="{$field.litpic}" border="0" width="220"></a></p>
+                                </div>
+                            </div>
+                            <div class="photo_album_txt f14 text_left"> <span class="photo_album_txt_p"> <a href="{$field.arcurl}" target="_blank" title=""><b>{$field.title}</b></a> </span> <span style="width:222px;">均价：<b class="red01">{eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</b></span> </div>
+                        </li>
+                        {/eju:arclist}
+                    </ul>
+                </div>
+                <!--同价位楼盘-->
+                <div class="huxing_cont " id="js_jrtabi_1" style="display: none;">
+                    <ul id="xfptxq_B23_02" class="photo_album pt_h200" style="padding-top: 20px; padding-bottom: 10px;">
+                        {eju:arclist typeid='1' flag='c' orderby='new' limit='0,5' id='field'}
+                        <li style="position:relative;">
+                            <div class="map_comment">
+                                <div class="dh_c_alone_img">
+                                    <p><a href="{$field.arcurl}" target="_blank"> <img class="imgts" alt="{$field.title}" src="{$field.litpic}" border="0" width="220"></a></p>
+                                </div>
+                            </div>
+                            <div class="photo_album_txt f14 text_left"> <span class="photo_album_txt_p"> <a href="{$field.arcurl}" target="_blank" title=""><b>{$field.title}</b></a> </span> <span style="width:222px;">均价：<b class="red01">{eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</b></span> </div>
+                        </li>
+                        {/eju:arclist}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.superslide.2.1.1.js"></script>
+<script src="{eju:global name='web_templets_pc' /}/skin/js/calculator.js"></script>
+<script>
+    $(function(){
+        $("#J_Calculator_Nav li").on('click',function(){
+            var index = $(this).index();
+            $(this).addClass('cur').siblings().removeClass('cur');
+            $("#J_Calculator_Con").children().eq(index).show().siblings().hide();
+        });
+        jQuery(".excellent-box").slide({titCell:".slide-pages ul",mainCell:".row-lists",autoPage:true,interTime:3500,effect:"left",autoPlay:true,scroll:4,vis:4,trigger:"click"});
+
+    });
+</script>
+{eju:include file="footer.htm"/}
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script>
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script>
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+        $('.follow').on('click',function(){
+            var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+            $.post(url,{house_id:house_id,model:model},function(result){
+                if(result.code == 1)
+                {
+                    layer.msg(result.msg,{icon:1});
+                    if(me.hasClass('on'))
+                    {
+                        me.removeClass('on').text(result.text);
+                    }else{
+                        me.addClass('on').text(result.text);
+                    }
+                }else{
+                    layer.msg(result.msg,{icon:2});
+                }
+            });
+        });
+    });
+    $(function(){
+        $('#js_jrtab_ul li').mouseover(function(){
+            var index = $(this).data('index');
+            $('#js_jrtabi_0,#js_jrtabi_1').hide();
+            $('#js_jrtabi_'+index).show();
+            $('#js_jrtab_ul li').removeClass('hover');
+            $(this).addClass('hover');
+        }).mouseout(function(){
+            var index = $(this).data('index');
+            $('#js_jrtabi_0,#js_jrtabi_1').hide();
+            $('#js_jrtabi_'+index).show();
+            $('#js_jrtab_ul li').removeClass('hover');
+            $(this).addClass('hover');
+        });
+    });
+</script>
+</body>
+</html>

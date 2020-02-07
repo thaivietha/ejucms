@@ -33,7 +33,6 @@ class TagDiyurl extends Base
             case "map":     //新房地图有页面
                 $parseStr = url('home/Map/index');
                 break;
-
             case "maphouselist":    //新房地图列表数据
                 $parseStr = url('home/Map/getHouseLists');
                 break;
@@ -58,6 +57,9 @@ class TagDiyurl extends Base
             case "panorama":    //全景地图
                 $aid = I("param.aid/s", '');
                 $parseStr = url('home/Map/panorama',['aid'=>$aid]);
+                break;
+            case "jisuanqi":    //房贷计算器
+                $parseStr = url('home/Tool/jisuanqi');
                 break;
             default:
                 $parseStr = "";

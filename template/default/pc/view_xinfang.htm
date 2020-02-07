@@ -85,7 +85,7 @@
       <div class="new-house-info">
         <div class="news-house-right-top">
           <div class="house-price"> <span> 均价：</span>{eju:notempty name="$eju.field.average_price"}<em>{$eju.field.average_price}</em>{$eju.field.price_units}{eju:else /}暂无{/eju:notempty}
-            <div class="house-price-tool fr"> <a href="{eju:type typeid='17'}{$field.typeurl}{/eju:type}" title="" target="_blank"><i class="iconfont">&#xe752;</i> 房贷计算器</a> | <a href="javascript:;" class="J_dialog" data-id="12" data-model="house" data-type="5" data-uri="{eju:diyurl type='form'/}"><i class="iconfont">&#xe600;</i> 降价通知</a> </div>
+            <div class="house-price-tool fr"> <a href="{eju:diyurl type='jisuanqi' /}" title="" target="_blank"><i class="iconfont">&#xe752;</i> 房贷计算器</a> | <a href="javascript:;" class="J_dialog" data-id="12" data-model="house" data-type="5" data-uri="{eju:diyurl type='form'/}"><i class="iconfont">&#xe600;</i> 降价通知</a> </div>
           </div>
           <p class="house-price-timeout">价格有效期至：<span>{$eju.field.price_time|myDate='Y-m-d',###}</span></p>
         </div>

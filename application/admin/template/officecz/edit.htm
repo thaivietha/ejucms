@@ -234,6 +234,45 @@
         </div>
         <div class="layui-input-inline layui-input-company">{$addonFieldExtList['property']['dfvalue_unit']}</div>
     </div>
+
+
+        <div class="w-out fl mt15 {empty name="$addonFieldExtList['sfbhwyf']['ifeditable']"}none{/empty}">
+        <label class="layui-form-label">{$addonFieldExtList['sfbhwyf']['title']}</label>
+        <div class="layui-input-inline w-in">
+            <input type="text"  name="addonFieldExt[sfbhwyf]" id="sfbhwyf" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['sfbhwyf']['remark']}"  value="{$addonFieldExtList['sfbhwyf']['dfvalue']}" class="layui-input">
+        </div>
+        <div class="layui-input-inline layui-input-company">{$addonFieldExtList['sfbhwyf']['dfvalue_unit']}</div>
+    </div>
+    <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_qzq']['ifeditable']"}none{/empty}">
+    <label class="layui-form-label">{$addonFieldExtList['diy_qzq']['title']}</label>
+    <div class="layui-input-inline w-in">
+        <input type="text"  name="addonFieldExt[diy_qzq]" id="diy_qzq" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['diy_qzq']['remark']}"  value="{$addonFieldExtList['diy_qzq']['dfvalue']}" class="layui-input">
+    </div>
+    <div class="layui-input-inline layui-input-company">{$addonFieldExtList['diy_qzq']['dfvalue_unit']}</div>
+</div>
+<div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_syl']['ifeditable']"}none{/empty}">
+<label class="layui-form-label">{$addonFieldExtList['diy_syl']['title']}</label>
+<div class="layui-input-inline w-in">
+    <input type="text"  name="addonFieldExt[diy_syl]" id="diy_syl" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['diy_syl']['remark']}"  value="{$addonFieldExtList['diy_syl']['dfvalue']}" class="layui-input">
+</div>
+<div class="layui-input-inline layui-input-company">{$addonFieldExtList['diy_syl']['dfvalue_unit']}</div>
+</div>
+<div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_gws']['ifeditable']"}none{/empty}">
+<label class="layui-form-label">{$addonFieldExtList['diy_gws']['title']}</label>
+<div class="layui-input-inline w-in">
+    <input type="text"  name="addonFieldExt[diy_gws]" id="diy_gws" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['diy_gws']['remark']}"  value="{$addonFieldExtList['diy_gws']['dfvalue']}" class="layui-input">
+</div>
+<div class="layui-input-inline layui-input-company">{$addonFieldExtList['diy_gws']['dfvalue_unit']}</div>
+</div>
+<div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_xgfy']['ifeditable']"}none{/empty}">
+<label class="layui-form-label">{$addonFieldExtList['diy_xgfy']['title']}</label>
+<div class="layui-input-inline w-in">
+    <input type="text"  name="addonFieldExt[diy_xgfy]" id="diy_xgfy" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['diy_xgfy']['remark']}"  value="{$addonFieldExtList['diy_xgfy']['dfvalue']}" class="layui-input">
+</div>
+<div class="layui-input-inline layui-input-company">{$addonFieldExtList['diy_xgfy']['dfvalue_unit']}</div>
+</div>
+
+
     <div class="w-out fl mt15 {empty name="$addonFieldExtList['panoram']['ifeditable']"}none{/empty}">
     <label class="layui-form-label">{$addonFieldExtList['panoram']['title']}</label>
     <div class="layui-input-inline w-in">
@@ -253,6 +292,26 @@
     <div class="layui-card">
         <div class="layui-card-body" pad15 style="padding-top: 0">
             <div class="layui-form" wid100 lay-filter="">
+
+                <div class="layui-form-item {empty name="$addonFieldExtList['diy_xingzhi']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_xingzhi']['title']}</label>
+                    <div class="layui-input-inline w-max2">
+                        {volist name="$addonFieldExtList['diy_xingzhi']['dfvalue']" id="v2"}
+                        <input type="radio" id="addonFieldExt_{$addonFieldExtList['diy_xingzhi']['name']|default=''}" name="addonFieldExt[{$addonFieldExtList['diy_xingzhi']['name']|default=''}]" value="{$v2}" {if condition="isset($addonFieldExtList['diy_xingzhi']['trueValue']) AND in_array($v2, $addonFieldExtList['diy_xingzhi']['trueValue'])"}checked="checked"{/if} title="{$v2}">
+                        {/volist}
+                    </div>
+                </div>
+                <div class="layui-form-item {empty name="$addonFieldExtList['diy_sfzc']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_sfzc']['title']}</label>
+                    <div class="layui-input-inline w-max2">
+                        {volist name="$addonFieldExtList['diy_sfzc']['dfvalue']" id="v2"}
+                        <input type="radio" id="addonFieldExt_{$addonFieldExtList['diy_sfzc']['name']|default=''}" name="addonFieldExt[{$addonFieldExtList['diy_sfzc']['name']|default=''}]" value="{$v2}" {if condition="isset($addonFieldExtList['diy_sfzc']['trueValue']) AND in_array($v2, $addonFieldExtList['diy_sfzc']['trueValue'])"}checked="checked"{/if} title="{$v2}">
+                        {/volist}
+                    </div>
+                </div>
+
+
+
                 <div class="layui-form-item {empty name="$addonFieldExtList['fitment']['ifeditable']"}none{/empty}">
                 <label class="layui-form-label">{$addonFieldExtList['fitment']['title']}</label>
                 <div class="layui-input-inline w-max2">

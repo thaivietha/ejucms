@@ -192,6 +192,88 @@
                         </div>
                         <div class="layui-input-inline layui-input-company">{$addonFieldExtList['property']['dfvalue_unit']}</div>
                 </div>
+
+                <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_miankuan']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_miankuan']['title']}</label>
+                    <div class="layui-input-inline w-in">
+                        <input type="text" name="addonFieldExt[diy_miankuan]" id="diy_miankuan" value="{$addonFieldExtList['diy_miankuan']['dfvalue']}"  placeholder="{$addonFieldExtList['diy_miankuan']['remark']}" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline layui-input-company">
+                        {$addonFieldExtList['diy_miankuan']['dfvalue_unit']}
+                    </div>
+                </div>
+                <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_cenggao']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_cenggao']['title']}</label>
+                    <div class="layui-input-inline w-in">
+                        <input type="text" name="addonFieldExt[diy_cenggao]" id="diy_cenggao" value="{$addonFieldExtList['diy_cenggao']['dfvalue']}"  placeholder="{$addonFieldExtList['diy_cenggao']['remark']}" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline layui-input-company">
+                        {$addonFieldExtList['diy_cenggao']['dfvalue_unit']}
+                    </div>
+                </div>
+                <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_jinshen']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_jinshen']['title']}</label>
+                    <div class="layui-input-inline w-in">
+                        <input type="text" name="addonFieldExt[diy_jinshen]" id="diy_jinshen" value="{$addonFieldExtList['diy_jinshen']['dfvalue']}"  placeholder="{$addonFieldExtList['diy_jinshen']['remark']}" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline layui-input-company">
+                        {$addonFieldExtList['diy_jinshen']['dfvalue_unit']}
+                    </div>
+                </div>
+                <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_jyzt']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_jyzt']['title']}</label>
+                    <div class="layui-input-inline w-in">
+                        <select name="addonFieldExt[diy_jyzt]" id="diy_jyzt">
+                            {volist name="$addonFieldExtList.diy_jyzt.dfvalue" id="v2"}
+                            <option value="{$v2}" {if condition="isset($vo['trueValue']) AND in_array($v2, $vo['trueValue'])"}selected{/if}>{$v2}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                    <div class="layui-input-inline layui-input-company">
+                        {$addonFieldExtList['diy_jyzt']['dfvalue_unit']}
+                    </div>
+                </div>
+                <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_yqsy']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_yqsy']['title']}</label>
+                    <div class="layui-input-inline w-in">
+                        <input type="text" name="addonFieldExt[diy_yqsy]" id="diy_yqsy" value="{$addonFieldExtList['diy_yqsy']['dfvalue']}"  placeholder="{$addonFieldExtList['diy_yqsy']['remark']}" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline layui-input-company">
+                        {$addonFieldExtList['diy_yqsy']['dfvalue_unit']}
+                    </div>
+                </div>
+                <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_klrq']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_klrq']['title']}</label>
+                    <div class="layui-input-inline w-in">
+                        <input type="text" name="addonFieldExt[diy_klrq]" id="diy_klrq" value="{$addonFieldExtList['diy_klrq']['dfvalue']}"  placeholder="{$addonFieldExtList['diy_klrq']['remark']}" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline layui-input-company">
+                        {$addonFieldExtList['diy_klrq']['dfvalue_unit']}
+                    </div>
+                </div>
+                <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_xgfy']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_xgfy']['title']}</label>
+                    <div class="layui-input-inline w-in">
+                        <input type="text" name="addonFieldExt[diy_xgfy]" id="diy_xgfy" value="{$addonFieldExtList['diy_xgfy']['dfvalue']}"  placeholder="{$addonFieldExtList['diy_xgfy']['remark']}" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline layui-input-company">
+                        {$addonFieldExtList['diy_xgfy']['dfvalue_unit']}
+                    </div>
+                </div>
+                <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_jgmy']['ifeditable']"}none{/empty}">
+                    <label class="layui-form-label">{$addonFieldExtList['diy_jgmy']['title']}</label>
+                    <div class="layui-input-inline w-in">
+                        <input type="text" name="addonFieldExt[diy_jgmy]" id="diy_jgmy" value="{$addonFieldExtList['diy_jgmy']['dfvalue']}"  placeholder="{$addonFieldExtList['diy_jgmy']['remark']}" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline layui-input-company">
+                        {$addonFieldExtList['diy_jgmy']['dfvalue_unit']}
+                    </div>
+                </div>
+
+
+
+
+
                     <div class="w-out fl mt15 {empty name="$addonFieldExtList['panoram']['ifeditable']"}none{/empty}">
                     <label class="layui-form-label">{$addonFieldExtList['panoram']['title']}</label>
                     <div class="layui-input-inline w-in">
@@ -201,7 +283,6 @@
                         {$addonFieldExtList['panoram']['dfvalue_unit']}
                     </div>
                 </div>
-
             </div>
         </div>
     </div>

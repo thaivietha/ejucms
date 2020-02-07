@@ -30,7 +30,7 @@ return array (
   'average_price' => 
   array (
     'name' => 'average_price',
-    'type' => 'float(9,2) unsigned',
+    'type' => 'float(9,2)',
     'notnull' => false,
     'default' => '0.00',
     'primary' => false,
