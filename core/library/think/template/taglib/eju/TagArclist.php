@@ -335,7 +335,8 @@ class TagArclist extends Base
             if ($val['is_jump'] == 1) {
                 $val['arcurl'] = $val['jumplinks'];
             } else {
-                $val['arcurl'] = arcurl('home/'.$controller_name.'/view', $val);
+                $val['arcurl'] = arcurl('home/'.$controller_name."/view", $val);
+
             }
             /*--end*/
             /*封面图*/

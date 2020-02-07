@@ -132,7 +132,7 @@
         
         <div class="list_con sh_house_list" >
           <ul class="clearfix">
-           {eju:list pagesize='6' titlelen='30' orderby='new' addfields='building_age' }
+           {eju:list pagesize='20' titlelen='30' orderby='new' addfields='building_age' }
             <li>  <span class="l_img fl"> <a href="{$field.arcurl}"><img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> </a></span> <span class="r_con fr">
               <h3> <a href="{$field.arcurl}">{$field.title}</a></h3>
               <p class="hi"> <span class="info">{$field.room}{$field.living_room}{$field.toilet}</span> <span class="l">|</span> <span class="info">{$field.area}㎡</span> <span class="l">|</span> <span class="info">{$field.aspect}</span> <span class="l">|</span> <span class="info">{$field.fitment}</span> </p>

@@ -295,7 +295,7 @@ class TagList extends Base
                 if ($arcval['is_jump'] == 1) {
                     $arcval['arcurl'] = $arcval['jumplinks'];
                 } else {
-                    $arcval['arcurl'] = arcurl('home/'.$controller_name."/view", $arcval);
+                    $arcval['arcurl'] = arcurl('home/'.$controller_name."/view", ['aid'   => $arcval['aid'], 'dirname'   => $arcval['dirname']]);
                 }
                 /*--end*/
                 /*封面图*/
@@ -611,7 +611,7 @@ class TagList extends Base
                 if ($arcval['is_jump'] == 1) {
                     $arcval['arcurl'] = $arcval['jumplinks'];
                 } else {
-                    $arcval['arcurl'] = arcurl('home/'.$controller_name."/view", $arcval);
+                    $arcval['arcurl'] = arcurl('home/'.$controller_name."/view", ['aid'   => $arcval['aid'], 'dirname'   => $arcval['dirname']]);
                 }
                 /*--end*/
                 /*封面图*/
