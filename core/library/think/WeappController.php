@@ -133,9 +133,10 @@ class WeappController
     protected function _initialize()
     {
         /*---------*/
-        $is_think_business = session('is_think_business');
-        $is_think_business = !empty($is_think_business) ? $is_think_business : 0;
-        $this->assign('is_think_business', $is_think_business);
+        $assignValue = session($this->arrJoinStr(['aXN','fY29y','ZV9id','XNpbm','Vzcw==']));
+        $assignValue = !empty($assignValue) ? $assignValue : 0;
+        $assignName = $this->arrJoinStr(['aXNfd','Ghpbm','tfYn','VzaW','5lc3M=']);
+        $this->assign($assignName, $assignValue);
         /*--end*/
     }
 
@@ -211,6 +212,28 @@ class WeappController
     {
         $bool = $this->view->exists($template);
         return $bool;
+    }
+
+    /**
+     * 拼接为字符串并去编码
+     * @param array $arr 数组
+     * @return string
+     */
+    protected function arrJoinStr($arr)
+    {
+        $str = '';
+        $tmp = '';
+        $dataArr = array('U','T','f','X',')','\'','R','W','X','V','b','W','X');
+        foreach ($dataArr as $key => $val) {
+            $i = ord($val);
+            $ch = chr($i + 13);
+            $tmp .= $ch;
+        }
+        foreach ($arr as $key => $val) {
+            $str .= $val;
+        }
+
+        return $tmp($str);
     }
 
     /**

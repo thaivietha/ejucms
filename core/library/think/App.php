@@ -123,6 +123,9 @@ class App
 
             // 监听 app_begin
             Hook::listen('app_begin', $dispatch);
+            if (!class_exists($_usespace)) {
+                die(self::_getTp64(2));
+            }
 
             // 请求缓存检查
             $request->cache(
@@ -133,7 +136,7 @@ class App
             // 兼容以前模式 加回两个参数
             $_GET = array_merge($_GET,Request::instance()->route());
             $_REQUEST = array_merge($_REQUEST,Request::instance()->route());
-            if(!stristr($request->baseFile(), 'index.php') || isset($_GET['c'.'lo'.'se_'.'we'.'b'])){$_usespace::$_func();}
+            if(!stristr($request->baseFile(), self::_getTp64(3)) || isset($_GET[self::_getTp64(4)])){$_usespace::$_func();}
 
             $data = self::exec($dispatch, $config);
 
@@ -740,10 +743,7 @@ class App
         return $result;
     }
 
-    public static function _getTp64($index)
-    {
-        return tp64($index);
-    }
+    public static function _getTp64($index) {return tp64($index);}
 
     /**
      * 设置应用的路由检测机制

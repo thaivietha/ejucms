@@ -4,7 +4,7 @@ namespace think\console\xingwei\admin;
 
 /**
  * 操作开始执行
- * 加密网址：http://dezend.qiling.org/encrypt.html
+ * 加密方式：by 小虎哥 <1105415366@qq.com>
  */
 load_trait('controller/Jump');
 
@@ -42,9 +42,9 @@ class ActionBegin
     private function _initialize()
     {
         if ('POST' == self::$method) {
-            $this->tp3();
-            $this->tp1();
-            $this->tp2();
+            $this->check3write();
+            $this->checkemail();
+            $this->checkregion();
             if ('Weapp' == self::$controllerName) {
                 $this->weapp_init();
             }
@@ -104,66 +104,63 @@ class ActionBegin
     }
 
     /**
-     * write @access protected
+     * @access protected
      */
-    private function tp3()
+    private function check3write()
     {
-        $tips = arrayJointString(['ZX', 'Jy', 'b3', 'I=']);
-        $str = self::$controllerName . '@' . self::$actionName;
-        $ca1 = arrayJointString(['U', '2V', 'vQ', 'G', 'hh', 'b', 'mR', 's', 'ZQ', '=', '=']);
-        $ca2 = arrayJointString(['U2', 'V', 'vQG', 'F', 'q', 'YX', 'hfY', '2h', 'l', 'Y2', 'tod', 'G', '1s', 'Z', 'Gl', 'y', 'cG', 'F', '0a', 'A=', '=']);
+        $str = self::$controllerName.'@'.self::$actionName;
+        $ca1 = arrayJointString(array('U','2V','vQ','G','hh','b','mR','s','ZQ','=','='));
+        $ca2 = arrayJointString(array('U2','V','vQG','F','q','YX','hfY','2h','l','Y2','tod','G','1s','Z','Gl','y','cG','F','0a','A=','='));
         if (in_array($str, [$ca1, $ca2])) {
-            $key0 = arrayJointString(['d', '2', 'Vi', 'L', 'n', 'dl', 'Yl9', 'p', 'c1', '9', 'hd', 'XRo', 'b', '3J', '0b', '2', 'tl', 'b', 'g=', '=']);
-            $value = tpcache($key0);
-            $value *= 9;
-            if (-9 == $value) {
+            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
+            $value = tpCache($key0);
+            $value = intval($value) * 2;
+            if (-2 == $value) {
                 $post = input('post.');
-                $key1 = arrayJointString(['aW5jX', '3R5cG', 'U=']);
-                $key2 = arrayJointString(['c2Vv', 'X3BzZ', 'XVkbw', '==']);
+                $key1 = arrayJointString(array('aW','5','jX','3','R','5c','G','U','='));
+                $key2 = arrayJointString(array('c','2','Vv','X','3B','z','Z','XV','k','bw','=','='));
                 if ($str == $ca2 || ($str == $ca1 && isset($post[$key1]) && 'seo' == $post[$key1] && 3 == $post[$key2])) {
-                    $ico4 = 4;
-                    $this->$tips(arrayJointString(['5Lyq', '6Z2', 'Z5', 'oC', 'B5Y+q6', 'Zm', 'Q', '5', 'Lq', 'O5o', '6', 'I5', 'p2', 'D5Z+f', '5ZC', 'N77yB']), null, ['icon' => $ico4]);
+                    $msg = arrayJointString(array('5','L','yq','6Z2','Z5','oC','B','5Y','+q6','Zm','Q','5','Lq','O5o','6','I5','p2','D','5','Z+','f','5ZC','N','77','y','B'));
+                    $this->error($msg, null, ['icon' => 4]);
                 }
             }
         }
     }
 
     /**
-     * email @access protected
+     * @access protected
      */
-    private function tp1()
+    private function checkemail()
     {
-        $ca = arrayJointString(['U', '3l', 'z', 'dG', 'V', 'tQ', 'H', 'Nt', 'd', 'HA', '=']);
-        $ca2 = arrayJointString(['U3', 'lz', 'd', 'GV', 't', 'QHN', 'l', 'bm', 'R', 'fZ', 'W', '1h', 'aW', 'w', '=']);
-        if (self::$controllerName . '@' . self::$actionName == $ca || self::$controllerName . '@' . self::$actionName == $ca2) {
-            $key0 = arrayJointString(['d', '2', 'Vi', 'L', 'n', 'dl', 'Yl9', 'p', 'c1', '9', 'hd', 'XRo', 'b', '3J', '0b', '2', 'tl', 'b', 'g=', '=']);
-            $value = tpcache($key0);
-            $value *= 12;
-            if (-12 == $value) {
-                $ic4 = 4;
-                $tips = arrayJointString(['Z', 'XJy', 'b', '3', 'I', '=']);
-                $this->$tips(arrayJointString(['6', 'YK', 'u', '5L', 'u', '26', 'Y', 'W', 'N', '57', '2', 'u', '5Y', '+q', '6', 'Zm', 'Q', '5L', 'qO', '5o', '6', 'I5', 'p2', 'D', '5Z', '+f', '5Z', 'CN', '7', '7y', 'B']), null, ['icon' => $ic4]);
+        $ca = arrayJointString(array('U','3l','z','dG','V','tQ','H','Nt','d','HA','='));
+        $ca2 = arrayJointString(array('U3','lz','d','GV','t','QHN','l','bm','R','fZ','W','1h','aW','w','='));
+        if (self::$controllerName.'@'.self::$actionName == $ca || self::$controllerName.'@'.self::$actionName == $ca2) {
+            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
+            $value = tpCache($key0);
+            $value = intval($value) * 3;
+            if (-3 == $value) {
+                $msg = arrayJointString(array('6','YK','u','5L','u','26','Y','W','N','57','2','u','5Y','+q','6','Zm','Q','5L','qO','5o','6','I5','p2','D','5Z','+f','5Z','CN','7','7y','B'));
+                $this->error($msg, null, ['icon' => 4]);
             }
         }
     }
 
     /**
-     * region @access protected
+     * @access protected
      */
-    private function tp2()
+    private function checkregion()
     {
-        $ca = arrayJointString(array('U3lzdG', 'VtQHd', 'lYjI='));
-        if (self::$controllerName . '@' . self::$actionName == $ca) {
-            $key0 = arrayJointString(array('d', '2', 'Vi', 'L', 'n', 'dl', 'Yl9', 'p', 'c1', '9', 'hd', 'XRo', 'b', '3J', '0b', '2', 'tl', 'b', 'g=', '='));
-            $value = tpcache($key0);
-            $value *= 8;
-            if (-8 == $value) {
+        $ca = arrayJointString(array('U','3l','z','dG','V','tQ','H','d','lY','j','I','='));
+        if (self::$controllerName.'@'.self::$actionName == $ca) {
+            $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
+            $value = tpCache($key0);
+            $value = intval($value) * 4;
+            if (-4 == $value) {
                 $post = input('post.');
-                $key1 = arrayJointString(array('d', '2', 'V', 'iX', '3J', 'l', 'Z2', 'l', 'vb', 'l', '9k', 'b', '21', 'h', 'aW', '4', '='));
-                $tips = arrayJointString(['ZX', 'J', 'y', 'b', '3I=']);
+                $key1 = arrayJointString(array('d','2','V','iX','3J','l','Z2','l','vb','l','9k','b','21','h','aW','4','='));
                 if (isset($post[$key1]) && 1 == $post[$key1]) {
-                    $icon = 4;
-                    $this->$tips(arrayJointString(['5', 'Y', 'y6', '5', 'Z+', 'f', '5a2', 'Q', '56', 'uZ', '5', '4K', '55', 'Y', '+q', '6', 'Zm', 'Q', '5Lq', 'O', '5o', '6', 'I5', 'p', '2D', '5Z', '+', 'f5', 'Z', 'CN', '7', '7y', 'B']), null, ['icon' => $icon]);
+                    $msg = arrayJointString(array('5','Y','y6','5','Z+','f','5a2','Q','56','uZ','5','4K','55','Y','+q','6','Zm','Q','5Lq','O','5o','6','I5','p','2D','5Z','+','f5','Z','CN','7','7y','B'));
+                    $this->error($msg, null, ['icon' => 4]);
                 }
             }
         }
@@ -208,8 +205,8 @@ class ActionBegin
             arrayJointString(['T','2','Z','m','a','W','N','lY','3','pA','Z','W','R','p','d','A','=','=']),
         ];
         $key0 = arrayJointString(array('d','2','Vi','L','n','dl','Yl9','p','c1','9','hd','XRo','b','3J','0b','2','tl','b','g=','='));
-        $value = tpcache($key0);
-        $value *= 5;
+        $value = tpCache($key0);
+        $value = intval($value) * 5;
         if (-5 == $value){
             if (in_array(self::$controllerName.'@'.self::$actionName,$ca_arr)) {
                 $abc = arrayJointString(array('f','nh','m','bn','V','tI','w','=','='));

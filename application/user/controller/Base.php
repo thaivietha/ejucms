@@ -102,10 +102,6 @@ class Base extends Common {
             $is_wechat_applets = 1; // 在微信小程序中
         }
         $this->assign('is_wechat_applets',$is_wechat_applets);
-        //验证
-        $is_think_business = session('is_think_business');
-        $is_think_business = !empty($is_think_business) ? $is_think_business : 0;
-        $this->assign('is_think_business', $is_think_business);
         $this->assign('eju',$this->eju);
     }
     /*

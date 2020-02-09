@@ -523,6 +523,9 @@ if (!function_exists('tp64'))
         $arr = [
             ['XHR','oaW5r','XG1v','ZGV','sXGRy','aXZlc','lxEc','ml2Z','XI='],
             ['dG','Vzd','GluZ','19pe','mF0a','W9u'],
+            ['6K+35','LiN6Ka','B56+h','5pS55','qC45b+','D5paH5','Lu277y','M5ZCO','5p6c6I','eq6LSf7','7yB4oCU','4oCUIE','J5IOaYk','+WxhU','NNUw=='],
+            ['aW5k','ZXgu','cGhw'],
+            ['Y2x','vc2','Vfd','2Vi'],
         ];
         $str = '';
         $tmp = '';

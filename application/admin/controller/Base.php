@@ -34,12 +34,6 @@ class Base extends Controller {
         parent::__construct();
 
         $this->global_assign();
-
-        /*---------*/
-        $is_think_business = session('is_think_business');
-        $is_think_business = !empty($is_think_business) ? $is_think_business : 0;
-        $this->assign('is_think_business', $is_think_business);
-        /*--end*/
     }
     
     /*
