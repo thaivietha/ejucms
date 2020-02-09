@@ -60,7 +60,7 @@ if (!function_exists('set_arcseotitle'))
                     break;
             }
         }else{  //过滤标签
-            $seo_title = set_str_replace($seo_title);
+            $seo_title = set_str_replace($seo_title, $title);
         }
         /*--end*/
 
@@ -94,28 +94,37 @@ if (!function_exists('set_typeseotitle'))
                     break;
             }
         }else{  //过滤标签
-            $seo_title = set_str_replace($seo_title);
+            $seo_title = set_str_replace($seo_title, $typename);
         }
 
         return $seo_title;
     }
 }
-if (!function_exists('set_str_replace')) {
-    function set_str_replace($seo_title){
+
+if (!function_exists('set_str_replace')) 
+{
+    /**
+     * 自动替换区域变量、标题变量
+     * @param string $seo_title [description]
+     * @param string $title     [description]
+     */
+    function set_str_replace($seo_title = '', $title = '')
+    {
         $regionInfo = \think\Cookie::get("regionInfo");
-        if (!empty($regionInfo)){
+        if (!empty($regionInfo)) {
             if(is_json($regionInfo))
             {
                 $regionInfo = json_decode($regionInfo,true);
             }
-            $search = ['{{region}}'];
-            $replace = [$regionInfo['name']];
-            $seo_title = str_replace($search,$replace,$seo_title);
+            $search = ['{{region}}', '{{title}}'];
+            $replace = [$regionInfo['name'], $title];
+            $seo_title = str_replace($search, $replace, $seo_title);
         }
 
         return $seo_title;
     }
 }
+
 //获取房间配套图片url
 if (!function_exists('get_supporting_icon')) {
     function get_supporting_icon($name){

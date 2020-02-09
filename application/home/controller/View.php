@@ -134,7 +134,9 @@ class View extends Base
 
         // seo
         $result['seo_title'] = set_arcseotitle($result['title'], $result['seo_title'], $result['typename']);
-        $result['seo_description'] = @msubstr(checkStrHtml($result['seo_description']), 0, config('global.arc_seo_description_length'), false);
+        $result['seo_keywords'] = set_str_replace($result['seo_keywords'], $result['title']);
+        $result['seo_description'] = set_str_replace(checkStrHtml($result['seo_description']), $result['title']);
+        $result['seo_description'] = @msubstr($result['seo_description'], 0, config('global.arc_seo_description_length'), false);
 
         /*支持子目录*/
         $result['litpic'] = handle_subdir_pic($result['litpic']);

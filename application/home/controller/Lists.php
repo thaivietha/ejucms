@@ -156,6 +156,8 @@ class Lists extends Base
 
         // seo
         $result['seo_title'] = set_typeseotitle($result['typename'], $result['seo_title']);
+        $result['seo_keywords'] = set_str_replace($result['seo_keywords']);
+        $result['seo_description'] = set_str_replace($result['seo_description']);
 
         /*获取当前页面URL*/
         $result['pageurl'] = request()->url(true);
