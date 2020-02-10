@@ -87,6 +87,26 @@ class Archives extends Base
             ];
         }
         $this->assign('contentManage',$contentManage);
+        $menu = getMenuList();
+        $adPosition = $tags = $links = 0;
+        if (!empty($menu[6000])){
+            if (!empty($menu[6000]['child'])){
+                foreach ($menu[6000]['child'] as $val){
+                    if ($val['id'] == 6002){
+                        $adPosition = 1;
+                    }
+                    if ($val['id'] == 6004){
+                        $tags = 1;
+                    }
+                    if ($val['id'] == 6003){
+                        $links = 1;
+                    }
+                }
+            }
+        }
+        $this->assign('adPosition',$adPosition);
+        $this->assign('tags',$tags);
+        $this->assign('links',$links);
 
         return $this->fetch();
     }

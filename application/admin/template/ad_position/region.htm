@@ -7,17 +7,20 @@
     <div class="layui-card">
         <div class="head-oper">
             <div class="fl">
+                {eq name="'Ask@index'|is_check_access" value="1"}
+                <a href="{:url('AdPosition/index')}" class="layui-btn mt5 ">广告列表</a>
+                {/eq}
                 {eq name="$Think.const.CONTROLLER_NAME.'@add'|is_check_access" value="1"}
-                <a data-url="{:url('AdPosition/add')}" data-type="AdPosition_add" class="layui-btn mt5 ">新增广告</a>
+                <a data-url="{:url('AdPosition/region_add',['pid'=>$Request.param.pid])}" data-type="AdPosition_add" class="layui-btn mt5 ">新增区域广告</a>
                 {/eq}
             </div>
             <div class="fr">
-                <form action="{:url('AdPosition/index')}" method="get" onsubmit="layer_loading();">
+                <form action="{:url('AdPosition/region')}" method="get" onsubmit="layer_loading();">
                     <div class="fl mt5" >
                         <div class="layui-input-inline w240">
                             {$searchform.hidden|default=''}
                             <input type="hidden" name="pid" id="pid" value="{$Request.param.pid|default=''}">
-                            <input type="text" name="keywords" id="keywords" value="{$Request.param.keywords}" placeholder="名称搜索" class="layui-input">
+                            <input type="text" name="keywords" id="keywords" value="{$Request.param.keywords}" placeholder="区域搜索" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-input-inline w50 mt5">
@@ -40,7 +43,7 @@
                                     </div>
                                 </th>
                                 <th class="w60 tc"> <div class="layui-table-cell w60 tc" ><span>ID</span></div></th>
-                                <th class="wauto"> <div class="layui-table-cell wauto"><span>广告名称</span></div></th>
+                                <th class="wauto"> <div class="layui-table-cell wauto"><span>区域名称</span></div></th>
                                 <th class="w220 tc"> <div class="layui-table-cell w320 tc"><span>操作</span></div></th>
                             </tr>
                             </thead>
@@ -63,7 +66,7 @@
                                 <td>
                                     <div class="layui-table-cell wauto" title=" ">
                                         {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
-                                        <a href="javascript:void(0);" class="eju-event" data-type="AdPosition_edit" data-url="{:url('AdPosition/edit',array('id'=>$vo['id']))}">{$vo.title}</a>
+                                        <a href="javascript:void(0);" class="eju-event" data-type="AdPosition_edit" data-url="{:url('AdPosition/region_edit',array('id'=>$vo['id']))}">{$vo.name}</a>
                                         {else /}
                                         {$vo.title}
                                         {/eq}
@@ -71,17 +74,14 @@
                                 </td>
                                 <td>
                                     <div class="layui-table-cell w320 tc right-oper">
-                                        <a  href="{:url('AdPosition/region',array('pid'=>$vo['id']))}" class="layui-btn btn-edit customvar_retion" >
-                                            区域管理
-                                        </a>
                                         {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
-                                        <a data-url="{:url('AdPosition/edit',array('id'=>$vo['id']))}" class="layui-btn btn-edit customvar_edit" data-type="AdPosition_edit">
+                                        <a data-url="{:url('AdPosition/region_edit',array('id'=>$vo['id']))}" class="layui-btn btn-edit customvar_edit" data-type="AdPosition_edit">
                                             编辑
                                         </a>
                                         {/eq}
-                                        <a class="layui-btn btn-primary" href="javascript:void(0);" onclick="copyToClipBoard({$vo['id']}, 1)">标签调用</a>
+                                        <!--<a class="layui-btn btn-primary" href="javascript:void(0);" onclick="copyToClipBoard({$vo['id']}, 1)">标签调用</a>-->
                                         {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
-                                        <a data-url="{:url('AdPosition/del')}" data-id="{$vo.id}" class="layui-btn btn-primary" data-type="AdPosition_del" >
+                                        <a data-url="{:url('AdPosition/region_del')}" data-id="{$vo.id}" class="layui-btn btn-primary" data-type="AdPosition_del" >
                                             删除
                                         </a>
                                         {/eq}
@@ -97,8 +97,8 @@
                 <div class="layui-table-page footer-oper">
                     <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary" >
                     {eq name="$Think.const.CONTROLLER_NAME.'@del'|is_check_access" value="1"}
-                    <a class="layui-btn layui-btn-primary" data-type="batch_del" data-url="{:url('AdPosition/del')}" style="line-height: 34px;">
-                    批量删除
+                    <a class="layui-btn layui-btn-primary" data-type="batch_del" data-url="{:url('AdPosition/region_del')}" style="line-height: 34px;">
+                        批量删除
                     </a>
                     {/eq}
                 </div>
@@ -139,7 +139,7 @@
             AdPosition_add: function(){
                 var iframes = layer.open({
                     type: 2,
-                    title: '新增广告',
+                    title: '新增区域广告',
                     fixed: true, //不固定
                     shadeClose: false,
                     shade: 0.3,
@@ -151,7 +151,7 @@
             ,AdPosition_edit: function(){
                 var iframes = layer.open({
                     type: 2,
-                    title: '新增广告',
+                    title: '编辑区域广告',
                     fixed: true, //不固定
                     shadeClose: false,
                     shade: 0.3,

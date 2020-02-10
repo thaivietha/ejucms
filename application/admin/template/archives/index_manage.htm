@@ -12,7 +12,7 @@
                   <li class="layui-col-xs3 layui-col-md2">
                     <div class="admin-ico-nav">
                       <i class="iconfont icon-haiwaixinfang "></i>
-                      <cite>新房</cite> 
+                      <cite>新房</cite>
                       <a lay-href="{:url('Xinfang/index', ['channel'=>9])}">新房列表</a>
                       {if condition="!empty($contentManage[10])"}
                       <a lay-href="{:url('Tuan/index', ['channel'=>10])}">团购列表</a>
@@ -20,29 +20,11 @@
                     </div>
                   </li>
                   {/if}
-                  {if condition="!empty($contentManage[1])"}
-                  <li class="layui-col-xs3 layui-col-md2 ">
-                   <div class="admin-ico-nav">
-                     <i  class="iconfont icon-xinwen"></i>
-                     <cite>资讯</cite> 
-                     <a lay-href="{:url('Article/index', ['channel'=>1])}">资讯列表</a><a lay-href="{:url('Article/index', ['channel'=>1,'openurl'=>url('Article/add')])}">资讯新增</a>
-                   </div>
-                  </li>
-                  {/if}
-                  {if condition="!empty($contentManage[11])"}
-                  <li class="layui-col-xs3 layui-col-md2 ">
-                     <div class="admin-ico-nav">
-                       <i  class="iconfont icon-xiaoquguanli"></i>
-                       <cite>小区</cite> 
-                       <a lay-href="{:url('Xiaoqu/index', ['channel'=>11])}">小区列表</a><a lay-href="{:url('Xiaoqu/index', ['channel'=>11,'openurl'=>url('Xiaoqu/add')])}">小区新增</a>
-                     </div>
-                  </li>
-                  {/if}
                   {if condition="!empty($contentManage[12])"}
                   <li class="layui-col-xs3 layui-col-md2 ">
                      <div class="admin-ico-nav">
                        <i  class="iconfont icon-ershoufang"></i>
-                       <cite>二手房</cite> 
+                       <cite>二手房</cite>
                        <a lay-href="{:url('Ershou/index', ['channel'=>12])}">二手房列表</a><a lay-href="{:url('Ershou/index', ['channel'=>12,'openurl'=>url('Ershou/add')])}">二手房新增</a>
                      </div>
                   </li>
@@ -51,16 +33,25 @@
                   <li class="layui-col-xs3 layui-col-md2 ">
                      <div class="admin-ico-nav">
                        <i  class="iconfont icon-xiaoquchuzuanli"></i>
-                       <cite>租房</cite> 
+                       <cite>租房</cite>
                        <a lay-href="{:url('Zufang/index', ['channel'=>13])}">租房列表</a><a lay-href="{:url('Zufang/index', ['channel'=>13,'openurl'=>url('Zufang/add')])}">租房新增</a>
                      </div>
                   </li>
                   {/if}
+                   {if condition="!empty($contentManage[11])"}
+                   <li class="layui-col-xs3 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-xiaoquguanli"></i>
+                           <cite>小区</cite>
+                           <a lay-href="{:url('Xiaoqu/index', ['channel'=>11])}">小区列表</a><a lay-href="{:url('Xiaoqu/index', ['channel'=>11,'openurl'=>url('Xiaoqu/add')])}">小区新增</a>
+                       </div>
+                   </li>
+                   {/if}
                   {if condition="!empty($contentManage[14]) || !empty($contentManage[15])"}
                   <li class="layui-col-xs3 layui-col-md2 ">
                      <div class="admin-ico-nav">
                        <i  class="iconfont icon-daochuSVG-"></i>
-                       <cite>商铺</cite> 
+                       <cite>商铺</cite>
                        {if condition="!empty($contentManage[14])"}
                        <a lay-href="{:url('Shopcs/index', ['channel'=>14])}">商铺出售</a>
                        {/if}
@@ -74,7 +65,7 @@
                   <li class="layui-col-xs3 layui-col-md2 ">
                      <div class="admin-ico-nav">
                        <i  class="iconfont icon-xiezilou"></i>
-                       <cite>写字楼</cite> 
+                       <cite>写字楼</cite>
                        {if condition="!empty($contentManage[16])"}
                        <a lay-href="{:url('Officecs/index', ['channel'=>16])}">写字楼出售</a>
                        {/if}
@@ -84,8 +75,41 @@
                      </div>
                   </li>
                   {/if}
+                   {if condition="!empty($contentManage[1])"}
+                   <li class="layui-col-xs3 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-xinwen"></i>
+                           <cite>资讯</cite>
+                           <a lay-href="{:url('Article/index', ['channel'=>1])}">资讯列表</a><a lay-href="{:url('Article/index', ['channel'=>1,'openurl'=>url('Article/add')])}">资讯新增</a>
+                       </div>
+                   </li>
+                   {/if}
+                   {notempty name="$adPosition"}
+                   <li class="layui-col-xs3 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-guanggao"></i>
+                           <cite>广告</cite>
+                           <a lay-href="{:url('AdPosition/index')}">广告列表</a><a lay-href="{:url('AdPosition/index',['openurl'=>url('AdPosition/add')])}">新增广告</a>
+                       </div>
+                   </li>
+                   {/notempty}
+                   {if condition="($tags eq 1) or ($links eq 1)"}
+                   <li class="layui-col-xs3 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-qitapeizhi"></i>
+                           <cite>其他</cite>
+                           {notempty name="$tags"}
+                           <a lay-href="{:url('Tags/index')}">tags列表</a>
+                           {/notempty}
+                           {notempty name="$links"}
+                           <a lay-href="{:url('Links/index')}">友情链接</a>
+                           {/notempty}
+                       </div>
+                   </li>
+                   {/if}
+
                 </ul>
-             </div> 
+             </div>
           </div>
         </div>
       </div>

@@ -18,6 +18,15 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'rid' => 
+  array (
+    'name' => 'rid',
+    'type' => 'int(11) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
   'media_type' => 
   array (
     'name' => 'media_type',
@@ -184,6 +193,33 @@ return array (
   array (
     'name' => 'update_time',
     'type' => 'int(11)',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'province_id' => 
+  array (
+    'name' => 'province_id',
+    'type' => 'int(10) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'city_id' => 
+  array (
+    'name' => 'city_id',
+    'type' => 'int(10) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'area_id' => 
+  array (
+    'name' => 'area_id',
+    'type' => 'int(10) unsigned',
     'notnull' => false,
     'default' => '0',
     'primary' => false,

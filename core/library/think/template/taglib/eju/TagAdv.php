@@ -13,7 +13,8 @@
 
 namespace think\template\taglib\eju;
 
-
+use \think\Controller;
+use \think\Db;
 /**
  * 广告
  */
@@ -42,7 +43,6 @@ class TagAdv extends Base
         if (empty($where)) {
             $where = "pid={$pid} and start_time < {$times} and (end_time > {$times} OR end_time = 0) and status = 1";
         }
-
         // 排序
         switch ($orderby) {
             case 'hot':
@@ -73,12 +73,37 @@ class TagAdv extends Base
                 }
                 break;
         }
+        $regionInfo = \think\Cookie::get("regionInfo");
+        if (!empty($regionInfo)){
+            $region['pid'] = $pid;
+            $region['is_del'] = 0;
+            $region['status'] = 1;
+            if ($regionInfo['level'] == 1){
+                $region['province_id'] = $regionInfo['id'];
+            }else if ($regionInfo['level'] == 2){
+                $region['city_id'] = $regionInfo['id'];
+            }else if ($regionInfo['level'] == 3){
+                $region['area_id'] = $regionInfo['id'];
+            }
+            $rid = Db::name("ad_region")->where($region)->getField("id");
+            if ($rid){
+                $where_region = $where." and rid={$rid}";
+                $result = M("ad")->field("*")
+                    ->where($where_region)
+                    ->orderRaw($orderby)
+                    ->cache(true,EYOUCMS_CACHE_TIME,"ad")
+                    ->select();
+            }
+        }
+        if (empty($result)){
+            $where .=  " and rid=0";
+            $result = M("ad")->field("*")
+                ->where($where)
+                ->orderRaw($orderby)
+                ->cache(true,EYOUCMS_CACHE_TIME,"ad")
+                ->select();
 
-        $result = M("ad")->field("*")
-            ->where($where)
-            ->orderRaw($orderby)
-            ->cache(true,EYOUCMS_CACHE_TIME,"ad")
-            ->select();
+        }
         foreach ($result as $key => $val) {
             $val['litpic'] = handle_subdir_pic(get_default_pic($val['litpic'])); // 默认无图封面
             $val['target'] = ($val['target'] == 1) ? 'target="_blank"' : 'target="_self"';

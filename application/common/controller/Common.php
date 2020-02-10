@@ -72,12 +72,12 @@ class Common extends Controller {
         if ($this->request->controller() != 'Ajax'){
             $subDomain = input("param.subdomain/s");
             empty($subDomain) && $subDomain = $this->request->subDomain();
+            $this->eju['param']['subDomain'] = $subDomain;
             if (empty($this->eju['global']['web_region_domain'])) { // 关闭区域子站点
                 $regionInfo = $this->getDefaultCity();
             } else { // 开启区域子站点
                 if (!empty($subDomain) && $subDomain != $this->eju['global']['web_mobile_domain']){
                     $regionInfo =  $this->getDomainCity($subDomain);
-
                 }else{
                     $regionInfo =  $this->getDefaultCity();
                 }

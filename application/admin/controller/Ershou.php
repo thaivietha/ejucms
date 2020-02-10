@@ -61,6 +61,7 @@ class Ershou extends Base
                 }
             }
         }
+        unset($param['openurl']);
         /*--end*/
         // 应用搜索条件
         foreach (['keywords','typeid','flag'] as $key) {

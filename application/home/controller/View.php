@@ -53,13 +53,14 @@ class View extends Base
         /*--end*/
 
         $aid = intval($aid);
+        $where = [
+            'a.aid'     => $aid,
+            'a.is_del'      => 0,
+        ];
         $archivesInfo = M('archives')->field('a.typeid, a.channel,a.status,a.users_id, b.nid, b.ctl_name')
             ->alias('a')
             ->join('__CHANNELTYPE__ b', 'a.channel = b.id', 'LEFT')
-            ->where([
-                'a.aid'     => $aid,
-                'a.is_del'      => 0,
-            ])
+            ->where($where)
             ->find();
         $users_id = session('users_id');
         if (empty($archivesInfo) || ($archivesInfo['status'] == 0 && (empty($users_id) || $users_id != $archivesInfo['users_id']))) {

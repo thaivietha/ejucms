@@ -1094,7 +1094,6 @@ if (!function_exists('get_province_list')){
         return $result;
     }
 }
-
 /**
  * 获得全部城市列表
  */
@@ -1105,6 +1104,7 @@ if (!function_exists('get_city_list')){
         if (empty($result)) {
             $result = M('region')->field('id, name, parent_id')
                 ->where('level',2)
+                ->where('status',1)
                 ->getAllWithIndex('id');
             extra_cache('global_get_city_list', $result);
         }
@@ -1112,8 +1112,6 @@ if (!function_exists('get_city_list')){
         return $result;
     }
 }
-
-
 /**
  * 获得全部地区列表
  */
@@ -1124,6 +1122,7 @@ if (!function_exists('get_area_list')){
         if (empty($result)) {
             $result = M('region')->field('id, name, parent_id')
                 ->where('level',3)
+                ->where('status',1)
                 ->getAllWithIndex('id');
             extra_cache('global_get_area_list', $result);
         }
