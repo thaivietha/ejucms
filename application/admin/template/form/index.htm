@@ -81,7 +81,7 @@
                                                         <div class="layui-table-cell w170 tc">{$vo.add_time|MyDate="Y-m-d H:i:s",###}</div>
                                                     </td>
                                                     <td><div class="layui-table-cell w200 tc">
-                                                        <a class="blue "  href="{:url('Form/index',['form_id'=>$vo['form_id'],'tabase'=>$Request.param.tabase])}">{$vo.form_name}</a> </div></td>
+                                                        <a class="blue "  href="{:url('Form/index',['form_id'=>$vo['form_id'],'channel_id'=>$Request.param.channel_id])}">{$vo.form_name}</a> </div></td>
                                                     <td>
                                                         <div class="layui-table-cell w80 tc">
                                                             <input type="checkbox" name="is_read" id="is_read_{$vo.list_id}"  data-id="{$vo.list_id}" value="{$vo.is_read}" lay-filter="is_read" lay-skin="switch" lay-text="是|否" {empty name="$vo.is_read"} class="yes" checked{else /} class="no"{/empty}>
@@ -133,7 +133,7 @@
                                         </button>
                                         <div class="dropdown-menu" id="dropdown-form-div">
                                             {volist name="form_list" id="vo"}
-                                            <a  class="layui-btn" href="{:url('Form/index',['form_id'=>$vo.id])}" data-type="to_index" data-id="{$vo.id}" data-url="{:url('Form/index',['form_id'=>$vo.id])}">
+                                            <a  class="layui-btn" href="{:url('Form/index',['form_id'=>$vo.id,'channel_id'=>$Request.param.channel_id])}" data-type="to_index" data-id="{$vo.id}" data-url="{:url('Form/index',['form_id'=>$vo.id])}">
                                                 {$vo.name}
                                             </a>
                                             {/volist}

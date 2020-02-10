@@ -163,10 +163,9 @@ class Form extends Base
         }else if(!empty($param['channel_id'])){
             $form_ids = Db::name("form")->where(['status'=>1,'is_del'=>0,'channel_id'=> $param['channel_id']])->getField("id",true);
             $condition['a.form_id'] = array('IN', $form_ids);
+
         }
-
         $condition['a.is_del'] = array('eq', 0);
-
         $formListM =  M('form_list');
         $count = $formListM->alias('a')->where($condition)->count();// 查询满足要求的总记录数
         $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
@@ -205,11 +204,15 @@ class Form extends Base
         $this->assign('pageStr',$pageStr);// 赋值分页输出
         $this->assign('list',$list);// 赋值数据集
         $this->assign('new_form_values',$new_form_values);// 赋值分页对象
-        $form_list = M('form')->where("is_del = 0")->select();
+        $form_where = ["is_del"=>0];
+        if (!empty($param['channel_id'])){
+            $form_where['channel_id'] = $param['channel_id'];
+        }
+        $form_list = M('form')->where($form_where)->select();
         array_unshift($form_list,['id'=>0,'name'=>'表单选择']);
         $this->assign('form_list',$form_list);// 赋值分页对象
         $channel_ids = Db::name("form")->where("is_del=0")->group('channel_id')->getField('channel_id',true);
-        $this->channel_list =  Db::name("channeltype")->where(['status'=>1,'is_del'=>0,'id'=>['IN',$channel_ids]])->getAllWithIndex('id');
+        $this->channel_list =  Db::name("channeltype")->where(['status'=>1,'is_del'=>0,'id'=>['IN',$channel_ids]])->order("sort_order")->getAllWithIndex('id');
         $this->assign('channel_list',$this->channel_list);// 赋值分页对象
 
         return $this->fetch();
@@ -236,7 +239,7 @@ class Form extends Base
             ->select();
         $pageStr = $Page->show();// 分页显示输出
         $this->assign('pageStr',$pageStr);// 赋值分页输出
-        $this->assign('list',$list);// 赋值数据集
+
 
         $form_ids = get_arr_column($list, 'id');
         
@@ -260,8 +263,12 @@ class Form extends Base
             ->getAllWithIndex('form_id');
         $this->assign('form_attr_total',$form_attr_total);
         $channel_ids = Db::name("form")->where("is_del=0")->group('channel_id')->getField('channel_id',true);
-        $this->channel_list =  Db::name("channeltype")->where(['status'=>1,'is_del'=>0,'id'=>['IN',$channel_ids]])->getAllWithIndex('id');
+        $this->channel_list =  Db::name("channeltype")->where(['status'=>1,'is_del'=>0,'id'=>['IN',$channel_ids]])->order("sort_order")->getAllWithIndex('id');
+        foreach ($list as $key=>$val){
+            $list[$key]['channel_name'] = !empty($this->channel_list[$val['channel_id']]['title']) ? $this->channel_list[$val['channel_id']]['title'] : "无";
+        }
         $this->assign('channel_list',$this->channel_list);// 赋值分页对象
+        $this->assign('list',$list);// 赋值数据集
 
         return $this->fetch();
     }
