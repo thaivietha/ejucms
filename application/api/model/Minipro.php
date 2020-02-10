@@ -161,10 +161,10 @@ class Minipro extends Model
     public function getArctype($channel = '')
     {
         $channel  = intval($channel);
-        $args     = func_get_args();
+        $args     = json_encode(func_get_args());
         $cacheKey = 'model-' . $this->nid . "-getArctype-{$args}";
         $result   = cache($cacheKey);
-        if (true || empty($result)) {
+        if (empty($result)) {
             $result = Db::name('arctype')
                 ->where(['is_hidden' => 0, 'is_del' => 0, 'status' => 1, 'current_channel' => $channel])
                 ->where('grade', '>', 0)
@@ -443,11 +443,11 @@ class Minipro extends Model
     {
         $param['arcrank'] = isset($param['arcrank']) ? $param['arcrank'] : -1;
         $pagesize         = empty($pagesize) ? config('paginate.list_rows') : $pagesize;
-        $args     = func_get_args();
+        $args     = json_encode([$param,$page,$pagesize,$field]);
         $cacheKey = "api-model-" . $this->nid . "-getArchivesList-{$args}";
         $result   = cache($cacheKey);
         $status   = 1;
-        if (true || empty($result)) {
+        if (empty($result)) {
             $condition = array();
             $order     = '';
 
@@ -711,10 +711,10 @@ class Minipro extends Model
     public function getArchivesView($aid = '')
     {
         $aid      = intval($aid);
-        $args     = func_get_args();
+        $args     = json_encode(func_get_args());
         $cacheKey = "api-model-" . $this->nid . "-getArchivesView-{$args}";
         $result   = cache($cacheKey);
-        if (true || empty($result)) {
+        if (empty($result)) {
 //            $status = 0;
             if (0 < $aid) {
                 $channel = Db::name('archives')->where(['is_del' => 0, 'arcrank' => 0, 'status' => 1, 'aid' => $aid])->value('channel');
