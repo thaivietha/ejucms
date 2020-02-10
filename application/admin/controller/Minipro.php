@@ -516,6 +516,7 @@ class Minipro extends Base
         $post_data = array(
             'appid' => $inc['appId'],
             'domain'    => $this->request->host(true),
+            'template'   => $this->nid,
         );
         $response = httpRequest($this->logic->get_api_url("/index.php?m=api&c=CmsMinipro&a=createMinipro"), "POST", $post_data);
         $params = array();
