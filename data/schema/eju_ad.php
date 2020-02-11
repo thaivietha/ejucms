@@ -18,15 +18,6 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
-  'rid' => 
-  array (
-    'name' => 'rid',
-    'type' => 'int(11) unsigned',
-    'notnull' => false,
-    'default' => '0',
-    'primary' => false,
-    'autoinc' => false,
-  ),
   'media_type' => 
   array (
     'name' => 'media_type',

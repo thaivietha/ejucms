@@ -26,6 +26,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">所属区域</label>
+                        <div class="layui-input-inline w120">
+                            <select name="province_id" id="province_id"  lay-filter="province_id" >
+                                <option value="0">请选择省</option>
+                                {eju:volist name=':get_province_list()' id='vo'}
+                                <option value="{$vo.id}" {eq name="$province_id" value="$vo.id" } selected {/eq} >{$vo.name}</option>
+                                {/eju:volist}
+                            </select>
+                        </div>
+                        <div class="layui-input-inline w120">
+                            <select name="city_id" id="city_id"   lay-filter="city_id" >
+                                <option value="">请选择城市</option>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline none w120" id="area_div">
+                            <select name="area_id" id="area_id" lay-filter="area_id" >
+                                <option value="">请选择区域</option>
+                            </select>
+                        </div>
+                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                        <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                    </div>
                     <div class="layui-form-item none" id="imgupload_list">
                         <label class="layui-form-label"></label>
                         <div class="edit-box-con2 fl sort-list">
@@ -47,11 +70,15 @@
                                     <input type="hidden"/>
                                     <span class="span_input">
                                         <input type="hidden"/>
+                                        <input type="hidden"/>
+                                        <input type="hidden"/>
+                                        <input type="hidden"/>
                                     </span>
                                     <textarea placeholder="请输入标题..." style="height: 28px;"></textarea>
                                     <textarea placeholder="请输入链接网址..." style="height: 28px;"></textarea>
                                     <textarea placeholder="广告注释：支持HTML代码" style="height: 64px;"></textarea>
                                     <div class="operation">
+                                        <a href="javascript:void(0);"></a>
                                         <a href="javascript:void(0);"></a>
                                         <a href="javascript:void(0);"></a>
                                         <a href="javascript:void(0);"></a>
@@ -63,6 +90,10 @@
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-input-block">
+                            <input type="hidden" name="province_name" id="province_name" />
+                            <input type="hidden" name="city_name" id="city_name" />
+                            <input type="hidden" name="area_name" id="area_name" />
+                            <input type="hidden" name="region_name" id="region_name" value="通用"/>
                             <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
                         </div>
                     </div>
@@ -140,7 +171,50 @@
         var $ = layui.$
             ,upload = layui.upload
             ,form = layui.form;
-
+        //选中省份模型
+        form.on('select(province_id)', function(data){
+            if (data.value > 0){
+                $("#province_name").val(this.innerText);
+                $("#region_name").val(this.innerText);
+            }else{
+                $("#province_name").val("通用");
+                $("#region_name").val("通用");
+            }
+            $(".images-upload").hide();
+            $(".region"+data.value).show();
+            set_city_list(0);
+            set_area_list(0);
+            form.render();
+        });
+        //选中城市
+        form.on('select(city_id)', function(data){
+            if (data.value > 0){
+                $("#city_name").val(this.innerText);
+                $("#region_name").val(this.innerText);
+            }else{
+                var province_name = $("#province_name").val();
+                $("#city_name").val(province_name);
+                $("#region_name").val(province_name);
+            }
+            $(".images-upload").hide();
+            $(".region"+data.value).show();
+            set_area_list(0);
+            form.render();
+        });
+        //选中区域
+        form.on('select(area_id)', function(data){
+            if (data.value > 0){
+                $("#area_name").val(this.innerText);
+                $("#region_name").val(this.innerText);
+            }else{
+                var city_name = $("#city_name").val();
+                $("#area_name").val(city_name);
+                $("#region_name").val(city_name);
+            }
+            $(".images-upload").hide();
+            $(".region"+data.value).show();
+            form.render();
+        });
         //监听提交
         form.on('submit(formSubmit)', function(data){
             var load = layer_loading();
@@ -167,9 +241,60 @@
             });
             return false;
         });
-
-
     });
+    //自动获取城市列表
+    function set_city_list(cityid) {
+        var pid =  $("#province_id").val();
+        $.ajax({
+            url: "{:url('Region/ajax_get_region')}",
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {pid:pid,_ajax:1},
+            success: function(res){
+                if (res.code === 1){
+                    $("#city_id").empty();
+                    $("#city_id").prepend(res.msg);
+                    if (cityid > 0){
+                        $("#city_id").val(cityid);
+                    }
+                }
+            },
+            error: function(e){
+                showErrorMsg();
+                return false;
+            }
+        });
+    }
+    //自动获取区域
+    function set_area_list(areaid) {
+        var pid =  $("#city_id").val();
+        $.ajax({
+            url: "{:url('Region/ajax_get_region')}",
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {pid:pid,level:3,_ajax:1},
+            success: function(res){
+                if (res.code === 1){
+                    $("#area_id").empty();
+                    $("#area_id").prepend(res.msg);
+                    if (areaid > 0){
+                        $("#area_id").val(areaid);
+                    }
+                    if (res.data.isempty == 1){
+                        $("#area_div").hide();
+                    }else{
+                        $("#area_div").show();
+                    }
+                }
+            },
+            error: function(e){
+                showErrorMsg();
+                return false;
+            }
+        });
+    }
     // 代码调用js
     function copyToClipBoard(id) {
         var adstr = "{eju:ad aid='" + id + "'}\r\n   <a href='{$"+"field.links}' {$"+"field.target}><img src='{$"+"field.litpic}' alt='{$"+"field.title}' /></a>\r\n{/eju:ad";
@@ -192,10 +317,23 @@
             var paths = [pathObj.url];
         }
         $('#imgupload_list').show();
+        var province_id = $("#province_id").val();
+        var city_id = $("#city_id").val();
+        var area_id = $("#area_id").val();
+        var region = 0;
+        if (area_id > 0){
+            region = area_id;
+        }else if (city_id > 0){
+            region = city_id;
+        }else if (province_id > 0){
+            region = province_id;
+        }
+        var region_name = $("#region_name").val();
         var last_div = $(".images_upload_tpl").html();
         var inputs   = $('.span_input input');
         for (var i=0;i<paths.length ;i++){
             $(".images-upload:eq(0)").before(last_div);  // 插入一个 新图片
+            $(".images-upload:eq(0)").addClass("region"+region);
             // 修改他的链接地址
             $(".images-upload:eq(0)").find('span:eq(0)').attr('onclick',"Images('"+paths[i]+"');");
             // 修改他的图片路径
@@ -206,6 +344,9 @@
                 $(".images-upload:eq(0)").find('input:eq(0)').attr('name','img_id[]').attr('value','');
                 // 修改隐藏域，提交图片隐藏域
                 $(".span_input:eq(0)").find('input:eq(0)').attr('name','img_litpic[]').attr('value',paths[i]);
+                $(".span_input:eq(0)").find('input:eq(1)').attr('name','province_id[]').attr('value',province_id);
+                $(".span_input:eq(0)").find('input:eq(2)').attr('name','city_id[]').attr('value',city_id);
+                $(".span_input:eq(0)").find('input:eq(3)').attr('name','area_id[]').attr('value',area_id);
                 // 提交标题
                 $(".images-upload:eq(0)").find('textarea:eq(0)').attr('name','img_title[]');
                 // 提交跳转链接
@@ -216,10 +357,66 @@
                 $(".images-upload:eq(0)").find('div.operation a:eq(0)').html("<label><input lay-ignore type='checkbox' title='在新窗口打开' onclick='CheckedTarget(this)'/>新窗口<input type='hidden' name='img_target[]' value='0'></label>");
                 //标签调用
                 $(".images-upload:eq(0)").find('div.operation a:eq(1)').attr('onclick',"copyToClipBoard('广告ID')").html("<i class='layui-icon layui-icon-fonts-code mr5'></i>标签调用");
+                //区域名称
+                $(".images-upload:eq(0)").find('div.operation a:eq(2)').attr('onclick',"changeRegion(this)").html("<i class='layui-icon layui-icon-fonts-code mr5'></i>"+region_name);
                 // 删除按钮
-                $(".images-upload:eq(0)").find('div.operation a:eq(2)').attr('onclick',"ClearPicArr(this,'"+paths[i]+"')").html("<i class='layui-icon layui-icon-close mr5'></i>删除");
+                $(".images-upload:eq(0)").find('div.operation a:eq(3)').attr('onclick',"ClearPicArr(this,'"+paths[i]+"')").html("<i class='layui-icon layui-icon-close mr5'></i>删除");
             }
+            $(".region"+region).show();
         }
+    }
+    //修改区域(弹窗)
+    var region_open;
+    var region_obj;
+    function changeRegion(obj){
+        region_obj = obj;
+        region_open = layer.open({
+            type : 2,
+            title : '选择区域',
+            area : ['700px','500px'],
+            shade : 0.2,
+            iframeAuto:true,
+            content : "{:url('Region/ajaxSelectRegion')}"+'&func=set_region_back',
+            end : function(){
+            }
+        });
+    }
+    //修改区域（赋值）
+    function set_region_back(recall) {
+        var parent_obj = $(region_obj).parent().parent();
+        var province_id = parent_obj.find('.span_input:eq(0)').find('input:eq(1)').val();
+        var city_id = parent_obj.find('.span_input:eq(0)').find('input:eq(2)').val();
+        var area_id = parent_obj.find('.span_input:eq(0)').find('input:eq(3)').val();
+        var region_name =  parent_obj.find('div.operation a:eq(2)').html();
+
+        if (region_name != recall.name){
+            if (recall.level == 1){
+                parent_obj.find('.span_input:eq(0)').find('input:eq(1)').val(recall.id);
+                parent_obj.find('.span_input:eq(0)').find('input:eq(2)').val(0);
+                parent_obj.find('.span_input:eq(0)').find('input:eq(3)').val(0);
+            }else if(recall.level == 2){
+                parent_obj.find('.span_input:eq(0)').find('input:eq(1)').val(recall.parent_id);
+                parent_obj.find('.span_input:eq(0)').find('input:eq(2)').val(recall.id);
+                parent_obj.find('.span_input:eq(0)').find('input:eq(3)').val(0);
+            }else if(recall.level == 3){
+                var where = "id="+recall.parent_id;
+                $.ajax({
+                    type:'POST',
+                    url:"{:url('Region/ajaxGetOne')}",
+                    data:{where:where},
+                    success : function(res){
+                        parent_obj.find('.span_input:eq(0)').find('input:eq(1)').val(res.parent_id);
+                    }
+                });
+                parent_obj.find('.span_input:eq(0)').find('input:eq(2)').val(recall.parent_id);
+                parent_obj.find('.span_input:eq(0)').find('input:eq(3)').val(recall.id);
+            }
+
+            parent_obj.find('div.operation a:eq(2)').html(recall.name);
+            parent_obj.removeClass().addClass("images-upload region"+recall.id);
+            parent_obj.hide();
+        }
+        layer.close(region_open);
     }
     // 上传之后删除组图input
     function ClearPicArr(obj,path)

@@ -339,14 +339,12 @@ class AdPosition extends Base
         function_exists('set_time_limit') && set_time_limit(0);
         if (IS_POST) {
             $post = input('post.');
-
             $map = array(
                 'title' => trim($post['title']),
             );
             if(M('ad_position')->where($map)->count() > 0){
                 $this->error('该广告名称已存在，请检查', url('AdPosition/index'));
             }
-
             // 添加广告位置表信息
             $data = array(
                 'title'       => trim($post['title']),
@@ -355,9 +353,7 @@ class AdPosition extends Base
                 'update_time' => getTime(),
             );
             $insertId = M('ad_position')->insertGetId($data);
-
             if ($insertId) {
-
                 // 读取组合广告位的图片及信息
                 $i = '1';
                 foreach ($post['img_litpic'] as $key => $value) {
@@ -380,6 +376,9 @@ class AdPosition extends Base
                         $AdData['sort_order']  = $i++;
                         $AdData['add_time']    = getTime();
                         $AdData['update_time'] = getTime();
+                        $AdData['province_id']       = trim($post['province_id'][$key]);
+                        $AdData['city_id']       = trim($post['city_id'][$key]);
+                        $AdData['area_id']       = trim($post['area_id'][$key]);
                         // 添加到广告图表
                         $ad_id = Db::name('ad')->add($AdData);
                     }
@@ -453,6 +452,9 @@ class AdPosition extends Base
                                 // 其他参数
                                 $AdData['sort_order']  = $i++;
                                 $AdData['update_time'] = getTime();
+                                $AdData['province_id']       = trim($post['province_id'][$key]);
+                                $AdData['city_id']       = trim($post['city_id'][$key]);
+                                $AdData['area_id']       = trim($post['area_id'][$key]);
                                 // 更新，不需要同步多语言
                                 $ad_db->where($where)->update($AdData);
                             }else{
@@ -469,6 +471,9 @@ class AdPosition extends Base
                                 $AdData['sort_order']  = $i++;
                                 $AdData['add_time']    = getTime();
                                 $AdData['update_time'] = getTime();
+                                $AdData['province_id']       = trim($post['province_id'][$key]);
+                                $AdData['city_id']       = trim($post['city_id'][$key]);
+                                $AdData['area_id']       = trim($post['area_id'][$key]);
                                 $ad_id = $ad_db->add($AdData);
                             }
                         }else{
@@ -485,6 +490,9 @@ class AdPosition extends Base
                             $AdData['sort_order']  = $i++;
                             $AdData['add_time']    = getTime();
                             $AdData['update_time'] = getTime();
+                            $AdData['province_id']       = trim($post['province_id'][$key]);
+                            $AdData['city_id']       = trim($post['city_id'][$key]);
+                            $AdData['area_id']       = trim($post['area_id'][$key]);
                             $ad_id = $ad_db->add($AdData);
                         }
                     }
@@ -511,9 +519,23 @@ class AdPosition extends Base
         $assign_data['field'] = $field;
 
         // 广告
-        $ad_data = Db::name('ad')->where(array('pid'=>$field['id'],'rid'=>0))->order('sort_order asc')->select();
+        $ad_data = Db::name('ad')->where(array('pid'=>$field['id']))->order('sort_order asc')->select();
+        $region_list = get_region_list();
         foreach ($ad_data as $key => $val) {
             $ad_data[$key]['litpic'] = handle_subdir_pic($val['litpic']); // 支持子目录
+            if($val['area_id']){
+                $ad_data[$key]['region_name'] = $region_list[$val['area_id']]['name'];
+                $ad_data[$key]['region_id'] = $val['area_id'];
+            }else if($val['city_id']){
+                $ad_data[$key]['region_name'] = $region_list[$val['city_id']]['name'];
+                $ad_data[$key]['region_id'] = $val['city_id'];
+            }else if($val['province_id']){
+                $ad_data[$key]['region_name'] = $region_list[$val['province_id']]['name'];
+                $ad_data[$key]['region_id'] = $val['province_id'];
+            }else{
+                $ad_data[$key]['region_name'] = "通用";
+                $ad_data[$key]['region_id'] = 0;
+            }
         }
         $assign_data['ad_data'] = $ad_data;
         

@@ -474,4 +474,10 @@ class Region extends Base
 
         return $this->fetch();
     }
+    /*
+     * js获取region
+     */
+    public function ajaxGetOne($where = ""){
+        return Db::name('region')->where($where)->find();
+    }
 }

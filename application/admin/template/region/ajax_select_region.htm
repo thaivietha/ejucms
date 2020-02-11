@@ -78,6 +78,8 @@
             if (layEvent === 'select') {
                 var fileurl_tmp = [];
                 fileurl_tmp['id'] = data.id;
+                fileurl_tmp['level'] = data.level;
+                fileurl_tmp['parent_id'] = data.parent_id;
                 fileurl_tmp['name'] = data.name;
                 eval('window.parent.'+callback+'(fileurl_tmp)');
             }

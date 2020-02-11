@@ -1704,7 +1704,7 @@ class Eju extends Taglib
 
         // 查询数据库获取的数据集
         $parseStr .= ' $tagAdv = new \think\template\taglib\eju\TagAdv;';
-        $parseStr .= ' $_result = $tagAdv->getAdv('.$pid.', "'.$where.'", "'.$orderby.'");';
+        $parseStr .= ' $_result = $tagAdv->getAdv('.$pid.', "'.$where.'", "'.$orderby.'","'.$row.'");';
         $parseStr .= ' if(is_array($_result) || $_result instanceof \think\Collection || $_result instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k=0;';
         // 设置了输出数组长度
         if ('null' != $row) {

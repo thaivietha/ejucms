@@ -15,6 +15,7 @@ namespace think\template\taglib\eju;
 
 use \think\Controller;
 use \think\Db;
+use think\Request;
 /**
  * 广告
  */
@@ -30,13 +31,13 @@ class TagAdv extends Base
      * 获取广告
      * @author wengxianhu by 2018-4-20
      */
-    public function getAdv($pid = '', $where = '', $orderby = '')
+    public function getAdv($pid = '', $where = '', $orderby = '',$row = '')
     {
         if (empty($pid)) {
             echo '标签adv报错：缺少属性 pid 。';
             return false;
         }
-
+        $result = [];
         $uiset = I('param.uiset/s', 'off');
         $uiset = trim($uiset, '/');
         $times = time();
@@ -74,35 +75,34 @@ class TagAdv extends Base
                 break;
         }
         $regionInfo = \think\Cookie::get("regionInfo");
-        if (!empty($regionInfo)){
-            $region['pid'] = $pid;
-            $region['is_del'] = 0;
-            $region['status'] = 1;
+        $request    = Request::instance();
+        $domain = $request->host();
+        $domain_arr = explode('.',$domain);
+        $web_mobile_domain = config('ey_config.web_mobile_domain');
+        if (!empty($domain_arr) && $domain_arr[0] != 'www' && $domain_arr[0] != $web_mobile_domain && !empty($regionInfo)){
+            $where_region = $where;
             if ($regionInfo['level'] == 1){
-                $region['province_id'] = $regionInfo['id'];
+                $where_region .= " and province_id={$regionInfo['id']} and city_id=0 and area_id=0";
             }else if ($regionInfo['level'] == 2){
-                $region['city_id'] = $regionInfo['id'];
+                $where_region .= " and city_id={$regionInfo['id']} and area_id=0";
             }else if ($regionInfo['level'] == 3){
-                $region['area_id'] = $regionInfo['id'];
+                $where_region .= " and area_id={$regionInfo['id']}";
             }
-            $rid = Db::name("ad_region")->where($region)->getField("id");
-            if ($rid){
-                $where_region = $where." and rid={$rid}";
-                $result = M("ad")->field("*")
-                    ->where($where_region)
-                    ->orderRaw($orderby)
-                    ->cache(true,EYOUCMS_CACHE_TIME,"ad")
-                    ->select();
-            }
-        }
-        if (empty($result)){
-            $where .=  " and rid=0";
             $result = M("ad")->field("*")
+                ->where($where_region)
+                ->orderRaw($orderby)
+                ->cache(true,EYOUCMS_CACHE_TIME,"ad")
+                ->select();
+        }
+        if (empty($result) || empty($row) ||  count($result) <$row ){
+            $where .=  " and province_id=0 and city_id=0 and area_id=0";
+            $result2 = M("ad")->field("*")
                 ->where($where)
                 ->orderRaw($orderby)
                 ->cache(true,EYOUCMS_CACHE_TIME,"ad")
                 ->select();
 
+            $result = array_merge($result,$result2);
         }
         foreach ($result as $key => $val) {
             $val['litpic'] = handle_subdir_pic(get_default_pic($val['litpic'])); // 默认无图封面
