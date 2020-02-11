@@ -108,7 +108,7 @@ class Xiaoqu extends Model
                 if ($val['is_jump'] == 1) {
                     $lists[$key]['arcurl'] = $val['jumplinks'];
                 } else {
-                    $lists[$key]['arcurl'] = arcurl("home/Xiaoqu/index", $val);
+                    $lists[$key]['arcurl'] = arcurl("home/Xiaoqu/view", $val);
                 }
                 $manage_type_arr = explode(",",$val['manage_type']);
                 $lists[$key]['manage_type_name'] = '';

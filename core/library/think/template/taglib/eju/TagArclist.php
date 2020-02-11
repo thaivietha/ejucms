@@ -65,7 +65,6 @@ class TagArclist extends Base
         $result = false;
         $condition = array();
         $param = array_merge($param,input('param.'));
-//        var_dump($param);die();
         $channeltype = ("" != $param['channel'] && is_numeric($param['channel'])) ? intval($param['channel']) : '';
         $param['typeid'] = !empty($param['typeid']) ? $param['typeid'] : $this->tid;
         empty($orderway) && $orderway = 'desc';
@@ -335,7 +334,11 @@ class TagArclist extends Base
             if ($val['is_jump'] == 1) {
                 $val['arcurl'] = $val['jumplinks'];
             } else {
-                $val['arcurl'] = arcurl('home/'.$controller_name."/view", $val);
+                $arcparam = $val;
+                if (!empty($arcparam['room'])){
+                    unset($arcparam['room']);
+                }
+                $val['arcurl'] = arcurl('home/'.$controller_name."/view",  $arcparam,true,false,'',null);
 
             }
             /*--end*/

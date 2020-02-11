@@ -722,7 +722,6 @@ if (!function_exists('get_arcurl'))
             $arcview_info = array_merge($arcview_info, $channelRow);
         }
         /*--end*/
-
         static $result = null;
         null === $result && $result = model('Channeltype')->getAll('id, ctl_name', array(), 'id');
         $ctl_name = '';
@@ -737,16 +736,22 @@ if (!function_exists('get_arcurl'))
             $seo_pseudo = !empty($seoConfig['seo_pseudo']) ? $seoConfig['seo_pseudo'] : config('ey_config.seo_pseudo');
             $seo_dynamic_format = !empty($seoConfig['seo_dynamic_format']) ? $seoConfig['seo_dynamic_format'] : config('ey_config.seo_dynamic_format');
         }
-
-        if (2 == $seo_pseudo && $admin) {
-            $arcurl = ROOT_DIR."/index.php?m=home&c=View&a=index&aid={$arcview_info['aid']}&t=".getTime();
-        } else {
-            static $domain = null;
-            null === $domain && $domain = request()->domain();
-            $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true, $domain, $seo_pseudo, $seo_dynamic_format);
+        static $domain = null;
+        null === $domain && $domain = request()->domain();
+        $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true,false,$seo_pseudo,$seo_dynamic_format);
+        if (2 != $seo_pseudo){
             // 自动隐藏index.php入口文件
             $arcurl = auto_hide_index($arcurl);
         }
+//        if (2 == $seo_pseudo && $admin) {
+//            $arcurl = ROOT_DIR."/index.php?m=home&c=View&a=index&aid={$arcview_info['aid']}&t=".getTime();
+//        } else {
+//            static $domain = null;
+//            null === $domain && $domain = request()->domain();
+//            $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true, $domain, $seo_pseudo, $seo_dynamic_format);
+//            // 自动隐藏index.php入口文件
+//            $arcurl = auto_hide_index($arcurl);
+//        }
 
         return $arcurl;
     }

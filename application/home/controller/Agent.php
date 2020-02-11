@@ -43,10 +43,15 @@ class Agent extends Base
         $service_xiaoqu = [];
         if (!empty($result['service_xiaoqu'])){
             $service_xiaoqu_arr = explode(',',$result['service_xiaoqu']);
-            $service_xiaoqu_list = Db::name("archives")->where(["aid"=>["in",$service_xiaoqu_arr]])->getAllWithIndex('aid');
+            $service_xiaoqu_list = Db::name("archives") ->field("b.*, a.*")
+                ->alias('a')
+                ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT')
+                ->where(["a.aid"=>["in",$service_xiaoqu_arr]])
+                ->select();
+//                ->getAllWithIndex('aid');
             foreach ($service_xiaoqu_list as $k=>$v){
-                if (in_array($k,$service_xiaoqu_arr)){
-                    $v['arcurl'] =  arcurl('home/Xiaoqu/view', $v);
+                if (in_array($v['aid'],$service_xiaoqu_arr)){
+                    $v['arcurl'] =  arcurl('home/Xiaoqu/view', $v,true,false,'',null);
                     $service_xiaoqu[] = $v;
                 }
             }

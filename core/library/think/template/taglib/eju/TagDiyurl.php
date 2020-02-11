@@ -7,6 +7,8 @@
 
 namespace think\template\taglib\eju;
 
+use think\Request;
+use think\Config;
 
 class TagDiyurl extends Base
 {
@@ -60,6 +62,11 @@ class TagDiyurl extends Base
                 break;
             case "jisuanqi":    //房贷计算器
                 $parseStr = url('home/Tool/jisuanqi');
+                break;
+            case 'shouye':
+                $request = Request::instance();
+                $scheme = $request->isSsl() || Config::get('is_https') ? 'https://' : 'http://';
+                $parseStr = $scheme.$request->host();
                 break;
             default:
                 $parseStr = "";

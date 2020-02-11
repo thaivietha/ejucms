@@ -326,10 +326,10 @@ if (!function_exists('url')) {
      * @param string          $seo_pseudo_format URL格式
      * @return string
      */
-    function url($url = '', $vars = '', $suffix = true, $domain = false, $seo_pseudo = null, $seo_pseudo_format = null)
+    function url($url = '', $vars = '', $suffix = true, $domain = false, $seo_pseudo = null, $seo_pseudo_format = null,$subdomain = null)
     {
         $seo_pseudo = !empty($seo_pseudo) ? $seo_pseudo : config('ey_config.seo_pseudo');
-        $url = Url::build($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format);
+        $url = Url::build($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
 
         return $url;
     }

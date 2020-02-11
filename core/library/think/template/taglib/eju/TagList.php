@@ -280,7 +280,6 @@ class TagList extends Base
                 ->getAllWithIndex('aid');
             // 获取模型对应的控制器名称
             $channel_list = model('Channeltype')->getAll('id, ctl_name', array(), 'id');
-
             foreach ($list as $key => $val) {
                 $arcval = $row[$val['aid']];
                 $controller_name = $channel_list[$arcval['channel']]['ctl_name'];
@@ -295,8 +294,14 @@ class TagList extends Base
                 if ($arcval['is_jump'] == 1) {
                     $arcval['arcurl'] = $arcval['jumplinks'];
                 } else {
-                    $arcval['arcurl'] = arcurl('home/'.$controller_name."/view", ['aid'   => $arcval['aid'], 'dirname'   => $arcval['dirname']]);
+                    $arcparam = $arcval;
+                    if (!empty($arcparam['room'])){
+                        unset($arcparam['room']);
+                    }
+                    $arcval['arcurl'] = arcurl('home/'.$controller_name."/view", $arcparam,true,false,'',null);
+
                 }
+
                 /*--end*/
                 /*封面图*/
                 $arcval['litpic'] = get_default_pic($arcval['litpic']); // 默认封面图
@@ -596,7 +601,6 @@ class TagList extends Base
             }
             // 获取模型对应的控制器名称
             $channel_list = model('Channeltype')->getAll('id, ctl_name', array(), 'id');
-
             foreach ($list as $key => $val) {
                 $arcval = $row[$val['aid']];
                 $controller_name = $channel_list[$arcval['channel']]['ctl_name'];
@@ -611,7 +615,12 @@ class TagList extends Base
                 if ($arcval['is_jump'] == 1) {
                     $arcval['arcurl'] = $arcval['jumplinks'];
                 } else {
-                    $arcval['arcurl'] = arcurl('home/'.$controller_name."/view", ['aid'   => $arcval['aid'], 'dirname'   => $arcval['dirname']]);
+                    $arcparam = $arcval;
+                    if (!empty($arcparam['room'])){
+                        unset($arcparam['room']);
+                    }
+                    $arcval['arcurl'] = arcurl('home/'.$controller_name."/view", $arcparam,true,false,'',null);
+
                 }
                 /*--end*/
                 /*封面图*/

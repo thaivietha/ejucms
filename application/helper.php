@@ -245,7 +245,6 @@ if (!function_exists('typeurl')) {
                 $seo_pseudo_format = config('ey_config.seo_dynamic_format');
             }
         }
-
         if (1 == $seo_pseudo && 2 == $seo_pseudo_format) {
             if (is_array($param)) {
                 $vars = array(
@@ -364,8 +363,9 @@ if (!function_exists('arcurl')) {
      * @param string          $seo_pseudo_format URL格式
      * @return string
      */
-    function arcurl($url = '', $param = '', $suffix = true, $domain = false, $seo_pseudo = '', $seo_pseudo_format = null)
+    function arcurl($url = '', $param = '', $suffix = true, $domain = false, $seo_pseudo = '', $seo_pseudo_format = null,$subdomain = null)
     {
+
         $eyouUrl = '';
         $seo_pseudo = !empty($seo_pseudo) ? $seo_pseudo : config('ey_config.seo_pseudo');
         if (empty($seo_pseudo_format)) {
@@ -373,7 +373,19 @@ if (!function_exists('arcurl')) {
                 $seo_pseudo_format = config('ey_config.seo_dynamic_format');
             }
         }
-        
+        $subdomain = "";
+        $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+        if ($web_region_domain){
+            $region_list = get_region_list();
+            if ($param['area_id'] && !empty($region_list[$param['area_id']]['domain'])){
+                $subdomain = $region_list[$param['area_id']]['domain'];
+            }else if ($param['city_id'] && !empty($region_list[$param['city_id']]['domain'])){
+                $subdomain = $region_list[$param['city_id']]['domain'];
+            }else if ($param['province_id'] && !empty($region_list[$param['province_id']]['domain'])){
+                $subdomain = $region_list[$param['province_id']]['domain'];
+            }
+        }
+
         if (1 == $seo_pseudo && 2 == $seo_pseudo_format) {   //动态
             if (is_array($param)) {
                 $vars = array(
@@ -384,10 +396,11 @@ if (!function_exists('arcurl')) {
                 !empty($param['photo_type']) && $vars['photo_type'] = $param['photo_type'];
                 !empty($param['room']) && $vars['room'] = $param['room'];
                 $vars = http_build_query($vars);
+
             } else {
                 $vars = $param;
             }
-            $eyouUrl = url($url, array(), $suffix, $domain, $seo_pseudo, $seo_pseudo_format);
+            $eyouUrl = url($url, array(), $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
             $urlParam = parse_url($eyouUrl);
             $query_str = isset($urlParam['query']) ? $urlParam['query'] : '';
             if (empty($query_str)) {
@@ -471,7 +484,7 @@ if (!function_exists('arcurl')) {
             } else {
                 $vars = $param;
             }
-            $eyouUrl = url($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format);
+            $eyouUrl = url($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
         } else {        //动态
             if (is_array($param)) {
                 $vars = array(
@@ -485,7 +498,7 @@ if (!function_exists('arcurl')) {
             } else {
                 $vars = $param;
             }
-            $eyouUrl = url('home/View/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format);
+            $eyouUrl = url('home/View/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
         }
 
         return $eyouUrl;

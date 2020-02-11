@@ -143,9 +143,13 @@ class TagUsersList extends Base
                 $service_xiaoqu = [];
                 if (!empty($arcval['service_xiaoqu'])){
                     $service_xiaoqu_arr = explode(',',$arcval['service_xiaoqu']);
-                    $service_xiaoqu_list = Db::name("archives")->where(["aid"=>["in",$service_xiaoqu_arr]])->getAllWithIndex('aid');
+                    $service_xiaoqu_list = Db::name("archives")->field("b.*, a.*")
+                        ->alias('a')
+                        ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT')
+                        ->where(["a.aid"=>["in",$service_xiaoqu_arr]])
+                        ->select();
                     foreach ($service_xiaoqu_list as $k=>$v){
-                        if (in_array($k,$service_xiaoqu_arr)){
+                        if (in_array($v['aid'],$service_xiaoqu_arr)){
                             $v['arcurl'] =  arcurl('home/Xiaoqu/view', $v);
                             $service_xiaoqu[] = $v;
                         }

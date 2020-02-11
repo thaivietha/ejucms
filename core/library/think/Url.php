@@ -18,8 +18,9 @@ class Url
      * @param string    $seo_pseudo_format URL格式
      * @return string
      */
-    public static function build($url = '', $vars = '', $suffix = true, $domain = false, $seo_pseudo = null, $seo_pseudo_format = null)
+    public static function build($url = '', $vars = '', $suffix = true, $domain = false, $seo_pseudo = null, $seo_pseudo_format = null,$subdomain = null)
     {
+
         static $request = null;
         if (null == $request) {
             $request = Request::instance();
@@ -40,11 +41,9 @@ class Url
             }
         }
         /*--end*/
-
         if (false === $domain && Route::rules('domain')) {
             $domain = true;
         }
-
         // 解析URL
         if (0 === strpos($url, '[') && $pos = strpos($url, ']')) {
             // [name] 表示使用路由命名标识生成URL
@@ -70,7 +69,6 @@ class Url
                 list($url, $domain) = explode('@', $url, 2);
             }
         }
-
         // 解析参数
         if (is_string($vars)) {
             // aaa=1&bbb=2 转换成数组
@@ -87,6 +85,7 @@ class Url
                 unset($info['query']);
             }
         }
+
         if (!empty($rule) && $match = self::getRuleUrl($rule, $vars)) {
             // 匹配路由命名标识
             $url = $match[0];
@@ -120,6 +119,7 @@ class Url
             if (!$matchAlias) {
                 // 路由标识不存在 直接解析
                 $url = self::parseUrl($url, $domain);
+
             }
             if (isset($info['query'])) {
                 // 解析地址里面参数 合并到vars
@@ -138,6 +138,7 @@ class Url
                 }
             }
         }
+
         // 还原URL分隔符
         $depr = Config::get('pathinfo_depr');
         $url  = str_replace('/', $depr, $url);
@@ -164,13 +165,14 @@ class Url
             $c = !empty($urlinfo[$len - 2]) ? $urlinfo[$len - 2] : $request->controller();
             $a = !empty($urlinfo[$len - 1]) ? $urlinfo[$len - 1] : $request->action();
             // 检测域名
-            $domain = self::parseDomain($url, $domain);
+            $domain = self::parseDomain($url, $domain,$subdomain);
             // URL组装
             $url = $domain . rtrim(self::$root ?: $request->root(), '/');
             if (1 == $seo_inlet && 'admin' != $m) {
                 $url .= "/";
             }
             $url .= "?m={$m}&c={$c}&a={$a}";
+
             /*URL全局参数（比如：可视化uiset、多模板v）*/
             $urlParam = $request->param();
             !empty($vars['subdomain']) && !empty($urlParam['subdomain']) && $urlParam['subdomain'] = $vars['subdomain'];
@@ -228,7 +230,7 @@ class Url
                 $url .= $suffix . $anchor;
             }
             // 检测域名
-            $domain = self::parseDomain($url, $domain);
+            $domain = self::parseDomain($url, $domain,$subdomain);
             // URL组装
             $url = $domain . rtrim(self::$root ?: $request->root(), '/') . '/' . ltrim($url, '/');
         }
@@ -305,7 +307,7 @@ class Url
     }
 
     // 检测域名
-    protected static function parseDomain(&$url, $domain)
+    protected static function parseDomain(&$url, $domain,$subdomain = null)
     {
         if (!$domain) {
             return '';
@@ -315,6 +317,12 @@ class Url
         if (true === $domain) {
             // 自动判断域名
             $domain = Config::get('app_host') ?: $request->host();
+            $domain_arr = explode('.',$domain);
+            $web_mobile_domain = config('ey_config.web_mobile_domain');
+            if ($subdomain && !empty($domain_arr) && $domain_arr[0] != $web_mobile_domain){
+                $domain_arr[0] = $subdomain;
+                $domain = implode('.',$domain_arr);
+            }
 
             $domains = Route::rules('domain');
             if ($domains) {
@@ -337,11 +345,13 @@ class Url
                                 }
                                 break;
                             }
+
                         }
                     }
-                }
-            }
 
+                }
+
+            }
         } else {
             if (empty($rootDomain)) {
                 $host       = Config::get('app_host') ?: $request->host();
@@ -356,6 +366,7 @@ class Url
         } else {
             $scheme = $request->isSsl() || Config::get('is_https') ? 'https://' : 'http://';
         }
+
         return $scheme . $domain;
     }
 

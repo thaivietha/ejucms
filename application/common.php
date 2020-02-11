@@ -1074,7 +1074,24 @@ if (!function_exists('sendSms'))
         return $smsLogic->sendSms($scene, $sender, $params, $unique_id);
     }
 }
+/**
+ * 获得全部区域列表
+ */
+if (!function_exists('get_region_list')){
+    function get_region_list()
+    {
+        $result = extra_cache('global_get_region_list');
+        if (empty($result)) {
+            $result = M('region')->field('id, name, domain, parent_id')
+                ->where('status',1)
+                ->order("sort_order asc")
+                ->getAllWithIndex('id');
 
+            extra_cache('global_get_region_list', $result);
+        }
+        return $result;
+    }
+}
 /**
  * 获得全部省份列表
  */
@@ -1149,8 +1166,6 @@ if (!function_exists('get_next_region_list')){
         return $result;
     }
 }
-
-
 /**
  * 根据地区ID获得省份名称
  */
@@ -1164,8 +1179,6 @@ if (!function_exists('get_province_name')){
         return empty($result[$id]) ? '' : $result[$id]['name'];
     }
 }
-
-
 /**
  * 根据地区ID获得城市名称
  */

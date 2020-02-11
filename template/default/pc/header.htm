@@ -1,6 +1,10 @@
 <div class="topBar">
   <div class="comWidth clearfix">
-    <div class="logo fl"> <a href="{eju:global name='web_cmsurl' /}" title="{eju:global name='web_name' /}"> <img src="{eju:global name='web_logo' /}" alt="{eju:global name='web_name' /}" /> </a> </div>
+    <div class="logo fl">
+        <a href="{eju:global name='web_cmsurl' /}" title="{eju:global name='web_name' /}">
+            <img src="{eju:global name='web_logo' /}" alt="{eju:global name='web_name' /}" />
+        </a>
+    </div>
     
     <div class="fl sele_city"> <a href="javascript:;"  class="sele_city_btn">{$eju.region.name}<img src="{eju:global name='web_templets_pc' /}/skin/img/icon15.png" alt="" class="icon"></a>
       <div class="city_list clearfix"> <i class="city-close">关闭</i>
@@ -16,8 +20,7 @@
     </div>
     <div class="navBar fl">
       <ul class="nav_list fl">
-        <li {eju:eq name='$Think.const.CONTROLLER_NAME' value='Index'}class="active"{/eju:eq}> <a href="{eju:global name='web_cmsurl' /}">首页</a> </li>
-        
+        <li {eju:eq name='$Think.const.CONTROLLER_NAME' value='Index'}class="active"{/eju:eq}> <a href="{eju:diyurl type='shouye' /}">首页</a> </li>
         {eju:channel type='top' currentstyle="active" id="field"}
         <li class="{$field.currentstyle}"> <a href="{$field.typeurl}">{$field.typename}</a>
          {eju:if condition="(empty($field.children) neq true) or (in_array($field.typeid,[1,11,12]))"}
