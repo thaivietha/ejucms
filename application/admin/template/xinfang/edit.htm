@@ -601,11 +601,11 @@
 															{$addonFieldExtList['video']['dfvalue_unit']}
 														</div>
 														<div class="layui-input-inline layui-btn-container " style="width: auto;">
+															<button class="layui-btn test-upload-video layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'video',ey_savepath:'allvideo'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
 															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
 															<div class="layui-form-inline2 ey_helptips_txt">{$addonFieldExtList['video']['remark']}</div>
 														</div>
 													</div>
-
 
                                                     {include file="field/addonextitem" /}
 													<div class="layui-form-item layui-form-text {empty name="$addonFieldExtList['location_introduce']['ifeditable']"}none{/empty}">
@@ -927,9 +927,7 @@
 							<!--沙盘选项-->
 							<style>
 								#shapan{height:400px;position:relative;width:100%;overflow:scroll;z-index:10;}
-								*,
-								*:before,
-								*:after {
+								#shapan_div *,*:before,*:after {
 									-moz-box-sizing: border-box;
 									-webkit-box-sizing: border-box;
 									box-sizing: border-box;
@@ -938,10 +936,8 @@
 								.col-50{width:50%;overflow-y: auto;}
 								.layui-fl{float:left;}
 								.layui-fr{float:right;}
-
-
 							</style>
-							<div class="layui-tab-item " style="padding-top: 10px;width: 100%;">
+							<div id="shapan_div" class="layui-tab-item" style="padding-top: 10px;width: 100%;">
 								<div class="col-50 layui-fl">
 									<div class="layui-form layui-border-box layui-table-view"  style="margin:0;">
 										<table id="tree-table" class="layui-table list-table" cellspacing="0" cellpadding="0" border="0" data-uri="{:url('HouseSand/ajaxEdit')}">

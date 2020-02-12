@@ -201,7 +201,17 @@
     </div>
 </div>
       {/eju:ask}
-    <!-- 周边配套 --> 
+
+      <!-- 全景看房 -->
+      {eju:notempty name="$eju.field.panoram"}
+      <div class="m_details_box">
+          <div class="m_lphome_h">全景看房</div>
+          <div class="y_lpjbxx_cent">
+              <iframe src="{$eju.field.panoram}" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
+          </div>
+      </div>
+      {/eju:notempty}
+      <!-- 周边配套 -->
      <a name="m_Matching"></a> 
     
     <!-- 楼盘经纬度 -->

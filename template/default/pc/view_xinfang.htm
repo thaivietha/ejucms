@@ -255,13 +255,14 @@
             </p>
           </div>
         </div>
-
+        {eju:notempty name="$eju.field.panoram"}
         <div class="detail-row margin-top20">
           <div class="title">全景看房 </div>
           <div class="map-box">
             <iframe src="{$eju.field.panoram}" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
           </div>
         </div>
+        {/eju:notempty}
 
         <div class="detail-row margin-top20">
           <div class="title">周边配套 </div>

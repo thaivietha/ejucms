@@ -25,6 +25,7 @@ class Ueditor extends Base
     private $sub_name = array('date', 'Ymd');
     private $savePath = 'allimg/';
     private $fileExt = 'jpg,png,gif,jpeg,bmp,ico';
+    private $videoExt = 'mp4';
     private $nowFileName = '';
 
     public function __construct()
@@ -532,7 +533,7 @@ class Ueditor extends Base
     }
 
     /**
-     * @function imageUp
+     * @function imageUp 图片上传
      */
     public function imageUp()
     {
@@ -563,7 +564,6 @@ class Ueditor extends Base
         } else {
             $result = true;
         }
-
         /*验证图片一句话木马*/
         $imgstr = @file_get_contents($file->getInfo('tmp_name'));
         if (false !== $imgstr && preg_match('#<\?php#i', $imgstr)) {
@@ -663,7 +663,86 @@ class Ueditor extends Base
 
         respose($return_data,'json');
     }
-    
+    /*
+     * 上传视频
+     */
+    public function videoUp(){
+        if (!IS_POST) {
+            $return_data['state'] = '非法上传';
+            respose($return_data,'json');
+        }
+        $image_upload_limit_size = intval(tpCache('basic.file_size') * 1024 * 1024);
+        // 获取表单上传文件
+        $file = request()->file('file');
+        if(empty($file))
+            $file = request()->file('upfile');
+        // ico图片文件不进行验证
+//        $result = $this->validate(
+//            ['file' => $file],
+//            ['file'=>'video|fileSize:'.$image_upload_limit_size.'|fileExt:'.$this->videoExt],
+//            ['file.video' => '上传文件必须为图片','file.fileSize' => '上传文件过大','file.fileExt'=>'上传文件后缀名必须为'.$this->videoExt]
+//        );
+        $result = true;
+        /*验证图片一句话木马*/
+        $imgstr = @file_get_contents($file->getInfo('tmp_name'));
+        if (false !== $imgstr && preg_match('#<\?php#i', $imgstr)) {
+            $result = '上传文件不合格';
+        }
+        /*--end*/
+
+        $return_data['oldfilename'] = $file->getInfo('name');
+
+        if (true !== $result || empty($file)) {
+            $state = "ERROR：" . $result;
+        } else {
+            if ('adminlogo/' == $this->savePath) {
+                $savePath = 'public/static/admin/logo/';
+            } else {
+                $savePath = UPLOAD_PATH.$this->savePath.date('Ymd/');
+            }
+            $ossConfig = tpCache('oss');
+            if ($ossConfig['oss_switch']) {
+                //商品图片可选择存放在oss
+                $object = $savePath.session('admin_id').'-'.dd2char(date("ymdHis").mt_rand(100,999)).'.'.pathinfo($file->getInfo('name'), PATHINFO_EXTENSION);
+                $ossClient = new \app\common\logic\OssLogic;
+                $return_url = $ossClient->uploadFile($file->getRealPath(), $object);
+                if (!$return_url) {
+                    $state = "ERROR" . $ossClient->getError();
+                    $return_url = '';
+                } else {
+                    $state = "SUCCESS";
+                }
+                @unlink($file->getRealPath());
+            } else {
+                // 移动到框架应用根目录/public/uploads/ 目录下
+                $info = $file->rule(function ($file) {
+                    // return  md5(mt_rand()); // 使用自定义的文件保存规则
+                    return session('admin_id').'-'.dd2char(date("ymdHis").mt_rand(100,999)); // 使用自定义的文件保存规则
+                })->move($savePath);
+                if ($info) {
+                    $state = "SUCCESS";
+                } else {
+                    $state = "ERROR" . $file->getError();
+                }
+                $return_url = '/'.$savePath.$info->getSaveName();
+            }
+            $return_data['url'] = ROOT_DIR.$return_url; // 支持子目录
+        }
+
+        // $return_data['title'] = $title;
+        $return_data['original'] = ''; // 这里好像没啥用 暂时注释起来
+        $return_data['state'] = $state;
+        // $return_data['path'] = $path;
+
+        // 是否开启七牛云插件
+        $data = Db::name('weapp')->where('code','Qiniuyun')->field('status')->find();
+        if (!empty($data) && 1 == $data['status']) {
+            // 同步图片到七牛云
+            $return_data['url'] = SynchronizeQiniu($return_data['url']);
+        }
+
+        respose($return_data,'json');
+    }
     /**
      * app文件上传
      */
