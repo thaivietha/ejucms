@@ -5081,7 +5081,7 @@ house-title .house-follow a {
 	color: #425571;
 }
 .map-box .map-mart .map-mart-lists {
-	padding: 0 15px;
+	padding: 0 5px;
 	height: 310px;
 	overflow-y: auto;
 }
@@ -5090,8 +5090,8 @@ house-title .house-follow a {
 	line-height: 22px;
 	color: #425571;
 	cursor: pointer;
-	cursor: pointer;
 	overflow: hidden;
+	padding:2px 0px;
 }
 .map-box .map-mart .map-mart-lists li i {
 	width: 20px;
