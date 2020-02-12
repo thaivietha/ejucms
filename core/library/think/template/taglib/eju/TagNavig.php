@@ -148,9 +148,12 @@ class TagNavig extends Base
             foreach ($res as $key => $val) {
                 if (!empty($val['type_id'])) {
                     array_push($typeids, intval($val['type_id']));
-                    $typeids = array_unique($typeids);
+                }
+                if (!empty($val['pointto_id'])) {
+                    array_push($typeids, intval($val['pointto_id']));
                 }
             }
+            $typeids = array_unique($typeids);
             $arctypeRow = Db::name('arctype')->field('id,typename,dirname,current_channel,is_part,typelink')->where(['id'=>['IN', $typeids]])->cache(true,EYOUCMS_CACHE_TIME,"arctype")->getAllWithIndex('id');
             $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', array(), 'id');
             foreach ($res as $key => $val) {
@@ -170,6 +173,10 @@ class TagNavig extends Base
                             $val['navig_url'] = $navig_url;
                         }
                     } else {
+                        if (!empty($arctypeInfo['pointto_id'])) {
+                            $arctypeInfo = !empty($arctypeRow[$arctypeInfo['pointto_id']]) ? $arctypeRow[$arctypeInfo['pointto_id']] : [];
+                        }
+
                         $ctl_name = $ctl_name_list[$arctypeInfo['current_channel']]['ctl_name'];
                         $val['navig_url'] = typeurl('home/'.$ctl_name."/lists", $arctypeInfo);
 
@@ -322,10 +329,13 @@ class TagNavig extends Base
             foreach ($res as $key => $val) {
                 if (!empty($val['type_id'])) {
                     array_push($typeids, intval($val['type_id']));
-                    $typeids = array_unique($typeids);
+                }
+                if (!empty($val['pointto_id'])) {
+                    array_push($typeids, intval($val['pointto_id']));
                 }
             }
-            $arctypeRow = Db::name('arctype')->field('id,typename,dirname,current_channel,is_part,typelink')->where(['id'=>['IN', $typeids]])->cache(true,EYOUCMS_CACHE_TIME,"arctype")->getAllWithIndex('id');
+            $typeids = array_unique($typeids);
+            $arctypeRow = Db::name('arctype')->field('id,typename,dirname,current_channel,is_part,typelink,pointto_id')->where(['id'=>['IN', $typeids]])->cache(true,EYOUCMS_CACHE_TIME,"arctype")->getAllWithIndex('id');
 
             $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', array(), 'id');
             $currentstyleArr = []; // 标记选择菜单的数组
@@ -345,6 +355,9 @@ class TagNavig extends Base
                             $val['navig_url'] = $navig_url;
                         }
                     } else {
+                        if (!empty($arctypeInfo['pointto_id'])) {
+                            $arctypeInfo = !empty($arctypeRow[$arctypeInfo['pointto_id']]) ? $arctypeRow[$arctypeInfo['pointto_id']] : [];
+                        }
                         $ctl_name = $ctl_name_list[$arctypeInfo['current_channel']]['ctl_name'];
                         $val['navig_url'] = typeurl('home/'.$ctl_name."/lists", $arctypeInfo);
 
