@@ -124,11 +124,9 @@
   <div class="label_menu">
     <div class="newtool">
       <div class="newtoolnr">
-        <div class="Ntd">
-          <div class="tjf10"></div>
-          
+       
+        <div class="Ntd {eju:neq name='$i' value='1'}{eju:else /}mal01{/eju:neq} {eju:neq name='$i' value='5'}nob{/eju:neq}">
           <div class="s3"> <a href="{eju:type typeid='1'}{$field.typeurl}{/eju:type}" target="_blank">买房</a> </div>
-          
           <div class="s2">
             <p> 
             {eju:type typeid='1'}
@@ -137,73 +135,13 @@
             {eju:type typeid='11'}
             <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
             {/eju:type}
-            </p>
-            <p> 
-            {eju:type typeid='3'}
+           {eju:type typeid='3'}
             <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
             {/eju:type}
             </p>
             </div>
         </div>
-        <div class="Ntd mal01">
-          <div class="s3"> <a href="{eju:type typeid='36'}{$field.typeurl}{/eju:type}" target="_blank">卖房</a> </div>
-          <div class="s2">
-            <p> 
-            {eju:type typeid='36'}
-            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
-            {/eju:type}
-            </p>
-            <!--<p> <a href="#" target="_blank" >查房价</a> </p>-->
-          </div>
-        </div>
-        <div class="Ntd mal01">
-          <div class="s3"> <a href="{eju:type typeid='21'}{$field.typeurl}{/eju:type}" target="_blank">租房</a> </div>
-          <div class="s2">
-            <p> 
-            {eju:type typeid='21'}
-            <a href="{$field.typeurl}" target="_blank">找租房</a> 
-            {/eju:type}
-            </p>
-            <p> 
-            {eju:type typeid='32'}
-            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
-            {/eju:type}
-            </p>
-          </div>
-        </div>
-        <div class="Ntd mal01">
-          <div class="s3"> <a href="{eju:type typeid='24'}{$field.typeurl}{/eju:type}" target="_blank">商用</a> </div>
-          <div class="s2">
-            <p> 
-            {eju:type typeid='24'}
-            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
-            {/eju:type}
-            {eju:type typeid='27'}
-            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
-            {/eju:type}
-            </p>
-            <p> 
-            {eju:type typeid='25'}
-            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
-            {/eju:type}
-            {eju:type typeid='28'}
-            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
-            {/eju:type}
-            </p>
-          </div>
-        </div>
-        <div class="Ntd mal01 nob">
-          <div class="s3"> <a href="{eju:diyurl type='jisuanqi' /}" target="_blank" id="dsy_D03_62">其他</a> </div>
-          <div class="s2">
-            <p> 
-            <a href="{eju:diyurl type='jisuanqi' /}" target="_blank">房贷计算器</a>
-            <!--<a href="{eju:diyurl type='map' /}" target="_blank">地图找房</a> -->
-            </p>
-            <p> 
-            <a href="{eju:diyurl type='map' /}" target="_blank">地图找房</a>
-            </p>
-          </div>
-        </div>
+        
       </div>
     </div>
 

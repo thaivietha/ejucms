@@ -8,7 +8,7 @@
 -- 
 -- Part : #1
 -- Version : #v1.4.0
--- Date : 2020-02-10 13:03:50
+-- Date : 2020-02-12 09:56:46
 -- -----------------------------------------
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -21,7 +21,6 @@ DROP TABLE IF EXISTS `eju_ad`;
 CREATE TABLE `eju_ad` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '广告id',
   `pid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '广告位置ID',
-  `rid` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '区域id',
   `media_type` tinyint(1) DEFAULT '0' COMMENT '广告类型',
   `title` varchar(60) DEFAULT '' COMMENT '广告名称',
   `links` varchar(255) DEFAULT '' COMMENT '广告链接',
@@ -52,23 +51,23 @@ CREATE TABLE `eju_ad` (
 -- -----------------------------
 -- Records of `eju_ad`
 -- -----------------------------
-INSERT INTO `eju_ad` VALUES ('1', '1', '0', '1', '幻灯一', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-191011110045934.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1570765888', '1570765888', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('2', '1', '0', '1', '幻灯二', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111100491R.jpg', '0', '0', '', '', '', '', '0', '', '1', '2', '0', '1', '0', '1570765888', '1570765888', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('3', '1', '0', '1', '幻灯三', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-191011110051505.jpg', '0', '0', '', '', '', '', '0', '', '1', '3', '0', '1', '0', '1570765888', '1570765888', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('4', '2', '0', '1', '楼盘一', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111H519513.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1570785957', '1577084904', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('5', '2', '0', '1', '楼盘二', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111H51b96.jpg', '0', '0', '', '', '', '', '0', '', '1', '2', '0', '1', '0', '1570785957', '1577084904', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('6', '2', '0', '1', '楼盘三', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111H51RC.jpg', '0', '0', '', '', '', '', '0', '', '1', '3', '0', '1', '0', '1570785957', '1577084904', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('7', '2', '0', '1', '楼盘四', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111H51T38.jpg', '0', '0', '', '', '', '', '0', '', '1', '4', '0', '1', '0', '1570785957', '1577084904', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('14', '4', '0', '1', '', '', '/uploads/allimg/20191223/1-191223200025634.jpg', '0', '0', '', '', '', '', '0', '', '1', '2', '0', '1', '0', '1577102426', '1577102426', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('9', '3', '0', '1', '横栏广告一', '', '/uploads/allimg/20200117/1-20011F91510335.jpg', '0', '0', '这里的广告是单独调用的，如需修改图片，请点击图片上的更换图片', '', '', '', '0', '', '1', '5', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('13', '4', '0', '1', '', '', '/uploads/allimg/20191223/1-1912232000251G.png', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1577102426', '1577102426', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('12', '3', '0', '1', '横栏广告二', '', '/uploads/allimg/20200117/1-20011F9150A13.jpg', '0', '0', '这里的广告是单独调用的，如需修改图片，请点击图片上的更换图片', '', '', '', '0', '', '1', '4', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('15', '3', '0', '1', '横栏广告三', '', '/uploads/allimg/20200117/1-20011F915035B.jpg', '0', '0', '这里的广告是单独调用的，如需修改图片，请点击图片上的更换图片', '', '', '', '0', '', '1', '3', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('16', '3', '0', '1', '横栏广告四', '', '/uploads/allimg/20200117/1-20011F9145U56.jpg', '0', '0', '这里的广告是单独调用的，如需修改图片，请点击图片上的更换图片', '', '', '', '0', '', '1', '2', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('17', '5', '0', '1', '', '', '/uploads/allimg/20191224/1-191224104JY20.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1577155671', '1577155671', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('18', '3', '0', '1', '横栏广告四', '', '/uploads/allimg/20200117/1-20011F91454426.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('19', '6', '0', '1', '', '', '/uploads/allimg/20191227/1-19122G03PU55.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1577414210', '1577414292', '0', '0', '0');
-INSERT INTO `eju_ad` VALUES ('20', '6', '0', '1', '', '', '/uploads/allimg/20191227/1-19122G03Q1609.jpg', '0', '0', '', '', '', '', '0', '', '1', '2', '0', '1', '0', '1577414210', '1577414292', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('1', '1', '1', '幻灯一', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-191011110045934.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1570765888', '1570765888', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('2', '1', '1', '幻灯二', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111100491R.jpg', '0', '0', '', '', '', '', '0', '', '1', '2', '0', '1', '0', '1570765888', '1570765888', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('3', '1', '1', '幻灯三', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-191011110051505.jpg', '0', '0', '', '', '', '', '0', '', '1', '3', '0', '1', '0', '1570765888', '1570765888', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('4', '2', '1', '楼盘一', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111H519513.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1570785957', '1577084904', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('5', '2', '1', '楼盘二', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111H51b96.jpg', '0', '0', '', '', '', '', '0', '', '1', '2', '0', '1', '0', '1570785957', '1577084904', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('6', '2', '1', '楼盘三', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111H51RC.jpg', '0', '0', '', '', '', '', '0', '', '1', '3', '0', '1', '0', '1570785957', '1577084904', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('7', '2', '1', '楼盘四', 'http://www.ejucms.com/', '/uploads/allimg/20191011/1-1910111H51T38.jpg', '0', '0', '', '', '', '', '0', '', '1', '4', '0', '1', '0', '1570785957', '1577084904', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('14', '4', '1', '', '', '/uploads/allimg/20191223/1-191223200025634.jpg', '0', '0', '', '', '', '', '0', '', '1', '2', '0', '1', '0', '1577102426', '1577102426', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('9', '3', '1', '横栏广告一', '', '/uploads/allimg/20200117/1-20011F91510335.jpg', '0', '0', '这里的广告是单独调用的，如需修改图片，请点击图片上的更换图片', '', '', '', '0', '', '1', '5', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('13', '4', '1', '', '', '/uploads/allimg/20191223/1-1912232000251G.png', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1577102426', '1577102426', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('12', '3', '1', '横栏广告二', '', '/uploads/allimg/20200117/1-20011F9150A13.jpg', '0', '0', '这里的广告是单独调用的，如需修改图片，请点击图片上的更换图片', '', '', '', '0', '', '1', '4', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('15', '3', '1', '横栏广告三', '', '/uploads/allimg/20200117/1-20011F915035B.jpg', '0', '0', '这里的广告是单独调用的，如需修改图片，请点击图片上的更换图片', '', '', '', '0', '', '1', '3', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('16', '3', '1', '横栏广告四', '', '/uploads/allimg/20200117/1-20011F9145U56.jpg', '0', '0', '这里的广告是单独调用的，如需修改图片，请点击图片上的更换图片', '', '', '', '0', '', '1', '2', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('17', '5', '1', '', '', '/uploads/allimg/20191224/1-191224104JY20.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1577155671', '1577155671', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('18', '3', '1', '横栏广告四', '', '/uploads/allimg/20200117/1-20011F91454426.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1577266987', '1579223711', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('19', '6', '1', '', '', '/uploads/allimg/20191227/1-19122G03PU55.jpg', '0', '0', '', '', '', '', '0', '', '1', '1', '0', '1', '0', '1577414210', '1577414292', '0', '0', '0');
+INSERT INTO `eju_ad` VALUES ('20', '6', '1', '', '', '/uploads/allimg/20191227/1-19122G03Q1609.jpg', '0', '0', '', '', '', '', '0', '', '1', '2', '0', '1', '0', '1577414210', '1577414292', '0', '0', '0');
 
 -- -----------------------------
 -- Table structure for `eju_ad_position`
@@ -125,7 +124,7 @@ CREATE TABLE `eju_admin` (
 -- -----------------------------
 -- Records of `eju_admin`
 -- -----------------------------
-INSERT INTO `eju_admin` VALUES ('1', 'admin', '', 'admin', '', '', '87c4ee844b5c49a6860022444e07ddc0', '', '1581307845', '127.0.0.1', '7', 'ev9hrkt85903k4ckugqnhkrlq4', '0', '-1', '1', '1580697377', '0', '0');
+INSERT INTO `eju_admin` VALUES ('1', 'admin', '', 'admin', '', '', '87c4ee844b5c49a6860022444e07ddc0', '', '1581468113', '127.0.0.1', '8', '5jgna0lq93o4a57326ebv5mnm4', '0', '-1', '1', '1580697377', '0', '0');
 
 -- -----------------------------
 -- Table structure for `eju_admin_log`
@@ -140,7 +139,7 @@ CREATE TABLE `eju_admin_log` (
   `log_time` int(11) DEFAULT '0' COMMENT '日志时间',
   PRIMARY KEY (`log_id`),
   KEY `admin_id` (`admin_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=4388 DEFAULT CHARSET=utf8 COMMENT='管理员操作日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=4390 DEFAULT CHARSET=utf8 COMMENT='管理员操作日志表';
 
 -- -----------------------------
 -- Records of `eju_admin_log`
@@ -192,208 +191,8 @@ INSERT INTO `eju_admin_log` VALUES ('4380', '-1', '自动退出', '127.0.0.1', '
 INSERT INTO `eju_admin_log` VALUES ('4382', '1', '伪删除栏目：房贷计算器', '127.0.0.1', '/login.php', '1581037996');
 INSERT INTO `eju_admin_log` VALUES ('4387', '1', '后台登录', '127.0.0.1', '/login.php', '1581307845');
 INSERT INTO `eju_admin_log` VALUES ('4386', '-1', '自动退出', '127.0.0.1', '/login.php', '1581307838');
-INSERT INTO `eju_admin_log` VALUES ('2241', '1', '编辑二手房：招鑫公馆', '127.0.0.1', '/login.php', '1578638256');
-INSERT INTO `eju_admin_log` VALUES ('2242', '1', '编辑二手房：招鑫公馆', '127.0.0.1', '/login.php', '1578638320');
-INSERT INTO `eju_admin_log` VALUES ('2243', '1', '编辑二手房：招鑫公馆', '127.0.0.1', '/login.php', '1578638342');
-INSERT INTO `eju_admin_log` VALUES ('2244', '1', '编辑二手房：招鑫公馆商铺100平只要200万', '127.0.0.1', '/login.php', '1578638829');
-INSERT INTO `eju_admin_log` VALUES ('2245', '1', '编辑二手房：招鑫公馆商铺100平只要200万', '127.0.0.1', '/login.php', '1578639424');
-INSERT INTO `eju_admin_log` VALUES ('2246', '1', '编辑二手房：招鑫公馆商铺100平只要200万', '127.0.0.1', '/login.php', '1578640694');
-INSERT INTO `eju_admin_log` VALUES ('2247', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702376');
-INSERT INTO `eju_admin_log` VALUES ('2248', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702376');
-INSERT INTO `eju_admin_log` VALUES ('2249', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702376');
-INSERT INTO `eju_admin_log` VALUES ('2250', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702377');
-INSERT INTO `eju_admin_log` VALUES ('2251', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702383');
-INSERT INTO `eju_admin_log` VALUES ('2252', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702393');
-INSERT INTO `eju_admin_log` VALUES ('2253', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702403');
-INSERT INTO `eju_admin_log` VALUES ('2254', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702413');
-INSERT INTO `eju_admin_log` VALUES ('2255', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702423');
-INSERT INTO `eju_admin_log` VALUES ('2256', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702433');
-INSERT INTO `eju_admin_log` VALUES ('2257', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702443');
-INSERT INTO `eju_admin_log` VALUES ('2258', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702453');
-INSERT INTO `eju_admin_log` VALUES ('2259', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702463');
-INSERT INTO `eju_admin_log` VALUES ('2260', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702473');
-INSERT INTO `eju_admin_log` VALUES ('2261', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702483');
-INSERT INTO `eju_admin_log` VALUES ('2262', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702493');
-INSERT INTO `eju_admin_log` VALUES ('2263', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702503');
-INSERT INTO `eju_admin_log` VALUES ('2264', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702513');
-INSERT INTO `eju_admin_log` VALUES ('2265', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702523');
-INSERT INTO `eju_admin_log` VALUES ('2266', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702533');
-INSERT INTO `eju_admin_log` VALUES ('2267', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702543');
-INSERT INTO `eju_admin_log` VALUES ('2268', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702553');
-INSERT INTO `eju_admin_log` VALUES ('2269', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702563');
-INSERT INTO `eju_admin_log` VALUES ('2270', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702573');
-INSERT INTO `eju_admin_log` VALUES ('2271', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702583');
-INSERT INTO `eju_admin_log` VALUES ('2272', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702593');
-INSERT INTO `eju_admin_log` VALUES ('2273', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702603');
-INSERT INTO `eju_admin_log` VALUES ('2274', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702613');
-INSERT INTO `eju_admin_log` VALUES ('2275', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702623');
-INSERT INTO `eju_admin_log` VALUES ('2276', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702633');
-INSERT INTO `eju_admin_log` VALUES ('2277', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702643');
-INSERT INTO `eju_admin_log` VALUES ('2278', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702653');
-INSERT INTO `eju_admin_log` VALUES ('2279', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702663');
-INSERT INTO `eju_admin_log` VALUES ('2280', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702673');
-INSERT INTO `eju_admin_log` VALUES ('2281', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702683');
-INSERT INTO `eju_admin_log` VALUES ('2282', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702693');
-INSERT INTO `eju_admin_log` VALUES ('2283', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702703');
-INSERT INTO `eju_admin_log` VALUES ('2284', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702713');
-INSERT INTO `eju_admin_log` VALUES ('2285', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702723');
-INSERT INTO `eju_admin_log` VALUES ('2286', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702733');
-INSERT INTO `eju_admin_log` VALUES ('2287', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702743');
-INSERT INTO `eju_admin_log` VALUES ('2288', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702753');
-INSERT INTO `eju_admin_log` VALUES ('2289', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702763');
-INSERT INTO `eju_admin_log` VALUES ('2290', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702773');
-INSERT INTO `eju_admin_log` VALUES ('2291', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702783');
-INSERT INTO `eju_admin_log` VALUES ('2292', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702793');
-INSERT INTO `eju_admin_log` VALUES ('2293', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702803');
-INSERT INTO `eju_admin_log` VALUES ('2294', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702813');
-INSERT INTO `eju_admin_log` VALUES ('2295', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702823');
-INSERT INTO `eju_admin_log` VALUES ('2296', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702833');
-INSERT INTO `eju_admin_log` VALUES ('2297', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702843');
-INSERT INTO `eju_admin_log` VALUES ('2298', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702853');
-INSERT INTO `eju_admin_log` VALUES ('2299', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702863');
-INSERT INTO `eju_admin_log` VALUES ('2300', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702873');
-INSERT INTO `eju_admin_log` VALUES ('2301', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702883');
-INSERT INTO `eju_admin_log` VALUES ('2302', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702893');
-INSERT INTO `eju_admin_log` VALUES ('2303', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702903');
-INSERT INTO `eju_admin_log` VALUES ('2304', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702913');
-INSERT INTO `eju_admin_log` VALUES ('2305', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702923');
-INSERT INTO `eju_admin_log` VALUES ('2306', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702933');
-INSERT INTO `eju_admin_log` VALUES ('2307', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702943');
-INSERT INTO `eju_admin_log` VALUES ('2308', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702953');
-INSERT INTO `eju_admin_log` VALUES ('2309', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702963');
-INSERT INTO `eju_admin_log` VALUES ('2310', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702973');
-INSERT INTO `eju_admin_log` VALUES ('2311', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702983');
-INSERT INTO `eju_admin_log` VALUES ('2312', '-1', '自动退出', '127.0.0.1', '/login.php', '1578702993');
-INSERT INTO `eju_admin_log` VALUES ('2313', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703003');
-INSERT INTO `eju_admin_log` VALUES ('2314', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703013');
-INSERT INTO `eju_admin_log` VALUES ('2315', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703023');
-INSERT INTO `eju_admin_log` VALUES ('2316', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703033');
-INSERT INTO `eju_admin_log` VALUES ('2317', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703043');
-INSERT INTO `eju_admin_log` VALUES ('2318', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703053');
-INSERT INTO `eju_admin_log` VALUES ('2319', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703063');
-INSERT INTO `eju_admin_log` VALUES ('2320', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703073');
-INSERT INTO `eju_admin_log` VALUES ('2321', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703083');
-INSERT INTO `eju_admin_log` VALUES ('2322', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703093');
-INSERT INTO `eju_admin_log` VALUES ('2323', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703103');
-INSERT INTO `eju_admin_log` VALUES ('2324', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703113');
-INSERT INTO `eju_admin_log` VALUES ('2325', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703123');
-INSERT INTO `eju_admin_log` VALUES ('2326', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703133');
-INSERT INTO `eju_admin_log` VALUES ('2327', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703143');
-INSERT INTO `eju_admin_log` VALUES ('2328', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703153');
-INSERT INTO `eju_admin_log` VALUES ('2329', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703163');
-INSERT INTO `eju_admin_log` VALUES ('2330', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703173');
-INSERT INTO `eju_admin_log` VALUES ('2331', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703183');
-INSERT INTO `eju_admin_log` VALUES ('2332', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703193');
-INSERT INTO `eju_admin_log` VALUES ('2333', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703203');
-INSERT INTO `eju_admin_log` VALUES ('2334', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703213');
-INSERT INTO `eju_admin_log` VALUES ('2335', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703223');
-INSERT INTO `eju_admin_log` VALUES ('2336', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703233');
-INSERT INTO `eju_admin_log` VALUES ('2337', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703243');
-INSERT INTO `eju_admin_log` VALUES ('2338', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703253');
-INSERT INTO `eju_admin_log` VALUES ('2339', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703263');
-INSERT INTO `eju_admin_log` VALUES ('2340', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703273');
-INSERT INTO `eju_admin_log` VALUES ('2341', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703283');
-INSERT INTO `eju_admin_log` VALUES ('2342', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703293');
-INSERT INTO `eju_admin_log` VALUES ('2343', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703303');
-INSERT INTO `eju_admin_log` VALUES ('2344', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703313');
-INSERT INTO `eju_admin_log` VALUES ('2345', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703323');
-INSERT INTO `eju_admin_log` VALUES ('2346', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703333');
-INSERT INTO `eju_admin_log` VALUES ('2347', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703343');
-INSERT INTO `eju_admin_log` VALUES ('2348', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703353');
-INSERT INTO `eju_admin_log` VALUES ('2349', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703363');
-INSERT INTO `eju_admin_log` VALUES ('2350', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703373');
-INSERT INTO `eju_admin_log` VALUES ('2351', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703383');
-INSERT INTO `eju_admin_log` VALUES ('2352', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703393');
-INSERT INTO `eju_admin_log` VALUES ('2353', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703403');
-INSERT INTO `eju_admin_log` VALUES ('2354', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703413');
-INSERT INTO `eju_admin_log` VALUES ('2355', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703423');
-INSERT INTO `eju_admin_log` VALUES ('2356', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703433');
-INSERT INTO `eju_admin_log` VALUES ('2357', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703443');
-INSERT INTO `eju_admin_log` VALUES ('2358', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703453');
-INSERT INTO `eju_admin_log` VALUES ('2359', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703463');
-INSERT INTO `eju_admin_log` VALUES ('2360', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703473');
-INSERT INTO `eju_admin_log` VALUES ('2361', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703483');
-INSERT INTO `eju_admin_log` VALUES ('2362', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703493');
-INSERT INTO `eju_admin_log` VALUES ('2363', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703503');
-INSERT INTO `eju_admin_log` VALUES ('2364', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703513');
-INSERT INTO `eju_admin_log` VALUES ('2365', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703523');
-INSERT INTO `eju_admin_log` VALUES ('2366', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703533');
-INSERT INTO `eju_admin_log` VALUES ('2367', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703543');
-INSERT INTO `eju_admin_log` VALUES ('2368', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703553');
-INSERT INTO `eju_admin_log` VALUES ('2369', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703563');
-INSERT INTO `eju_admin_log` VALUES ('2370', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703573');
-INSERT INTO `eju_admin_log` VALUES ('2371', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703583');
-INSERT INTO `eju_admin_log` VALUES ('2372', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703593');
-INSERT INTO `eju_admin_log` VALUES ('2373', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703603');
-INSERT INTO `eju_admin_log` VALUES ('2374', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703613');
-INSERT INTO `eju_admin_log` VALUES ('2375', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703623');
-INSERT INTO `eju_admin_log` VALUES ('2376', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703633');
-INSERT INTO `eju_admin_log` VALUES ('2377', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703643');
-INSERT INTO `eju_admin_log` VALUES ('2378', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703653');
-INSERT INTO `eju_admin_log` VALUES ('2379', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703663');
-INSERT INTO `eju_admin_log` VALUES ('2380', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703673');
-INSERT INTO `eju_admin_log` VALUES ('2381', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703683');
-INSERT INTO `eju_admin_log` VALUES ('2382', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703693');
-INSERT INTO `eju_admin_log` VALUES ('2383', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703703');
-INSERT INTO `eju_admin_log` VALUES ('2384', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703713');
-INSERT INTO `eju_admin_log` VALUES ('2385', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703723');
-INSERT INTO `eju_admin_log` VALUES ('2386', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703733');
-INSERT INTO `eju_admin_log` VALUES ('2387', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703743');
-INSERT INTO `eju_admin_log` VALUES ('2388', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703753');
-INSERT INTO `eju_admin_log` VALUES ('2389', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703763');
-INSERT INTO `eju_admin_log` VALUES ('2390', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703773');
-INSERT INTO `eju_admin_log` VALUES ('2391', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703783');
-INSERT INTO `eju_admin_log` VALUES ('2392', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703793');
-INSERT INTO `eju_admin_log` VALUES ('2393', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703803');
-INSERT INTO `eju_admin_log` VALUES ('2394', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703813');
-INSERT INTO `eju_admin_log` VALUES ('2395', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703823');
-INSERT INTO `eju_admin_log` VALUES ('2396', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703833');
-INSERT INTO `eju_admin_log` VALUES ('2397', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703843');
-INSERT INTO `eju_admin_log` VALUES ('2398', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703853');
-INSERT INTO `eju_admin_log` VALUES ('2399', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703863');
-INSERT INTO `eju_admin_log` VALUES ('2400', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703873');
-INSERT INTO `eju_admin_log` VALUES ('2401', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703883');
-INSERT INTO `eju_admin_log` VALUES ('2402', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703893');
-INSERT INTO `eju_admin_log` VALUES ('2403', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703903');
-INSERT INTO `eju_admin_log` VALUES ('2404', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703913');
-INSERT INTO `eju_admin_log` VALUES ('2405', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703923');
-INSERT INTO `eju_admin_log` VALUES ('2406', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703933');
-INSERT INTO `eju_admin_log` VALUES ('2407', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703939');
-INSERT INTO `eju_admin_log` VALUES ('2408', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703942');
-INSERT INTO `eju_admin_log` VALUES ('2409', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703942');
-INSERT INTO `eju_admin_log` VALUES ('2410', '-1', '自动退出', '127.0.0.1', '/login.php', '1578703944');
-INSERT INTO `eju_admin_log` VALUES ('2411', '1', '后台登录', '127.0.0.1', '/login.php', '1578703953');
-INSERT INTO `eju_admin_log` VALUES ('2412', '1', '新增区域：龙华区', '127.0.0.1', '/login.php', '1578707201');
-INSERT INTO `eju_admin_log` VALUES ('2413', '1', '新增区域：秀英区', '127.0.0.1', '/login.php', '1578707215');
-INSERT INTO `eju_admin_log` VALUES ('2414', '1', '新增区域：美兰区', '127.0.0.1', '/login.php', '1578707227');
-INSERT INTO `eju_admin_log` VALUES ('2415', '1', '新增区域：琼山区', '127.0.0.1', '/login.php', '1578707237');
-INSERT INTO `eju_admin_log` VALUES ('2416', '1', '编辑文章：金盘名邸', '127.0.0.1', '/login.php', '1578707299');
-INSERT INTO `eju_admin_log` VALUES ('2417', '1', '编辑文章：南海·幸福汇', '127.0.0.1', '/login.php', '1578707322');
-INSERT INTO `eju_admin_log` VALUES ('2418', '1', '编辑文章：绿地城·江东首府', '127.0.0.1', '/login.php', '1578707345');
-INSERT INTO `eju_admin_log` VALUES ('2419', '1', '编辑文章：观澜湖·九里', '127.0.0.1', '/login.php', '1578707354');
-INSERT INTO `eju_admin_log` VALUES ('2420', '1', '编辑文章：远大购物广场', '127.0.0.1', '/login.php', '1578707364');
-INSERT INTO `eju_admin_log` VALUES ('2421', '1', '编辑二手房：招鑫公馆商铺100平只要200万', '127.0.0.1', '/login.php', '1578712329');
-INSERT INTO `eju_admin_log` VALUES ('2422', '1', '新增数据：长信蓝郡 纯一层141平', '127.0.0.1', '/login.php', '1578713193');
-INSERT INTO `eju_admin_log` VALUES ('2423', '1', '新增数据：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578714813');
-INSERT INTO `eju_admin_log` VALUES ('2424', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578715204');
-INSERT INTO `eju_admin_log` VALUES ('2425', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578715541');
-INSERT INTO `eju_admin_log` VALUES ('2426', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578716269');
-INSERT INTO `eju_admin_log` VALUES ('2427', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578716278');
-INSERT INTO `eju_admin_log` VALUES ('2428', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578716283');
-INSERT INTO `eju_admin_log` VALUES ('2429', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578716294');
-INSERT INTO `eju_admin_log` VALUES ('2430', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578716333');
-INSERT INTO `eju_admin_log` VALUES ('2431', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578724665');
-INSERT INTO `eju_admin_log` VALUES ('2432', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578724892');
-INSERT INTO `eju_admin_log` VALUES ('2433', '1', '新增数据：金外滩办公室 精装75平 带家具 支付租金立即使用', '127.0.0.1', '/login.php', '1578725182');
-INSERT INTO `eju_admin_log` VALUES ('2434', '1', '编辑二手房：金外滩办公室 精装75平 带家具 支付租金立即使用', '127.0.0.1', '/login.php', '1578727570');
-INSERT INTO `eju_admin_log` VALUES ('2435', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578727914');
-INSERT INTO `eju_admin_log` VALUES ('2436', '1', '编辑二手房：金外滩办公室 精装75平 带家具 支付租金立即使用', '127.0.0.1', '/login.php', '1578730974');
-INSERT INTO `eju_admin_log` VALUES ('2437', '1', '编辑二手房：长信蓝郡 纯一层141平', '127.0.0.1', '/login.php', '1578731137');
-INSERT INTO `eju_admin_log` VALUES ('2438', '1', '编辑二手房：长信蓝郡 纯一层141平', '127.0.0.1', '/login.php', '1578731148');
-INSERT INTO `eju_admin_log` VALUES ('2439', '1', '编辑二手房：招鑫公馆商铺100平只要200万', '127.0.0.1', '/login.php', '1578731157');
-INSERT INTO `eju_admin_log` VALUES ('2440', '1', '编辑二手房：泉海好家园 整栋写字楼出售开酒店 办公 民宿培训都可以', '127.0.0.1', '/login.php', '1578731162');
-INSERT INTO `eju_admin_log` VALUES ('2441', '1', '编辑二手房：金外滩办公室 精装75平 带家具 支付租金立即使用', '127.0.0.1', '/login.php', '1578731168');
-INSERT INTO `eju_admin_log` VALUES ('2442', '1', '编辑二手房：金外滩办公室 精装75平 带家具 支付租金立即使用', '127.0.0.1', '/login.php', '1578731905');
+INSERT INTO `eju_admin_log` VALUES ('4389', '1', '后台登录', '127.0.0.1', '/login.php', '1581468113');
+INSERT INTO `eju_admin_log` VALUES ('4388', '-1', '自动退出', '127.0.0.1', '/login.php', '1581468064');
 INSERT INTO `eju_admin_log` VALUES ('2443', '-1', '自动退出', '127.0.0.1', '/login.php', '1578875634');
 INSERT INTO `eju_admin_log` VALUES ('2444', '-1', '自动退出', '127.0.0.1', '/login.php', '1578875634');
 INSERT INTO `eju_admin_log` VALUES ('2445', '-1', '自动退出', '127.0.0.1', '/login.php', '1578875634');
@@ -4151,10 +3950,10 @@ CREATE TABLE `eju_ershou_system` (
   `fitment` enum('毛坯','简装','精装','豪装') NOT NULL DEFAULT '毛坯' COMMENT '装修',
   `manage_type` enum('住宅','铺面','别墅') NOT NULL DEFAULT '住宅' COMMENT '类型',
   `room` enum('1室','2室','3室','4室','5室','6室') NOT NULL DEFAULT '1室' COMMENT '室',
-  `living_room` enum('0','1厅','2厅','3厅','4厅') NOT NULL DEFAULT '0' COMMENT '客厅',
+  `living_room` enum('0厅','1厅','2厅','3厅','4厅') NOT NULL DEFAULT '0厅' COMMENT '客厅',
   `kitchen` enum('0厨','1厨','2厨','3厨') NOT NULL DEFAULT '0厨' COMMENT '厨房',
   `toilet` enum('0卫','1卫','2卫','3卫') NOT NULL DEFAULT '0卫' COMMENT '卫生间',
-  `balcony` enum('0','1阳台','2阳台','3阳台') NOT NULL DEFAULT '0' COMMENT '阳台',
+  `balcony` enum('0阳台','1阳台','2阳台','3阳台') NOT NULL DEFAULT '0阳台' COMMENT '阳台',
   `add_time` int(11) DEFAULT '0' COMMENT '新增时间',
   `update_time` int(11) DEFAULT '0' COMMENT '更新时间',
   `saleman_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '置业人员',
@@ -4173,12 +3972,12 @@ CREATE TABLE `eju_ershou_system` (
 -- -----------------------------
 -- Records of `eju_ershou_system`
 -- -----------------------------
-INSERT INTO `eju_ershou_system` VALUES ('1', '67', '110', '1.38', '80', '南北通透,冬暖夏凉', '南', '简装', '住宅', '2室', '1厅', '0厨', '0卫', '0', '1579481995', '1579481995', '1', '海口海甸岛东片开发区', '110.363126', '20.067355', '张生', '13800001111', '', '中层', '21');
+INSERT INTO `eju_ershou_system` VALUES ('1', '67', '110', '1.38', '80', '南北通透,冬暖夏凉', '南', '简装', '住宅', '2室', '1厅', '0厨', '0卫', '', '1579481995', '1579481995', '1', '海口海甸岛东片开发区', '110.363126', '20.067355', '张生', '13800001111', '', '中层', '21');
 INSERT INTO `eju_ershou_system` VALUES ('2', '68', '150', '1.25', '120', '南北通透,冬暖夏凉', '南', '豪装', '住宅', '3室', '1厅', '0厨', '1卫', '1阳台', '1579481990', '1579481990', '1', '海口和谐路海南华侨中学旁', '110.259159', '20.021787', '张生', '13800001111', '', '高层', '28');
-INSERT INTO `eju_ershou_system` VALUES ('3', '69', '100', '1.11', '90', '南北通透,冬暖夏凉', '南', '简装', '住宅', '2室', '1厅', '0厨', '1卫', '0', '1579481986', '1579481986', '1', '海口丽晶路10-1号', '110.300711', '20.031024', '张生', '13800001111', '', '中层', '23');
-INSERT INTO `eju_ershou_system` VALUES ('4', '70', '120', '1.36', '88', '南北通透,冬暖夏凉', '南', '豪装', '住宅', '2室', '1厅', '0厨', '1卫', '0', '1580894973', '1580894973', '1', '海口市龙华区滨海大道62号', '110.299756', '20.028129', '王大生', '13800009999', '', '中层', '20');
+INSERT INTO `eju_ershou_system` VALUES ('3', '69', '100', '1.11', '90', '南北通透,冬暖夏凉', '南', '简装', '住宅', '2室', '1厅', '0厨', '1卫', '', '1579481986', '1579481986', '1', '海口丽晶路10-1号', '110.300711', '20.031024', '张生', '13800001111', '', '中层', '23');
+INSERT INTO `eju_ershou_system` VALUES ('4', '70', '120', '1.36', '88', '南北通透,冬暖夏凉', '南', '豪装', '住宅', '2室', '1厅', '0厨', '1卫', '', '1580894973', '1580894973', '1', '海口市龙华区滨海大道62号', '110.299756', '20.028129', '王大生', '13800009999', '', '中层', '20');
 INSERT INTO `eju_ershou_system` VALUES ('5', '71', '160', '1.23', '130', '南北通透,冬暖夏凉', '南', '精装', '住宅', '3室', '1厅', '0厨', '1卫', '1阳台', '1580894982', '1580894982', '1', '海口市丽晶路20号', '110.299192', '20.037073', '王大生', '13800009999', '', '高层', '32');
-INSERT INTO `eju_ershou_system` VALUES ('6', '72', '98', '1.17', '84', '南北通透,冬暖夏凉', '南', '简装', '住宅', '2室', '1厅', '0厨', '0卫', '0', '1580807409', '1580807409', '1', '海口市丽晶路20号', '110.299192', '20.037073', '张生', '13800001111', '', '低层', '32');
+INSERT INTO `eju_ershou_system` VALUES ('6', '72', '98', '1.17', '84', '南北通透,冬暖夏凉', '南', '简装', '住宅', '2室', '1厅', '0厨', '0卫', '', '1580807409', '1580807409', '1', '海口市丽晶路20号', '110.299192', '20.037073', '张生', '13800001111', '', '低层', '32');
 
 -- -----------------------------
 -- Table structure for `eju_field_type`
@@ -4513,6 +4312,59 @@ CREATE TABLE `eju_minipro_info` (
 
 
 -- -----------------------------
+-- Table structure for `eju_navig_list`
+-- -----------------------------
+DROP TABLE IF EXISTS `eju_navig_list`;
+CREATE TABLE `eju_navig_list` (
+  `navig_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '导航ID',
+  `topid` int(10) NOT NULL DEFAULT '0' COMMENT '顶级菜单ID',
+  `parent_id` int(10) NOT NULL DEFAULT '0' COMMENT '父级ID',
+  `navig_name` varchar(200) NOT NULL DEFAULT '' COMMENT '导航名称',
+  `englist_name` varchar(200) NOT NULL DEFAULT '' COMMENT '英文名称',
+  `navig_url` varchar(200) NOT NULL DEFAULT '' COMMENT '导航链接',
+  `position_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '导航位置',
+  `arctype_sync` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否与栏目同步',
+  `type_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '同步栏目的ID',
+  `navig_pic` varchar(255) NOT NULL DEFAULT '' COMMENT '导航图片',
+  `grade` tinyint(1) NOT NULL DEFAULT '0' COMMENT '菜单等级',
+  `target` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否打开新窗口，1=是，0=否',
+  `nofollow` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否使用nofollow，1=是，0=否',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '启用 (1=正常，0=停用)',
+  `is_del` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '伪删除，1=是，0=否',
+  `sort_order` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '排序号',
+  `add_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '新增时间',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`navig_id`),
+  KEY `type_id` (`type_id`),
+  KEY `position_id` (`position_id`,`status`,`is_del`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='导航列表';
+
+
+-- -----------------------------
+-- Table structure for `eju_navig_position`
+-- -----------------------------
+DROP TABLE IF EXISTS `eju_navig_position`;
+CREATE TABLE `eju_navig_position` (
+  `position_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '导航列表ID',
+  `position_name` varchar(200) NOT NULL DEFAULT '' COMMENT '导航列表名称',
+  `sort_order` int(10) NOT NULL DEFAULT '0' COMMENT '排序号',
+  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '伪删除，1=是，0=否',
+  `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '新增时间',
+  `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`position_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='导航位置表';
+
+-- -----------------------------
+-- Records of `eju_navig_position`
+-- -----------------------------
+INSERT INTO `eju_navig_position` VALUES ('1', 'PC端主导航', '100', '0', '0', '0');
+INSERT INTO `eju_navig_position` VALUES ('2', 'PC端顶部导航', '100', '0', '0', '0');
+INSERT INTO `eju_navig_position` VALUES ('3', 'PC端中部导航', '100', '1', '0', '0');
+INSERT INTO `eju_navig_position` VALUES ('5', '移动端中部导航', '100', '0', '0', '0');
+INSERT INTO `eju_navig_position` VALUES ('4', 'PC端底部导航', '100', '0', '0', '0');
+INSERT INTO `eju_navig_position` VALUES ('6', '移动端底部导航', '100', '0', '0', '0');
+
+-- -----------------------------
 -- Table structure for `eju_officecs_content`
 -- -----------------------------
 DROP TABLE IF EXISTS `eju_officecs_content`;
@@ -4765,16 +4617,16 @@ CREATE TABLE `eju_quickentry` (
   `update_time` int(11) DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `type` (`type`,`status`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='快捷入口表';
+) ENGINE=MyISAM AUTO_INCREMENT=44 DEFAULT CHARSET=utf8 COMMENT='快捷入口表';
 
 -- -----------------------------
 -- Records of `eju_quickentry`
 -- -----------------------------
-INSERT INTO `eju_quickentry` VALUES ('1', '楼盘', '楼盘列表', '1', 'Xinfang', 'index', 'channel=9', '1', '0', '1', '3', '1569232484', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('2', '团购', '团购列表', '1', 'Tuan', 'index', 'channel=10', '1', '0', '1', '4', '1569232484', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('3', '资讯', '资讯列表', '1', 'Article', 'index', 'channel=1', '1', '0', '1', '6', '1569232484', '1581307894');
+INSERT INTO `eju_quickentry` VALUES ('1', '楼盘', '楼盘列表', '1', 'Xinfang', 'index', 'channel=9', '1', '0', '1', '3', '1569232484', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('2', '团购', '团购列表', '1', 'Tuan', 'index', 'channel=10', '1', '0', '1', '4', '1569232484', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('3', '资讯', '资讯列表', '1', 'Article', 'index', 'channel=1', '1', '0', '1', '6', '1569232484', '1581471819');
 INSERT INTO `eju_quickentry` VALUES ('4', '图集', '图集列表', '1', 'Images', 'index', 'channel=3', '1', '0', '0', '7', '1569232484', '1569308463');
-INSERT INTO `eju_quickentry` VALUES ('5', '单页', '单页列表', '1', 'Arctype', 'single_index', 'channel=6', '1', '0', '1', '8', '1569232484', '1581307894');
+INSERT INTO `eju_quickentry` VALUES ('5', '单页', '单页列表', '1', 'Arctype', 'single_index', 'channel=6', '1', '0', '1', '8', '1569232484', '1581471819');
 INSERT INTO `eju_quickentry` VALUES ('7', '回收站', '回收站', '1', 'RecycleBin', 'archives_index', '', '0', '1', '1', '5', '1569232484', '1569749707');
 INSERT INTO `eju_quickentry` VALUES ('8', '栏目管理', '栏目管理', '1', 'Arctype', 'index', '', '0', '1', '1', '3', '1569232484', '1569749707');
 INSERT INTO `eju_quickentry` VALUES ('9', '报名管理', '报名管理', '1', 'Form', 'index', '', '0', '1', '1', '6', '1569232484', '1569749707');
@@ -4791,26 +4643,27 @@ INSERT INTO `eju_quickentry` VALUES ('19', '友情链接', '友情链接', '1', 
 INSERT INTO `eju_quickentry` VALUES ('20', 'Tags管理', 'Tags管理', '1', 'Tags', 'index', '', '0', '0', '1', '14', '1569232484', '1569749707');
 INSERT INTO `eju_quickentry` VALUES ('21', '管理员管理', '管理员管理', '1', 'Admin', 'index', '', '0', '0', '1', '15', '1569232484', '1569749707');
 INSERT INTO `eju_quickentry` VALUES ('22', '经纪人管理', '经纪人管理', '1', 'Saleman', 'index', '', '0', '0', '1', '16', '1569232484', '1569749707');
-INSERT INTO `eju_quickentry` VALUES ('23', '资讯', '资讯列表', '2', 'Article', 'index', 'channel=1', '1', '1', '1', '2', '1569310798', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('24', '楼盘', '楼盘列表', '2', 'Xinfang', 'index', 'channel=9', '1', '1', '1', '1', '1569310798', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('25', '团购', '团购列表', '2', 'Tuan', 'index', 'channel=10', '1', '1', '1', '3', '1569310798', '1581307894');
+INSERT INTO `eju_quickentry` VALUES ('23', '资讯', '资讯列表', '2', 'Article', 'index', 'channel=1', '1', '1', '1', '2', '1569310798', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('24', '楼盘', '楼盘列表', '2', 'Xinfang', 'index', 'channel=9', '1', '1', '1', '1', '1569310798', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('25', '团购', '团购列表', '2', 'Tuan', 'index', 'channel=10', '1', '1', '1', '3', '1569310798', '1581471819');
 INSERT INTO `eju_quickentry` VALUES ('26', '图集', '图集', '2', 'Images', 'index', 'channel=3', '1', '1', '0', '3', '1569310798', '1569632220');
 INSERT INTO `eju_quickentry` VALUES ('27', '用户报名', '用户报名', '2', 'Form', 'index', '', '0', '1', '1', '4', '1569310798', '1570843649');
 INSERT INTO `eju_quickentry` VALUES ('28', '广告', '广告管理', '2', 'AdPosition', 'index', '', '0', '1', '1', '6', '1569232484', '1570843649');
 INSERT INTO `eju_quickentry` VALUES ('29', '友情链接', '友情链接', '2', 'Links', 'index', '', '0', '0', '1', '5', '1569232484', '1570843649');
 INSERT INTO `eju_quickentry` VALUES ('30', 'Tags标签', 'Tags管理', '2', 'Tags', 'index', '', '0', '1', '1', '7', '1569232484', '1570843649');
 INSERT INTO `eju_quickentry` VALUES ('31', '经纪人', '经纪人管理', '2', 'Saleman', 'index', '', '0', '1', '1', '8', '1569232484', '1570843649');
-INSERT INTO `eju_quickentry` VALUES ('32', '小区', '小区列表', '2', 'Xiaoqu', 'index', 'channel=11', '1', '0', '1', '100', '1572343299', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('33', '二手房', '二手房列表', '2', 'Ershou', 'index', 'channel=12', '1', '0', '1', '100', '1572343299', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('34', '租房', '租房列表', '2', 'Zufang', 'index', 'channel=13', '1', '0', '1', '100', '1572343299', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('35', '小区', '小区列表', '1', 'Xiaoqu', 'index', 'channel=11', '1', '0', '1', '100', '1572343303', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('36', '二手房', '二手房列表', '1', 'Ershou', 'index', 'channel=12', '1', '0', '1', '100', '1572343303', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('37', '租房', '租房列表', '1', 'Zufang', 'index', 'channel=13', '1', '0', '1', '100', '1572343303', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('38', '商铺出售', '商铺出售', '2', 'Shopcs', 'index', 'channel=14', '1', '0', '1', '100', '1569310798', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('39', '商铺出租', '商铺出租', '2', 'Shopcz', 'index', 'channel=15', '1', '0', '1', '100', '1569310798', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('40', '写字楼出售', '写字楼出售', '2', 'Officecs', 'index', 'channel=16', '1', '0', '1', '100', '1569310798', '1581307894');
-INSERT INTO `eju_quickentry` VALUES ('41', '写字楼出租', '写字楼出租', '2', 'Officecz', 'index', 'channel=17', '1', '0', '1', '100', '1569310798', '1581307894');
+INSERT INTO `eju_quickentry` VALUES ('32', '小区', '小区列表', '2', 'Xiaoqu', 'index', 'channel=11', '1', '0', '1', '100', '1572343299', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('33', '二手房', '二手房列表', '2', 'Ershou', 'index', 'channel=12', '1', '0', '1', '100', '1572343299', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('34', '租房', '租房列表', '2', 'Zufang', 'index', 'channel=13', '1', '0', '1', '100', '1572343299', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('35', '小区', '小区列表', '1', 'Xiaoqu', 'index', 'channel=11', '1', '0', '1', '100', '1572343303', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('36', '二手房', '二手房列表', '1', 'Ershou', 'index', 'channel=12', '1', '0', '1', '100', '1572343303', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('37', '租房', '租房列表', '1', 'Zufang', 'index', 'channel=13', '1', '0', '1', '100', '1572343303', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('38', '商铺出售', '商铺出售', '2', 'Shopcs', 'index', 'channel=14', '1', '0', '1', '100', '1569310798', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('39', '商铺出租', '商铺出租', '2', 'Shopcz', 'index', 'channel=15', '1', '0', '1', '100', '1569310798', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('40', '写字楼出售', '写字楼出售', '2', 'Officecs', 'index', 'channel=16', '1', '0', '1', '100', '1569310798', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('41', '写字楼出租', '写字楼出租', '2', 'Officecz', 'index', 'channel=17', '1', '0', '1', '100', '1569310798', '1581471819');
 INSERT INTO `eju_quickentry` VALUES ('42', '微信小程序', '微信小程序', '1', 'Minipro', 'index', '', '0', '0', '1', '100', '1569232484', '1569749707');
+INSERT INTO `eju_quickentry` VALUES ('43', '导航管理', '导航管理', '1', 'Navigation', 'index', '', '0', '0', '1', '100', '1569232484', '1581066443');
 
 -- -----------------------------
 -- Table structure for `eju_region`
@@ -9621,7 +9474,7 @@ CREATE TABLE `eju_tuan_content` (
   `apply_num` int(10) NOT NULL DEFAULT '0' COMMENT '报名人数',
   `add_time` int(11) NOT NULL DEFAULT '0' COMMENT '新增时间',
   `update_time` int(11) NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `price` int(10) NOT NULL DEFAULT '0' COMMENT '团购价格',
+  `price` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '团购价格',
   PRIMARY KEY (`id`),
   KEY `aid` (`aid`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='楼市资讯表';
@@ -10592,7 +10445,7 @@ CREATE TABLE `eju_xinfang_system` (
   `sale_phone` varchar(50) NOT NULL DEFAULT '' COMMENT '售楼电话',
   `phone_code` varchar(20) NOT NULL DEFAULT '' COMMENT '号码转码',
   `main_unit` varchar(100) NOT NULL DEFAULT '' COMMENT '主力户型',
-  `price_units` enum('元/㎡','元/套') NOT NULL DEFAULT '元/㎡' COMMENT '价格单位',
+  `price_units` enum('元/㎡','元/套','万/套') NOT NULL DEFAULT '元/㎡' COMMENT '价格单位',
   PRIMARY KEY (`id`),
   KEY `aid` (`aid`,`saleman_id`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='新房基本信息表';
