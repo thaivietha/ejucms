@@ -190,6 +190,9 @@ class TagNavig extends Base
                 }
                 /*--end*/
 
+                $val['target'] = 1 == $value['target'] ? ' target="_blank" ' : ' target="_self" ';
+                $val['nofollow'] = 1 == $value['nofollow'] ? ' rel="nofollow" ' : '';
+
                 // 封面图
                 $val['navig_pic'] = handle_subdir_pic($val['navig_pic']);
 
@@ -364,6 +367,9 @@ class TagNavig extends Base
                         'currentstyle'  => $this->currentstyle,
                     ];
                 }
+
+                $val['target'] = 1 == $value['target'] ? ' target="_blank" ' : ' target="_self" ';
+                $val['nofollow'] = 1 == $value['nofollow'] ? ' rel="nofollow" ' : '';
 
                 // 导航图片
                 $val['navig_pic'] = handle_subdir_pic($val['navig_pic']);
