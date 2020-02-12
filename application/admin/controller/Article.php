@@ -139,7 +139,7 @@ class Article extends Base
     /**
      * ajax获取列表数据(应用于首页)
      */
-    public function getAjaxList(){
+    public function ajax_get_list(){
         $condition['a.channel'] = array('eq', $this->channeltype);
         $condition['a.is_del'] = array('eq', 0);
         $admin_info = session('admin_info');
@@ -177,9 +177,8 @@ class Article extends Base
             foreach ($list as $key => $val) {
                 $row[$val['aid']]['arcurl'] = get_arcurl($row[$val['aid']]);
                 $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支持子目录
-                $openurl = url('Archives/edit',['typeid'=>$val['typeid'],'id'=>$val['aid']]);//urlencode(url('Archives/edit',['typeid'=>$val['typeid'],'id'=>$val['aid']]));
-                $row[$val['aid']]['lay_href'] = url('Archives/index_archives',['typeid'=>$val['typeid'],'msg'=>'编辑'
-                    ,'openurl'=>$openurl]);
+                $openurl = url('Archives/edit',[/*'typeid'=>$row[$val['aid']]['typeid'],*/ 'id'=>$val['aid']]);//urlencode(url('Archives/edit',['typeid'=>$val['typeid'],'id'=>$val['aid']]));
+                $row[$val['aid']]['lay_href'] = url('Article/index',[/*'typeid'=>$row[$val['aid']]['typeid'],*/ 'msg'=>'编辑','openurl'=>$openurl]);
                 $list[$key] = $row[$val['aid']];
             }
         }
