@@ -108,7 +108,7 @@
                                                             <select name="province_id" id="province_id"  lay-filter="province_id" >
                                                                 <option value="0">请选择省</option>
                                                                 {volist name=':get_province_list()' id='vo'}
-                                                                <option value="{$vo.id}" {eq name="$province_id" value="$vo.id" } selected {/eq} >{$vo.name}</option>
+                                                                <option value="{$vo.id}" {eq name="$field.province_id" value="$vo.id" } selected {/eq} >{$vo.name}</option>
                                                                 {/volist}
                                                             </select>
                                                         </div>
@@ -251,10 +251,12 @@
                 $(this).find('div.cover-bg').hide();
             });
 
-            $('#add_time').layDate(); 
+            $('#add_time').layDate();
 
-            var city_id = "{$city_id}";
+            var city_id = "{$field.city_id}";
             set_city_list(city_id);
+            var area_id = "{$field.area_id}";
+            set_area_list(area_id);
         });
         layui.config({
             base: '__SKIN__/' //静态资源所在路径

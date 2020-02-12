@@ -88,7 +88,7 @@ class Archives extends Base
         }
         $this->assign('contentManage',$contentManage);
         $menu = getMenuList();
-        $adPosition = $tags = $links = 0;
+        $adPosition = $tags = $links = $ask_index = $system_question = 0;
         if (!empty($menu[6000])){
             if (!empty($menu[6000]['child'])){
                 foreach ($menu[6000]['child'] as $val){
@@ -104,9 +104,23 @@ class Archives extends Base
                 }
             }
         }
+        if (!empty($menu[10000])){
+            if (!empty($menu[10000]['child'])){
+                foreach ($menu[10000]['child'] as $val){
+                    if ($val['id'] == 10001){
+                        $ask_index = 1;
+                    }
+                    if ($val['id'] == 10002){
+                        $system_question = 1;
+                    }
+                }
+            }
+        }
         $this->assign('adPosition',$adPosition);
         $this->assign('tags',$tags);
         $this->assign('links',$links);
+        $this->assign('ask_index',$ask_index);
+        $this->assign('system_question',$system_question);
 
         return $this->fetch();
     }

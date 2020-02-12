@@ -58,7 +58,6 @@ class View extends Base
             'a.aid'     => $aid,
             'a.is_del'      => 0,
         ];
-
         $archivesInfo = M('archives')->field('a.typeid, a.channel,a.status,a.users_id, b.nid, b.ctl_name,a.aid as aid,a.province_id as province_id,a.city_id as city_id,a.area_id as area_id')
             ->alias('a')
             ->join('__CHANNELTYPE__ b', 'a.channel = b.id', 'LEFT')
@@ -68,16 +67,17 @@ class View extends Base
         if (empty($archivesInfo) || ($archivesInfo['status'] == 0 && (empty($users_id) || $users_id != $archivesInfo['users_id']))) {
             abort(404,'页面不存在');
         }
+        //判断多域名下区域和域名是否匹配
         $web_region_domain = config('ey_config.web_region_domain');   //是否开启子域名
         $web_mobile_domain = config('ey_config.web_mobile_domain');    //手机子域名
-        if ($web_region_domain && !empty($this->eju['param']['subDomain']) && $this->eju['param']['subDomain'] != $web_mobile_domain && ($archivesInfo['province_id'] || $archivesInfo['city_id'] || $archivesInfo['area_id'])){
+        if ($web_region_domain && !empty($this->eju['param']['subDomain']) && $this->eju['param']['subDomain'] != $web_mobile_domain){
             $region_list = get_region_list();
-            $subDomain = "";
-            if ($archivesInfo['area_id'] && !empty($region_list[$archivesInfo['area_id']]['domain'])){
+            $subDomain = "www";
+            if (!empty($archivesInfo['area_id']) && !empty($region_list[$archivesInfo['area_id']]['domain'])){
                 $subDomain = $region_list[$archivesInfo['area_id']]['domain'];
-            }else if($archivesInfo['city_id'] && !empty($region_list[$archivesInfo['city_id']]['domain'])){
+            }else if(!empty($archivesInfo['city_id']) && !empty($region_list[$archivesInfo['city_id']]['domain'])){
                 $subDomain = $region_list[$archivesInfo['city_id']]['domain'];
-            }else if($archivesInfo['city_id'] && !empty($region_list[$archivesInfo['province_id']]['domain'])){
+            }else if(!empty($archivesInfo['province_id']) && !empty($region_list[$archivesInfo['province_id']]['domain'])){
                 $subDomain = $region_list[$archivesInfo['province_id']]['domain'];
             }
             if (!empty($subDomain) && $subDomain != $this->eju['param']['subDomain']){

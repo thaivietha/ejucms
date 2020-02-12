@@ -6,13 +6,14 @@
             <div class="layui-card">
                 <div class="web-system">
                     <div class="layui-tab layui-tab-card">
-                        {neq name='$Request.param.tabase' value='-1'}
-                        <ul class="layui-tab-title">
-                            {eq name="'UsersConfig@register'|is_check_access" value="1"}
-                            <li {if condition="'register'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('UsersConfig/register')}">注册设置</a></li>
-                            {/eq}
-                        </ul>
-                        {/neq}
+                        {include file="system/bar" /}
+                        <!--{neq name='$Request.param.tabase' value='-1'}-->
+                        <!--<ul class="layui-tab-title">-->
+                            <!--{eq name="'UsersConfig@register'|is_check_access" value="1"}-->
+                            <!--<li {if condition="'register'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('UsersConfig/register')}">注册设置</a></li>-->
+                            <!--{/eq}-->
+                        <!--</ul>-->
+                        <!--{/neq}-->
                         <div class="layui-tab-content" style="padding:10px 0">
                             <div class="layui-tab-item layui-show">
                                 <div class="layui-row layui-col-space15">

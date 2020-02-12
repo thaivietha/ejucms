@@ -60,7 +60,7 @@ return [
         'menu_id2' => 4000,
         'name'  => '网站信息',
         'is_modules'    => 1,
-        'auths' => 'System@web,System@customvar_index,System@customvar_save,System@web2,System@basic,System@smtp,System@smtp_tpl,System@send_email,System@sms,System@sms_tpl,System@send_mobile,System@question',
+        'auths' => 'System@web,System@customvar_index,System@customvar_save,System@web2,System@basic,System@smtp,System@smtp_tpl,System@send_email,System@sms,System@sms_tpl,System@send_mobile,UsersConfig@register',
     ],
     [
         'id' => 6,
@@ -262,5 +262,13 @@ return [
         'name'  => '导航管理',
         'is_modules'    => 1,
         'auths' => 'Navigation@*',
+    ],
+    [
+        'id' => 29,
+        'menu_id' => 10002,
+        'menu_id2' => 10000,
+        'name'  => '问答设置',
+        'is_modules'    => 1,
+        'auths' => 'Ask@*,Answer@*',
     ],
 ];

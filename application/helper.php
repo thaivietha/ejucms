@@ -373,7 +373,7 @@ if (!function_exists('arcurl')) {
                 $seo_pseudo_format = config('ey_config.seo_dynamic_format');
             }
         }
-        $subdomain = "";
+        $subdomain = "www";
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
         if ($web_region_domain){
             $region_list = get_region_list();

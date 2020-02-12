@@ -89,10 +89,25 @@
                        <div class="admin-ico-nav">
                            <i  class="iconfont icon-guanggao"></i>
                            <cite>广告</cite>
-                           <a lay-href="{:url('AdPosition/index')}">广告列表</a><a lay-href="{:url('AdPosition/index',['openurl'=>url('AdPosition/add')])}">新增广告</a>
+                           <a lay-href="{:url('AdPosition/index')}">广告列表</a>
+                           <a lay-href="{:url('AdPosition/index',['openurl'=>url('AdPosition/add')])}">新增广告</a>
                        </div>
                    </li>
                    {/notempty}
+                   {if condition="($ask_index eq 1) or ($system_question eq 1)"}
+                   <li class="layui-col-xs3 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-wenda1"></i>
+                           <cite>问答</cite>
+                           {notempty name="$ask_index"}
+                           <a lay-href="{:url('Ask/index')}">问答列表</a>
+                           {/notempty}
+                           {notempty name="$system_question"}
+                           <a lay-href="{:url('System/question')}">问答配置</a>
+                           {/notempty}
+                       </div>
+                   </li>
+                   {/if}
                    {if condition="($tags eq 1) or ($links eq 1)"}
                    <li class="layui-col-xs3 layui-col-md2 ">
                        <div class="admin-ico-nav">
@@ -107,7 +122,6 @@
                        </div>
                    </li>
                    {/if}
-
                 </ul>
              </div>
           </div>
