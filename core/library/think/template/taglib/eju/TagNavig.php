@@ -174,11 +174,13 @@ class TagNavig extends Base
                         }
                     } else {
                         if (!empty($arctypeInfo['pointto_id'])) {
-                            $arctypeInfo = !empty($arctypeRow[$arctypeInfo['pointto_id']]) ? $arctypeRow[$arctypeInfo['pointto_id']] : [];
+                            $arctypeInfo2 = !empty($arctypeRow[$arctypeInfo['pointto_id']]) ? $arctypeRow[$arctypeInfo['pointto_id']] : [];
+                            $ctl_name = $ctl_name_list[$arctypeInfo2['current_channel']]['ctl_name'];
+                            $val['navig_url'] = typeurl('home/'.$ctl_name."/lists", $arctypeInfo2);
+                        } else {
+                            $ctl_name = $ctl_name_list[$arctypeInfo['current_channel']]['ctl_name'];
+                            $val['navig_url'] = typeurl('home/'.$ctl_name."/lists", $arctypeInfo);
                         }
-
-                        $ctl_name = $ctl_name_list[$arctypeInfo['current_channel']]['ctl_name'];
-                        $val['navig_url'] = typeurl('home/'.$ctl_name."/lists", $arctypeInfo);
 
                         if (!empty($val['arctype_sync'])) { // 同步菜单显示栏目名称
                             $val['navig_name'] = $arctypeInfo['typename'];
@@ -356,10 +358,13 @@ class TagNavig extends Base
                         }
                     } else {
                         if (!empty($arctypeInfo['pointto_id'])) {
-                            $arctypeInfo = !empty($arctypeRow[$arctypeInfo['pointto_id']]) ? $arctypeRow[$arctypeInfo['pointto_id']] : [];
+                            $arctypeInfo2 = !empty($arctypeRow[$arctypeInfo['pointto_id']]) ? $arctypeRow[$arctypeInfo['pointto_id']] : [];
+                            $ctl_name = $ctl_name_list[$arctypeInfo2['current_channel']]['ctl_name'];
+                            $val['navig_url'] = typeurl('home/'.$ctl_name."/lists", $arctypeInfo2);
+                        } else {
+                            $ctl_name = $ctl_name_list[$arctypeInfo['current_channel']]['ctl_name'];
+                            $val['navig_url'] = typeurl('home/'.$ctl_name."/lists", $arctypeInfo);
                         }
-                        $ctl_name = $ctl_name_list[$arctypeInfo['current_channel']]['ctl_name'];
-                        $val['navig_url'] = typeurl('home/'.$ctl_name."/lists", $arctypeInfo);
 
                         if (!empty($val['arctype_sync'])) { // 同步菜单显示栏目名称
                             $val['navig_name'] = $arctypeInfo['typename'];

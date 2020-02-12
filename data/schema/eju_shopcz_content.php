@@ -90,4 +90,85 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'diy_qzq' => 
+  array (
+    'name' => 'diy_qzq',
+    'type' => 'enum(\'三个月\',\'六个月\',\'十二个月\')',
+    'notnull' => false,
+    'default' => '三个月',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'diy_spxz' => 
+  array (
+    'name' => 'diy_spxz',
+    'type' => 'enum(\'商铺新房\',\'二手商铺\')',
+    'notnull' => false,
+    'default' => '商铺新房',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'diy_jyzt' => 
+  array (
+    'name' => 'diy_jyzt',
+    'type' => 'enum(\'经营中\',\'空置中\')',
+    'notnull' => false,
+    'default' => '经营中',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'diy_klrq' => 
+  array (
+    'name' => 'diy_klrq',
+    'type' => 'enum(\'办公人群\',\'学生人群\',\'居民人群\',\'旅游人群\',\'其他\')',
+    'notnull' => false,
+    'default' => '办公人群',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'diy_miankuan' => 
+  array (
+    'name' => 'diy_miankuan',
+    'type' => 'float(9,2)',
+    'notnull' => false,
+    'default' => '0.00',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'diy_cenggao' => 
+  array (
+    'name' => 'diy_cenggao',
+    'type' => 'float(9,2)',
+    'notnull' => false,
+    'default' => '0.00',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'diy_jinshen' => 
+  array (
+    'name' => 'diy_jinshen',
+    'type' => 'float(9,2)',
+    'notnull' => false,
+    'default' => '0.00',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'diy_xgfy' => 
+  array (
+    'name' => 'diy_xgfy',
+    'type' => 'varchar(200)',
+    'notnull' => false,
+    'default' => '',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'diy_jgmy' => 
+  array (
+    'name' => 'diy_jgmy',
+    'type' => 'varchar(200)',
+    'notnull' => false,
+    'default' => '',
+    'primary' => false,
+    'autoinc' => false,
+  ),
 );
