@@ -15,12 +15,11 @@
         {eq name="'System@smtp'|is_check_access" value="1"}
         <li {if condition="preg_match('/^smtp/i', $Think.const.ACTION_NAME)"}class="layui-this"{/if}><a href="{:url('System/smtp')}">接口配置</a></li>
         {/eq}
-        {eq name="'System@smtp'|is_check_access" value="1"}
-        <li {if condition="preg_match('/^smtp/i', $Think.const.ACTION_NAME)"}class="layui-this"{/if}><a href="{:url('System/smtp')}">接口配置</a></li>
-        {/eq}
+
         {eq name="'UsersConfig@register'|is_check_access" value="1"}
         <li {if condition="'register'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('UsersConfig/register')}">会员设置</a></li>
         {/eq}
+        
         {eq name="'System@question'|is_check_access" value="1"}
         <!--<li {if condition="preg_match('/^question/i', $Think.const.ACTION_NAME)"}class="layui-this"{/if}><a href="{:url('System/question')}">问答配置</a></li>-->
         {/eq}

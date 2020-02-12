@@ -7,9 +7,13 @@
           <div class="web-system">
             <div class="layui-tab layui-tab-card">
               <ul class="layui-tab-title">
-                {volist name="$PosiData" id="pt"}
-                  <li class="{eq name='$pt.position_id' value='$position_id'}layui-this{else/}{/eq}"><a href="{:url('Navigation/index', ['position_id'=>$pt.position_id])}">{$pt.position_name}</a></li>
-                {/volist}
+                {eq name="'Arctype@index'|is_check_access" value="1"}
+                <li class=""><a href="{:url('Arctype/index')}">栏目管理</a></li>
+                {/eq}
+
+                {eq name="'Navigation@index'|is_check_access" value="1"}
+                <li class="layui-this"><a href="{:url('Navigation/index')}">导航管理</a></li>
+                {/eq}
               </ul>
               <div class="layui-tab-content web-system" style="padding:10px 0">
                 <div class="layui-tab-item layui-show">
@@ -19,8 +23,18 @@
                         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
                             <div class="layui-form-item" style="margin-top: -10px;">
                                 <div class="fl">
-                                    <a data-url="{:url('Navigation/add', array('position_id'=>$position_id))}" class="layui-btn navigation_add" style="border-color:#3db9b2; color: #fff; padding: 0 15px;height: 35px;line-height: 35px;border-radius: 2px;" data-title="新增顶级菜单">新增顶级菜单</a>
-                                    <a class="layui-btn btn-primary" onclick="tag_call('navig', '{$position_id}');" style="border-color:#fff; color: #333; padding: 0 15px;height: 35px;line-height: 35px;border-radius: 2px; border-color: #e6e6e6;" data-title="标签调用">标签调用</a>
+                                    {volist name="$PosiData" id="pt"}
+                                        {eq name='$pt.position_id' value='$position_id'}
+                                        <a href="{:url('Navigation/index', ['position_id'=>$pt.position_id])}" class="layui-btn" style="border-color:#3db9b2; color: #fff; padding: 0 15px;height: 35px;line-height: 35px;border-radius: 2px;" data-title="{$pt.position_name}">{$pt.position_name}</a>
+                                        {else /}
+                                        <a href="{:url('Navigation/index', ['position_id'=>$pt.position_id])}" class="layui-btn btn-primary" style="border-color:#fff; color: #333; padding: 0 15px;height: 35px;line-height: 35px;border-radius: 2px; border-color: #e6e6e6;" data-title="{$pt.position_name}">{$pt.position_name}</a>
+                                        {/eq}
+                                    {/volist}
+                                </div>
+                                <div class="fr">
+                                    <a href="javascript:void(0);" data-url="{:url('Navigation/add', array('position_id'=>$position_id))}" class="navigation_add" data-title="新增顶级菜单">新增顶级菜单</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:void(0);" onclick="tag_call('navig', '{$position_id}');" data-title="标签调用">标签调用</a>
                                 </div>
                             </div>
                         </div>

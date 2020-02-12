@@ -1,40 +1,65 @@
 {include file="public/layout" /}
-
 <body class="nav-more">
-<div class="layui-fluid">
-    <div class="layui-card">
-        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-            <div class="layui-form-item">
-                <div class="fl"><a data-url="{:url('Arctype/add')}" class="layui-btn arctype_add" style="border-color:#3db9b2; color: #fff; padding: 0 15px;height: 35px;line-height: 35px;
-    border-radius: 2px;" data-title="新增顶级栏目">新增顶级栏目</a></div>
-            </div>
-        </div>
-        <div class="layui-card-body " style="overflow-x: scroll">
-            <div class="layui-table-box">
-                <div class="layui-table-body layui-table-main right-oper" style="margin: 0;">
-                    <table id="table1" class="layui-table" lay-filter="table1"></table>
-                    <!-- 隐藏 -->
-                    <script type="text/html" id="switchTpl">
-                        <input type="checkbox" name="is_hidden" data-id="{{d.id}}" value="{{d.is_hidden}}" lay-skin="switch" lay-text="是|否" lay-filter="is_hidden" {{ d.is_hidden == 1 ? 'checked class="yes"' : ' class="no"' }}>
-                    </script>
-                    <!-- 操作列 -->
-                    <script type="text/html" id="oper-col">
-					    <a class="layui-btn btn-edit edit" lay-event="edit">编辑</a>
-						<a class="layui-btn btn-primary more mr10" >更多</a>
-                        {eq name="'Archives@index'|is_check_access" value="1"}
-                        <a class="layui-btn btn-primary" lay-event="detail">内容</a>
-                        {/eq}
-                        {{ d.grade < {$arctype_max_level - 1} ? '<a class="layui-btn btn-primary" lay-event="addson">增加子栏目</a>' : '<a class="layui-btn btn-primary" lay-event="">不支持增加</a>' }}
-                        <a class="layui-btn  btn-primary" lay-event="preview">预览</a>
-                        {eq name="'Arctype@pseudo_del'|is_check_access" value="1"}
-                        <a class="layui-btn btn-del" lay-event="del" data-url="{:url('Arctype/pseudo_del')}" data-id="{{d.id}}" data-typename="{{d.typename}}" data-deltype="pseudo" >删除</a>
-                        {/eq}
-                    </script>
+  <div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="web-system">
+            <div class="layui-tab layui-tab-card">
+              <ul class="layui-tab-title">
+                {eq name="'Arctype@index'|is_check_access" value="1"}
+                <li class="layui-this"><a href="{:url('Arctype/index')}">栏目管理</a></li>
+                {/eq}
+
+                {eq name="'Navigation@index'|is_check_access" value="1"}
+                <li class=""><a href="{:url('Navigation/index')}">导航管理</a></li>
+                {/eq}
+              </ul>
+              <div class="layui-tab-content web-system" style="padding:10px 0">
+                <div class="layui-tab-item layui-show">
+                  <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md12">
+                      <div class="layui-card">
+                        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                            <div class="layui-form-item" style="margin-top: -10px;">
+                                <div class="fl"><a data-url="{:url('Arctype/add')}" class="layui-btn arctype_add" style="border-color:#3db9b2; color: #fff; padding: 0 15px;height: 35px;line-height: 35px;
+                    border-radius: 2px;" data-title="新增顶级栏目">新增顶级栏目</a></div>
+                            </div>
+                        </div>
+                        <div class="layui-card-body " style="overflow-x: scroll">
+                            <div class="layui-table-box">
+                                <div class="layui-table-body layui-table-main right-oper" style="margin: 0;">
+                                    <table id="table1" class="layui-table" lay-filter="table1"></table>
+                                    <!-- 隐藏 -->
+                                    <script type="text/html" id="switchTpl">
+                                        <input type="checkbox" name="is_hidden" data-id="{{d.id}}" value="{{d.is_hidden}}" lay-skin="switch" lay-text="是|否" lay-filter="is_hidden" {{ d.is_hidden == 1 ? 'checked class="yes"' : ' class="no"' }}>
+                                    </script>
+                                    <!-- 操作列 -->
+                                    <script type="text/html" id="oper-col">
+                                        <a class="layui-btn btn-edit edit" lay-event="edit">编辑</a>
+                                        <a class="layui-btn btn-primary more mr10" >更多</a>
+                                        {eq name="'Archives@index'|is_check_access" value="1"}
+                                        <a class="layui-btn btn-primary" lay-event="detail">内容</a>
+                                        {/eq}
+                                        {{ d.grade < {$arctype_max_level - 1} ? '<a class="layui-btn btn-primary" lay-event="addson">增加子栏目</a>' : '<a class="layui-btn btn-primary" lay-event="">不支持增加</a>' }}
+                                        <a class="layui-btn  btn-primary" lay-event="preview">预览</a>
+                                        {eq name="'Arctype@pseudo_del'|is_check_access" value="1"}
+                                        <a class="layui-btn btn-del" lay-event="del" data-url="{:url('Arctype/pseudo_del')}" data-id="{{d.id}}" data-typename="{{d.typename}}" data-deltype="pseudo" >删除</a>
+                                        {/eq}
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</div>
+     </div>
+  </div>
 
 <script>
     $(function () {
@@ -65,8 +90,8 @@
             ,form = layui.form
             ,treetable = layui.treetable
             ,table = layui.table;
-		
-		
+        
+        
         // 渲染表格
         var renderTable = function () {
             layer.load(2);
@@ -170,7 +195,7 @@
                 ,field = obj.field; //得到字段
             this.value = value;
             changeTableVal('arctype','id',data.id,field,this);
-			
+            
         });
         //隐藏操作
         form.on('switch(is_hidden)', function(obj){
@@ -182,26 +207,26 @@
             var dataid = $(this).attr('data-id');
             changeTableVal('arctype','id',dataid,'is_hidden',this);
         });
-		
-		//栏目更多弹出按钮触发事件
-		$(document).off('mousedown','.layui-table-grid-down').
-			on('mousedown','.layui-table-grid-down',function (event) {
-				table._tableTrCurrr = $(this).closest('td');
-			});
-		 $(document).off('click','.layui-table-tips-main [lay-event]').
-			on('click','.layui-table-tips-main [lay-event]',function (event) {
-				var elem = $(this);
-				var tableTrCurrr =  table._tableTrCurrr;
-				if(!tableTrCurrr){
-					return;
-				}
-				var layerIndex = elem.closest('.layui-table-tips').attr('times');
-				layer.close(layerIndex);
-				table._tableTrCurrr.find('[lay-event="' + elem.attr('lay-event') + '"]').first().click();
-		 });
+        
+        //栏目更多弹出按钮触发事件
+        $(document).off('mousedown','.layui-table-grid-down').
+            on('mousedown','.layui-table-grid-down',function (event) {
+                table._tableTrCurrr = $(this).closest('td');
+            });
+         $(document).off('click','.layui-table-tips-main [lay-event]').
+            on('click','.layui-table-tips-main [lay-event]',function (event) {
+                var elem = $(this);
+                var tableTrCurrr =  table._tableTrCurrr;
+                if(!tableTrCurrr){
+                    return;
+                }
+                var layerIndex = elem.closest('.layui-table-tips').attr('times');
+                layer.close(layerIndex);
+                table._tableTrCurrr.find('[lay-event="' + elem.attr('lay-event') + '"]').first().click();
+         });
 
     });
-	
+    
     function delfun(obj){
         var title = $(obj).attr('data-typename');
         layer.confirm('<font color="#ff0000">如有子栏目及文档将一起清空</font>，确认删除到回收站？', {
