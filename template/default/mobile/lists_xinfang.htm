@@ -67,7 +67,7 @@
         <div class="y_text_main"><a href="{$field.arcurl}">
           <p class="y_title"><span>{$field.title}</span></p>
           <p class="y_jiage"><span>均价: {eju:notempty name="$field.average_price"}{$field.average_price}{$field.price_units}{eju:else /}暂无{/eju:notempty}</span></p>
-          <p class="y_shijian">{$field.city_id|get_city_name}-{$field.area_id|get_area_name}</p>
+          <p class="y_shijian">{$field.city_id|get_city_name}{eju:notempty name="$field.area_id|get_area_name"}-{$field.area_id|get_area_name}{eju:else /}{/eju:notempty}</p>
           <p class="y_tese y_lptese_color c"><i class="red">{$field.sale_status}</i>{eju:volist name='$field.characteristic' id='vo' row='3'}<i>{$vo}</i>{/eju:volist}</p>
           </a></div>
         

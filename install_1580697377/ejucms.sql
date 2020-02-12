@@ -8,7 +8,7 @@
 -- 
 -- Part : #1
 -- Version : #v1.4.0
--- Date : 2020-02-12 09:56:46
+-- Date : 2020-02-12 18:15:06
 -- -----------------------------------------
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -139,7 +139,7 @@ CREATE TABLE `eju_admin_log` (
   `log_time` int(11) DEFAULT '0' COMMENT '日志时间',
   PRIMARY KEY (`log_id`),
   KEY `admin_id` (`admin_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=4390 DEFAULT CHARSET=utf8 COMMENT='管理员操作日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=4490 DEFAULT CHARSET=utf8 COMMENT='管理员操作日志表';
 
 -- -----------------------------
 -- Records of `eju_admin_log`
@@ -193,6 +193,106 @@ INSERT INTO `eju_admin_log` VALUES ('4387', '1', '后台登录', '127.0.0.1', '/
 INSERT INTO `eju_admin_log` VALUES ('4386', '-1', '自动退出', '127.0.0.1', '/login.php', '1581307838');
 INSERT INTO `eju_admin_log` VALUES ('4389', '1', '后台登录', '127.0.0.1', '/login.php', '1581468113');
 INSERT INTO `eju_admin_log` VALUES ('4388', '-1', '自动退出', '127.0.0.1', '/login.php', '1581468064');
+INSERT INTO `eju_admin_log` VALUES ('4489', '1', '新增导航菜单：我要求租', '127.0.0.1', '/login.php', '1581499064');
+INSERT INTO `eju_admin_log` VALUES ('4488', '1', '新增导航菜单：出租房源', '127.0.0.1', '/login.php', '1581499052');
+INSERT INTO `eju_admin_log` VALUES ('4487', '1', '新增导航菜单：地图找房', '127.0.0.1', '/login.php', '1581499034');
+INSERT INTO `eju_admin_log` VALUES ('4486', '1', '新增导航菜单：我要求购', '127.0.0.1', '/login.php', '1581499024');
+INSERT INTO `eju_admin_log` VALUES ('4485', '1', '新增导航菜单：小区找房', '127.0.0.1', '/login.php', '1581499005');
+INSERT INTO `eju_admin_log` VALUES ('4484', '1', '新增导航菜单：在售房源', '127.0.0.1', '/login.php', '1581498996');
+INSERT INTO `eju_admin_log` VALUES ('4483', '1', '新增导航菜单：优惠活动', '127.0.0.1', '/login.php', '1581498977');
+INSERT INTO `eju_admin_log` VALUES ('4482', '1', '新增导航菜单：房产百科', '127.0.0.1', '/login.php', '1581498969');
+INSERT INTO `eju_admin_log` VALUES ('4481', '1', '新增导航菜单：房产宝典', '127.0.0.1', '/login.php', '1581498961');
+INSERT INTO `eju_admin_log` VALUES ('4480', '1', '新增导航菜单：楼盘导购 ', '127.0.0.1', '/login.php', '1581498953');
+INSERT INTO `eju_admin_log` VALUES ('4479', '1', '新增导航菜单：房产资讯', '127.0.0.1', '/login.php', '1581498945');
+INSERT INTO `eju_admin_log` VALUES ('4478', '1', '新增导航菜单：购房指南', '127.0.0.1', '/login.php', '1581498937');
+INSERT INTO `eju_admin_log` VALUES ('4477', '1', '新增导航菜单：楼盘动态', '127.0.0.1', '/login.php', '1581498930');
+INSERT INTO `eju_admin_log` VALUES ('4476', '1', '新增导航菜单：地图找房', '127.0.0.1', '/login.php', '1581498921');
+INSERT INTO `eju_admin_log` VALUES ('4475', '1', '新增导航菜单：帮你找房', '127.0.0.1', '/login.php', '1581498914');
+INSERT INTO `eju_admin_log` VALUES ('4474', '1', '新增导航菜单：团购', '127.0.0.1', '/login.php', '1581498885');
+INSERT INTO `eju_admin_log` VALUES ('4473', '1', '新增导航菜单：找楼盘', '127.0.0.1', '/login.php', '1581498872');
+INSERT INTO `eju_admin_log` VALUES ('4472', '1', '新增导航菜单：地图找房', '127.0.0.1', '/login.php', '1581491819');
+INSERT INTO `eju_admin_log` VALUES ('4471', '1', '新增导航菜单：资讯', '127.0.0.1', '/login.php', '1581491809');
+INSERT INTO `eju_admin_log` VALUES ('4470', '1', '新增导航菜单：找经纪人', '127.0.0.1', '/login.php', '1581491794');
+INSERT INTO `eju_admin_log` VALUES ('4469', '1', '新增导航菜单：写字楼', '127.0.0.1', '/login.php', '1581491776');
+INSERT INTO `eju_admin_log` VALUES ('4468', '1', '新增导航菜单：商铺', '127.0.0.1', '/login.php', '1581491759');
+INSERT INTO `eju_admin_log` VALUES ('4467', '1', '新增导航菜单：团购', '127.0.0.1', '/login.php', '1581491740');
+INSERT INTO `eju_admin_log` VALUES ('4466', '1', '新增导航菜单：小区找房', '127.0.0.1', '/login.php', '1581491707');
+INSERT INTO `eju_admin_log` VALUES ('4465', '1', '更新导航菜单：出租房', '127.0.0.1', '/login.php', '1581491693');
+INSERT INTO `eju_admin_log` VALUES ('4464', '1', '新增导航菜单：出租房', '127.0.0.1', '/login.php', '1581491680');
+INSERT INTO `eju_admin_log` VALUES ('4463', '1', '新增导航菜单：二手房', '127.0.0.1', '/login.php', '1581491667');
+INSERT INTO `eju_admin_log` VALUES ('4462', '1', '新增导航菜单：新房', '127.0.0.1', '/login.php', '1581491650');
+INSERT INTO `eju_admin_log` VALUES ('4461', '1', '新增导航菜单：公司简介', '127.0.0.1', '/login.php', '1581491395');
+INSERT INTO `eju_admin_log` VALUES ('4460', '1', '新增导航菜单：地图找房', '127.0.0.1', '/login.php', '1581490449');
+INSERT INTO `eju_admin_log` VALUES ('4459', '1', '新增导航菜单：房贷计算器', '127.0.0.1', '/login.php', '1581490441');
+INSERT INTO `eju_admin_log` VALUES ('4458', '1', '新增导航菜单：其他', '127.0.0.1', '/login.php', '1581490428');
+INSERT INTO `eju_admin_log` VALUES ('4457', '1', '更新导航菜单：商铺出租', '127.0.0.1', '/login.php', '1581490412');
+INSERT INTO `eju_admin_log` VALUES ('4456', '1', '更新导航菜单：写字楼出售', '127.0.0.1', '/login.php', '1581490404');
+INSERT INTO `eju_admin_log` VALUES ('4455', '1', '新增导航菜单：写字楼出租', '127.0.0.1', '/login.php', '1581490389');
+INSERT INTO `eju_admin_log` VALUES ('4454', '1', '新增导航菜单：写字楼出售', '127.0.0.1', '/login.php', '1581490376');
+INSERT INTO `eju_admin_log` VALUES ('4453', '1', '新增导航菜单：商铺出租', '127.0.0.1', '/login.php', '1581490366');
+INSERT INTO `eju_admin_log` VALUES ('4452', '1', '新增导航菜单：商铺出售', '127.0.0.1', '/login.php', '1581490357');
+INSERT INTO `eju_admin_log` VALUES ('4451', '1', '新增导航菜单：商用', '127.0.0.1', '/login.php', '1581490348');
+INSERT INTO `eju_admin_log` VALUES ('4450', '1', '新增导航菜单：我要求租', '127.0.0.1', '/login.php', '1581490328');
+INSERT INTO `eju_admin_log` VALUES ('4449', '1', '新增导航菜单：找租房', '127.0.0.1', '/login.php', '1581490302');
+INSERT INTO `eju_admin_log` VALUES ('4448', '1', '新增导航菜单：租房', '127.0.0.1', '/login.php', '1581490236');
+INSERT INTO `eju_admin_log` VALUES ('4447', '1', '新增导航菜单：我要卖房', '127.0.0.1', '/login.php', '1581490216');
+INSERT INTO `eju_admin_log` VALUES ('4446', '1', '更新导航菜单：卖房', '127.0.0.1', '/login.php', '1581490196');
+INSERT INTO `eju_admin_log` VALUES ('4445', '1', '新增导航菜单：我要卖房', '127.0.0.1', '/login.php', '1581490188');
+INSERT INTO `eju_admin_log` VALUES ('4444', '1', '新增导航菜单：团购', '127.0.0.1', '/login.php', '1581478590');
+INSERT INTO `eju_admin_log` VALUES ('4443', '1', '新增导航菜单：二手房', '127.0.0.1', '/login.php', '1581478573');
+INSERT INTO `eju_admin_log` VALUES ('4442', '1', '新增导航菜单：新房', '127.0.0.1', '/login.php', '1581478564');
+INSERT INTO `eju_admin_log` VALUES ('4441', '1', '新增导航菜单：买房', '127.0.0.1', '/login.php', '1581478541');
+INSERT INTO `eju_admin_log` VALUES ('4440', '1', '删除导航菜单：问答', '127.0.0.1', '/login.php', '1581478500');
+INSERT INTO `eju_admin_log` VALUES ('4439', '1', '删除导航菜单：写字楼', '127.0.0.1', '/login.php', '1581478498');
+INSERT INTO `eju_admin_log` VALUES ('4438', '1', '删除导航菜单：商铺', '127.0.0.1', '/login.php', '1581478494');
+INSERT INTO `eju_admin_log` VALUES ('4437', '1', '删除导航菜单：出租房', '127.0.0.1', '/login.php', '1581478491');
+INSERT INTO `eju_admin_log` VALUES ('4436', '1', '删除导航菜单：二手房', '127.0.0.1', '/login.php', '1581478487');
+INSERT INTO `eju_admin_log` VALUES ('4435', '1', '删除导航菜单：资讯', '127.0.0.1', '/login.php', '1581478484');
+INSERT INTO `eju_admin_log` VALUES ('4434', '1', '删除导航菜单：新房', '127.0.0.1', '/login.php', '1581478479');
+INSERT INTO `eju_admin_log` VALUES ('4433', '1', '删除导航菜单：首页', '127.0.0.1', '/login.php', '1581478459');
+INSERT INTO `eju_admin_log` VALUES ('4432', '1', '新增导航菜单：商铺', '127.0.0.1', '/login.php', '1581476246');
+INSERT INTO `eju_admin_log` VALUES ('4431', '1', '新增导航菜单：出租房', '127.0.0.1', '/login.php', '1581476238');
+INSERT INTO `eju_admin_log` VALUES ('4430', '1', '新增导航菜单：二手房', '127.0.0.1', '/login.php', '1581476228');
+INSERT INTO `eju_admin_log` VALUES ('4429', '1', '新增导航菜单：资讯', '127.0.0.1', '/login.php', '1581475889');
+INSERT INTO `eju_admin_log` VALUES ('4428', '1', '新增导航菜单：新房', '127.0.0.1', '/login.php', '1581475883');
+INSERT INTO `eju_admin_log` VALUES ('4427', '1', '新增导航菜单：首页', '127.0.0.1', '/login.php', '1581475866');
+INSERT INTO `eju_admin_log` VALUES ('4426', '1', '新增导航菜单：地图找房', '127.0.0.1', '/login.php', '1581475191');
+INSERT INTO `eju_admin_log` VALUES ('4425', '1', '更新导航菜单：团购', '127.0.0.1', '/login.php', '1581475182');
+INSERT INTO `eju_admin_log` VALUES ('4424', '1', '删除导航菜单：团购', '127.0.0.1', '/login.php', '1581475163');
+INSERT INTO `eju_admin_log` VALUES ('4423', '1', '新增导航菜单：团购', '127.0.0.1', '/login.php', '1581475132');
+INSERT INTO `eju_admin_log` VALUES ('4422', '1', '新增导航菜单：问答', '127.0.0.1', '/login.php', '1581475107');
+INSERT INTO `eju_admin_log` VALUES ('4421', '1', '新增导航菜单：商铺选址', '127.0.0.1', '/login.php', '1581474001');
+INSERT INTO `eju_admin_log` VALUES ('4420', '1', '新增导航菜单：企业选址', '127.0.0.1', '/login.php', '1581473988');
+INSERT INTO `eju_admin_log` VALUES ('4419', '1', '新增导航菜单：找经纪人', '127.0.0.1', '/login.php', '1581473944');
+INSERT INTO `eju_admin_log` VALUES ('4418', '1', '新增导航菜单：写字楼出租', '127.0.0.1', '/login.php', '1581473926');
+INSERT INTO `eju_admin_log` VALUES ('4417', '1', '新增导航菜单：写字楼出售', '127.0.0.1', '/login.php', '1581473913');
+INSERT INTO `eju_admin_log` VALUES ('4416', '1', '新增导航菜单：写字楼', '127.0.0.1', '/login.php', '1581473894');
+INSERT INTO `eju_admin_log` VALUES ('4414', '1', '新增导航菜单：商铺出售', '127.0.0.1', '/login.php', '1581473868');
+INSERT INTO `eju_admin_log` VALUES ('4415', '1', '新增导航菜单：商铺出租', '127.0.0.1', '/login.php', '1581473881');
+INSERT INTO `eju_admin_log` VALUES ('4413', '1', '新增导航菜单：商铺', '127.0.0.1', '/login.php', '1581473858');
+INSERT INTO `eju_admin_log` VALUES ('4411', '1', '更新导航菜单：地图找房', '127.0.0.1', '/login.php', '1581473808');
+INSERT INTO `eju_admin_log` VALUES ('4412', '1', '更新导航菜单：地图找房', '127.0.0.1', '/login.php', '1581473818');
+INSERT INTO `eju_admin_log` VALUES ('4410', '1', '新增导航菜单：地图找租房', '127.0.0.1', '/login.php', '1581473776');
+INSERT INTO `eju_admin_log` VALUES ('4408', '1', '新增导航菜单：出租房', '127.0.0.1', '/login.php', '1581473721');
+INSERT INTO `eju_admin_log` VALUES ('4409', '1', '新增导航菜单：出租房源', '127.0.0.1', '/login.php', '1581473739');
+INSERT INTO `eju_admin_log` VALUES ('4407', '1', '新增导航菜单：地图找二手房', '127.0.0.1', '/login.php', '1581473702');
+INSERT INTO `eju_admin_log` VALUES ('4405', '1', '删除导航菜单：小区找房', '127.0.0.1', '/login.php', '1581473563');
+INSERT INTO `eju_admin_log` VALUES ('4406', '1', '新增导航菜单：小区找房', '127.0.0.1', '/login.php', '1581473683');
+INSERT INTO `eju_admin_log` VALUES ('4404', '1', '新增导航菜单：在售房源', '127.0.0.1', '/login.php', '1581473558');
+INSERT INTO `eju_admin_log` VALUES ('4403', '1', '新增导航菜单：小区找房', '127.0.0.1', '/login.php', '1581473547');
+INSERT INTO `eju_admin_log` VALUES ('4401', '1', '新增导航菜单：优惠活动', '127.0.0.1', '/login.php', '1581473528');
+INSERT INTO `eju_admin_log` VALUES ('4402', '1', '新增导航菜单：二手房', '127.0.0.1', '/login.php', '1581473538');
+INSERT INTO `eju_admin_log` VALUES ('4400', '1', '新增导航菜单：房产百科', '127.0.0.1', '/login.php', '1581473520');
+INSERT INTO `eju_admin_log` VALUES ('4399', '1', '新增导航菜单：房产宝典', '127.0.0.1', '/login.php', '1581473511');
+INSERT INTO `eju_admin_log` VALUES ('4397', '1', '新增导航菜单：房产资讯', '127.0.0.1', '/login.php', '1581473492');
+INSERT INTO `eju_admin_log` VALUES ('4398', '1', '新增导航菜单：楼盘导购 ', '127.0.0.1', '/login.php', '1581473501');
+INSERT INTO `eju_admin_log` VALUES ('4396', '1', '新增导航菜单：购房指南', '127.0.0.1', '/login.php', '1581473470');
+INSERT INTO `eju_admin_log` VALUES ('4395', '1', '新增导航菜单：楼盘动态', '127.0.0.1', '/login.php', '1581473101');
+INSERT INTO `eju_admin_log` VALUES ('4394', '1', '新增导航菜单：资讯', '127.0.0.1', '/login.php', '1581473083');
+INSERT INTO `eju_admin_log` VALUES ('4393', '1', '新增导航菜单：地图找房', '127.0.0.1', '/login.php', '1581473063');
+INSERT INTO `eju_admin_log` VALUES ('4392', '1', '新增导航菜单：找楼盘', '127.0.0.1', '/login.php', '1581473053');
+INSERT INTO `eju_admin_log` VALUES ('4390', '1', '新增导航菜单：首页', '127.0.0.1', '/login.php', '1581472995');
+INSERT INTO `eju_admin_log` VALUES ('4391', '1', '新增导航菜单：新房', '127.0.0.1', '/login.php', '1581473008');
 INSERT INTO `eju_admin_log` VALUES ('2443', '-1', '自动退出', '127.0.0.1', '/login.php', '1578875634');
 INSERT INTO `eju_admin_log` VALUES ('2444', '-1', '自动退出', '127.0.0.1', '/login.php', '1578875634');
 INSERT INTO `eju_admin_log` VALUES ('2445', '-1', '自动退出', '127.0.0.1', '/login.php', '1578875634');
@@ -2256,7 +2356,7 @@ INSERT INTO `eju_archives` VALUES ('63', '0', '10', '11', '0', '水岸珈蓝', '
 INSERT INTO `eju_archives` VALUES ('64', '0', '10', '11', '0', '洛杉矶城', '/uploads/allimg/20191029/1-1910291RR3402.jpg', '0', '0', '0', '0', '0', '1', '', '1', '0', '', '0', '洛杉矶城', '', '洛杉矶城位于新城市主轴滨海大道旁，毗邻海口新港码头，有***际一流的滨海景观及发达的道路交通系统，距美兰机场30车程，火车站15车程。总用地面积：15128.07平方米，建筑占地面积3452.5平方米，总建筑面积（地上）6244平方米，商铺建筑面积9', '0.00', '0', '', '1', '100', '1', '0', '0', '1572343433', '1579137222', '21', '35', '75', '0', '1572343433');
 INSERT INTO `eju_archives` VALUES ('65', '0', '10', '11', '0', '金外滩', '/uploads/allimg/20191029/1-1910291S12U10.jpg', '0', '0', '0', '0', '0', '1', '', '17', '0', '', '0', '金外滩', '', '金外滩，位于海口市丽晶路20号，东临杜鹃路，南靠滨海大道，西为丽晶路(景观大道)，北临琼洲海峡。金外滩由海南云通房地产开发有限公司开发建设，与广阔碧蓝的大海仅数步之遥。建筑设计特邀国际著名建筑设计单位NSIAP新建设计国际有限公司(新加坡)担纲设计，', '0.00', '0', '', '1', '100', '1', '0', '0', '1572343433', '1580785753', '21', '35', '76', '0', '1572343433');
 INSERT INTO `eju_archives` VALUES ('66', '0', '10', '11', '0', '泉海好家园', '/uploads/allimg/20191030/1-191030143S0S0.jpg', '0', '0', '0', '0', '0', '1', '', '2', '0', '', '0', '泉海好家园', '泉海好家园', '泉海好家园项目位于海口湾滨海沿线中央地带，丽晶路与港爱路交汇处——北眺琼洲海峡，东邻万绿园，南靠国贸CBD中心区，西临西秀海滩，都市繁华与滨海风情无缝连接，是海口中轴线板块与西海岸板块的黄金交汇点。这里不仅有1400亩城市绿肺万绿园及海口湾休闲滨海长', '0.00', '0', '', '1', '100', '1', '0', '0', '1572343433', '1579143524', '21', '35', '76', '0', '1572343433');
-INSERT INTO `eju_archives` VALUES ('67', '61', '19', '12', '0', '招鑫公馆2室 首付 28万 ', '/uploads/allimg/20191030/1-19103014510O16.jpg', '0', '0', '0', '0', '0', '1', '', '411', '0', '', '0', '招鑫公馆2室 首付 28万 业主置换', '', '小区品质不错，绿化环境也可以，有泳池，有物业管理，有停车位，居家安静舒适。二房二厅一卫一阳台，户型方正，格局不错，光线好，通风好。朝东向，可观江景，实业非常不错。精装修，北欧风格。产权证：不满二年。海景学校*房。周边环境非常不错', '0.00', '0', '', '1', '100', '1', '0', '0', '1572576282', '1579481995', '21', '35', '77', '0', '1572576282');
+INSERT INTO `eju_archives` VALUES ('67', '61', '19', '12', '0', '招鑫公馆2室 首付 28万 ', '/uploads/allimg/20191030/1-19103014510O16.jpg', '0', '0', '0', '0', '0', '1', '', '412', '0', '', '0', '招鑫公馆2室 首付 28万 业主置换', '', '小区品质不错，绿化环境也可以，有泳池，有物业管理，有停车位，居家安静舒适。二房二厅一卫一阳台，户型方正，格局不错，光线好，通风好。朝东向，可观江景，实业非常不错。精装修，北欧风格。产权证：不满二年。海景学校*房。周边环境非常不错', '0.00', '0', '', '1', '100', '1', '0', '0', '1572576282', '1579481995', '21', '35', '77', '0', '1572576282');
 INSERT INTO `eju_archives` VALUES ('68', '62', '19', '12', '0', '长信蓝郡 3室 首付 48万 ', '/uploads/allimg/20191030/1-19103014551OL.jpg', '0', '0', '0', '0', '0', '1', '', '6', '0', '', '0', '长信蓝郡 3室 首付 48万 ', '', '小区品质不错，绿化环境也可以，有泳池，有物业管理，有停车位，居家安静舒适。二房二厅一卫一阳台，户型方正，格局不错，光线好，通风好。朝东向，可观江景，实业非常不错。精装修，北欧风格。产权证：不满二年。海景学校*房。周边环境非常不错', '0.00', '0', '', '1', '100', '1', '0', '0', '1572576270', '1579481990', '21', '35', '77', '0', '1572576270');
 INSERT INTO `eju_archives` VALUES ('69', '63', '19', '12', '0', '水岸珈蓝 2室 首付 28万 ', '/uploads/allimg/20191030/1-191030145I5500.jpg', '0', '0', '0', '1', '0', '1', '', '1', '0', '', '0', '水岸珈蓝 2室 首付 28万 ', '', '小区品质不错，绿化环境也可以，有泳池，有物业管理，有停车位，居家安静舒适。二房二厅一卫一阳台，户型方正，格局不错，光线好，通风好。朝东向，可观江景，实业非常不错。精装修，北欧风格。产权证：不满二年。海景学校*房。周边环境非常不错', '0.00', '0', '', '1', '100', '1', '0', '0', '1572576249', '1579481985', '21', '35', '76', '0', '1572576249');
 INSERT INTO `eju_archives` VALUES ('70', '64', '19', '12', '0', '洛杉矶城 2室 首付 32万 ', '/uploads/allimg/20191030/1-1910301500204R.jpg', '0', '0', '0', '1', '0', '1', '', '3', '0', '', '0', '洛杉矶城 2室 首付 32万 ', '', '小区品质不错，绿化环境也可以，有泳池，有物业管理，有停车位，居家安静舒适。二房二厅一卫一阳台，户型方正，格局不错，光线好，通风好。朝东向，可观江景，实业非常不错。精装修，北欧风格。产权证：不满二年。海景学校*房。周边环境非常不错', '0.00', '0', '', '1', '100', '1', '0', '0', '1572576236', '1580894973', '21', '35', '75', '3', '1572576236');
@@ -2380,7 +2480,7 @@ INSERT INTO `eju_arcmulti` VALUES ('33', 'lists0001_55c40a5d0569293b7768ce06e4ad
 INSERT INTO `eju_arcmulti` VALUES ('34', 'lists0004_c6e842c0dc634e545bd1befd1a091397', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_ershou_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  a.typeid IN (11,19,20) AND a.channel IN (12) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0004\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:8:\\\"11,19,20\\\";}', '1578479832', '1578968151');
 INSERT INTO `eju_arcmulti` VALUES ('35', 'lists0004_b3246149df379927e573770ef56fabf3', 'arclist', '', '2', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_ershou_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  a.typeid IN (11,19,20) AND a.channel IN (12) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 2', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0004\\\";s:3:\\\"row\\\";s:1:\\\"2\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:8:\\\"11,19,20\\\";}', '1578479844', '1578552256');
 INSERT INTO `eju_arcmulti` VALUES ('36', 'lists0001_e66f184cef731a4465fcf432b88aaef8', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_zufang_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  a.typeid IN (12,21) AND a.channel IN (13) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0001\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:5:\\\"12,21\\\";}', '1578537657', '1578537657');
-INSERT INTO `eju_arcmulti` VALUES ('37', 'lists0005_5ef1f3bd4868ff421421a4f6e8f8df5b', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_zufang_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  (a.city_id = \'35\' or a.city_id = 0) AND a.typeid IN (12,21) AND a.channel IN (13) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0005\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:5:\\\"12,21\\\";}', '1578537858', '1580975687');
+INSERT INTO `eju_arcmulti` VALUES ('37', 'lists0005_5ef1f3bd4868ff421421a4f6e8f8df5b', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_zufang_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  (a.city_id = \'35\' or a.city_id = 0) AND total_price between 0 and 1000  AND a.typeid IN (12,21) AND a.channel IN (13) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0005\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:5:\\\"12,21\\\";}', '1578537858', '1581500751');
 INSERT INTO `eju_arcmulti` VALUES ('38', 'lists0005_d9b7e64a2aa01d7a1e1c0629b46a914d', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_xiaoqu_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  a.typeid IN (10) AND a.channel IN (11) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0005\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:2:\\\"10\\\";}', '1578554023', '1578618856');
 INSERT INTO `eju_arcmulti` VALUES ('39', 'information_3ead848dfaf3c18379bfd593bb2fd583', 'arclist', '', '10', 'SELECT `b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` WHERE  (  a.typeid IN (2,4,5,6,7,13,14,15) AND a.channel IN (1) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.sort_order asc, a.show_time desc LIMIT 10', 'a.sort_order asc, a.show_time desc', 'content', '', 'a:6:{s:5:\\\"tagid\\\";s:11:\\\"information\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:9:\\\"addfields\\\";s:7:\\\"content\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:6:\\\"typeid\\\";s:18:\\\"2,4,5,6,7,13,14,15\\\";}', '1578618901', '1578618901');
 INSERT INTO `eju_arcmulti` VALUES ('40', 'lists0002_7b491e3a9e19a9a54132882b3af2878c', 'arclist', '', '5', 'SELECT `b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` WHERE  (  a.typeid IN (2,4,5,6,7,13,14,15) AND a.channel IN (1) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 5', 'a.show_time desc', '', '', 'a:4:{s:5:\\\"tagid\\\";s:9:\\\"lists0002\\\";s:3:\\\"row\\\";s:1:\\\"5\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:6:\\\"typeid\\\";s:18:\\\"2,4,5,6,7,13,14,15\\\";}', '1578619025', '1578885109');
@@ -2408,8 +2508,8 @@ INSERT INTO `eju_arcmulti` VALUES ('61', 'lists0004_b54f2431a8aa3cdbafe7446ad891
 INSERT INTO `eju_arcmulti` VALUES ('62', 'lists0004_780dc7c63caa6f94cdbb4a95d5f6735e', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_ershou_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  a.typeid IN (29) AND a.channel IN (12) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0004\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:2:\\\"29\\\";}', '1578991336', '1578991429');
 INSERT INTO `eju_arcmulti` VALUES ('63', 'lists0009_6c85b3825d65279b0006c152e6b52abb', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_officecs_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  (a.city_id = \'35\' or a.city_id = 0) AND a.typeid IN (26,27) AND a.channel IN (16) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0009\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:5:\\\"26,27\\\";}', '1579053046', '1579487603');
 INSERT INTO `eju_arcmulti` VALUES ('64', 'lists0006_41ed771dc92220a80d07385b10228e62', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_xiaoqu_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  (a.city_id = \'35\' or a.city_id = 0) AND a.typeid IN (10) AND a.channel IN (11) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0006\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:2:\\\"10\\\";}', '1579054392', '1580975690');
-INSERT INTO `eju_arcmulti` VALUES ('65', 'lists0001_d941bbea636f84f39735a994819eb5ca', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_xinfang_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  (a.city_id = \'35\' or a.city_id = 0) AND a.typeid IN (1,35) AND a.channel IN (9) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', 'price_time', '', 'a:9:{s:5:\\\"tagid\\\";s:9:\\\"lists0001\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:9:\\\"addfields\\\";s:10:\\\"price_time\\\";s:6:\\\"typeid\\\";s:4:\\\"1,35\\\";}', '1579168635', '1580975665');
-INSERT INTO `eju_arcmulti` VALUES ('66', 'lists0004_2763abe5fbb9af76d99ec952cdf7b9a5', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_ershou_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  (a.city_id = \'35\' or a.city_id = 0) AND a.typeid IN (11,19) AND a.channel IN (12) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0004\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:5:\\\"11,19\\\";}', '1580867245', '1580975684');
+INSERT INTO `eju_arcmulti` VALUES ('65', 'lists0001_d941bbea636f84f39735a994819eb5ca', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_xinfang_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  (a.city_id = \'35\' or a.city_id = 0) AND (FIND_IN_SET(\'小户型\',characteristic)) AND a.typeid IN (1,35) AND a.channel IN (9) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', 'price_time', '', 'a:9:{s:5:\\\"tagid\\\";s:9:\\\"lists0001\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:9:\\\"addfields\\\";s:10:\\\"price_time\\\";s:6:\\\"typeid\\\";s:4:\\\"1,35\\\";}', '1579168635', '1581500756');
+INSERT INTO `eju_arcmulti` VALUES ('66', 'lists0004_2763abe5fbb9af76d99ec952cdf7b9a5', 'arclist', '', '10', 'SELECT `c`.*,`b`.*,`a`.* FROM `eju_archives` `a` LEFT JOIN `eju_arctype` `b` ON `b`.`id`=`a`.`typeid` LEFT JOIN `eju_ershou_system` `c` ON `a`.`aid`=`c`.`aid` WHERE  (  (a.city_id = \'35\' or a.city_id = 0) AND total_price between 0 and 50  AND a.typeid IN (11,19) AND a.channel IN (12) AND a.arcrank > -1 AND a.status = 1 AND a.is_del = 0 ) ORDER BY a.show_time desc LIMIT 10', 'a.show_time desc', '', '', 'a:8:{s:5:\\\"tagid\\\";s:9:\\\"lists0004\\\";s:3:\\\"row\\\";s:2:\\\"10\\\";s:3:\\\"key\\\";s:1:\\\"n\\\";s:8:\\\"titlelen\\\";s:2:\\\"30\\\";s:7:\\\"infolen\\\";s:3:\\\"160\\\";s:7:\\\"orderby\\\";s:3:\\\"new\\\";s:2:\\\"id\\\";s:5:\\\"field\\\";s:6:\\\"typeid\\\";s:5:\\\"11,19\\\";}', '1580867245', '1581500745');
 
 -- -----------------------------
 -- Table structure for `eju_arcrank`
@@ -2485,7 +2585,7 @@ INSERT INTO `eju_arctype` VALUES ('12', '13', '13', '0', '0', '出租房', 'zufa
 INSERT INTO `eju_arctype` VALUES ('13', '1', '1', '2', '0', '房产宝典', 'fangchanbaodian', '/zixun/fangchanbaodian', '', '1', '', '', 'lists_article.htm', 'view_article.htm', '', '', '', '100', '0', '0', '1', '0', '0', '1', '1577171117', '1577702018');
 INSERT INTO `eju_arctype` VALUES ('14', '1', '1', '2', '0', '房产百科', 'fangchanbaike', '/zixun/fangchanbaike', '', '1', '', '', 'lists_article.htm', 'view_article.htm', '', '', '', '100', '0', '0', '1', '0', '0', '1', '1577171160', '1577702018');
 INSERT INTO `eju_arctype` VALUES ('15', '1', '1', '2', '0', '优惠活动', 'youhuihuodong', '/zixun/youhuihuodong', '', '1', '', '', 'lists_article.htm', 'view_article.htm', '', '', '', '100', '0', '0', '1', '0', '0', '1', '1577171192', '1577702018');
-INSERT INTO `eju_arctype` VALUES ('16', '-1', '-1', '0', '0', '问答', '', '', '', '0', '/index.php?m=home&c=Ask&a=index', '', '', '', '', '', '', '100', '0', '1', '-1', '0', '0', '1', '1577343290', '1577343290');
+INSERT INTO `eju_arctype` VALUES ('16', '-1', '-1', '0', '0', '问答', '', '', '', '0', '/ask.html', '', '', '', '', '', '', '100', '0', '1', '-1', '0', '0', '1', '1577343290', '1577343290');
 INSERT INTO `eju_arctype` VALUES ('17', '6', '6', '0', '0', '房贷计算器', 'fangdaijisuanqi', '/fangdaijisuanqi', '', '0', '', '', 'lists_single_jisuan.htm', '', '', '', '', '101', '1', '0', '1', '1', '1', '1', '1577409708', '1581037996');
 INSERT INTO `eju_arctype` VALUES ('18', '6', '6', '37', '0', '帮你找房', 'bangnizhaofang', '/biaodanlanmu/bangnizhaofang', '', '1', '', '', 'lists_single_zfform.htm', '', '', '', '', '3', '0', '0', '1', '0', '0', '1', '1577930926', '1581042847');
 INSERT INTO `eju_arctype` VALUES ('19', '12', '12', '11', '0', '在售房源', 'zaishoufangyuan', '/ershoufang/zaishoufangyuan', '', '1', '', '', 'lists_ershou.htm', 'view_ershou.htm', '', '', '', '1', '0', '0', '1', '0', '0', '1', '1578470155', '1578470321');
@@ -3690,7 +3790,7 @@ INSERT INTO `eju_config` VALUES ('33', 'web_copyright', 'Copyright © 2012-2018 
 INSERT INTO `eju_config` VALUES ('34', 'web_thirdcode_pc', '', 'web', '', '0', '0', '0');
 INSERT INTO `eju_config` VALUES ('35', 'web_thirdcode_wap', '', 'web', '', '0', '0', '0');
 INSERT INTO `eju_config` VALUES ('39', 'seo_arcdir', '/html', 'seo', '', '0', '0', '0');
-INSERT INTO `eju_config` VALUES ('40', 'seo_pseudo', '1', 'seo', '', '0', '1570784691', '0');
+INSERT INTO `eju_config` VALUES ('40', 'seo_pseudo', '3', 'seo', '', '0', '1581501165', '0');
 INSERT INTO `eju_config` VALUES ('41', 'list_symbol', '&gt;', 'basic', '', '0', '0', '0');
 INSERT INTO `eju_config` VALUES ('42', 'sitemap_auto', '1', 'sitemap', '', '0', '0', '0');
 INSERT INTO `eju_config` VALUES ('43', 'sitemap_not1', '0', 'sitemap', '', '0', '0', '0');
@@ -4337,8 +4437,84 @@ CREATE TABLE `eju_navig_list` (
   PRIMARY KEY (`navig_id`),
   KEY `type_id` (`type_id`),
   KEY `position_id` (`position_id`,`status`,`is_del`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='导航列表';
+) ENGINE=MyISAM AUTO_INCREMENT=84 DEFAULT CHARSET=utf8 COMMENT='导航列表';
 
+-- -----------------------------
+-- Records of `eju_navig_list`
+-- -----------------------------
+INSERT INTO `eju_navig_list` VALUES ('43', '0', '0', '卖房', '', 'user_Users_centre', '1', '0', '0', '', '0', '0', '0', '1', '0', '100', '1581490196', '1581490196');
+INSERT INTO `eju_navig_list` VALUES ('3', '2', '2', '找楼盘', '', '/?m=home&c=Lists&a=index&tid=35', '1', '0', '35', '', '1', '0', '0', '1', '0', '100', '1581473053', '1581473053');
+INSERT INTO `eju_navig_list` VALUES ('4', '2', '2', '团购', '', '/?m=home&c=Lists&a=index&tid=3', '1', '0', '3', '', '1', '0', '0', '1', '0', '100', '1581475181', '1581475181');
+INSERT INTO `eju_navig_list` VALUES ('42', '39', '39', '团购', '', '/?m=home&c=Lists&a=index&tid=3', '1', '0', '3', '', '1', '0', '0', '1', '0', '100', '1581478590', '1581478590');
+INSERT INTO `eju_navig_list` VALUES ('6', '5', '5', '楼盘动态', '', '/?m=home&c=Lists&a=index&tid=4', '1', '0', '4', '', '1', '0', '0', '1', '0', '100', '1581473101', '1581473101');
+INSERT INTO `eju_navig_list` VALUES ('7', '5', '5', '购房指南', '', '/?m=home&c=Lists&a=index&tid=5', '1', '0', '5', '', '1', '0', '0', '1', '0', '100', '1581473470', '1581473470');
+INSERT INTO `eju_navig_list` VALUES ('8', '5', '5', '房产资讯', '', '/?m=home&c=Lists&a=index&tid=6', '1', '0', '6', '', '1', '0', '0', '1', '0', '100', '1581473492', '1581473492');
+INSERT INTO `eju_navig_list` VALUES ('9', '5', '5', '楼盘导购 ', '', '/?m=home&c=Lists&a=index&tid=7', '1', '0', '7', '', '1', '0', '0', '1', '0', '100', '1581473501', '1581473501');
+INSERT INTO `eju_navig_list` VALUES ('10', '5', '5', '房产宝典', '', '/?m=home&c=Lists&a=index&tid=13', '1', '0', '13', '', '1', '0', '0', '1', '0', '100', '1581473511', '1581473511');
+INSERT INTO `eju_navig_list` VALUES ('11', '5', '5', '房产百科', '', '/?m=home&c=Lists&a=index&tid=14', '1', '0', '14', '', '1', '0', '0', '1', '0', '100', '1581473520', '1581473520');
+INSERT INTO `eju_navig_list` VALUES ('12', '5', '5', '优惠活动', '', '/?m=home&c=Lists&a=index&tid=15', '1', '0', '15', '', '1', '0', '0', '1', '0', '100', '1581473528', '1581473528');
+INSERT INTO `eju_navig_list` VALUES ('16', '13', '13', '小区找房', '', '/?m=home&c=Lists&a=index&tid=10', '1', '0', '10', '', '1', '0', '0', '1', '0', '100', '1581473683', '1581473683');
+INSERT INTO `eju_navig_list` VALUES ('15', '13', '13', '在售房源', '', '/?m=home&c=Lists&a=index&tid=19', '1', '0', '19', '', '1', '0', '0', '1', '0', '100', '1581473558', '1581473558');
+INSERT INTO `eju_navig_list` VALUES ('17', '13', '13', '地图找房', '', 'home_Map_ershou', '1', '0', '0', '', '1', '0', '0', '1', '0', '100', '1581473808', '1581473808');
+INSERT INTO `eju_navig_list` VALUES ('41', '39', '39', '二手房', '', '/?m=home&c=Lists&a=index&tid=11', '1', '0', '11', '', '1', '0', '0', '1', '0', '100', '1581478573', '1581478573');
+INSERT INTO `eju_navig_list` VALUES ('19', '18', '18', '出租房源', '', '/?m=home&c=Lists&a=index&tid=21', '1', '0', '21', '', '1', '0', '0', '1', '0', '100', '1581473739', '1581473739');
+INSERT INTO `eju_navig_list` VALUES ('20', '18', '18', '地图找房', '', 'home_Map_zufang', '1', '0', '0', '', '1', '0', '0', '1', '0', '100', '1581473818', '1581473818');
+INSERT INTO `eju_navig_list` VALUES ('40', '39', '39', '新房', '', '/?m=home&c=Lists&a=index&tid=1', '1', '0', '1', '', '1', '0', '0', '1', '0', '100', '1581478564', '1581478564');
+INSERT INTO `eju_navig_list` VALUES ('22', '21', '21', '商铺出售', '', '/?m=home&c=Lists&a=index&tid=24', '1', '0', '24', '', '1', '0', '0', '1', '0', '100', '1581473868', '1581473868');
+INSERT INTO `eju_navig_list` VALUES ('23', '21', '21', '商铺出租', '', '/?m=home&c=Lists&a=index&tid=25', '1', '0', '25', '', '1', '0', '0', '1', '0', '100', '1581473881', '1581473881');
+INSERT INTO `eju_navig_list` VALUES ('25', '24', '24', '写字楼出售', '', '/?m=home&c=Lists&a=index&tid=27', '1', '0', '27', '', '1', '0', '0', '1', '0', '100', '1581473913', '1581473913');
+INSERT INTO `eju_navig_list` VALUES ('26', '24', '24', '写字楼出租', '', '/?m=home&c=Lists&a=index&tid=28', '1', '0', '28', '', '1', '0', '0', '1', '0', '100', '1581473926', '1581473926');
+INSERT INTO `eju_navig_list` VALUES ('27', '13', '13', '找经纪人', '', '/?m=home&c=Lists&a=index&tid=20', '1', '0', '20', '', '1', '0', '0', '1', '0', '100', '1581473944', '1581473944');
+INSERT INTO `eju_navig_list` VALUES ('28', '24', '24', '企业选址', '', '/?m=home&c=Lists&a=index&tid=34', '1', '0', '34', '', '1', '0', '0', '1', '0', '100', '1581473988', '1581473988');
+INSERT INTO `eju_navig_list` VALUES ('29', '21', '21', '商铺选址', '', '/?m=home&c=Lists&a=index&tid=33', '1', '0', '33', '', '1', '0', '0', '1', '0', '100', '1581474001', '1581474001');
+INSERT INTO `eju_navig_list` VALUES ('39', '0', '0', '买房', '', '/?m=home&c=Lists&a=index&tid=35', '1', '0', '35', '', '0', '0', '0', '1', '0', '100', '1581478541', '1581478541');
+INSERT INTO `eju_navig_list` VALUES ('32', '2', '2', '地图找房', '', 'home_Map_index', '1', '0', '0', '', '1', '0', '0', '1', '0', '100', '1581475191', '1581475191');
+INSERT INTO `eju_navig_list` VALUES ('33', '0', '0', '首页', '', 'home_Index_index', '2', '0', '0', '', '0', '0', '0', '1', '0', '100', '1581475866', '1581475866');
+INSERT INTO `eju_navig_list` VALUES ('34', '0', '0', '新房', '', '/?m=home&c=Lists&a=index&tid=1', '2', '0', '1', '', '0', '0', '0', '1', '0', '100', '1581475883', '1581475883');
+INSERT INTO `eju_navig_list` VALUES ('35', '0', '0', '资讯', '', '/?m=home&c=Lists&a=index&tid=2', '2', '0', '2', '', '0', '0', '0', '1', '0', '100', '1581475889', '1581475889');
+INSERT INTO `eju_navig_list` VALUES ('36', '0', '0', '二手房', '', '/?m=home&c=Lists&a=index&tid=11', '2', '0', '11', '', '0', '0', '0', '1', '0', '100', '1581476228', '1581476228');
+INSERT INTO `eju_navig_list` VALUES ('37', '0', '0', '出租房', '', '/?m=home&c=Lists&a=index&tid=12', '2', '0', '12', '', '0', '0', '0', '1', '0', '100', '1581476238', '1581476238');
+INSERT INTO `eju_navig_list` VALUES ('38', '0', '0', '商铺', '', '/?m=home&c=Lists&a=index&tid=23', '2', '0', '23', '', '0', '0', '0', '1', '0', '100', '1581476246', '1581476246');
+INSERT INTO `eju_navig_list` VALUES ('44', '43', '43', '我要卖房', '', 'user_Users_centre', '1', '0', '0', '', '1', '0', '0', '1', '0', '100', '1581490216', '1581490216');
+INSERT INTO `eju_navig_list` VALUES ('45', '0', '0', '租房', '', '/?m=home&c=Lists&a=index&tid=12', '1', '0', '12', '', '0', '0', '0', '1', '0', '100', '1581490236', '1581490236');
+INSERT INTO `eju_navig_list` VALUES ('46', '45', '45', '找租房', '', '/?m=home&c=Lists&a=index&tid=21', '1', '0', '21', '', '1', '0', '0', '1', '0', '100', '1581490302', '1581490302');
+INSERT INTO `eju_navig_list` VALUES ('47', '45', '45', '我要求租', '', '/?m=home&c=Lists&a=index&tid=32', '1', '0', '32', '', '1', '0', '0', '1', '0', '100', '1581490328', '1581490328');
+INSERT INTO `eju_navig_list` VALUES ('48', '0', '0', '商用', '', '/?m=home&c=Lists&a=index&tid=24', '1', '0', '24', '', '0', '0', '0', '1', '0', '100', '1581490348', '1581490348');
+INSERT INTO `eju_navig_list` VALUES ('49', '48', '48', '商铺出售', '', '/?m=home&c=Lists&a=index&tid=24', '1', '0', '24', '', '1', '0', '0', '1', '0', '100', '1581490357', '1581490357');
+INSERT INTO `eju_navig_list` VALUES ('50', '48', '48', '写字楼出售', '', '/?m=home&c=Lists&a=index&tid=27', '1', '0', '27', '', '1', '0', '0', '1', '0', '100', '1581490404', '1581490404');
+INSERT INTO `eju_navig_list` VALUES ('51', '48', '48', '商铺出租', '', '/?m=home&c=Lists&a=index&tid=25', '1', '0', '25', '', '1', '0', '0', '1', '0', '100', '1581490412', '1581490412');
+INSERT INTO `eju_navig_list` VALUES ('52', '48', '48', '写字楼出租', '', '/?m=home&c=Lists&a=index&tid=28', '1', '0', '28', '', '1', '0', '0', '1', '0', '100', '1581490389', '1581490389');
+INSERT INTO `eju_navig_list` VALUES ('53', '0', '0', '其他', '', 'home_Tool_jisuanqi', '1', '0', '0', '', '0', '0', '0', '1', '0', '100', '1581490428', '1581490428');
+INSERT INTO `eju_navig_list` VALUES ('54', '53', '53', '房贷计算器', '', 'home_Tool_jisuanqi', '1', '0', '0', '', '1', '0', '0', '1', '0', '100', '1581490441', '1581490441');
+INSERT INTO `eju_navig_list` VALUES ('55', '53', '53', '地图找房', '', 'home_Map_index', '1', '0', '0', '', '1', '0', '0', '1', '0', '100', '1581490449', '1581490449');
+INSERT INTO `eju_navig_list` VALUES ('56', '0', '0', '公司简介', '', '/?m=home&c=Lists&a=index&tid=9', '4', '0', '9', '', '0', '0', '0', '1', '0', '100', '1581491395', '1581491395');
+INSERT INTO `eju_navig_list` VALUES ('57', '0', '0', '新房', '', '/?m=home&c=Lists&a=index&tid=1', '5', '0', '1', '/uploads/allimg/20200212/1-2002121514024b.png', '0', '0', '0', '1', '0', '100', '1581491650', '1581491650');
+INSERT INTO `eju_navig_list` VALUES ('58', '0', '0', '二手房', '', '/?m=home&c=Lists&a=index&tid=11', '5', '0', '11', '/uploads/allimg/20200212/1-2002121514262Q.png', '0', '0', '0', '1', '0', '100', '1581491667', '1581491667');
+INSERT INTO `eju_navig_list` VALUES ('59', '0', '0', '出租房', '', '/?m=home&c=Lists&a=index&tid=12', '5', '0', '12', '/uploads/allimg/20200212/1-200212151452S5.png', '0', '0', '0', '1', '0', '100', '1581491693', '1581491693');
+INSERT INTO `eju_navig_list` VALUES ('60', '0', '0', '小区找房', '', '/?m=home&c=Lists&a=index&tid=10', '5', '0', '10', '/uploads/allimg/20200212/1-20021215150C10.png', '0', '0', '0', '1', '0', '100', '1581491707', '1581491707');
+INSERT INTO `eju_navig_list` VALUES ('61', '0', '0', '团购', '', '/?m=home&c=Lists&a=index&tid=3', '5', '0', '3', '/uploads/allimg/20200212/1-200212151539563.png', '0', '0', '0', '1', '0', '100', '1581491740', '1581491740');
+INSERT INTO `eju_navig_list` VALUES ('62', '0', '0', '商铺', '', '/?m=home&c=Lists&a=index&tid=23', '5', '0', '23', '/uploads/allimg/20200212/1-20021215155S04.png', '0', '0', '0', '1', '0', '100', '1581491759', '1581491759');
+INSERT INTO `eju_navig_list` VALUES ('63', '0', '0', '写字楼', '', '/?m=home&c=Lists&a=index&tid=26', '5', '0', '26', '/uploads/allimg/20200212/1-200212151615625.png', '0', '0', '0', '1', '0', '100', '1581491776', '1581491776');
+INSERT INTO `eju_navig_list` VALUES ('64', '0', '0', '找经纪人', '', '/?m=home&c=Lists&a=index&tid=20', '5', '0', '20', '/uploads/allimg/20200212/1-200212151632595.png', '0', '0', '0', '1', '0', '100', '1581491794', '1581491794');
+INSERT INTO `eju_navig_list` VALUES ('65', '0', '0', '资讯', '', '/?m=home&c=Lists&a=index&tid=2', '5', '0', '2', '/uploads/allimg/20200212/1-20021215164UZ.png', '0', '0', '0', '1', '0', '100', '1581491809', '1581491809');
+INSERT INTO `eju_navig_list` VALUES ('66', '0', '0', '地图找房', '', 'home_Map_index', '5', '0', '0', '/uploads/allimg/20200212/1-200212151AY48.png', '0', '0', '0', '1', '0', '100', '1581491819', '1581491819');
+INSERT INTO `eju_navig_list` VALUES ('67', '34', '34', '找楼盘', '', '/?m=home&c=Lists&a=index&tid=35', '2', '0', '35', '', '1', '0', '0', '1', '0', '100', '1581498872', '1581498872');
+INSERT INTO `eju_navig_list` VALUES ('68', '34', '34', '团购', '', '/?m=home&c=Lists&a=index&tid=3', '2', '0', '3', '', '1', '0', '0', '1', '0', '100', '1581498885', '1581498885');
+INSERT INTO `eju_navig_list` VALUES ('69', '34', '34', '帮你找房', '', '/?m=home&c=Lists&a=index&tid=18', '2', '0', '18', '', '1', '0', '0', '1', '0', '100', '1581498914', '1581498914');
+INSERT INTO `eju_navig_list` VALUES ('70', '34', '34', '地图找房', '', 'home_Map_index', '2', '0', '0', '', '1', '0', '0', '1', '0', '100', '1581498921', '1581498921');
+INSERT INTO `eju_navig_list` VALUES ('71', '35', '35', '楼盘动态', '', '/?m=home&c=Lists&a=index&tid=4', '2', '0', '4', '', '1', '0', '0', '1', '0', '100', '1581498930', '1581498930');
+INSERT INTO `eju_navig_list` VALUES ('72', '35', '35', '购房指南', '', '/?m=home&c=Lists&a=index&tid=5', '2', '0', '5', '', '1', '0', '0', '1', '0', '100', '1581498937', '1581498937');
+INSERT INTO `eju_navig_list` VALUES ('73', '35', '35', '房产资讯', '', '/?m=home&c=Lists&a=index&tid=6', '2', '0', '6', '', '1', '0', '0', '1', '0', '100', '1581498945', '1581498945');
+INSERT INTO `eju_navig_list` VALUES ('74', '35', '35', '楼盘导购 ', '', '/?m=home&c=Lists&a=index&tid=7', '2', '0', '7', '', '1', '0', '0', '1', '0', '100', '1581498953', '1581498953');
+INSERT INTO `eju_navig_list` VALUES ('75', '35', '35', '房产宝典', '', '/?m=home&c=Lists&a=index&tid=13', '2', '0', '13', '', '1', '0', '0', '1', '0', '100', '1581498961', '1581498961');
+INSERT INTO `eju_navig_list` VALUES ('76', '35', '35', '房产百科', '', '/?m=home&c=Lists&a=index&tid=14', '2', '0', '14', '', '1', '0', '0', '1', '0', '100', '1581498969', '1581498969');
+INSERT INTO `eju_navig_list` VALUES ('77', '35', '35', '优惠活动', '', '/?m=home&c=Lists&a=index&tid=15', '2', '0', '15', '', '1', '0', '0', '1', '0', '100', '1581498977', '1581498977');
+INSERT INTO `eju_navig_list` VALUES ('78', '36', '36', '在售房源', '', '/?m=home&c=Lists&a=index&tid=19', '2', '0', '19', '', '1', '0', '0', '1', '0', '100', '1581498996', '1581498996');
+INSERT INTO `eju_navig_list` VALUES ('79', '36', '36', '小区找房', '', '/?m=home&c=Lists&a=index&tid=10', '2', '0', '10', '', '1', '0', '0', '1', '0', '100', '1581499005', '1581499005');
+INSERT INTO `eju_navig_list` VALUES ('80', '36', '36', '我要求购', '', '/?m=home&c=Lists&a=index&tid=31', '2', '0', '31', '', '1', '0', '0', '1', '0', '100', '1581499024', '1581499024');
+INSERT INTO `eju_navig_list` VALUES ('81', '36', '36', '地图找房', '', 'home_Map_ershou', '2', '0', '0', '', '1', '0', '0', '1', '0', '100', '1581499034', '1581499034');
+INSERT INTO `eju_navig_list` VALUES ('82', '37', '37', '出租房源', '', '/?m=home&c=Lists&a=index&tid=21', '2', '0', '21', '', '1', '0', '0', '1', '0', '100', '1581499052', '1581499052');
+INSERT INTO `eju_navig_list` VALUES ('83', '37', '37', '我要求租', '', '/?m=home&c=Lists&a=index&tid=32', '2', '0', '32', '', '1', '0', '0', '1', '0', '100', '1581499064', '1581499064');
 
 -- -----------------------------
 -- Table structure for `eju_navig_position`
@@ -4622,11 +4798,11 @@ CREATE TABLE `eju_quickentry` (
 -- -----------------------------
 -- Records of `eju_quickentry`
 -- -----------------------------
-INSERT INTO `eju_quickentry` VALUES ('1', '楼盘', '楼盘列表', '1', 'Xinfang', 'index', 'channel=9', '1', '0', '1', '3', '1569232484', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('2', '团购', '团购列表', '1', 'Tuan', 'index', 'channel=10', '1', '0', '1', '4', '1569232484', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('3', '资讯', '资讯列表', '1', 'Article', 'index', 'channel=1', '1', '0', '1', '6', '1569232484', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('1', '楼盘', '楼盘列表', '1', 'Xinfang', 'index', 'channel=9', '1', '0', '1', '3', '1569232484', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('2', '团购', '团购列表', '1', 'Tuan', 'index', 'channel=10', '1', '0', '1', '4', '1569232484', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('3', '资讯', '资讯列表', '1', 'Article', 'index', 'channel=1', '1', '0', '1', '6', '1569232484', '1581496063');
 INSERT INTO `eju_quickentry` VALUES ('4', '图集', '图集列表', '1', 'Images', 'index', 'channel=3', '1', '0', '0', '7', '1569232484', '1569308463');
-INSERT INTO `eju_quickentry` VALUES ('5', '单页', '单页列表', '1', 'Arctype', 'single_index', 'channel=6', '1', '0', '1', '8', '1569232484', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('5', '单页', '单页列表', '1', 'Arctype', 'single_index', 'channel=6', '1', '0', '1', '8', '1569232484', '1581496063');
 INSERT INTO `eju_quickentry` VALUES ('7', '回收站', '回收站', '1', 'RecycleBin', 'archives_index', '', '0', '1', '1', '5', '1569232484', '1569749707');
 INSERT INTO `eju_quickentry` VALUES ('8', '栏目管理', '栏目管理', '1', 'Arctype', 'index', '', '0', '1', '1', '3', '1569232484', '1569749707');
 INSERT INTO `eju_quickentry` VALUES ('9', '报名管理', '报名管理', '1', 'Form', 'index', '', '0', '1', '1', '6', '1569232484', '1569749707');
@@ -4643,25 +4819,25 @@ INSERT INTO `eju_quickentry` VALUES ('19', '友情链接', '友情链接', '1', 
 INSERT INTO `eju_quickentry` VALUES ('20', 'Tags管理', 'Tags管理', '1', 'Tags', 'index', '', '0', '0', '1', '14', '1569232484', '1569749707');
 INSERT INTO `eju_quickentry` VALUES ('21', '管理员管理', '管理员管理', '1', 'Admin', 'index', '', '0', '0', '1', '15', '1569232484', '1569749707');
 INSERT INTO `eju_quickentry` VALUES ('22', '经纪人管理', '经纪人管理', '1', 'Saleman', 'index', '', '0', '0', '1', '16', '1569232484', '1569749707');
-INSERT INTO `eju_quickentry` VALUES ('23', '资讯', '资讯列表', '2', 'Article', 'index', 'channel=1', '1', '1', '1', '2', '1569310798', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('24', '楼盘', '楼盘列表', '2', 'Xinfang', 'index', 'channel=9', '1', '1', '1', '1', '1569310798', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('25', '团购', '团购列表', '2', 'Tuan', 'index', 'channel=10', '1', '1', '1', '3', '1569310798', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('23', '资讯', '资讯列表', '2', 'Article', 'index', 'channel=1', '1', '1', '1', '2', '1569310798', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('24', '楼盘', '楼盘列表', '2', 'Xinfang', 'index', 'channel=9', '1', '1', '1', '1', '1569310798', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('25', '团购', '团购列表', '2', 'Tuan', 'index', 'channel=10', '1', '1', '1', '3', '1569310798', '1581496063');
 INSERT INTO `eju_quickentry` VALUES ('26', '图集', '图集', '2', 'Images', 'index', 'channel=3', '1', '1', '0', '3', '1569310798', '1569632220');
 INSERT INTO `eju_quickentry` VALUES ('27', '用户报名', '用户报名', '2', 'Form', 'index', '', '0', '1', '1', '4', '1569310798', '1570843649');
 INSERT INTO `eju_quickentry` VALUES ('28', '广告', '广告管理', '2', 'AdPosition', 'index', '', '0', '1', '1', '6', '1569232484', '1570843649');
 INSERT INTO `eju_quickentry` VALUES ('29', '友情链接', '友情链接', '2', 'Links', 'index', '', '0', '0', '1', '5', '1569232484', '1570843649');
 INSERT INTO `eju_quickentry` VALUES ('30', 'Tags标签', 'Tags管理', '2', 'Tags', 'index', '', '0', '1', '1', '7', '1569232484', '1570843649');
 INSERT INTO `eju_quickentry` VALUES ('31', '经纪人', '经纪人管理', '2', 'Saleman', 'index', '', '0', '1', '1', '8', '1569232484', '1570843649');
-INSERT INTO `eju_quickentry` VALUES ('32', '小区', '小区列表', '2', 'Xiaoqu', 'index', 'channel=11', '1', '0', '1', '100', '1572343299', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('33', '二手房', '二手房列表', '2', 'Ershou', 'index', 'channel=12', '1', '0', '1', '100', '1572343299', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('34', '租房', '租房列表', '2', 'Zufang', 'index', 'channel=13', '1', '0', '1', '100', '1572343299', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('35', '小区', '小区列表', '1', 'Xiaoqu', 'index', 'channel=11', '1', '0', '1', '100', '1572343303', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('36', '二手房', '二手房列表', '1', 'Ershou', 'index', 'channel=12', '1', '0', '1', '100', '1572343303', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('37', '租房', '租房列表', '1', 'Zufang', 'index', 'channel=13', '1', '0', '1', '100', '1572343303', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('38', '商铺出售', '商铺出售', '2', 'Shopcs', 'index', 'channel=14', '1', '0', '1', '100', '1569310798', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('39', '商铺出租', '商铺出租', '2', 'Shopcz', 'index', 'channel=15', '1', '0', '1', '100', '1569310798', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('40', '写字楼出售', '写字楼出售', '2', 'Officecs', 'index', 'channel=16', '1', '0', '1', '100', '1569310798', '1581471819');
-INSERT INTO `eju_quickentry` VALUES ('41', '写字楼出租', '写字楼出租', '2', 'Officecz', 'index', 'channel=17', '1', '0', '1', '100', '1569310798', '1581471819');
+INSERT INTO `eju_quickentry` VALUES ('32', '小区', '小区列表', '2', 'Xiaoqu', 'index', 'channel=11', '1', '0', '1', '100', '1572343299', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('33', '二手房', '二手房列表', '2', 'Ershou', 'index', 'channel=12', '1', '0', '1', '100', '1572343299', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('34', '租房', '租房列表', '2', 'Zufang', 'index', 'channel=13', '1', '0', '1', '100', '1572343299', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('35', '小区', '小区列表', '1', 'Xiaoqu', 'index', 'channel=11', '1', '0', '1', '100', '1572343303', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('36', '二手房', '二手房列表', '1', 'Ershou', 'index', 'channel=12', '1', '0', '1', '100', '1572343303', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('37', '租房', '租房列表', '1', 'Zufang', 'index', 'channel=13', '1', '0', '1', '100', '1572343303', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('38', '商铺出售', '商铺出售', '2', 'Shopcs', 'index', 'channel=14', '1', '0', '1', '100', '1569310798', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('39', '商铺出租', '商铺出租', '2', 'Shopcz', 'index', 'channel=15', '1', '0', '1', '100', '1569310798', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('40', '写字楼出售', '写字楼出售', '2', 'Officecs', 'index', 'channel=16', '1', '0', '1', '100', '1569310798', '1581496063');
+INSERT INTO `eju_quickentry` VALUES ('41', '写字楼出租', '写字楼出租', '2', 'Officecz', 'index', 'channel=17', '1', '0', '1', '100', '1569310798', '1581496063');
 INSERT INTO `eju_quickentry` VALUES ('42', '微信小程序', '微信小程序', '1', 'Minipro', 'index', '', '0', '0', '1', '100', '1569232484', '1569749707');
 INSERT INTO `eju_quickentry` VALUES ('43', '导航管理', '导航管理', '1', 'Navigation', 'index', '', '0', '0', '1', '100', '1569232484', '1581066443');
 
