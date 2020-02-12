@@ -124,24 +124,18 @@
   <div class="label_menu">
     <div class="newtool">
       <div class="newtoolnr">
-       
-        <div class="Ntd {eju:neq name='$i' value='1'}{eju:else /}mal01{/eju:neq} {eju:neq name='$i' value='5'}nob{/eju:neq}">
-          <div class="s3"> <a href="{eju:type typeid='1'}{$field.typeurl}{/eju:type}" target="_blank">买房</a> </div>
+       {eju:navig position_id='1' type='top' id="field"} 
+        <div class="Ntd {eju:neq name='$i' value='1'}mal01{eju:else /}{/eju:neq} {eju:eq name='$i' value='5'} nob{/eju:eq}">
+          <div class="s3"> <a href="{$field.navig_url}" {$field.target} {$field.nofollow}>{$field.navig_name}</a> </div>
           <div class="s2">
             <p> 
-            {eju:type typeid='1'}
-            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
-            {/eju:type}
-            {eju:type typeid='11'}
-            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
-            {/eju:type}
-           {eju:type typeid='3'}
-            <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> 
-            {/eju:type}
+            {eju:navig name="$field.children" id="field2"}
+            <a href="{$field2.navig_url}" {$field2.target} {$field2.nofollow}>{$field2.navig_name}</a> 
+            {/eju:navig}
             </p>
             </div>
         </div>
-        
+        {/eju:navig}
       </div>
     </div>
 

@@ -7,9 +7,9 @@
   <div class="wrap-v5 comWidth">
     <div class="aboutcopy">
       <ul class="clearfix">
-        {eju:channelartlist typeid='8' type="son"} 
-        <li><a href="{eju:field name='typeurl' /}" target="_blank" rel="nofollow">{eju:field name='typename' /}</a></li>
-       {/eju:channelartlist} 
+        {eju:navig position_id='4' type='top' currentstyle="active" id="field"} 
+        <li><a href="{$field.navig_url}" {$field.target} {$field.nofollow}>{$field.navig_name}</a></li>
+        {/eju:navig} 
       </ul>
     </div>
     <div class="links-v5"> 

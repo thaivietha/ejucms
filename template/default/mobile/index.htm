@@ -51,57 +51,18 @@
   <div id="nav" class="swiper-container">
       <div class="nav swiper-wrapper">
     <ul class="ui-nav ui-a swiper-slide">
-	  {eju:type typeid="1" id="field"} 
-	  <li><a href="{$field.typeurl}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_house.png" alt="">
-		<p>{$field.typename}</p>
+	  {eju:navig position_id='5' type='top' currentstyle="active" id="field" limit='0,8'} 
+	  <li><a href="{$field.navig_url}" {$field.target} {$field.nofollow}><img src="{$field.navig_pic}" alt="">
+		<p>{$field.navig_name}</p>
 		</a></li>
-	  {/eju:type}
-	  {eju:type typeid="11" id="field"} 
-	  <li><a href="{$field.typeurl}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_second.png" alt="">
-		<p>{$field.typename}</p>
-		</a></li>
-	  {/eju:type} 
-	  {eju:type typeid="12" id="field"} 
-	  <li><a href="{$field.typeurl}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_rental.png" alt="">
-		<p>{$field.typename}</p>
-		</a></li>
-	  {/eju:type} 
-	  {eju:type typeid="10" id="field"} 
-	  <li><a href="{$field.typeurl}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_estate.png" alt="">
-		<p>{$field.typename}</p>
-		</a></li>
-	  {/eju:type} 
-	  {eju:type typeid="3" id="field"} 
-	  <li><a href="{$field.typeurl}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_group.png" alt="">
-		<p>{$field.typename}</p>
-		</a></li>
-	  {/eju:type} 
-	  {eju:type typeid="24" id="field"} 
-	  <li><a href="{$field.typeurl}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_shops.png" alt="">
-		<p>商铺</p>
-		</a></li>
-	  {/eju:type} 
-	  {eju:type typeid="27" id="field"} 
-	  <li><a href="{$field.typeurl}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_office.png" alt="">
-		<p>写字楼</p>
-		</a></li>
-	  {/eju:type} 
-	  {eju:type typeid="20" id="field"} 
-	  <li><a href="{$field.typeurl}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_broker.png" alt="">
-		<p>{$field.typename}</p>
-		</a></li>
-	  {/eju:type} 
+	  {/eju:navig} 
     </ul>
     <ul class="ui-nav ui-b swiper-slide">
-
-      {eju:type typeid="2" id="field"} 
-	  <li><a href="{$field.typeurl}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_news.png" alt="">
-		<p>{$field.typename}</p>
+      {eju:navig position_id='5' type='top' currentstyle="active" id="field" limit='8,16'} 
+	  <li><a href="{$field.navig_url}" {$field.target} {$field.nofollow}><img src="{$field.navig_pic}" alt="">
+		<p>{$field.navig_name}</p>
 		</a></li>
-	  {/eju:type} 
-     <li><a href="{eju:diyurl type='map' /}"><img src="{eju:global name='web_templets_m' /}/skin/img/nav_map.png" alt="">
-		<p>地图找房</p>
-		</a></li>
+	  {/eju:navig} 
     </ul>
   </div>
       <div class="swiper-pagination"></div>
