@@ -1,14 +1,14 @@
 @charset "UTF-8";
 /* CSS Document */
-a{color:#333;}a:hover{color:#4ba634;}
-.headindex{width:100%; height:240px; overflow:hidden; border-bottom:#4ba634 2px solid;}
+a{color:#333;}a:hover{color:#fe5b0e;}
+.headindex{width:100%; height:240px; overflow:hidden; border-bottom:#fe5b0e 2px solid;}
 .fivindexcont{width:1200px; margin:0 auto; overflow:hidden;}
 .fivico{background:url(../img/fivindexico.png) no-repeat;}
-.maxindexlogo{width:380px; float:left; height:190px; overflow:hidden; background-position:50px 60px; text-indent:-99em;}
+.maxindexlogo{width:380px; float:left; height:190px; overflow:hidden;background: url(../img/logo.png) no-repeat  0px 80px;}
 .gjhb,.gjhb img{width:800px; height:240px; overflow:hidden;}
 .gjhb{float:left;}
 .cityip{text-align:center; display:block; overflow:hidden;}
-a.dwcity{height:46px; background:#4ba634; color:#fff; font-size:18px; padding:0 50px; line-height:46px; border-radius:23px; margin:40px auto 0 auto; display:inline-block; *display:inline; *zoom:1;}
+a.dwcity{height:46px; background:#fe5b0e; color:#fff; font-size:18px; padding:0 50px; line-height:46px; border-radius:23px; margin:40px auto 0 auto; display:inline-block; *display:inline; *zoom:1;}
 .cityip p{line-height:52px; text-align:center;}
 .cityip p a{padding:5px; margin:0 5px 0 0;}
 .fjcity{border-bottom:#e4e4e4 1px solid; padding:0 0 20px;}
@@ -23,7 +23,7 @@ a.dwcity{height:46px; background:#4ba634; color:#fff; font-size:18px; padding:0 
 .rmcity{max-width:600px; height:36px; float:left; overflow:hidden;}
 .rmcity strong,.rmcity a{line-height:36px; padding:0 5px; margin-right:10px; display:inline-block;}
 .rmcity strong{padding:0;}
-a.openjiwu{background:#4ba634; height:36px; line-height:36px; width:90px; border-radius:2px; color:#fff; font-size:14px; text-align:center;display: block;float: left;font-weight: bold;}
+a.openeju{background:#fe5b0e; height:36px; line-height:36px; width:90px; border-radius:2px; color:#fff; font-size:14px; text-align:center;display: block;float: left;font-weight: bold;}
 .citymar{padding:20px 0 30px;}
 h3.cityqy{font-size:24px; color:#ddd; line-height:48px; margin-top:10px;}
 dl.newscity{width:1200px; margin:0 auto; clear:both; overflow:hidden; zoom:1; padding:0 0 5px;}
