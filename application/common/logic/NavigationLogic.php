@@ -172,6 +172,11 @@ class NavigationLogic extends Model
                 'code'   => 'home_Tool_jisuanqi',
                 'url'   => url('home/Tool/jisuanqi'),
             ],
+            [
+                'title' => '会员中心',
+                'code'   => 'user_Users_centre',
+                'url'   => url('home/Users/centre'),
+            ],
         ];
     }
 
