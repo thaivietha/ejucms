@@ -143,18 +143,8 @@ class TagNavig extends Base
         /*--end*/
         if ($res) {
 
-            // 菜单对应的所有栏目信息
-            $typeids = [];
-            foreach ($res as $key => $val) {
-                if (!empty($val['type_id'])) {
-                    array_push($typeids, intval($val['type_id']));
-                }
-                if (!empty($val['pointto_id'])) {
-                    array_push($typeids, intval($val['pointto_id']));
-                }
-            }
-            $typeids = array_unique($typeids);
-            $arctypeRow = Db::name('arctype')->field('id,typename,dirname,current_channel,is_part,typelink')->where(['id'=>['IN', $typeids]])->cache(true,EYOUCMS_CACHE_TIME,"arctype")->getAllWithIndex('id');
+            // 所有栏目信息
+            $arctypeRow = Db::name('arctype')->field('id,typename,dirname,current_channel,is_part,typelink,pointto_id')->cache(true,EYOUCMS_CACHE_TIME,"arctype")->getAllWithIndex('id');
             $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', array(), 'id');
             foreach ($res as $key => $val) {
 
@@ -326,18 +316,8 @@ class TagNavig extends Base
 
         if (count($res) > 0) {
 
-            // 菜单对应的所有栏目信息
-            $typeids = [];
-            foreach ($res as $key => $val) {
-                if (!empty($val['type_id'])) {
-                    array_push($typeids, intval($val['type_id']));
-                }
-                if (!empty($val['pointto_id'])) {
-                    array_push($typeids, intval($val['pointto_id']));
-                }
-            }
-            $typeids = array_unique($typeids);
-            $arctypeRow = Db::name('arctype')->field('id,typename,dirname,current_channel,is_part,typelink,pointto_id')->where(['id'=>['IN', $typeids]])->cache(true,EYOUCMS_CACHE_TIME,"arctype")->getAllWithIndex('id');
+            // 所有栏目信息
+            $arctypeRow = Db::name('arctype')->field('id,typename,dirname,current_channel,is_part,typelink,pointto_id')->cache(true,EYOUCMS_CACHE_TIME,"arctype")->getAllWithIndex('id');
 
             $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', array(), 'id');
             $currentstyleArr = []; // 标记选择菜单的数组
