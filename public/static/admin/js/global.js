@@ -43,6 +43,17 @@ $(function(){
 });
 
 /**
+ * tab选项卡焦点保留
+ */
+function tab_focus(obj, focusid, className)
+{
+    setTimeout(function(){
+        $(obj).removeClass(className);
+        $('#'+focusid).addClass(className);
+    },800);
+}
+
+/**
  * 批量删除提交
  */
 function batch_del(obj, name)

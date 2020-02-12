@@ -9,11 +9,11 @@
             <div class="layui-tab layui-tab-card">
               <ul class="layui-tab-title">
                   {eq name="'Admin@index'|is_check_access" value="1"}
-                  <li class="layui-this"><a href="{:url('Admin/index')}">管理员</a></li>
+                  <li class="layui-this" id="tab_Admin_index"><a lay-href="{:url('Admin/index')}">管理员</a></li>
                   {/eq}
 
                   {eq name="'AuthRole@index'|is_check_access" value="1"}
-                  <li><a href="{:url('AuthRole/index')}">权限组</a></li>
+                  <li class="" onclick="tab_focus(this, 'tab_Admin_index', 'layui-this');"><a lay-href="{:url('AuthRole/index')}">权限组</a></li>
                   {/eq}
               </ul>
               <div class="layui-tab-content web-system" style="padding:10px 0">

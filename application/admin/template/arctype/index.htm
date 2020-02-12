@@ -8,11 +8,11 @@
             <div class="layui-tab layui-tab-card">
               <ul class="layui-tab-title">
                 {eq name="'Arctype@index'|is_check_access" value="1"}
-                <li class="layui-this"><a href="{:url('Arctype/index')}">栏目管理</a></li>
+                <li class="layui-this" id="tab_Arctype_index"><a lay-href="{:url('Arctype/index')}">栏目管理</a></li>
                 {/eq}
 
                 {eq name="'Navigation@index'|is_check_access" value="1"}
-                <li class=""><a href="{:url('Navigation/index')}">导航管理</a></li>
+                <li class="" onclick="tab_focus(this, 'tab_Arctype_index', 'layui-this');"><a lay-href="{:url('Navigation/index')}">导航管理</a></li>
                 {/eq}
               </ul>
               <div class="layui-tab-content web-system" style="padding:10px 0">
