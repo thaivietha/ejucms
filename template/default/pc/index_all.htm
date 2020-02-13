@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>{$eju.field.seo_title}</title>
-<meta name="description" content="{$eju.field.seo_description}" />
-<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<title>{eju:global name='web_title' /}</title>
+<meta name="description" content="{eju:global name='web_description' /}" />
+<meta name="keywords" content="{eju:global name='web_keywords' /}" />
 <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
@@ -42,12 +42,12 @@
         	<div class="gjhb"><a href="{eju:global name='web_cmsurl' /}"><img id="hearAdImg" src="{eju:global name='web_templets_pc' /}/skin/img/142154749886.jpg" alt="" ></a></div>
     </div>
 </div>
-<div class="fivindexcont">
+<!--<div class="fivindexcont">
     <div class="cityip fjcity">
     	<a href="#section-four" class="dwcity">请选择城市</a>
         <p id="roundcity"></p>
     </div>
-</div>
+</div>-->
 <div class="cityss clearfix" id="section-four">
 	<div class="citysscont">
     	<strong>快速搜索城市</strong>
@@ -63,7 +63,7 @@
 		{/eju:region}
 
     </div>
-    <a href="http://open.eju.com/?keywords=city" target="_blank" class="openeju">加盟易居</a>
+    <a href="https://www.ejucms.com/" target="_blank" class="openeju">加盟易居</a>
 </div>
 <div class="fivindexcont citymar">
 	<!--<h3 class="cityqy">华东</h3>-->

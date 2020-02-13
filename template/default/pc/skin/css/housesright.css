@@ -4,11 +4,7 @@
         }
 .housesRight{
     float: right;
-    width: 247px;
-    /* margin-left: 20px; */
     width: 253px !important;
-    margin-right: 5px;
-    /* margin-right: 15px; */
 }
 .housesRight .houseRight{
     border: 1px solid #ededed;

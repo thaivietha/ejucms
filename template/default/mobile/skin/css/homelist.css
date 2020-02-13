@@ -118,9 +118,9 @@ position:relative;top:11px;border-radius:5px; border: none;}
 .y_homelist_list ul li .y_text .y_text_main .y_jiage .y_jiage_i .em_r{border:1px solid #F9662D;display:block;width:10px;height:10px;position:absolute;top:2px;right:-5px;border-radius:50px;background:#FFF;z-index:10;}  
 
 .y_homelist_list ul li .y_text .y_text_main p.y_tese{ font-size: 0.7rem; color: #999;margin-top:2px;}
-.y_homelist_list ul li .y_text .y_text_main p.y_tese i.red {color: #FF6050;background: #FFF2F0;border:1px solid #FFF2F0;}
-.y_homelist_list ul li .y_text .y_text_main p.y_tese i{display: inline-block; padding:3px 6px;background:#F8F8F8;color:#898989;}
-.y_homelist_list ul li .y_text .y_text_main p.y_tese i+i{ margin-left:5px;}
+.y_homelist_list ul li .y_text .y_text_main p.y_tese i.red {color: #FF6050;margin-right:5px;background: #FFF2F0;border:1px solid #FFF2F0;}
+.y_homelist_list ul li .y_text .y_text_main p.y_tese i{display: inline-block; padding:3px 6px; margin-bottom: 5px; background:#F8F8F8;color:#898989;}
+.y_homelist_list ul li .y_text .y_text_main p.y_tese i+i{ margin-right:5px;}
 
 .y_homelist_list ul li .y_text .y_text_main p.y_spcs{ font-size: 0.7rem; color: #999;margin-top:2px;}
 .y_homelist_list ul li .y_text .y_text_main p.y_spcs i{color: #ff5200;border: 1px solid #ddd;padding: 0px 3px;border-radius: 3px;font-style: normal;font-size: 12px;display: inline-block;height: 20px !important;line-height: 18px !important;

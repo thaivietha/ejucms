@@ -1,8 +1,7 @@
-.con_left{float:left;width: 1170px;}
+.con_left{margin-top: 10px; float:left;width: 1200px;}
 
 .housesLeft{
-    width: 900px;
-    padding:  0;
+	width: 920PX;
     background:  #fff;
     margin:  0 auto;
     border:  1px solid #ededed;
