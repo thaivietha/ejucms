@@ -24,16 +24,16 @@
   <div class="con_wrap comWidth clearfix">
     <div class="houseType_wrap">
       <ul class="tab_nav clearfix">
-        <li><a href="{:arcurl('home/View/index', array('dirname'=>$eju.field.dirname,'aid'=>$eju.field.aid,'column'=>'huxing'))}" class="{empty name='$eju.param.room'}active{/empty}">全部（<span>{eju:sonarccount  map="[$eju['field']['aid']]" mapkey="['aid']" table="xinfang_huxing" /}</span>）</a></li>
+        <li><a href="{:arcurl('home/View/index', array('dirname'=>$eju.field.dirname,'aid'=>$eju.field.aid,'column'=>'huxing','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id))}" class="{empty name='$eju.param.room'}active{/empty}">全部（<span>{eju:sonarccount  map="[$eju['field']['aid']]" mapkey="['aid']" table="xinfang_huxing" /}</span>）</a></li>
         {eju:fanglist type="huxing" id="field" group="huxing_room"}
-		 <li><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','room'=>$field.huxing_room])}" name=".tab_{$field.huxing_room}" class="{eq name='$eju.param.room' value='$field.huxing_room'}active{/eq}">{$field.huxing_room|number2chinese}居室(<span class="room-cate">{$field.count}</span>)</a></li>
+		 <li><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','room'=>$field.huxing_room,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" name=".tab_{$field.huxing_room}" class="{eq name='$eju.param.room' value='$field.huxing_room'}active{/eq}">{$field.huxing_room|number2chinese}居室(<span class="room-cate">{$field.count}</span>)</a></li>
        {/eju:fanglist}
       </ul>
       <ul class="list_box clearfix">
         {eju:empty name="$eju['param']['room']"} 
 	    {eju:fanglist name="$eju.field.huxing_list" id="vo"}
         <li>
-          <div class="img"> <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.aid,'dirname'=>$eju.field.dirname,'dirpath'=>$eju.field.dirpath,'column'=>'huxing','sid'=>$vo.huxing_id])}" class="imgLinkCont" title="{$vo.huxing_title}" title="{$vo.huxing_title}"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$vo.huxing_pic}" class="lazy" alt="{$vo.huxing_title}">
+          <div class="img"> <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.aid,'dirname'=>$eju.field.dirname,'dirpath'=>$eju.field.dirpath,'column'=>'huxing','sid'=>$vo.huxing_id,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" class="imgLinkCont" title="{$vo.huxing_title}" title="{$vo.huxing_title}"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$vo.huxing_pic}" class="lazy" alt="{$vo.huxing_title}">
             <p class="sale_state on">{$vo.sale_status}</p>
             </a> </div>
           <div class="con">
@@ -46,7 +46,7 @@
 		{eju:fanglist name="$eju.field.huxing_list" id="vo"} 
 		{eq name="$vo.huxing_room" value="$eju['param']['room']"}
         <li>
-          <div class="img"> <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.aid,'dirname'=>$eju.field.dirname,'dirpath'=>$eju.field.dirpath,'column'=>'huxing','sid'=>$vo.huxing_id])}" title="{$vo.huxing_title}"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$vo.huxing_pic}" class="lazy" alt="{$vo.huxing_title}">
+          <div class="img"> <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.aid,'dirname'=>$eju.field.dirname,'dirpath'=>$eju.field.dirpath,'column'=>'huxing','sid'=>$vo.huxing_id,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" title="{$vo.huxing_title}"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$vo.huxing_pic}" class="lazy" alt="{$vo.huxing_title}">
             <p class="sale_state on">{$vo.sale_status}</p>
             </a> </div>
           <div class="con">

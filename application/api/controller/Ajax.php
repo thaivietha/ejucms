@@ -476,5 +476,25 @@ class Ajax extends Base
         }
         $this->error('访问错误');
     }
+    /*
+     * 获取region列表
+     */
+    public function get_region_list(){
+        $keywords = input('param.keywords/s','');
+        $level = input('param.level/d','0');
+        $list = [];
+        $where = "status=1 and domain<>''";
+        if ($level){
+            $where .= " and level={$level}";
+        }
+        if (!empty($keywords)){
+            $where .= " and (initial='{$keywords}' or name like '%{$keywords}%' or domain like '%{$keywords}%')";
+            $list = Db::name("region")->where($where)->getAllWithIndex('id');
+            foreach ($list as $key=>$val){
+                $list[$key]['domainurl'] = getRegionDomainUrl($val['domain']);
+            }
+        }
+        return json($list);
+    }
 
 }

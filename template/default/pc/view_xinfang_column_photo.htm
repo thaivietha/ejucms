@@ -27,7 +27,7 @@
       <ul class="tab_nav clearfix">
         <li><a href="{$eju.param.root_dir}/index.php?m=home&c=View&a=index&aid={$eju.field.aid}&dirname={$eju.field.dirname}&column=photo&{$eju.param.url_screen_var}=1" class="{eju:eq name='$eju.param.photo_type'}active{/eju:eq}">全部（{$eju.field.photo_list|count}）</a></li>
         {eju:fanglist type="photo" id="field" group="photo_type"}  
-		  <li><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','photo_type'=>$field.photo_type])}" name=".cate_{$field.photo_type}" {eju:eq name='$eju.param.photo_type' value='$field.photo_type'}class="active"{/eju:eq}>{$field.photo_type}({$field.count})</a></li>
+		  <li><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','photo_type'=>$field.photo_type,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" name=".cate_{$field.photo_type}" {eju:eq name='$eju.param.photo_type' value='$field.photo_type'}class="active"{/eju:eq}>{$field.photo_type}({$field.count})</a></li>
 		  {/eju:fanglist}
               
         

@@ -2818,7 +2818,7 @@ class Eju extends Taglib
         $orderby    = isset($tag['orderby']) ? $tag['orderby'] : '';
         $orderway    = isset($tag['orderway']) ? $tag['orderway'] : 'desc';
         $ishot    = isset($tag['ishot']) ? $tag['ishot'] : '';   //off：只显示热门城市，on：只显示非热门城市，默认显示全部
-        $groupby    = isset($tag['groupby']) ? $tag['groupby'] : '';   //分组，默认不分组，可以按照区域首字母分组和上级分组（initial、parant）
+        $groupby    = isset($tag['groupby']) ? $tag['groupby'] : '';   //分组，默认不分组，可以按照区域首字母分组和上级分组（initial、parent_id）
 
 
         $typeid    = isset($tag['typeid']) ? $tag['typeid'] : '';

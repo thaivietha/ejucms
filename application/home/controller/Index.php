@@ -46,7 +46,6 @@ class Index extends Base
                 exit;
             }
         }
-
         /*获取当前页面URL*/
         $result['pageurl'] = $this->request->url(true);
         /*--end*/
@@ -55,9 +54,14 @@ class Index extends Base
         );
         $this->eju = array_merge($this->eju, $eju);
         $this->assign('eju', $this->eju);
+        $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+        if ($web_region_domain && !empty($this->eju['param']['subDomain']) && $this->eju['param']['subDomain'] == 'www'){
+            $html = $this->fetch(":index_all");
+        }else{
+            $html = $this->fetch(":index");
 
-        $html = $this->fetch(":index");
-        
+        }
+
         return $html;
     }
 }

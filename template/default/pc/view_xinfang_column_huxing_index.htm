@@ -26,16 +26,16 @@
   <div class="con_wrap comWidth clearfix">
     <div class="houseType_detail">
       <ul class="tab_nav clearfix">
-        <li><a href="{:arcurl('home/View/index', array('dirname'=>$eju.field.dirname,'aid'=>$eju.field.aid,'column'=>'huxing'))}" class="{empty name='$eju.param.room'}active{/empty}">全部（<span>{eju:sonarccount  map="[$eju['field']['aid']]" mapkey="['aid']" table="xinfang_huxing" /}</span>）</a></li>
+        <li><a href="{:arcurl('home/View/index', array('dirname'=>$eju.field.dirname,'aid'=>$eju.field.aid,'column'=>'huxing','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id))}" class="{empty name='$eju.param.room'}active{/empty}">全部（<span>{eju:sonarccount  map="[$eju['field']['aid']]" mapkey="['aid']" table="xinfang_huxing" /}</span>）</a></li>
         {eju:fanglist type="huxing" id="field" group="huxing_room"}
-		 <li><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','room'=>$field.huxing_room])}" name=".tab_{$field.huxing_room}" class="{eq name='$eju.param.room' value='$field.huxing_room'}active{/eq}">{$field.huxing_room|number2chinese}居室(<span class="room-cate">{$field.count}</span>)</a></li>
+		 <li><a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','room'=>$field.huxing_room,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" name=".tab_{$field.huxing_room}" class="{eq name='$eju.param.room' value='$field.huxing_room'}active{/eq}">{$field.huxing_room|number2chinese}居室(<span class="room-cate">{$field.count}</span>)</a></li>
        {/eju:fanglist}
       </ul>
       <div class="tab_scroll clearfix"> <a class="sPrev" href="javascript:void(0)">←</a>
         <div class="scroll_wrap">
           <ul>
            {eju:fanglist name="$eju.field.huxing_list" id="vo"}
-            <li> <a class="{eju:eq name='$eju.param.sid' value='$vo.huxing_id'}active{/eju:eq}" data-id="{$vo.huxing_id}" href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.aid,'dirname'=>$eju.field.dirname,'dirpath'=>$eju.field.dirpath,'column'=>'huxing','sid'=>$vo.huxing_id])}">
+            <li> <a class="{eju:eq name='$eju.param.sid' value='$vo.huxing_id'}active{/eju:eq}" data-id="{$vo.huxing_id}" href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.aid,'dirname'=>$eju.field.dirname,'dirpath'=>$eju.field.dirpath,'column'=>'huxing','sid'=>$vo.huxing_id,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}">
               <p>{$vo.huxing_room}室{$vo.huxing_living_room}厅{$vo.huxing_toilet}卫{$vo.huxing_kitchen}厨<i class="saleTypeIcon saleTypeIcon1">{$vo.sale_status}</i></p>
               <p>{$vo.huxing_area}㎡</p>
               </a> </li>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{$eju.field.seo_title}</title>
+<meta name="description" content="{$eju.field.seo_description}" />
+<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/input.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/css.css">
+<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/home.css">
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery-ui/jquery-ui.min.js"></script>
+</head>
+<style type="text/css">
+	.input_div{
+		background-color: #fff;
+		position:absolute;
+		z-index: 999;
+		width: 100%;
+		box-shadow: 1px 2px 4px rgba(50, 50, 50, 0.4);
+		display: block;
+	}
+	.input_div .soption{
+		float: left;
+		width: 92%;
+		line-height: 26px;
+		padding:0 4%;
+		display:block;
+	}
+	.input_div .soption:hover{
+		background-color: #eee;
+	}
+</style>
+<body>
+<!-- topBar S --> <div class="headindex">
+    <div class="fivindexcont">
+        <a href="{eju:global name='web_cmsurl' /}" class="maxindexlogo"></a>
+        	<div class="gjhb"><a href="{eju:global name='web_cmsurl' /}"><img id="hearAdImg" src="{eju:global name='web_templets_pc' /}/skin/img/142154749886.jpg" alt="" ></a></div>
+    </div>
+</div>
+<div class="fivindexcont">
+    <div class="cityip fjcity">
+    	<a href="#section-four" class="dwcity">请选择城市</a>
+        <p id="roundcity"></p>
+    </div>
+</div>
+<div class="cityss clearfix" id="section-four">
+	<div class="citysscont">
+    	<strong>快速搜索城市</strong>
+        <div class="search-wrap" id="city-search">
+            <input type="text"   name="region_name" id="region_name" placeholder="请输入城市名称" class="city-inp">
+			<div class="input_div" id="input_div" style="display: none"></div>
+		</div>
+	</div>
+    <div class="rmcity">
+    	<strong>热门城市</strong>
+		{eju:region type='selflevel' opencity='1,2,3' ishot='off' row='60' id='field'}
+		<a target="_blank" href="{$field.domainurl}">{$field.name}</a>
+		{/eju:region}
+
+    </div>
+    <a href="http://open.eju.com/?keywords=city" target="_blank" class="openeju">加盟易居</a>
+</div>
+<div class="fivindexcont citymar">
+	<!--<h3 class="cityqy">华东</h3>-->
+	{eju:region type='selflevel' opencity='1,2,3' row='60' id='field' currentstyle="hot" groupby="parent_id"}
+	<dl class="newscity">
+		<dt>{$key}</dt>
+		<dd>
+			{eju:volist name="$field" id="vo"}
+			<a target="_blank" href="{$vo.domainurl}">{$vo.name}</a>
+			{/eju:volist}
+		</dd>
+	</dl>
+	{/eju:region}
+</div>
+
+{eju:include file="footer.htm"/} 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+<script>
+    $("img.lazy").lazyload({
+        threshold : 100,
+        effect : "fadeIn"
+        //event: "scrollstop"
+    });
+    $(function(){
+       $('.follow').on('click',function(){
+           var house_id = $(this).data('id'),model = $(this).data('model'),url = $(this).data('uri'),me = $(this);
+           $.post(url,{house_id:house_id,model:model},function(result){
+               if(result.code == 1)
+               {
+                   layer.msg(result.msg,{icon:1});
+                   if(me.hasClass('on'))
+                   {
+                       me.removeClass('on').text(result.text);
+                   }else{
+                       me.addClass('on').text(result.text);
+                   }
+               }else{
+                   layer.msg(result.msg,{icon:2});
+               }
+           });
+       });
+        var searchurl = "{:url('api/Ajax/get_region_list')}";
+        autoSearch("region_name");
+        function autoSearch(searchId) {
+            $("#" + searchId).autocomplete({
+                delay:300,      //触发时间
+                minLength:1,    //最小触发长度
+                source: function (request, response) {
+                    $.ajax({
+                        async: false,   //调用方式：同步
+                        type: "POST",
+                        url: searchurl,
+                        dataType: "json",
+                        data: {
+                            "keywords": request.term,
+							"level":2
+                        },
+                        success: function (data) {
+                            if (data.constructor === Object){
+                                $("#input_div").empty();
+                                $.map(data,function (item) {
+                                    var span = $('<span onclick="select_soption(this)" class="soption" data-url="'+item.domainurl+'">'+item.name+'</span>');
+                                    $(".input_div").append(span);
+                                });
+                                $(".input_div").show();
+                            }else{      //获取到空数据
+                                $("#input_div").empty();
+								$(".input_div").hide();
+                            }
+                        }
+                        ,error:function (data) {
+                        }
+                    });
+                }
+            });
+        }
+    });
+    function select_soption(obj) {
+        var url = $(obj).data('url');
+        window.location.href = url;
+    }
+</script>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+</body>
+</html>
