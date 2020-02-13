@@ -30,6 +30,10 @@ class Index extends Base
      * 提交信息
      */
     public function ajax_form(){
+        $param = input("param.");
+        if (!empty($param['template'])){
+            return $this->fetch(":system/".$param['template']);
+        }
         return $this->fetch(":system/ajax_form");
     }
 

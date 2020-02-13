@@ -96,7 +96,7 @@ class Eju extends Taglib
         // 区域列表
         'region'    => ['attr' => 'typeid,channel,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit,domain,opencity,orderby,orderway,ishot,groupby'],
         //自定义url
-        'diyurl'   => ['attr' => 'type', 'close' => 0],
+        'diyurl'   => ['attr' => 'type,template', 'close' => 0],
         // 楼盘其他表，比如：户型、相册、价格趋势
         'fanglist'        => ['attr' => 'aid,name,row,limit,orderby,orderway,id,empty,key,mod,type,group'],
         //楼盘相关最大最小，比如户型
@@ -376,12 +376,12 @@ class Eju extends Taglib
     {
         $type = isset($tag['type']) ? $tag['type'] : '';
         $type  = $this->varOrvalue($type);
-
+        $template = isset($tag['template']) ? $tag['template'] : '';
         $parseStr = '<?php ';
 
         // 查询数据库获取的数据集
         $parseStr .= ' $tagDiyurl = new \think\template\taglib\eju\TagDiyurl;';
-        $parseStr .= ' $__VALUE__ = $tagDiyurl->getDiyurl('.$type.');';
+        $parseStr .= ' $__VALUE__ = $tagDiyurl->getDiyurl('.$type.',"'.$template.'");';
         $parseStr .= ' echo $__VALUE__;';
         $parseStr .= ' ?>';
 

@@ -17,7 +17,7 @@ class TagDiyurl extends Base
         parent::_initialize();
     }
 
-    public function getDiyurl($type = 'form')
+    public function getDiyurl($type = 'form',$template = '')
     {
         $parseStr = "";
         
@@ -29,7 +29,7 @@ class TagDiyurl extends Base
                 $aid = I("param.aid/s", '');
                 $parent_url = request()->url();
                 $parent_url = $parent_url ? $parent_url : '/';
-                $parseStr = url('home/Index/ajax_form', ['ajax_form'=>1,'aid'=>$aid,'tid'=>$tid, 'parent_url'=>$parent_url], true, false, 1);
+                $parseStr = url('home/Index/ajax_form', ['ajax_form'=>1,'aid'=>$aid,'tid'=>$tid,'template'=>$template, 'parent_url'=>$parent_url], true, false, 1);
                 break;
 
             case "map":     //新房地图有页面
