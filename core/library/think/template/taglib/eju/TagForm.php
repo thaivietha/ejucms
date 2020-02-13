@@ -79,7 +79,7 @@ class TagForm extends Base
         $token_id = md5('form_token_'.$form['id'].$md5);
         $submit = 'f'.$token_id;
         $input_rule_list = config("global.input_rule");
-        $result = array();
+        $result = $form;
         $check_js = "
         var x = document.getElementById('".$form_name."');
         for (var i=0;i<x.length;i++){
