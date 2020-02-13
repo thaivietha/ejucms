@@ -34,9 +34,9 @@ return [
         'id' => 2,
         'menu_id' => 2000,
         'menu_id2' => 0,
-        'name'  => '栏目管理',
+        'name'  => '栏目导航',
         'is_modules'    => 1,
-        'auths' => 'Arctype@index,Arctype@add,Arctype@edit,Arctype@del,Arctype@pseudo_del',
+        'auths' => 'Arctype@*',
     ],
     [
         'id' => 3,
@@ -257,8 +257,8 @@ return [
     ],
     [
         'id' => 28,
-        'menu_id' => 6009,
-        'menu_id2' => 6000,
+        'menu_id' => 2002,
+        'menu_id2' => 2000,
         'name'  => '导航管理',
         'is_modules'    => 1,
         'auths' => 'Navigation@*',
@@ -270,5 +270,13 @@ return [
         'name'  => '问答设置',
         'is_modules'    => 1,
         'auths' => 'Ask@*,Answer@*',
+    ],
+    [
+        'id' => 30,
+        'menu_id' => 2001,
+        'menu_id2' => 2000,
+        'name'  => '栏目管理',
+        'is_modules'    => 1,
+        'auths' => 'Arctype@*',
     ],
 ];
