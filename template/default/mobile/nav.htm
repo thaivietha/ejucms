@@ -2,19 +2,11 @@
   <div class="y_sidebarcent">
     <div class="y_sidebarcent_ul">
       <ul>
-        {eju:user type='open'}
-        {eju:user type='login'} 
-        <li class="thin-border-b"><a href="{$field.url}" id="{$field.id}" class="ico1">个人中心</a></li>
-        {$field.hidden}
-        {/eju:user}
-        {/eju:user}
-        <li class="thin-border-b"><a href="{eju:global name='web_cmsurl' /}" class="ico2">首页</a></li>
-        {eju:channel type="top" row="10" id="field"}
-        <li class="thin-border-b"><a href="{$field.typeurl}" class="ico{$i+2}">{$field.typename}</a></li>
-        {/eju:channel}
-        {eju:type typeid="17" id="field"}
-        <li class="thin-border-b"><a href="{$field.typeurl}" class="ico10">{$field.typename}</a></li>
-        {/eju:type}
+        {eju:navig position_id='6' type='top' currentstyle="active" id="field"} 
+		<li  class="thin-border-b">
+			<a href="{$field.navig_url}" {$field.target} {$field.nofollow}  class="ico{$field.navig_id}">{$field.navig_name}</a>
+		</li>
+		{/eju:navig} 
       </ul>
     </div>
   </div>

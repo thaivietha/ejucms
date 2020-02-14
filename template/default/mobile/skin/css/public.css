@@ -305,15 +305,16 @@ i,em{ font-style: normal;}
 .y_sidebarcent_ul li{height: 3.9375rem;border-bottom:1px solid #e5e5e5;}
 .y_sidebarcent_ul li a{color: #3b4144;font-size: 0.9375rem;line-height: 3.9375rem;}
 .y_sidebarcent_ul li a:before{content: "";width: 0.9375rem;height: 0.9375rem;display: inline-block;margin-right: 0.625rem;background: url(../img/new_dh_icons.png) 0 0 no-repeat;background-size: 0.9375rem auto;vertical-align: middle;position: relative;top:-0.0625rem;}
-.y_sidebarcent_ul li .ico2:before{background-position: 0 -3.9375rem;}
-.y_sidebarcent_ul li .ico3:before{background-position: 0 -7.90625rem;}
-.y_sidebarcent_ul li .ico4:before{background-position: 0 -11.875rem;}
-.y_sidebarcent_ul li .ico5:before{background-position: 0 -15.8125rem;}
-.y_sidebarcent_ul li .ico6:before{background-position: 0 -19.75rem;}
-.y_sidebarcent_ul li .ico7:before{background-position: 0 -23.6875rem;height: 1rem;}
-.y_sidebarcent_ul li .ico8:before{background-position: 0 -27.625rem;height: 1rem;}
-.y_sidebarcent_ul li .ico9:before{background-position: 0 -31.625rem;}
-.y_sidebarcent_ul li .ico10:before{background-position: 0 -35.5rem;}
+.y_sidebarcent_ul li .ico84:before{content: "";width: 0.9375rem;height: 0.9375rem;display: inline-block;margin-right: 0.625rem;background: url(../img/new_dh_icons.png) 0 0 no-repeat;background-size: 0.9375rem auto;vertical-align: middle;position: relative;top:-0.0625rem;}
+.y_sidebarcent_ul li .ico85:before{background-position: 0 -3.9375rem;}
+.y_sidebarcent_ul li .ico86:before{background-position: 0 -7.90625rem;}
+.y_sidebarcent_ul li .ico87:before{background-position: 0 -11.875rem;}
+.y_sidebarcent_ul li .ico89:before{background-position: 0 -15.8125rem;}
+.y_sidebarcent_ul li .ico90:before{background-position: 0 -19.75rem;}
+.y_sidebarcent_ul li .ico91:before{background-position: 0 -31.625rem;}
+.y_sidebarcent_ul li .ico92:before{background-position: 0 -27.625rem;height: 1rem;}
+.y_sidebarcent_ul li .ico93:before{background-position: 0 -23.6875rem;height: 1rem;}
+.y_sidebarcent_ul li .ico94:before{background-position: 0 -35.5rem;}
 
 /*.y_sidebarcent_ul ul li{ padding:7px 30px;}
 .y_sidebarcent_ul ul li a span{ font-size: 1rem; color: #333; display: inline-block;}
