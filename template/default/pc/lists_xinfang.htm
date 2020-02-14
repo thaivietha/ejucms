@@ -15,15 +15,15 @@
 <script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.min.js"></script>
 </head>
 <body>
-<!-- topBar S --> 
-{eju:include file="header.htm"/} 
-<!-- topBar E --> 
+<!-- topBar S -->
+{eju:include file="header.htm"/}
+<!-- topBar E -->
 
-<!-- 楼盘列表 S--> 
+<!-- 楼盘列表 S-->
 <!-- 搜索栏 S -->
 <div class="searBar ">
   <div class="comWidth clearfix">
-    <div class="sear_box fl"> 
+    <div class="sear_box fl">
      {eju:searchform channelid='9' type='default' typeid='1'}
       <form  method="get" action="{$field.action}">
         <div class="ipt_area fl">
@@ -37,20 +37,20 @@
         </div>
         {$field.hidden}
       </form>
-      {/eju:searchform} 
+      {/eju:searchform}
       </div>
     <a href="{eju:diyurl type='map' /}" class="map_btn fr">地图找房</a> </div>
 </div>
 <!-- 搜索栏 E -->
 <div class="cm_house">
-  <div class="comWidth"> 
+  <div class="comWidth">
     <!-- 页面标识 S-->
     <div class="page_tit"> <a href="javascript:;" rel="nofollow">您的位置：</a> {eju:position style='' /} </div>
-    <!-- 页面标识 E--> 
+    <!-- 页面标识 E-->
     <!-- 筛选栏 S -->
     {eju:screening id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='全部' opencity='2' addfields='province_id,city_id,area_id,characteristic,manage_type,average_price'}
     <div class="seleBar">
-      <div class="box"> 
+      <div class="box">
         {eju:volist name='$field.list' id='vo'}
         <div class="item clearfix">
           <h3>{$vo.title} :</h3>
@@ -75,7 +75,7 @@
               {/eju:volist}
             </ul>
           </div>
-          {/eju:volist} 
+          {/eju:volist}
         </div>
         {$field.hidden}
         {/eju:screening} </div>
@@ -97,8 +97,8 @@
       </div>
     </div>
     {$field.hidden}
-    {/eju:screening} 
-    
+    {/eju:screening}
+
     <!--
     <div class="container-super">
          <div class="lp-pb-px">
@@ -118,13 +118,13 @@
                </ul>
             </div>
             <div class="lp-pb-check3">共<strong id="countlist"></strong>个新盘</div>
-         </div> 
+         </div>
     </div>
-    --> 
+    -->
     <!-- 筛选栏 E -->
-    <div class="main clearfix"> 
+    <div class="main clearfix">
       <!-- 房子列表 S -->
-      
+
       <div class="houseList_wrap leftArea cm_leftArea newhouse">
         <div class="listHeader"> <a class="allHouses hover" href="{$eJu.field.typeurl}">全部楼盘</a><span></span> <a href="{eju:diyurl type='map' /}" class="map_sun"><i class="map"></i>地图</a>
           <div class="clearfix"></div>
@@ -177,7 +177,7 @@
           </ul>
         </div>
       </div>
-      <!-- 房子列表 E --> 
+      <!-- 房子列表 E -->
       <!-- 右边内容 S -->
       <div class="cm_rightArea rightArea">
         <div class="zsfw">
@@ -201,7 +201,7 @@
 		{/eju:form}
           <div class="form_phone">客服咨询电话：{eju:global name='web_attr_2' /}</div>
         </div>
-        
+
         <!-- 推荐楼盘 S -->
         <div class="rcmd_build mt_25">
           <div class="title"> <span></span>
@@ -222,26 +222,26 @@
             </ul>
           </div>
         </div>
-        <!-- 推荐楼盘 E --> 
+        <!-- 推荐楼盘 E -->
         {eju:channelartlist typeid='6'}
         <dl class="recommend">
           <dt><span></span>房产快讯</dt>
           <div class="hot">
             <ul class="unstyled">
-              {eju:arclist orderby='new' row='10' id='field' mod='5'}
+              {eju:arclist orderby='new' row='10' id='field' mod='5'  screen='0'}
               <li {eju:eq name='$mod' value='1'}class="news_list_tit"{/eju:eq}> <a href="{$field.arcurl}" target="_blank">{$field.title}</a> </li>
               {/eju:arclist}
             </ul>
           </div>
         </dl>
         {/eju:channelartlist} </div>
-      <!-- 右边内容 E --> 
+      <!-- 右边内容 E -->
     </div>
   </div>
 </div>
-<!-- 楼盘列表 S--> 
+<!-- 楼盘列表 S-->
 
-<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script> 
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script>
 <script type="text/javascript">
     $(function(){
         if($(".select-no").length > 0) {
@@ -256,10 +256,10 @@ $(function(){
 		$('#search-box').hide();
 	});
 })
-</script> 
-{eju:include file="footer.htm"/} 
-<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
-<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
+</script>
+{eju:include file="footer.htm"/}
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script>
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script>
 
 <script>
 $("img.lazy").lazyload({
