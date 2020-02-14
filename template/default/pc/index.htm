@@ -411,7 +411,7 @@
             <div id="house-content-box">
               <ul class="clearfix">
                 {eju:arclist typeid='3' orderby='new' row='6' id='field' addfields="price,end_time,"}
-                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> <span class="img_ft"> <span class="txt_box clearfix"> <span class="tit fl">{$field.title}</span> </span> <span class="tit_bg"></span> </span> </span>
                 {eju:arcview aid='$field.joinaid'  id='field2'}
                 <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.price"}<i class="price">{$field.price}</i>{$field2.price_units}{eju:else /}暂无{/eju:notempty}</span>
                 <span class="ftuan clearfix nowarp"> 截止时间：{$field.end_time|MyDate='Y-m-d',###} </span> </a> </li>
@@ -420,7 +420,7 @@
               </ul>
               <ul class="clearfix" style="display:none;">
                 {eju:arclist typeid='1' orderby='new' row='6' id='field'}
-                <li> <a href="{$field.arcurl}"  target="_blank" > <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.average_price"}<i class="price">{$field.average_price}</i>{$field.price_units}{eju:else /}暂无{/eju:notempty}</span> </span> 
+                <li> <a href="{$field.arcurl}"  target="_blank" > <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> <span class="img_ft"> <span class="txt_box clearfix"> <span class="tit fl">{$field.title}</span> </span> <span class="tit_bg"></span> </span>  </span> <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.average_price"}<i class="price">{$field.average_price}</i>{$field.price_units}{eju:else /}暂无{/eju:notempty}</span> </span> 
                 <span class="ft clearfix nowarp">{eju:volist name='$field.characteristic' id='vo' row='3'} <i class="item ">{$vo}</i> {/eju:volist}</span>
                 </a> </li>
                 {/eju:arclist}
