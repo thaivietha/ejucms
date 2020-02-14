@@ -12,28 +12,17 @@
     </div>
     <div class="navBar fl">
       <ul class="nav_list fl">
-        <li {eju:eq name='$Think.const.CONTROLLER_NAME' value='Index'}class="active"{/eju:eq}> <a href="{eju:global name='web_cmsurl' /}">首页</a> </li>
-
-        {eju:channel type='top' currentstyle="active" id="field"}
-        <li class="{$field.currentstyle}"> <a href="{$field.typeurl}">{$field.typename}</a>
-          {eju:if condition="(empty($field.children) neq true) or (in_array($field.typeid,[1,11,12]))"}
+        {eju:navig position_id='2' type='top' currentstyle="active" id="field"} 
+        <li class="{$field.currentstyle}"> <a href="{$field.navig_url}"  {$field.target} {$field.nofollow}>{$field.navig_name}</a>
+         {eju:notempty name="$field.children"}
           <ul>
-            {eju:channel name="$field.children" row="100" id="field2"}
-            <li><a href="{$field2.typeurl}">{$field2.typename}</a></li>
-            {/eju:channel}
-            {eju:eq name='$field.typeid' value='1'}
-            <li><a href="{eju:diyurl type='map' /}">地图找房</a></li>
-            {/eju:eq}
-            {eju:eq name='$field.typeid' value='11'}
-            <li><a href="{eju:diyurl type='mapershou' /}">地图找房</a></li>
-            {/eju:eq}
-            {eju:eq name='$field.typeid' value='12'}
-            <li><a href="{eju:diyurl type='mapzufang' /}">地图找房</a></li>
-            {/eju:eq}
+            {eju:navig name="$field.children" id="field2"}
+            <li><a href="{$field2.navig_url}" {$field2.target} {$field2.nofollow}>{$field2.navig_name}</a></li>
+            {/eju:navig}
           </ul>
-          {/eju:if}
-        </li>
-        {/eju:channel}
+          {/eju:notempty}
+          </li>
+        {/eju:navig}
       </ul>
     </div>
     <div class="log_link fr"> 

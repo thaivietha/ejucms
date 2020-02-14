@@ -116,7 +116,7 @@
         <div class="g_s3_n2">已有<i>{$eju.field.apply_num}</i>人报名团购</div>
         <div class="g_s3_n3"> <b>距离报名结束时间倒计时</b>
           <p id="lefttime_1"></p>
-          <a id="btn_baoming_1" href="javascript:;" class="J_dialog but20" data-id="29" data-model="house" data-type="4" data-uri="{eju:diyurl type='form' /}">我要报名</a>
+          <a id="btn_baoming_1" href="javascript:;" class="J_dialog but20" data-id="29" data-model="house" data-type="4" data-uri="{eju:diyurl type='form' template='ajax_form_tgbm'/}">我要报名</a>
           <script type="text/javascript">
               var st = new showTime(1,"{$eju.field.end_time}");
               st.setTimeShow();
@@ -184,7 +184,7 @@
             right_btn: ".arr02"
         });
         $('.J_dialog').on('click',function(){
-            var me=$(this),w = 315,h = 270,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri');
+            var me=$(this),w = 420,h = 300,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri');
             url = url + '?house_id='+house_id+'&type='+type+'&model='+model;
             layer.open({
                 type: 2,

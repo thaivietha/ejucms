@@ -39,7 +39,7 @@ a.but19:hover{display:block; background:#c82e24;border-radius:4px; color:#fff}
 .g_s1 li a{border:2px #e1e1e1 solid;width:96px; height:70px; display:block }
 .g_s1 li a:hover{ border:2px #f25045 solid; display:block;}
 .g_s1 li.on img{border:1px solid #00be78;padding:1px;width:92px;height:66px;}
-.group_show02_r{width:580px; float:left;}
+.group_show02_r{width:580px; float:right;}
 .g_s2{height:120px; padding:30px 0 0 20px}
 .g_s2 b{line-height:40px; font-size:26px; color:#4e4e4e;}
 .g_s2 p{line-height:24px; font-size:12px; color:#8f8f8f}
