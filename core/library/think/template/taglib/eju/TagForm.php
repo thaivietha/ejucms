@@ -126,9 +126,9 @@ class TagForm extends Base
             /*
              * 筛选内容
              */
+            $options = array();
             if (!empty($val['attr_values'])) {
                 $tmp_option_val = explode(',', $val['attr_values']);
-                $options = array();
                 foreach($tmp_option_val as $k2=>$v2)
                 {
                     $tmp_val = array(
@@ -136,8 +136,8 @@ class TagForm extends Base
                     );
                     array_push($options, $tmp_val);
                 }
-                $result['options_'.$attr_id] = $options;
             }
+            $result['options_'.$attr_id] = $options;
             //是否必填（js判断）
             if ($val['is_fill']){
                 $check_js .= "

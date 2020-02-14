@@ -309,23 +309,6 @@ if (!function_exists('getMenuList'))
                     unset($menuArr[$k]);//过滤一级级菜单
                 }
             }
-        } else {
-            foreach($menuArr as $k=>$val){
-                foreach ($val['child'] as $j=>$v){
-                    foreach ($v['child'] as $s=>$son){
-                        if (empty($son['is_menu'])) {
-                            unset($menuArr[$k]['child'][$j]['child'][$s]);//过滤三级菜单不显示的子菜单
-                        }
-                    }
-                    if (empty($v['is_menu'])) {
-                        unset($menuArr[$k]['child'][$j]);//过滤二级菜单不显示的子菜单
-                    }
-                }
-                //过滤二级菜单不显示的子菜单
-                if (empty($val['is_menu'])) {
-                    unset($menuArr[$k]);//过滤一级级菜单
-                }
-            }
         }
         $config = tpCache('question');
         if (empty($config['question_status'])){   //没有开启问答
