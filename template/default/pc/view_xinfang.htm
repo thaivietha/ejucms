@@ -6,6 +6,7 @@
 <meta name="description" content="{$eju.field.seo_description}" />
 <meta name="keywords" content="{$eju.field.seo_keywords}" />
 <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<meta name="applicable-device"content="pc">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/reset.css">
 <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_pc' /}/skin/css/common.css">
@@ -93,7 +94,7 @@
           <ul class="news-house-base">
             <li>
               <label>开盘时间 ：</label>
-              {$eju.field.opening_time|myDate='Y年m月d日',###}<a href="javascript:;" class="J_dialog" data-id="12" data-model="house" data-type="6" data-uri="{eju:diyurl type='form'/}"><i class="lpt_icon "></i>开盘通知</a> </li>
+              {$eju.field.opening_time|myDate='Y年m月d日',###}<a href="javascript:;" class="J_dialog" data-id="12" data-model="house" data-type="6" data-uri="{eju:diyurl type='form' template='ajax_form_kptz'/}"><i class="lpt_icon "></i>开盘通知</a> </li>
             <li>
               <label>交房时间 ：</label>
               {$eju.field.complate_time|myDate='Y年m月d日',###} </li>
@@ -116,7 +117,7 @@
             </div>
           </div>
           <button type="button" class="J_dialog " data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form'/}">预约看房</button>
-          <button type="button" class="J_dialog " data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form'/}">免费通话</button>
+          <button type="button" class="J_dialog " data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form' template='ajax_form_mfth'/}">免费通话</button>
         </div>
       </div>
     </div>
@@ -195,7 +196,7 @@
                     <p>{$field.huxing_price}</p>
                     </span> </div>
                   <span>参考总价： </span> </div>
-                <input type="button" value="获取最新价格变动" class="getChangePzBtn J_dialog" data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form'/}">
+                <input type="button" value="获取最新价格变动" class="getChangePzBtn J_dialog" data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form' template='ajax_form_jgbd'/}">
               </div>
             </div>
             {/eju:fanglist} </div>

@@ -206,7 +206,7 @@ a {
 <body>
 <div class="dialog">
   <div class="dia-con1">
-    <div class="tc_right form_box"> {eju:form formid="9"}
+    <div class="tc_right form_box"> {eju:form formid="9" before="check_form"}
       <form method="post" id="{$field.form_name}" action="{$field.action}" onsubmit="{$field.submit}">
         <p class="tc_right_p1">{$field.name}</p>
         <p class="tc_right_p1_2">{$field.intro}</p>
@@ -214,16 +214,42 @@ a {
           <input type="text" class="ipt" id="{$field.attr_37}" name="{$field.attr_37}" placeholder="请输入您的{$field.itemname_37}">
           <span class="placeholder">请输入您的{$field.itemname_37}</span> </p>
         <p  class="user-agree" id="userAgree">
-          <input type="checkbox" checked="" class="check-agree on checked">
+          <input type="checkbox" checked id="agree_input" onClick="changecheck()">
           <span>我已阅读并同意<a href="{eju:type typeid='42' id='field2'}{$field2.typeurl}{/eju:type}" target="_blank">《易居用户服务协议》</a> </span>
           </p>
         <p class="tc_right_p4">
-          <input type="submit"  value="立即提交">
+          <input id="ljtj"  type="submit"  value="立即提交">
           </p>
         {$field.hidden}
       </form>
       {/eju:form} </div>
   </div>
 </div>
+<style>
+  .grey{
+    background: #fdb18d !important;
+  }
+</style>
+<script>
+  function check_form(){
+      var agree_input = document.getElementById("agree_input");
+      if (agree_input.checked){
+          return true;
+      }
+      alert("请同意《易居用户服务协议》后提交");
+
+      return false;
+  }
+  function changecheck(){
+      var agree_input = document.getElementById("agree_input");
+      if (agree_input.checked){
+          document.getElementById("ljtj").disabled = "";
+          document.getElementById("ljtj").className = "";
+      }else{
+          document.getElementById("ljtj").disabled = true;
+          document.getElementById("ljtj").className = "grey";
+      }
+  }
+</script>
 </body>
 </html>
