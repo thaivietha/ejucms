@@ -117,6 +117,24 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'is_sale' => 
+  array (
+    'name' => 'is_sale',
+    'type' => 'tinyint(1) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'is_moods' => 
+  array (
+    'name' => 'is_moods',
+    'type' => 'tinyint(1) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
   'author' => 
   array (
     'name' => 'author',

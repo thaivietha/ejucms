@@ -333,24 +333,24 @@
             {/volist}
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">文档属性</label>
-        <div class="layui-input-inline w-max2">
-            <input type="checkbox" lay-filter="is_head" id="is_head" lay-skin="primary" title="头条[h]" value="1" {if condition="$field.is_head == 1" }checked{/if}>
-            <input type="checkbox" lay-filter="is_recom" id="is_recom" lay-skin="primary" title="推荐[c]" value="1" {if condition="$field.is_recom == 1" }checked{/if}>
-            <input type="checkbox" lay-filter="is_special" id="is_special" lay-skin="primary" title="特推[a]" value="1" {if condition="$field.is_special == 1" }checked{/if} >
-            <input type="checkbox" lay-filter="is_b" id="is_b" lay-skin="primary" title="加粗[b]" value="1" {if condition="$field.is_b == 1" }checked{/if} >
-            <input type="checkbox" lay-filter="is_litpic" id="is_litpic" lay-skin="primary" title="图片[p]" value="1" {if condition="$field.is_litpic == 1" }checked{/if}>
-            <input type="checkbox" lay-filter="is_jump" id="is_jump"  lay-skin="primary" lay-filter="is_jump" title="跳转[j]" value="1" {if condition="$field.is_jump == 1" }checked{/if} >
+    <!--<div class="layui-form-item">-->
+        <!--<label class="layui-form-label">文档属性</label>-->
+        <!--<div class="layui-input-inline w-max2">-->
+            <!--<input type="checkbox" lay-filter="is_head" id="is_head" lay-skin="primary" title="头条[h]" value="1" {if condition="$field.is_head == 1" }checked{/if}>-->
+            <!--<input type="checkbox" lay-filter="is_recom" id="is_recom" lay-skin="primary" title="推荐[c]" value="1" {if condition="$field.is_recom == 1" }checked{/if}>-->
+            <!--<input type="checkbox" lay-filter="is_special" id="is_special" lay-skin="primary" title="特推[a]" value="1" {if condition="$field.is_special == 1" }checked{/if} >-->
+            <!--<input type="checkbox" lay-filter="is_b" id="is_b" lay-skin="primary" title="加粗[b]" value="1" {if condition="$field.is_b == 1" }checked{/if} >-->
+            <!--<input type="checkbox" lay-filter="is_litpic" id="is_litpic" lay-skin="primary" title="图片[p]" value="1" {if condition="$field.is_litpic == 1" }checked{/if}>-->
+            <!--<input type="checkbox" lay-filter="is_jump" id="is_jump"  lay-skin="primary" lay-filter="is_jump" title="跳转[j]" value="1" {if condition="$field.is_jump == 1" }checked{/if} >-->
 
-            <input type="hidden" name="is_head" value="{$field.is_head}">
-            <input type="hidden" name="is_recom" value="{$field.is_recom}">
-            <input type="hidden" name="is_special" value="{$field.is_special}">
-            <input type="hidden" name="is_b" value="{$field.is_b}">
-            <input type="hidden" name="is_litpic" value="{$field.is_litpic}">
-            <input type="hidden" name="is_jump" value="{$field.is_jump}">
-        </div>
-    </div>
+            <!--<input type="hidden" name="is_head" value="{$field.is_head}">-->
+            <!--<input type="hidden" name="is_recom" value="{$field.is_recom}">-->
+            <!--<input type="hidden" name="is_special" value="{$field.is_special}">-->
+            <!--<input type="hidden" name="is_b" value="{$field.is_b}">-->
+            <!--<input type="hidden" name="is_litpic" value="{$field.is_litpic}">-->
+            <!--<input type="hidden" name="is_jump" value="{$field.is_jump}">-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="layui-form-item none"  {if condition=" $field.is_jump !=1"}none{/if}" id="jump_div">
     <label class="layui-form-label">跳转网址</label>
     <div class="layui-input-inline">

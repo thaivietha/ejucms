@@ -201,6 +201,10 @@ class TagList extends Base
                             array_push($where_or_flag, "a.is_litpic = 1");
                         } elseif ($v2 == "b") {
                             array_push($where_or_flag, "a.is_b = 1");
+                        }elseif ($v2 == "s") {
+                            array_push($where_or_flag, "a.is_sale = 1");
+                        }elseif ($v2 == "m") {
+                            array_push($where_or_flag, "a.is_moods = 1");
                         }
                     }
                     if (!empty($where_or_flag)) {
@@ -223,6 +227,10 @@ class TagList extends Base
                             array_push($where_or_flag, "a.is_litpic <> 1");
                         } elseif ($nv2 == "b") {
                             array_push($where_or_flag, "a.is_b <> 1");
+                        }elseif ($nv2 == "s") {
+                            array_push($where_or_flag, "a.is_sale <> 1");
+                        }elseif ($nv2 == "m") {
+                            array_push($where_or_flag, "a.is_moods <> 1");
                         }
                     }
                     if (!empty($where_or_flag)) {
@@ -462,6 +470,10 @@ class TagList extends Base
                             array_push($where_or_flag, "a.is_litpic = 1");
                         } elseif ($v2 == "b") {
                             array_push($where_or_flag, "a.is_b = 1");
+                        }elseif ($v2 == "s") {
+                            array_push($where_or_flag, "a.is_sale = 1");
+                        }elseif ($v2 == "m") {
+                            array_push($where_or_flag, "a.is_moods = 1");
                         }
                     }
                     if (!empty($where_or_flag)) {
@@ -484,6 +496,10 @@ class TagList extends Base
                             array_push($where_or_flag, "a.is_litpic <> 1");
                         } elseif ($nv2 == "b") {
                             array_push($where_or_flag, "a.is_b <> 1");
+                        }elseif ($nv2 == "s") {
+                            array_push($where_or_flag, "a.is_sale <> 1");
+                        }elseif ($nv2 == "m") {
+                            array_push($where_or_flag, "a.is_moods <> 1");
                         }
                     }
                     if (!empty($where_or_flag)) {

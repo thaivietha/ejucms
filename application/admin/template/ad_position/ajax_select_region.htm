@@ -1,0 +1,92 @@
+{include file="public/layout" /}
+
+<body>
+<style>
+    dl.newscity dt {
+        float: left;
+        width: 100px;
+        clear: both;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        line-height: 30px;
+        height: 30px;
+    }
+    dl.newscity dd {
+        float: left;
+        overflow: hidden;
+    }
+    dl.newscity dd span {
+        line-height: 30px;
+        height: 30px;
+        padding: 0 5px;
+        margin: 0 10px 0 0;
+        display: inline-block;
+        overflow: hidden;
+    }
+</style>
+<div class="fivindexcont citymar">
+    <dl class="newscity">
+        <dt>
+            <span {notempty name="$count_arr[0]"}style="color:red;"{/notempty} onclick="select_region(this)" data-id="0" data-province="0" data-city="0" data-area="0"  data-counts="{$count_arr[0]|default=0}" data-level="0" data-parent_id="0" data-name="不限区域">不限区域（{$count_arr[0]|default=0}）</span>
+        </dt>
+    </dl>
+    {volist name="list" id="vo"}
+    <dl class="newscity">
+        <dt>
+            {notempty name="$vo.domain"}
+            <span {notempty name="$vo.count"}style="color:red;"{/notempty} onclick="select_region(this)" data-id="{$vo.id}" data-province="{$vo.id}" data-city="0" data-area="0" data-counts="{$vo.count}" data-level="{$vo.level}" data-parent_id="{$vo.parent_id}" data-name="{$vo.name}">
+                {$vo.name}({$vo.count})
+            </span>
+            {else /}
+            <span>
+                {$vo.name}
+            </span>
+            {/notempty}
+        </dt>
+        <dd>
+            {volist name="$vo.child" id="vo1"}
+                {notempty name="$vo1.domain"}
+                <span {notempty name="$vo1.count"}style="color:red;"{/notempty} onclick="select_region(this)" data-id="{$vo1.id}" data-province="{$vo.id}" data-city="{$vo1.id}" data-area="0" data-counts="{$vo1.count}" data-level="{$vo1.level}" data-parent_id="{$vo1.parent_id}" data-name="{$vo1.name}">
+                    {$vo1.name}({$vo1.count})
+                </span>
+                {else /}
+                <span>
+                   {$vo1.name}
+                </span>
+                {/notempty}
+                {volist name="$vo1.child" id="vo2"}
+                    {notempty name="$vo2.domain"}
+                    <span {notempty name="$vo2.count"}style="color:red;"{/notempty} onclick="select_region(this)" data-id="{$vo2.id}" data-province="{$vo.id}" data-city="{$vo1.id}" data-area="{$vo2.id}" data-counts="{$vo2.count}"  data-level="{$vo2.level}" data-parent_id="{$vo2.parent_id}" data-name="{$vo2.name}">
+                        {$vo2.name}({$vo2.count})
+                    </span>
+                    {else /}
+                    <span>
+                       {$vo2.name}
+                    </span>
+                    {/notempty}
+                {/volist}
+            {/volist}
+        </dd>
+    </dl>
+    {/volist}
+    <dl class="newscity"><dt><span>全部广告（{$count_all}）</span></dt></dl>
+</div>
+<script>
+    var callback = "{$func}";
+    function select_region(obj){
+        var fileurl_tmp = [];
+        fileurl_tmp['id'] = $(obj).data("id");
+        fileurl_tmp['province_id'] = $(obj).data("province");
+        fileurl_tmp['city_id'] = $(obj).data("city");
+        fileurl_tmp['area_id'] = $(obj).data("area");
+        fileurl_tmp['counts'] = $(obj).data("counts");
+        fileurl_tmp['level'] = $(obj).data("level");
+        fileurl_tmp['parent_id'] = $(obj).data("parent_id");
+        fileurl_tmp['name'] = $(obj).data("name");
+        eval('window.parent.'+callback+'(fileurl_tmp)');
+    }
+</script>
+{include file="public/footer" /}
+
