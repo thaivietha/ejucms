@@ -321,6 +321,12 @@ class Archives extends Base
             if ($post['is_litpic']){
                 $update_data['is_litpic'] = 1;
             }
+            if ($post['is_sale']){
+                $update_data['is_sale'] = 1;
+            }
+            if ($post['is_moods']){
+                $update_data['is_moods'] = 1;
+            }
             $r = M('archives')->where([
                 'aid' => ['IN', $aids],
             ])->update($update_data);
@@ -333,6 +339,8 @@ class Archives extends Base
         }
         /*表单提交URL*/
         $form_action = url('Archives/add_attribute');
+        $channel = input('channel/d',1);
+        $this->assign('channel', $channel);
         $this->assign('form_action', $form_action);
         /*--end*/
 
@@ -374,6 +382,12 @@ class Archives extends Base
             if ($post['is_litpic']){
                 $update_data['is_litpic'] = 0;
             }
+            if ($post['is_sale']){
+                $update_data['is_sale'] = 0;
+            }
+            if ($post['is_moods']){
+                $update_data['is_moods'] = 0;
+            }
             $r = M('archives')->where([
                 'aid' => ['IN', $aids],
             ])->update($update_data);
@@ -388,6 +402,8 @@ class Archives extends Base
         $form_action = url('Archives/del_attribute');
         $this->assign('form_action', $form_action);
         /*--end*/
+        $channel = input('channel/d',1);
+        $this->assign('channel', $channel);
 
         return $this->fetch('add_attribute');
     }

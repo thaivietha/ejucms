@@ -998,36 +998,80 @@ if (!function_exists('showArchivesFlagStr'))
     function showArchivesFlagStr($archivesInfo = [])
     {
         $arr = [];
-        if (!empty($archivesInfo['is_head'])) {
-            $arr['is_head'] = [
-                'small_name'   => '头条',
-            ];
+        if ($archivesInfo['channel'] == 1){
+            if (!empty($archivesInfo['is_head'])) {
+                $arr['is_head'] = [
+                    'small_name'   => '头条',
+                ];
+            }
+            if (!empty($archivesInfo['is_recom'])) {
+                $arr['is_recom'] = [
+                    'small_name'   => '推荐',
+                ];
+            }
+            if (!empty($archivesInfo['is_special'])) {
+                $arr['is_special'] = [
+                    'small_name'   => '幻灯',
+                ];
+            }
+            if (!empty($archivesInfo['is_b'])) {
+                $arr['is_b'] = [
+                    'small_name'   => '加粗',
+                ];
+            }
+            if (!empty($archivesInfo['is_litpic'])) {
+                $arr['is_litpic'] = [
+                    'small_name'   => '图片',
+                ];
+            }
+            if (!empty($archivesInfo['is_jump'])) {
+                $arr['is_jump'] = [
+                    'small_name'   => '跳转',
+                ];
+            }
+        }else if($archivesInfo['channel'] == 9){
+            if (!empty($archivesInfo['is_head'])) {
+                $arr['is_head'] = [
+                    'small_name'   => '头条',
+                ];
+            }
+            if (!empty($archivesInfo['is_recom'])) {
+                $arr['is_recom'] = [
+                    'small_name'   => '刚需',
+                ];
+            }
+            if (!empty($archivesInfo['is_special'])) {
+                $arr['is_special'] = [
+                    'small_name'   => '特推',
+                ];
+            }
+            if (!empty($archivesInfo['is_b'])) {
+                $arr['is_b'] = [
+                    'small_name'   => '热销',
+                ];
+            }
+            if (!empty($archivesInfo['is_litpic'])) {
+                $arr['is_litpic'] = [
+                    'small_name'   => '图片',
+                ];
+            }
+            if (!empty($archivesInfo['is_sale'])) {
+                $arr['is_sale'] = [
+                    'small_name'   => '特价',
+                ];
+            }
+            if (!empty($archivesInfo['is_moods'])) {
+                $arr['is_moods'] = [
+                    'small_name'   => '人气',
+                ];
+            }
+            if (!empty($archivesInfo['is_jump'])) {
+                $arr['is_jump'] = [
+                    'small_name'   => '跳转',
+                ];
+            }
         }
-        if (!empty($archivesInfo['is_recom'])) {
-            $arr['is_recom'] = [
-                'small_name'   => '推荐',
-            ];
-        }
-        if (!empty($archivesInfo['is_special'])) {
-            $arr['is_special'] = [
-                'small_name'   => '特荐',
-            ];
-        }
-        if (!empty($archivesInfo['is_b'])) {
-            $arr['is_b'] = [
-                'small_name'   => '加粗',
-            ];
-        }
-        if (!empty($archivesInfo['is_litpic'])) {
-            $arr['is_litpic'] = [
-                'small_name'   => '图片',
-            ];
-        }
-        if (!empty($archivesInfo['is_jump'])) {
-            $arr['is_jump'] = [
-                'small_name'   => '跳转',
-            ];
-        }
+
 
         return $arr;
     }
