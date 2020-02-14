@@ -1,8 +1,7 @@
 (function($){
-    $('.sele_city_btn').click(function(){
-      $(this).next().slideToggle(100);
-
-    });
+    // $('.sele_city_btn').click(function(){
+    //   $(this).next().slideToggle(100);
+    // });
 	$(".city-close").on('click',function(){
 		$(".city_list").hide();
 	});

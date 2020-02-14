@@ -194,4 +194,37 @@ class Map extends Base
         $this->assign('area',$area);
         return $this->fetch('map_mark');
     }
+    public function getLocationByAddress()
+    {
+        $province = input('get.province/d',0);
+        $city = input('get.city/d',0);
+        $area = input('get.area/d',0);
+        $city_name = "";
+        $address = "";
+        if ($province){
+            $address .= get_province_name($province);
+        }
+        if ($city){
+            $city_name = get_city_name($city);
+            $address .= $city_name;
+        }
+        if ($area){
+            $address .= get_area_name($area);
+        }
+        $address .=  input('get.address/s');
+        $ak      = config('global.baidu_map_ak');
+        $url = "https://api.map.baidu.com/geocoder/v2/?address={$address}&city={$city_name}&output=json&ak={$ak}";
+        $result = file_get_contents($url);
+        $result = json_decode($result,true);
+        $return['code'] = 0;
+        if($result['status'] == 0)
+        {
+            $return['code'] = 1;
+            $map['lng'] = $result['result']['location']['lng'];
+            $map['lat'] = $result['result']['location']['lat'];
+            $map['map'] = $map['lng'].','.$map['lat'];
+            $return['data'] = $map;
+        }
+        return json($return);
+    }
 }

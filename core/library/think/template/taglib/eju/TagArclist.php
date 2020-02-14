@@ -60,7 +60,7 @@ class TagArclist extends Base
      * @param     string  $thumb  是否开启缩略图
      * @return    array
      */
-    public function getArclist($param = array(),  $row = 15, $orderby = '', $addfields = '', $orderway = '', $tagid = '', $tag = '', $pagesize = 0, $thumb = '')
+    public function getArclist($param = array(),  $row = 15, $orderby = '', $addfields = '', $orderway = '', $tagid = '', $tag = '', $pagesize = 0, $thumb = '',$addwhere='')
     {
         $result = false;
         $condition = array();
@@ -272,6 +272,7 @@ class TagArclist extends Base
                 }
             }
         }
+
         array_push($condition, "a.arcrank > -1");
         array_push($condition, "a.status = 1");
         array_push($condition, "a.is_del = 0"); // 回收站功能
@@ -279,7 +280,10 @@ class TagArclist extends Base
         if (0 < count($condition)) {
             $where_str = implode(" AND ", $condition);
         }
+        if(!empty($addwhere)){
+            $where_str .= " and ".$addwhere;
 
+        }
         // 给排序字段加上表别名
         $isinput = 1 == $param['screen'] ? true : false;
         $orderby = getOrderBy($orderby,$orderway,true,$isinput);

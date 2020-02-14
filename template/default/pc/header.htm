@@ -1,27 +1,32 @@
 <div class="topBar">
   <div class="comWidth clearfix">
     <div class="logo fl">
-        <a href="{eju:global name='web_cmsurl' /}" title="{eju:global name='web_name' /}">
+        <a href="{eju:diyurl type='shouye' /}" title="{eju:global name='web_name' /}">
             <img src="{eju:global name='web_logo' /}" alt="{eju:global name='web_name' /}" />
         </a>
     </div>
     
-    <div class="fl sele_city"> <a href="javascript:;"  class="sele_city_btn">{$eju.region.name}<img src="{eju:global name='web_templets_pc' /}/skin/img/icon15.png" alt="" class="icon"></a>
-      <div class="city_list clearfix"> <i class="city-close">关闭</i>
-        <dl class="clearfix">
-          {eju:region type='selflevel' opencity='1,2,3' row='60' id='field' currentstyle="hot" groupby="initial"}
-            <dd><a href="javascript:;">{$key}</a></dd>
-            {eju:volist name="$field" id="vo"}
-            <dd class="{$vo.currentstyle}"><a href="{$vo.domainurl}" title="{$vo.name}">{$vo.name}</a></dd>
-            {/eju:volist}
-          {/eju:region}
-        </dl>
-      </div>
+    <div class="fl sele_city">
+        {eju:notempty name="$eju.global.web_region_domain"}
+        <a href="{eju:global name='web_cmsurl' /}"  class="sele_city_btn">
+            {$eju.region.name}<img src="{eju:global name='web_templets_pc' /}/skin/img/icon15.png" alt="" class="icon">
+        </a>
+        <div class="city_list clearfix"> <i class="city-close">关闭</i>
+            <dl class="clearfix">
+                {eju:region type='selflevel' opencity='1,2,3' row='60' id='field' currentstyle="hot" groupby="initial"}
+                <dd><a href="javascript:;">{$key}</a></dd>
+                {eju:volist name="$field" id="vo"}
+                <dd class="{$vo.currentstyle}"><a href="{$vo.domainurl}" title="{$vo.name}">{$vo.name}</a></dd>
+                {/eju:volist}
+                {/eju:region}
+            </dl>
+        </div>
+        {/eju:notempty}
     </div>
 
     <div class="navBar fl">
       <ul class="nav_list fl">
-        {eju:navig position_id='2' type='top' currentstyle="active" id="field"} 
+        {eju:navig position_id='2' type='top' currentstyle="active" id="field"}
         <li class="{$field.currentstyle}"> <a href="{$field.navig_url}"  {$field.target} {$field.nofollow}>{$field.navig_name}</a>
          {eju:notempty name="$field.children"}
           <ul>

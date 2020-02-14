@@ -307,12 +307,31 @@
              {eju:sqlview table="channelfield" addwhere="name='characteristic' and channel_id=9"}
               {eju:volist name='$field.dfvalue|explode=",",###' id='field1'}
               <ul class="clearfix" {eju:neq name='$i' value='1'}style="display:none;"{/eju:neq}>
-                {eju:sqlarclist  table="archives" addwhere="channel=9 and is_del=0 and FIND_IN_SET('$field1',characteristic)"  addfields='average_price,characteristic'  orderby="a.aid desc" jointable="[['table'=>'xinfang_system d','map'=>'a.aid = d.aid','method'=>'LEFT']]" limit='0,6' id="vo_xinfang"}
-                <li> <a href="{$vo_xinfang.arcurl}"  target="_blank" title="{$vo_xinfang.title}"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$vo_xinfang.litpic}" class="lazy" alt="{$vo_xinfang.title}"> <span class="img_ft"> <span class="txt_box clearfix"> <span class="tit fl">{$vo_xinfang.title}</span> </span> <span class="tit_bg"></span> </span> </span> 
-                <span class="ft clearfix"> <span class="fr area">{$vo_xinfang.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$vo_xinfang.average_price"}<i class="price">{$vo_xinfang.average_price}</i>{$vo_xinfang.price_units}{eju:else /}<i class="price">价格待定</i>{/eju:notempty}</span> </span>
-                <span class="ft clearfix nowarp">{eju:volist name='$vo_xinfang.characteristic' id='vo' row='3'} <i class="item ">{$vo}</i> {/eju:volist}</span> </a> 
-                </li>
-                {/eju:sqlarclist}
+              {eju:arclist typeid='1' addwhere="FIND_IN_SET('$field1',c.characteristic)" orderby='new' row='6' id='vo_xinfang'}
+              <li>
+                <a href="{$vo_xinfang.arcurl}"  target="_blank" title="{$vo_xinfang.title}">
+                    <span class="img">
+                      <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$vo_xinfang.litpic}" class="lazy" alt="{$vo_xinfang.title}">
+                      <span class="img_ft">
+                        <span class="txt_box clearfix">
+                          <span class="tit fl">{$vo_xinfang.title}</span>
+                        </span>
+                        <span class="tit_bg"></span>
+                      </span>
+                    </span>
+                  <span class="ft clearfix">
+                      <span class="fr area">{$vo_xinfang.city_id|get_city_name}</span>
+                      <span class="fl">{eju:notempty name="$vo_xinfang.average_price"}
+                        <i class="price">{$vo_xinfang.average_price}</i>{$vo_xinfang.price_units}{eju:else /}
+                        <i class="price">价格待定</i>{/eju:notempty}
+                      </span>
+                    </span>
+                  <span class="ft clearfix nowarp">{eju:volist name='$vo_xinfang.characteristic' id='vo' row='3'}
+                      <i class="item ">{$vo}</i> {/eju:volist}
+                    </span>
+                </a>
+              </li>
+              {/eju:arclist}
               </ul>
               {/eju:volist}
               {/eju:sqlview} </div>

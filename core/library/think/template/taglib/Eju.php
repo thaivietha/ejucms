@@ -30,7 +30,7 @@ class Eju extends Taglib
         'php'        => ['attr' => ''],
         'channel'    => ['attr' => 'typeid,notypeid,reid,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit,hidden'],
         'channelartlist' => ['attr' => 'typeid,type,row,id,key,empty,titlelen,mod'],
-        'arclist'    => ['attr' => 'users_id,channelid,typeid,notypeid,row,offset,titlelen,limit,orderby,orderway,noflag,flag,infolen,empty,mod,name,id,key,addfields,tagid,pagesize,thumb,joinaid,province,city,area,screen'],
+        'arclist'    => ['attr' => 'users_id,channelid,typeid,notypeid,row,offset,titlelen,limit,orderby,orderway,noflag,flag,infolen,empty,mod,name,id,key,addfields,tagid,pagesize,thumb,joinaid,province,city,area,screen,addwhere'],
         'arcpagelist'=> ['attr' => 'tagid,pagesize,id,tips,loading,callback'],
         'list'       => ['attr' => 'users_id,channelid,typeid,notypeid,pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,addfields,thumb,joinaid'],
         'pagelist'   => ['attr' => 'listitem,listsize', 'close' => 0],
@@ -1036,6 +1036,9 @@ class Eju extends Taglib
         $addfields     = isset($tag['addfields']) ? $tag['addfields'] : '';
         $addfields  = $this->varOrvalue($addfields);
 
+        $addwhere     = isset($tag['addwhere']) ? $tag['addwhere'] : '';
+        $addwhere  = $this->varOrvalue($addwhere);
+
         $joinaid   = isset($tag['joinaid']) ? $tag['joinaid'] : '';
         $joinaid  = $this->varOrvalue($joinaid);
         $province   = isset($tag['province']) ? $tag['province'] : '';
@@ -1115,7 +1118,7 @@ class Eju extends Taglib
             $parseStr .= ' );';
             $parseStr .= ' $tag = '.var_export($tag,true).';';
             $parseStr .= ' $tagArclist = new \think\template\taglib\eju\TagArclist;';
-            $parseStr .= ' $_result = $tagArclist->getArclist($param, $row, "'.$orderby.'", '.$addfields.',"'.$orderway.'","'.$tagid.'",$tag,"'.$pagesize.'","'.$thumb.'");';
+            $parseStr .= ' $_result = $tagArclist->getArclist($param, $row, "'.$orderby.'", '.$addfields.',"'.$orderway.'","'.$tagid.'",$tag,"'.$pagesize.'","'.$thumb.'",'.$addwhere.');';
 
             $parseStr .= 'if(is_array($_result["list"]) || $_result["list"] instanceof \think\Collection || $_result["list"] instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k=0;';
             // 设置了输出数组长度
