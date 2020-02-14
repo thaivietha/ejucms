@@ -1116,7 +1116,7 @@
 .l_box .filter-row .filter-more a{display:inline-block;margin-right:8px;line-height: 26px;}
 .l_box .filter-row .filter-more{display:none;box-sizing:border-box;border:1px solid #EFEFEF;padding-left:10px;padding-bottom: 32px; padding-top:32px;border-left:none;position:absolute;right:-250px;width:250px;background-color: #fff;top:-1px;min-height: 101px;}
 .l_box .filter-row .filter-val a:hover,
-.l_box .filter-row .filter-more a:hover{color:#D32F2F;}
+.l_box .filter-row .filter-more a:hover{color:#D32F2F;cursor: pointer;}
 .build_shoppers .r_box .list.office-list{height:360px;}
 .build_shoppers .r_box .list.office-list li{list-style: none;}
 .office-list li{position:relative;line-height:30px;box-sizing: border-box;width:100%;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;}

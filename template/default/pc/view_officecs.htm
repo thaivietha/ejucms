@@ -89,7 +89,7 @@
               <p>{$eju.field.xiaoqu.title}</p>
             </li>
             <li> <span>所在地址</span>
-              <p>{$eju.field.xiaoqu.city_id|get_city_name} - {$eju.field.xiaoqu.area_id|get_area_name} - {$eju.field.xiaoqu.address}<a href="{eju:diyurl type='mapershou' /}"><s></s></a></p>
+              <p>{$eju.field.xiaoqu.city_id|get_city_name} - {eju:notempty name="$eju.field.xiaoqu.area_id|get_area_name"}{$eju.field.xiaoqu.area_id|get_area_name} -{eju:else /}{/eju:notempty} {$eju.field.xiaoqu.address}<a href="{eju:diyurl type='mapershou' /}"><s></s></a></p>
             </li>
           </ul>
         </div>
