@@ -105,9 +105,9 @@
         <div class="group_l_r2">
           <p><span class="text19">已有{$field.apply_num}</span>人报名</p>
           {eju:if condition="$field.end_time > time()"} 
-                <a id="btn_baoming_{$e}" class="J_dialog but19" href="javascript:;" data-id="26" data-model="house" data-type="4" data-uri="{eju:diyurl type='form' /}">立即报名</a> 
+                <a id="btn_baoming_{$e}" class="J_dialog but19" href="javascript:;" data-id="26" data-model="house" data-type="4" data-uri="{eju:diyurl type='form' template='ajax_form_tgbm'/}">立即报名</a> 
               {else /} 
-                <a id="btn_baoming_{$e}" class="J_dialog but191" href="javascript:;" data-id="26" data-model="house" data-type="4" data-uri="{eju:diyurl type='form' /}">报名结束</a> 
+                <a id="btn_baoming_{$e}" class="J_dialog but191" href="javascript:;" data-id="26" data-model="house" data-type="4" data-uri="{eju:diyurl type='form' template='ajax_form_tgbm'/}">报名结束</a> 
               {/eju:if}
               <script type="text/javascript">
                   var st = new showTime("{$e}","{$field.end_time}");
@@ -132,7 +132,7 @@
 <script>
     $(function(){
         $('.J_dialog').on('click',function(){
-            var me=$(this),w = 315,h = 270,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri');
+            var me=$(this),w = 420,h = 300,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri');
             url = url + '?house_id='+house_id+'&type='+type+'&model='+model;
             layer.open({
                 type: 2,
