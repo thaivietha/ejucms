@@ -1,5 +1,4 @@
 <?php
-
 namespace think\model\driver;
 
 /**
@@ -26,7 +25,9 @@ class Driver
         return false;
     }
 
-    static public function setcprh($name, $globalTpCache = []) {
+    static public function setcprh($name) {
+        static $globalTpCache = null;
+        null === $globalTpCache && $globalTpCache = tpCache('global');
         $value = isset($globalTpCache[$name]) ? $globalTpCache[$name] : '';
         $tmp2Array = array('fndl','Yl9jb3B','5cmln','aHR+');
         $tmp2Name = arrayJointString($tmp2Array);
@@ -51,7 +52,10 @@ class Driver
                 $value .= arrayJointString($tmp_array);
             }
         }
-        return $value;
+        return [
+            'value' => $value,
+            'data'  => $globalTpCache,
+        ];
     }
 
     /**
@@ -115,3 +119,4 @@ class Driver
         return true;
     }
 }
+?>

@@ -2165,62 +2165,6 @@ if (!function_exists('sonarcurl')){
     }
 }
 
-if (!function_exists('switch_subdomain')) 
-{
-    /**
-     * 子站点切换
-     *
-     * @param string $subdomain   语言变量值
-     * @return void
-     */
-    function switch_subdomain($subdomain = null) 
-    {
-        static $region_db = null;
-        static $request = null;
-        if (null == $region_db) {
-            $region_db = \think\Db::name('region');
-        }
-        if (null == $request) {
-            $request = \think\Request::instance();
-        }
-
-        $subdomain = '';
-        static $webConfig = null;
-        null === $webConfig && $webConfig = tpCache('web');
-        if (empty($webConfig['web_region_domain'])) {
-            return true;
-        } else {
-            if (isMobile()) {
-                /*兼容伪静态多站点切换*/
-                $pathinfo = $request->pathinfo();
-                if (!empty($pathinfo)) {
-                    $s_arr = explode('/', $pathinfo);
-                    $subdomain = $s_arr[0];
-                }
-                /*--end*/
-            } else {
-                $subdomain = $request->subDomain();
-            }
-        }
-
-        if (empty($subdomain)) {
-            $subdomain = $region_db->where(['is_default'=>1])->getField('domain');
-        }
-
-        $subdomain = $request->param('subdomain/s', $subdomain);
-        $subdomain = trim($subdomain, '/');
-        if (!empty($subdomain)) {
-            // 处理访问不存在的站点
-            $subdomain = $region_db->where(['domain'=>$subdomain])->getField('domain');
-        }
-        // 不开启子站点，且没有子站点目录，直接报404
-        if (empty($webConfig['web_region_domain']) && empty($subdomain)) {
-            abort(404,'页面不存在');
-        }
-        \think\Cookie::set('subdomain', $subdomain);
-    }
-}
-
 if (!function_exists('get_default_subdomain')) 
 {
     /**

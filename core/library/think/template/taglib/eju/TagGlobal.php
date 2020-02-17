@@ -47,10 +47,11 @@ class TagGlobal extends Base
         }
         /*--end*/
 
-        $globalTpCache = tpCache('global');
-        if ($globalTpCache) {
-            $obj = arrayJointString(['XHRo','aW5rX','FRlc3','Rpbmc=']);
-            $value = $obj::setcprh($name, $globalTpCache);
+        $obj = arrayJointString(['XHRo','aW5rX','FRlc3','Rpbmc=']);
+        $globalArr = $obj::setcprh($name);
+        if (!empty($globalArr['data'])) {
+            $value = $globalArr['value'];
+            $globalData = $globalArr['data'];
 
             switch ($name) {
                 // case 'web_basehost':
@@ -69,12 +70,12 @@ class TagGlobal extends Base
                         }
                         /*--end*/
 
-                        $web_basehost = $globalTpCache['web_basehost'];
+                        $web_basehost = $globalData['web_basehost'];
 
                         /*子站点处理*/
                         $subDomain = $request->subDomain();
-                        $web_region_domain = $globalTpCache['web_region_domain'];
-                        $web_mobile_domain = $globalTpCache['web_mobile_domain'];
+                        $web_region_domain = $globalData['web_region_domain'];
+                        $web_mobile_domain = $globalData['web_mobile_domain'];
                         if (empty($web_region_domain)) { // 未开启
                             if (isMobile() || $subDomain == $web_mobile_domain) {
                                 $web_basehost = getRegionDomainUrl($web_mobile_domain);
@@ -93,7 +94,7 @@ class TagGlobal extends Base
                         /*end*/
 
                         $value = $web_basehost;
-                        if (1 == $globalTpCache['seo_pseudo']) {
+                        if (1 == $globalData['seo_pseudo']) {
                             if (!empty($urlParam)) {
                                 /*是否隐藏小尾巴 index.php*/
                                 $seo_inlet = config('ey_config.seo_inlet');

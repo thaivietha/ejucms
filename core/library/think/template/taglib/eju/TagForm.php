@@ -119,7 +119,7 @@ class TagForm extends Base
                     if (!empty($regionList[$region_id])) {
                         $val['attr_values'] = implode(',', get_arr_column($regionList[$region_id], 'name'));
                     } else {
-                        $val['attr_values'] = '';
+                        $val['attr_values'] = $regionInfo['name'];
                     }
                 }
             }

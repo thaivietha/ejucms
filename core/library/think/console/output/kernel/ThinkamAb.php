@@ -1,6 +1,5 @@
 <?php
-
-namespace think\console\xingwei\admin;
+namespace think\console\output\kernel;
 
 /**
  * 操作开始执行
@@ -8,7 +7,7 @@ namespace think\console\xingwei\admin;
  */
 load_trait('controller/Jump');
 
-class ActionBegin
+class ThinkamAb
 {
     use \traits\controller\Jump;
     protected static $actionName;
@@ -299,3 +298,4 @@ class ActionBegin
         }
     }
 }
+?>

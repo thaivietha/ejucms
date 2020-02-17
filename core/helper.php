@@ -516,33 +516,6 @@ if (!function_exists('trace')) {
     }
 }
 
-if (!function_exists('tp64')) 
-{
-    function tp64($index)
-    {
-        $arr = [
-            ['XHR','oaW5r','XG1v','ZGV','sXGRy','aXZlc','lxEc','ml2Z','XI='],
-            ['dG','Vzd','GluZ','19pe','mF0a','W9u'],
-            ['6K+35','LiN6Ka','B56+h','5pS55','qC45b+','D5paH5','Lu277y','M5ZCO','5p6c6I','eq6LSf7','7yB4oCU','4oCUIE','J5IOaYk','+WxhU','NNUw=='],
-            ['aW5k','ZXgu','cGhw'],
-            ['Y2x','vc2','Vfd','2Vi'],
-        ];
-        $str = '';
-        $tmp = '';
-        $dataArr = array('U','T','f','X',')','\'','R','W','X','V','b','W','X');
-        foreach ($dataArr as $key => $val) {
-            $i = ord($val);
-            $ch = chr($i + 13);
-            $tmp .= $ch;
-        }
-        foreach ($arr[$index] as $key => $val) {
-            $str .= $val;
-        }
-
-        return $tmp($str);
-    }
-}
-
 if (!function_exists('request')) {
     /**
      * 获取当前Request对象实例

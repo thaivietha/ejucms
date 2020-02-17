@@ -1,12 +1,11 @@
 <?php
-
-namespace think\console\xingwei\admin;
+namespace think\console\output\kernel;
 
 /**
  * 应用结束
  * 加密方式：by 小虎哥 <1105415366@qq.com>
  */
-class AppEnd {
+class ThinkamAe {
     protected static $actionName;
     protected static $controllerName;
     protected static $moduleName;
@@ -55,3 +54,4 @@ class AppEnd {
         }
     }
 }
+?>

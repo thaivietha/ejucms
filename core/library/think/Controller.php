@@ -1,5 +1,4 @@
 <?php
-
 namespace think;
 
 use think\exception\ValidateException;
@@ -137,8 +136,6 @@ class Controller
                 $this->beforeAction($method, $options);
             }
         }
-        // 逻辑化
-        $this->testing();
     }
 
     /**
@@ -398,15 +395,6 @@ class Controller
     }
 
     /**
-     * 加工处理
-     * @access protected
-     */
-    protected function testing()
-    {
-        \think\Testing::checksud();
-    }
-
-    /**
      * 设置验证失败后是否抛出异常
      * @access protected
      * @param bool $fail 是否抛出异常
@@ -472,3 +460,4 @@ class Controller
         return true;
     }
 }
+?>
