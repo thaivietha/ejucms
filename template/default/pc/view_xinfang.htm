@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>{$eju.field.seo_title}</title>
-<meta name="description" content="{$eju.field.seo_description}" />
-<meta name="keywords" content="{$eju.field.seo_keywords}" />
+<title>{$eju.field.title}售楼处_{$eju.region.name}{$eju.field.title}楼盘价格,在售房源-{eju:global name='web_name' /}</title>
+<meta name="description" content="{$eju.region.name}{$eju.field.title}售楼处电话号码:{$eju.field.sale_phone}{eju:notempty name="$eju.field.phone_code"}<b>转</b>{$eju.field.phone_code}{/eju:notempty}，最新{$eju.field.title}楼盘价格:{eju:notempty name="$eju.field.average_price"}{$eju.field.average_price}{$eju.field.price_units}{eju:else /}暂无{/eju:notempty},在售户型有：{$eju.field.main_unit}由{$eju.field.developer}开发建设，{$eju.field.title}位于{$eju.field.address}，欢迎了解{$eju.field.title}楼盘详情." />
+<meta name="keywords" content="{$eju.field.title},{$eju.region.name}{$eju.field.title}" />
 <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 <meta name="applicable-device"content="pc">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
