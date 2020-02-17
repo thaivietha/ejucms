@@ -84,8 +84,8 @@ class Response
         // 处理输出数据
         $data = $this->getContent();
 
-        // Trace调试注入
-        if (Env::get('app_trace', Config::get('app_trace'))) {
+        // 调试注入
+        if (false) {
             Debug::inject($this, $data);
         }
 

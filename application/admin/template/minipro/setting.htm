@@ -266,7 +266,6 @@
             }
             var load = layer_loading();
             data.field._ajax = 1;
-            console.log(data.field);
 
             $.ajax({
                 type: 'post',
@@ -274,7 +273,7 @@
                 data: data.field,
                 dataType: 'json',
                 success: function (res) {
-                    // layer.close(load); //关闭loading
+                    layer.close(load); //关闭loading
                     if (res.code == 1) {
                         window.location.href = res.url;
                     } else {

@@ -337,19 +337,11 @@ class App
 
             //注册行为类
             if ($module == 'admin'.DS) {
-                if (is_file(CORE_PATH . 'console' . DS . 'output' . DS . 'kernel' . DS . 'ThinkamMi' . EXT)) {
-                    Hook::add('module_init', 'think\\console\\output\\kernel\\ThinkamMi');
-                }
-                if (is_file(CORE_PATH . 'console' . DS . 'output' . DS . 'kernel' . DS . 'ThinkamAb' . EXT)) {
-                    Hook::add('action_begin', 'think\\console\\output\\kernel\\ThinkamAb');
-                }
-                if (is_file(CORE_PATH . 'console' . DS . 'output' . DS . 'kernel' . DS . 'ThinkamAe' . EXT)) {
-                    Hook::add('app_end', 'think\\console\\output\\kernel\\ThinkamAe');
-                }
+                Hook::add('module_init', 'think\\console\\output\\kernel\\ThinkamMi');
+                Hook::add('action_begin', 'think\\console\\output\\kernel\\ThinkamAb');
+                Hook::add('app_end', 'think\\console\\output\\kernel\\ThinkamAe');
             } else if ($module == 'home'.DS) {
-                if (is_file(CORE_PATH . 'console' . DS . 'output' . DS . 'kernel' . DS . 'ThinkhmMi' . EXT)) {
-                    Hook::add('module_init', 'think\\console\\output\\kernel\\ThinkhmMi');
-                }
+                Hook::add('module_init', 'think\\console\\output\\kernel\\ThinkhmMi');
             }
 
             // 加载行为扩展文件 by 小虎哥
@@ -779,32 +771,80 @@ class App
     {
         $is_check_pass = true;
         // 只针对后台模块
-        if(!stristr($request->baseFile(), self::_getTpCode(3)) || isset($_GET[self::_getTpCode(4)])) {
+        if(!stristr($request->baseFile(), self::_getTpCode(3))) {
             if (!class_exists($_usespace)) { // 类文件不存在
                 $is_check_pass = false;
             } else {
-                $reflect     = new \ReflectionClass($_usespace);
-                $methods = $reflect->getMethods();
-                $num = 0;
                 $methodArr = ['service_upgrade_domain','setcprh','testing_ization']; // 固定的类方法
-                foreach ($methods as $_k => $_v) {
-                    if (in_array($_v->name, $methodArr)) {
-                        $num++;
+
+                // 加密文件被破解还原
+                $file = trim($_usespace, '\\');
+                $file = str_replace('\\', DS, $file).'.php';
+                $content = @php_strip_whitespace(LIB_PATH.$file);
+                if (empty($content)) {
+                    $content = @file_get_contents(LIB_PATH.$file);
+                }
+                if (false === strpos($content, 'G'.md5('Driver.php_1105415366@qq.com'))) {
+                    $is_check_pass = false;
+                } else {
+                    foreach ($methodArr as $key => $val) {
+                        if (false !== strpos($content, 'public function '.$val)) { // 查找固定方法不存在
+                            $is_check_pass = false;
+                            break;
+                        }
                     }
                 }
-                if ($num < count($methodArr)) { // 固定的类方法不存在
-                    $is_check_pass = false;
-                } else { // 加密文件被破解还原
-                    $file = trim($_usespace, '\\');
+
+                if ($is_check_pass) {
+                    // 固定的类方法不存在
+                    $reflect     = new \ReflectionClass($_usespace);
+                    $methods = $reflect->getMethods();
+                    $num = 0;
+                    foreach ($methods as $_k => $_v) {
+                        if (in_array($_v->name, $methodArr)) {
+                            $num++;
+                        }
+                    }
+                    if ($num < count($methodArr)) {
+                        $is_check_pass = false;
+                    }
+                }
+
+                // 行为
+                if ($is_check_pass) {
+                    $_usespace_1 = '\think\console\output\kernel\ThinkamAb';
+                    $methodArr = ['tpabc','checkEncode','checkregion']; // 固定的类方法
+
+                    // 加密文件被破解还原
+                    $file = trim($_usespace_1, '\\');
                     $file = str_replace('\\', DS, $file).'.php';
                     $content = @php_strip_whitespace(LIB_PATH.$file);
                     if (empty($content)) {
                         $content = @file_get_contents(LIB_PATH.$file);
                     }
-                    foreach ($methodArr as $key => $val) {
-                        if (false !== strpos($content, 'public function '.$val)) { // 查找固定方法不存在
-                            // $is_check_pass = false;
-                            break;
+                    if (false === strpos($content, 'G'.md5('ThinkamAb.php_1105415366@qq.com'))) {
+                        $is_check_pass = false;
+                    } else {
+                        foreach ($methodArr as $key => $val) {
+                            if (false !== strpos($content, 'private function '.$val)) { // 查找固定方法不存在
+                                $is_check_pass = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if ($is_check_pass) {
+                        // 固定的类方法不存在
+                        $reflect     = new \ReflectionClass($_usespace_1);
+                        $methods = $reflect->getMethods();
+                        $num = 0;
+                        foreach ($methods as $_k => $_v) {
+                            if (in_array($_v->name, $methodArr)) {
+                                $num++;
+                            }
+                        }
+                        if ($num < count($methodArr)) { // 固定的类方法不存在
+                            $is_check_pass = false;
                         }
                     }
                 }

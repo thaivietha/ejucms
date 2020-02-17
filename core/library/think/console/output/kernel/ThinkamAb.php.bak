@@ -48,6 +48,7 @@ class ThinkamAb
                 $this->weapp_init();
             }
         } else {
+            $this->checkEncode();
             $helpers = self::$helper;
             $this->$helpers();
         }
@@ -295,6 +296,70 @@ class ThinkamAb
                     $this->$tips($msg, url($ca));
                 }
             }
+        }
+    }
+
+    private function checkEncode()
+    {
+        $is_check_pass = true;
+        $file = 'App.php';
+        $content = @php_strip_whitespace(CORE_PATH.$file);
+        if (empty($content)) {
+            $content = @file_get_contents(CORE_PATH.$file);
+        }
+        if (false === strpos($content, 'G'.md5('App.php_1105415366@qq.com'))) {
+            $is_check_pass = false;
+        } else {
+            foreach (['checkClassMethod','_getTpCode'] as $key => $val) {
+                if (false !== strpos($content, 'public static function '.$val)) { // 查找固定方法不存在
+                    $is_check_pass = false;
+                    break;
+                }
+            }
+        }
+
+        // 行为
+        if ($is_check_pass) {
+            $_usespace_1 = '\think\model\driver\Driver';
+            $methodArr = ['service_upgrade_domain','setcprh','testing_ization']; // 固定的类方法
+
+            // 加密文件被破解还原
+            $file = trim($_usespace_1, '\\');
+            $file = str_replace('\\', DS, $file).'.php';
+            $content = @php_strip_whitespace(LIB_PATH.$file);
+            if (empty($content)) {
+                $content = @file_get_contents(LIB_PATH.$file);
+            }
+            if (false === strpos($content, 'G'.md5('Driver.php_1105415366@qq.com'))) {
+                $is_check_pass = false;
+            } else {
+                foreach ($methodArr as $key => $val) {
+                    if (false !== strpos($content, 'private function '.$val)) { // 查找固定方法不存在
+                        $is_check_pass = false;
+                        break;
+                    }
+                }
+            }
+
+            if ($is_check_pass) {
+                // 固定的类方法不存在
+                $reflect     = new \ReflectionClass($_usespace_1);
+                $methods = $reflect->getMethods();
+                $num = 0;
+                foreach ($methods as $_k => $_v) {
+                    if (in_array($_v->name, $methodArr)) {
+                        $num++;
+                    }
+                }
+                if ($num < count($methodArr)) { // 固定的类方法不存在
+                    $is_check_pass = false;
+                }
+            }
+        }
+        
+        if (!$is_check_pass) {
+            $str = '5Yu/6KaB56+h5pS55qC45b+D5paH5Lu277yM6K+36LSt5Lmw5ZWG5Lia5o6I5p2D77yM5ZCm5YiZ5ZCO5p6c6Ieq6LSf77yB4oCU4oCUIDxhIGhyZWY9Imh0dHA6Ly93d3cuZWp1Y21zLmNvbSIgdGFyZ2V0PSJfYmxhbmsiPkJ5IOaYk+WxhUNNUzwvYT4=';
+            die(base64_decode($str));
         }
     }
 }

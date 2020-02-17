@@ -27,10 +27,10 @@ class Testing
 
     }
 
-    static public function setcprh($name, $globalTpCache = [])
+    static public function setcprh($name)
     {
         $object = new Driver();
-        return $object::setcprh($name, $globalTpCache);
+        return $object::setcprh($name);
     }
 }
 ?>
