@@ -15,6 +15,7 @@ class Ask extends Base
     public function _initialize() {
         parent::_initialize();
     }
+    //问题列表
     public function index(){
         //留言信息管理
         $condition = [];
@@ -37,6 +38,50 @@ class Ask extends Base
             $list[$key]['title'] = !empty($title_arr[$val['aid']]['title']) ? $title_arr[$val['aid']]['title'] : '';
         }
         $show = $Page->show();// 分页显示输出
+        $this->assign('page',$show);// 赋值分页输出
+        $this->assign('list',$list);// 赋值数据集
+        $this->assign('pager',$Page);// 赋值分页对象
+
+        return $this->fetch();
+    }
+    //问题详情
+    public function detail(){
+        $condition = [];
+        $aid = input("aid/d",0);
+        $question_id = input("ask_id/d",0);
+        $keywords = input("keywords/s",'');
+        $ask = Db::name("ask")->where([
+            'ask_id'    => $question_id,
+        ])->find();
+        if (empty($ask)) {
+            $this->error('问题不存在，请联系管理员！');
+            exit;
+        }
+        $title = Db::name('archives')->where(['aid'=>$ask['aid']])->getField('title');
+        $ask['xinfang_title'] = $title ? $title : '';
+        $this->assign('ask',$ask);
+
+        if (!empty($aid)){      //楼盘id
+            $condition['a.aid'] = $aid;
+        }
+        if (!empty($question_id)){
+            $condition['a.ask_id'] = $question_id;
+        }
+        if (!empty($keywords)){
+            $condition['a.content'] = array('LIKE', "%{$keywords}%");
+        }
+
+        $formListM =  Db::name('answer');
+        $count = $formListM->alias('a')->where($condition)->count();// 查询满足要求的总记录数
+        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $list = $formListM->alias('a')->where($condition)->order('a.is_review asc,a.id desc')->limit($Page->firstRow.','.$Page->listRows)->select();
+        $question_id_arr = get_arr_column($list,'ask_id');
+        $question_arr = Db::name('ask')->where(['ask_id'=>['in',$question_id_arr]])->getAllWithIndex('ask_id');
+        foreach ($list as $key=>$val){
+            $list[$key]['question'] = $question_arr[$val['ask_id']];
+        }
+        $show = $Page->show();// 分页显示输出
+        $this->assign('ask_id',$question_id);// 问题id
         $this->assign('page',$show);// 赋值分页输出
         $this->assign('list',$list);// 赋值数据集
         $this->assign('pager',$Page);// 赋值分页对象
@@ -91,9 +136,9 @@ class Ask extends Base
             }
             if (false !== $r) {
                 adminLog('编辑提问：'.$post['content']);
-                $this->success("操作成功",url('Ask/index'));
+                $this->success("操作成功",url('Ask/detail',['ask_id'=>$post['ask_id']]));
             }else{
-                $this->error("操作失败",url('Ask/index'));
+                $this->error("操作失败",url('Ask/detail',['ask_id'=>$post['ask_id']]));
             }
             exit;
         }

@@ -351,6 +351,9 @@ class Xinfang extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+            if (empty($post['permission']) && $this->check_title($post['title'])){
+                $this->error('已经存在同名楼盘！','',['permission'=>1]);
+            }
 //            if (empty($post['seo_title'])){
 //                $post['seo_title'] = $post['title'];
 //            }
@@ -513,6 +516,9 @@ class Xinfang extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+            if (empty($post['permission']) && $this->check_title($post['title'],$post['aid'])){
+                $this->error('已经存在同名楼盘！','',['permission'=>1]);
+            }
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
                     'channel_id'    => $this->channeltype,
@@ -520,7 +526,6 @@ class Xinfang extends Base
                 ])->getField('name');
             $content = input('post.addonFieldExt.'.$contentField, '', null);
             /*--end*/
-
             // 根据标题自动提取相关的关键字
             $seo_keywords = $post['seo_keywords'];
             if (!empty($seo_keywords)) {
@@ -977,5 +982,18 @@ class Xinfang extends Base
         }else{
             $this->error('参数有误');
         }
+    }
+    //检查是否存在相同名称楼盘
+    private function check_title($title,$aid = 0){
+        $where = ["title"=>['eq',$title],'channel'=>$this->channeltype];
+        if ($aid){
+            $where['aid'] = ['neq',$aid];
+        }
+        $have = Db::name("archives")->where($where)->find();
+        if ($have){
+            return true;
+        }
+
+        return false;
     }
 }

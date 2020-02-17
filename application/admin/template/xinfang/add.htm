@@ -1025,33 +1025,47 @@
             });
             //监听提交
             form.on('submit(formSubmit)', function(data){
-                var load = layer_loading();
                 data.field._ajax = 1;
                 $('textarea[class*="ckeditor"]').each(function(index, item){
                     data.field[item.name] = item.value;
                 });
-                $.ajax({
-                    type : 'post',
-                    url : "{:url('Xinfang/add')}",
-                    data : data.field,
-                    dataType : 'json',
-                    success : function(res){
-                        layer.close(load); //关闭loading
-                        if(res.code == 1){
-                            parent.window.location.href = res.url;
-                        }else{
-                            layer.msg(data.msg, {icon: 2,time: 2000});
-                        }
-                    },
-                    error: function(e){
-                        layer.close(load); //关闭loading
-                        showErrorAlert();
-                    }
-                });
-                return false;
+                form_submit(data);
             });
-
         });
+        //检测是否存在同名楼盘，并提交
+        function form_submit(data) {
+            console.log(data);
+            var load = layer_loading();
+            $.ajax({
+                type : 'post',
+                url : "{:url('Xinfang/add')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        parent.window.location.href = res.url;
+                    }else if(res.data.permission == 1){
+                        layer.confirm('已经存在同名楼盘,依然提交吗？', {
+                                title: false,
+                                btn: ['确定','取消'] //按钮
+                            }, function(index){
+                                data.field.permission = 1;
+                                form_submit(data);
+                            }, function(index){
+                            }
+                        );
+                    }else{
+                        layer.msg(data.msg, {icon: 2,time: 2000});
+                    }
+                },
+                error: function(e){
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        }
         //区域管理
         function set_region() {
             var url = "{:url('Region/index')}";

@@ -165,6 +165,9 @@ class Xiaoqu extends Base
         ])->getField('name');
         $content = input('post.addonFieldExt.'.$contentField, '', null);
         /*--end*/
+        if (!empty($post['xiaoqu_title'])){
+            $post['title'] = $post['xiaoqu_title'];
+        }
         /*是否有封面图*/
         if (empty($post['litpic'])) {
             $is_litpic = 0; // 无封面图

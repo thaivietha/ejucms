@@ -13,9 +13,9 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label">提问内容</label>
+                            <label class="layui-form-label">问题描述</label>
                             <div class="layui-input-inline">
-                                <textarea name="content" class="layui-textarea" placeholder="">{$info.content}</textarea>
+                                <textarea id="content" name="content" class="layui-textarea" placeholder="请输入问题描述"  style="width: 75%;padding:0px 0px;">{$info.content}</textarea>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -43,9 +43,35 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        window.UEDITOR_HOME_URL = "__ROOT_DIR__/public/plugins/Ueditor/";
+    </script>
+    {eju:static file="/public/plugins/Ueditor/ueditor.config.js"/}
+    {eju:static file="/public/plugins/Ueditor/ueditor.all.min.js"/}
+    {eju:static file="/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"/}
+    <script type="text/javascript">
+        UE.getEditor('content',{
+            serverUrl :"{:url('user/Uploadify/index',array('savepath'=>'weapp'))}",
+            zIndex: 999,
+            initialFrameWidth: "135%", //初化宽度
+            initialFrameHeight: 300, //初化高度
+            focus: false, //初始化时，是否让编辑器获得焦点true或false
+            maximumWords: 99999,
+            removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+            pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+            autoHeightEnabled: false,
+            toolbars: [["forecolor", "backcolor", "removeformat", "|", "simpleupload", "unlink"]],
+        });
 
+        //必须在提交前渲染编辑器；
+        function content() {
+            //判断编辑模式状态:0表示【源代码】HTML视图；1是【设计】视图,即可见即所得；-1表示不可用
+            if(UE.getEditor("content").queryCommandState('source') != 0) {
+                UE.getEditor("content").execCommand('source'); //切换到【设计】视图
+            }
+        }
+    </script>
     <script>
-
         layui.config({
             base: '__SKIN__/' //静态资源所在路径
             ,version: '{$version}'
@@ -71,6 +97,8 @@
             form.on('submit(formSubmit)', function(data){
                 var load = layer_loading();
                 data.field._ajax = 1;
+                var content = UE.getEditor("content").getContent();
+                data.field.content = content;
                 $.ajax({
                     type : 'post',
                     url : "{:url('Ask/edit')}",

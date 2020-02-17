@@ -65,9 +65,9 @@ class Answer extends Base
             $insertId = Db::name("answer")->insertGetId($data);
             if (false !== $insertId) {
                 adminLog('新增回答：'.$post['content']);
-                $this->success("操作成功", url('Answer/index',['ask_id'=>$post['ask_id']]));
+                $this->success("操作成功", url('Ask/detail',['ask_id'=>$post['ask_id']]));
             }else{
-                $this->error("操作失败", url('Answer/index',['ask_id'=>$post['ask_id']]));
+                $this->error("操作失败", url('Ask/detail',['ask_id'=>$post['ask_id']]));
             }
             exit;
         }
@@ -104,9 +104,9 @@ class Answer extends Base
             }
             if (false !== $r) {
                 adminLog('编辑回答：'.$post['content']);
-                $this->success("操作成功",url('Answer/index'));
+                $this->success("操作成功",url('Ask/detail',['ask_id'=>$post['ask_id']]));
             }else{
-                $this->error("操作失败",url('Answer/index'));
+                $this->error("操作失败",url('Ask/detail',['ask_id'=>$post['ask_id']]));
             }
             exit;
         }
@@ -120,6 +120,10 @@ class Answer extends Base
             exit;
         }
         $question = Db::name("ask")->where("ask_id=".$info['ask_id'])->find();
+        if (empty($question)) {
+            $this->error('数据不存在，请联系管理员！');
+            exit;
+        }
         $this->assign('info',$info);
         $this->assign('ask',$question);
 
