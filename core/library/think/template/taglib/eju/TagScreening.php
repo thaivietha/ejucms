@@ -445,6 +445,7 @@ EOF;
             $first_url = ROOT_DIR.'/index.php?';
         }
         unset($param_query['domain']);
+        unset($param_query['page']);
         $param_url = http_build_query($param_query);
         $url = $first_url.$param_url;
         $url = urldecode($url);
