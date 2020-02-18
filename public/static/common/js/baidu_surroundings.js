@@ -227,7 +227,7 @@ function addMarker(point, index,selectIndex){
     marker.setIcon(new BMap.Icon('//map.baidu.com/newmap/static/common/images/mk_14e51b4.gif',new BMap.Size(34,24),{
         imageOffset:new BMap.Size(0,0)
     }));
-    console.log(selectIndex);
+    // console.log(selectIndex);
     var label = new BMap.Label(selectIndex,{offset:new BMap.Size(3,0)});
     label.setStyle({
         background:'none',color:'#fff',border:'none'
@@ -542,7 +542,7 @@ function sortOrder(pm,map_result,map_tab){
             function(index, value)
             {
                 zbcount++;
-                var key = i*10 + index + 1;
+                var key = start + 1;//i*10 + index + 1;
                 var marker = addMarker(value._point,index,key);
                 var openInfoWinFun = addInfoWindow(marker,value._poi,i,index);
                 openInfoWinFuns.push(openInfoWinFun);
