@@ -93,9 +93,9 @@ return array (
   'living_room' => 
   array (
     'name' => 'living_room',
-    'type' => 'enum(\'0\',\'1厅\',\'2厅\',\'3厅\',\'4厅\')',
+    'type' => 'enum(\'0厅\',\'1厅\',\'2厅\',\'3厅\',\'4厅\')',
     'notnull' => false,
-    'default' => '0',
+    'default' => '0厅',
     'primary' => false,
     'autoinc' => false,
   ),
@@ -120,9 +120,9 @@ return array (
   'balcony' => 
   array (
     'name' => 'balcony',
-    'type' => 'enum(\'0\',\'1阳台\',\'2阳台\',\'3阳台\')',
+    'type' => 'enum(\'0阳台\',\'1阳台\',\'2阳台\',\'3阳台\')',
     'notnull' => false,
-    'default' => '0',
+    'default' => '0阳台',
     'primary' => false,
     'autoinc' => false,
   ),

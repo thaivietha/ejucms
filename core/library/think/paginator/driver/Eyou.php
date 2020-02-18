@@ -25,6 +25,7 @@ class Eyou extends Paginator
      */
     protected function getFirstButton($text = "&laquo;")
     {
+
         if ($this->currentPage() <= 1) {
             return $this->getDisabledTextWrapper($text);
         }
@@ -41,6 +42,7 @@ class Eyou extends Paginator
      */
     protected function getPreviousButton($text = "&laquo;",$class = '')
     {
+
         if ($this->currentPage() <= 1) {
             return $this->getDisabledTextWrapper($text);
         }
@@ -148,6 +150,7 @@ class Eyou extends Paginator
 
         $side   = $listsize;
         $window = $side * 2;
+
         if ($this->lastPage < $window + 2) {
             $block['first'] = $this->getUrlRange(1, $this->lastPage);    //显示全部
         } elseif ($this->currentPage < ($side + 1)) {
@@ -157,6 +160,7 @@ class Eyou extends Paginator
         } else {
             $block['slider'] = $this->getUrlRange($this->currentPage - $side, $this->currentPage + $side);
         }
+
         $html = '';
 
         if (is_array($block['first'])) {
@@ -183,6 +187,7 @@ class Eyou extends Paginator
     public function render($listitem = '', $listsize = '')
     {
         if ($this->hasPages()) { // 有数据的情况下
+
             $listitemArr = explode(',', $listitem);
             foreach ($listitemArr as $key => $val) {
                 $listitemArr[$key] = trim($val);

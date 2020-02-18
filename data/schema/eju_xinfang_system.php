@@ -201,7 +201,7 @@ return array (
   'price_units' => 
   array (
     'name' => 'price_units',
-    'type' => 'enum(\'元/㎡\',\'元/套\')',
+    'type' => 'enum(\'元/㎡\',\'元/套\',\'万/套\')',
     'notnull' => false,
     'default' => '元/㎡',
     'primary' => false,
