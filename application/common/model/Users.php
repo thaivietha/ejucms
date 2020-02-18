@@ -47,6 +47,7 @@ class Users extends Model
      * 检测手机号码和邮箱是否已经被占用
      */
     public static function check_update($username,$mobile,$email,$id = 0){
+        $id = intval($id);
         $where = "mobile='$mobile'";
         if (!empty($username)){
             $where .= " or username='$username'";
@@ -55,7 +56,7 @@ class Users extends Model
             $where .= " or email='$email'";
         }
         $where = "(".$where.")";
-        if ($id){
+        if (!empty($id)){
             $where .= " and id<>$id";
         }
         $have = self::where($where)->find();
@@ -66,11 +67,12 @@ class Users extends Model
      * 获取全部置业人员列表
      */
     public static function get_list($is_saleman = 0,$id = 0){
-        if ($is_saleman && $id){
+        $id = intval($id);
+        if ($is_saleman && !empty($id)){
             $where = "is_del=0 and status=1 and (is_saleman=1 or id={$id})";
         }else if ($is_saleman){
             $where = "is_del=0 and status=1 and is_saleman=1";
-        }else if ($id){
+        }else if (!empty($id)){
             $where = "is_del=0 and status=1 and id={$id}";
         }else{
             $where = "is_del=0 and status=1";

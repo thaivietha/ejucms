@@ -132,6 +132,7 @@ class Users extends Base
             $post = input('post.');
             $r = false;
             if(!empty($post['id'])){
+                $post['id'] = intval($post['id']);
                 $user = new \app\common\model\Users();
                 if ($user_info = $user::check_update($post['username'],$post['mobile'],$post['email'],$post['id'])){
                     if ($user_info['mobile'] == $post['mobile']){
