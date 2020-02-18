@@ -36,14 +36,9 @@
           <div class="szdh-item">
             <div class="szdh-lab">区域二手房</div>
             <ul class="szdh-list clearfix">
-             {eju:screening id='field' typeid='11' domain='0' region='on' show='2'  opencity='2'}
-				{eju:volist name='$field.list' id='vo'  row='1'}
-					{eju:volist name='$vo.dfvalue' id='vo2'}
-					<li><a {$vo2.onClick}>{$vo2.name}二手房</a></li>
-					{/eju:volist}
-				{/eju:volist}
-				{$field.hidden}
-				{/eju:screening} 
+             {eju:region type='son' row='60' id='field'}
+              <li><a href="{$field.domainurl}" target="_blank">{$field.name}二手房</a></li>
+             {/eju:region}
             </ul>
           </div>
         </div>
@@ -51,7 +46,6 @@
         {/eju:notempty}
       </div>
       <!--城市导航 end-->
-      {eju:notempty name="$eju.region.next"}
       <!--热门城市 start--> 
       <!-- 展开添加样式on -->
       <div class="linkrow">
@@ -59,7 +53,7 @@
           <div class="linkscont-v5">
             <ul class="alinklist clearfix">
               <!--热门城市开始-->
-              {eju:region type='son' row='60' id='field'}
+              {eju:region type='self' row='60' id='field'}
               <li><a href="{$field.domainurl}" target="_blank">{$field.name}</a></li>
               {/eju:region}
               <!--热门城市结束-->
@@ -68,7 +62,6 @@
           <i class="footmore"></i> </div>
       </div>
       <!--热门城市 end-->
-      {/eju:notempty}
       <!-- 展开添加样式on -->
       <div class="linkrow" id="yqljdiv">
         <div class="ftlinkswrap"> <span class="linkstit-v5">友情链接</span>
