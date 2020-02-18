@@ -173,7 +173,12 @@
       <div class="detail-content clearfix">
         <div class="detail-row margin-top20">
           <div class="title">在售户型 <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" class="more fr">更多</a>
-            <div class="room-count fr"> <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" title="全部户型">全部户型(<span>{$eju.field.huxing_list|count}</span>)</a> {eju:fanglist type="huxing" id="field" group="huxing_room"} <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','room'=>$field.huxing_room])}" name=".tab_{$field.huxing_room}">{$field.huxing_room}居室(<span>{$field.count}</span>)</a> {/eju:fanglist} </div>
+            <div class="room-count fr">
+              <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" title="全部户型">全部户型(<span>{$eju.field.huxing_list|count}</span>)</a>
+              {eju:fanglist type="huxing" id="field" group="huxing_room"}
+              <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','room'=>$field.huxing_room,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" name=".tab_{$field.huxing_room}">{$field.huxing_room}居室(<span>{$field.count}</span>)</a>
+              {/eju:fanglist}
+            </div>
           </div>
           <div class="room-lists" id="type"> {eju:fanglist name="$eju.field.huxing_list" id="field" row='3'}
             <div class="loan room-row clearfix" >
@@ -202,8 +207,12 @@
             {/eju:fanglist} </div>
         </div>
         <div class="detail-row margin-top20">
-          <div class="title">楼盘相册 <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo'])}" title="相册" class="more fr">更多</a>
-            <div class="room-count fr"> {eju:fanglist type="photo" id="field" group="photo_type"} <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','photo_type'=>$field.photo_type,'province_id'=>$eju.field.province_id,'city_id'=>$eju.field.city_id,'area_id'=>$eju.field.area_id])}" name=".cate_{$field.photo_type}">{$field.photo_type}({$field.count})</a> {/eju:fanglist} </div>
+          <div class="title">楼盘相册 <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','province_id'=>$eju.field.province_id,'city_id'=>$eju.field.city_id,'area_id'=>$eju.field.area_id])}" title="相册" class="more fr">更多</a>
+            <div class="room-count fr">
+              {eju:fanglist type="photo" id="field" group="photo_type"}
+              <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','photo_type'=>$field.photo_type,'province_id'=>$eju.field.province_id,'city_id'=>$eju.field.city_id,'area_id'=>$eju.field.area_id])}" name=".cate_{$field.photo_type}">{$field.photo_type}({$field.count})</a>
+              {/eju:fanglist}
+            </div>
           </div>
           <ul class="photo-lists clearfix" id="photo">
             {eju:fanglist name="$eju.field.photo_list" id="field" row='8'}

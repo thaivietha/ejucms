@@ -162,7 +162,6 @@ class TagUsersList extends Base
                         $arcval['count_'.$v] = Db::name("archives")->where(['users_id'=>$arcval['users_id'],'is_del'=>0,'status'=>1,'channel'=>['in',$v]])->count();
                     }
                 }
-
                 //内页路由
                 $resultUrl = $this->UsersLoginc->GetUrlData(['users_id'=>$val['id']]);
                 $arcval = array_merge($resultUrl,$arcval);

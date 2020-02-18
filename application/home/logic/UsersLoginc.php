@@ -16,19 +16,19 @@ class UsersLoginc
         if (empty($param['users_id'])) $param['users_id'] = 0;
         $result = [];
         //经纪人详情页
-        $result['arcurl'] = url('home/Agent/index', ['users_id'=>$param['users_id']], true, false, 1);
+        $result['arcurl'] = url('home/Agent/index', ['users_id'=>$param['users_id']]); //, true, false, 1
         //经纪人二手房
-        $result['ershouurl'] = url('home/Agent/ershou', ['users_id'=>$param['users_id']], true, false, 1);
+        $result['ershouurl'] = url('home/Agent/ershou', ['users_id'=>$param['users_id']]);
         //经纪人租房
-        $result['zufangurl'] = url('home/Agent/zufang', ['users_id'=>$param['users_id']], true, false, 1);
+        $result['zufangurl'] = url('home/Agent/zufang', ['users_id'=>$param['users_id']]);
         //经纪人商铺出售
-        $result['shopcsurl'] = url('home/Agent/shopcs', ['users_id'=>$param['users_id']], true, false, 1);
+        $result['shopcsurl'] = url('home/Agent/shopcs', ['users_id'=>$param['users_id']]);
         //经纪人商铺出租
-        $result['shopczurl'] = url('home/Agent/shopcz', ['users_id'=>$param['users_id']], true, false, 1);
+        $result['shopczurl'] = url('home/Agent/shopcz', ['users_id'=>$param['users_id']]);
         //经纪人写字楼出售
-        $result['officecsurl'] = url('home/Agent/officecs', ['users_id'=>$param['users_id']], true, false, 1);
+        $result['officecsurl'] = url('home/Agent/officecs', ['users_id'=>$param['users_id']]);
         //经纪人写字楼出租
-        $result['officeczurl'] = url('home/Agent/officecz', ['users_id'=>$param['users_id']], true, false, 1);
+        $result['officeczurl'] = url('home/Agent/officecz', ['users_id'=>$param['users_id']]);
 
         return $result;
     }

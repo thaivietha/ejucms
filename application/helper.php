@@ -479,8 +479,8 @@ if (!function_exists('arcurl')) {
                 );
                 !empty($param['column']) && $vars['column'] = $param['column'];
                 !empty($param['sid']) && $vars['sid'] = $param['sid'];
-                !empty($param['photo_type']) && $vars['photo_type'] = urlencode($param['photo_type']);
-                !empty($param['room']) && $vars['room'] = urlencode($param['room']);
+                !empty($param['photo_type']) && $vars['photo_type'] = $param['photo_type'];//urlencode($param['photo_type']);
+                !empty($param['room']) && $vars['room'] = $param['room'];//urlencode($param['room']);
             } else {
                 $vars = $param;
             }

@@ -108,7 +108,7 @@ if (3 == $seo_pseudo) {
             //内容详情页
             $rewrite_str.'<dirname>/<aid>/<column>_<sid>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'<dirname>/<aid>/<column>_<photo_type>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
-            $rewrite_str.'<dirname>/<aid>/<column>_<room>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            $rewrite_str.'<dirname>/<aid>/<column>/<room>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'<dirname>/<aid>/<column>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'<dirname>/<aid>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
         );
@@ -121,7 +121,7 @@ if (3 == $seo_pseudo) {
             $rewrite_str.'xinfang/<tid>$' => array('home/Xinfang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>/<column>_<sid>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
-            $rewrite_str.'xinfang/<dirname>/<aid>/<column>_<room>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            $rewrite_str.'xinfang/<dirname>/<aid>/<column>/<room>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>/<column>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 团购模型伪静态
@@ -180,12 +180,19 @@ if (3 == $seo_pseudo) {
 //        $rewrite_str.'aswer/edit_<answer_id>$' => array('home/Ask/ajax_edit_answer',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
     ];
     /*经纪人*/
-
+    $home_rewrite += [
+        $rewrite_str.'agent/index/<users_id>$' => array('home/Agent/index',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+        $rewrite_str.'agent/ershou/<users_id>$' => array('home/Agent/ershou',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+        $rewrite_str.'agent/zufang/<users_id>$' => array('home/Agent/zufang',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+        $rewrite_str.'agent/shopcs/<users_id>$' => array('home/Agent/shopcs',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+        $rewrite_str.'agent/shopcz/<users_id>$' => array('home/Agent/shopcz',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+        $rewrite_str.'agent/officecs/<users_id>$' => array('home/Agent/officecs',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+        $rewrite_str.'agent/officecz/<users_id>$' => array('home/Agent/officecz',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+    ];
 
     $home_rewrite = array_merge($rewrite, $home_rewrite);
 
 }
-
 /*插件模块路由*/
 $weapp_route_file = 'weapp/route.php';
 if (file_exists(APP_PATH.$weapp_route_file)) {
