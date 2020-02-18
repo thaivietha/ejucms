@@ -5535,7 +5535,6 @@ house-title .house-follow a {
 }
 .lp-pb-check2, .lp-pb-px1 {
 	float: left;
-	margin-left: 23px;
 	position: relative;
 	width: 1060px;
 }
@@ -5559,7 +5558,6 @@ house-title .house-follow a {
     background: url(../img/delete_blue.png)no-repeat left center;
     text-decoration: none;
     cursor: pointer;
-    margin-left: 16px;
     display: inline-block;
     float: left;
 }
