@@ -91,18 +91,22 @@ class Index extends Base
         }
         if (!tpCache('system.system_channeltype_shopcs')){
             $fieldLogic->synChannelTableColumns('','shopcs');
+            $this->insertModelQuickentry('shopcs');
             tpCache('system', ['system_channeltype_shopcs'=>1]);
         }
         if (!tpCache('system.system_channeltype_shopcz')){
             $fieldLogic->synChannelTableColumns('','shopcz');
+            $this->insertModelQuickentry('shopcz');
             tpCache('system', ['system_channeltype_shopcz'=>1]);
         }
         if (!tpCache('system.system_channeltype_officecs')){
             $fieldLogic->synChannelTableColumns('','officecs');
+            $this->insertModelQuickentry('officecs');
             tpCache('system', ['system_channeltype_officecs'=>1]);
         }
         if (!tpCache('system.system_channeltype_officecz')){
             $fieldLogic->synChannelTableColumns('','officecz');
+            $this->insertModelQuickentry('officecz');
             tpCache('system', ['system_channeltype_officecz'=>1]);
         }
         //2.0版本升级后，同步saleman表数据到会员中心
@@ -180,6 +184,28 @@ class Index extends Base
         }
 
         return $this->fetch();
+    }
+
+    /**
+     * 插入系统内置的新模型到快捷导航表
+     */
+    private function insertModelQuickentry($nid = '')
+    {
+        if (!empty($nid)) {
+            $channeltypeInfo = Db::name('channeltype')->field('id,ntitle,ctl_name')->where(['nid'=>$nid])->find();
+            Db::name('quickentry')->insert([
+                'title' => $channeltypeInfo['ntitle'],
+                'laytext' => $channeltypeInfo['ntitle'],
+                'type'  => 2,
+                'controller'    => $channeltypeInfo['ctl_name'],
+                'action'    => 'index',
+                'vars'  => 'channel='.$channeltypeInfo['id'],
+                'groups'    => 1,
+                'sort_order'   => 100,
+                'add_time'  => getTime(),
+                'update_time'  => getTime(),
+            ]);
+        }
     }
 
     /**
