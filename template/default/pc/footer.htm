@@ -12,6 +12,7 @@
         {/eju:navig} 
       </ul>
     </div>
+
     <div class="links-v5"> 
       <!--城市导航 start--> 
       <!-- 展开添加样式on -->
@@ -21,6 +22,7 @@
             <p>你可以按区域查找{$eju.region.name}新房、二手房，也可以按区域查询{$eju.region.name}房价。同时，你买房 过程中遇到的很多问题都可以在这里得到解答。</p>
           </div>
           <i class="footmore"></i> </div>
+        {eju:notempty name="$eju.region.next"}
         <!--展开内容 start-->
         <div class="szdhwrap">
           <div class="szdh-item">
@@ -44,13 +46,12 @@
 				{/eju:screening} 
             </ul>
           </div>
-
-          
         </div>
-        <!--展开内容 end--> 
+        <!--展开内容 end-->
+        {/eju:notempty}
       </div>
-      <!--城市导航 end--> 
-      
+      <!--城市导航 end-->
+      {eju:notempty name="$eju.region.next"}
       <!--热门城市 start--> 
       <!-- 展开添加样式on -->
       <div class="linkrow">
@@ -66,13 +67,9 @@
           </div>
           <i class="footmore"></i> </div>
       </div>
-      <!--热门城市 end--> 
-      <!--周边城市 start--> 
+      <!--热门城市 end-->
+      {/eju:notempty}
       <!-- 展开添加样式on -->
-      
-      <!--周边城市 end--> 
-      <!-- 展开添加样式on -->
-      
       <div class="linkrow" id="yqljdiv">
         <div class="ftlinkswrap"> <span class="linkstit-v5">友情链接</span>
           <div class="linkscont-v5">

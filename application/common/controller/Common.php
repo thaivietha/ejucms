@@ -82,6 +82,7 @@ class Common extends Controller {
                     $regionInfo =  $this->getDefaultCity();
                 }
             }
+            $regionInfo['next'] = get_next_region_list($regionInfo['id']);
             \think\Cookie::set("regionInfo",  $regionInfo);
             $this->eju['region'] = $regionInfo;
         }
