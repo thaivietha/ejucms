@@ -175,7 +175,7 @@ class NavigationLogic extends Model
             [
                 'title' => '会员中心',
                 'code'   => 'user_Users_centre',
-                'url'   => url('home/Users/centre'),
+                'url'   => url('user/Users/centre'),
             ],
         ];
     }
