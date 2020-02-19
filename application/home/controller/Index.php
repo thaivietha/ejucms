@@ -59,12 +59,11 @@ class Index extends Base
         $this->eju = array_merge($this->eju, $eju);
         $this->assign('eju', $this->eju);
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
-        if ($web_region_domain && !empty($this->eju['param']['subDomain']) && $this->eju['param']['subDomain'] == 'www'){
-            $html = $this->fetch(":index_all");
-        }else{
-            $html = $this->fetch(":index");
+        if ($web_region_domain && !empty($this->eju['param']['subDomain']) && $this->eju['param']['subDomain'] == 'www' && file_exists("./template/{$this->tpl_theme}/pc/index_all.htm")){
 
+            return $this->fetch(":index_all");
         }
+        $html = $this->fetch(":index");
 
         return $html;
     }

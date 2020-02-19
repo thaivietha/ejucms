@@ -542,7 +542,7 @@ class Xinfang extends Base
             if (empty($post['litpic'])) {
                 $is_litpic = 0; // 无封面图
             } else {
-                $is_litpic = $post['is_litpic']; // 有封面图
+                $is_litpic = empty($post['is_litpic']) ? 0 : $post['is_litpic']; // 有封面图
             }
             // SEO描述
             $seo_description = '';
