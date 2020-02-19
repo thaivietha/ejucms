@@ -522,7 +522,7 @@ if (!function_exists('sitemap_xml'))
         } else {
             $sitemap_archives_num = intval($globalConfig['sitemap_archives_num']);
         }
-        $field = "aid, channel, is_jump, jumplinks, add_time, update_time, typeid, aid AS loc, add_time AS lastmod, 'daily' AS changefreq, '0.5' AS priority";
+        $field = "aid,province_id,city_id,area_id, channel, is_jump, jumplinks, add_time, update_time, typeid, aid AS loc, add_time AS lastmod, 'daily' AS changefreq, '0.5' AS priority";
         $result_archives = M('archives')->field($field)
             ->where($map)
             ->order('aid desc')
@@ -577,40 +577,117 @@ XML;
                 }
             }
         }
-        /*--end*/
-         
-        /*所有栏目*/
-        foreach ($result_arctype as $sub) {
-            if (is_array($sub)) {
-                $item = $xml->addChild('url'); //使用addChild添加节点
-                foreach ($sub as $key => $row) {
-                    if (in_array($key, array('loc','lastmod','changefreq','priority'))) {
-                        if ($key == 'loc') {
-                            if ($sub['is_part'] == 1) {
-                                $row = $sub['typelink'];
-                            } else {
-                                $row = get_typeurl($sub, false);
-                            }
-                            $row = str_replace('&amp;', '&', $row);
-                            $row = str_replace('&', '&amp;', $row);
-                        } else if ($key == 'lastmod') {
+        //如果存在多站点，则每个站点添加
+        $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+        if ($web_region_domain){
+            $domain = request()->host();
+            $domain_arr = explode('.',$domain);
+            $web_mobile_domain = config('ey_config.web_mobile_domain');
+            $scheme = request()->isSsl() || \think\Config::get('is_https') ? 'https://' : 'http://';
+            $region_list = get_region_list();
+            foreach ($region_list as $val){
+                if (!empty($val['domain']) && !empty($domain_arr) && $domain_arr[0] != $web_mobile_domain){
+                    //各个分站点首页
+                    $domain_arr[0] = $val['domain'];
+                    $url = $scheme.implode('.',$domain_arr);
+                    $item = $xml->addChild('url'); //使用addChild添加节点
+                    foreach (['loc','lastmod','changefreq','priority'] as $key1) {
+                        if ('loc' == $key1) {
+                            $row = $url;
+                        } else if ('lastmod' == $key1) {
                             $row = date('Y-m-d');
-                        } else if ($key == 'changefreq') {
-                            $row = $sitemap_changefreq_list;
-                        } else if ($key == 'priority') {
-                            $row = $sitemap_priority_list;
+                        } else if ('changefreq' == $key1) {
+                            $row = $sitemap_changefreq_index;
+                        } else if ('priority' == $key1) {
+                            $row = $sitemap_priority_index;
                         }
                         try {
-                            $node = $item->addChild($key, $row);
+                            $node = $item->addChild($key1, $row);
                         } catch (\Exception $e) {}
-                        if (isset($attribute_array[$key]) && is_array($attribute_array[$key])) {
-                            foreach ($attribute_array[$key] as $akey => $aval) {//设置属性值，我这里为空
+                        if (isset($attribute_array[$key1]) && is_array($attribute_array[$key1])) {
+                            foreach ($attribute_array[$key1] as $akey => $aval) {//设置属性值，我这里为空
                                 $node->addAttribute($akey, $aval);
+                            }
+                        }
+                    }
+                    //各个分站点栏目页
+                    foreach ($result_arctype as $sub) {
+                        if (is_array($sub)) {
+                            $item = $xml->addChild('url'); //使用addChild添加节点
+                            foreach ($sub as $key => $row) {
+                                if (in_array($key, array('loc','lastmod','changefreq','priority'))) {
+                                    if ($key == 'loc') {
+                                        if ($sub['is_part'] == 1) {
+                                            $row = $sub['typelink'];
+                                        } else {
+                                            if ($val['level'] == 1){
+                                                $sub['province_id'] = $val['id'];
+                                            }else if($val['level'] == 2){
+                                                $sub['city_id'] = $val['id'];
+                                            }else if($val['level'] == 3){
+                                                $sub['area_id'] = $val['id'];
+                                            }
+                                            $row = get_typeurl($sub, false);
+                                        }
+                                        $row = str_replace('&amp;', '&', $row);
+                                        $row = str_replace('&', '&amp;', $row);
+                                    } else if ($key == 'lastmod') {
+                                        $row = date('Y-m-d');
+                                    } else if ($key == 'changefreq') {
+                                        $row = $sitemap_changefreq_list;
+                                    } else if ($key == 'priority') {
+                                        $row = $sitemap_priority_list;
+                                    }
+                                    try {
+                                        $node = $item->addChild($key, $row);
+                                    } catch (\Exception $e) {}
+                                    if (isset($attribute_array[$key]) && is_array($attribute_array[$key])) {
+                                        foreach ($attribute_array[$key] as $akey => $aval) {//设置属性值，我这里为空
+                                            $node->addAttribute($akey, $aval);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }else{
+            /*所有栏目*/
+            foreach ($result_arctype as $sub) {
+                if (is_array($sub)) {
+                    $item = $xml->addChild('url'); //使用addChild添加节点
+                    foreach ($sub as $key => $row) {
+                        if (in_array($key, array('loc','lastmod','changefreq','priority'))) {
+                            if ($key == 'loc') {
+                                if ($sub['is_part'] == 1) {
+                                    $row = $sub['typelink'];
+                                } else {
+                                    $row = get_typeurl($sub, false);
+                                }
+                                $row = str_replace('&amp;', '&', $row);
+                                $row = str_replace('&', '&amp;', $row);
+                            } else if ($key == 'lastmod') {
+                                $row = date('Y-m-d');
+                            } else if ($key == 'changefreq') {
+                                $row = $sitemap_changefreq_list;
+                            } else if ($key == 'priority') {
+                                $row = $sitemap_priority_list;
+                            }
+                            try {
+                                $node = $item->addChild($key, $row);
+                            } catch (\Exception $e) {}
+                            if (isset($attribute_array[$key]) && is_array($attribute_array[$key])) {
+                                foreach ($attribute_array[$key] as $akey => $aval) {//设置属性值，我这里为空
+                                    $node->addAttribute($akey, $aval);
+                                }
                             }
                         }
                     }
                 }
             }
+            /*--end*/
         }
         /*--end*/
 
@@ -695,7 +772,8 @@ if (!function_exists('get_typeurl'))
         } else {
             static $domain = null;
             null === $domain && $domain = request()->domain();
-            $typeurl = typeurl("home/{$ctl_name}/lists", $arctype_info, true, $domain, $seo_pseudo, $seo_dynamic_format);
+            $typeurl = typeurl("home/{$ctl_name}/lists", $arctype_info, true, false, $seo_pseudo, $seo_dynamic_format);
+//            $typeurl = typeurl("home/{$ctl_name}/lists", $arctype_info, true, $domain, $seo_pseudo, $seo_dynamic_format);
         }
         // 自动隐藏index.php入口文件
         $typeurl = auto_hide_index($typeurl);
@@ -1032,12 +1110,12 @@ if (!function_exists('showArchivesFlagStr'))
         }else if($archivesInfo['channel'] == 9){
             if (!empty($archivesInfo['is_head'])) {
                 $arr['is_head'] = [
-                    'small_name'   => '头条',
+                    'small_name'   => '刚需',
                 ];
             }
             if (!empty($archivesInfo['is_recom'])) {
                 $arr['is_recom'] = [
-                    'small_name'   => '刚需',
+                    'small_name'   => '推荐',
                 ];
             }
             if (!empty($archivesInfo['is_special'])) {

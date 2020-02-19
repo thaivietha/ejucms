@@ -239,6 +239,18 @@ if (!function_exists('typeurl')) {
     function typeurl($url = '', $param = '', $suffix = true, $domain = false, $seo_pseudo = null, $seo_pseudo_format = null)
     {
         $eyouUrl = '';
+        $subdomain = "";
+        $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+        if ($web_region_domain){
+            $region_list = get_region_list();
+            if ($param['area_id'] && !empty($region_list[$param['area_id']]['domain'])){
+                $subdomain = $region_list[$param['area_id']]['domain'];
+            }else if ($param['city_id'] && !empty($region_list[$param['city_id']]['domain'])){
+                $subdomain = $region_list[$param['city_id']]['domain'];
+            }else if ($param['province_id'] && !empty($region_list[$param['province_id']]['domain'])){
+                $subdomain = $region_list[$param['province_id']]['domain'];
+            }
+        }
         $seo_pseudo = !empty($seo_pseudo) ? $seo_pseudo : config('ey_config.seo_pseudo');
         if (empty($seo_pseudo_format)) {
             if (1 == $seo_pseudo) {
@@ -254,7 +266,7 @@ if (!function_exists('typeurl')) {
             } else {
                 $vars = $param;
             }
-            $eyouUrl = url($url, array(), $suffix, $domain, $seo_pseudo, $seo_pseudo_format);
+            $eyouUrl = url($url, array(), $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
             $urlParam = parse_url($eyouUrl);
             $query_str = isset($urlParam['query']) ? $urlParam['query'] : '';
             if (empty($query_str)) {
@@ -317,12 +329,12 @@ if (!function_exists('typeurl')) {
             static $seo_rewrite_format = null;
             null === $seo_rewrite_format && $seo_rewrite_format = config('ey_config.seo_rewrite_format');
             if (1 == intval($seo_rewrite_format)) {
-                $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format);
+                $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
                 if (!strstr($eyouUrl, '.htm')){
                     $eyouUrl .= '/';
                 }
             } else {
-                $eyouUrl = url($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format); // 兼容v1.1.6之前被搜索引擎收录的URL
+                $eyouUrl = url($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain); // 兼容v1.1.6之前被搜索引擎收录的URL
             }
             /*--end*/
         } else {
@@ -333,7 +345,7 @@ if (!function_exists('typeurl')) {
             } else {
                 $vars = $param;
             }
-            $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format);
+            $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
         }
 
         return $eyouUrl;
@@ -373,7 +385,7 @@ if (!function_exists('arcurl')) {
                 $seo_pseudo_format = config('ey_config.seo_dynamic_format');
             }
         }
-        $subdomain = "www";
+        $subdomain = "";
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
         if ($web_region_domain){
             $region_list = get_region_list();

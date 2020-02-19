@@ -734,7 +734,7 @@ if (!function_exists('arrayJointString')) {
 }
 //全部数据
 if (!function_exists('archivesnum')) {
-    function xfnum() {
+    function archivesnum() {
         $total = \think\Db::name('archives')->where("aid>0")  //,'is_del'=>0
         ->count();
         return $total;

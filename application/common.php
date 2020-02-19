@@ -1082,7 +1082,7 @@ if (!function_exists('get_region_list')){
     {
         $result = extra_cache('global_get_region_list');
         if (empty($result)) {
-            $result = M('region')->field('id, name, domain, parent_id')
+            $result = M('region')->field('id, name, domain, parent_id,level')
                 ->where('status',1)
                 ->order("sort_order asc")
                 ->getAllWithIndex('id');
