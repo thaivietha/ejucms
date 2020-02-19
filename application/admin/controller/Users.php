@@ -72,6 +72,8 @@ class Users extends Base
             if ($user_info = $user::check_update($post['username'],$post['mobile'],$post['email'])){
                 if ($user_info['mobile'] == $post['mobile']){
                     $this->error("操作失败，手机号码{$post['mobile']}已被注册");
+                }else if($user_info['username'] == $post['username']){
+                    $this->error("操作失败，用户名{$post['username']}已被注册");
                 }else{
                     $this->error("操作失败，邮箱{$post['email']}已被注册");
                 }
@@ -137,6 +139,8 @@ class Users extends Base
                 if ($user_info = $user::check_update($post['username'],$post['mobile'],$post['email'],$post['id'])){
                     if ($user_info['mobile'] == $post['mobile']){
                         $this->error("操作失败，手机号码{$post['mobile']}已被注册");
+                    }else if($user_info['username'] == $post['username']){
+                        $this->error("操作失败，用户名{$post['username']}已被注册");
                     }else{
                         $this->error("操作失败，邮箱{$post['email']}已被注册");
                     }
