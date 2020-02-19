@@ -181,7 +181,6 @@ if (!function_exists('getCityLocation'))
     {
         try {
             $res1 = @file_get_contents("https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?query={$ip}&resource_id=6006&t=".getMsectime());
-            var_dump($res1);die();
             $res1 = iconv('GB2312', 'UTF-8', $res1);
             $res1 = json_decode($res1,true);
             if($res1 && $res1['status'] == '0'){
