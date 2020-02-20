@@ -93,7 +93,7 @@ class System extends Base
                 $img_match = '/(\w+\.(?:'.$image_ext_match.'))$/i';
                 preg_match($img_match, $param['web_logo'],$matches);
                 preg_match($img_match, $param['old_web_logo'],$matches_old);
-                if (empty($matches) || empty($matches_old)){
+                if (empty($matches) || (!empty($param['old_web_logo']) && empty($matches_old))){
                     $this->error('网站LOGO名称不合法！');
                 }
                 $source = './'.preg_replace('#^'.$this->root_dir.'/#i', '', $param['web_logo']);
@@ -190,7 +190,8 @@ class System extends Base
                 $img_match = '/(\w+\.(?:'.$image_ext_match.'))$/i';
                 preg_match($img_match, $web_adminlogo,$matches);
                 preg_match($img_match, $web_adminlogo_old,$matches_old);
-                if (empty($matches) || empty($matches_old)){
+                if (empty($matches) || (!empty($web_adminlogo_old) && empty($matches_old))){
+                    var_dump($matches);die();
                     $this->error('网站后台LOGO名称不合法！');
                 }
                 $source = preg_replace('#^'.ROOT_DIR.'#i', '', $web_adminlogo); // 支持子目录
