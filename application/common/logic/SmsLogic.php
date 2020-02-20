@@ -37,31 +37,28 @@ class SmsLogic
         if (empty($smsTemp) || empty($smsTemp['sms_sign']) || empty($smsTemp['sms_tpl_code'])|| empty($smsTemp['tpl_content'])){
             return $result = ['status' => -1, 'msg' => '请前往设置短信发送配置'];
         }
-        $code = !empty($params['code']) ? $params['code'] : false;
-        $content = !empty($params['content']) ? $params['content'] : false;
+        $content = !empty($params['content']) ? $params['content'] : '';
         if(empty($unique_id)){
             $session_id = session_id();
         }else{
             $session_id = $unique_id;
         }
         $product = $this->config['sms_product'];
-        $smsParams = array(
-            1 => "{\"content\":\"$content\"}", //1. 用户注册
-            2 => "{\"content\":\"$content\"}", //2. 用户找回密码
-            3 => "{\"content\":\"$content\"}", //3.
-            4 => "{\"content\":\"$content\"}", //4. 发送表单报名信息
-        );
-        $smsParam = $smsParams[$scene];
-
-        //提取发送短信内容
         $msg = $smsTemp['tpl_content'];
-        $params_arr = json_decode($smsParam);
-        foreach ($params_arr as $k => $v) {
-            $msg = str_replace('${' . $k . '}', $v, $msg);
+        $smsParam_arr = [];
+        preg_match_all('/\$\{(.*?)\}/s', $msg, $matchAuthor);
+        if (!empty($matchAuthor[1])){   //存在关键字
+            foreach ($matchAuthor[1] as $val){
+                $content = !empty($params[$val]) ? $params[$val] : '';
+                $msg = str_replace('${' . $val . '}', $content, $msg);
+                $smsParam_arr[$val] = $content;
+            }
+        }else{
+            return $result = ['status' => -1, 'msg' => '不存在关键字'];
         }
-
+        $smsParam = json_encode($smsParam_arr);
         //发送记录存储数据库
-        $log_id = M('sms_log')->insertGetId(array('mobile' => $sender, 'code' => $content, 'add_time' => time(), 'session_id' => $session_id, 'status' => 0, 'scene' => $scene, 'msg' => $msg));
+        $log_id = M('sms_log')->insertGetId(array('mobile' => $sender, 'code' => $content, 'add_time' => time(), 'session_id' => $session_id, 'status' => 0, 'scene' => $scene, 'msg' => $msg,'error_msg'=>''));
         if ($sender != '' && check_mobile($sender)) {//如果是正常的手机号码才发送
             try {
                 $resp = $this->realSendSms($sender, $smsTemp['sms_sign'], $smsParam, $smsTemp['sms_tpl_code']);
