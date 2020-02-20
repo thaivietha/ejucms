@@ -191,7 +191,6 @@ class System extends Base
                 preg_match($img_match, $web_adminlogo,$matches);
                 preg_match($img_match, $web_adminlogo_old,$matches_old);
                 if (empty($matches) || (!empty($web_adminlogo_old) && empty($matches_old))){
-                    var_dump($matches);die();
                     $this->error('网站后台LOGO名称不合法！');
                 }
                 $source = preg_replace('#^'.ROOT_DIR.'#i', '', $web_adminlogo); // 支持子目录
