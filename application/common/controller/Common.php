@@ -86,6 +86,7 @@ class Common extends Controller {
             \think\Cookie::set("regionInfo",  $regionInfo);
             $this->eju['region'] = $regionInfo;
         }
+
         /*电脑版与手机版的切换*/
         $v = I('param.v/s', 'pc');
         $v = trim($v, '/');
@@ -104,15 +105,19 @@ class Common extends Controller {
     //根据domain获取区域信息
     private function getDomainCity($subDomain = ''){
         $info = [];
-        if(!empty($subDomain) && $subDomain != 'www'){
+        $web_main_domain = config('ey_config.web_main_domain');  //主域名
+        if(!empty($subDomain) && (empty($web_main_domain) || $subDomain != $web_main_domain)){
             $info =  M('region')->field('*')->where(['domain'=>$subDomain,'status'=>1])->find();
-            if (empty($info)) {
-                abort(404,'页面不存在');
+//            if (empty($info)) {
+//                abort(404,'页面不存在');
+//            }
+            if (!empty($info)){
+                $info = model('Region')->handle_info($info, false);
+                return $info;
             }
-            $info = model('Region')->handle_info($info, false);
-        } else {
-            $info = $this->getDefaultCity();
+
         }
+        $info = $this->getDefaultCity();
 
         return $info;
     }

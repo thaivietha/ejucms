@@ -17,7 +17,6 @@ class Index extends Base
 {
     public function _initialize() {
         parent::_initialize();
-
         /*首页焦点*/
         $m = input('param.m/s');
         if (empty($m)) {
@@ -40,7 +39,6 @@ class Index extends Base
     public function index()
     {
         $filename = 'index.html';
-
         // 生成静态页面代码 - PC端动态访问跳转到静态
         $seo_pseudo = config('ey_config.seo_pseudo');
         if (file_exists($filename) && 2 == $seo_pseudo) {
@@ -59,8 +57,8 @@ class Index extends Base
         $this->eju = array_merge($this->eju, $eju);
         $this->assign('eju', $this->eju);
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
-        if ($web_region_domain && !empty($this->eju['param']['subDomain']) && $this->eju['param']['subDomain'] == 'www' && file_exists("./template/{$this->tpl_theme}/pc/index_all.htm")){
-
+        $web_main_domain = tpCache('web.web_main_domain'); //config('ey_config.web_main_domain');  //主域名
+        if ($web_region_domain && !empty($this->eju['param']['subDomain']) && ($this->eju['param']['subDomain'] == 'www' || (!empty($web_main_domain) && $this->eju['param']['subDomain'] == $web_main_domain)) && file_exists("./template/{$this->tpl_theme}/pc/index_all.htm")){
             return $this->fetch(":index_all");
         }
         $html = $this->fetch(":index");

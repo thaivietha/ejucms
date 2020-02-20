@@ -161,6 +161,7 @@ class Admin extends Base {
                     adminLog('后台登录');
                     $url = session('from_url') ? session('from_url') : $this->request->baseFile();
                     session('isset_author', null); // 内置勿动
+                    tpCache('web',['web_main_domain'=>request()->subDomain()]);
                     $this->success('登录成功', $url);
                 } else {
                     $this->error('账号/密码不正确');
