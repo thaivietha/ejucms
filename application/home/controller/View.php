@@ -70,9 +70,10 @@ class View extends Base
         //判断多域名下区域和域名是否匹配
         $web_region_domain = config('ey_config.web_region_domain');   //是否开启子域名
         $web_mobile_domain = config('ey_config.web_mobile_domain');    //手机子域名
-        if ($web_region_domain && !empty($this->eju['param']['subDomain']) && $this->eju['param']['subDomain'] != $web_mobile_domain){
+        $requst_subDomain = request()->subDomain();
+        if ($web_region_domain && !empty($requst_subDomain) && $requst_subDomain != $web_mobile_domain){
             $region_list = get_region_list();
-            $subDomain = "www";
+            $subDomain = "";
             if (!empty($archivesInfo['area_id']) && !empty($region_list[$archivesInfo['area_id']]['domain'])){
                 $subDomain = $region_list[$archivesInfo['area_id']]['domain'];
             }else if(!empty($archivesInfo['city_id']) && !empty($region_list[$archivesInfo['city_id']]['domain'])){

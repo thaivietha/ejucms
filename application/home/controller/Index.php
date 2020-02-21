@@ -58,7 +58,8 @@ class Index extends Base
         $this->assign('eju', $this->eju);
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
         $web_main_domain = tpCache('web.web_main_domain'); //config('ey_config.web_main_domain');  //主域名
-        if ($web_region_domain && !empty($this->eju['param']['subDomain']) && ($this->eju['param']['subDomain'] == 'www' || (!empty($web_main_domain) && $this->eju['param']['subDomain'] == $web_main_domain)) && file_exists("./template/{$this->tpl_theme}/pc/index_all.htm")){
+        $subDomain = request()->subDomain();
+        if ($web_region_domain && !empty($subDomain) && ($subDomain == 'www' || (!empty($web_main_domain) && $subDomain == $web_main_domain)) && file_exists("./template/{$this->tpl_theme}/pc/index_all.htm")){
             return $this->fetch(":index_all");
         }
         $html = $this->fetch(":index");
