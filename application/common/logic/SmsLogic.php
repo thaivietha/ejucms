@@ -33,7 +33,7 @@ class SmsLogic
      */
     public function sendSms($scene, $sender, $params, $unique_id=0)
     {
-        $smsTemp = M('sms_template')->where("send_scene", $scene)->find();    //用户注册.
+        $smsTemp = M('sms_template')->where("send_scene", $scene)->find();
         if (empty($smsTemp) || empty($smsTemp['sms_sign']) || empty($smsTemp['sms_tpl_code'])|| empty($smsTemp['tpl_content'])){
             return $result = ['status' => -1, 'msg' => '请前往设置短信发送配置'];
         }

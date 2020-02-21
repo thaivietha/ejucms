@@ -120,7 +120,7 @@ class Smtpmail extends Base
                 $this->error("手机号码{$mobile}已被注册");
             }
         }
-        $res = sendSms(1, $mobile, ['content'=>mt_rand(100000,999999)]);
+        $res = sendSms(2, $mobile, ['code'=>mt_rand(100000,999999)]);
         if (intval($res['code']) == 1) {
             $this->success($res['msg']);
         } else {

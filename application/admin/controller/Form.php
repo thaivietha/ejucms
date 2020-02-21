@@ -29,7 +29,30 @@ class Form extends Base
             'switch'        => '开关',
         ];
     }
-    
+    /*
+     * 配置
+     */
+    public function config(){
+        if (IS_POST){
+            $post = input('post.');
+            if (!empty($post['role'])){
+                foreach ($post['role'] as $key=>$val){
+                    $update_data = [
+                        'person' => !empty($post['person'][$key]) ? $post['person'][$key] : 0
+                        ,'note' => !empty($post['note'][$key]) ? $post['note'][$key] : 0
+                        ,'email' => !empty($post['email'][$key]) ? $post['email'][$key] : 0
+                        ,'update_time'=>getTime()
+                    ];
+                    Db::name('form_config')->where("role=".$val)->save($update_data);
+                }
+            }
+            $this->success("操作成功");
+        }
+        $list = Db::name('form_config')->where("status=1")->getAllWithIndex('role');
+        $this->assign('list',$list);
+
+        return $this->fetch();
+    }
     /*
      * 标签调用
      */

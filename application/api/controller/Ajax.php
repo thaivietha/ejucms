@@ -186,9 +186,13 @@ class Ajax extends Base
 
             $web_name = tpCache('web.web_name');
             // 判断标题拼接
-            $formRow  = M('form')->field('name')->find($form_id);
+            $formRow  = M('form')->field('name,channel_id')->find($form_id);
             $web_name = $formRow['name'].'-'.$web_name;
-            $come_from = Db::name("form_list")->where("list_id=".$list_id)->getField('come_from');
+            if (!empty($formRow['channel_id'])){
+                $ntitle = Db::name("channeltype")->where("id=".$formRow['channel_id'])->getField("ntitle");
+                $web_name = $ntitle."-".$web_name;
+            }
+            $from_list = Db::name("form_list")->where("list_id=".$list_id)->find();
             // 拼装发送的字符串内容
             $row = M('form_attr')->field('a.attr_name, b.attr_value')
                 ->alias('a')
@@ -208,27 +212,33 @@ class Ajax extends Base
             }
             $html = "<p style='text-align: left;'>{$web_name}</p><p style='text-align: left;'>{$content}</p>";
             if (isMobile()) {
-                $html .= "<p style='text-align: left;'>——来源：移动端 -- {$come_from}</p>";
+                $html .= "<p style='text-align: left;'>——来源：移动端 -- {$from_list['come_from']}</p>";
             } else {
-                $html .= "<p style='text-align: left;'>——来源：电脑端 -- {$come_from}</p>";
+                $html .= "<p style='text-align: left;'>——来源：电脑端 -- {$from_list['come_from']}</p>";
             }
-            // 发送邮件
-            $res = send_email(null,null,$html, $scene);
-            //发送短信
-//            $sms_res = sendSms(4, $this->eju['global']['sms_test_mobile'], ['content'=>$sms_content]);
-//            if (intval($sms_res['status']) == 1 && intval($res['code']) == 1){
-//                $this->success('短信发送成功：'.$sms_res['msg']."，邮箱发送成功:".$res['msg']);
-//            }else if(intval($sms_res['status']) == 1){
-//                $this->error("短信发送成功,邮箱发送失败:".$res['msg']);
-//            }else if(intval($res['code']) == 1){
-//                $this->error("邮箱发送成功,短信发送失败:".$sms_res['msg']);
-//            }else{
-//                $this->error("邮箱发送失败:".$res['msg'].",短信发送失败:".$sms_res['msg']);
-//            }
-            if (intval($res['code']) == 1) {
+            $sms_arr = ['form'=>$web_name,'content'=>$sms_content,'from'=>$from_list['come_from']];
+            $config_list = Db::name('form_config')->where("status=1")->getAllWithIndex("role");
+            if (!empty($from_list['aid'])){
+                $users_info = Db::name("archives")->alias("a")->field("b.mobile,b.email")->join("users b","a.users_id = b.id","left")->where("a.aid=".$from_list['aid'])->find();
+            }
+            if (!empty($config_list[2]['note']) && !empty($users_info['mobile'])){   //发送经纪人短信
+                $res = sendSms($scene, $users_info['mobile'], $sms_arr);
+            }
+            if (!empty($config_list[1]['note'])){   //发送管理员短信
+                $res = sendSms($scene, $this->eju['global']['sms_test_mobile'], $sms_arr);
+            }
+            if (!empty($config_list[2]['email']) && !empty($users_info['email'])){   //发送经纪人邮箱
+                $res = send_email($users_info['email'],null,$html, $scene);  //第一个字段是收件箱
+            }
+            if (!empty($config_list[1]['email'])){   //发送管理员邮箱
+                $res = send_email(null,null,$html, $scene);  //第一个字段是收件箱
+            }
+            if (!empty($res['code']) && intval($res['code']) == 1) {
                 $this->success($res['msg']);
-            } else {
+            } else if(!empty($res['msg'])){
                 $this->error($res['msg']);
+            }else{
+                $this->error("发送失败");
             }
         }
     }
@@ -267,10 +277,10 @@ class Ajax extends Base
                     !empty($city_arr['city']) && $city .= $city_arr['city'];
                 }
             } catch (\Exception $e) {}*/
-            
             $newData = array(
                 'form_id'    => $form_id,
                 'ip'    => $ip,
+                'aid'    => !empty($post['aaa']) ? $post['aaa'] : 0,
                 'come_from' => $come_from,
                 'come_url' => $come_url,
                 'city' => $city,

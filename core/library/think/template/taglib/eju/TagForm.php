@@ -278,7 +278,7 @@ EOF;
 </script>
 EOF;
 
-        $hidden = '<input type="hidden" name="ajax_form" value="'.$ajax_form.'" /><input type="hidden" name="come_from" value="'.$this->come_from.'" /><input type="hidden" name="parent_come_url" value="'.input('param.parent_url/s').'" /><input type="hidden" name="come_url" value="'.request()->url().'" /><input type="hidden" name="form_id" value="'.$form['id'].'" /><input type="hidden" name="__token__'.$token_id.'" id="'.$token_id.'" value="" />'.$tokenStr;
+        $hidden = '<input type="hidden" name="ajax_form" value="'.$ajax_form.'" /><input type="hidden" name="come_from" value="'.$this->come_from.'" /><input type="hidden" name="parent_come_url" value="'.input('param.parent_url/s').'" /><input type="hidden" name="aaa" value="'.input('param.aid/s').'" /><input type="hidden" name="come_url" value="'.request()->url().'" /><input type="hidden" name="form_id" value="'.$form['id'].'" /><input type="hidden" name="__token__'.$token_id.'" id="'.$token_id.'" value="" />'.$tokenStr;
         $result['form_id'] = $form['id'];
         $result['form_name'] = $form_name;
         $result['hidden'] = $hidden;
