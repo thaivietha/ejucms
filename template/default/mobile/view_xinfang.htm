@@ -24,6 +24,7 @@
 {eju:static file="skin/css/xinfang.css" /}
 {eju:static file="skin/js/jquery-3.2.1.min.js" /}
 {eju:static file="skin/css/color.css" /}
+{eju:static file="skin/css/video.css" /}
 </head>
 <body>
 <div id="serachBox2">
@@ -50,10 +51,64 @@
         </ul>
       </div>
     </div>
-    
+
     <!-- 头部图片-->
-    
-    <div class="m_headImg_box"> <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo'])}"><img class="m_headImg_img" src="{$eju.field.litpic}" alt=""></a></div>
+      <div class="home-device">
+          <div class="swiper-container swiper-container-horizontal swiper">
+              <div class="swiper-wrapper">
+                  {eju:notempty name="$eju.field.video"}
+                  <div class="swiper-slide" id="n_video_div">
+                      <a href="javascript:;" onclick="playPuase()">
+                          <img src="{$eju.field.litpic}" alt="首创·禧瑞长河区位沙盘与项目沙盘介绍">
+                          <img src="{eju:global name='web_templets_m' /}/skin/img/play.png" class="player_sun">
+                      </a>
+                  </div>
+                  <div class="swiper-slide" id="video_div" style="display: none">
+                      <video id="video_1" class="video-js vjs-default-skin vjs-big-play-centered" width="100%" height="100%" controls webkit-playsinline preload="none"
+                             poster="{$eju.field.litpic}" data-setup="{}">
+                          <source src="{$eju.field.video}" type="video/mp4">
+                          您的浏览器不支持HTML5视频
+                      </video>
+                  </div>
+                  <script>
+                      function playPuase(){
+                          $("#n_video_div").hide();
+                          $("#video_div").show();
+                          var video = document.getElementById("video_1");
+                          video.webkitRequestFullScreen();
+                          video.play();
+                      }
+                  </script>
+                  {/eju:notempty}
+                  {eju:fanglist type="photo" id="vo" group="photo_type"}
+                  {eju:fanglist name="$vo.children" id="field" limit='0,1'}
+                  <div class="swiper-slide">
+                      <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','photo_type'=>$field.photo_type,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}"
+                         rel="nofollow">
+                          <img src="{$field.photo_pic}" alt="{$field.photo_type}{$field.photo_title}">
+                      </a>
+                  </div>
+                  {/eju:fanglist}
+                  {/eju:fanglist}
+              </div>
+          </div>
+          <div class="flicking_num">共{$eju.field.photo_list|count}张</div>
+          {eju:notempty name="$eju.field.video"}
+          <div><img id="videoOrPanOrPhotos" src="{eju:global name='web_templets_m' /}/skin/img/all_video.png" usemap="#newbook"></div>
+          <map name="newbook">
+              <area shape="rect" coords="0,0,56,24" href="javascript:toVideo()">
+              <area shape="rect" coords="56,0,111,24" href="javascript:toPic()">
+          </map>
+          {/eju:notempty}
+      </div>
+
+      <!--<div class="m_headImg_box">-->
+        <!--<a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo'])}">-->
+            <!--<img class="m_headImg_img" src="{$eju.field.litpic}" alt="">-->
+        <!--</a>-->
+    <!--</div>-->
+
+      <!-- end头部图片-->
     <div class="m_lpdatav2_box">
       <div class="m_lpdatav2_title c"> <em>{$eju.field.title}</em> <i>{$eju.field.sale_status}</i> <a class="btn3"> <img src="{eju:global name='web_templets_m' /}/skin/img/lpindexv2_21.gif" alt=""> <span>开盘通知</span> </a> </div>
       <div class="m_lpdatav2_style c"> {eju:volist name='$eju.field.characteristic' id='vo'}<i>{$vo}</i>{/eju:volist}</div>
@@ -295,5 +350,30 @@
 {eju:include file="so.htm"/} 
 <!--搜索弹出层结束-->
 <div style="display: none;">{eju:arcclick /}</div>
+
+<script type="text/javascript">
+    //视频图片切换方法
+    function toVideo() {
+        mySwiper.slideTo(0)
+    }
+    function toPic() {
+        mySwiper.slideTo(1)
+    }
+    var mySwiper = new Swiper('.swiper', {
+        pagination: '.swiper-pagination',
+        initialSlide: 0,
+        // loop: true,//环路
+        // },
+        onSlideChangeStart: function (swiper) {
+            var nowIndex = swiper.realIndex;
+            if (nowIndex == 0) {
+                $("#videoOrPanOrPhotos").attr("src", "{eju:global name='web_templets_m' /}/skin/img/all_video.png");
+            }else {
+                $("#videoOrPanOrPhotos").attr("src", " {eju:global name='web_templets_m' /}/skin/img/all_pic.png");
+            }
+        },
+
+    });
+</script>
 </body>
 </html>
