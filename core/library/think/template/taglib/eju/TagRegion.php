@@ -317,6 +317,7 @@ class TagRegion extends Base
         }
         $row = M('region')->field($this->field)
             ->where($map)
+            ->order($this->orderby)
             ->group('domain')
             ->select();
         /*--end*/
@@ -421,6 +422,7 @@ class TagRegion extends Base
             $parent = M('region')->field($this->field)
                 ->where(['id'=>['IN',$parent_arr]])
                 ->group('domain')
+                ->order($this->orderby)
                 ->select();
             $parent = convert_arr_key($parent,'id');
         }
