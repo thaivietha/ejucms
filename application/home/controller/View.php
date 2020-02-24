@@ -73,7 +73,7 @@ class View extends Base
         $requst_subDomain = request()->subDomain();
         if ($web_region_domain && !empty($requst_subDomain) && $requst_subDomain != $web_mobile_domain){
             $region_list = get_region_list();
-            $subDomain = "";
+            $subDomain = tpCache('web.web_main_domain');  //主域名
             if (!empty($archivesInfo['area_id']) && !empty($region_list[$archivesInfo['area_id']]['domain'])){
                 $subDomain = $region_list[$archivesInfo['area_id']]['domain'];
             }else if(!empty($archivesInfo['city_id']) && !empty($region_list[$archivesInfo['city_id']]['domain'])){

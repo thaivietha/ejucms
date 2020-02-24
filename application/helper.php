@@ -239,7 +239,7 @@ if (!function_exists('typeurl')) {
     function typeurl($url = '', $param = '', $suffix = true, $domain = false, $seo_pseudo = null, $seo_pseudo_format = null)
     {
         $eyouUrl = '';
-        $subdomain = "";
+        $subdomain =  ""; //tpCache('web.web_main_domain');  //主域名
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
         if ($web_region_domain){
             $region_list = get_region_list();
@@ -385,7 +385,7 @@ if (!function_exists('arcurl')) {
                 $seo_pseudo_format = config('ey_config.seo_dynamic_format');
             }
         }
-        $subdomain = "";
+        $subdomain = tpCache('web.web_main_domain');  //主域名
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
         if ($web_region_domain){
             $region_list = get_region_list();

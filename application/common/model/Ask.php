@@ -82,7 +82,7 @@ class Ask extends Model
     {
         // 返回参数
         $result = [];
-        $field = 'a.ask_id, a.ask_title, a.click, a.replies, a.add_time, a.is_review, b.id, b.nickname';
+        $field = 'a.ask_id,a.aid, a.ask_title, a.click, a.replies, a.add_time, a.is_review, b.id, b.nickname';
         if (!empty($is_ask)) {
             // 提问问题查询列表
             $where = [
@@ -153,13 +153,28 @@ class Ask extends Model
 
         // 取出提问问题的ID作为主键
         $RepliesData = group_same_key($RepliesData, 'ask_id');
-
+        $aid_arr = get_arr_column($result['AskData'],'aid');
+        if (!empty($aid_arr)){
+            $title_arr = Db::name("archives")->where(['aid'=>['In',$aid_arr]])->getField('aid,title,province_id,city_id,area_id');
+        }
         /*数据处理*/
         foreach ($result['AskData'] as $key => $value) {
+            // 问题内容Url
+            $subdomain = tpCache('web.web_main_domain');  //主域名
+            $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+            if ($web_region_domain){
+                $region_list = get_region_list();
+                if (!empty($title_arr[$value['aid']]['area_id']) && !empty($region_list[$title_arr[$value['aid']]['area_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['area_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['city_id']) && !empty($region_list[$title_arr[$value['aid']]['city_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['city_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['province_id']) && !empty($region_list[$title_arr[$value['aid']]['province_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['province_id']]['domain'];
+                }
+            }
+            $result['AskData'][$key]['AskUrl'] = url('home/Ask/details', ['ask_id'=>$value['ask_id']],true,false,null,null,$subdomain);
             // 时间友好显示处理
             $result['AskData'][$key]['add_time_friend'] = friend_date($value['add_time']);
-            // 问题内容Url
-            $result['AskData'][$key]['AskUrl']   = url('home/Ask/details', ['ask_id'=>$value['ask_id']]);
             // ROOT_DIR.'/index.php?m=home&c=Ask&a=details&ask_id='.$value['ask_id'];
             // 回复处理
             if (!empty($RepliesData[$value['ask_id']])) {
@@ -284,13 +299,38 @@ class Ask extends Model
             'var_page' => config('paginate.var_page'),
             'query' => $query_get,
         );
+        $regionInfo = \think\Cookie::get("regionInfo");
+        if(is_json($regionInfo))
+        {
+            $regionInfo = json_decode($regionInfo,true);
+        }
+        if (config('ey_config.web_region_domain') == 1 && $regionInfo['level'] == 1){
+            $where_or = [
+                'c.province_id' => $regionInfo['id'],
+                'a.aid' => 0,
+            ];
+        }else if (config('ey_config.web_region_domain') == 1 && $regionInfo['level'] == 2){
+            $where_or = [
+                'c.city_id' => $regionInfo['id'],
+                'a.aid' => 0,
+            ];
+        }else if (config('ey_config.web_region_domain') == 1 && $regionInfo['level'] == 3){
+            $where_or = [
+                'c.area_id' => $regionInfo['id'],
+                'a.aid' => 0,
+            ];
+        }
+        $query = new \think\db\Query;
         $pages = $this->weapp_ask_db
             ->alias('a')
             ->join('__USERS__ b', 'a.users_id = b.id', 'LEFT')
+            ->join("archives c",'a.aid=c.aid', 'LEFT')
             ->where($where)
+            ->where(function($query) use ($where_or){
+                $query->whereOr($where_or);
+            })
             ->order($orderby)
             ->paginate($pagesize, false, $paginate);
-
         if ($pages->total() > 0) {
             $list = $pages->items();
             $ask_ids = get_arr_column($list, 'ask_id');
@@ -355,7 +395,7 @@ class Ask extends Model
         /* END */
         $aid_arr = get_arr_column($result['AskData'],'aid');
         if (!empty($aid_arr)){
-            $title_arr = Db::name("archives")->where(['aid'=>['In',$aid_arr]])->getField('aid,title');
+            $title_arr = Db::name("archives")->where(['aid'=>['In',$aid_arr]])->getField('aid,title,province_id,city_id,area_id');
         }
         /*数据处理*/
         foreach ($result['AskData'] as $key => $value) {
@@ -370,14 +410,26 @@ class Ask extends Model
             if (isset($SearchName) && !empty($SearchName)) {
                 $result['AskData'][$key]['ask_title'] = $this->AskLogic->GetRedKeyWord($SearchName, $value['ask_title']);
             }
-            $result['AskData'][$key]['fang_title'] = !empty($title_arr[$value['aid']]) ? $title_arr[$value['aid']] : '';
+            $result['AskData'][$key]['fang_title'] = !empty($title_arr[$value['aid']]['title']) ? $title_arr[$value['aid']]['title'] : '';
 
             // 时间友好显示处理
             $result['AskData'][$key]['add_time_friend'] = friend_date($value['add_time']);
             // 栏目分类Url
             $result['AskData'][$key]['TypeUrl'] = url('home/Ask/index', ['type_id'=>$value['type_id']]);
             // 问题内容Url
-            $result['AskData'][$key]['AskUrl']  = url('home/Ask/details', ['ask_id'=>$value['ask_id']]);
+            $subdomain = tpCache('web.web_main_domain');  //主域名
+            $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+            if ($web_region_domain){
+                $region_list = get_region_list();
+                if (!empty($title_arr[$value['aid']]['area_id']) && !empty($region_list[$title_arr[$value['aid']]['area_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['area_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['city_id']) && !empty($region_list[$title_arr[$value['aid']]['city_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['city_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['province_id']) && !empty($region_list[$title_arr[$value['aid']]['province_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['province_id']]['domain'];
+                }
+            }
+            $result['AskData'][$key]['AskUrl']  = url('home/Ask/details', ['ask_id'=>$value['ask_id']],true,false,null,null,$subdomain);
             // 回复处理
             if (!empty($RepliesDataNew[$value['ask_id']])) {
                 $UsersConut = array_unique($RepliesDataNew[$value['ask_id']], SORT_REGULAR);
@@ -430,7 +482,7 @@ class Ask extends Model
             'a.is_review'=> 1,
         ];
         $result['WeekList'] = [];
-        $WeekList = $this->weapp_ask_db->field('a.ask_id, a.ask_title, a.click, a.replies, b.litpic')
+        $WeekList = $this->weapp_ask_db->field('a.ask_id,a.aid, a.ask_title, a.click, a.replies, b.litpic')
             ->alias('a')
             ->join('__USERS__ b', 'a.users_id = b.id', 'LEFT')
             ->order('click desc, replies desc')
@@ -440,9 +492,24 @@ class Ask extends Model
         if (empty($WeekList)) {
             return $result;
         }
-
+        $aid_arr = get_arr_column($result['WeekList'],'aid');
+        if (!empty($aid_arr)){
+            $title_arr = Db::name("archives")->where(['aid'=>['In',$aid_arr]])->getField('aid,title,province_id,city_id,area_id');
+        }
         foreach ($WeekList as $key => $value) {
-            $result['WeekList'][$key]['AskUrl'] = url('home/Ask/details', ['ask_id'=>$value['ask_id']]);
+            $subdomain = tpCache('web.web_main_domain');  //主域名
+            $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+            if ($web_region_domain){
+                $region_list = get_region_list();
+                if (!empty($title_arr[$value['aid']]['area_id']) && !empty($region_list[$title_arr[$value['aid']]['area_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['area_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['city_id']) && !empty($region_list[$title_arr[$value['aid']]['city_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['city_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['province_id']) && !empty($region_list[$title_arr[$value['aid']]['province_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['province_id']]['domain'];
+                }
+            }
+            $result['WeekList'][$key]['AskUrl']  = url('home/Ask/details', ['ask_id'=>$value['ask_id']],true,false,null,null,$subdomain);
             // ROOT_DIR.'/index.php?m=home&c=Ask&a=details&ask_id='.$value['ask_id'];
             $result['WeekList'][$key]['ask_title'] = mb_strimwidth($value['ask_title'], 0, 30, "...");
         }
@@ -454,7 +521,7 @@ class Ask extends Model
     public function GetAskTotalListData()
     {
         $result['TotalList'] = [];
-        $TotalList = $this->weapp_ask_db->field('a.ask_id, a.ask_title, a.click, a.replies, b.litpic')
+        $TotalList = $this->weapp_ask_db->field('a.ask_id,a.aid, a.ask_title, a.click, a.replies, b.litpic')
             ->alias('a')
             ->join('__USERS__ b', 'a.users_id = b.id', 'LEFT')
             ->order('click desc, replies desc')
@@ -464,9 +531,24 @@ class Ask extends Model
         if (empty($TotalList)) {
             return $result;
         }
-
+        $aid_arr = get_arr_column($TotalList,'aid');
+        if (!empty($aid_arr)){
+            $title_arr = Db::name("archives")->where(['aid'=>['In',$aid_arr]])->getField('aid,title,province_id,city_id,area_id');
+        }
         foreach ($TotalList as $key => $value) {
-            $result['TotalList'][$key]['AskUrl']  = url('home/Ask/details', ['ask_id'=>$value['ask_id']]);
+            $subdomain = tpCache('web.web_main_domain');  //主域名
+            $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+            if ($web_region_domain){
+                $region_list = get_region_list();
+                if (!empty($title_arr[$value['aid']]['area_id']) && !empty($region_list[$title_arr[$value['aid']]['area_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['area_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['city_id']) && !empty($region_list[$title_arr[$value['aid']]['city_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['city_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['province_id']) && !empty($region_list[$title_arr[$value['aid']]['province_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['province_id']]['domain'];
+                }
+            }
+            $result['TotalList'][$key]['AskUrl']  = url('home/Ask/details', ['ask_id'=>$value['ask_id']],true,false,null,null,$subdomain);
             // ROOT_DIR.'/index.php?m=home&c=Ask&a=details&ask_id='.$value['ask_id'];
             $result['TotalList'][$key]['ask_title'] = mb_strimwidth($value['ask_title'], 0, 30, "...");
         }
@@ -704,7 +786,7 @@ class Ask extends Model
         if (!empty($is_ask)) {
             // 提问问题查询列表
             /*查询字段*/
-            $field = 'a.ask_id, a.ask_title, a.click, a.replies, a.add_time, a.is_review';
+            $field = 'a.ask_id,a.aid, a.ask_title, a.click, a.replies, a.add_time, a.is_review';
             /* END */
 
             /*查询条件*/
@@ -756,11 +838,26 @@ class Ask extends Model
                 ->select();
             /* END */
         }
-
+        $aid_arr = get_arr_column($result['AskData'],'aid');
+        if (!empty($aid_arr)){
+            $title_arr = Db::name("archives")->where(['aid'=>['In',$aid_arr]])->getField('aid,title,province_id,city_id,area_id');
+        }
         /*数据处理*/
         foreach ($result['AskData'] as $key => $value) {
             // 问题内容Url
-            $result['AskData'][$key]['AskUrl'] = url('home/Ask/details', ['ask_id'=>$value['ask_id']]);
+            $subdomain = tpCache('web.web_main_domain');  //主域名
+            $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+            if ($web_region_domain){
+                $region_list = get_region_list();
+                if (!empty($title_arr[$value['aid']]['area_id']) && !empty($region_list[$title_arr[$value['aid']]['area_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['area_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['city_id']) && !empty($region_list[$title_arr[$value['aid']]['city_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['city_id']]['domain'];
+                }else if (!empty($title_arr[$value['aid']]['province_id']) && !empty($region_list[$title_arr[$value['aid']]['province_id']]['domain'])){
+                    $subdomain = $region_list[$title_arr[$value['aid']]['province_id']]['domain'];
+                }
+            }
+            $result['AskData'][$key]['AskUrl'] = url('home/Ask/details', ['ask_id'=>$value['ask_id']],true,false,null,null,$subdomain);
             if (empty($is_ask)) {
                 $result['AskData'][$key]['AskUrl'] .= !empty($value['answer_pid']) ? '#ul_div_li_'.$value['answer_pid'] : '#ul_div_li_'.$value['answer_id'];
             }

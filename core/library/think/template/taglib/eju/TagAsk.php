@@ -44,7 +44,7 @@ class TagAsk extends Base
         }
         if (!empty($param['click'])){  //热门问题
             $this->is_recom = 4;
-            $orderby = "click desc";
+            $orderby = "a.click desc";
         }
 
         $where['is_recom'] = $this->is_recom;

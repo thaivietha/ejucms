@@ -80,8 +80,6 @@ class Ask extends Base
     //问答首页
     public function index(){
         $param = input('param.');
-        // 查询条件处理
-        $Where = $this->AskLogic->GetAskWhere($param, $this->users_id);
         // Url处理
         $UrlData = $this->AskLogic->GetUrlData($param);
         $result = $UrlData;
@@ -91,6 +89,7 @@ class Ask extends Base
         );
         $this->eju = array_merge($this->eju, $eju);
         $this->assign('eju', $this->eju);
+
         return $this->fetch();
     }
     /**
@@ -118,6 +117,29 @@ class Ask extends Base
 
         $this->assign('eju', $this->eju);
         $this->assign('canAnswer',$this->CanAnswer());
+
+        //判断多域名下区域和域名是否匹配
+        $web_region_domain = config('ey_config.web_region_domain');   //是否开启子域名
+        $web_mobile_domain = config('ey_config.web_mobile_domain');    //手机子域名
+        $requst_subDomain = request()->subDomain();
+        if ($web_region_domain && !empty($requst_subDomain) && $requst_subDomain != $web_mobile_domain){
+            $region_list = get_region_list();
+            $subDomain = tpCache('web.web_main_domain');  //主域名
+            if (!empty($result['info']['aid'])){
+                $archivesInfo = Db::name("archives")->find($result['info']['aid']);
+                if (!empty($archivesInfo['area_id']) && !empty($region_list[$archivesInfo['area_id']]['domain'])){
+                    $subDomain = $region_list[$archivesInfo['area_id']]['domain'];
+                }else if(!empty($archivesInfo['city_id']) && !empty($region_list[$archivesInfo['city_id']]['domain'])){
+                    $subDomain = $region_list[$archivesInfo['city_id']]['domain'];
+                }else if(!empty($archivesInfo['province_id']) && !empty($region_list[$archivesInfo['province_id']]['domain'])){
+                    $subDomain = $region_list[$archivesInfo['province_id']]['domain'];
+                }
+            }
+            if (!empty($subDomain) && $subDomain != $this->eju['param']['subDomain']){
+                abort(404,'页面不存在');
+            }
+        }
+
         return $this->fetch();
     }
     // 获取指定数量的评论数据（分页）

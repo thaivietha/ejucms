@@ -105,7 +105,7 @@ class Common extends Controller {
     //根据domain获取区域信息
     private function getDomainCity($subDomain = ''){
         $info = [];
-        $web_main_domain = config('ey_config.web_main_domain');  //主域名
+        $web_main_domain = tpCache('web.web_main_domain');  //主域名
         if(!empty($subDomain) && (empty($web_main_domain) || $subDomain != $web_main_domain)){
             $info =  M('region')->field('*')->where(['domain'=>$subDomain,'status'=>1])->find();
 //            if (empty($info)) {
