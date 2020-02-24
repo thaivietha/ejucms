@@ -97,7 +97,7 @@
                                                         <label class="layui-form-label"><b>*</b>城市</label>
                                                         <div class="layui-input-inline w120"  style="z-index: 1000;">
                                                             <select name="province_id" id="province_id"  lay-filter="province_id">
-                                                                <option value="">请选择省</option>
+                                                                <option value="">全部省份</option>
                                                                 {volist name=':get_province_list()' id='vo'}
                                                                 <option value="{$vo.id}" {compare name="$Request.param.province_id" type="eq" value="$vo.id" } selected="true" {/compare}>{$vo.name}</option>
                                                                 {/volist}
