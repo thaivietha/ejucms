@@ -273,8 +273,9 @@ if (!function_exists('getMenuList'))
 {
     /**
      * 根据角色权限过滤菜单
+     * $is_menu    是否过滤非菜单栏目
      */
-    function getMenuList() {
+    function getMenuList($is_menu = true) {
         $menuArr = getAllMenu();
         $role_id = session('admin_info.role_id');
         if (0 < intval($role_id)) {
@@ -296,16 +297,16 @@ if (!function_exists('getMenuList'))
             foreach($menuArr as $k=>$val){
                 foreach ($val['child'] as $j=>$v){
                     foreach ($v['child'] as $s=>$son){
-                        if (empty($son['is_menu']) || (empty($son['channel']) && !in_array($son['id'], $admin_auths)) || (!empty($son['channel']) && !in_array($son['channel'],$channeltype))) {
+                        if (($is_menu && empty($son['is_menu'])) || (empty($son['channel']) && !in_array($son['id'], $admin_auths)) || (!empty($son['channel']) && !in_array($son['channel'],$channeltype))) {
                             unset($menuArr[$k]['child'][$j]['child'][$s]);//过滤三级菜单
                         }
                     }
-                    if (empty($v['is_menu']) || (empty($v['channel'])  && empty($menuArr[$k]['child'][$j]['child']) && !in_array($v['id'], $admin_auths)) || (!empty($v['channel']) && !in_array($v['channel'],$channeltype))) {
+                    if (($is_menu && empty($v['is_menu'])) || (empty($v['channel'])  && empty($menuArr[$k]['child'][$j]['child']) && !in_array($v['id'], $admin_auths)) || (!empty($v['channel']) && !in_array($v['channel'],$channeltype))) {
                         unset($menuArr[$k]['child'][$j]);//过滤二级菜单
                     }
                 }
                 //一级是直接操作项目，且没有被赋予权限，或者，下级才是操作权限，所有下级都没有被赋予权限
-                if (empty($val['is_menu']) || (empty($val['channel'])  && empty($menuArr[$j]['child']) && !in_array($val['id'], $admin_auths)) || (!empty($val['channel']) && !in_array($val['channel'],$channeltype))) {
+                if (($is_menu && empty($val['is_menu'])) || (empty($val['channel'])  && empty($menuArr[$j]['child']) && !in_array($val['id'], $admin_auths)) || (!empty($val['channel']) && !in_array($val['channel'],$channeltype))) {
                     unset($menuArr[$k]);//过滤一级级菜单
                 }
             }

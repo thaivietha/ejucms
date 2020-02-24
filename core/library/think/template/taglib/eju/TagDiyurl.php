@@ -63,6 +63,11 @@ class TagDiyurl extends Base
             case "jisuanqi":    //房贷计算器
                 $parseStr = url('home/Tool/jisuanqi');
                 break;
+            case "bohao":   //拨号页面
+                $aid = I("param.aid/d", 0);
+                $web_mobile_domain = config('ey_config.web_mobile_domain');
+                $parseStr = url('home/Tool/bohao',['aid'=>$aid],true,false,null,null,$web_mobile_domain);
+                break;
             case 'shouye':
                 $request = Request::instance();
                 $scheme = $request->isSsl() || Config::get('is_https') ? 'https://' : 'http://';

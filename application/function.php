@@ -2130,7 +2130,7 @@ if (!function_exists('view_logic'))
             'saleman_pic' => ''
         ];
         if(!empty($result['users_id'])){
-            $saleman_info = \think\Db::name("users")->field("nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")->find($result['users_id']);
+            $saleman_info = \think\Db::name("users")->field("*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")->find($result['users_id']);
             get_default_pic();
             $result['saleman'] = $saleman_info;
         }else if(!empty($result['saleman_id'])){

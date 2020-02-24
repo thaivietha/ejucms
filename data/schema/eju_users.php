@@ -90,6 +90,15 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'party' => 
+  array (
+    'name' => 'party',
+    'type' => 'varchar(100)',
+    'notnull' => false,
+    'default' => '',
+    'primary' => false,
+    'autoinc' => false,
+  ),
   'password' => 
   array (
     'name' => 'password',

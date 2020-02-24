@@ -112,11 +112,35 @@ class Index extends Base
         //2.0版本升级后，同步saleman表数据到会员中心
         if (!tpCache('system.system_salemantousers')){
             $level_id = Db::name("users_level")->where([
-                'is_del' => 0,'is_system'=>1
-            ])->order("id desc")->getField('id');
+                'is_del' => 0,'is_system'=>0
+            ])->order("id asc")->getField('id');
+            if ($level_id){
+                Db::name("users_level")->where("id=".$level_id)->update(['is_system'=>1]);
+            }else{
+                $level_data = [
+                    "level_name" => "初级经纪人",
+                    "free_day_send" => 0,
+                    "free_all_send" => 0,
+                    "fee_day_top" => 0,
+                    "fee_all_top" => 0,
+                    "check_ershou" => 1,
+                    "check_zufang" => 1,
+                    "check_shopcs" => 1,
+                    "check_shopcz" => 1,
+                    "check_officecs" => 1,
+                    "check_officecz" => 1,
+                    "status" => 1,
+                    "add_time" => getTime(),
+                    "update_time" => getTime(),
+                    "is_del" => 0,
+                    "is_system" => 1,
+                ];
+                $level_id = Db::name("users_level")->insertGetId($level_data);
+            }
             $salemanlist = Db::name("saleman")->where("status=1")->select();
             $now_time = getTime();
             foreach ($salemanlist as $val){
+
                 $data['username']       = $val['saleman_name'];
                 $data['nickname']       = !empty($val['saleman_name']) ? $val['saleman_name'] : '';
                 $data['mobile']       = !empty($val['saleman_mobile']) ? $val['saleman_mobile'] : '';
@@ -137,6 +161,13 @@ class Index extends Base
                         'update_time' => $now_time
                     ];
                     Db::name("users_content")->insertGetId($data_content);
+                    $xinfang_arr = Db::name("xinfang_system")->where("saleman_id=".$val['id'])->getField("aid",true);
+                    $ershou_arr = Db::name("ershou_system")->where("saleman_id=".$val['id'])->getField("aid",true);
+                    $zufang_arr =  Db::name("zufang_system")->where("saleman_id=".$val['id'])->getField("aid",true);
+                    $aid_arr = array_merge($xinfang_arr,$ershou_arr,$zufang_arr);
+                    if (!empty($aid_arr)){
+                        Db::name("archives")->where(['aid'=>['in',$aid_arr]])->update(['users_id'=>$users_id]);
+                    }
                 }
                 unset($data);
             }

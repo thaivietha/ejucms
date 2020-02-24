@@ -87,7 +87,7 @@ class Archives extends Base
             ];
         }
         $this->assign('contentManage',$contentManage);
-        $menu = getMenuList();
+        $menu = getMenuList(false);
         $adPosition = $tags = $links = $ask_index = $system_question = 0;
         if (!empty($menu[6000])){
             if (!empty($menu[6000]['child'])){

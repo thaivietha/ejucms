@@ -78,8 +78,15 @@
                                 <input type="text" name="email" id="email" value="{$info.email}" class="layui-input">
                             </div>
                         </div>
-
                         {eju:if condition="$Request.param.back eq 'saleman_list'"}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">第三方商桥</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="party" id="party" value="{$info.party}" class="layui-input">
+                            </div>
+                            <div class="layui-input-inline">
+                            </div>
+                        </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">服务区域</label>
                             <div class="layui-input-inline layadmin-layer-demo" id="service_area">

@@ -110,7 +110,7 @@ class Eju extends Taglib
         //显示关联沙盘内容（单楼盘）
         'sand'  =>['attr' => 'id,key,mod,field,aid'],
         //经纪人列表
-        'userslist'       => ['attr' => 'pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,thumb,is_saleman,level,is_count'],
+        'userslist'  => ['attr' => 'pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,thumb,is_saleman,level,is_count'],
         // 导航标签
         'navig' => ['attr' => 'position_id,navigid,notnavigid,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit'],
     ];
