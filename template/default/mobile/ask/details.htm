@@ -38,7 +38,7 @@
           <h2 class="">{$eju.field.info.ask_title}</h2>
           <div class="askAnShare bt mt14">
             <div class="s1">
-              <p>提问者：{$eju.field.info.username}</p>
+              <p>提问者：{eju:neq name='$eju.field.info.username' value='$eju.field.info.mobile'}{$eju.field.info.username}{eju:else /}{$eju.field.info.username|func_substr_replace=###,'*',3,5}{/eju:neq}</p>
               <p class="mt10">发布于{$eju.field.info.add_time|MyDate="Y-m-d H:i:s",###}</p>
             </div>
             <div class="s2"  id="answer_click">

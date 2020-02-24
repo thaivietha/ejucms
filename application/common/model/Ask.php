@@ -478,7 +478,7 @@ class Ask extends Model
     public function GetAskDetailsData($param = array(),  $parent_id = null, $users_id = null)
     {
         $ResultData['code'] = 1;
-        $ResultData['info'] = $this->weapp_ask_db->field('a.*, b.username, b.nickname, b.litpic')
+        $ResultData['info'] = $this->weapp_ask_db->field('a.*, b.username, b.mobile, b.nickname, b.litpic')
             ->alias('a')
             ->join('__USERS__ b', 'a.users_id = b.id', 'LEFT')
             ->where('ask_id', $param['ask_id'])
