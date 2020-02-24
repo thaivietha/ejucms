@@ -51,11 +51,6 @@ class TagNavig extends Base
         /*tid为目录名称的情况下*/
         $this->tid = $this->getTrueTypeid($this->tid);
         /*--end*/
-
-        // 获取当前URL的导航菜单ID、顶级菜单ID
-        $navidData = $this->getTopidOrNavigid($this->tid);
-        $this->navigid = !empty($navidData['navigid']) ? $navidData['navigid'] : 0;
-        $this->topNavigid = !empty($navidData['topNavigid']) ? $navidData['topNavigid'] : 0;
     }
 
     /**
@@ -66,9 +61,15 @@ class TagNavig extends Base
      */
     public function getNavig($position_id = '', $navigid = '', $type = '', $currentstyle = '', $notnavigid = '')
     {
+        $this->position_id = intval($position_id);
+
+        // 获取当前URL的导航菜单ID、顶级菜单ID
+        $navidData = $this->getTopidOrNavigid($this->tid);
+        $this->navigid = !empty($navidData['navigid']) ? $navidData['navigid'] : 0;
+        $this->topNavigid = !empty($navidData['topNavigid']) ? $navidData['topNavigid'] : 0;
+
         $type = !empty($type) ? $type : 'top';
         $this->currentstyle = $currentstyle;
-        $this->position_id = intval($position_id);
         $navigid  = !empty($navigid) ? $navigid : $this->navigid;
 
         $result = $this->getSwitchType($navigid, $type, $notnavigid);
@@ -358,7 +359,6 @@ class TagNavig extends Base
                 /*标记菜单被选中效果*/
                 $val['currentstyle'] = '';
                 $navig_url = htmlspecialchars_decode($arctypeInfo['typelink']);
-
                 if ($val['navig_id'] == $this->topNavigid || $val['navig_id'] == $this->navigid) {
                     $currentstyleArr[$val['navig_id']] = [
                         'navig_id'   => $val['navig_id'],
@@ -413,7 +413,7 @@ class TagNavig extends Base
     public function getTopidOrNavigid($typeid = 0)
     {
         if ($typeid > 0) {
-            $row = Db::name('navig_list')->field('navig_id,topid,parent_id')->where(['type_id'=>$typeid])->find();
+            $row = Db::name('navig_list')->field('navig_id,topid,parent_id')->where(['type_id'=>$typeid,'position_id'=>$this->position_id])->find();
         } else {
             $code = MODULE_NAME.'_'.CONTROLLER_NAME.'_'.ACTION_NAME;
             $params = $this->request->param();
@@ -424,7 +424,7 @@ class TagNavig extends Base
             foreach ($params as $key => $val) {
                 $code .= "_{$key}-{$val}";
             }
-            $row = Db::name('navig_list')->field('navig_id,topid,parent_id')->where(['navig_url'=>$code])->find();
+            $row = Db::name('navig_list')->field('navig_id,topid,parent_id')->where(['navig_url'=>$code,'position_id'=>$this->position_id])->find();
         }
 
         if (empty($row['parent_id'])) {
