@@ -495,8 +495,13 @@ class Ask extends Model
         $ResultData['info']['litpic'] = get_head_pic($ResultData['info']['litpic']);
         //关联楼盘
         if (!empty($ResultData['info']['aid'])){
-            $fang_title = Db::name("archives")->where("aid=".$ResultData['info']['aid'])->getField('title');
-            $ResultData['info']['fang_title'] = $fang_title ? $fang_title : '';
+            $fang = Db::name('archives')->field('a.*,c.dirname,c.dirpath,c.parent_id')
+                ->alias('a')
+                ->join('__ARCTYPE__ c', 'a.typeid = c.id', 'LEFT')
+                ->find($ResultData['info']['aid']);
+            $ResultData['info']['fang_title'] = !empty($fang['title']) ? $fang['title'] : '';
+            $ResultData['info']['fang_arcurl'] = arcurl("home/View/index", $fang);
+
         }
         // 时间友好显示处理
         $ResultData['info']['add_time_friend'] = friend_date($ResultData['info']['add_time']);

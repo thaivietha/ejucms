@@ -39,7 +39,7 @@
             {eju:volist name="$field.AskData" id="vo"}
             <li>
              <a href="{$vo.AskUrl}">
-              <div class="houseAnswerTitle">{$vo.ask_title}</div>
+              <div class="houseAnswerTitle">  {eju:notempty name="$vo.fang_title"}<span>[{$vo.fang_title}] </span>{/eju:notempty}{$vo.ask_title}</div>
                </a>
               <div class="houseAnswerPhone"><b>{$vo.username}</b><span>{$vo.add_time|MyDate="Y-m-d H:i:s",###}</span> </div>
               {eju:volist name="$vo.AnswerData" id="vo2"}
