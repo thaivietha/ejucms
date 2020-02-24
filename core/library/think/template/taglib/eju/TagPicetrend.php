@@ -34,19 +34,19 @@ class TagPicetrend extends Base
             $result = array_merge($result,$xinfangInfo);
         }
         if (!empty($province)){
-            $provinceInfo = $this->getProvincetrend($province,$time_arr);
+            $provinceInfo = $this->getProvincetrend($province,$time_arr,$mode,$type);
         }
         if (!empty($provinceInfo)){
             $result = array_merge($result,$provinceInfo);
         }
-            if (!empty($city)){
-                $cityInfo = $this->getCitytrend($city,$time_arr);
-            }
+        if (!empty($city)){
+            $cityInfo = $this->getCitytrend($city,$time_arr,$mode,$type);
+        }
         if (!empty($cityInfo)){
             $result = array_merge($result,$cityInfo);
         }
         if (!empty($area)){
-            $areaInfo = $this->getAreatrend($area,$time_arr);
+            $areaInfo = $this->getAreatrend($area,$time_arr,$mode,$type);
         }
         if (!empty($areaInfo)){
             $result = array_merge($result,$areaInfo);
@@ -61,7 +61,7 @@ class TagPicetrend extends Base
                 if ($regionInfo['level'] == 1){
                     $province =  $regionInfo['id'];
                     if (!empty($province)){
-                        $provinceInfo = $this->getProvincetrend($province,$time_arr);
+                        $provinceInfo = $this->getProvincetrend($province,$time_arr,$mode,$type);
                     }
                     if (!empty($provinceInfo)){
                         $result = array_merge($result,$provinceInfo);
@@ -69,7 +69,7 @@ class TagPicetrend extends Base
                 }else if ($regionInfo['level'] == 2){
                     $city =  $regionInfo['id'];
                     if (!empty($city)){
-                        $cityInfo = $this->getCitytrend($city,$time_arr);
+                        $cityInfo = $this->getCitytrend($city,$time_arr,$mode,$type);
                     }
                     if (!empty($cityInfo)){
                         $result = array_merge($result,$cityInfo);
@@ -77,7 +77,7 @@ class TagPicetrend extends Base
                 }else if($regionInfo['level'] == 3){
                     $area =  $regionInfo['id'];
                     if (!empty($area)){
-                        $areaInfo = $this->getAreatrend($area,$time_arr);
+                        $areaInfo = $this->getAreatrend($area,$time_arr,$mode,$type);
                     }
                     if (!empty($areaInfo)){
                         $result = array_merge($result,$areaInfo);
