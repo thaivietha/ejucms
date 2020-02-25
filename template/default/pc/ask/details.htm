@@ -53,7 +53,7 @@
               <div class="actBox clearfix">
                 <div class="question-from">
                   {eju:notempty name="$eju.field.info.fang_title"}<span>[<a href="{$eju.field.info.fang_arcurl}">{$eju.field.info.fang_title}</a>] </span><span style="padding: 0 8px;">|</span>{/eju:notempty}
-                  <span>{eju:neq name='$eju.field.info.username' value='$eju.field.info.mobile'}{$eju.field.info.username}{eju:else /}{$eju.field.info.username|func_substr_replace=###,'*',3,5}{/eju:neq}</span> <span style="padding: 0 8px;">|</span>
+                  <span>{$eju.field.info.username}</span> <span style="padding: 0 8px;">|</span>
                   <span>{$eju.field.info.add_time|MyDate="Y-m-d H:i:s",###}</span> <span style="padding: 0 8px;">|</span>
                   <span>浏览次数：<em id="viewnum">{$eju.field.info.click}</em> </span>
                   {eju:notempty name="$eju.field.IsUsers"}

@@ -30,6 +30,7 @@ if(file_exists("./install/") && !file_exists("./install/install.lock")){
     header('Location:./install/index.php');
     exit(); 
 }
+
 // 缓存时间
 define('EYOUCMS_CACHE_TIME', 86400);
 // 数据绝对路径
@@ -44,4 +45,3 @@ define('DEFAULT_SERIALNUMBER','20180508131400oCWIoa');
 define('APP_PATH', __DIR__ . '/application/');
 // 加载框架引导文件
 require __DIR__ . '/core/start.php';
-
