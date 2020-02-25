@@ -184,6 +184,11 @@ class Index extends Base
             $fieldLogic->synChannelUnit20();
             tpCache('system', ['system_channeltype_unit_20'=>1]);
         }
+        //修改区域字段为关联筛选2.2
+        if (!tpCache('system.system_channeltype_unit_22')){
+            $fieldLogic->synChannelUnit22();
+            tpCache('system', ['system_channeltype_unit_22'=>1]);
+        }
         //升级成功后，更新问答体系
         $question = tpCache("question");
         if (empty($question['question_acrtype'])){

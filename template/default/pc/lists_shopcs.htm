@@ -47,7 +47,6 @@
     <div class="page_tit"> <a href="javascript:;" rel="nofollow">您的位置：</a> {eju:position style='' /} </div>
     <!-- 页面标识 E--> 
     <!-- 筛选栏 S -->
-   {eju:screening id='field' addfields='province_id,city_id,area_id,total_price,area,characteristic,manage_type' currentstyle='active' domain='0' region='on' show='2' alltxt='全部' opencity='2'}
     <div class="seleBar">
       <div class="box">
       <div class="item clearfix">
@@ -58,7 +57,8 @@
             {/eju:channel}
           </ul>
         </div>
-       {eju:volist name='$field.list' id='vo'  }
+        {eju:screening id='field' addfields='province_id,city_id,area_id,total_price,area,characteristic,manage_type' currentstyle='active' domain='0' region='on' show='2' alltxt='全部' opencity='2'}
+        {eju:volist name='$field.list' id='vo'  }
         <div class="item clearfix">
           <h3>{$vo.title} :</h3>
           <ul class="list">
