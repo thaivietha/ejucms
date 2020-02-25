@@ -57,6 +57,7 @@ class TagSand extends Base
                 }
             }
             $result['sand_list'] = $sand_list;
+            $result['sale_status'] = get_sale_status_list();
             $result['label'] = <<<EOF
         <div class="label">
                 <div class="item clearfix">
