@@ -214,14 +214,14 @@ return [
         'is_modules'    => 1,
         'auths' => 'UsersLevel@*',
     ],
-    [
-        'id' => 23,
-        'menu_id' => 8003,
-        'menu_id2' => 8000,
-        'name'  => '注册设置',
-        'is_modules'    => 1,
-        'auths' => 'UsersConfig@*',
-    ],
+//    [
+//        'id' => 23,
+//        'menu_id' => 8003,
+//        'menu_id2' => 8000,
+//        'name'  => '注册设置',
+//        'is_modules'    => 1,
+//        'auths' => 'UsersConfig@*',
+//    ],
     [
         'id' => 24,
         'menu_id' => 9000,
@@ -261,6 +261,6 @@ return [
         'menu_id2' => 10000,
         'name'  => '问答设置',
         'is_modules'    => 1,
-        'auths' => 'Ask@*,Answer@*',
+        'auths' => 'System@question',
     ],
 ];
