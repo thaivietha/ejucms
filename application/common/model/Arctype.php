@@ -440,7 +440,7 @@ class Arctype extends Model
                 ->getAllWithIndex('id');
             if (isset($arctype_list[$typeid])) {
                 // 第一个先装起来
-                $arctype_list[$typeid]['typeurl'] = $this->getTypeUrl($arctype_list[$typeid]);
+                $arctype_list[$typeid]['typeurl'] = !empty($arctype_list[$typeid]['pointto_id']) ? $this->getTypeUrl($arctype_list[$arctype_list[$typeid]['pointto_id']]) : $this->getTypeUrl($arctype_list[$typeid]);
                 $data[$typeid] = $arctype_list[$typeid];
             } else {
                 return $data;
@@ -451,7 +451,7 @@ class Arctype extends Model
                 $typeid = $arctype_list[$typeid]['parent_id'];
                 if($typeid > 0){
                     if (isset($arctype_list[$typeid])) {
-                        $arctype_list[$typeid]['typeurl'] = $this->getTypeUrl($arctype_list[$typeid]);
+                        $arctype_list[$typeid]['typeurl'] =  !empty($arctype_list[$typeid]['pointto_id']) ? $this->getTypeUrl($arctype_list[$arctype_list[$typeid]['pointto_id']]) : $this->getTypeUrl($arctype_list[$typeid]);
                         $data[$typeid] = $arctype_list[$typeid];
                     }
                 } else {
@@ -462,7 +462,6 @@ class Arctype extends Model
 
             cache($cacheKey, $data, null, "arctype");
         }
-
         return $data;
     }
 
