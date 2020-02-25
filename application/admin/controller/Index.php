@@ -110,7 +110,7 @@ class Index extends Base
             tpCache('system', ['system_channeltype_officecz'=>1]);
         }
         //2.0版本升级后，同步saleman表数据到会员中心
-        if (!tpCache('system.system_salemantousers')){
+        if (!tpCache('system.system_salemantousers22')){
             $level_id = Db::name("users_level")->where([
                 'is_del' => 0,'is_system'=>0
             ])->order("id asc")->getField('id');
@@ -140,7 +140,6 @@ class Index extends Base
             $salemanlist = Db::name("saleman")->where("status=1")->select();
             $now_time = getTime();
             foreach ($salemanlist as $val){
-
                 $data['username']       = $val['saleman_name'];
                 $data['nickname']       = !empty($val['saleman_name']) ? $val['saleman_name'] : '';
                 $data['mobile']       = !empty($val['saleman_mobile']) ? $val['saleman_mobile'] : '';
@@ -171,7 +170,7 @@ class Index extends Base
                 }
                 unset($data);
             }
-            tpCache('system', ['system_salemantousers'=>1]);
+            tpCache('system', ['system_salemantousers22'=>1]);
         }
 
         //修改原来错误字段（上一个版本）1.3

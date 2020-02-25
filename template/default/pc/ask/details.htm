@@ -53,7 +53,7 @@
               <div class="actBox clearfix">
                 <div class="question-from">
                   {eju:notempty name="$eju.field.info.fang_title"}<span>[<a href="{$eju.field.info.fang_arcurl}">{$eju.field.info.fang_title}</a>] </span><span style="padding: 0 8px;">|</span>{/eju:notempty}
-                  <span>{$eju.field.info.username}</span> <span style="padding: 0 8px;">|</span>
+                  <span>{$eju.field.info.true_name}</span> <span style="padding: 0 8px;">|</span>
                   <span>{$eju.field.info.add_time|MyDate="Y-m-d H:i:s",###}</span> <span style="padding: 0 8px;">|</span>
                   <span>浏览次数：<em id="viewnum">{$eju.field.info.click}</em> </span>
                   {eju:notempty name="$eju.field.IsUsers"}
@@ -170,14 +170,14 @@
                     </a>
                   </div>
                   <div class="Ans-Intro">
-                    <p class="clearfix"> <a href="javascript:;"  class="ans-name" rel="nofollow">{$vo.username}</a> </p>
+                    <p class="clearfix"> <a href="javascript:;"  class="ans-name" rel="nofollow">{$vo.true_name}</a> </p>
                     <div class="Ans-text">
                       <div class="Ans-text-part" style="display:block;">{$vo.content}</div>
                     </div>
                     <div class="Ansbtm clearfix">
                       <div class="ansTime floatl">{$vo.add_time|MyDate="Y-m-d H:i:s",###}</div>
                       <div class="comment floatr">
-                        <a href="javascript:" class="com_agree"  onclick="replyUser('{$vo.id}','{$vo.users_id}','{$vo.username}','{$vo.id}')">评论(<em>0</em>)</a>
+                        <a href="javascript:" class="com_agree"  onclick="replyUser('{$vo.id}','{$vo.users_id}','{$vo.true_name}','{$vo.id}')">评论(<em>0</em>)</a>
                         <a href="javascript:" class="com_zan"  data-url="{$eju.field.ClickLikeUrl}"  onclick="ClickLike(this, '{$vo.ask_id}', '{$vo.id}')">
                           <em class="likenum">赞(<em id="like_{$vo.id}">{$vo.click_like}</em>)</em>
                           <em class="like">点赞</em>
@@ -199,11 +199,11 @@
 							 <a class="avatar" href="javascript:;">
 							 <img src="{$vo_sub.litpic}">
 							 </a>
-							  <strong>{$vo_sub.username}</strong> <span style="margin:0 10px">|</span> <span>{$vo_sub.add_time|MyDate="Y-m-d H:i:s",###}</span>
+							  <strong>{$vo_sub.true_name}</strong> <span style="margin:0 10px">|</span> <span>{$vo_sub.add_time|MyDate="Y-m-d H:i:s",###}</span>
 							  <div style="flex-grow:1"></div>
 							  <!-- 非用户自己作出的回答 -->
 							  <span href="javascript:" class="secend-huifu-btn comment">
-                                  <a href="javascript:" class="com_agree"  onclick="replyUser('{$vo_sub.answer_pid}','{$vo_sub.users_id}','{$vo_sub.username}','{$vo_sub.answer_id}')">回复</a>
+                                  <a href="javascript:" class="com_agree"  onclick="replyUser('{$vo_sub.answer_pid}','{$vo_sub.users_id}','{$vo_sub.true_name}','{$vo_sub.answer_id}')">回复</a>
                                   <a href="javascript:" class="com_zan"  data-url="{$eju.field.ClickLikeUrl}"  onclick="ClickLike(this, '{$vo_sub.ask_id}', '{$vo_sub.id}')">
                                     <em class="likenum">赞(<em id="like_{$vo_sub.id}">{$vo_sub.click_like}</em>)</em>
                                     <em class="like" >点赞</em>

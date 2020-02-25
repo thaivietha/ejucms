@@ -349,7 +349,8 @@ class Users extends Base
 
             // 添加会员到会员表
             $data['username']       = $post['username'];
-            $data['nickname']       = !empty($post['nickname']) ? $post['nickname'] : '';
+            $data['nickname']       = !empty($post['nickname']) ? $post['nickname'] : func_substr_replace($post['username'],"*",3,4);
+            $data['true_name']       = !empty($post['true_name']) ? $post['true_name'] : func_substr_replace($post['username'],"*",3,4);
             $data['mobile']       = !empty($post['mobile']) ? $post['mobile'] : '';
             $data['email']       = !empty($post['email']) ? $post['email'] : '';
             $data['password']       = func_encrypt($post['password']);
