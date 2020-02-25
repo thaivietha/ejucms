@@ -74,7 +74,7 @@
                                                         <div class="layui-form-item">
                                                             <label class="layui-form-label">开盘时间</label>
                                                             <div class="layui-input-inline">
-                                                                <input type="text" name="open_time" id="open_time" placeholder="{php}echo date('Y-m-d H:i:s'){/php}" autocomplete="off" value="{$field.open_time|default=''}" class="layui-input">
+                                                                <input type="text" name="open_time" id="open_time" placeholder="{php}echo date('Y-m-d H:i:s'){/php}" autocomplete="off" value="{$field.open_time|myDate='Y-m-d H:i:s',###}" class="layui-input">
                                                                 <div class="layui-form-inline"></div>
                                                             </div>
                                                             <div class="layui-input-inline layui-btn-container " style="width: auto;">
@@ -85,7 +85,7 @@
                                                         <div class="layui-form-item">
                                                             <label class="layui-form-label">交房时间</label>
                                                             <div class="layui-input-inline">
-                                                                <input type="text" name="complate_time" id="complate_time" placeholder="{php}echo date('Y-m-d H:i:s'){/php}" autocomplete="off" value="{$field.complate_time|default=''}" class="layui-input">
+                                                                <input type="text" name="complate_time" id="complate_time" placeholder="{php}echo date('Y-m-d H:i:s'){/php}" autocomplete="off" value="{$field.complate_time|myDate='Y-m-d H:i:s',###}" class="layui-input">
                                                                 <div class="layui-form-inline"></div>
                                                             </div>
                                                             <div class="layui-input-inline layui-btn-container " style="width: auto;">

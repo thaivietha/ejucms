@@ -21,7 +21,7 @@ return array (
   'title' => 
   array (
     'name' => 'title',
-    'type' => 'varchar(20)',
+    'type' => 'varchar(50)',
     'notnull' => false,
     'default' => '',
     'primary' => false,
@@ -30,7 +30,7 @@ return array (
   'unit' => 
   array (
     'name' => 'unit',
-    'type' => 'varchar(20)',
+    'type' => 'varchar(100)',
     'notnull' => false,
     'default' => '',
     'primary' => false,
@@ -39,7 +39,7 @@ return array (
   'elevator' => 
   array (
     'name' => 'elevator',
-    'type' => 'varchar(255)',
+    'type' => 'varchar(100)',
     'notnull' => false,
     'default' => '',
     'primary' => false,
@@ -48,7 +48,7 @@ return array (
   'floor_num' => 
   array (
     'name' => 'floor_num',
-    'type' => 'varchar(10)',
+    'type' => 'varchar(100)',
     'notnull' => false,
     'default' => '',
     'primary' => false,
@@ -57,7 +57,7 @@ return array (
   'room_num' => 
   array (
     'name' => 'room_num',
-    'type' => 'varchar(10)',
+    'type' => 'varchar(100)',
     'notnull' => false,
     'default' => '',
     'primary' => false,

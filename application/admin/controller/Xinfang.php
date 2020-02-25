@@ -829,6 +829,8 @@ class Xinfang extends Base
             !empty($post['huxing_id']) && $post['huxing_id'] = implode(',',$post['huxing_id']);
             // --存储数据
             $newData = array(
+                'open_time' => !empty($post['open_time']) ? strtotime($post['open_time']) : 0,
+                'complate_time' => !empty($post['complate_time']) ? strtotime($post['complate_time']) : 0,
                 'add_time'     => getTime(),
                 'update_time'  => getTime(),
             );
@@ -869,6 +871,8 @@ class Xinfang extends Base
             !empty($post['huxing_id']) && $post['huxing_id'] = implode(',',$post['huxing_id']);
             // --存储数据
             $newData = array(
+                'open_time' => !empty($post['open_time']) ? strtotime($post['open_time']) : 0,
+                'complate_time' => !empty($post['complate_time']) ? strtotime($post['complate_time']) : 0,
                 'update_time'  => getTime(),
             );
             $data = array_merge($post, $newData);
