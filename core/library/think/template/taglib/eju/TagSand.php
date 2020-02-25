@@ -39,7 +39,7 @@ class TagSand extends Base
                 }
             }
             $result['data'] = $data;
-            $sand_list = Db::name('xinfang_sand')->where("aid={$aid}")->select();
+            $sand_list = Db::name('xinfang_sand')->where("aid={$aid}")->getAllWithIndex("sand_id");
             $huxing_list = Db::name('xinfang_huxing')->where("aid={$aid}")->select();
             foreach ($huxing_list as $key=>$val){
                 $huxing_list[$key]['open_time'] = !empty($val['open_time']) ? MyDate("Y-m-d",$val['open_time']) : '';

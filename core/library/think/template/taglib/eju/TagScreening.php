@@ -160,13 +160,11 @@ class TagScreening extends Base
             }else{
                 $is_data = $alltxt;
             }
-
             /*参数值含有单引号、双引号、分号，直接跳转404*/
             if (preg_match('#(\'|\"|;)#', $is_data)) {
                 abort(404,'页面不存在');
             }
             /*end*/
-            
             if (!empty($alltxt)){
                 $all[] = [
                     'id'   => '',
@@ -213,6 +211,17 @@ class TagScreening extends Base
                     }else if ($show == 2 && (($regionInfo['level'] == 1  &&  $name == "city_id") || ($regionInfo['level'] == 2  &&  $name == "area_id"))){  //从下级开始显示
                         $RegionData = get_next_region_list($regionInfo['id']);
                     }
+                    if (count($RegionData) == 1){
+                        $simple = array_merge($RegionData);
+//                        if ($simple[0]['level'] < 3){
+                            if ($simple[0]['level'] == 1){
+                                $param['province_id'] = $simple[0]['id'];
+                            }else if($simple[0]['level'] == 2){
+                                $param['city_id'] = $simple[0]['id'];
+                            }
+                            $RegionData = [];
+//                        }
+                    }
                 }
             }else if('config' == $value['define']){    //自定义区域筛选
                 $dfvalue = config($value['dfvalue']);
@@ -250,6 +259,7 @@ class TagScreening extends Base
                 continue;
             }
 
+//            var_dump($RegionData);die();
             // 合并数组
             $RegionData = array_merge($all,$RegionData);
             // 在伪静态下拼装控制器方式参数名

@@ -140,7 +140,8 @@ class Index extends Base
             $salemanlist = Db::name("saleman")->where("status=1")->select();
             $now_time = getTime();
             foreach ($salemanlist as $val){
-                $data['username']       = $val['saleman_name'];
+                $data['username']       = !empty($val['saleman_name']) ? $val['saleman_name'] : '';
+                $data['true_name']       = !empty($val['saleman_name']) ? $val['saleman_name'] : '';
                 $data['nickname']       = !empty($val['saleman_name']) ? $val['saleman_name'] : '';
                 $data['mobile']       = !empty($val['saleman_mobile']) ? $val['saleman_mobile'] : '';
                 $data['email']       = !empty($val['saleman_email']) ? $val['saleman_email'] : '';
