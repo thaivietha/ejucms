@@ -95,6 +95,12 @@ class Ask extends Base
     {
         if (IS_POST) {
             $post = input('post.');
+            if (empty($post['content'])){
+                $this->error("操作失败,请填写提问内容", url('Ask/index'));
+            }
+            if (empty($post['ask_title'])){
+                $post['ask_title'] = strlen($post['content']) > 50 ?mb_substr($post['content'],0,30,'utf-8').'...' : $post['content'];
+            }
             // --存储数据
             $nowData = array(
                 'users_ip' => clientIP(),
@@ -124,6 +130,12 @@ class Ask extends Base
         if (IS_POST) {
             $post = input('post.');
             $r = false;
+            if (empty($post['content'])){
+                $this->error("操作失败,请填写提问内容", url('Ask/index'));
+            }
+            if (empty($post['ask_title'])){
+                $post['ask_title'] = strlen($post['content']) > 50 ?mb_substr($post['content'],0,30,'utf-8').'...' : $post['content'];
+            }
             if(!empty($post['ask_id'])){
                 // --存储数据
                 $nowData = array(

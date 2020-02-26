@@ -200,11 +200,10 @@ class Ask extends Base
             $param = input('param.');
             // 是否登录、是否允许发布问题、数据判断及处理，返回内容数据
             if (empty($param['title'])){
-                $param['title'] = strlen($param['content']) > 50 ?substr($param['content'],0,50).'...' : $param['content'];
+                $param['title'] = strlen($param['content']) > 50 ?mb_substr($param['content'],0,30,'utf-8').'...' : $param['content'];
             }
             $content = $this->ParamDealWith($param);
             $param['title'] = htmlspecialchars($param['title']);
-
             /*添加数据*/
             $AddAsk = [
                 'users_id'    => $this->users_id,

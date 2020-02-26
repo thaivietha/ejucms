@@ -25,20 +25,7 @@ class TagSand extends Base
         }
         $result = Db::name('xinfang_sand_pic')->where("aid={$aid}")->find();
         if ($result){
-            $data = json_decode($result['data'],true);
-            foreach ($data as $key=>$val){
-                $point = explode(',',$val['point']);
-                $data[$key]['lpoint'] = $point[0];
-                $data[$key]['tpoint'] = $point[1];
-                if ($val['sale'] == '预售'){
-                    $data[$key]['currentstyle'] = 'yushou';
-                }else if($val['sale'] == '在售'){
-                    $data[$key]['currentstyle'] = 'zaishou';
-                }else{
-                    $data[$key]['currentstyle'] = 'shouqing';
-                }
-            }
-            $result['data'] = $data;
+
             $sand_list = Db::name('xinfang_sand')->where("aid={$aid}")->getAllWithIndex("sand_id");
             $huxing_list = Db::name('xinfang_huxing')->where("aid={$aid}")->select();
             foreach ($huxing_list as $key=>$val){
@@ -56,6 +43,21 @@ class TagSand extends Base
                     }
                 }
             }
+            $data = json_decode($result['data'],true);
+            foreach ($data as $key=>$val){
+                $point = explode(',',$val['point']);
+                $data[$key]['lpoint'] = $point[0];
+                $data[$key]['tpoint'] = $point[1];
+                if ($val['sale'] == '预售'){
+                    $data[$key]['currentstyle'] = 'yushou';
+                }else if($val['sale'] == '在售'){
+                    $data[$key]['currentstyle'] = 'zaishou';
+                }else{
+                    $data[$key]['currentstyle'] = 'shouqing';
+                }
+                $data[$key]['sand_list'] = $sand_list[$val['sand_id']];
+            }
+            $result['data'] = $data;
             $result['sand_list'] = $sand_list;
             $result['sale_status'] = get_sale_status_list();
             $result['label'] = <<<EOF

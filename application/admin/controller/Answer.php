@@ -65,6 +65,7 @@ class Answer extends Base
             $insertId = Db::name("answer")->insertGetId($data);
             if (false !== $insertId) {
                 adminLog('新增回答：'.$post['content']);
+                Db::name("ask")->where("ask_id=".$post['ask_id'])->setInc("replies",1);
                 $this->success("操作成功", url('Ask/detail',['ask_id'=>$post['ask_id']]));
             }else{
                 $this->error("操作失败", url('Ask/detail',['ask_id'=>$post['ask_id']]));

@@ -56,10 +56,10 @@ class TagAsk extends Base
         // 最新问题，默认读取20条，可传入条数及字段名称进行获取
         $Where = $this->AskLogic->GetAskWhere($where);
         $ResultAsk = $this->AskModel->GetNewAskData($Where,$pagesize,null,$orderby);
-        //获取所有回答
+        //获取回答
         if ($answer == 'on'){
             $AskIds = get_arr_column($ResultAsk['AskData'], 'ask_id');
-            if ($bestanswer == 'on'){
+            if ($bestanswer == 'on'){  //只获取最佳答案
                 $AnswerData = Db::name("answer")->where('ask_id','IN',$AskIds)->where("is_review","eq","1")->where("is_bestanswer","eq","1")->select();
             }else{
                 $AnswerData = Db::name("answer")->where('ask_id','IN',$AskIds)->where("is_review","eq","1")->select();
