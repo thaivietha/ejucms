@@ -311,10 +311,10 @@ if (!function_exists('getMenuList'))
                 }
             }
         }
-        $config = tpCache('question');
-        if (empty($config['question_status'])){   //没有开启问答
-            unset($menuArr[10000]);
-        }
+//        $config = tpCache('question');
+//        if (empty($config['question_status'])){   //没有开启问答
+//            unset($menuArr[10000]);
+//        }
 
         return $menuArr;
     }

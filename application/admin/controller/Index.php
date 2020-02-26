@@ -166,7 +166,7 @@ class Index extends Base
                     $zufang_arr =  Db::name("zufang_system")->where("saleman_id=".$val['id'])->getField("aid",true);
                     $aid_arr = array_merge($xinfang_arr,$ershou_arr,$zufang_arr);
                     if (!empty($aid_arr)){
-                        Db::name("archives")->where(['aid'=>['in',$aid_arr]])->update(['users_id'=>$users_id]);
+                        Db::name("archives")->where(['aid'=>['in',$aid_arr],'users_id'=>0])->update(['users_id'=>$users_id]);
                     }
                 }
                 unset($data);

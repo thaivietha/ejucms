@@ -585,6 +585,22 @@ class Ask extends Model
             $ResultData['info']['fang_arcurl'] = arcurl("home/View/index", $fang);
 
         }
+        //提问者所在区域
+        if(empty($ResultData['info']['location'])){
+            if (empty($ResultData['info']['users_ip']) || $ResultData['info']['users_ip'] == '127.0.0.1' || $ResultData['info']['users_ip'] == 'localhost'){
+                $ResultData['info']['location'] = '本地局域网';
+            }else{
+                $city_str = httpRequest("https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?query={$ResultData['info']['users_ip']}&co=&resource_id=6006&oe=utf8","get");
+                if ($city_str){
+                    $city_arr = json_decode($city_str,true);
+                    if ($city_arr['status'] == 0 && !empty($city_arr['data'][0] ["location"])){
+                        $ResultData['info']['location'] = $city_arr['data'][0] ["location"];
+                    }
+                }
+            }
+            $this->weapp_ask_db->where("ask_id=".$ResultData['info']['ask_id'])->save(['location'=>$ResultData['info']['location']]);
+        }
+
         // 时间友好显示处理
         $ResultData['info']['add_time_friend'] = friend_date($ResultData['info']['add_time']);
         $ResultData['IsUsers'] = 0;

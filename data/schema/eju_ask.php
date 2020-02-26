@@ -99,6 +99,15 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'location' => 
+  array (
+    'name' => 'location',
+    'type' => 'varchar(100)',
+    'notnull' => false,
+    'default' => '',
+    'primary' => false,
+    'autoinc' => false,
+  ),
   'is_review' => 
   array (
     'name' => 'is_review',

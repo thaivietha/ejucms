@@ -68,6 +68,7 @@ class Controller
         $this->request = $request;
 
         $returnData = $this->pc_to_mobile($this->request);
+
         $this->is_mobile = $returnData['is_mobile'];
 
         if (!defined('IS_AJAX')) {
@@ -82,7 +83,7 @@ class Controller
         if (!defined('IS_AJAX_POST')) {
             ($this->request->isAjax() && $this->request->method() == 'POST') ? define('IS_AJAX_POST',true) : define('IS_AJAX_POST',false);  // 
         }
-        
+
         !defined('MODULE_NAME') && define('MODULE_NAME',$this->request->module());  // 当前模块名称是
         !defined('CONTROLLER_NAME') && define('CONTROLLER_NAME',$this->request->controller()); // 当前控制器名称
         !defined('ACTION_NAME') && define('ACTION_NAME',$this->request->action()); // 当前操作名称是
@@ -124,7 +125,6 @@ class Controller
         } else {
             read_html_cache(); // 尝试从缓存中读取
         }
-
         // 控制器初始化
         $this->_initialize();
 
@@ -208,21 +208,22 @@ class Controller
                     } else {
                         $seo_pseudo = config('ey_config.seo_pseudo');
                         $seo_inlet = config('ey_config.seo_inlet');
-                        $seo_inlet_str = '/index.php';
+                        $seo_inlet_str = 'index.php';
                         if (1 == $seo_inlet) {
-                            $seo_inlet_str = '/';
+                            $seo_inlet_str = '';
                         }
-                        if (1 == $seo_pseudo) {
-                            $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().ROOT_DIR.$seo_inlet_str.'?subdomain='.$subDomain;
-                        } else if (3 == $seo_pseudo) {
-                            $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().ROOT_DIR.$seo_inlet_str;
+                        if (1 == $seo_pseudo) {     //动态
+                            $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().$seo_inlet_str.$request->url().'&subdomain='.$subDomain;
+                        } else if (3 == $seo_pseudo) {      //伪静态
+                            $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().$seo_inlet_str.$request->url();
                             if ($subDomain){
-                                $mobileurl = rtrim($mobileurl,'/').'/'.$subDomain.'/';
+                                $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().$seo_inlet_str.'/'.$subDomain.$request->url();
                             }
                         }
                     }
                 }
             }
+            //pc端域名放到手机上，跳转到手机端对应域名
             if (!empty($mobileurl)) {
                 // header('HTTP/1.1 301 Moved Permanently');
                 header('Location: '.$mobileurl);
