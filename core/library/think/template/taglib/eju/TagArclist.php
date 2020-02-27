@@ -192,7 +192,7 @@ class TagArclist extends Base
                             array_push($condition, "(FIND_IN_SET('".$val[0]."',".$name."))");
                         }
                     }
-                }else if (config('ey_config.web_region_domain') == 1 && (($name == "province_id" && $regionInfo['level'] == 1) || ($name =="city_id" && $regionInfo['level'] == 2))){ //开启二级域名,区域筛选为空时，选中默认项
+                }else if (config('ey_config.web_region_domain') == 1 && (($name == "province_id" && $regionInfo['level'] == 1) || ($name =="city_id" && $regionInfo['level'] == 2)  || ($name =="area_id" && $regionInfo['level'] == 3))){ //开启二级域名,区域筛选为空时，选中默认项
                     array_push($condition, "(a.".$name." = '".$regionInfo['id']."' or a.".$name." = 0)");
                 }else if(config('ey_config.web_region_domain') == 0 && config('tpcache.web_region_show_data') == 0 && ($name == "province_id")){   //关闭二级域名，不显示其他信息
                     array_push($condition, "(a.".$name." = 0)");
@@ -333,6 +333,10 @@ class TagArclist extends Base
         $aidArr = array();
         $addtableName = ''; // 附加字段的数据表名
         $querysql = $this->archives_db->getLastSql(); // 用于arclist标签的分页
+        $users_arr = get_arr_column($result, 'users_id');
+        if (!empty($users_arr)){
+            $users = Db::name("users")->where('id', 'in', $users_arr)->getAllWithIndex("id");
+        }
         foreach ($result as $key => $val) {
             array_push($aidArr, $val['aid']); // 收集文档ID
             /*栏目链接*/
@@ -363,7 +367,9 @@ class TagArclist extends Base
             /*地图*/
             $mapurl = url('home/Map/index', ['aid'=>$val['aid']], true, false, 1);
             $val['mapurl'] = $mapurl;
+            $val['saleman'] = !empty($users[$val['users_id']]) ? $users[$val['users_id']] : [];
             /*--end*/
+            /*经纪人*/
 
             $result[$key] = $val;
         }

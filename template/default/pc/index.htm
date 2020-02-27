@@ -485,12 +485,12 @@
             <li class="active"> <a href="{$field.typeurl}" target="_blank" title="{$field.typename}">{$field.typename}</a>
               <div class="b_l"></div>
             </li>
-            {/eju:type} 
+            {/eju:type}
             {eju:type typeid='12'}
             <li> <a href="{$field.typeurl}" target="_blank" title="{$field.typename}">{$field.typename}</a>
               <div class="b_l"></div>
             </li>
-            {/eju:type} 
+            {/eju:type}
             {eju:type typeid='10'}
             <li> <a href="{$field.typeurl}" target="_blank" title="{$field.typename}">{$field.typename}</a>
               <div class="b_l"></div>
@@ -501,12 +501,12 @@
           <a href="{eju:diyurl type='mapershou' /}">地图找房</a>
           </div>
         </div>
-        <div class="content clearfix"> 
-          
+        <div class="content clearfix">
+
           <!-- 楼盘列表 S -->
           <div class="b_box ezxld_list fl" id="second-content-box">
             <div  class="clearfix">
-              <div class="l_box fl"> 
+              <div class="l_box fl">
                {eju:screening typeid='11' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
                 {eju:volist name='$field.list' id='vo' limit='0,4'}
                 <ul class="filter-row ezxsx">
@@ -516,12 +516,12 @@
                 </ul>
                 {/eju:volist}
                 {$field.hidden}
-                {/eju:screening} 
+                {/eju:screening}
                 </div>
               <ul class="list">
                 {eju:arclist orderby='new' row='6' id='field' typeid='11'}
-                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
-                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id|get_area_name"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
                 <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.room}{$field.living_room}-{$field.area}{$field.area_unit}</span> <span class="fl"><i class="price">{eju:notempty name="$field.total_price"}{$field.total_price}</i>{$field.total_price_unit}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
                 {/eju:arclist}
               </ul>
@@ -539,8 +539,8 @@
                 {/eju:screening} </div>
               <ul class="list">
                 {eju:arclist orderby='new' row='6' id='field' typeid='12'}
-                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
-                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id|get_area_name"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
                 <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.room}{$field.living_room}-{$field.area}{$field.area_unit}</span> <span class="fl">{eju:notempty name="$field.total_price"}<i class='price'>{$field.total_price}</i>{$field.price_units}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
                 {/eju:arclist}
               </ul>
@@ -558,19 +558,19 @@
                 {/eju:screening} </div>
               <ul class="list">
                 {eju:arclist orderby='new' row='6' id='field' typeid='10'}
-                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
-                <span class="ft clearfix">  {eju:notempty name="$field.area_id|get_area_name"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty}-{$field.title}</span>
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                <span class="ft clearfix">  {eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty}-{$field.title}</span>
                 <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.building_age}年建成</span> <span class="fl"><i class="price">{$field.average_price}</i>{$field.price_units}</span> </span> </a> </li>
                 {/eju:arclist}
               </ul>
             </div>
           </div>
-          <!-- 楼盘列表 E --> 
+          <!-- 楼盘列表 E -->
           <!-- 优秀导购员 S -->
           <div class="r_box top_director fr">
             <div class="release-news clearfix">
             {eju:user type='open'}
-             {eju:user type='login'} 
+             {eju:user type='login'}
               <a href="{$field.url}" title="" target="_blank"> <i class="font-index-1"></i>发布二手 </a>
               <a href="{$field.url}" title="" target="_blank"> <i class="font-index-2"></i>发布出租 </a>
               <a href="{$field.url}" title="" target="_blank"> <i class="font-index-3"></i>发布求购 </a>
@@ -595,7 +595,7 @@
             </ul>
             <div class="clearfix"> <a href="{eju:type typeid='20'}{$field.typeurl}{/eju:type}" target="_blank" class="more-broker">更多经纪人</a> </div>
           </div>
-          <!-- 优秀导购员 E --> 
+          <!-- 优秀导购员 E -->
         </div>
       </div>
       <!-- 二手房 E -->
@@ -613,12 +613,12 @@
             <li class="active"> <a href="{$field.typeurl}" target="_blank">商铺出售</a>
               <div class="b_l"></div>
             </li>
-            {/eju:type} 
+            {/eju:type}
             {eju:type typeid='27'}
             <li> <a href="{$field.typeurl}" target="_blank">写字楼出售</a>
               <div class="b_l"></div>
             </li>
-            {/eju:type} 
+            {/eju:type}
             {eju:type typeid='25'}
             <li> <a href="{$field.typeurl}" target="_blank">商铺出租</a>
               <div class="b_l"></div>
@@ -632,19 +632,19 @@
           </ul>
           <div class="mffb fr ">
           {eju:user type='open'}
-          {eju:user type='login'} 
+          {eju:user type='login'}
           <a href="{$field.url}">免费发布</a>
           {$field.hidden}
           {/eju:user}
           {/eju:user}
           </div>
         </div>
-        <div class="content clearfix"> 
-          
+        <div class="content clearfix">
+
           <!-- 楼盘列表 S -->
           <div class="b_box ezxld_list fl" id="spxzl-content-box">
             <div  class="clearfix">
-              <div class="l_box fl"> 
+              <div class="l_box fl">
                 {eju:screening typeid='24' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
                 {eju:volist name='$field.list' id='vo' limit='0,4'}
                 <ul class="filter-row ezxsx">
@@ -657,14 +657,14 @@
                 {/eju:screening} </div>
               <ul class="list">
                 {eju:arclist orderby='new' row='6' id='field' typeid='24'}
-                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
-                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id|get_area_name"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
                 <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.area}{$field.area_unit}</span> <span class="fl"><i class="price">{eju:notempty name="$field.total_price"}{$field.total_price}</i>{$field.total_price_unit}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
                 {/eju:arclist}
               </ul>
             </div>
             <div  class="clearfix" style="display: none;">
-              <div class="l_box fl"> 
+              <div class="l_box fl">
                 {eju:screening typeid='27' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
                 {eju:volist name='$field.list' id='vo' limit='0,4'}
                 <ul class="filter-row ezxsx">
@@ -674,18 +674,18 @@
                 </ul>
                 {/eju:volist}
                 {$field.hidden}
-                {/eju:screening} 
+                {/eju:screening}
               </div>
               <ul class="list">
                 {eju:arclist orderby='new' row='6' id='field' typeid='27'}
-                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
-                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id|get_area_name"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
                 <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.area}{$field.area_unit}</span> <span class="fl">{eju:notempty name="$field.total_price"}<i class='price'>{$field.total_price}</i>{$field.total_price_unit}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
                 {/eju:arclist}
               </ul>
             </div>
             <div  class="clearfix" style="display: none;">
-              <div class="l_box fl"> 
+              <div class="l_box fl">
                 {eju:screening typeid='25' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2'}
                 {eju:volist name='$field.list' id='vo' limit='0,4'}
                 <ul class="filter-row ezxsx">
@@ -695,12 +695,12 @@
                 </ul>
                 {/eju:volist}
                 {$field.hidden}
-                {/eju:screening} 
+                {/eju:screening}
               </div>
               <ul class="list">
                 {eju:arclist orderby='new' row='6' id='field' typeid='25'}
-                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
-                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id|get_area_name"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
                 <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.city_id|get_city_name}</span> <span class="fl"><i class="price">{$field.total_price}</i>{$field.price_units}</span> </span> </a> </li>
                 {/eju:arclist}
               </ul>
@@ -718,16 +718,16 @@
                 {/eju:screening} </div>
               <ul class="list">
                 {eju:arclist orderby='new' row='6' id='field' typeid='28'}
-                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span> 
-                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id|get_area_name"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
                 <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.city_id|get_city_name}</span> <span class="fl"><i class="price">{$field.total_price}</i>{$field.price_units}</span> </span> </a> </li>
                 {/eju:arclist}
               </ul>
             </div>
           </div>
-          <!-- 楼盘列表 E --> 
-          <!-- 优秀导购员 S --> 
-          
+          <!-- 楼盘列表 E -->
+          <!-- 优秀导购员 S -->
+
           {eju:channelartlist typeid='7'}
           <div class="r_box house_news fr">
             <div class="sct_item buy_way">
@@ -741,8 +741,8 @@
               </ul>
             </div>
           </div>
-          {/eju:channelartlist} 
-          <!-- 优秀导购员 E --> 
+          {/eju:channelartlist}
+          <!-- 优秀导购员 E -->
         </div>
       </div>
       <!-- 商铺-写字楼 E -->

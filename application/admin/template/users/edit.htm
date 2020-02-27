@@ -80,6 +80,14 @@
                         </div>
                         {eju:if condition="$Request.param.back eq 'saleman_list'"}
                         <div class="layui-form-item">
+                            <label class="layui-form-label">咨询人数</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="consult" id="consult" value="{$info.consult}" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" class="layui-input">
+                            </div>
+                            <div class="layui-input-inline">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
                             <label class="layui-form-label">第三方商桥</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="party" id="party" value="{$info.party}" class="layui-input">

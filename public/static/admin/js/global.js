@@ -440,6 +440,52 @@ function GetUploadInst()
     if ('undefined' == result || undefined == result) {
         return false;
     }
+    //单音频上传
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        var load;
+        //执行实例
+        var uploadInstVoice = upload.render({
+            elem: '.test-upload-voice' //绑定元素
+            ,acceptMime: 'audio/*'
+            ,ext: 'mp3'
+            ,accept:'audio'
+            ,url:eyou_basefile+'?m=admin&c=Ueditor&a=videoUp&_ajax=1' //上传接口
+            ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                this.data.savepath = this.ey_savepath;
+                load = layer.load(); //上传loading
+            }
+            ,done: function(res, index, upload){
+                layer.close(load); //关闭loading
+                var ey_callback = this.ey_callback;
+                //如果上传失败
+                if(res.state == 'SUCCESS'){
+                    if (!ey_callback) {
+                        $('#'+this.ey_inputId).val(res.url);
+                        $('#img_'+this.ey_inputId).attr('src',res.url);
+                        return;
+                    } else {
+                        eval('window.'+ey_callback+'(res)');
+                        return;
+                    }
+                } else {
+                    return layer.msg(res.state, {icon:5, time: 1500});
+                }
+                //上传成功
+            }
+            ,error: function(res){
+                console.log(res);
+                layer.close(load); //关闭loading
+                //重载该实例，支持重载全部基础参数
+                // uploadInst.reload({
+                //     accept: 'images' //只允许上传图片
+                //     ,acceptMime: 'image/*' //只筛选图片
+                //     ,exts: 'jpg|png|gif|bmp|jpeg|ico'
+                //     // ,size: 1024*2 //限定大小
+                // });
+            }
+        });
+    });
     //单视频上传
     layui.use('upload', function(){
         var upload = layui.upload;

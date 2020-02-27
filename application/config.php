@@ -19,7 +19,6 @@ if (file_exists($constsant_path)) {
     $serial_number = substr(SERIALNUMBER, -8);
 }
 // end
-
 // 站点根域名
 $cookie_domain = '';
 $url_domain_root = '';
@@ -30,6 +29,7 @@ if ('' === $cookie_domain) {
 		$url_domain_root = \think\Request::instance()->rootDomain();
 		$cookie_domain = '.'.$url_domain_root;
 	}
+
 }
 
 return array(
@@ -243,6 +243,7 @@ return array(
         'type'           => '',
         // 是否自动开启 SESSION
         'auto_start'     => true,
+        'domain'        => $url_domain_root,
         // 主机
         // 'host'           => '127.0.0.1',
         // 端口

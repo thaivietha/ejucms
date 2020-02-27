@@ -27,6 +27,9 @@
                                                     <div class="layui-form-item">
                                                         <label class="layui-form-label">楼盘</label>
                                                         <div class="layui-input-inline layadmin-layer-demo">
+                                                            <input type="hidden" name="province_id" id="province_id"  lay-verify="required" value="{$field.province_id}">
+                                                            <input type="hidden" name="city_id" id="city_id"  lay-verify="required" value="{$field.city_id}">
+                                                            <input type="hidden" name="area_id" id="area_id"  lay-verify="required" value="{$field.area_id}">
                                                             <input type="hidden" name="joinaid" id="joinaid"  lay-verify="required" value="{$field.joinaid}">
                                                             <span class="tower-add" id="house_title" {eju:empty name="$xinfangTitle"}style="display:none;"{/eju:empty}>
                                                             {eju:notempty name="$xinfangTitle"}{$xinfangTitle}<i class="layui-icon layui-icon-close"></i>{/eju:notempty}
@@ -272,8 +275,8 @@
             });
             $('#add_time').layDate(); 
 
-            var city_id = "{$city_id}";
-            set_city_list(city_id);
+//            var city_id = "{$city_id}";
+//            set_city_list(city_id);
         });
         
         layui.config({
@@ -461,7 +464,10 @@
         }
         //选择楼盘回调
         function set_house_back(recall){
+            console.log(recall);
             $("#province_id").val(recall['province_id']);
+            $("#city_id").val(recall['city_id']);
+            $("#area_id").val(recall['area_id']);
             $("#joinaid").val(recall['aid']);
             $("#title").val(recall['title']);
             $("#price").val(recall['average_price']);
@@ -470,12 +476,15 @@
             $("#average_price_units").html(recall['price_units']);
             $('#house_title').html(recall['title']+ ' <i class="layui-icon layui-icon-close"></i>');
             $('#house_title').show();
-            set_city_list(recall['city_id']);
+//            set_city_list(recall['city_id']);
         }
         $("#house_title").on('click','i',function(){
             $("#house_title").html('');
             $('#house_title').hide();
             $("#joinaid").val(0);
+            $("#province_id").val(0);
+            $("#city_id").val(0);
+            $("#area_id").val(0);
         });
         //设置作者
         function set_author()

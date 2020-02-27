@@ -48,30 +48,33 @@ class NavigationLogic extends Model
             'status' => 1
         ];
         $field = 'id, parent_id, typename, dirname, litpic';
-
         // 查询所有可投稿的栏目
         $ArcTypeData = Db::name('arctype')->field($field)->where($where)->select();
-
         // 读取上级ID并去重读取上级栏目
         $ParentIds = array_unique(get_arr_column($ArcTypeData, 'parent_id'));
-        $PidData = Db::name('arctype')->field($field)->where('id', 'IN', $ParentIds)->select();
-
-        // 处理顶级栏目
-        $PidDataNew = [];
-        foreach ($ArcTypeData as $key => $value) {
-            if (empty($value['parent_id'])) {
-                array_push($PidDataNew, $value);
-            }
+        if (!empty($ParentIds)){
+            $ParentIds = implode(',',$ParentIds);
+            $PidData = Db::name('arctype')->field($field)->where("current_channel>0 and is_del=0 and status = 1 and (id in ($ParentIds) or parent_id=0)")->select();
+        }else{
+            $where['parent_id'] = 0;
+            $PidData = Db::name('arctype')->field($field)->where($where)->select();
         }
+//        $PidData = Db::name('arctype')->field($field)->where('id', 'IN', $ParentIds)->select();
+//        // 处理顶级栏目
+//        $PidDataNew = [];
+//        foreach ($ArcTypeData as $key => $value) {
+//            if (empty($value['parent_id'])) {
+//                array_push($PidDataNew, $value);
+//            }
+//        }
+//        $PidData = array_merge($PidData, $PidDataNew);
+
         // 合并顶级栏目
-        $PidData = array_merge($PidData, $PidDataNew);
-            
         static $seo_pseudo = null;
         if (null === $seo_pseudo) {
             $seoConfig = tpCache('seo');
             $seo_pseudo = !empty($seoConfig['seo_pseudo']) ? $seoConfig['seo_pseudo'] : config('ey_config.seo_pseudo');
         }
-
         // 下拉框拼装
         $HtmlCode = '<select name="type_id" id="type_id" lay-filter="type_id">';
         $HtmlCode .= '<option id="arctype_default" value="0">请选择栏目</option>';
@@ -252,7 +255,7 @@ class NavigationLogic extends Model
                 $first_item = reset($options); // 获取第一个元素
                 $end_level  = $first_item['level'] + $level;
             }
-    
+
             /* 保留level小于end_level的部分 */
             foreach ($options AS $key => $val)
             {
@@ -262,7 +265,7 @@ class NavigationLogic extends Model
                 }
             }
         }
-    
+
         $pre_key = 0;
         foreach ($options AS $key => $value)
         {
@@ -276,7 +279,7 @@ class NavigationLogic extends Model
             }
             $pre_key = $key;
         }
-    
+
         if ($re_type == true)
         {
             $select = '';
@@ -300,7 +303,7 @@ class NavigationLogic extends Model
             return $options;
         }
     }
-    
+
     /**
      * 过滤和排序所有文章菜单，返回一个带有缩进级别的数组
      *
@@ -315,13 +318,13 @@ class NavigationLogic extends Model
         static $cat_options = array();
 
         // $cat_options = array();
-    
+
         if (isset($cat_options[$spec_id]))
         {
             $cat_options = array();
             return $cat_options[$spec_id];
         }
-    
+
         if (!isset($cat_options[0]))
         {
             $level = $last_id = 0;
@@ -337,13 +340,13 @@ class NavigationLogic extends Model
                         {
                             break;
                         }
-    
+
                         $options[$id]          = $value;
                         $options[$id]['level'] = $level;
                         $options[$id]['navig_id']    = $id;
                         $options[$id]['navig_name']  = $value['navig_name'];
                         unset($arr[$key]);
-    
+
                         if ($value['has_children'] == 0)
                         {
                             continue;
@@ -353,7 +356,7 @@ class NavigationLogic extends Model
                         $level_array[$last_id] = ++$level;
                         continue;
                     }
-    
+
                     if ($value['parent_id'] == $last_id)
                     {
                         $options[$id]          = $value;
@@ -361,7 +364,7 @@ class NavigationLogic extends Model
                         $options[$id]['navig_name']    = $id;
                         $options[$id]['navig_name']  = $value['navig_name'];
                         unset($arr[$key]);
-    
+
                         if ($value['has_children'] > 0)
                         {
                             if (end($id_array) != $last_id)
@@ -378,7 +381,7 @@ class NavigationLogic extends Model
                         break;
                     }
                 }
-    
+
                 $count = count($id_array);
                 if ($count > 1)
                 {
@@ -398,7 +401,7 @@ class NavigationLogic extends Model
                         continue;
                     }
                 }
-    
+
                 if ($last_id && isset($level_array[$last_id]))
                 {
                     $level = $level_array[$last_id];
@@ -415,7 +418,7 @@ class NavigationLogic extends Model
         {
             $options = $cat_options[0];
         }
-    
+
         if (!$spec_id)
         {
             $cat_options = array();
@@ -428,9 +431,9 @@ class NavigationLogic extends Model
                 $cat_options = array();
                 return array();
             }
-    
+
             $spec_id_level = $options[$spec_id]['level'];
-    
+
             foreach ($options AS $key => $value)
             {
                 if ($key != $spec_id)
@@ -442,7 +445,7 @@ class NavigationLogic extends Model
                     break;
                 }
             }
-    
+
             $spec_id_array = array();
             foreach ($options AS $key => $value)
             {

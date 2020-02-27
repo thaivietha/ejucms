@@ -134,7 +134,7 @@
             <li> <span class="l_img fl"> <a href="{$field.arcurl}"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> </a> </span> <span class="r_con fr">
               <h3> <a href="{$field.arcurl}"> {$field.title} </a> </h3>
               <p class="shop"> <span class="info">装修：{$field.fitment}</span><span class="info">类型：{$field.manage_type}</span> <span class="info">面积：{$field.area}{$field.area_unit}</span></p>
-              <p class="shop"> <span class="address">{eju:notempty name="$field.area_id|get_area_name"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty}-{$field.address} </span> </p>
+              <p class="shop"> <span class="address">{eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty}-{$field.address} </span> </p>
               <p class="user-info shop"> <span><i class="iconfont">&#xe605;</i>置业顾问：{$field.sale_name}</span> </p>
               <span class="label_list clearfix"> {eju:volist name='$field.characteristic' id='vo'} <i class="item ">{$vo}</i> {/eju:volist} </span> 
               

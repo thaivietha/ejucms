@@ -216,4 +216,13 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'consult' => 
+  array (
+    'name' => 'consult',
+    'type' => 'int(11) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
 );

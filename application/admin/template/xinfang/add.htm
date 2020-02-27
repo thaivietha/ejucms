@@ -600,6 +600,21 @@
                                                     </div>
                                                 </div>
 
+                                                    <div class="layui-form-item {empty name="$addonFieldExtList['voice']['ifeditable']"}none{/empty}"">
+                                                        <label class="layui-form-label">{$addonFieldExtList['voice']['title']}</label>
+                                                        <div class="layui-input-inline">
+                                                            <input type="text" class="layui-input" id="voice" name="addonFieldExt[voice]"  placeholder="{$addonFieldExtList['voice']['remark']}"  value="{$addonFieldExtList['voice']['dfvalue']}">
+                                                        </div>
+                                                        <div class="layui-input-inline layui-input-company">
+                                                            {$addonFieldExtList['voice']['dfvalue_unit']}
+                                                        </div>
+                                                        <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                            <button class="layui-btn test-upload-voice layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'voice',ey_savepath:'allvoice'}"><i class="layui-icon">&#xe67c;</i>上传语音播报</button>
+                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                            <div class="layui-form-inline2 ey_helptips_txt">{$addonFieldExtList['voice']['remark']}</div>
+                                                        </div>
+                                                    </div>
+
                                                         {include file="field/addonextitem" /}
                                                         <div class="layui-form-item layui-form-text {empty name="$addonFieldExtList['location_introduce']['ifeditable']"}none{/empty}">
                                                             <label class="layui-form-label">{$addonFieldExtList['location_introduce']['title']}</label>

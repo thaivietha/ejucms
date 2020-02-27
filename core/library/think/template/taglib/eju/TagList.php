@@ -424,7 +424,7 @@ class TagList extends Base
                     if (!empty($val) && !empty($val[0])) {
                         array_push($condition, "(FIND_IN_SET('".$val[0]."',".$fieldname."))");
                     }
-                }else if (tpCache('web.web_region_domain') == 1 && (($fieldname == "province_id" && $regionInfo['level'] == 1) || ($fieldname =="city_id" && $regionInfo['level'] == 2))){ //开启二级域名,区域筛选为空时，选中默认项
+                }else if (tpCache('web.web_region_domain') == 1 && (($fieldname == "province_id" && $regionInfo['level'] == 1) || ($fieldname =="city_id" && $regionInfo['level'] == 2) || ($fieldname =="area_id" && $regionInfo['level'] == 3))){ //开启二级域名,区域筛选为空时，选中默认项
                     array_push($condition, "(".$fieldname." = '".$regionInfo['id']."' or ".$fieldname." = 0)");
                 }else if(tpCache('web.web_region_domain') == 0 && tpCache('web.web_region_show_data') == 0 && ($fieldname == "province_id")){   //关闭二级域名，不显示其他信息
                     array_push($condition, "(".$fieldname." = 0)");
@@ -615,6 +615,10 @@ class TagList extends Base
                     ->where('a.aid', 'in', $aids)
                     ->getAllWithIndex('aid');
             }
+            $users_arr = get_arr_column($row, 'users_id');
+            if (!empty($users_arr)){
+                $users = Db::name("users")->where('id', 'in', $users_arr)->getAllWithIndex("id");
+            }
             // 获取模型对应的控制器名称
             $channel_list = model('Channeltype')->getAll('id, ctl_name', array(), 'id');
             foreach ($list as $key => $val) {
@@ -636,7 +640,6 @@ class TagList extends Base
                         unset($arcparam['room']);
                     }
                     $arcval['arcurl'] = arcurl('home/'.$controller_name."/view", $arcparam,true,false,'',null);
-
                 }
                 /*--end*/
                 /*封面图*/
@@ -648,7 +651,8 @@ class TagList extends Base
                 //地图
                 $mapurl = url('home/Map/index', ['aid'=>$val['aid']], true, false, 1);
                 $arcval['mapurl'] = $mapurl;
-
+                //经纪人
+                $arcval['saleman'] = !empty($users[$arcval['users_id']]) ? $users[$arcval['users_id']] : [];
                 $list[$key] = $arcval;
             }
 
