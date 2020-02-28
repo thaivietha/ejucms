@@ -150,9 +150,12 @@ class Users extends Base
                 }else{
                     $post['password'] = func_encrypt($post['password']);
                 }
-                $post['users_label'] = !empty(implode(',',$post['users_label'])) ? implode(',',$post['users_label']) : '';
-                $post['service_area'] = !empty(implode(',',$post['service_area'])) ? implode(',',$post['service_area']) : '';
-                $post['service_xiaoqu'] = !empty(implode(',',$post['service_xiaoqu'])) ? implode(',',$post['service_xiaoqu']) : '';
+                $users_label = implode(',',$post['users_label']);
+                $service_area = implode(',',$post['service_area']);
+                $service_xiaoqu = implode(',',$post['service_xiaoqu']);
+                $post['users_label'] = !empty($users_label) ? $users_label : '';
+                $post['service_area'] = !empty($service_area) ? $service_area : '';
+                $post['service_xiaoqu'] = !empty($service_xiaoqu) ? $service_xiaoqu : '';
                 $nowData = array('update_time'    => getTime());
                 $data = array_merge($post, $nowData);
                 $r = Db::name('users')->where(['id'    => $post['id']])->update($data);

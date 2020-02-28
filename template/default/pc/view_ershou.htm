@@ -93,7 +93,7 @@
         <div class="basic">
           <ul>
             <li> <span>小区名称</span>
-              <p> <a>{eju:notempty name="$eju.field.xiaoqu.area_id|get_area_name"}{$eju.field.xiaoqu.area_id|get_area_name}{eju:else /}{$eju.field.xiaoqu.city_id|get_city_name}{/eju:notempty}</a> - <a href="{$eju.field.xiaoqu.arcurl}" target="_blank">{$eju.field.xiaoqu.title}</a> </p>
+              <p> <a>{eju:notempty name="$eju.field.xiaoqu.area_id"}{$eju.field.xiaoqu.area_id|get_area_name}{eju:else /}{$eju.field.xiaoqu.city_id|get_city_name}{/eju:notempty}</a> - <a href="{$eju.field.xiaoqu.arcurl}" target="_blank">{$eju.field.xiaoqu.title}</a> </p>
             </li>
             <li> <span>装修情况</span>
               <p>{$eju.field.fitment}</p>
