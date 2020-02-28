@@ -59,7 +59,7 @@ class Index extends Base
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
         $web_main_domain = tpCache('web.web_main_domain'); //config('ey_config.web_main_domain');  //主域名
         $subDomain = request()->subDomain();
-        if ($web_region_domain && !empty($subDomain) && ($subDomain == 'www' || (!empty($web_main_domain) && $subDomain == $web_main_domain)) && file_exists("./template/{$this->tpl_theme}/pc/index_all.htm")){
+        if ($web_region_domain && (empty($subDomain) || $subDomain == 'www' || (!empty($web_main_domain) && $subDomain == $web_main_domain)) && file_exists("./template/{$this->tpl_theme}/pc/index_all.htm")){
             return $this->fetch(":index_all");
         }
         $html = $this->fetch(":index");
