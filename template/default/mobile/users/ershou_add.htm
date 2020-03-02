@@ -49,7 +49,7 @@
                                                 <div class="layui-card-body" pad15="">
                                                     <div class="layui-form" wid100="" lay-filter="">
 														<div class="layui-form-item">
-														    <label class="layui-form-label"><b>*</b>所属小区</label>
+														   <label class="layui-form-label"><b>*</b>所属小区</label>
 														    <div class="layui-input-inline w-in">
                                                                 <input type="hidden" id="joinaid" name="joinaid" value="" />
 														        <input type="text" onblur="check_xiaoqu()" name="xiaoqu_title" id="xiaoqu_title"  placeholder="丰祥花苑" lay-verify="check_xiaoqu_title" value="" class="layui-input">
@@ -174,6 +174,7 @@
                                                             <div class="layui-form-mid layui-word-aux ey_helptips"></div>
                                                             <div class="layui-form-inline2 ey_helptips_txt none"></div>
                                                         </div>
+																												
                                                         <div class="w-out fl mt15 none" id="address_div"  style="display: none">
                                                             <label class="layui-form-label"><b>*</b>{$addonFieldExtList['address']['title']}</label>
                                                             <div class="layui-input-inline w-in">
@@ -189,8 +190,7 @@
                                                                 <a class="layui-btn layui-btn-primary bt-address fl" data-type="map_mark" title="点击标注楼盘坐标"><i class="layui-icon layui-icon-location"></i></a>
                                                             </div>
                                                         </div>
-
-
+														
                                                         <div class="w-out fl mt15">
                                                             <label class="layui-form-label"><b>*</b>房源标题</label>
                                                             <div class="layui-input-inline w-in">
@@ -280,43 +280,41 @@
                                                         <div class="layui-form-item">
                                                             <label class="layui-form-label">房型</label>
                                                             <div class="layui-input-inline w-max2">
-                                                                <div class="layui-input-inline w-max2">
-                                                                    <div class="layui-input-inline w80">
+                                                                    <div class="layui-input-inline2 w80">
                                                                         <select name="addonFieldSys[room]" id="room">
                                                                             {volist name="$addonFieldExtList['room']['dfvalue']" id="v2"}
                                                                             <option value="{$v2}" {if condition="isset($addonFieldExtList['room']['trueValue']) AND in_array($v2, $addonFieldExtList['room']['trueValue'])"}selected{/if}>{$v2}</option>
                                                                             {/volist}
                                                                         </select>
                                                                     </div>
-                                                                    <div class="layui-input-inline w80">
+                                                                    <div class="layui-input-inline2 w80">
                                                                         <select name="addonFieldSys[living_room]" id="living_room">
                                                                             {volist name="$addonFieldExtList['living_room']['dfvalue']" id="v2"}
                                                                             <option value="{$v2}" {if condition="isset($addonFieldExtList['living_room']['trueValue']) AND in_array($v2, $addonFieldExtList['living_room']['trueValue'])"}selected{/if}>{$v2}</option>
                                                                             {/volist}
                                                                         </select>
                                                                     </div>
-                                                                    <div class="layui-input-inline w80">
+                                                                    <div class="layui-input-inline2 w80">
                                                                         <select name="addonFieldSys[kitchen]" id="kitchen">
                                                                             {volist name="$addonFieldExtList['kitchen']['dfvalue']" id="v2"}
                                                                             <option value="{$v2}" {if condition="isset($addonFieldExtList['kitchen']['trueValue']) AND in_array($v2, $addonFieldExtList['kitchen']['trueValue'])"}selected{/if}>{$v2}</option>
                                                                             {/volist}
                                                                         </select>
                                                                     </div>
-                                                                    <div class="layui-input-inline w80">
+                                                                    <div class="layui-input-inline2 w80">
                                                                         <select name="addonFieldSys[toilet]" id="toilet">
                                                                             {volist name="$addonFieldExtList['toilet']['dfvalue']" id="v2"}
                                                                             <option value="{$v2}" {if condition="isset($addonFieldExtList['toilet']['trueValue']) AND in_array($v2, $addonFieldExtList['toilet']['trueValue'])"}selected{/if}>{$v2}</option>
                                                                             {/volist}
                                                                         </select>
                                                                     </div>
-                                                                    <div class="layui-input-inline w80">
+                                                                    <div class="layui-input-inline2 w80">
                                                                         <select name="addonFieldSys[balcony]" id="balcony">
                                                                             {volist name="$addonFieldExtList['balcony']['dfvalue']" id="v2"}
                                                                             <option value="{$v2}" {if condition="isset($addonFieldExtList['balcony']['trueValue']) AND in_array($v2, $addonFieldExtList['balcony']['trueValue'])"}selected{/if}>{$v2}</option>
                                                                             {/volist}
                                                                         </select>
                                                                     </div>
-                                                                </div>
                                                             </div>
                                                         </div>
 
