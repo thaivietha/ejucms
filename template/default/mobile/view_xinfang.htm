@@ -81,7 +81,7 @@
                   </script>
                   {/eju:notempty}
                   {eju:fanglist type="photo" id="vo" group="photo_type"}
-                  {eju:fanglist name="$vo.children" id="field" limit='0,1'}
+                  {eju:fanglist name="$vo.children" id="field" limit='0,100'}
                   <div class="swiper-slide">
                       <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','photo_type'=>$field.photo_type,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}"
                          rel="nofollow">
