@@ -625,7 +625,8 @@ class Minipro extends Model
 
             $list = [];
             $aids = [];
-            foreach ($pages->items() as $key => $val) {
+            $archives_list = !empty($pages) && !empty($pages->items()) ? $pages->items() : [];
+            foreach ($archives_list as $key => $val) {
                 $aids[]               = $val['aid'];
                 $val['province_name'] = get_province_name($val['province_id']);
                 $val['city_name']     = get_city_name($val['city_id']);
@@ -692,7 +693,7 @@ class Minipro extends Model
 
             $result = array(
                 'conf' => array(
-                    'hasMore' => ($page < $pages->lastPage()) ? 1 : 0,
+                    'hasMore' => (!empty($pages) && $page < $pages->lastPage()) ? 1 : 0,
                     'status'  => $status,
                 ),
                 'list' => $list,
