@@ -337,7 +337,7 @@ class Users extends Base
                 }
             }else if(3 == $users_verification){     //短信验证码
                 $data['is_mobile'] = 1;
-                $RecordWhere = ['mobile'=>$post['mobile'],'status'=>1,'scene'=>1,'code'=>$post['mobile_code']];
+                $RecordWhere = ['mobile'=>$post['mobile'],'status'=>1,'scene'=>2,'code'=>$post['mobile_code']];
                 $RecordData = [
                     'status'      => 2
                 ];

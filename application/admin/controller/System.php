@@ -34,6 +34,7 @@ class System extends Base
     //问答配置
     public function question(){
         $inc_type =  'question';
+        $config = tpCache($inc_type);
         if (IS_POST) {
             $param = input('post.');
             if (empty($param['typename'])){
@@ -52,6 +53,13 @@ class System extends Base
                 ]);
             }
             if ($r !== false){
+                if (isset($config['question_status']) && $config['question_status'] != $param['question_status']){
+                    Db::name("navig_list")->where("navig_url='home_Ask_index'")->save(['status'=>$param['question_status']]);
+                    // 清除logic逻辑定义的缓存
+                    extra_cache('admin_navig_list_list_logic', null);
+                    // 清除一下缓存
+                    \think\Cache::clear("navig_list");
+                }
                 \think\Cache::clear('arctype');
             }
 //            $param['web_keywords'] = str_replace('，', ',', $param['web_keywords']);
@@ -60,7 +68,6 @@ class System extends Base
             $this->success('操作成功', url('System/question'));
             exit;
         }
-        $config = tpCache($inc_type);
         $this->assign('config',$config);//当前配置项
         $arctype = Db::name("arctype")->where("channeltype=-1 and current_channel=-1")->find();
         $this->assign('arctype',$arctype);//栏目内容向

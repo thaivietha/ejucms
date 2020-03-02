@@ -38,20 +38,6 @@
 	<!-- topBar S -->
 	 {eju:include file="header.htm"/} 
 	 <!-- topBar E --> 
-<!-- 	 <style type="text/css">
-		.login-bg{height:700px;overflow:hidden;background:url("{eju:global name='web_templets_pc' /}
-		/skin/img/login_bg.jpg") no-repeat top center}
-		.w1200{clear:both;margin:0 auto;width:1200px;position:relative;}
-		.w1200 .txt{text-align: center;line-height: 30px;margin-top: 20px;font-size: 12px;color: #999;}
-		.layadmin-user-login-main{background:#fff}
-		.layadmin-user-login-main{margin:70px auto 0;margin-right:0;border-radius:10px;background:rgba(255,255,255,.9)}
-		.layadmin-user-login-header{text-align:left}
-		.layadmin-user-login-box{padding:20px 20px 0 20px}
-		.layadmin-user-login-header p{color:#666;font-size:18px}
-		.layui-btn{background-color:#f60}
-		.layadmin-link{color:#f60!important}
-		.layadmin-user-login-other {padding-top:0px;}
-	 </style> -->
  <div class="login-bg">
 	  <div class="w1200">	 
 		<div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
@@ -97,41 +83,7 @@
 						</div>
 					</div>
 					{/eju:eq}
-					{eju:eq name="$users_verification" value="2"}
-					<div class="layui-form-item">
-						<label class="layadmin-user-login-icon layui-icon layui-icon-username" for="email"></label>
-						<input type="text" name="email" id="email" lay-verify="email" placeholder="邮箱" class="layui-input">
-					</div>
-					<div class="layui-form-item">
-						<div class="layui-row">
-							<div class="layui-col-xs7">
-								<label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="email_code"></label>
-								<input type="text" name="email_code" id="email_code" lay-verify="required" placeholder="邮箱验证码" class="layui-input">
-							</div>
-							<div class="layui-col-xs5">
-								<div style="margin-left: 10px;">
-									<button type="button" onclick="get_email_code();"  class="layui-btn layui-btn-primary layui-btn-fluid" id="email_button">点击发送</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					{/eju:eq}
-					{eju:eq name="$users_verification" value="3"}
-					<div class="layui-form-item">
-						<div class="layui-row">
-							<div class="layui-col-xs7">
-								<label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="email_code"></label>
-								<input type="text" name="mobile_code" id="mobile_code" lay-verify="required" placeholder="手机验证码" class="layui-input">
-							</div>
-							<div class="layui-col-xs5">
-								<div style="margin-left: 10px;">
-									<button type="button" onclick="get_mobile_code();"  class="layui-btn layui-btn-primary layui-btn-fluid" id="mobile_button">点击发送</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					{/eju:eq}
-
+					{eju:include file="users/reg.htm"/}
 					<div class="layui-form-item">
 						<button class="layui-btn layui-btn-fluid" lay-submit lay-filter="formSubmit">注 册</button>
 					</div>
