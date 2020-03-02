@@ -210,7 +210,7 @@ class Field extends Base
             if (true == $this->fieldLogic->checkChannelFieldList($table, $post['name'], $channel_id)) {
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
-            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang']) && true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'])){
+            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang','shopcs','shopcz','officecs','officecz']) && true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'])){
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
             /*--end*/
@@ -428,7 +428,7 @@ class Field extends Base
             if (true == $this->fieldLogic->checkChannelFieldList($table, $post['name'], $channel_id, array($old_name))) {
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
-            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang']) &&  true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'], array($old_name))){
+            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang','shopcs','shopcz','officecs','officecz']) &&  true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'], array($old_name))){
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
             /*--end*/

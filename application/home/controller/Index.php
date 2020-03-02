@@ -57,8 +57,24 @@ class Index extends Base
         $this->eju = array_merge($this->eju, $eju);
         $this->assign('eju', $this->eju);
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
-        $web_main_domain = tpCache('web.web_main_domain'); //config('ey_config.web_main_domain');  //主域名
+        $web_mobile_domain = config('ey_config.web_mobile_domain');    //手机子域名
+        $web_main_domain = tpCache('web.web_main_domain');   //主域名
         $subDomain = request()->subDomain();
+        //判断是否为合法的二级域名
+        if($web_region_domain && $subDomain != $web_mobile_domain && $subDomain != $web_main_domain ){
+            $have = false;
+            $region_list = get_region_list();
+            foreach ($region_list as $val){
+                if ($subDomain == $val['domain']){
+                    $have = true;
+                    break;
+                }
+            }
+            if (!$have){
+                abort(404,'页面不存在');
+            }
+        }
+        //判断是否需要打开落地页
         if ($web_region_domain && (empty($subDomain) || $subDomain == 'www' || (!empty($web_main_domain) && $subDomain == $web_main_domain)) && file_exists("./template/{$this->tpl_theme}/pc/index_all.htm")){
             return $this->fetch(":index_all");
         }

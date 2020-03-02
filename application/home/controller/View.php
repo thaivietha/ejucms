@@ -70,10 +70,10 @@ class View extends Base
         //判断多域名下区域和域名是否匹配
         $web_region_domain = config('ey_config.web_region_domain');   //是否开启子域名
         $web_mobile_domain = config('ey_config.web_mobile_domain');    //手机子域名
-        $requst_subDomain = request()->subDomain();
+        $requst_subDomain = request()->subDomain();  //二级域名
         if ($web_region_domain && !empty($requst_subDomain) && $requst_subDomain != $web_mobile_domain){
             $region_list = get_region_list();
-            $subDomain = tpCache('web.web_main_domain');  //主域名
+            $subDomain = tpCache('web.web_main_domain');  //主域名(后台登陆默认主域名---非子站点)
             if (!empty($archivesInfo['area_id']) && !empty($region_list[$archivesInfo['area_id']]['domain'])){
                 $subDomain = $region_list[$archivesInfo['area_id']]['domain'];
             }else if(!empty($archivesInfo['city_id']) && !empty($region_list[$archivesInfo['city_id']]['domain'])){
@@ -151,7 +151,6 @@ class View extends Base
             $result['arcurl'] = $result['pageurl'] = arcurl('home/View/index', $result, true, true);
         }
         /*--end*/
-
         // seo
         $result['seo_title'] = set_arcseotitle($result['title'], $result['seo_title'], $result['typename']);
         $result['seo_keywords'] = set_str_replace($result['seo_keywords'], $result['title']);

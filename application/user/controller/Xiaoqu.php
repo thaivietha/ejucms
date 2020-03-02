@@ -219,9 +219,12 @@ class Xiaoqu extends Base
         if (!empty($data['joinaid'])){
             unset($data['joinaid']);
         }
+        unset($data['addonFieldSys']);
+        unset($data['addonFieldExt']);
         $aid = $this->archives_db->insertGetId($data);
         $_POST['aid'] = $aid;
         if ($aid) {
+            $data['addonFieldExt'] = [];
             $data['addonFieldSys']['is_houtai'] = 0;
             // ---------后置操作
             model($this->table)->afterSave($aid, $data, 'add');

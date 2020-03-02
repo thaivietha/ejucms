@@ -158,7 +158,7 @@ class FieldLogic extends Model
         else if("htmltext" == $dtype)
         {
             $maxlen = 0;
-            $fields[0] = " `$fieldname` longtext NOT NULL COMMENT '$fieldtitle';";
+            $fields[0] = " `$fieldname` longtext NULL COMMENT '$fieldtitle';";
             $fields[1] = "longtext";
             $fields[2] = $maxlen;
             $fields[3] = $dfvalue;
@@ -170,7 +170,8 @@ class FieldLogic extends Model
             $default_value = isset($dfvalueArr[0]) ? $dfvalueArr[0] : '';
             $dfvalue = str_replace(',', "','", $dfvalue);
             $dfvalue = "'".$dfvalue."'";
-            $fields[0] = " `$fieldname` SET($dfvalue) NOT NULL DEFAULT '{$default_value}' COMMENT '$fieldtitle';";
+            $fields[0] = " `$fieldname` SET($dfvalue) NULL DEFAULT '' COMMENT '$fieldtitle';";
+//            $fields[0] = " `$fieldname` SET($dfvalue) NOT NULL DEFAULT '{$default_value}' COMMENT '$fieldtitle';";
             $fields[1] = "SET($dfvalue)";
             $fields[2] = $maxlen;
             $fields[3] = $default_value;

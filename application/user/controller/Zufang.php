@@ -105,6 +105,9 @@ class Zufang extends Base
                 $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where($condition)->find();
             }
             if (empty($xiaoqu)){       //不存在小区
+                if (empty($post['city_id'])){
+                    $this->error('请选择城市！');
+                }
                 $xiaoqu_db = new Xiaoqu();
                 $aid = $xiaoqu_db->add_ajax($post);
                 $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where(['a.aid'=>$aid])->find();
@@ -117,6 +120,7 @@ class Zufang extends Base
             $post['addonFieldSys']['lng'] = $xiaoqu['lng'];
             $post['addonFieldSys']['lat'] = $xiaoqu['lat'];
             $post['addonFieldSys']['address'] = $xiaoqu['address'];
+
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
                 'channel_id'    => $this->channeltype,
@@ -229,6 +233,9 @@ class Zufang extends Base
             }
 
             if (empty($xiaoqu)){       //不存在小区
+                if (empty($post['city_id'])){
+                    $this->error('请选择城市！');
+                }
                 $xiaoqu_db = new Xiaoqu();
                 $aid = $xiaoqu_db->add_ajax($post);
                 $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where(['a.aid'=>$aid])->find();
@@ -241,6 +248,7 @@ class Zufang extends Base
             $post['addonFieldSys']['lng'] = $xiaoqu['lng'];
             $post['addonFieldSys']['lat'] = $xiaoqu['lat'];
             $post['addonFieldSys']['address'] = $xiaoqu['address'];
+
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
                 'channel_id'    => $this->channeltype,

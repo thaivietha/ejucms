@@ -38,7 +38,24 @@ class Lists extends Base
         if (empty($tid) || !is_numeric($page_tmp)) {
             abort(404,'页面不存在');
         }
-
+        $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+        $web_mobile_domain = config('ey_config.web_mobile_domain');    //手机子域名
+        $web_main_domain = tpCache('web.web_main_domain');   //主域名
+        $subDomain = request()->subDomain();
+        //判断是否为合法的二级域名
+        if($web_region_domain && $subDomain != $web_mobile_domain && $subDomain != $web_main_domain ){
+            $have = false;
+            $region_list = get_region_list();
+            foreach ($region_list as $val){
+                if ($subDomain == $val['domain']){
+                    $have = true;
+                    break;
+                }
+            }
+            if (!$have){
+                abort(404,'页面不存在');
+            }
+        }
         $map = [];
         /*URL上参数的校验*/
         $seo_pseudo = config('ey_config.seo_pseudo');

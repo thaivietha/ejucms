@@ -243,11 +243,11 @@ if (!function_exists('typeurl')) {
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
         if ($web_region_domain){
             $region_list = get_region_list();
-            if ($param['area_id'] && !empty($region_list[$param['area_id']]['domain'])){
+            if (!empty($param['area_id']) && !empty($region_list[$param['area_id']]['domain'])){
                 $subdomain = $region_list[$param['area_id']]['domain'];
-            }else if ($param['city_id'] && !empty($region_list[$param['city_id']]['domain'])){
+            }else if (!empty($param['city_id']) && !empty($region_list[$param['city_id']]['domain'])){
                 $subdomain = $region_list[$param['city_id']]['domain'];
-            }else if ($param['province_id'] && !empty($region_list[$param['province_id']]['domain'])){
+            }else if (!empty($param['province_id']) && !empty($region_list[$param['province_id']]['domain'])){
                 $subdomain = $region_list[$param['province_id']]['domain'];
             }
         }
@@ -389,11 +389,11 @@ if (!function_exists('arcurl')) {
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
         if ($web_region_domain){
             $region_list = get_region_list();
-            if ($param['area_id'] && !empty($region_list[$param['area_id']]['domain'])){
+            if (!empty($param['area_id']) && !empty($region_list[$param['area_id']]['domain'])){
                 $subdomain = $region_list[$param['area_id']]['domain'];
-            }else if ($param['city_id'] && !empty($region_list[$param['city_id']]['domain'])){
+            }else if (!empty($param['city_id']) && !empty($region_list[$param['city_id']]['domain'])){
                 $subdomain = $region_list[$param['city_id']]['domain'];
-            }else if ($param['province_id'] && !empty($region_list[$param['province_id']]['domain'])){
+            }else if (!empty($param['province_id']) && !empty($region_list[$param['province_id']]['domain'])){
                 $subdomain = $region_list[$param['province_id']]['domain'];
             }
         }

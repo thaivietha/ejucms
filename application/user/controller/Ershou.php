@@ -107,6 +107,9 @@ class Ershou extends Base
                 $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where($condition)->find();
             }
             if (empty($xiaoqu)){       //不存在小区
+                if (empty($post['city_id'])){
+                    $this->error('请选择城市！');
+                }
                 $xiaoqu_db = new Xiaoqu();
                 $aid = $xiaoqu_db->add_ajax($post);
                 $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where(['a.aid'=>$aid])->find();
@@ -119,6 +122,7 @@ class Ershou extends Base
             $post['addonFieldSys']['lng'] = $xiaoqu['lng'];
             $post['addonFieldSys']['lat'] = $xiaoqu['lat'];
             $post['addonFieldSys']['address'] = $xiaoqu['address'];
+
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
                 'channel_id'    => $this->channeltype,
@@ -227,6 +231,7 @@ class Ershou extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+
             //判断是选择的小区，还是自己添加的小区，如果是自己添加的小区，得先添加小区，再添加二手房
             if (!empty($post['joinaid']) && !empty($post['xiaoqu_title'])){
                 $condition['a.aid'] = $post['joinaid'];
@@ -235,6 +240,9 @@ class Ershou extends Base
             }
 
             if (empty($xiaoqu)){       //不存在小区
+                if (empty($post['city_id'])){
+                    $this->error('请选择城市！');
+                }
                 $xiaoqu_db = new Xiaoqu();
                 $aid = $xiaoqu_db->add_ajax($post);
                 $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where(['a.aid'=>$aid])->find();
@@ -247,6 +255,7 @@ class Ershou extends Base
             $post['addonFieldSys']['lng'] = $xiaoqu['lng'];
             $post['addonFieldSys']['lat'] = $xiaoqu['lat'];
             $post['addonFieldSys']['address'] = $xiaoqu['address'];
+
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
                 'channel_id'    => $this->channeltype,
