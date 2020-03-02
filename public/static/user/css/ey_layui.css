@@ -738,7 +738,7 @@ body {
 /*移动端分辨率样式*/
 @media screen and (max-width:768px) {
 	.w-max{}
-	.w-in{width:180px;}
+	.w-in{width:90px;}
 	.w-max .empty{display:none !important;}
 	.web-system .layui-form-item .layui-form-inline2 {
 		margin-left: 110px;
@@ -771,7 +771,19 @@ body {
 		font-weight: normal;
 	}
 }
-
+@media screen and (max-width:750px) {
+	.layui-form[wid100] .layui-form-label {
+	    width: 80px;
+	}
+	.layui-form[wid100] .layui-form-item .layui-input-inline {
+	    margin-left: 112px;
+	}
+	
+}
+.layui-input-inline2{
+	display: inline-block;
+	margin-bottom: 10px;
+}
 /*PC端分辨率样式*/
 @media screen and (min-width:768px) {
 	.w-out{width: 460px;}
