@@ -19,6 +19,8 @@ class Users extends Base
         $keywords = input('keywords/s');
         $condition = array();
         $condition['level_id'] = 1;
+        $condition['status'] = 1;
+        $condition['is_del'] = 1;
         if (!empty($keywords)) {
             $condition['user_name'] = array('LIKE', "%{$keywords}%");
         }
@@ -44,6 +46,8 @@ class Users extends Base
         $keywords = input('keywords/s');
         $condition = array();
         $condition['level_id'] = ['neq',1];
+        $condition['status'] = 1;
+        $condition['is_del'] = 0;
         if (!empty($keywords)) {
             $condition['user_name'] = array('LIKE', "%{$keywords}%");
         }
