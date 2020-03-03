@@ -20,7 +20,7 @@ class Users extends Base
         $condition = array();
         $condition['level_id'] = 1;
         $condition['status'] = 1;
-        $condition['is_del'] = 1;
+        $condition['is_del'] = 0;
         if (!empty($keywords)) {
             $condition['user_name'] = array('LIKE', "%{$keywords}%");
         }
@@ -89,6 +89,7 @@ class Users extends Base
             !empty($post['users_label']) && $post['users_label'] = implode(',',$post['users_label']);
             !empty($post['service_area']) && $post['service_area'] = implode(',',$post['service_area']);
             !empty($post['service_xiaoqu']) && $post['service_xiaoqu'] = implode(',',$post['service_xiaoqu']);
+            $post['nickname'] = !empty($post['username']) ? $post['username'] : "";
             // --存储数据
             $nowData = array(
                 'add_time'    => getTime(),
@@ -160,6 +161,7 @@ class Users extends Base
                 $post['users_label'] = !empty($users_label) ? $users_label : '';
                 $post['service_area'] = !empty($service_area) ? $service_area : '';
                 $post['service_xiaoqu'] = !empty($service_xiaoqu) ? $service_xiaoqu : '';
+                $post['nickname'] = !empty($post['username']) ? $post['username'] : "";
                 $nowData = array('update_time'    => getTime());
                 $data = array_merge($post, $nowData);
                 $r = Db::name('users')->where(['id'    => $post['id']])->update($data);

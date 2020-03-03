@@ -133,6 +133,7 @@ class Users extends Base
             if (!empty($post['users_id'])){
                 unset($post['users_id']);
             }
+            $post['update_time'] = getTime();
             $r = Db::name("users")->where('id',$this->users_id)->update($post);
             if ($r){
                 $this->success('保存成功');

@@ -70,8 +70,8 @@ class Officecz extends Model
         }
         //处理价格变动
         $price = model('officecz_price')->getLast($aid,"*","type");
-        $average_price = !empty($post["addonFieldSys"]['average_price']) ? $post["addonFieldSys"]['average_price'] : '0';
-        $total_price = !empty($post["addonFieldSys"]['total_price']) ? $post["addonFieldSys"]['total_price'] : '0';
+        $average_price = !empty($post["addonFieldSys"]['average_price']) ? intval($post["addonFieldSys"]['average_price']) : '0';
+        $total_price = !empty($post["addonFieldSys"]['total_price']) ? intval($post["addonFieldSys"]['total_price']) : '0';
         if ($price){  //之前已经存在价格记录
             if ((!empty($average_price) && $price[1]['price'] != $average_price) || (!empty($total_price) && $price[3]['price'] != $total_price)){
                 //价格相对上次发生变动

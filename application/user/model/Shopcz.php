@@ -34,7 +34,7 @@ class Shopcz extends Model
         if (!empty($post['addonFieldSys']['area'])){
             $post['addonFieldSys']['average_price'] = number_format($post['addonFieldSys']['total_price']/$post['addonFieldSys']['area'],2);
         }else{
-            $post['addonFieldSys']['average_price'] = 0;
+            $post['addonFieldSys']['average_price'] = "0.00";
         }
         $addonFieldSys = !empty($post['addonFieldSys']) ? $post['addonFieldSys'] : array();
         $field->dealChannelPostData($post['channel'], $post, $addonFieldSys,'system');   //编辑子表信息(system)
@@ -70,8 +70,8 @@ class Shopcz extends Model
         }
         //处理价格变动
         $price = model('shopcz_price')->getLast($aid,"*","type");
-        $average_price = !empty($post["addonFieldSys"]['average_price']) ? $post["addonFieldSys"]['average_price'] : '0';
-        $total_price = !empty($post["addonFieldSys"]['total_price']) ? $post["addonFieldSys"]['total_price'] : '0';
+        $average_price = !empty($post["addonFieldSys"]['average_price']) ? intval($post["addonFieldSys"]['average_price']) : '0';
+        $total_price = !empty($post["addonFieldSys"]['total_price']) ? intval($post["addonFieldSys"]['total_price']) : '0';
         if ($price){  //之前已经存在价格记录
             if ((!empty($average_price) && $price[1]['price'] != $average_price) || (!empty($total_price) && $price[3]['price'] != $total_price)){
                 //价格相对上次发生变动

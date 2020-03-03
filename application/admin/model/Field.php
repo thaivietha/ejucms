@@ -323,6 +323,9 @@ class Field extends Model
                         $val = intval($val);
                         break;
                     }
+                    case 'float':
+                        $val = floatval($val);
+                        break;
                     case 'img':
                     {
                         $is_remote = !empty($dataExt[$key.'_eyou_is_remote']) ? $dataExt[$key.'_eyou_is_remote'] : 0;
