@@ -85,8 +85,8 @@ class Ershou extends Model
             /*自定义字段的数据格式处理*/
             $fieldLogic = new FieldLogic();
             $xiaoqu = $fieldLogic->getChannelFieldList($xiaoqu, $archivesInfo['channel']);
-
             $result['xiaoqu'] = get_xinfang_info($result['joinaid'],$xiaoqu);
+
         }
 
         return $result;

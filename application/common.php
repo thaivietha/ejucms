@@ -2117,11 +2117,11 @@ if (!function_exists('to_month')){
 if (!function_exists('get_xinfang_info')){
     function get_xinfang_info($aid,$result)
     {
-        if (!empty($result)){
+        if (!empty($result) && !empty($xiaoqu['is_houtai'])){
             if ($result['is_jump'] == 1) {
                 $result['arcurl'] = $result['jumplinks'];
             } else {
-                $result['arcurl'] = arcurl('home/Xinfang/view', $result);
+                $result['arcurl'] = arcurl('home/View/index', $result);
             }
         }
 

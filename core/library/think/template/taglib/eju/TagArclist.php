@@ -309,12 +309,15 @@ class TagArclist extends Base
             $tagidmd5 = $this->attDef($tag); // 进行tagid的默认处理
         }
         /*--end*/
-        if ($hava_system){
+        if ($hava_system || $channeltype_table == 'xiaoqu'){
             $model = $this->archives_db
                 ->field("c.*,b.*, a.*")
                 ->alias('a')
                 ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT');
             $model = $model->join($tableSystem.' c',"a.aid = c.aid","LEFT");
+            if ($channeltype_table == 'xiaoqu'){
+                $where_str .= " and c.is_houtai=1";
+            }
         }else{
             $model = $this->archives_db
                 ->field("b.*, a.*")

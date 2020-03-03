@@ -585,8 +585,11 @@ class TagList extends Base
             ->field("a.aid")
             ->alias('a')
             ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT');
-        if ($if_system){
+        if ($if_system || $channeltype_table == 'xiaoqu'){
             $model = $model->join($tableSystem.' c',"a.aid = c.aid","LEFT");
+            if ($channeltype_table == 'xiaoqu'){
+                $condition_str .= " and c.is_houtai=1";
+            }
         }
         if ($if_content){
             $model = $model->join($tableContent.' d',"a.aid = d.aid","LEFT");
