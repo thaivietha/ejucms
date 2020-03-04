@@ -2124,7 +2124,6 @@ if (!function_exists('get_xinfang_info')){
                 $result['arcurl'] = arcurl('home/View/index', $result);
             }
         }
-
         return $result;
     }
 }
