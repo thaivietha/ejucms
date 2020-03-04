@@ -2117,7 +2117,7 @@ if (!function_exists('to_month')){
 if (!function_exists('get_xinfang_info')){
     function get_xinfang_info($aid,$result)
     {
-        if (!empty($result) && !empty($xiaoqu['is_houtai'])){
+        if (!empty($result) && (!isset($result['is_houtai']) || !empty($result['is_houtai']))){
             if ($result['is_jump'] == 1) {
                 $result['arcurl'] = $result['jumplinks'];
             } else {
