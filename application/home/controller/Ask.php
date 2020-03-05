@@ -164,7 +164,7 @@ class Ask extends Base
         if (IS_AJAX_POST) {
             $param = input('param.');
             if (empty($param['answer_id']) || empty($param['ask_id']) ) $this->error('请选择采纳的回答！');
-            $users_id = Db::name("ask")->where("ask_id=".$param['ask_id'])->getField('users_id');
+            $users_id = Db::name("ask")->where(["ask_id" => intval($param['ask_id'])])->getField('users_id');
             if (!empty($this->users['admin_id']) || (!empty($users_id) && $this->users_id == $users_id)) {
                 // 数据判断处理
                 // 更新问题数据表
@@ -198,6 +198,9 @@ class Ask extends Base
         $this->IsRelease();
         if (IS_AJAX_POST || IS_POST) {
             $param = input('param.');
+            foreach ($param as $key=>$val){
+                $param[$key] = remove_xss($val);
+            }
             // 是否登录、是否允许发布问题、数据判断及处理，返回内容数据
             if (empty($param['title'])){
                 $param['title'] = strlen($param['content']) > 50 ?mb_substr($param['content'],0,30,'utf-8').'...' : $param['content'];
@@ -235,7 +238,7 @@ class Ask extends Base
         $param = input('param.');
         // 栏目处理
         $result = $this->AskLogic->GetUrlData();
-        $result['aid'] = !empty($param['aid']) ? $param['aid'] : 0;
+        $result['aid'] = !empty($param['aid']) ? intval($param['aid']) : 0;
         $eju = array(
             'field' => $result,
         );

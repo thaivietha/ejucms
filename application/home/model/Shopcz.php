@@ -187,7 +187,8 @@ class Shopcz extends Model
         $condition[] = "a.status =1";
         $condition[] = "a.is_del = 0";
         if(!empty($param_new['keyword'])){
-            array_push($condition, "a.title LIKE '%{$param_new['keyword']}%'");
+            $keyword = addslashes($param_new['keyword']);
+            array_push($condition, "a.title LIKE '%{$keyword}%'");
         }
         $where = [
             'is_screening' => 1,
@@ -200,6 +201,7 @@ class Shopcz extends Model
             // 值不为空则执行
             if (!empty($param_new[$value['name']])) {
                 $name = $value['name'];
+                $param_new[$name] = addslashes($param_new[$name]);
                 if (!empty($name)) {
                     if ($value['define'] == 'config'){    //配置文件定义数值区间
                         $dfvalue = config($value['dfvalue']);
@@ -228,10 +230,10 @@ class Shopcz extends Model
                 }
             }
         }
-        $bssw_lat            = input('get.bssw_lat');//地图可视区域左下角经度
-        $bssw_lng            = input('get.bssw_lng');//地图可视区域左上角纬度
-        $bsne_lat            = input('get.bsne_lat');//地图可视区域右下角经度
-        $bsne_lng            = input('get.bsne_lng');//地图可视区域右上角纬度
+        $bssw_lat            = floatval(input('get.bssw_lat'));//地图可视区域左下角经度
+        $bssw_lng            = floatval(input('get.bssw_lng'));//地图可视区域左上角纬度
+        $bsne_lat            = floatval(input('get.bsne_lat'));//地图可视区域右下角经度
+        $bsne_lng            = floatval(input('get.bsne_lng'));//地图可视区域右上角纬度
         if($bsne_lat && $bssw_lat && $bssw_lng && $bsne_lng)
         {
             array_push($condition, "lat between ".min($bssw_lat,$bsne_lat)." and ".max($bssw_lat,$bsne_lat));

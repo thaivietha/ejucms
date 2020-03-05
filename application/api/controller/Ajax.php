@@ -252,7 +252,9 @@ class Ajax extends Base
         {
             $post = input('post.');
             $ip = clientIP();
-
+            foreach ($post as $key=>$val){
+                $post[$key] = htmlspecialchars($val);
+            }
             $map = array(
                 'ip'    => $ip,
                 'form_id'    => $form_id,
@@ -263,10 +265,10 @@ class Ajax extends Base
                 $this->error('同一个IP在60秒之内不能重复提交！');
             }
 
-            $come_url = input('post.come_url/s');
-            $parent_come_url = input('post.parent_come_url/s');
+            $come_url = htmlspecialchars(input('post.come_url/s'));
+            $parent_come_url = htmlspecialchars(input('post.parent_come_url/s'));
             $come_url = !empty($parent_come_url)? $parent_come_url :$come_url;
-            $come_from = input('post.come_from/s', '请添加come_from隐藏信息');
+            $come_from = htmlspecialchars(input('post.come_from/s', '请添加come_from隐藏信息'));
             $city = "";
 /*            try {
                 $city_arr = getCityLocation($ip);
@@ -277,6 +279,7 @@ class Ajax extends Base
                     !empty($city_arr['city']) && $city .= $city_arr['city'];
                 }
             } catch (\Exception $e) {}*/
+
             $newData = array(
                 'form_id'    => $form_id,
                 'ip'    => $ip,
@@ -354,12 +357,11 @@ class Ajax extends Base
     {  
         // post 提交的属性  以 attr_id _ 和值的 组合为键名    
         $post = input("post.");
-
         foreach($post as $key => $val)
         {
             if(!strstr($key, 'attr_'))
-                continue;                                 
-
+                continue;
+            $val = remove_xss($val);
             $attr_id = str_replace('attr_', '', $key);
             is_array($val) && $val = implode(',', $val);
             $val = trim($val);
@@ -490,7 +492,7 @@ class Ajax extends Base
      * 获取region列表
      */
     public function get_region_list(){
-        $keywords = input('param.keywords/s','');
+        $keywords = addslashes(input('param.keywords/s',''));
         $level = input('param.level/d','0');
         $list = [];
         $where = "status=1 and domain<>''";
@@ -500,6 +502,8 @@ class Ajax extends Base
         if (!empty($keywords)){
             $where .= " and (initial='{$keywords}' or name like '%{$keywords}%' or domain like '%{$keywords}%')";
             $list = Db::name("region")->where($where)->getAllWithIndex('id');
+            echo Db::name("region")->getLastSql();die();
+
             foreach ($list as $key=>$val){
                 $list[$key]['domainurl'] = getRegionDomainUrl($val['domain']);
             }

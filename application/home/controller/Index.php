@@ -30,8 +30,10 @@ class Index extends Base
      */
     public function ajax_form(){
         $param = input("param.");
-        if (!empty($param['template'])){
-            return $this->fetch(":system/".$param['template']);
+
+        $template = $param['template'];
+        if (!empty($template) && preg_match("/^[_0-9a-z]{1,}$/i",$template) && file_exists("./template/{$this->tpl_theme}/".THEME_NAME."/system/{$template}.htm")){
+            return $this->fetch(":system/".$template);
         }
         return $this->fetch(":system/ajax_form");
     }

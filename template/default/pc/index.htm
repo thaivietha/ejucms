@@ -276,13 +276,16 @@
         <div class="head clearfix">
           <h2 class="fl margin-right-120">新房</h2>
           <ul class="r_nav fl" id="tab-2">
-            {eju:sqlview table="channelfield" addwhere="name='characteristic' and channel_id=9"}
-            {eju:volist name='$field.dfvalue|explode=",",###' id='field1'}
-            <li class="{eju:eq name='$e' value='1'}active{/eju:eq}"><a href="javascript:;">{$field1}</a>
+            {eju:screening id='field' typeid='1' addfields='characteristic' show='2' target='_blank' currentstyle='active' alltxt='off' }
+            {eju:volist name='$field.list' id='vo'}
+            {eju:volist name='$vo.dfvalue' id='val'}
+            <li class="{eju:eq name='$e' value='1'}active{/eju:eq}"><a href="javascript:;">{$val.name}</a>
               <div class="b_l"></div>
             </li>
             {/eju:volist}
-            {/eju:sqlview}
+            {/eju:volist}
+            {$field.hidden}
+            {/eju:screening}
           </ul>
           <div class="map fr ">
           <a href="{eju:diyurl type='map' /}">地图找房</a>
@@ -303,11 +306,12 @@
           <!-- 筛选 E--> 
           <!-- 楼盘列表 S -->
           <div class="c_box build_list fl">
-            <div id="content-box"> 
-             {eju:sqlview table="channelfield" addwhere="name='characteristic' and channel_id=9"}
-              {eju:volist name='$field.dfvalue|explode=",",###' id='field1'}
+            <div id="content-box">
+              {eju:screening id='field' typeid='1' addfields='characteristic' show='2' target='_blank' currentstyle='active' alltxt='off' }
+              {eju:volist name='$field.list' id='field1'}
+              {eju:volist name='$field1.dfvalue' id='val'}
               <ul class="clearfix" {eju:neq name='$i' value='1'}style="display:none;"{/eju:neq}>
-              {eju:arclist typeid='1' addwhere="FIND_IN_SET('$field1',c.characteristic)" orderby='new' row='6' id='vo_xinfang'}
+              {eju:arclist typeid='1' map="[$val['id']]" mapkey="[$field1['name']]"  orderby='new' row='6' id='vo_xinfang'}
               <li>
                 <a href="{$vo_xinfang.arcurl}"  target="_blank" title="{$vo_xinfang.title}">
                     <span class="img">
@@ -326,7 +330,7 @@
                         <i class="price">价格待定</i>{/eju:notempty}
                       </span>
                     </span>
-                  <span class="ft clearfix nowarp">{eju:volist name='$vo_xinfang.characteristic' id='vo' row='3'}
+                  <span class="ft clearfix nowarp">{eju:volist name='$vo_xinfang.characteristic' id='vo' row='10'}
                       <i class="item ">{$vo}</i> {/eju:volist}
                     </span>
                 </a>
@@ -334,7 +338,10 @@
               {/eju:arclist}
               </ul>
               {/eju:volist}
-              {/eju:sqlview} </div>
+              {/eju:volist}
+              {$field.hidden}
+              {/eju:screening}
+            </div>
           </div>
           <!-- 楼盘列表 E --> 
           <!-- 购房指南 && 楼盘导购 S-->

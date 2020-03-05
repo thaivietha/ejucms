@@ -30,7 +30,7 @@ class Eju extends Taglib
         'php'        => ['attr' => ''],
         'channel'    => ['attr' => 'typeid,notypeid,reid,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit,hidden'],
         'channelartlist' => ['attr' => 'typeid,type,row,id,key,empty,titlelen,mod'],
-        'arclist'    => ['attr' => 'users_id,channelid,typeid,notypeid,row,offset,titlelen,limit,orderby,orderway,noflag,flag,infolen,empty,mod,name,id,key,addfields,tagid,pagesize,thumb,joinaid,province,city,area,screen,addwhere'],
+        'arclist'    => ['attr' => 'users_id,channelid,typeid,notypeid,row,offset,titlelen,limit,orderby,orderway,noflag,flag,infolen,empty,mod,name,id,key,addfields,tagid,pagesize,thumb,joinaid,province,city,area,screen,addwhere,map,mapkey'],
         'arcpagelist'=> ['attr' => 'tagid,pagesize,id,tips,loading,callback'],
         'list'       => ['attr' => 'users_id,channelid,typeid,notypeid,pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,addfields,thumb,joinaid'],
         'pagelist'   => ['attr' => 'listitem,listsize', 'close' => 0],
@@ -1075,6 +1075,9 @@ class Eju extends Taglib
         $users_id = isset($tag['users_id']) ? $tag['users_id'] : '';
         $users_id  = $this->varOrvalue($users_id);
 
+        $map  =  !empty($tag['map']) ? $tag['map'] : "[]";//查询字段内容
+        $mapkey = !empty($tag['mapkey']) ? $tag['mapkey'] : "[]";   //查询字段名数组
+
         $parseStr = '<?php ';
         // 声明变量
         /*typeid的优先级别从高到低：装修数据 -> 标签属性值 -> 外层标签channelartlist属性值*/
@@ -1118,7 +1121,7 @@ class Eju extends Taglib
             $parseStr .= ' );';
             $parseStr .= ' $tag = '.var_export($tag,true).';';
             $parseStr .= ' $tagArclist = new \think\template\taglib\eju\TagArclist;';
-            $parseStr .= ' $_result = $tagArclist->getArclist($param, $row, "'.$orderby.'", '.$addfields.',"'.$orderway.'","'.$tagid.'",$tag,"'.$pagesize.'","'.$thumb.'",'.$addwhere.');';
+            $parseStr .= ' $_result = $tagArclist->getArclist($param, $row, "'.$orderby.'", '.$addfields.',"'.$orderway.'","'.$tagid.'",$tag,"'.$pagesize.'","'.$thumb.'",'.$addwhere.','.$map.','.$mapkey.');';
 
             $parseStr .= 'if(is_array($_result["list"]) || $_result["list"] instanceof \think\Collection || $_result["list"] instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k=0;';
             // 设置了输出数组长度
@@ -2885,54 +2888,6 @@ class Eju extends Taglib
         return;
     }
 
-    /**
-     * sqlarclist标签解析 获取多条列表（兼容tp的volist标签语法）
-     * @access public
-     * @param array $tag 标签属性
-     * @param string $content 标签内容
-     * @return string|void
-     */
-/*    public function tagSqlarclist($tag, $content)
-    {
-        $name   = !empty($tag['name']) ? $tag['name'] : '';
-        $id     = isset($tag['id']) ? $tag['id'] : 'field';
-        $key    = !empty($tag['key']) ? $tag['key'] : 'i';
-        $empty  = isset($tag['empty']) ? $tag['empty'] : '';
-        $empty  = htmlspecialchars($empty);
-        $mod    = !empty($tag['mod']) && is_numeric($tag['mod']) ? $tag['mod'] : '2';
-        $row = !empty($tag['row']) ? intval($tag['row']) : 0;
-        $limit   = !empty($tag['limit']) ? $tag['limit'] : '';
-        if (empty($limit) && !empty($row)) {
-            $limit = "0,{$row}";
-        }
-        $fields   = !empty($tag['fields']) ? $tag['fields'] : '';
-        $table   = !empty($tag['table']) ? $tag['table'] : '';
-        $addwhere   = !empty($tag['addwhere']) ? $tag['addwhere'] : '';
-
-        $parseStr = '<?php ';
-
-        // 查询数据库获取的数据集
-        $parseStr .= ' $tagSqlarclist = new \think\template\taglib\eju\TagSqlarclist;';
-        $parseStr .= ' $_result = $tagSqlarclist->getSqlarclist("'.$table.'", "'.$fields.'", "'.$addwhere.'", "'.$limit.'");';
-        $parseStr .= ' if(is_array($_result) || $_result instanceof \think\Collection || $_result instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;';
-        $parseStr .= ' $__LIST__ = $_result;';
-
-        $parseStr .= 'if( count($__LIST__)==0 ) : echo htmlspecialchars_decode("' . $empty . '");';
-        $parseStr .= 'else: ';
-        $parseStr .= 'foreach($__LIST__ as $key=>$' . $id . '): ';
-        $parseStr .= ' $__LIST__[$key] = $_result[$key] = $' . $id . ';';
-        $parseStr .= '$' . $key . '= intval($key) + 1;?>';
-        $parseStr .= '<?php $mod = ($' . $key . ' % ' . $mod . ' ); ?>';
-        $parseStr .= $content;
-        $parseStr .= '<?php ++$e; ?>';
-        $parseStr .= '<?php endforeach; endif; else: echo htmlspecialchars_decode("' . $empty . '");endif; ?>';
-        $parseStr .= '<?php $'.$id.' = []; ?>'; // 清除变量值，只限于在标签内部使用
-
-        if (!empty($parseStr)) {
-            return $parseStr;
-        }
-        return;
-    }*/
 
     /**
      * fanglist标签解析 获取指定文档列表（兼容tp的volist标签语法）

@@ -60,10 +60,14 @@ class TagArclist extends Base
      * @param     string  $thumb  是否开启缩略图
      * @return    array
      */
-    public function getArclist($param = array(),  $row = 15, $orderby = '', $addfields = '', $orderway = '', $tagid = '', $tag = '', $pagesize = 0, $thumb = '',$addwhere='')
+    public function getArclist($param = array(),  $row = 15, $orderby = '', $addfields = '', $orderway = '', $tagid = '', $tag = '', $pagesize = 0, $thumb = '',$addwhere='',$map = [],$mapkey = [])
     {
         $result = false;
         $condition = array();
+        foreach ($mapkey as $key=>$val){
+            $param[$val] = $map[$key];
+        }
+
         $param = array_merge($param,input('param.'));
         $channeltype = ("" != $param['channel'] && is_numeric($param['channel'])) ? intval($param['channel']) : '';
         $param['typeid'] = !empty($param['typeid']) ? $param['typeid'] : $this->tid;
@@ -150,6 +154,7 @@ class TagArclist extends Base
         foreach ($channelfield as $key => $value) {
             // 值不为空则执行
             $name = $value['name'];
+            $param[$name] = addslashes($param[$name]);
             if (!empty($name)) {
                 if (!empty($orderbys) && $orderbys == $name && $value['ifmain'] == 2){
                     $if_system = 1;
@@ -290,8 +295,8 @@ class TagArclist extends Base
         }
         if(!empty($addwhere)){
             $where_str .= " and ".$addwhere;
-
         }
+
         // 给排序字段加上表别名
         $isinput = 1 == $param['screen'] ? true : false;
         $orderby = getOrderBy($orderby,$orderway,true,$isinput);
@@ -325,6 +330,8 @@ class TagArclist extends Base
                 ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT');
         }
         if ($if_content){
+            $model = $model->join($tableContent.' d',"a.aid = d.aid","LEFT");
+        }else if(!empty($addfields) && !empty($addwhere)){
             $model = $model->join($tableContent.' d',"a.aid = d.aid","LEFT");
         }
         $result = $model ->where($where_str)
