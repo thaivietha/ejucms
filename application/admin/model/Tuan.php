@@ -29,8 +29,6 @@ class Tuan extends Model
     public function afterSave($aid, $post, $opt)
     {
         $post['aid'] = $aid;
-        $post['addonFieldExt']['province_id'] = !empty($post['province_id'])?$post['province_id']:0;
-        $post['addonFieldExt']['city_id'] = !empty($post['city_id'])?$post['city_id']:0;
 
         $addonFieldExt = !empty($post['addonFieldExt']) ? $post['addonFieldExt'] : array();
         model('Field')->dealChannelPostData($post['channel'], $post, $addonFieldExt);
@@ -81,5 +79,19 @@ class Tuan extends Model
         M('article_content')->where(array('aid'=>array('IN', $aidArr)))->delete();
         // 同时删除TAG标签
         model('Taglist')->delByAids($aidArr);
+    }
+    /*
+     * 获取单条新房基本信息
+     */
+    public function getOne($condition,$fields = "c.*,b.*, a.*, a.aid as aid"){
+        $row = db('archives')
+            ->field($fields)
+            ->alias('a')
+            ->join('__ARCTYPE__ b', 'a.typeid = b.id', 'LEFT')
+            ->join('tuan_content c','a.aid = c.aid')
+            ->where($condition)
+            ->find();
+
+        return $row;
     }
 }

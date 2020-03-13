@@ -118,13 +118,10 @@ class TagArcview extends Base
         /*--end*/
 
         $result = view_logic($aid, $result['channel'], $result, true, $tag);
-        //小区隐藏不显示
-        if ($channeltype_table == 'xiaoqu'){
-            $ishoutai = M('xiaoqu_system')->where(['aid'=>$aid,'is_houtai'=>1])->find();
-            if (empty($ishoutai)){
-                unset($result['arcurl']);
-            }
+        if (empty($result['add_type'])){    //主动添加
+            unset($result['arcurl']);
         }
+
         return $result;
     }
 }

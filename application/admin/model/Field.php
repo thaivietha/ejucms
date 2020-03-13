@@ -375,7 +375,6 @@ class Field extends Model
 //                    $nowDataExt[$key] = $val;
 //                }
             }
-
             $nowData = array(
                 'aid'   => $data['aid'],
                 'add_time'   => getTime(),

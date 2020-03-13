@@ -98,25 +98,25 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">服务区域</label>
                             <div class="layui-input-inline layadmin-layer-demo" id="service_area">
+                                <button class="layui-btn layui-ton" data-type="select_region">选择区域</button>
                                 {eju:volist name="$service_area_list" id="vo"}
                                 <span class="tower-add service_area"  id="service_area_{$vo.id}" data-id="{$vo.id}">
                                     <input type="hidden" name="service_area[]" value="{$vo.id}">
                                     {$vo.name}<i class="layui-icon layui-icon-close"></i>
                                 </span>
                                 {/eju:volist}
-                                <button class="layui-btn layui-ton" data-type="select_region">选择区域</button>
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">服务小区</label>
                             <div class="layui-input-inline layadmin-layer-demo" id="service_xiaoqu">
+                                <button class="layui-btn layui-ton" data-type="select_xiaoqu">选择小区</button>
                                 {eju:volist name="$service_xiaoqu_list" id="vo"}
                                 <span class="tower-add service_xiaoqu"  id="service_xiaoqu_{$vo.aid}" data-id="{$vo.aid}">
                                     <input type="hidden" name="service_xiaoqu[]" value="{$vo.aid}">
                                     {$vo.title}<i class="layui-icon layui-icon-close"></i>
                                 </span>
                                 {/eju:volist}
-                                <button class="layui-btn layui-ton" data-type="select_xiaoqu">选择小区</button>
                             </div>
                         </div>
                         <div class="layui-form-item">

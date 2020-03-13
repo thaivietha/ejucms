@@ -127,7 +127,7 @@
         var callback = "{$func}";
         var fileurl_tmp = [];
         var id = $(this).data('id'),city = $(this).data('city'),province = $(this).data('province'),area = $(this).data('area'),lng = $(this).data('lng'),lat = $(this).data('lat'),address = $(this).data('address')
-            ,title = $(this).data('title'),price_units = $(this).data('price_units'),average_price = $(this).data('average_price'),building_age = $(this).data('building_age'),property = $(this).data('property');
+            ,title = $(this).data('title'),price_units = $(this).data('price_units'),average_price = $(this).data('average_price'),original_price = $(this).data('average_price'),building_age = $(this).data('building_age'),property = $(this).data('property');
         fileurl_tmp['aid'] = id;
         fileurl_tmp['province_id'] = province;
         fileurl_tmp['city_id'] = city;
@@ -137,7 +137,7 @@
         fileurl_tmp['address'] = address;
         fileurl_tmp['title'] = title ;
         fileurl_tmp['price_units'] = price_units ;
-        fileurl_tmp['average_price'] = average_price ;
+        fileurl_tmp['original_price'] = original_price ;
         fileurl_tmp['building_age'] = building_age ;
         fileurl_tmp['property'] = property ;
         eval('window.parent.'+callback+'(fileurl_tmp)');

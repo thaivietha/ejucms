@@ -273,13 +273,12 @@ class Xinfang extends Base
         if (!empty($sale_status)){
             $condition['c.sale_status'] = $sale_status;
         }
-
         // 模型ID
         $condition['a.channel'] = array('eq', $this->channeltype);
-
         // 回收站
         $condition['a.is_del'] = array('eq', 0);
-
+        //主动添加
+        $condition['a.add_type'] = array('eq', 1);
         /**
          * 数据查询，搜索出主键ID的值
          */
@@ -404,7 +403,7 @@ class Xinfang extends Base
                 unset($post['type_tempview']);
                 unset($post['tempview']);
             }
-
+            !empty($post['relate']) && $post['relate'] = implode(',',$post['relate']);
             // --存储数据
             $newData = array(
                 'typeid'=> empty($post['typeid']) ? 0 : $post['typeid'],
@@ -497,10 +496,22 @@ class Xinfang extends Base
             $pen_name = M('Admin')->where("admin_id",session('admin_id'))->getField('user_name');
         }
         $assign_data['author'] = $pen_name;
-        //经纪人信息
-        $user = new \app\common\model\Users();
-        $users_list = $user::get_list(1);
-        $assign_data['users_list'] = $users_list;
+        //模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
+        }
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['ajaxSelectHouseUrl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxSelectHouse",['func'=>'set_house_back']) : '';
+        //判断是否关联经纪人
+        $assign_data['channelOrigin'] = $channelOrigin;
+
+
         $this->assign($assign_data);
 
         return $this->fetch();
@@ -566,6 +577,7 @@ class Xinfang extends Base
 
             // 同步栏目切换模型之后的文档模型
             $channel = Db::name('arctype')->where(['id'=>$typeid])->getField('current_channel');
+            !empty($post['relate']) && $post['relate'] = implode(',',$post['relate']);
             // --存储数据
             $newData = array(
                 'typeid'=> $typeid,
@@ -581,6 +593,7 @@ class Xinfang extends Base
                 'seo_description'     => $seo_description,
                 'add_time'     => strtotime($post['add_time']),
                 'update_time'     => getTime(),
+                'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
             $r = M('archives')->where([
@@ -694,9 +707,24 @@ class Xinfang extends Base
         $assign_data['sand_list'] = $sand_list;
         $this->getAllPoint($id);
         //经纪人信息
-        $user = new \app\common\model\Users();
-        $users_list = $user::get_list(1,$info['users_id']);
-        $assign_data['users_list'] = $users_list;
+        if (!empty($info['relate'])){
+            $relate_list = Db::name("users")->where(["id"=>["in",$info['relate']]])->select();
+            $this->assign("relate_list",$relate_list);
+        }
+        //模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
+        }
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['ajaxSelectHouseUrl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxSelectHouse",['func'=>'set_house_back']) : '';
+        //判断是否关联经纪人
+        $assign_data['channelOrigin'] = $channelOrigin;
 
         $this->assign($assign_data);
 
@@ -799,13 +827,13 @@ class Xinfang extends Base
                 ->join('xinfang_system d','a.aid = d.aid')
                 ->where('a.aid', 'in', $aids)
                 ->getAllWithIndex('aid');
-            $region = DB::name("region")->where("level=1 or level=2")->getField("id,name");
+            $region = get_region_list();
             foreach ($list as $key => $val) {
                 $row[$val['aid']]['arcurl'] = get_arcurl($row[$val['aid']]);
                 $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支持子目录
-                $row[$val['aid']]['city'] = !empty($region[$row[$val['aid']]['city_id']])?$region[$row[$val['aid']]['city_id']]:'';
-                $row[$val['aid']]['area'] = !empty($region[$row[$val['aid']]['area_id']])?$region[$row[$val['aid']]['area_id']]:'';
-                $row[$val['aid']]['province'] =  !empty($region[$row[$val['aid']]['province_id']])?$region[$row[$val['aid']]['province_id']]:'';
+                $row[$val['aid']]['city'] = !empty($region[$row[$val['aid']]['city_id']]['name'])?$region[$row[$val['aid']]['city_id']]['name']:'';
+                $row[$val['aid']]['area'] = !empty($region[$row[$val['aid']]['area_id']]['name'])?$region[$row[$val['aid']]['area_id']]['name']:'';
+                $row[$val['aid']]['province'] =  !empty($region[$row[$val['aid']]['province_id']]['name'])?$region[$row[$val['aid']]['province_id']]['name']:'';
                 $list[$key] = $row[$val['aid']];
             }
         }

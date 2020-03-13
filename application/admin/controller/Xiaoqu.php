@@ -108,8 +108,8 @@ class Xiaoqu extends Base
         $condition['a.channel'] = array('eq', $this->channeltype);
         // 回收站
         $condition['a.is_del'] = array('eq', 0);
-        //系统自增
-        $condition['c.is_houtai'] = array('eq', 1);
+        //主动添加
+        $condition['a.add_type'] = array('eq', 1);
 
         /**
          * 数据查询，搜索出主键ID的值
@@ -232,7 +232,7 @@ class Xiaoqu extends Base
                 unset($post['type_tempview']);
                 unset($post['tempview']);
             }
-
+            !empty($post['relate']) && $post['relate'] = implode(',',$post['relate']);
             // --存储数据
             $newData = array(
                 'typeid'=> empty($post['typeid']) ? 0 : $post['typeid'],
@@ -322,6 +322,20 @@ class Xiaoqu extends Base
         !empty($arctypeInfo['tempview']) && $tempview = $arctypeInfo['tempview'];
         $this->assign('tempview', $tempview);
         /*--end*/
+        //模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
+        }
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['ajaxSelectHouseUrl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxSelectHouse",['func'=>'set_house_back']) : '';
+        //判断是否关联经纪人
+        $assign_data['channelOrigin'] = $channelOrigin;
 
         $this->assign($assign_data);
 
@@ -389,6 +403,7 @@ class Xiaoqu extends Base
             // 同步栏目切换模型之后的文档模型
             $channel = Db::name('arctype')->where(['id'=>$typeid])->getField('current_channel');
             // --存储数据
+            !empty($post['relate']) && $post['relate'] = implode(',',$post['relate']);
             $newData = array(
                 'typeid'=> $typeid,
                 'channel'   => $channel,
@@ -403,6 +418,7 @@ class Xiaoqu extends Base
                 'seo_description'     => $seo_description,
                 'add_time'     => strtotime($post['add_time']),
                 'update_time'     => getTime(),
+                'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
             $r = M('archives')->where([
@@ -528,6 +544,26 @@ class Xiaoqu extends Base
         $photo_list = model("xiaoqu_photo")->getListByWhere(['aid'=>$id,'is_del'=>0]);
         $assign_data['photo_list'] = $photo_list;
 
+        //经纪人信息
+        if (!empty($info['relate'])){
+            $relate_list = Db::name("users")->where(["id"=>["in",$info['relate']]])->select();
+            $this->assign("relate_list",$relate_list);
+        }
+        //模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
+        }
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['ajaxSelectHouseUrl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxSelectHouse",['func'=>'set_house_back']) : '';
+        //判断是否关联经纪人
+        $assign_data['channelOrigin'] = $channelOrigin;
+
         $this->assign($assign_data);
 
         return $this->fetch();
@@ -563,8 +599,8 @@ class Xiaoqu extends Base
         return $this->fetch();
     }
     /*
-     *  js打开获取楼盘列表
-     */
+    *  js打开获取楼盘列表
+    */
     public function ajaxSelectXiaoqu(){
         $channel= input('channel/d');
         $typeid = input('typeid/d');
@@ -617,14 +653,15 @@ class Xiaoqu extends Base
                 ->join('xiaoqu_system d','a.aid = d.aid')
                 ->where('a.aid', 'in', $aids)
                 ->getAllWithIndex('aid');
-//            $region = DB::name("region")->where("level=1 or level=2")->getField("id,name");
-            $region = get_info_list('region','id','status=1');
+            $region = get_region_list();
+            $price_units = Db::name("channelfield")->where(['name'=>'average_price','channel_id'=>$this->channeltype])->getField("dfvalue_unit");
             foreach ($list as $key => $val) {
                 $row[$val['aid']]['arcurl'] = get_arcurl($row[$val['aid']]);
                 $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支持子目录
                 $row[$val['aid']]['city'] = !empty($region[$row[$val['aid']]['city_id']]['name'])?$region[$row[$val['aid']]['city_id']]['name']:'';
                 $row[$val['aid']]['area'] = !empty($region[$row[$val['aid']]['area_id']]['name'])?$region[$row[$val['aid']]['area_id']]['name']:'';
                 $row[$val['aid']]['province'] =  !empty($region[$row[$val['aid']]['province_id']]['name'])?$region[$row[$val['aid']]['province_id']]['name']:'';
+                empty($row[$val['aid']]['price_units']) && $row[$val['aid']]['price_units'] = $price_units;
                 $list[$key] = $row[$val['aid']];
             }
         }

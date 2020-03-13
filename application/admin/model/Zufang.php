@@ -8,6 +8,7 @@
 namespace app\admin\model;
 
 use think\Model;
+use think\Db;
 
 class Zufang extends Model
 {
@@ -147,7 +148,7 @@ class Zufang extends Model
     /*
      * 获取单条新房基本信息
      */
-    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid"){
+    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid,d.total_price as price"){
         $row = db('archives')
             ->field($fields)
             ->alias('a')

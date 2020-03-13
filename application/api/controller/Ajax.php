@@ -265,10 +265,10 @@ class Ajax extends Base
                 $this->error('同一个IP在60秒之内不能重复提交！');
             }
 
-            $come_url = htmlspecialchars(input('post.come_url/s'));
-            $parent_come_url = htmlspecialchars(input('post.parent_come_url/s'));
+            $come_url = input('post.come_url/s'); //htmlspecialchars(input('post.come_url/s'));
+            $parent_come_url = input('post.parent_come_url/s');  //htmlspecialchars(input('post.parent_come_url/s'));
             $come_url = !empty($parent_come_url)? $parent_come_url :$come_url;
-            $come_from = htmlspecialchars(input('post.come_from/s', '请添加come_from隐藏信息'));
+            $come_from = input('post.come_from/s', '请添加come_from隐藏信息');  //htmlspecialchars(input('post.come_from/s', '请添加come_from隐藏信息'));
             $city = "";
 /*            try {
                 $city_arr = getCityLocation($ip);

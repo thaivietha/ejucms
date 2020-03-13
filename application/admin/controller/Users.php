@@ -222,27 +222,67 @@ class Users extends Base
                 $this->error('参数有误');
             }
             $id_arr = eyIntval($id_arr);
-            if ($thorough){
-                $result = Db::name('users')->field('username')->where(['id'    => ['IN', $id_arr]])->select();
-                $title_list = get_arr_column($result, 'username');
-                $r = Db::name('users')->where(['id'=> ['IN', $id_arr]])->delete();
-                if($r){
-                    Db::name('users_content')->where(['users_id'=> ['IN', $id_arr]])->delete();
-                    adminLog('删除会员：'.implode(',', $title_list));
-                    $this->success('删除成功');
-                }else{
-                    $this->error('删除失败');
-                }
+            $result = Db::name('users')->field('username')->where(['id'    => ['IN', $id_arr]])->select();
+            $title_list = get_arr_column($result, 'username');
+            $r = Db::name('users')->where(['id'=> ['IN', $id_arr]])->delete();
+            if($r){
+                Db::name('users_content')->where(['users_id'=> ['IN', $id_arr]])->delete();
+                adminLog('删除会员：'.implode(',', $title_list));
+                $this->success('删除成功');
             }else{
-                $r = Db::name('users')->where(['id'=> ['IN', $id_arr]])->update(['is_del'=>1]);
-                if($r){
-                    $this->success('删除成功');
-                }else{
-                    $this->error('删除失败');
-                }
+                $this->error('删除失败');
             }
+
+//            if ($thorough){
+//                $result = Db::name('users')->field('username')->where(['id'    => ['IN', $id_arr]])->select();
+//                $title_list = get_arr_column($result, 'username');
+//                $r = Db::name('users')->where(['id'=> ['IN', $id_arr]])->delete();
+//                if($r){
+//                    Db::name('users_content')->where(['users_id'=> ['IN', $id_arr]])->delete();
+//                    adminLog('删除会员：'.implode(',', $title_list));
+//                    $this->success('删除成功');
+//                }else{
+//                    $this->error('删除失败');
+//                }
+//            }else{
+//                $r = Db::name('users')->where(['id'=> ['IN', $id_arr]])->update(['is_del'=>1]);
+//                if($r){
+//                    $this->success('删除成功');
+//                }else{
+//                    $this->error('删除失败');
+//                }
+//            }
         }
         $this->error('非法访问');
+    }
+    //ajax选择关联经纪人
+    public function ajaxSelectRelate(){
+
+        $keywords = input('keywords/s');
+        $condition = array();
+        $condition['is_del'] = 0;
+        $condition['is_saleman'] = 1;
+        $condition['status'] = 1;
+        if ($keywords){
+            $condition['true_name'] =  array('LIKE', "%{$keywords}%");
+        }
+        $count = DB::name('users')->where($condition)->count('id');// 查询满足要求的总记录数
+        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $list = DB::name('users')
+            ->where($condition)
+            ->order('id desc')
+            ->limit($Page->firstRow.','.$Page->listRows)
+            ->getAllWithIndex('id');
+
+        $show = $Page->show(); // 分页显示输出
+        $assign_data['page'] = $show; // 赋值分页输出
+        $assign_data['list'] = $list; // 赋值数据集
+        $assign_data['pager'] = $Page; // 赋值分页对象
+        $func = input('func/s');
+        $assign_data['func'] = $func;
+        $this->assign($assign_data);
+
+        return $this->fetch();
     }
 
 }

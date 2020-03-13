@@ -16,6 +16,7 @@ namespace app\home\model;
 use think\Model;
 use think\Page;
 use think\Db;
+use app\home\logic\FieldLogic;
 
 /**
  * 文章
@@ -74,6 +75,18 @@ class Xinfang extends Model
             $tags = model('Taglist')->getListByAid($aid, $typeid);
             $result['tags'] = $tags;
         }
+        //关联模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$result['channel']];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($result['joinaid']) && !empty($channelJoin)){
+            $join = model($channelJoin['ctl_name'])->getInfo($result['joinaid'],'',true);
+            $join = view_logic($result['joinaid'], $channelJoin['id'], $join, true, [ 'huxing' => 'off','photo' => 'off','price' => 'off'],$channelJoin['ctl_name']); // 模型对应逻辑
+            /*自定义字段的数据格式处理*/
+            $fieldLogic = new FieldLogic();
+            $join = $fieldLogic->getChannelFieldList($join, $channelJoin['id']);
+            $result['join'] = get_xinfang_info($result['joinaid'],$join);
+        }
 
         return $result;
     }
@@ -111,6 +124,9 @@ class Xinfang extends Model
                 if ($val['is_jump'] == 1) {
                     $lists[$key]['arcurl'] = $val['jumplinks'];
                 } else {
+                    if (isset($val['room'])){
+                        unset($val['room']);
+                    }
                     $lists[$key]['arcurl'] = arcurl("home/Xinfang/index", $val);
                 }
                 $manage_type_arr = explode(",",$val['manage_type']);

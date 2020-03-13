@@ -318,9 +318,14 @@ class Url
             // 自动判断域名
             $domain = Config::get('app_host') ?: $request->host();
             $domain_arr = explode('.',$domain);
-            $web_mobile_domain = config('ey_config.web_mobile_domain');
+            $web_mobile_domain = config('ey_config.web_mobile_domain');   //手机端域名
             if ($subdomain && !empty($domain_arr) && $domain_arr[0] != $web_mobile_domain){
-                $domain_arr[0] = $subdomain;
+                $main_domain = tpCache('web.web_main_domain');  //主域名
+                if (!empty($main_domain) && count($domain_arr)>2){
+                    $domain_arr[0] = $subdomain;
+                }else{
+                    array_unshift($domain_arr,$subdomain);
+                }
                 $domain = implode('.',$domain_arr);
             }
 

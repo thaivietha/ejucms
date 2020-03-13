@@ -65,20 +65,48 @@
                                             <div class="layui-card">
                                                 <div class="layui-card-body" pad15>
                                                     <div class="layui-form" wid100 lay-filter="">
+                                                        {notempty name="$channelJoin"}
                                                         <div class="layui-form-item">
-                                                            <label class="layui-form-label"><b>*</b>所属小区</label>
+                                                            <label class="layui-form-label">关联{$channelJoin.ntitle}</label>
                                                             <div class="layui-input-inline layadmin-layer-demo">
-                                                                <input type="hidden" name="joinaid" id="joinaid"  lay-verify="required" value="0">
-                                                                <input type="hidden" name="province_id" id="province_id"  value="0">
-                                                                <input type="hidden" name="city_id" id="city_id" value="0">
-                                                                <input type="hidden" name="area_id" id="area_id" value="0">
-                                                                <input type="hidden" name="addonFieldSys[lng]" id="lng" value="">
-                                                                <input type="hidden" name="addonFieldSys[lat]" id="lat" value="">
-                                                                <input type="hidden" name="addonFieldSys[address]" id="address" value="">
-                                                                <span style="display: none;" class="tower-add" id="house_title"></span>
-                                                                <button class="layui-btn" data-type="select_house">选择小区</button>
+                                                                <input type="hidden" name="joinaid" id="joinaid" lay-verify="required" value="0">
+                                                                <button class="layui-btn layui-ton" data-name="{$channelJoin.ntitle}" data-url="{$ajaxSelectHouseUrl}" data-type="select_house">选择{$channelJoin.ntitle}</button>
+                                                                <span style="display: none;" class="tower-add" id="join_title"></span>
                                                             </div>
                                                         </div>
+                                                        {/notempty}
+                                                        {notempty name="$channelOrigin.is_join_user"}
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>关联经纪人</label>
+                                                            <div class="layui-input-inline layadmin-layer-demo" id="relate">
+                                                                <button class="layui-btn layui-ton" data-type="select_relate">选择经纪人</button>
+                                                            </div>
+                                                        </div>
+                                                        {/notempty}
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>所属区域</label>
+                                                            <div class="layui-input-inline w120">
+                                                                <select name="province_id" id="province_id"  lay-filter="province_id" >
+                                                                    <option value="0">请选择省</option>
+                                                                    {eju:volist name=':get_province_list()' id='vo'}
+                                                                    <option value="{$vo.id}" {eq name="$field.province_id" value="$vo.id" } selected {/eq} >{$vo.name}</option>
+                                                                    {/eju:volist}
+                                                                </select>
+                                                            </div>
+                                                            <div class="layui-input-inline w120">
+                                                                <select name="city_id" id="city_id"   lay-filter="city_id"  lay-verify="check_cityid">
+                                                                    <option value="">请选择城市</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="layui-input-inline none w120" id="area_div">
+                                                                <select name="area_id" id="area_id">
+                                                                    <option value="">请选择区域</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                            <div class="layui-form-inline2 ey_helptips_txt none">后台菜单>系统配置>区域管理</div>
+                                                        </div>
+
                                                         <div class="w-out fl mt15">
                                                             <label class="layui-form-label"><b>*</b>房源标题</label>
                                                             <div class="layui-input-inline w-in">
@@ -95,7 +123,12 @@
                                                             </select>
                                                         </div>
                                                     </div>
-
+                                                    <div class="w-out fl mt15 {empty name="$addonFieldExtList['address']['ifeditable']"}none{/empty}">
+                                                        <label class="layui-form-label"><b>*</b>{$addonFieldExtList['address']['title']}</label>
+                                                        <div class="layui-input-inline w-in">
+                                                            <input type="text" name="addonFieldSys[address]" id="address"  lay-verify="check_address"  placeholder="{$addonFieldExtList['address']['remark']}" value="{$addonFieldExtList['address']['dfvalue']}" class="layui-input">
+                                                        </div>
+                                                    </div>
                                                     <div class="w-out fl mt15 {empty name="$addonFieldExtList['total_price']['ifeditable']"}none{/empty}" >
                                                     <label class="layui-form-label">{$addonFieldExtList['total_price']['title']}</label>
                                                     <div class="layui-input-inline w-in">
@@ -140,19 +173,19 @@
                                             <div class="layui-input-inline layui-input-company">{$addonFieldExtList['property_fee']['dfvalue_unit']}</div>
                                         </div>
 
-                                        <div class="w-out fl mt15">
-                                            <label class="layui-form-label">经纪人</label>
-                                            <div class="layui-input-inline w-in">
-                                                <select name="users_id" id="users_id"   lay-filter="users_id">
-                                                    <option value="0">请选择经纪人</option>
-                                                    {eju:volist name='$users_list' id='vo'}
-                                                    <option data-name="{$vo.true_name}"  data-mobile="{$vo.mobile}"  value="{$vo.id}" {eju:compare name="$field.users_id" type="eq" value="$vo.id" } selected="true" {/eju:compare}>{$vo.true_name}</option>
-                                                    {/eju:volist}
-                                                </select>
-                                            </div>
-                                            <div class="fr"></div>
-                                            <div class="layui-form-inline2 ey_helptips_txt none"></div>
-                                        </div>
+                                        <!--<div class="w-out fl mt15">-->
+                                            <!--<label class="layui-form-label">经纪人</label>-->
+                                            <!--<div class="layui-input-inline w-in">-->
+                                                <!--<select name="users_id" id="users_id"   lay-filter="users_id">-->
+                                                    <!--<option value="0">请选择经纪人</option>-->
+                                                    <!--{eju:volist name='$users_list' id='vo'}-->
+                                                    <!--<option data-name="{$vo.true_name}"  data-mobile="{$vo.mobile}"  value="{$vo.id}" {eju:compare name="$field.users_id" type="eq" value="$vo.id" } selected="true" {/eju:compare}>{$vo.true_name}</option>-->
+                                                    <!--{/eju:volist}-->
+                                                <!--</select>-->
+                                            <!--</div>-->
+                                            <!--<div class="fr"></div>-->
+                                            <!--<div class="layui-form-inline2 ey_helptips_txt none"></div>-->
+                                        <!--</div>-->
 
                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['sale_name']['ifeditable']"}none{/empty}">
                                         <label class="layui-form-label"><b>*</b>{$addonFieldExtList['sale_name']['title']}</label>
@@ -269,20 +302,24 @@
                         {$addonFieldExtList['diy_jgmy']['dfvalue_unit']}
                     </div>
                 </div>
-
-
-
-
-
                     <div class="w-out fl mt15 {empty name="$addonFieldExtList['panoram']['ifeditable']"}none{/empty}">
-                    <label class="layui-form-label">{$addonFieldExtList['panoram']['title']}</label>
-                    <div class="layui-input-inline w-in">
-                        <input type="text" name="addonFieldExt[panoram]" id="panoram" value="{$addonFieldExtList['panoram']['dfvalue']}"  placeholder="{$addonFieldExtList['panoram']['remark']}" class="layui-input">
+                        <label class="layui-form-label">{$addonFieldExtList['panoram']['title']}</label>
+                        <div class="layui-input-inline w-in">
+                            <input type="text" name="addonFieldExt[panoram]" id="panoram" value="{$addonFieldExtList['panoram']['dfvalue']}"  placeholder="{$addonFieldExtList['panoram']['remark']}" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline layui-input-company">
+                            {$addonFieldExtList['panoram']['dfvalue_unit']}
+                        </div>
                     </div>
-                    <div class="layui-input-inline layui-input-company">
-                        {$addonFieldExtList['panoram']['dfvalue_unit']}
-                    </div>
-                </div>
+<div class="w-out fl mt15">
+    <label class="layui-form-label">地图坐标</label>
+    <div class="layui-input-inline w-in">
+        <input type="text" name="map" id="map" lay-verify="check_map" placeholder="115.345,22.1349" value="{$map}" class="layui-input">
+    </div>
+    <div class="layui-form-mid layui-word-aux layadmin-layer-demo fr" style="padding: 0!important">
+        <a class="layui-btn layui-btn-primary bt-address fl" data-type="map_mark" title="点击标注楼盘坐标"><i class="layui-icon layui-icon-location"></i></a>
+    </div>
+</div>
             </div>
         </div>
     </div>
@@ -650,7 +687,24 @@
         });
         $('#add_time').layDate();
     });
-
+    //光标离开楼盘地址编辑，自动获取坐标
+    $("#address").on('blur',function(){
+        var province_id = $("#province_id").val(),city_id = $("#city_id").val();area_id = $("#area_id").val();
+        var address = $(this).val();
+        var url     = "{:url('Map/getLocationByAddress')}";
+        var param = {
+            province : province_id,
+            city : city_id,
+            area : area_id,
+            address : address
+        };
+        $.get(url,param,function(res){
+            if(res.code == 1)
+            {
+                $("#map").val(res.data.map);
+            }
+        });
+    });
     var temp = 0;
     var layui_index = layui.config({
         base: '__SKIN__/' //静态资源所在路径
@@ -682,6 +736,17 @@
             $("#phone_code").val('');
             form.render();
         });
+        //选中省份模型
+        form.on('select(province_id)', function(data){
+            set_city_list(0);
+            set_area_list(0);
+            form.render();
+        });
+        //选中城市
+        form.on('select(city_id)', function(data){
+            set_area_list(0);
+            form.render();
+        });
         /* 触发事件 */
         var active = {
             area:function () {     //区域管理
@@ -697,19 +762,36 @@
                 var index=parent.layer.getFrameIndex(window.name); //获取当前窗口的name
                 parent.layer.close(index);		//关闭窗口
             }
-            ,select_house:function () {     //小区关联管理
+            ,select_relate:function () {    //选择关联经纪人
                 var xinfang = layer.open({
                     type : 2,
-                    title : '选择小区',
-                    area : ['500px','500px'],
+                    title : '选择联经纪人',
+                    area : ['700px','500px'],
                     shade : 0.2,
                     iframeAuto:true,
-                    content : "{:url('Xiaoqu/ajaxSelectHouse')}"+'&func=set_house_back',
+                    content : "{:url('Users/ajaxSelectRelate')}"+'&func=set_relate_back',
                     end : function(){
 
                     }
                 });
+            }
+            ,select_house:function () {     //模型关联管理
+                var url = $(this).data('url');
+                var name = $(this).data('name');
+                var xinfang = layer.open({
+                    type : 2,
+                    title : '选择'+name,
+                    area : ['500px','500px'],
+                    shade : 0.2,
+                    iframeAuto:true,
+                    content : url,
+                    end : function(){
+                    }
+                });
                 layer.full(xinfang);
+            }
+            ,map_mark:function () {     //标注管理
+                set_map();
             }
         };
 
@@ -929,33 +1011,126 @@
             }
         }
     }
-
-
+    //标注地图位置
+    function set_map()
+    {
+        var province = $("#province_id").val();
+        var city = $("#city_id").val();
+        var area = $("#area_id").val();
+        if(city==='0' || city === '' || city === null)
+        {
+            layer.msg('请选择城市',{icon:2});
+            return false;
+        }
+        var map = $("#map").val();
+        var url = "{:url('Map/updateLocation')}&province="+province+"&city="+city+"&area="+area+"&map="+map;
+        //iframe窗
+        var iframes = layer.open({
+            type: 2,
+            title: '标注地图',
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            content: url
+        });
+        layer.full(iframes);
+    }
+    //自动获取城市列表
+    function set_city_list(cityid) {
+        var pid =  $("#province_id").val();
+        $.ajax({
+            url: "{:url('Region/ajax_get_region')}",
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {pid:pid,_ajax:1},
+            success: function(res){
+                if (res.code === 1){
+                    $("#city_id").empty();
+                    $("#city_id").prepend(res.msg);
+                    if (cityid > 0){
+                        $("#city_id").val(cityid);
+                    }
+                }
+            },
+            error: function(e){
+                showErrorMsg();
+                return false;
+            }
+        });
+    }
+    //自动获取区域
+    function set_area_list(areaid) {
+        var pid =  $("#city_id").val();
+        $.ajax({
+            url: "{:url('Region/ajax_get_region')}",
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {pid:pid,level:3,_ajax:1},
+            success: function(res){
+                if (res.code === 1){
+                    $("#area_id").empty();
+                    $("#area_id").prepend(res.msg);
+                    if (areaid > 0){
+                        $("#area_id").val(areaid);
+                    }
+                    if (res.data.isempty == 1){
+                        $("#area_div").hide();
+                    }else{
+                        $("#area_div").show();
+                    }
+                }
+            },
+            error: function(e){
+                showErrorMsg();
+                return false;
+            }
+        });
+    }
     //选择楼盘回调
     function set_house_back(recall){
         $("#joinaid").val(recall['aid']);
         $("#province_id").val(recall['province_id']);
         $("#city_id").val(recall['city_id']);
         $("#area_id").val(recall['area_id']);
-        $("#lng").val(recall['lng']);
-        $("#lat").val(recall['lat']);
+        var map = "";
+        if (recall['lng'] && recall['lat']){
+            map =  recall['lng']+","+recall['lat'];
+        }
+        $("#map").val(map);
+        $("#title").val(recall['title']);
         $("#address").val(recall['address']);
         $("#building_age").val(recall['building_age']);
         $("#property").val(recall['property']);
-        $("#title").val(recall['title']);
-        $('#house_title').html(recall['title']+ ' <i class="layui-icon layui-icon-close"></i>');
-        $("#house_title").show();
+        $('#join_title').html(recall['title']+ ' <i class="layui-icon layui-icon-close"></i>');
+        $("#join_title").show();
+        set_city_list(recall['city_id']);
+        set_area_list(recall['area_id']);
+        layui_index.form.render();
     }
-    $("#house_title").on('click','i',function(){
-        $("#house_title").html('');
-        $("#house_title").hide();
+    $("#join_title").on('click','i',function(){
+        $("#join_title").html('');
+        $("#join_title").hide();
         $("#joinaid").val(0);
-        $("#province_id").val(0);
-        $("#city_id").val(0);
-        $("#area_id").val(0);
-        $("#lng").val('');
-        $("#lat").val('');
-        $("#address").val('');
+    });
+    //选择关联经纪人回调
+    function set_relate_back(recall) {
+        if ($("#relate_"+recall.id).length == 0){
+            var html = '<span class="tower-add relate" id="relate_'+ recall.id +'" data-id="'+ recall.id +'">' +
+                '<input type="hidden" name="relate[]" value="'+ recall.id +'">' +
+                recall.true_name +
+                '<i class="layui-icon layui-icon-close"></i>' +
+                '</span>';
+            $("#relate").append(html);
+        }
+        if ($("#sale_name").val() == '' && $("#sale_phone").val() == ''){
+            $("#sale_name").val(recall.true_name);
+            $("#sale_phone").val(recall.mobile);
+        }
+    }
+    $("#relate").on('click','i',function(){
+        $(this).parent().remove();
     });
     //设置作者
     function set_author()

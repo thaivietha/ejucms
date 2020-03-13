@@ -87,4 +87,19 @@ class Article extends Model
         // 同时删除TAG标签
         model('Taglist')->delByAids($aidArr);
     }
+
+    /*
+    * 获取单条新房基本信息
+    */
+    public function getOne($condition,$fields = "c.*,b.*, a.*, a.aid as aid"){
+        $row = db('archives')
+            ->field($fields)
+            ->alias('a')
+            ->join('__ARCTYPE__ b', 'a.typeid = b.id', 'LEFT')
+            ->join('article_content c','a.aid = c.aid')
+            ->where($condition)
+            ->find();
+
+        return $row;
+    }
 }

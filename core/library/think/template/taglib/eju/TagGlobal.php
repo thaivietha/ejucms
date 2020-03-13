@@ -158,7 +158,6 @@ class TagGlobal extends Base
             }*/
             $value = htmlspecialchars_decode($value);
         }
-        
         return $value;
     }
 }

@@ -27,7 +27,7 @@ class TagDiyurl extends Base
                 /*tid为目录名称的情况下*/
                 $tid = $this->getTrueTypeid($tid);
                 $aid = I("param.aid/s", '');
-                $parent_url = request()->url();
+                $parent_url = request()->url(true);
                 $parent_url = $parent_url ? $parent_url : '/';
                 $parseStr = url('home/Index/ajax_form', ['ajax_form'=>1,'aid'=>$aid,'tid'=>$tid,'template'=>$template, 'parent_url'=>$parent_url], true, false, 1);
                 break;

@@ -38,6 +38,7 @@
       <script>
 			$(function(){
 				$('#qrcode').qrcode('{$eju.field.arcurl}');
+				console.log("{$eju.field.arcurl}");
 				$("#qrcode").mouseover(function(){
 					$("#layer_wei").show();
 				});
@@ -93,7 +94,16 @@
         <div class="basic">
           <ul>
             <li> <span>小区名称</span>
-              <p> <a>{eju:notempty name="$eju.field.xiaoqu.area_id"}{$eju.field.xiaoqu.area_id|get_area_name}{eju:else /}{$eju.field.xiaoqu.city_id|get_city_name}{/eju:notempty}</a> - <a href="{$eju.field.xiaoqu.arcurl}" target="_blank">{$eju.field.xiaoqu.title}</a> </p>
+              <p>
+                <a>
+                {eju:notempty name="$eju.field.xiaoqu.area_id"}
+                {$eju.field.xiaoqu.area_id|get_area_name}
+                {eju:else /}
+                {$eju.field.xiaoqu.city_id|get_city_name}
+                {/eju:notempty}
+                </a> -
+                <a href="{$eju.field.xiaoqu.arcurl}" target="_blank">{$eju.field.xiaoqu.title}</a>
+              </p>
             </li>
             <li> <span>装修情况</span>
               <p>{$eju.field.fitment}</p>
@@ -119,7 +129,13 @@
             </li>
           </ul>
           <div class="broker-info clearfix" style="padding-top:20px;">
-            <div class="broker-avatar fl"> <a href="javascript:;" class="clearfix" title="" target="_blank"> {notempty name="$eju.field.saleman"} <img src="{$eju.field.saleman.saleman_pic}" alt="{$eju.field.saleman.saleman_name}"> {else /} <img src="{eju:global name='web_templets_pc' /}/skin/img/noavatar.jpg" alt="头像"> {/notempty} </a> </div>
+            <div class="broker-avatar fl"> <a href="javascript:;" class="clearfix" title="" target="_blank">
+              {notempty name="$eju.field.saleman"}
+              <img src="{$eju.field.saleman.saleman_pic}" alt="{$eju.field.saleman.saleman_name}">
+              {else /}
+              <img src="{eju:global name='web_templets_pc' /}/skin/img/noavatar.jpg" alt="头像">
+              {/notempty}
+            </a> </div>
             <dl class="noyongjin">
               <dt> <a href="#" target="_blank"> <b>{$eju.field.sale_name}</b> </a> <span>置业管家</span> </dt>
               <dd class="cardTels" ><i class="iconfont">&#xe64d;</i> {$eju.field.sale_phone} {eju:notempty name="$eju.field.phone_code"} 转 {$eju.field.phone_code}{/eju:notempty} </dd>

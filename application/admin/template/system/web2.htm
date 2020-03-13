@@ -48,6 +48,16 @@
                                 </div>
                                 <div class="layui-form-inline2">请将二级域名 m 解析到站点根目录下</div>
                               </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">PC端主域名</label>
+                                    <div class="layui-input-inline">
+                                        <input style="width: 80px;float: left" type="text" name="web_main_domain" value="{$config.web_main_domain|default=''}" class="layui-input" onKeyUp="this.value=this.value.replace(/[^0-9a-z]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9a-z]/g,''));" placeholder="主域名">
+                                        <span style="float: left;line-height: 38px;margin-left: 4px; margin-right: 5px;">.{$Request.rootDomain}</span>
+                                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                        <div class="layui-form-inline2 ey_helptips_txt">pc端默认主页</div>
+                                    </div>
+                                    <div class="layui-form-inline2"></div>
+                                </div>
                               <div class="layui-form-item">
                                 <label class="layui-form-label">区域子站点</label>
                                 <div class="layui-input-inline w70">

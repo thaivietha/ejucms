@@ -91,6 +91,9 @@ class Zufang extends Base
         if (!$permission){
             $this->error("您已经没有操作条数", url("Zufang/index"));
         }
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $post['tags'] = "";
@@ -98,28 +101,25 @@ class Zufang extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+            if (empty($post['city_id'])){
+                $this->error('请选择城市！');
+            }
             //判断是选择的小区，还是自己添加的小区，如果是自己添加的小区，得先添加小区，再添加二手房
-            if (!empty($post['joinaid']) && !empty($post['xiaoqu_title'])){
-                $condition['a.aid'] = $post['joinaid'];
-                $condition['a.title'] = $post['xiaoqu_title'];
-                $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where($condition)->find();
-            }
-            if (empty($xiaoqu)){       //不存在小区
-                if (empty($post['city_id'])){
-                    $this->error('请选择城市！');
+            if (!empty($channelJoin)){
+                if (!empty($post['joinaid']) && !empty($post['join_title'])){
+                    $condition['a.title'] = $post['join_title'];
+                    $condition['a.channel'] = $channelJoin['id'];
+                    $condition['a.is_del'] = 0;
+                    $join = DB::name('archives')->alias("a")->where($condition)->find();
                 }
-                $xiaoqu_db = new Xiaoqu();
-                $aid = $xiaoqu_db->add_ajax($post);
-                $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where(['a.aid'=>$aid])->find();
+                if (empty($join)){       //不存在该关联数据
+                    $join_db = new Archives();
+                    $type_info = Db::name("arctype")->where("current_channel={$channelJoin['id']} and is_del=0 and status=1")->order("id")->find();
+                    $aid = $join_db->add_ajax($post,$channelJoin['id'],$type_info['id'],$channelJoin['ctl_name']);
+                    $join = DB::name('archives')->alias("a")->where(['a.aid'=>$aid])->find();
+                }
+                $post['joinaid'] = $join['aid'];
             }
-            $post['joinaid'] = $xiaoqu['aid'];
-            $post['province_id'] = $xiaoqu['province_id'];
-            $post['city_id'] = $xiaoqu['city_id'];
-            $post['area_id'] = $xiaoqu['area_id'];
-            $post['map'] = $xiaoqu['lng'].",".$xiaoqu['lat'];
-            $post['addonFieldSys']['lng'] = $xiaoqu['lng'];
-            $post['addonFieldSys']['lat'] = $xiaoqu['lat'];
-            $post['addonFieldSys']['address'] = $xiaoqu['address'];
 
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
@@ -176,7 +176,8 @@ class Zufang extends Base
                 'update_time'  => getTime(),
                 'show_time' => getTime(),
                 'users_id' => $this->users_id,
-                'author' => !empty($this->users['nickname']) ? $this->users['nickname'] : $this->users['username'],
+                'relate' => $this->users_id,
+                'author' => !empty($this->users['true_name']) ? $this->users['true_name'] : $this->users['nickname'],
                 'province_id'  => empty($post['province_id']) ? 0 : $post['province_id'],
                 'city_id'      => empty($post['city_id']) ? 0 : $post['city_id'],
                 'area_id'      => empty($post['area_id']) ? 0 : $post['area_id'],
@@ -205,19 +206,25 @@ class Zufang extends Base
         $addonFieldExtList = $field->getChannelFieldList($this->channeltype);
         $addonFieldExtList = convert_arr_key($addonFieldExtList,'name');
         $assign_data['addonFieldExtList'] = $addonFieldExtList;
-        /*获取可显示的系统字段*/
-        $condition['ifcontrol'] = 0;
-        $condition['channel_id'] = $this->channeltype;
-        $channelfield_row = Db::name('channelfield')->where($condition)->field('name,ifeditable')->getAllWithIndex('name');
-        $assign_data['channelfield_row'] = $channelfield_row;
-        $assign_data['field'] = ['litpic'=>''];
-        $assign_data['searchurl'] = url("Xiaoqu/ajaxList");
-        $assign_data['checkurl'] = url("Xiaoqu/ajaxCheck");
+        //模型信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
+        }
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['searchurl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxList") : '';
+        $assign_data['checkurl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxCheck") : '';
+
         $this->assign($assign_data);
 
         return $this->fetch('users/zufang_add');
     }
     public function edit(){
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $post['tags'] = '';
@@ -226,28 +233,21 @@ class Zufang extends Base
                 $this->error('请选择所属栏目！');
             }
             //判断是选择的小区，还是自己添加的小区，如果是自己添加的小区，得先添加小区，再添加二手房
-            if (!empty($post['joinaid']) && !empty($post['xiaoqu_title'])){
-                $condition['a.aid'] = $post['joinaid'];
-                $condition['a.title'] = $post['xiaoqu_title'];
-                $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where($condition)->find();
-            }
-
-            if (empty($xiaoqu)){       //不存在小区
-                if (empty($post['city_id'])){
-                    $this->error('请选择城市！');
+            if (!empty($channelJoin)){
+                if (!empty($post['joinaid']) && !empty($post['join_title'])){
+                    $condition['a.title'] = $post['join_title'];
+                    $condition['a.channel'] = $channelJoin['id'];
+                    $condition['a.is_del'] = 0;
+                    $join = DB::name('archives')->alias("a")->where($condition)->find();
                 }
-                $xiaoqu_db = new Xiaoqu();
-                $aid = $xiaoqu_db->add_ajax($post);
-                $xiaoqu = DB::name('archives')->alias("a")->join("xiaoqu_system b","a.aid=b.aid","left")->where(['a.aid'=>$aid])->find();
+                if (empty($join)){       //不存在该关联数据
+                    $join_db = new Archives();
+                    $type_info = Db::name("arctype")->where("current_channel={$channelJoin['id']} and is_del=0 and status=1")->order("id")->find();
+                    $aid = $join_db->add_ajax($post,$channelJoin['id'],$type_info['id'],$channelJoin['ctl_name']);
+                    $join = DB::name('archives')->alias("a")->where(['a.aid'=>$aid])->find();
+                }
+                $post['joinaid'] = $join['aid'];
             }
-            $post['joinaid'] = $xiaoqu['aid'];
-            $post['province_id'] = $xiaoqu['province_id'];
-            $post['city_id'] = $xiaoqu['city_id'];
-            $post['area_id'] = $xiaoqu['area_id'];
-            $post['map'] = $xiaoqu['lng'].",".$xiaoqu['lat'];
-            $post['addonFieldSys']['lng'] = $xiaoqu['lng'];
-            $post['addonFieldSys']['lat'] = $xiaoqu['lat'];
-            $post['addonFieldSys']['address'] = $xiaoqu['address'];
 
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
@@ -381,14 +381,120 @@ class Zufang extends Base
         $photo_list = model("zufang_photo")->getListByWhere(['aid'=>$id,'is_del'=>0]);
         $assign_data['photo_list'] = $photo_list;
 
-        if ($assign_data['field']['joinaid']){
-            $xiaoqu = model("Xiaoqu")->getOne("c.aid={$assign_data['field']['joinaid']}");
-            $assign_data['xiaoquTitle'] = $xiaoqu ? $xiaoqu['title']:'';
+        //模型信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
         }
-        $assign_data['searchurl'] = url("Xiaoqu/ajaxList");
-        $assign_data['checkurl'] = url("Xiaoqu/ajaxCheck");
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['searchurl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxList") : '';
+        $assign_data['checkurl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxCheck") : '';
+
+
         $this->assign($assign_data);
 
         return $this->fetch('users/zufang_edit');
     }
+    /*
+    * 检查关联数据是否存在
+    */
+    public function ajaxCheck(){
+        $aid = input('aid/d',0);
+        $title = input('title/s','');
+        $condition['channel'] = $this->channeltype;
+        $condition['aid'] = $aid;
+        $condition['title'] = $title;
+        $condition['is_del'] = 0;
+        $data = DB::name('archives')->where($condition)->find();
+        if ($data){
+            $this->success("存在",'',$data);
+        }else{
+            $this->error("不存在");
+        }
+    }
+    /*
+     * js获取小区数据列表
+     */
+    public function ajaxList(){
+        $channel= input('channel/d');
+        $typeid = input('typeid/d');
+        $keywords = input('keywords/s');
+        $province = input('province/d');
+        $city = input('city/d');
+        $area = input('area/d');
+        $condition['a.channel'] = $channel ? $channel : $this->channeltype;
+
+        if ($typeid){
+            $condition['a.typeid'] = $typeid;
+        }
+        if ($province){
+            $condition['a.province_id'] = $province;
+        }
+        if ($city){
+            $condition['a.city_id'] = $city;
+        }
+        if ($area){
+            $condition['a.area_id'] = $area;
+        }
+        if ($keywords){
+            $condition['a.title'] =  array('LIKE', "%{$keywords}%");;
+        }
+        $result = $this->getLists($condition);
+
+        return json($result['list']);
+    }
+    /**
+     * 获取列表数据
+     */
+    private function getLists($condition,$fields = ""){
+        /*
+         * 数据查询，搜索出主键ID的值
+         */
+        $count = DB::name('archives')->alias('a')->where($condition)->count('aid');// 查询满足要求的总记录数
+
+        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $list = DB::name('archives')
+            ->field("a.aid")
+            ->alias('a')
+            ->where($condition)
+            ->order('a.aid desc')
+            ->limit($Page->firstRow.','.$Page->listRows)
+            ->getAllWithIndex('aid');
+        /*
+         * 完善数据集信息
+         * 在数据量大的情况下，经过优化的搜索逻辑，先搜索出主键ID，再通过ID将其他信息补充完整；
+         */
+        if ($list) {
+            $aids = array_keys($list);
+            empty($fields) && $fields = "d.*,c.*,b.*, a.*, a.aid as aid";
+            $row = DB::name('archives')
+                ->field($fields)
+                ->alias('a')
+                ->join('__ARCTYPE__ b', 'a.typeid = b.id', 'LEFT')
+                ->join('zufang_content c','a.aid = c.aid')
+                ->join('zufang_system d','a.aid = d.aid')
+                ->where('a.aid', 'in', $aids)
+                ->getAllWithIndex('aid');
+            $region = get_region_list();
+            $price_units = Db::name("channelfield")->where(['name'=>'total_price','channel_id'=>$this->channeltype])->getField("dfvalue_unit");
+            foreach ($list as $key => $val) {
+                $row[$val['aid']]['arcurl'] = get_arcurl($row[$val['aid']]);
+                $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支持子目录
+                $row[$val['aid']]['city'] = !empty($region[$row[$val['aid']]['city_id']])?$region[$row[$val['aid']]['city_id']]:'';
+                $row[$val['aid']]['area'] = !empty($region[$row[$val['aid']]['area_id']])?$region[$row[$val['aid']]['area_id']]:'';
+                $row[$val['aid']]['province'] =  !empty($region[$row[$val['aid']]['province_id']])?$region[$row[$val['aid']]['province_id']]:'';
+                empty($row[$val['aid']]['price_units']) && $row[$val['aid']]['price_units'] = $price_units;
+                $list[$key] = $row[$val['aid']];
+            }
+        }
+        $show = $Page->show(); // 分页显示输出
+        $assign_data['page'] = $show; // 赋值分页输出
+        $assign_data['list'] = $list; // 赋值数据集
+        $assign_data['pager'] = $Page; // 赋值分页对象
+
+        return $assign_data;
+    }
+
 }

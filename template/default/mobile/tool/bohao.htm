@@ -43,9 +43,9 @@
 <div class="dial-box" id="dial-box">
     <img src="{$field.litpic}" alt="{$field.title}" class="img">
     <p class="name" align="">{$field.title}</p>
-    <p class="tel">售楼处：{$field.sale_phone}{eju:notempty name="$field.phone_code"}-{$field.phone_code}{/eju:notempty}</p>
+    <p class="tel">售楼处：{$field.sale_phone}{eju:notempty name="$field.phone_code"}转{$field.phone_code}{/eju:notempty}</p>
     <p class="name1">{$field.discount}</p>
-    <a href="tel:{$field.sale_phone}{eju:notempty name="$field.phone_code"}-{$field.phone_code}{/eju:notempty}" class="tel-btn">拨打电话</a>
+    <a href="tel:{$field.sale_phone}{eju:notempty name="$field.phone_code"},{$field.phone_code}{/eju:notempty}" class="tel-btn">拨打电话</a>
     <!-- <p class="tip">温馨提示：个别安卓手机，需手动输入分机号</p> -->
     <div class="h10"></div>
 </div>

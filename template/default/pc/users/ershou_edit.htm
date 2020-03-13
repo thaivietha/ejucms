@@ -48,19 +48,22 @@
                                             <div class="layui-card">
                                                 <div class="layui-card-body" pad15="">
                                                     <div class="layui-form" wid100="" lay-filter="">
+                                                        {notempty name="$channelJoin"}
                                                         <div class="layui-form-item">
-                                                            <label class="layui-form-label"><b>*</b>所属小区</label>
+                                                            <label class="layui-form-label"><b>*</b>关联{$channelJoin.ntitle}</label>
                                                             <div class="layui-input-inline w-in">
-                                                                <input type="hidden" id="joinaid" name="joinaid" value="{$field.joinaid}" />
-                                                                <input type="text" onblur="check_xiaoqu()" value="{$xiaoquTitle}" name="xiaoqu_title" id="xiaoqu_title"  placeholder="丰祥花苑" lay-verify="check_xiaoqu_title" class="layui-input">
+                                                                <input type="hidden" id="joinaid" name="joinaid" value="{$field.joinaid}"/>
+                                                                <input type="text" name="join_title" value="{$join_title}" id="join_title"  placeholder="丰祥花苑"  class="layui-input">
                                                                 <div class="input_div" id="input_div" style="display: none">
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        {/notempty}
                                                         <script>
+                                                            var data_obj;
                                                             $(function (){
                                                                 var searchurl = "{$searchurl}";
-                                                                autoSearch("xiaoqu_title");
+                                                                autoSearch("join_title");
                                                                 function autoSearch(searchId) {
                                                                     $("#" + searchId).autocomplete({
                                                                         delay:300,      //触发时间
@@ -76,8 +79,9 @@
                                                                                 },
                                                                                 success: function (data) {
                                                                                     if (data.constructor === Object){
-                                                                                        $.map(data,function (item) {
-                                                                                            var span = $('<span onclick="select_soption(this)" class="soption" data-aid="'+item.aid+'" data-title="'+item.title+'">'+item.title+'</span>');
+                                                                                        data_obj = data;
+                                                                                        $.map(data,function (item,i) {
+                                                                                            var span = $('<span onclick="select_soption(this)" class="soption" data-id="'+i+'">'+item.title+'</span>');
                                                                                             $(".input_div").append(span);
                                                                                         });
                                                                                         $(".input_div").show();
@@ -93,51 +97,32 @@
                                                                 }
                                                             });
                                                             function select_soption(obj) {
-                                                                var title = $(obj).data('title');
-                                                                var aid = $(obj).data('aid');
-                                                                $("#title").val(title);
-                                                                $("#xiaoqu_title").val(title);
+                                                                var aid = $(obj).data('id');
                                                                 $("#joinaid").val(aid);
-                                                                $("#region_div").hide();
-                                                                $("#address_div").hide();
-                                                                $("#map_div").hide();
+                                                                $("#title").val(data_obj[aid]['title']);
+                                                                $("#join_title").val(data_obj[aid]['title']);
+                                                                $("#province_id").val(data_obj[aid]['province_id']);
+                                                                $("#city_id").val(data_obj[aid]['city_id']);
+                                                                $("#area_id").val(data_obj[aid]['area_id']);
+                                                                var map = "";
+                                                                if (data_obj[aid]['lng'] && data_obj[aid]['lat']){
+                                                                    map =  data_obj[aid]['lng']+","+data_obj[aid]['lat'];
+                                                                }
+                                                                $("#map").val(map);
+                                                                $("#address").val(data_obj[aid]['address']);
+                                                                $("#building_age").val(data_obj[aid]['building_age']);
+                                                                $("#property").val(data_obj[aid]['property']);
+
                                                                 $("#input_div").empty();
                                                                 $("#input_div").hide();
-                                                            }
-                                                            function check_xiaoqu(){
-                                                                var timeout = 0;//延时处理
-                                                                var joinaid = $("#joinaid").val();
-                                                                var xiaoqu_title = $("#xiaoqu_title").val();
-                                                                if(xiaoqu_title == '' || joinaid == '' || joinaid == 0){
-                                                                    $("#region_div").show();
-                                                                    $("#address_div").show();
-                                                                    $("#map_div").show();
-                                                                    return false;
-                                                                }
-                                                                var checkurl = "{$checkurl}";
-                                                                clearTimeout(timeout);
-                                                                timeout = setTimeout(function () {
-                                                                    $.ajax({
-                                                                        url: checkurl,
-                                                                        dataType: "json",
-                                                                        data: {aid:joinaid,title:xiaoqu_title},
-                                                                        success: function (re) {
-                                                                            if (re.code == 1){
-                                                                                $("#region_div").hide();
-                                                                                $("#address_div").hide();
-                                                                                $("#map_div").hide();
-                                                                            }else{
-                                                                                $("#region_div").show();
-                                                                                $("#address_div").show();
-                                                                                $("#map_div").show();
-                                                                            }
-                                                                        }
-                                                                    });
-                                                                }, 100);
 
+                                                                set_city_list(data_obj[aid]['city_id']);
+                                                                set_area_list(data_obj[aid]['area_id']);
+
+                                                                layui_index.form.render();
                                                             }
                                                         </script>
-                                                        <div class="layui-form-item" id="region_div" style="display: none">
+                                                        <div class="layui-form-item" >
                                                             <label class="layui-form-label"><b>*</b>所属区域</label>
                                                             <div class="layui-input-inline w120">
                                                                 <select name="province_id" id="province_id"  lay-filter="province_id" >
@@ -160,13 +145,13 @@
                                                             <div class="layui-form-mid layui-word-aux ey_helptips"></div>
                                                             <div class="layui-form-inline2 ey_helptips_txt none"></div>
                                                         </div>
-                                                        <div class="w-out fl mt15 none" id="address_div"  style="display: none">
+                                                        <div class="w-out fl mt15 ">
                                                             <label class="layui-form-label"><b>*</b>{$addonFieldExtList['address']['title']}</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="addonFieldSys[address]" id="address" value="{$addonFieldExtList['address']['dfvalue']}"  placeholder="{$addonFieldExtList['address']['remark']}"  lay-verify="check_address" value="" class="layui-input">
                                                             </div>
                                                         </div>
-                                                        <div class="w-out fl mt15 none" id="map_div"  style="display: none">
+                                                        <div class="w-out fl mt15 " >
                                                             <label class="layui-form-label"><b>*</b>地图坐标</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="map" id="map" lay-verify="check_map" placeholder="115.345,22.1349" value="{$map}" class="layui-input">
@@ -532,9 +517,26 @@
         });
         var city_id = "{$field.city_id}";
         set_city_list(city_id);
-        console.log(city_id);
         var area_id = "{$field.area_id}";
         set_area_list(area_id);
+    });
+    //光标离开楼盘地址编辑，自动获取坐标
+    $("#address").on('blur',function(){
+        var province_id = $("#province_id").val(),city_id = $("#city_id").val(),area_id = $("#area_id").val();
+        var address = $(this).val();
+        var url     = "{:url('home/Map/getLocationByAddress')}";
+        var param = {
+            province : province_id,
+            city : city_id,
+            area : area_id,
+            address : address
+        };
+        $.get(url,param,function(res){
+            if(res.code == 1)
+            {
+                $("#map").val(res.data.map);
+            }
+        });
     });
     var layui_index = layui.config({
         base: '__SKIN__/' //静态资源所在路径

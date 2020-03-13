@@ -1802,8 +1802,10 @@ if (!function_exists('getOrderBy'))
 
             case 'now':
             case 'new': // 兼容织梦的写法
-            case 'pubdate': // 兼容织梦的写法
                 $orderby = "a.show_time {$orderway}";
+            break;
+            case 'pubdate': // 兼容织梦的写法
+                $orderby = "a.update_time {$orderway}";
                 break;
             case 'add_time':
                 $orderby = "a.add_time {$orderway}";
@@ -2113,15 +2115,19 @@ if (!function_exists('to_month')){
         return $arr;
     }
 }
-//返回关联房源信息
+//返回关联房源信息的arcurl
 if (!function_exists('get_xinfang_info')){
     function get_xinfang_info($aid,$result)
     {
-        if (!empty($result) && (!isset($result['is_houtai']) || !empty($result['is_houtai']))){
+        if (!empty($result) && !empty($result['add_type'])){  //主动添加
             if ($result['is_jump'] == 1) {
                 $result['arcurl'] = $result['jumplinks'];
             } else {
-                $result['arcurl'] = arcurl('home/View/index', $result);
+                $param = $result;
+                if(isset($param['room'])){
+                    unset($param['room']);
+                }
+                $result['arcurl'] = arcurl('home/View/index', $param);
             }
         }
         return $result;
@@ -2362,5 +2368,22 @@ if (!function_exists('remove_xss')) {
         $obj = new HTMLPurifier($cfg);
         // 过滤字符串
         return $obj -> purify($string);
+    }
+}
+if ( ! function_exists('getChanneltypeList'))
+{
+    /**
+     * 获取全部的模型
+     */
+    function getChanneltypeList()
+    {
+        $result = extra_cache('admin_channeltype_list_logic');
+        if ($result == false)
+        {
+            $result = model('Channeltype')->getAll('*', array(), 'id');
+            extra_cache('admin_channeltype_list_logic', $result);
+        }
+
+        return $result;
     }
 }

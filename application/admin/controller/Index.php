@@ -28,6 +28,13 @@ class Index extends Base
 
     public function index()
     {
+        //主域名判断跳转
+        $web_adminbasefile = tpCache('web.web_adminbasefile');
+        $web_main_domain = tpCache('web.web_main_domain');
+        if ($web_main_domain != $this->request->subDomain()){
+            $gourl = "//".$web_main_domain.".".$this->request->rootDomain().$web_adminbasefile;
+            $this->redirect($gourl,302);
+        }
         $this->assign('home_url', $this->request->domain().ROOT_DIR.'/');
         $this->assign('admin_info', getAdminInfo(session('admin_id')));
         $this->assign('menu',getMenuList());
@@ -188,6 +195,14 @@ class Index extends Base
         if (!tpCache('system.system_channeltype_unit_22')){
             $fieldLogic->synChannelUnit22();
             tpCache('system', ['system_channeltype_unit_22'=>1]);
+        }
+        //升级到2.3版本后更新数据
+        if (!tpCache('system.system_channeltype_unit_23')){
+            $aid_arr = Db::name("xiaoqu_system")->where(['is_houtai'=>0])->getField("aid",true);
+            if (!empty($aid_arr)){
+                Db::name("archives")->where(['aid'=>['in',$aid_arr]])->save(['add_type'=>0]);
+            }
+            tpCache('system', ['system_channeltype_unit_23'=>1]);
         }
         //升级成功后，更新问答体系
         $question = tpCache("question");

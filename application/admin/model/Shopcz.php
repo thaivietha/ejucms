@@ -8,6 +8,7 @@
 namespace app\admin\model;
 
 use think\Model;
+use think\Db;
 
 class Shopcz extends Model
 {
@@ -148,7 +149,7 @@ class Shopcz extends Model
     /*
      * 获取单条新房基本信息
      */
-    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid"){
+    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid,d.total_price as price"){
         $row = db('archives')
             ->field($fields)
             ->alias('a')
@@ -157,6 +158,10 @@ class Shopcz extends Model
             ->join('shopcz_system d','a.aid = d.aid')
             ->where($condition)
             ->find();
+        if ($row && empty($row['price_units'])){
+            $price_units = Db::name("channelfield")->where(['name'=>'total_price','channel_id'=>$row['current_channel']])->getField("dfvalue_unit");
+            $row['price_units'] = $price_units;
+        }
 
         return $row;
     }

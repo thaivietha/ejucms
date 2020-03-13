@@ -432,7 +432,20 @@ class Custom extends Base
         !empty($arctypeInfo['tempview']) && $tempview = $arctypeInfo['tempview'];
         $this->assign('tempview', $tempview);
         /*--end*/
-
+        //模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
+        }
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['ajaxSelectHouseUrl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxSelectHouse",['func'=>'set_house_back']) : '';
+        //判断是否关联经纪人
+        $assign_data['channelOrigin'] = $channelOrigin;
         $this->assign($assign_data);
 
         return $this->fetch();
@@ -517,6 +530,7 @@ class Custom extends Base
                 'seo_description'     => $seo_description,
                 'add_time'     => strtotime($post['add_time']),
                 'update_time'     => getTime(),
+                'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
 
@@ -623,6 +637,25 @@ class Custom extends Base
         empty($tempview) && $tempview = $arctypeInfo['tempview'];
         $this->assign('tempview', $tempview);
         /*--end*/
+        //经纪人信息
+        if (!empty($info['relate'])){
+            $relate_list = Db::name("users")->where(["id"=>["in",$info['relate']]])->select();
+            $this->assign("relate_list",$relate_list);
+        }
+        //模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
+        }
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['ajaxSelectHouseUrl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxSelectHouse",['func'=>'set_house_back']) : '';
+        //判断是否关联经纪人
+        $assign_data['channelOrigin'] = $channelOrigin;
 
         $this->assign($assign_data);
         return $this->fetch();

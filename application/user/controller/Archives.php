@@ -69,14 +69,6 @@ class Archives extends Base
                 $this->error('操作失败');
             }
         }
-
-//        $aid = input('param.id/d', 0);
-//        $type = input('param.type/d', 0);
-//        $assign_data['aid'] = $aid;
-//        $assign_data['type'] = $type;
-//        $assign_data['form_action'] = url('Archives/stick');
-//        $this->assign($assign_data);
-//        return $this->fetch('users/archives_stick');
     }
     /*
      * 获取region
@@ -92,5 +84,85 @@ class Archives extends Base
             $isempty = 1;
         }
         $this->success($html,'',['isempty'=>$isempty]);
+    }
+    //添加对应模型数据
+    public function add_ajax($post,$channeltype,$typeid,$table){
+        /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
+        $contentField = Db::name('channelfield')->where([
+            'channel_id'    => $channeltype,
+            'dtype'         => 'htmltext',
+        ])->getField('name');
+        $content = input('post.addonFieldExt.'.$contentField, '', null);
+        /*--end*/
+        if (!empty($post['join_title'])){
+            $post['title'] = $post['join_title'];
+        }
+        /*是否有封面图*/
+        if (empty($post['litpic'])) {
+            $is_litpic = 0; // 无封面图
+        } else {
+            $is_litpic = 1; // 有封面图
+        }
+        // SEO描述
+        $seo_description = '';
+        if (empty($post['seo_description']) && !empty($content)) {
+            $seo_description = @msubstr(checkStrHtml($content), 0, config('global.arc_seo_description_length'), false);
+        } else if (!empty($post['seo_description'])){
+            $seo_description = $post['seo_description'];
+        }
+        // 外部链接跳转
+        $jumplinks = '';
+        $is_jump = isset($post['is_jump']) ? $post['is_jump'] : 0;
+        if (intval($is_jump) > 0) {
+            $jumplinks = $post['jumplinks'];
+        }
+        // --存储数据
+        $newData = array(
+            'typeid'=> $typeid,
+            'channel'   => $channeltype,
+            'is_b'      => empty($post['is_b']) ? 0 : $post['is_b'],
+            'is_head'      => empty($post['is_head']) ? 0 : $post['is_head'],
+            'is_special'      => empty($post['is_special']) ? 0 : $post['is_special'],
+            'is_recom'      => empty($post['is_recom']) ? 0 : $post['is_recom'],
+            'is_jump'     => $is_jump,
+            'is_litpic'     => $is_litpic,
+            'jumplinks' => $jumplinks,
+            'seo_keywords'     => '',
+            'seo_description'     => $seo_description,
+            'admin_id'  => '0',
+            'users_id' => $this->users_id,
+            'sort_order'    => 100,
+            'author' => !empty($this->users['true_name']) ? $this->users['true_name'] : $this->users['nickname'],
+            'add_time'     => !empty($post['add_time']) ? strtotime($post['add_time']):getTime(),
+            'update_time'  => !empty($post['add_time']) ? strtotime($post['add_time']):getTime(),
+            'province_id'  => empty($post['province_id']) ? 0 : $post['province_id'],
+            'city_id'      => empty($post['city_id']) ? 0 : $post['city_id'],
+            'area_id'      => empty($post['area_id']) ? 0 : $post['area_id'],
+            'status' =>  1,
+            'show_time'      => getTime(),
+            'add_type'      => 0,
+        );
+        $data = array_merge($post, $newData);
+        if (!empty($data['aid'])){
+            unset($data['aid']);
+        }
+        if (!empty($data['joinaid'])){
+            unset($data['joinaid']);
+        }
+        $aid = Db::name('archives')->insertGetId($data);
+        $_POST['aid'] = $aid;
+        if ($aid) {
+//            $data['addonFieldExt'] = [];
+//            $data['addonFieldSys'] = [];
+            // ---------后置操作
+            model($table)->afterSave($aid, $data, 'add');
+            // ---------end
+            adminLog('新增数据：'.$data['title']);
+
+            // 生成静态页面代码
+            return $aid;
+        }
+
+        return false;
     }
 }

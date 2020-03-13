@@ -166,7 +166,6 @@ class System extends Base
     public function web2()
     {
         $inc_type = 'web';
-
         if (IS_POST) {
             $param = input('post.');
 
@@ -208,12 +207,17 @@ class System extends Base
                 }
             }
             /*--end*/
-
+            $web_main_domain_old = tpCache('web.web_main_domain');
             tpCache($inc_type,$param);
             write_global_params(); // 写入全局内置参数
 
             $refresh = false;
-            $gourl = $this->request->domain().ROOT_DIR.'/'.$adminbasefile; // 支持子目录
+            $gourl = !empty($param['web_main_domain']) ? "//".$param['web_main_domain'].".".$this->request->rootDomain().ROOT_DIR.'/'.$adminbasefile
+            : "//".$this->request->rootDomain().ROOT_DIR.'/'.$adminbasefile;
+            if ($web_main_domain_old != $param['web_main_domain']){
+                $refresh = true;
+            }
+//            $gourl = $this->request->domain().ROOT_DIR.'/'.$adminbasefile; // 支持子目录
             /*更改自定义后台路径名*/
             if ($adminbasefile_old != $adminbasefile && eyPreventShell($adminbasefile_old)) {
                 if (file_exists($adminbasefile_old)) {
@@ -225,7 +229,6 @@ class System extends Base
                 }
             }
             /*--end*/
-            
             /*刷新整个后台*/
             if ($refresh) {
                 $this->success('操作成功', $gourl, '', 1, [], '_parent');

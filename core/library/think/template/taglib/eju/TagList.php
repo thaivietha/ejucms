@@ -381,7 +381,7 @@ class TagList extends Base
             $regionInfo = json_decode($regionInfo,true);
         }
         $orderbys = input('param.orderby/s', '');
-        $hava_system = $if_system = $if_content = 0;    //是否筛选(存在)从表
+        $if_system = $if_content = 0;    //是否筛选(存在)从表
         foreach ($channelfield as $key => $value) {
             $fieldname = $value['name'];
             if (!empty($fieldname)) {
@@ -391,7 +391,7 @@ class TagList extends Base
                     $if_content = 1;
                 }
                 if ($value['ifmain'] == 2){
-                    $hava_system = 1;
+                    $if_system = 1;
                 }
                 if (!empty($param_new[$fieldname]) && !empty($value['is_screening'])) {
                     // $param_new[$fieldname] = func_preg_replace(['"','\'',';'], '', $param_new[$fieldname]);
@@ -431,10 +431,10 @@ class TagList extends Base
                 }
             }
         }
-        if (empty($hava_system)){
+        if (empty($if_system)){
             $where_sys = ['channel_id'=> $param_new['channel'],'ifmain'=>2];
             $have = db('channelfield')->where($where_sys)->find();
-            $hava_system = $have ? 1: 0;
+            $if_system = $have ? 1: 0;
         }
 
         // 应用搜索条件
@@ -515,6 +515,7 @@ class TagList extends Base
         array_push($condition, "a.arcrank > -1");
         array_push($condition, "a.status = 1");
         array_push($condition, "a.is_del = 0");// 回收站功能
+        array_push($condition, "a.add_type = 1");// 主动添加
 
         // 是否伪静态下
         $seo_pseudo = config('ey_config.seo_pseudo');
@@ -580,16 +581,12 @@ class TagList extends Base
         $channeltype_table = $channeltype_info['table'];
         $tableContent = $channeltype_table.'_content';
         $tableSystem = $channeltype_table.'_system';
-
         $model = db('archives')
             ->field("a.aid")
             ->alias('a')
             ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT');
-        if ($if_system || $channeltype_table == 'xiaoqu'){
+        if ($if_system){
             $model = $model->join($tableSystem.' c',"a.aid = c.aid","LEFT");
-            if ($channeltype_table == 'xiaoqu'){
-                $condition_str .= " and c.is_houtai=1";
-            }
         }
         if ($if_content){
             $model = $model->join($tableContent.' d',"a.aid = d.aid","LEFT");
@@ -597,10 +594,11 @@ class TagList extends Base
         $pages = $model ->where($condition_str)
             ->order($orderby)
             ->paginate($pagesize, false, $paginate);
+
         if ($pages->total() > 0) {
             $list = $pages->items();
             $aids = get_arr_column($list, 'aid');
-            if($hava_system){
+            if($if_system){
                 $fields = "c.*,b.*, a.*";
                 $row = db('archives')
                     ->field($fields)

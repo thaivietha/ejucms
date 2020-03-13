@@ -187,12 +187,11 @@ class Controller
         $subDomain = $request->subDomain();
         $web_mobile_domain = config('ey_config.web_mobile_domain');
         $web_region_domain = config('ey_config.web_region_domain');
-
+        $web_main_domain = tpCache('global.web_main_domain');
         if (empty($web_mobile_domain) || in_array($request->module(), ['admin']) || $request->isAjax()) {
             $data['is_mobile'] = isMobile() ? 1 : 0;
             return $data;
         }
-
         if (isMobile()) {
             if (empty($web_region_domain)) { // 关闭子站点
                 if ($subDomain != $web_mobile_domain) {
@@ -200,7 +199,7 @@ class Controller
                 }
             } else { // 开启子站点
                 if ($subDomain != $web_mobile_domain) {
-                    if ('www' == $subDomain) {
+                    if ('www' == $subDomain || $web_main_domain == $subDomain) {
                         $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().$request->url();
                         // $subDomain = \think\Cookie::get('subdomain');
                         // empty($subDomain) && $subDomain = $web_mobile_domain;
@@ -208,18 +207,34 @@ class Controller
                     } else {
                         $seo_pseudo = config('ey_config.seo_pseudo');
                         $seo_inlet = config('ey_config.seo_inlet');
-                        $seo_inlet_str = 'index.php';
+                        $seo_inlet_str = '/index.php';
                         if (1 == $seo_inlet) {
                             $seo_inlet_str = '';
                         }
-                        if (1 == $seo_pseudo) {     //动态
-                            $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().$seo_inlet_str.$request->url().'&subdomain='.$subDomain;
-                        } else if (3 == $seo_pseudo) {      //伪静态
-                            $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().$seo_inlet_str.$request->url();
-                            if ($subDomain){
-                                $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().$seo_inlet_str.'/'.$subDomain.$request->url();
+                        $url_str = $request->url();
+                        if (1 == $seo_pseudo) {
+                            if (!empty($seo_inlet_str)){
+                                $url_str = str_replace($seo_inlet_str,'',$url_str);
+                            }
+                            if (empty($url_str) || $url_str == '/'){
+                                $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().ROOT_DIR.$seo_inlet_str.'?subdomain='.$subDomain;
+                            }else{
+                                $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().ROOT_DIR.$seo_inlet_str.$url_str.'&subdomain='.$subDomain;
+                            }
+                        } else if (3 == $seo_pseudo) {
+                            if (empty($url_str)){
+                                $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().ROOT_DIR.$seo_inlet_str.$subDomain.'/';
+                            }else{
+                                if (!empty($seo_inlet_str)){
+                                    $url_str = str_replace($seo_inlet_str,'',$url_str);
+                                }
+                                if (empty($url_str)){
+                                    $url_str = "/";
+                                }
+                                $mobileurl = $request->scheme().'://'.$web_mobile_domain.'.'.$request->rootDomain().ROOT_DIR.$seo_inlet_str."/".$subDomain.$url_str;
                             }
                         }
+
                     }
                 }
             }

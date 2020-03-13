@@ -85,7 +85,10 @@ if (!function_exists('get_arcurl'))
         } else {
             static $domain = null;
             null === $domain && $domain = request()->domain();
-            $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true, $domain, $seo_pseudo, $seo_dynamic_format);
+            if (!empty($arcview_info['room'])){
+                unset($arcview_info['room']);
+            }
+            $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true, false, $seo_pseudo, $seo_dynamic_format);
             // 自动隐藏index.php入口文件
             $arcurl = auto_hide_index($arcurl);
         }

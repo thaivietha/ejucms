@@ -140,6 +140,11 @@ class Channeltype extends Base
             $this->error("操作失败");
         }
 
+        //模型列表
+        $list = $this->channeltype_db ->where(['status'=>1,'is_del'=>0,'ifsystem'=>1,'nid'=>['neq','single']])->getAllWithIndex("id");
+        $assign_data['list'] = $list;
+        $this->assign($assign_data);
+
         return $this->fetch();
     }
 
@@ -221,16 +226,26 @@ class Channeltype extends Base
         }
 
         $assign_data = array();
-
-        $info = $this->channeltype_db->field('a.*')
-            ->alias('a')
-            ->where(array('a.id'=>$id))
-            ->find();
-        if (empty($info)) {
+        //模型列表
+        $list = $this->channeltype_db ->where(['status'=>1,'is_del'=>0,'ifsystem'=>1,'nid'=>['neq','single']])->getAllWithIndex("id");
+        if (empty($list[$id])){
             $this->error('数据不存在，请联系管理员！');
             exit;
         }
-        $assign_data['field'] = $info;
+        $assign_data['field'] = $list[$id];
+        unset($list[$id]);
+        $assign_data['list'] = $list;
+
+
+//        $info = $this->channeltype_db->field('a.*')
+//            ->alias('a')
+//            ->where(array('a.id'=>$id))
+//            ->find();
+//        if (empty($info)) {
+//            $this->error('数据不存在，请联系管理员！');
+//            exit;
+//        }
+//        $assign_data['field'] = $info;
 
         $this->assign($assign_data);
         return $this->fetch();

@@ -8,6 +8,7 @@
 namespace app\user\model;
 
 use think\Model;
+use think\Db;
 
 class Ershou extends Model
 {
@@ -27,6 +28,11 @@ class Ershou extends Model
     public function afterSave($aid, $post, $opt)
     {
         $post['aid'] = $aid;
+        if (!empty($post['map'])){
+            $map_arr = explode(',',$post['map']);
+            $post['addonFieldSys']['lng'] = !empty($map_arr[0])?$map_arr[0]:'';
+            $post['addonFieldSys']['lat'] = !empty($map_arr[1])?$map_arr[1]:'';
+        }
         $field = new \app\admin\model\Field();
         $addonFieldExt = !empty($post['addonFieldExt']) ? $post['addonFieldExt'] : array();
         $field->dealChannelPostData($post['channel'], $post, $addonFieldExt);   //编辑子表信息(content)
@@ -149,7 +155,10 @@ class Ershou extends Model
     /*
      * 获取单条新房基本信息
      */
-    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid"){
+    /*
+     * 获取单条新房基本信息
+     */
+    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid,d.total_price as price"){
         $row = db('archives')
             ->field($fields)
             ->alias('a')
@@ -158,6 +167,10 @@ class Ershou extends Model
             ->join('ershou_system d','a.aid = d.aid')
             ->where($condition)
             ->find();
+        if ($row && empty($row['price_units'])){
+            $price_units = Db::name("channelfield")->where(['name'=>'total_price','channel_id'=>$row['current_channel']])->getField("dfvalue_unit");
+            $row['price_units'] = $price_units;
+        }
 
         return $row;
     }

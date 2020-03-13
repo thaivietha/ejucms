@@ -139,7 +139,7 @@ class TagArclist extends Base
             }
         }
         // 所有应用于搜索的自定义字段
-        $hava_system = $if_system = $if_content = 0;
+        $if_system = $if_content = 0;
         $where = [
             'channel_id'=> $param['channel']
             // 根据需求新增条件
@@ -162,7 +162,7 @@ class TagArclist extends Base
                     $if_content = 1;
                 }
                 if ($value['ifmain'] == 2){
-                    $hava_system = 1;
+                    $if_system = 1;
                 }
                 if (!empty($param[$name])  && !empty($value['is_screening'])) {
                     if ($value['ifmain'] == 2){
@@ -205,10 +205,10 @@ class TagArclist extends Base
                 //关闭二级域名，无差别显示所有，无需操作
             }
         }
-        if (empty($hava_system)){
+        if (empty($if_system)){
             $where_sys = ['channel_id'=> $param['channel'],'ifmain'=>2];
             $hava = db('channelfield')->where($where_sys)->find();
-            $hava_system = $hava ? 1: 0;
+            $if_system = $hava ? 1: 0;
         }
         // 查询条件
         foreach (array('keywords','typeid','notypeid','flag','noflag','channel','joinaid','users_id') as $key) {
@@ -289,6 +289,7 @@ class TagArclist extends Base
         array_push($condition, "a.arcrank > -1");
         array_push($condition, "a.status = 1");
         array_push($condition, "a.is_del = 0"); // 回收站功能
+        array_push($condition, "a.add_type = 1"); // 主动添加
         $where_str = "";
         if (0 < count($condition)) {
             $where_str = implode(" AND ", $condition);
@@ -313,16 +314,14 @@ class TagArclist extends Base
             isset($tag['channelid']) && $tag['channelid'] = $channeltype;
             $tagidmd5 = $this->attDef($tag); // 进行tagid的默认处理
         }
+
         /*--end*/
-        if ($hava_system || $channeltype_table == 'xiaoqu'){
+        if ($if_system){
             $model = $this->archives_db
                 ->field("c.*,b.*, a.*")
                 ->alias('a')
-                ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT');
-            $model = $model->join($tableSystem.' c',"a.aid = c.aid","LEFT");
-            if ($channeltype_table == 'xiaoqu'){
-                $where_str .= " and c.is_houtai=1";
-            }
+                ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT')
+                ->join($tableSystem.' c',"a.aid = c.aid","LEFT");
         }else{
             $model = $this->archives_db
                 ->field("b.*, a.*")

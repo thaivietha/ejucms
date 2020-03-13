@@ -57,7 +57,8 @@ class Users extends Model
         }
         Db::name('users_log')->insert($data_log);
         $data_content = [
-            'update_time'    => getTime()
+            'update_time'    => getTime(),
+            'last_time'    => getTime(),
         ];
         switch ($type){
             case '1':
@@ -122,9 +123,10 @@ class Users extends Model
     public function getContentInfo($users_id){
         $content = Db::name("users_content")->where('users_id',$users_id)->find();
         $beginToday = mktime(0,0,0,date('m'),date('d'),date('Y'));
-        if ($content['update_time'] < $beginToday){ //判断当天是否存在操作，如果还未操作过，把所有当天值置为0
+        if ($content['last_time'] < $beginToday){ //判断当天是否存在操作，如果还未操作过，把所有当天值置为0
             $data_content = [
                 'update_time' => getTime(),
+                'last_time' => getTime(),
                 'day_send' => 0,
                 'day_top' => 0,
             ];

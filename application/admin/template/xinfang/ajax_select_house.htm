@@ -62,7 +62,9 @@
 
                                 <td>
                                     <div class="layui-table-cell laytable-cell-1-0-8">
-                                        <a href="javascript:;" data-price_units="{$vo.price_units}" data-average_price="{$vo.average_price}" data-province="{$vo.province_id}" data-city="{$vo.city_id}"  data-area="{$vo.area_id}" data-id="{$vo.aid}" data-title="{$vo.title}"  class="layui-btn layui-btn-xs select">
+                                        <a href="javascript:;" data-price_units="{$vo.price_units}" data-average_price="{$vo.average_price}" data-province="{$vo.province_id}" data-city="{$vo.city_id}"
+                                           data-area="{$vo.area_id}" data-id="{$vo.aid}" data-title="{$vo.title}" data-lng="{$vo.lng}" data-lat="{$vo.lat}"
+                                           data-address="{$vo.address}"  class="layui-btn layui-btn-xs select">
                                             <i class="fa fa-pencil-square-o"></i>选择
                                         </a>
                                     </div>
@@ -124,7 +126,8 @@
     $('.select').on('click',function(){
         var callback = "{$func}";
         var fileurl_tmp = [];
-        var id = $(this).data('id'),area = $(this).data('area'),city = $(this).data('city'),province = $(this).data('province'),title = $(this).data('title'),price_units = $(this).data('price_units'),average_price = $(this).data('average_price');
+        var id = $(this).data('id'),area = $(this).data('area'),city = $(this).data('city'),province = $(this).data('province'),title = $(this).data('title'),
+            price_units = $(this).data('price_units'),average_price = $(this).data('average_price'),lng = $(this).data('lng'),lat = $(this).data('lat'),address = $(this).data('address');
         fileurl_tmp['aid'] = id;
         fileurl_tmp['area_id'] = area;
         fileurl_tmp['city_id'] = city;
@@ -132,6 +135,9 @@
         fileurl_tmp['title'] = title ;
         fileurl_tmp['price_units'] = price_units ;
         fileurl_tmp['average_price'] = average_price ;
+        fileurl_tmp['lng'] = lng ;
+        fileurl_tmp['lat'] = lat ;
+        fileurl_tmp['address'] = address ;
         eval('window.parent.'+callback+'(fileurl_tmp)');
         window.parent.layer.closeAll();
     });

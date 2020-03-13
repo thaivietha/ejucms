@@ -213,7 +213,7 @@ class Xinfang extends Model
     /*
      * 获取单条新房基本信息
      */
-    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid"){
+    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid,d.average_price as price"){
         $row = db('archives')
             ->field($fields)
             ->alias('a')

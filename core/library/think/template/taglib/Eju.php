@@ -1072,7 +1072,7 @@ class Eju extends Taglib
             $offset = !empty($limitArr[0]) ? intval($limitArr[0]) : 0;
             $row = !empty($limitArr[1]) ? intval($limitArr[1]) : 0;
         }
-        $users_id = isset($tag['users_id']) ? $tag['users_id'] : '';
+        $users_id = isset($tag['users_id']) ? $tag['users_id'] : '';    //楼盘所有人
         $users_id  = $this->varOrvalue($users_id);
 
         $map  =  !empty($tag['map']) ? $tag['map'] : "[]";//查询字段内容

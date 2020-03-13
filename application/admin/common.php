@@ -336,23 +336,7 @@ if (!function_exists('getAllMenu'))
     }
 }
 
-if ( ! function_exists('getChanneltypeList'))
-{
-    /**
-     * 获取全部的模型
-     */
-    function getChanneltypeList()
-    {
-        $result = extra_cache('admin_channeltype_list_logic');
-        if ($result == false)
-        {
-            $result = model('Channeltype')->getAll('*', array(), 'id');
-            extra_cache('admin_channeltype_list_logic', $result);
-        }
 
-        return $result;
-    }
-}
 
 if (!function_exists('tpversion')) 
 {
@@ -817,6 +801,9 @@ if (!function_exists('get_arcurl'))
         }
         static $domain = null;
         null === $domain && $domain = request()->domain();
+        if (!empty($arcview_info['room'])){
+            unset($arcview_info['room']);
+        }
         $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true,false,$seo_pseudo,$seo_dynamic_format);
         if (2 != $seo_pseudo){
             // 自动隐藏index.php入口文件

@@ -24,19 +24,35 @@
                                         <div class="layui-card">
                                             <div class="layui-card-body" pad15>
                                                 <div class="layui-form" wid100 lay-filter="">
-                                                    <div class="layui-form-item">
-                                                        <label class="layui-form-label">楼盘</label>
+                                                    {notempty name="$channelJoin"}
+                                                    <div class="layui-form-item" >
+                                                        <label class="layui-form-label">关联{$channelJoin.ntitle}</label>
                                                         <div class="layui-input-inline layadmin-layer-demo">
                                                             <input type="hidden" name="province_id" id="province_id"  lay-verify="required" value="{$field.province_id}">
                                                             <input type="hidden" name="city_id" id="city_id"  lay-verify="required" value="{$field.city_id}">
                                                             <input type="hidden" name="area_id" id="area_id"  lay-verify="required" value="{$field.area_id}">
                                                             <input type="hidden" name="joinaid" id="joinaid"  lay-verify="required" value="{$field.joinaid}">
-                                                            <span class="tower-add" id="house_title" {eju:empty name="$xinfangTitle"}style="display:none;"{/eju:empty}>
-                                                            {eju:notempty name="$xinfangTitle"}{$xinfangTitle}<i class="layui-icon layui-icon-close"></i>{/eju:notempty}
+                                                            <button class="layui-btn layui-ton" data-url="{$ajaxSelectHouseUrl}" data-type="select_house">选择{$channelJoin.ntitle}</button>
+                                                            <span class="tower-add" id="join_title" {eju:empty name="$join_title"}style="display:none;"{/eju:empty}>
+                                                            {eju:notempty name="$join_title"}{$join_title}<i class="layui-icon layui-icon-close"></i>{/eju:notempty}
                                                             </span>
-                                                            <button class="layui-btn layui-btn-sm" data-type="select_house">选择楼盘</button>
                                                         </div>
                                                     </div>
+                                                    {/notempty}
+                                                    {notempty name="$channelOrigin.is_join_user"}
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label">关联经纪人</label>
+                                                        <div class="layui-input-inline layadmin-layer-demo" id="relate">
+                                                            <button class="layui-btn layui-ton" data-type="select_relate">选择经纪人</button>
+                                                            {eju:volist name="$relate_list" id="vo"}
+                                                            <span class="tower-add relate"  id="relate_{$vo.id}" data-id="{$vo.id}">
+															<input type="hidden" name="relate[]" value="{$vo.id}">
+															{$vo.true_name}<i class="layui-icon layui-icon-close"></i>
+														</span>
+                                                            {/eju:volist}
+                                                        </div>
+                                                    </div>
+                                                    {/notempty}
                                                     <div class="layui-form-item">
                                                         <label class="layui-form-label"><b>*</b>标题</label>
                                                         <div class="layui-input-inline">
@@ -57,7 +73,7 @@
                                                         <label class="layui-form-label"><b>*</b>原价</label>
                                                         <div class="layui-input-inline w-in" >
                                                             <div class="layui-input-inline w135" >
-                                                                <input type="text" id="average_price" readonly value="{$average_price}" class="layui-input">
+                                                                <input type="text" id="original_price" readonly value="{$original_price}" class="layui-input">
                                                             </div>
                                                             <div class="layui-input-inline layui-input-company" id="average_price_units">{$price_units}</div>
                                                         </div>
@@ -318,14 +334,28 @@
                 area:function () {     //区域管理
                     set_region();
                 }
+                ,select_relate:function () {    //选择关联经纪人
+                    var xinfang = layer.open({
+                        type : 2,
+                        title : '选择联经纪人',
+                        area : ['700px','500px'],
+                        shade : 0.2,
+                        iframeAuto:true,
+                        content : "{:url('Users/ajaxSelectRelate')}"+'&func=set_relate_back',
+                        end : function(){
+
+                        }
+                    });
+                }
                 ,select_house:function () {     //楼盘关联管理
+                    var url = $(this).data('url');
                     var xinfang = layer.open({
                         type : 2,
                         title : '选择楼盘',
                         area : ['500px','500px'],
                         shade : 0.2,
                         iframeAuto:true,
-                        content : "{:url('Xinfang/ajaxSelectHouse')}"+'&func=set_house_back',
+                        content : url,
                         end : function(){
 
                         }
@@ -462,6 +492,23 @@
             });
             layer.full(region_iframes);
         }
+        //选择关联经纪人回调
+        function set_relate_back(recall) {
+            if ($("#relate_"+recall.id).length == 0){
+                var html = '<span class="tower-add relate" id="relate_'+ recall.id +'" data-id="'+ recall.id +'">' +
+                    '<input type="hidden" name="relate[]" value="'+ recall.id +'">' +
+                    recall.true_name +
+                    '<i class="layui-icon layui-icon-close"></i>' +
+                    '</span>';
+                $("#relate").append(html);
+            }
+            if ($("#sale_phone").val() == ''){
+                $("#sale_phone").val(recall.mobile);
+            }
+        }
+        $("#relate").on('click','i',function(){
+            $(this).parent().remove();
+        });
         //选择楼盘回调
         function set_house_back(recall){
             console.log(recall);
@@ -470,17 +517,17 @@
             $("#area_id").val(recall['area_id']);
             $("#joinaid").val(recall['aid']);
             $("#title").val(recall['title']);
-            $("#price").val(recall['average_price']);
-            $("#average_price").val(recall['average_price']);
+            $("#price").val(recall['original_price']);
+            $("#original_price").val(recall['original_price']);
             $("#price_units").html(recall['price_units']);
             $("#average_price_units").html(recall['price_units']);
-            $('#house_title').html(recall['title']+ ' <i class="layui-icon layui-icon-close"></i>');
-            $('#house_title').show();
+            $('#join_title').html(recall['title']+ ' <i class="layui-icon layui-icon-close"></i>');
+            $('#join_title').show();
 //            set_city_list(recall['city_id']);
         }
-        $("#house_title").on('click','i',function(){
-            $("#house_title").html('');
-            $('#house_title').hide();
+        $("#join_title").on('click','i',function(){
+            $("#join_title").html('');
+            $('#join_title').hide();
             $("#joinaid").val(0);
             $("#province_id").val(0);
             $("#city_id").val(0);

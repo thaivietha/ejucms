@@ -48,17 +48,29 @@ class Users extends Model
      */
     public static function check_update($username,$mobile,$email,$id = 0){
         $id = intval($id);
-        $where = "mobile='$mobile'";
-        if (!empty($username)){
-            $where .= " or username='$username'";
-        }
-        if (!empty($email)){
-            $where .= " or email='$email'";
-        }
-        $where = "(".$where.")";
+        $username = htmlspecialchars($username);
+        $mobile = htmlspecialchars($mobile);
+        $email = htmlspecialchars($email);
+
+        $where = "is_del = 0";
         if (!empty($id)){
             $where .= " and id<>$id";
         }
+        $whereOr = [];
+        if (!empty($mobile)){
+            $whereOr[] = "mobile='$mobile'";
+        }
+        if (!empty($username)){
+            $whereOr[] = "username='$username'";
+        }
+        if (!empty($email)){
+            $whereOr[] = "email='$email'";
+        }
+        if (!empty($whereOr)){
+            $whereOr = implode(' or ',$whereOr);
+            $where .= " and ({$whereOr})";
+        }
+
         $have = self::where($where)->find();
 
         return $have;

@@ -144,11 +144,14 @@ class View extends Base
             abort(404,'页面不存在');
         }
         $result = array_merge($arctypeInfo, $result);
-
         // 文档链接
         $result['arcurl'] = $result['pageurl'] = '';
         if ($result['is_jump'] != 1) {
-            $result['arcurl'] = $result['pageurl'] = arcurl('home/View/index', $result, true, true);
+            $param = $result;
+            if(isset($param['room'])){
+                unset($param['room']);
+            }
+            $result['arcurl'] = $result['pageurl'] = arcurl('home/View/index', $param, true, true);
         }
         /*--end*/
         // seo
@@ -156,7 +159,6 @@ class View extends Base
         $result['seo_keywords'] = set_str_replace($result['seo_keywords'], $result['title']);
         $result['seo_description'] = set_str_replace(checkStrHtml($result['seo_description']), $result['title']);
         $result['seo_description'] = @msubstr($result['seo_description'], 0, config('global.arc_seo_description_length'), false);
-
         /*支持子目录*/
         $result['litpic'] = handle_subdir_pic($result['litpic']);
         /*--end*/
@@ -169,7 +171,6 @@ class View extends Base
 			'price'	 => 'on',
 		];
         $result = view_logic($aid, $this->channel, $result, true, $tag,$this->modelName); // 模型对应逻辑
-
         /*自定义字段的数据格式处理*/
         $result = $this->fieldLogic->getChannelFieldList($result, $this->channel);
         /*--end*/

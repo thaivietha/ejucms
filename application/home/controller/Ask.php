@@ -80,9 +80,24 @@ class Ask extends Base
     //问答首页
     public function index(){
         $param = input('param.');
+        /* 原来部分begin */
+        $Where = $this->AskLogic->GetAskWhere($param, $this->users_id);
         // Url处理
         $UrlData = $this->AskLogic->GetUrlData($param);
-        $result = $UrlData;
+        // 最新问题，默认读取20条，可传入条数及字段名称进行获取
+        $ResultAsk = $this->AskModel->GetNewAskData($Where);
+        // 热门帖子，周榜
+        $WeekList = $this->AskModel->GetAskWeekListData();
+        // 热门帖子，总榜
+        $TotalList = $this->AskModel->GetAskTotalListData();
+        // 数组合并加载到模板
+        $result = array_merge($ResultAsk, $UrlData, $WeekList, $TotalList);
+        /* 原来部分end */
+        /* 2.2版本之后begin */
+//        // Url处理
+//        $UrlData = $this->AskLogic->GetUrlData($param);
+//        $result = $UrlData;
+        /* 2.2版本之后end */
         $eju = array(
             'field' => $result,
             'get' => $param
@@ -107,8 +122,26 @@ class Ask extends Base
         // Url处理
         $UrlData = $this->AskLogic->GetUrlData($param);
 
+        /*  改版之前begin    */
+        // 问题回答数据，包含最佳答案
+        $AskReplyData = $this->AskModel->GetAskReplyData($param, $this->users_id);
+
+        // 栏目处理
+        $TypeData = $this->AskModel->GetAskTypeData($param);
+
+        // 热门帖子，周榜
+        $WeekList = $this->AskModel->GetAskWeekListData();
+
+        // 热门帖子，总榜
+        $TotalList = $this->AskModel->GetAskTotalListData();
         // 数组合并加载到模板
-        $result = array_merge($AskDetails, $UrlData);
+        $result = array_merge($AskDetails, $AskReplyData, $TypeData, $WeekList, $TotalList, $UrlData);
+        /*  改版之前end    */
+
+        /*  改版之后begin    */
+        // 数组合并加载到模板
+//        $result = array_merge($AskDetails, $UrlData);
+        /*  改版之后end    */
         $eju = array(
             'field' => $result,
             'get' => $param
@@ -117,6 +150,9 @@ class Ask extends Base
 
         $this->assign('eju', $this->eju);
         $this->assign('canAnswer',$this->CanAnswer());
+
+
+
 
         //判断多域名下区域和域名是否匹配
         $web_region_domain = config('ey_config.web_region_domain');   //是否开启子域名

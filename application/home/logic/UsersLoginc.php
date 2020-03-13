@@ -10,7 +10,7 @@ namespace app\home\logic;
 
 class UsersLoginc
 {
-// Url处理
+    // Url处理
     public function GetUrlData($param = array())
     {
         if (empty($param['users_id'])) $param['users_id'] = 0;

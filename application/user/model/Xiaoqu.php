@@ -8,6 +8,7 @@
 namespace app\user\model;
 
 use think\Model;
+use think\Db;
 
 class Xiaoqu extends Model
 {
@@ -26,12 +27,12 @@ class Xiaoqu extends Model
     public function afterSave($aid, $post, $opt)
     {
         $post['aid'] = $aid;
-        $field = new \app\admin\model\Field();
         if (!empty($post['map'])){
             $map_arr = explode(',',$post['map']);
             $post['addonFieldSys']['lng'] = !empty($map_arr[0])?$map_arr[0]:'';
             $post['addonFieldSys']['lat'] = !empty($map_arr[1])?$map_arr[1]:'';
         }
+        $field = new \app\admin\model\Field();
         $addonFieldSys = !empty($post['addonFieldSys']) ? $post['addonFieldSys'] : array();
         $field->dealChannelPostData($post['channel'], $post, $addonFieldSys,'system');   //编辑子表信息(system)
         $addonFieldExt = !empty($post['addonFieldExt']) ? $post['addonFieldExt'] : array();
@@ -69,9 +70,9 @@ class Xiaoqu extends Model
         }
     }
     /*
-* 获取单条新房基本信息
-*/
-    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid"){
+    * 获取单条新房基本信息
+    */
+    public function getOne($condition,$fields = "d.*,c.*,b.*, a.*, a.aid as aid,d.average_price as price"){
         $row = db('archives')
             ->field($fields)
             ->alias('a')

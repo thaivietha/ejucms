@@ -2123,21 +2123,35 @@ if (!function_exists('view_logic'))
                 break;
             }
         }
-        $result['saleman'] = [
-            'saleman_name' => '',
-            'saleman_mobile' => '',
-            'saleman_qq' => '',
-            'saleman_pic' => ''
-        ];
+//        $result['saleman'] = [
+//            'saleman_name' => '',
+//            'saleman_mobile' => '',
+//            'saleman_qq' => '',
+//            'saleman_pic' => ''
+//        ];
+        $relate_arr = [];
+        //房源所有人信息
         if(!empty($result['users_id'])){
-            $saleman_info = \think\Db::name("users")->field("*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")->find($result['users_id']);
-            get_default_pic();
-            $result['saleman'] = $saleman_info;
-        }else if(!empty($result['saleman_id'])){
-            $saleman_info = \think\Db::name("saleman")->find($result['saleman_id']);
-            $result['saleman'] = $saleman_info;
+            $relate_arr[] = $result['users_id'];
         }
+        //关联经纪人信息
+        if (!empty($result['relate'])){
+            $relate_arr = array_unique(array_merge($relate_arr,explode(",",$result['relate'])));
+        }
+
+        if (!empty($relate_arr)){
+            $saleman_list = \think\Db::name("users")->field("*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")->where(['id'=>['in',$relate_arr]])->getAllWithIndex('id');
+            $result['saleman_list'] = $saleman_list;
+            $result['saleman'] = $saleman_list[$relate_arr[0]];
+        }
+
+
+//        else if(!empty($result['saleman_id'])){       //经纪人已经切换为users表
+//            $saleman_info = \think\Db::name("saleman")->find($result['saleman_id']);
+//            $result['saleman'] = $saleman_info;
+//        }
         !empty($result['saleman']['saleman_pic']) && $result['saleman']['saleman_pic']= thumb_img(get_default_pic($result['saleman']['saleman_pic'])); // 默认封面图
+
         return $result;
     }
 }

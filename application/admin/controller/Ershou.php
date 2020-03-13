@@ -122,9 +122,10 @@ class Ershou extends Base
 
         // 模型ID
         $condition['a.channel'] = array('eq', $this->channeltype);
-
         // 回收站
         $condition['a.is_del'] = array('eq', 0);
+        //主动添加
+        $condition['a.add_type'] = array('eq', 1);
         /**
          * 数据查询，搜索出主键ID的值
          */
@@ -249,8 +250,9 @@ class Ershou extends Base
                 unset($post['type_tempview']);
                 unset($post['tempview']);
             }
-
             // --存储数据
+            !empty($post['relate']) && $post['relate'] = implode(',',$post['relate']);
+
             $newData = array(
                 'typeid'=> empty($post['typeid']) ? 0 : $post['typeid'],
                 'channel'   => $this->channeltype,
@@ -344,11 +346,21 @@ class Ershou extends Base
             $pen_name = M('Admin')->where("admin_id",session('admin_id'))->getField('user_name');
         }
         $assign_data['author'] = $pen_name;
-        //经纪人信息
-        $user = new \app\common\model\Users();
-        $users_list = $user::get_list(1);
-        $assign_data['users_list'] = $users_list;
-        $this->assign($assign_data);
+        //模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
+        }
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['ajaxSelectHouseUrl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxSelectHouse",['func'=>'set_house_back']) : '';
+        //判断是否关联经纪人
+        $assign_data['channelOrigin'] = $channelOrigin;
+
         $this->assign($assign_data);
 
         return $this->fetch();
@@ -417,6 +429,7 @@ class Ershou extends Base
 
             // 同步栏目切换模型之后的文档模型
             $channel = Db::name('arctype')->where(['id'=>$typeid])->getField('current_channel');
+            !empty($post['relate']) && $post['relate'] = implode(',',$post['relate']);
             // --存储数据
             $newData = array(
                 'typeid'=> $typeid,
@@ -432,6 +445,7 @@ class Ershou extends Base
                 'seo_description'     => $seo_description,
                 'add_time'     => strtotime($post['add_time']),
                 'update_time'     => getTime(),
+                'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
 
@@ -543,9 +557,25 @@ class Ershou extends Base
             $assign_data['xiaoquTitle'] = $xiaoqu ? $xiaoqu['title']:'';
         }
         //经纪人信息
-        $user = new \app\common\model\Users();
-        $users_list = $user::get_list(1,$info['users_id']);
-        $assign_data['users_list'] = $users_list;
+        if (!empty($info['relate'])){
+            $relate_list = Db::name("users")->where(["id"=>["in",$info['relate']]])->select();
+            $this->assign("relate_list",$relate_list);
+        }
+        //模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
+            $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
+        }
+        $assign_data['join_title'] = !empty($join['title']) ? $join['title']:'';
+        $assign_data['original_price'] = !empty($join['price']) ? $join['price']:'';
+        $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
+        $assign_data['channelJoin'] = $channelJoin;
+        $assign_data['ajaxSelectHouseUrl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxSelectHouse",['func'=>'set_house_back']) : '';
+        //判断是否关联经纪人
+        $assign_data['channelOrigin'] = $channelOrigin;
+
         $this->assign($assign_data);
 
         return $this->fetch();
@@ -559,5 +589,78 @@ class Ershou extends Base
         $archivesLogic = new \app\admin\logic\ArchivesLogic;
         $archivesLogic->del();
     }
-   
+    /*
+      *  js打开获取楼盘列表
+      */
+    public function ajaxSelectHouse(){
+        $channel= input('channel/d');
+        $typeid = input('typeid/d');
+        $keywords = input('keywords/s');
+        $func = input('func/s');
+        $condition = array();
+        $condition['a.channel'] = $channel ? $channel : $this->channeltype;
+        if ($typeid){
+            $condition['a.typeid'] = $typeid;
+        }
+        if ($keywords){
+            $condition['a.title'] =  array('LIKE', "%{$keywords}%");
+        }
+        $assign_data = $this->getLists($condition);
+        $assign_data['func'] = $func;
+        $this->assign($assign_data);
+
+        return $this->fetch();
+    }
+    /**
+     * 获取列表数据
+     */
+    private function getLists($condition){
+        /*
+         * 数据查询，搜索出主键ID的值
+         */
+        $count = DB::name('archives')->alias('a')->where($condition)->count('aid');// 查询满足要求的总记录数
+
+        $Page = new Page($count, config('paginate.list_rows'));// 实例化分页类 传入总记录数和每页显示的记录数
+        $list = DB::name('archives')
+            ->field("a.aid")
+            ->alias('a')
+            ->where($condition)
+            ->order('a.aid desc')
+            ->limit($Page->firstRow.','.$Page->listRows)
+            ->getAllWithIndex('aid');
+        /*
+         * 完善数据集信息
+         * 在数据量大的情况下，经过优化的搜索逻辑，先搜索出主键ID，再通过ID将其他信息补充完整；
+         */
+        if ($list) {
+            $aids = array_keys($list);
+            $fields = "d.*,c.*,b.*, a.*, a.aid as aid";
+            $row = DB::name('archives')
+                ->field($fields)
+                ->alias('a')
+                ->join('__ARCTYPE__ b', 'a.typeid = b.id', 'LEFT')
+                ->join('ershou_content c','a.aid = c.aid')
+                ->join('ershou_system d','a.aid = d.aid')
+                ->where('a.aid', 'in', $aids)
+                ->getAllWithIndex('aid');
+            $region = get_region_list();
+            $price_units = Db::name("channelfield")->where(['name'=>'total_price','channel_id'=>$this->channeltype])->getField("dfvalue_unit");
+            foreach ($list as $key => $val) {
+                $row[$val['aid']]['arcurl'] = get_arcurl($row[$val['aid']]);
+                $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支持子目录
+                $row[$val['aid']]['city'] = !empty($region[$row[$val['aid']]['city_id']]['name'])?$region[$row[$val['aid']]['city_id']]['name']:'';
+                $row[$val['aid']]['area'] = !empty($region[$row[$val['aid']]['area_id']]['name'])?$region[$row[$val['aid']]['area_id']]['name']:'';
+                $row[$val['aid']]['province'] =  !empty($region[$row[$val['aid']]['province_id']]['name'])?$region[$row[$val['aid']]['province_id']]['name']:'';
+                empty($row[$val['aid']]['price_units']) && $row[$val['aid']]['price_units'] = $price_units;
+                $list[$key] = $row[$val['aid']];
+            }
+        }
+        $show = $Page->show(); // 分页显示输出
+        $assign_data['page'] = $show; // 赋值分页输出
+        $assign_data['list'] = $list; // 赋值数据集
+        $assign_data['pager'] = $Page; // 赋值分页对象
+
+        return $assign_data;
+    }
+
 }

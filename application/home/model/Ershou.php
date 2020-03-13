@@ -17,6 +17,7 @@ use think\Model;
 use think\Page;
 use think\Db;
 use app\home\logic\FieldLogic;
+use app\home\logic\UsersLoginc;
 /**
  * 文章
  */
@@ -71,22 +72,17 @@ class Ershou extends Model
             $tags = model('Taglist')->getListByAid($aid, $typeid);
             $result['tags'] = $tags;
         }
-        if (!empty($result['joinaid'])){
-            $xiaoqu = model('Xiaoqu')->getInfo($result['joinaid'],'',true);
-            $archivesInfo = M('archives')->field('a.typeid, a.channel,a.status,a.users_id, b.nid, b.ctl_name')
-                ->alias('a')
-                ->join('__CHANNELTYPE__ b', 'a.channel = b.id', 'LEFT')
-                ->where([
-                    'a.aid'     => $result['joinaid'],
-                    'a.is_del'      => 0,
-                ])
-                ->find();
-            $xiaoqu = view_logic($result['joinaid'], $archivesInfo['channel'], $xiaoqu, true, [ 'huxing' => 'off','photo' => 'off','price' => 'off',],$archivesInfo['ctl_name']); // 模型对应逻辑
+        //关联模型信息
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$result['channel']];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+        if (!empty($result['joinaid']) && !empty($channelJoin)){
+            $join = model($channelJoin['ctl_name'])->getInfo($result['joinaid'],'',true);
+            $join = view_logic($result['joinaid'], $channelJoin['id'], $join, true, [ 'huxing' => 'off','photo' => 'off','price' => 'off'],$channelJoin['ctl_name']); // 模型对应逻辑
             /*自定义字段的数据格式处理*/
             $fieldLogic = new FieldLogic();
-            $xiaoqu = $fieldLogic->getChannelFieldList($xiaoqu, $archivesInfo['channel']);
-            $result['xiaoqu'] = get_xinfang_info($result['joinaid'],$xiaoqu);
-
+            $join = $fieldLogic->getChannelFieldList($join, $channelJoin['id']);
+            $result['join'] = $result['xiaoqu'] = get_xinfang_info($result['joinaid'],$join);
         }
 
         return $result;
@@ -127,7 +123,10 @@ class Ershou extends Model
                 if ($val['is_jump'] == 1) {
                     $lists[$key]['arcurl'] = $val['jumplinks'];
                 } else {
-                    $lists[$key]['arcurl'] = arcurl("home/Ershou/index", $val);
+                    if (isset($val['room'])){
+                        unset($val['room']);
+                    }
+                    $lists[$key]['arcurl'] = arcurl("home/Ershou/index",$val);
                 }
                 $manage_type_arr = explode(",",$val['manage_type']);
                 $lists[$key]['manage_type_name'] = '';

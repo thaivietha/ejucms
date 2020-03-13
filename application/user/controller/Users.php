@@ -133,6 +133,16 @@ class Users extends Base
             if (!empty($post['users_id'])){
                 unset($post['users_id']);
             }
+            $user = new \app\common\model\Users();
+            if ($user_info = $user::check_update($post['username'],$post['mobile'],$post['email'],$this->users_id)){
+                if (!empty($user_info['username']) && $user_info['username'] == $post['username']){
+                    $this->error("用户名{$post['username']}已被注册");
+                }else if (!empty($user_info['mobile']) && $user_info['mobile'] == $post['mobile']){
+                    $this->error("手机号码{$post['mobile']}已被注册");
+                }else if (!empty($user_info['email']) && $user_info['email'] == $post['email']){
+                    $this->error("邮箱{$post['email']}已被注册");
+                }
+            }
             $post['update_time'] = getTime();
             $r = Db::name("users")->where('id',$this->users_id)->update($post);
             if ($r){

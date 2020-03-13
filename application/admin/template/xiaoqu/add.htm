@@ -67,7 +67,24 @@
                                             <div class="layui-card">
                                                 <div class="layui-card-body" pad15>
                                                     <div class="layui-form" wid100 lay-filter="">
-
+                                                        {notempty name="$channelJoin"}
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">关联{$channelJoin.ntitle}</label>
+                                                            <div class="layui-input-inline layadmin-layer-demo">
+                                                                <input type="hidden" name="joinaid" id="joinaid" lay-verify="required" value="0">
+                                                                <button class="layui-btn layui-ton" data-name="{$channelJoin.ntitle}" data-url="{$ajaxSelectHouseUrl}" data-type="select_house">选择{$channelJoin.ntitle}</button>
+                                                                <span style="display: none;" class="tower-add" id="join_title"></span>
+                                                            </div>
+                                                        </div>
+                                                        {/notempty}
+                                                        {notempty name="$channelOrigin.is_join_user"}
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>关联经纪人</label>
+                                                            <div class="layui-input-inline layadmin-layer-demo" id="relate">
+                                                                <button class="layui-btn layui-ton" data-type="select_relate">选择经纪人</button>
+                                                            </div>
+                                                        </div>
+                                                        {/notempty}
                                                         <div class="layui-form-item">
                                                             <label class="layui-form-label"><b>*</b>所属区域</label>
                                                             <div class="layui-input-inline w120">
@@ -762,6 +779,34 @@
                 var index=parent.layer.getFrameIndex(window.name); //获取当前窗口的name
                 parent.layer.close(index);		//关闭窗口
             }
+            ,select_relate:function () {    //选择关联经纪人
+                var xinfang = layer.open({
+                    type : 2,
+                    title : '选择联经纪人',
+                    area : ['700px','500px'],
+                    shade : 0.2,
+                    iframeAuto:true,
+                    content : "{:url('Users/ajaxSelectRelate')}"+'&func=set_relate_back',
+                    end : function(){
+
+                    }
+                });
+            }
+            ,select_house:function () {     //模型关联管理
+                var url = $(this).data('url');
+                var name = $(this).data('name');
+                var xinfang = layer.open({
+                    type : 2,
+                    title : '选择'+name,
+                    area : ['500px','500px'],
+                    shade : 0.2,
+                    iframeAuto:true,
+                    content : url,
+                    end : function(){
+                    }
+                });
+                layer.full(xinfang);
+            }
         };
         $('#LAY-component-layer-list .layadmin-layer-demo .layui-btn').on('click', function(){
             var type = $(this).data('type');
@@ -1147,7 +1192,42 @@
             $(".huxing .images-upload:eq(0)").find('div.operation_6 a:eq(0)').attr('onclick',"ClearPicArr(this,'"+paths[i]+"')").html("<i class='fa fa-remove'></i>删除");
         }
     }
-
+    //选择关联经纪人回调
+    function set_relate_back(recall) {
+        if ($("#relate_"+recall.id).length == 0){
+            var html = '<span class="tower-add relate" id="relate_'+ recall.id +'" data-id="'+ recall.id +'">' +
+                '<input type="hidden" name="relate[]" value="'+ recall.id +'">' +
+                recall.true_name +
+                '<i class="layui-icon layui-icon-close"></i>' +
+                '</span>';
+            $("#relate").append(html);
+        }
+        if ($("#sale_phone").val() == ''){
+            $("#sale_phone").val(recall.mobile);
+        }
+    }
+    $("#relate").on('click','i',function(){
+        $(this).parent().remove();
+    });
+    //选择楼盘回调
+    function set_house_back(recall){
+        $("#province_id").val(recall['province_id']);
+        $("#city_id").val(recall['city_id']);
+        $("#area_id").val(recall['area_id']);
+        $("#joinaid").val(recall['aid']);
+        $("#title").val(recall['title']);
+        $("#average_price").val(recall['original_price']);
+        $('#join_title').html(recall['title']+ ' <i class="layui-icon layui-icon-close"></i>');
+        $('#join_title').show();
+        set_city_list(recall['city_id']);
+        set_area_list(recall['area_id']);
+        layui_index.form.render();
+    }
+    $("#join_title").on('click','i',function(){
+        $("#join_title").html('');
+        $('#join_title').hide();
+        $("#joinaid").val(0);
+    });
     //设置作者
     function set_author()
     {

@@ -285,6 +285,10 @@ class Tools extends Base {
             if(empty($file)){
                 $this->error('请上传sql文件');
             }
+            if (url('Tools/restore') != $_SERVER['HTTP_REFERER']){   //根据来源判断外部提交
+                $this->error('请上传sql文件');
+            }
+
             // 移动到框架应用根目录/data/sqldata/ 目录下
             $path = tpCache('global.web_sqldatapath');
             $path = !empty($path) ? $path : config('DATA_BACKUP_PATH');
