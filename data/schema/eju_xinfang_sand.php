@@ -84,9 +84,9 @@ return array (
   'sale_status' => 
   array (
     'name' => 'sale_status',
-    'type' => 'char(4)',
+    'type' => 'varchar(50)',
     'notnull' => false,
-    'default' => NULL,
+    'default' => '',
     'primary' => false,
     'autoinc' => false,
   ),

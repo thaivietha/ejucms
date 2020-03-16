@@ -27,7 +27,8 @@
     <div class="navBar fl">
       <ul class="nav_list fl">
         {eju:navig position_id='2' type='top' currentstyle="active" id="field"}
-        <li class="{$field.currentstyle}"> <a href="{$field.navig_url}"  {$field.target} {$field.nofollow}>{$field.navig_name}</a>
+        <li class="{$field.currentstyle}">
+            <a href="{$field.navig_url}"  {$field.target} {$field.nofollow}>{$field.navig_name}</a>
          {eju:notempty name="$field.children"}
           <ul>
             {eju:navig name="$field.children" id="field2"}

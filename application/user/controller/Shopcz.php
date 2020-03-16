@@ -177,7 +177,6 @@ class Shopcz extends Base
                 'update_time'  => getTime(),
                 'show_time' => getTime(),
                 'users_id' => $this->users_id,
-                'relate' => $this->users_id,
                 'author' => !empty($this->users['true_name']) ? $this->users['true_name'] : $this->users['nickname'],
                 'province_id'  => empty($post['province_id']) ? 0 : $post['province_id'],
                 'city_id'      => empty($post['city_id']) ? 0 : $post['city_id'],

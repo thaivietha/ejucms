@@ -117,6 +117,15 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'last_time' => 
+  array (
+    'name' => 'last_time',
+    'type' => 'int(11) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
   'deal' => 
   array (
     'name' => 'deal',

@@ -197,8 +197,8 @@ class Officecs extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-            if (empty($post['joinaid'])) {
-                $this->error('请选择小区！');
+            if (empty($post['city_id'])) {
+                $this->error('请选择城市！');
             }
 //            if (empty($post['seo_title'])){
 //                $post['seo_title'] = $post['title'];
@@ -376,8 +376,8 @@ class Officecs extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-            if (empty($post['joinaid'])) {
-                $this->error('请选择所属小区！');
+            if (empty($post['city_id'])) {
+                $this->error('请选择城市！');
             }
 
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
@@ -429,7 +429,11 @@ class Officecs extends Base
             // 同步栏目切换模型之后的文档模型
             $channel = Db::name('arctype')->where(['id'=>$typeid])->getField('current_channel');
             // --存储数据
-            !empty($post['relate']) && $post['relate'] = implode(',',$post['relate']);
+            if(!empty($post['relate'])){
+                $post['relate'] = implode(',',$post['relate']);
+            }else{
+                $post['relate'] = "";
+            }
             $newData = array(
                 'typeid'=> $typeid,
                 'channel'   => $channel,

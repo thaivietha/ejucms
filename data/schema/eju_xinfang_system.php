@@ -138,9 +138,9 @@ return array (
   'total_price' => 
   array (
     'name' => 'total_price',
-    'type' => 'decimal(10,2)',
+    'type' => 'float(9,2)',
     'notnull' => false,
-    'default' => '0.00',
+    'default' => NULL,
     'primary' => false,
     'autoinc' => false,
   ),

@@ -117,4 +117,22 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'join_id' => 
+  array (
+    'name' => 'join_id',
+    'type' => 'int(10) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'is_join_user' => 
+  array (
+    'name' => 'is_join_user',
+    'type' => 'tinyint(3) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
 );

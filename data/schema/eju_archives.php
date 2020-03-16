@@ -333,12 +333,30 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'relate' => 
+  array (
+    'name' => 'relate',
+    'type' => 'varchar(20)',
+    'notnull' => false,
+    'default' => '',
+    'primary' => false,
+    'autoinc' => false,
+  ),
   'show_time' => 
   array (
     'name' => 'show_time',
     'type' => 'int(11) unsigned',
     'notnull' => false,
     'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'add_type' => 
+  array (
+    'name' => 'add_type',
+    'type' => 'tinyint(1) unsigned',
+    'notnull' => false,
+    'default' => '1',
     'primary' => false,
     'autoinc' => false,
   ),

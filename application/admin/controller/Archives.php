@@ -77,14 +77,20 @@ class Archives extends Base
     {
         $contentManage = [];
         $channel_list = model('Channeltype')->getArctypeChannel('yes');
+        $arctypeLogic = new ArctypeLogic();
+        $arctype_list = $arctypeLogic->arctype_list(0, 0, false, 0, ['is_del'=>0], false);
+        $channeltype = get_arr_column($arctype_list, 'current_channel');
         foreach ($channel_list as $key => $val) {
             if (in_array($val['id'], [6])) {
                 continue;
             }
-            $contentManage[$val['id']] = [
-                'id'    => $val['id'],
-                'nid'    => $val['nid'],
-            ];
+            if (in_array($val['id'],$channeltype)){
+                $contentManage[$val['id']] = [
+                    'id'    => $val['id'],
+                    'nid'    => $val['nid'],
+                ];
+            }
+
         }
         $this->assign('contentManage',$contentManage);
         $menu = getMenuList(false);

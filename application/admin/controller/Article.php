@@ -535,7 +535,11 @@ class Article extends Base
             // 同步栏目切换模型之后的文档模型
             $channel = Db::name('arctype')->where(['id'=>$typeid])->getField('current_channel');
             // --存储数据
-            !empty($post['relate']) && $post['relate'] = implode(',',$post['relate']);
+            if(!empty($post['relate'])){
+                $post['relate'] = implode(',',$post['relate']);
+            }else{
+                $post['relate'] = "";
+            }
             $newData = array(
                 'typeid'=> $typeid,
                 'channel'   => $channel,

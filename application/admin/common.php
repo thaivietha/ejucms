@@ -306,7 +306,7 @@ if (!function_exists('getMenuList'))
                     }
                 }
                 //一级是直接操作项目，且没有被赋予权限，或者，下级才是操作权限，所有下级都没有被赋予权限
-                if (($is_menu && empty($val['is_menu'])) || (empty($val['channel'])  && empty($menuArr[$j]['child']) && !in_array($val['id'], $admin_auths)) || (!empty($val['channel']) && !in_array($val['channel'],$channeltype))) {
+                if (($is_menu && empty($val['is_menu'])) || (empty($val['channel'])  && empty($menuArr[$k]['child']) && !in_array($val['id'], $admin_auths)) || (!empty($val['channel']) && !in_array($val['channel'],$channeltype))) {
                     unset($menuArr[$k]);//过滤一级级菜单
                 }
             }

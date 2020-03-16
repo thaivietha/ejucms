@@ -93,7 +93,7 @@ return array (
   'party' => 
   array (
     'name' => 'party',
-    'type' => 'varchar(100)',
+    'type' => 'varchar(255)',
     'notnull' => false,
     'default' => '',
     'primary' => false,
