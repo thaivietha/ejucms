@@ -34,21 +34,21 @@
                       <div class="layui-form-inline2 ey_helptips_txt">新增/编辑文档时，是否允许标题的重复</div>
                     </div>
                   </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">关联模型</label>
-                        <div class="layui-input-inline">
-                            <select id="join_id" name="join_id">
-                                <option value=""  >无关联</option>
-                                {volist name="$list" id="vo"}
-                                <option value="{$vo.id}" {eq name="$field.join_id" value="$vo.id" } selected {/eq} >{$vo.title}</option>
-                                {/volist}
-                            </select>
-                        </div>
-                        <div class="layui-input-inline layui-btn-container " style="width: auto;">
-                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
-                            <div class="layui-form-inline2 ey_helptips_txt">关联模型</div>
-                        </div>
-                    </div>
+                    <!--<div class="layui-form-item">-->
+                        <!--<label class="layui-form-label">关联模型</label>-->
+                        <!--<div class="layui-input-inline">-->
+                            <!--<select id="join_id" name="join_id">-->
+                                <!--<option value=""  >无关联</option>-->
+                                <!--{volist name="$list" id="vo"}-->
+                                <!--<option value="{$vo.id}" {eq name="$field.join_id" value="$vo.id" } selected {/eq} >{$vo.title}</option>-->
+                                <!--{/volist}-->
+                            <!--</select>-->
+                        <!--</div>-->
+                        <!--<div class="layui-input-inline layui-btn-container " style="width: auto;">-->
+                            <!--<div class="layui-form-mid layui-word-aux ey_helptips"></div>-->
+                            <!--<div class="layui-form-inline2 ey_helptips_txt">关联模型</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="layui-form-item">
                         <label class="layui-form-label">关联经纪人</label>
                         <div class="layui-input-inline w70">

@@ -269,7 +269,8 @@ class System extends Base
         }
         $max_sizeunit = 'MB';
         $maxFileupload = $max_filesize.$max_sizeunit;
-
+        //限制文件类型
+        $limit_arr = ['php','htm','js'];
         if (IS_POST) {
             $param = input('post.');
             $param['file_size'] = intval($param['file_size']);
@@ -282,27 +283,45 @@ class System extends Base
             $image_type = explode('|', $param['image_type']);
             foreach ($image_type as $key => $val) {
                 $val = trim($val);
-                if (stristr($val, 'php') || empty($val)) {
-                    unset($image_type[$key]);
+                foreach ($limit_arr as $v){
+                    if (stristr($val, $v) || empty($val)) {
+                        unset($image_type[$key]);
+                        continue;
+                    }
                 }
+//                if (stristr($val, 'php') || empty($val)) {
+//                    unset($image_type[$key]);
+//                }
             }
             $param['image_type'] = implode('|', $image_type);
 
             $file_type = explode('|', $param['file_type']);
             foreach ($file_type as $key => $val) {
                 $val = trim($val);
-                if (stristr($val, 'php') || empty($val)) {
-                    unset($file_type[$key]);
+                foreach ($limit_arr as $v){
+                    if (stristr($val, $v) || empty($val)) {
+                        unset($file_type[$key]);
+                        continue;
+                    }
                 }
+//                if (stristr($val, 'php') || empty($val)) {
+//                    unset($file_type[$key]);
+//                }
             }
             $param['file_type'] = implode('|', $file_type);
 
             $media_type = explode('|', $param['media_type']);
             foreach ($media_type as $key => $val) {
                 $val = trim($val);
-                if (stristr($val, 'php') || empty($val)) {
-                    unset($media_type[$key]);
+                foreach ($limit_arr as $v){
+                    if (stristr($val, $v) || empty($val)) {
+                        unset($media_type[$key]);
+                        continue;
+                    }
                 }
+//                if (stristr($val, 'php') || empty($val)) {
+//                    unset($media_type[$key]);
+//                }
             }
             $param['media_type'] = implode('|', $media_type);
             /*end*/

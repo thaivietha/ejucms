@@ -141,9 +141,9 @@ class Channeltype extends Base
         }
 
         //模型列表
-        $list = $this->channeltype_db ->where(['status'=>1,'is_del'=>0,'ifsystem'=>1,'nid'=>['neq','single']])->getAllWithIndex("id");
-        $assign_data['list'] = $list;
-        $this->assign($assign_data);
+//        $list = $this->channeltype_db ->where(['status'=>1,'is_del'=>0,'ifsystem'=>1,'nid'=>['neq','single']])->getAllWithIndex("id");
+//        $assign_data['list'] = $list;
+//        $this->assign($assign_data);
 
         return $this->fetch();
     }
@@ -227,25 +227,30 @@ class Channeltype extends Base
 
         $assign_data = array();
         //模型列表
+        $xinfang = $xiaoqu = [];
+        $xinfang_arr = ['article','tuan'];
+        $xiaoqu_arr = ['ershou','zufang','shopcs','shopcz','officecs','officecz'];
+        //团购、资讯关联新房  ，  二手房、租房（默认）、商铺、写字楼关联小区
         $list = $this->channeltype_db ->where(['status'=>1,'is_del'=>0,'ifsystem'=>1,'nid'=>['neq','single']])->getAllWithIndex("id");
         if (empty($list[$id])){
             $this->error('数据不存在，请联系管理员！');
             exit;
         }
+        foreach ($list as $val){
+            if ($val['nid'] == 'xinfang'){
+                $xinfang = $val;
+            }
+            if ($val['nid'] == 'xiaoqu'){
+                $xiaoqu = $val;
+            }
+        }
         $assign_data['field'] = $list[$id];
-        unset($list[$id]);
-        $assign_data['list'] = $list;
+        if (!empty($list[$id]['nid']) && in_array($list[$id]['nid'],$xinfang_arr)){     //只允许关联新房
+            $assign_data['list'] = $xinfang;
+        }else  if (!empty($list[$id]['nid']) && in_array($list[$id]['nid'],$xiaoqu_arr)){     //只允许关联小区
+            $assign_data['list'] = $xiaoqu;
+        }
 
-
-//        $info = $this->channeltype_db->field('a.*')
-//            ->alias('a')
-//            ->where(array('a.id'=>$id))
-//            ->find();
-//        if (empty($info)) {
-//            $this->error('数据不存在，请联系管理员！');
-//            exit;
-//        }
-//        $assign_data['field'] = $info;
 
         $this->assign($assign_data);
         return $this->fetch();

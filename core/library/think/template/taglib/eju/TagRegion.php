@@ -55,7 +55,9 @@ class TagRegion extends Base
         $this->currentstyle = $currentstyle;
         $this->opencity = !empty($opencity) ? explode(',', str_replace('，', ',', $opencity)) : [];
         $this->groupby = $groupby;
-        empty($domain) && $this->subDomain != 'www' && $this->subDomain != 'm' &&  $domain = $this->subDomain;
+        $web_mobile_domain = tpCache('global.web_mobile_domain');
+        $web_main_domain = tpCache('global.web_main_domain');
+        empty($domain) && $this->subDomain != $web_mobile_domain && $this->subDomain != $web_main_domain &&  $domain = $this->subDomain;
         if (empty($domain)) {
             $regionInfo = \think\Cookie::get("regionInfo");
             if(is_json($regionInfo))

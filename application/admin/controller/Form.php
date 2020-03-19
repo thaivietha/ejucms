@@ -43,12 +43,12 @@ class Form extends Base
                         ,'email' => !empty($post['email'][$key]) ? $post['email'][$key] : 0
                         ,'update_time'=>getTime()
                     ];
-                    Db::name('form_config')->where("role=".$val)->save($update_data);
+                    Db::name('form_config')->where(['role'=>$val])->save($update_data);
                 }
             }
             $this->success("操作成功");
         }
-        $list = Db::name('form_config')->where("status=1")->getAllWithIndex('role');
+        $list = Db::name('form_config')->where(['status'=>1])->getAllWithIndex('role');
         $this->assign('list',$list);
 
         return $this->fetch();

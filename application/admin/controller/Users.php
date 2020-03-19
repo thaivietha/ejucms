@@ -263,6 +263,7 @@ class Users extends Base
         $condition['is_del'] = 0;
         $condition['is_saleman'] = 1;
         $condition['status'] = 1;
+        $condition['level_id'] = ['neq',1];
         if ($keywords){
             $condition['true_name'] =  array('LIKE', "%{$keywords}%");
         }

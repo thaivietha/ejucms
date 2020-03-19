@@ -31,19 +31,30 @@
                         <input type="hidden" name="is_repeat_title" value="{$field.is_repeat_title|default='1'}" />
                     </div>
                   </div>
+                    {notempty name="$list"}
                     <div class="layui-form-item">
-                        <label class="layui-form-label">关联模型</label>
+                        <label class="layui-form-label">关联{$list.ntitle}</label>
                         <div class="layui-input-inline">
-                            <select id="join_id" name="join_id">
-                                <option value=""  >无关联</option>
-                                {volist name="$list" id="vo"}
-                                <option value="{$vo.id}" {eq name="$field.join_id" value="$vo.id" } selected {/eq} >{$vo.title}</option>
-                                {/volist}
+                            <select id="join_id" name="join_id"  lay-filter="join_id">
+                                <option value="0" >不关联</option>
+                                <option value="{$list.id}"  {eq name="$field.join_id" value="$list.id" } selected {/eq} >关联</option>
                             </select>
                         </div>
                         <div class="layui-input-inline layui-btn-container " style="width: auto;">
                             <div class="layui-form-mid layui-word-aux ey_helptips"></div>
                             <div class="layui-form-inline2 ey_helptips_txt">关联模型</div>
+                        </div>
+                    </div>
+                    {/notempty}
+                    <div id="join_must_div" class="layui-form-item" {empty name="$field.join_id"}style="display: none;"{/empty}>
+                        <label class="layui-form-label">关联必选</label>
+                        <div class="layui-input-inline w70">
+                            <input type="checkbox" lay-filter="join_must" lay-skin="switch" lay-text="是|否" {if condition="$field.join_must eq 1"}checked{/if}>
+                            <input type="hidden" name="join_must" value="{$field.join_must|default='0'}" />
+                        </div>
+                        <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                            <div class="layui-form-inline2 ey_helptips_txt">添加、编辑内容时，是否必须选择{$list.ntitle}</div>
                         </div>
                     </div>
                     <div class="layui-form-item">
@@ -89,7 +100,15 @@
       }
       $("input[name='"+elemId+"']").val(this.value);
     });
-
+    //选中选择关联
+      form.on('select(join_id)', function(data){
+          if (data.value == 0){ //隐藏
+              $("#join_must_div").hide();
+          }else{
+              $("#join_must_div").show();
+          }
+          form.render();
+      });
     //监听提交
     form.on('submit(formSubmit)', function(data){
         var load = layer_loading();

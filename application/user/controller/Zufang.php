@@ -101,8 +101,11 @@ class Zufang extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-            if (empty($post['city_id'])){
-                $this->error('请选择城市！');
+            //判断所有必选项是否已经填写
+            $field = new \app\admin\model\Field();
+            $check = $field->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
             }
             //判断是选择的小区，还是自己添加的小区，如果是自己添加的小区，得先添加小区，再添加二手房
             if (!empty($channelJoin)){
@@ -112,13 +115,18 @@ class Zufang extends Base
                     $condition['a.is_del'] = 0;
                     $join = DB::name('archives')->alias("a")->where($condition)->find();
                 }
-                if (empty($join)){       //不存在该关联数据
+                if (empty($join) && !empty($post['join_title'])){       //不存在该关联数据
                     $join_db = new Archives();
                     $type_info = Db::name("arctype")->where("current_channel={$channelJoin['id']} and is_del=0 and status=1")->order("id")->find();
                     $aid = $join_db->add_ajax($post,$channelJoin['id'],$type_info['id'],$channelJoin['ctl_name']);
                     $join = DB::name('archives')->alias("a")->where(['a.aid'=>$aid])->find();
                 }
-                $post['joinaid'] = $join['aid'];
+                if (empty($join)){
+                    $post['joinaid'] = $join['aid'];
+                }
+            }
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
             }
 
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
@@ -231,6 +239,12 @@ class Zufang extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+            //判断所有必选项是否已经填写
+            $field = new \app\admin\model\Field();
+            $check = $field->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
+            }
             //判断是选择的小区，还是自己添加的小区，如果是自己添加的小区，得先添加小区，再添加二手房
             if (!empty($channelJoin)){
                 if (!empty($post['joinaid']) && !empty($post['join_title'])){
@@ -239,13 +253,18 @@ class Zufang extends Base
                     $condition['a.is_del'] = 0;
                     $join = DB::name('archives')->alias("a")->where($condition)->find();
                 }
-                if (empty($join)){       //不存在该关联数据
+                if (empty($join) && !empty($post['join_title'])){       //不存在该关联数据
                     $join_db = new Archives();
                     $type_info = Db::name("arctype")->where("current_channel={$channelJoin['id']} and is_del=0 and status=1")->order("id")->find();
                     $aid = $join_db->add_ajax($post,$channelJoin['id'],$type_info['id'],$channelJoin['ctl_name']);
                     $join = DB::name('archives')->alias("a")->where(['a.aid'=>$aid])->find();
                 }
-                $post['joinaid'] = $join['aid'];
+                if (empty($join)){
+                    $post['joinaid'] = $join['aid'];
+                }
+            }
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
             }
 
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/

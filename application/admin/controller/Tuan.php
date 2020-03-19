@@ -318,12 +318,23 @@ class Tuan  extends Base
      */
     public function add()
     {
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $content = input('post.addonFieldExt.content', '', null);
             $typeid = input('post.typeid/d', 0);
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
+            }
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
+            }
+            //判断所有必选项是否已经填写
+            $check = model('Field')->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
             }
 //            if (empty($post['seo_title'])){
 //                $post['seo_title'] = $post['title'];
@@ -482,6 +493,9 @@ class Tuan  extends Base
      */
     public function edit()
     {
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $content = input('post.addonFieldExt.content', '', null);
@@ -489,15 +503,19 @@ class Tuan  extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
+            }
+            //判断所有必选项是否已经填写
+            $check = model('Field')->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
+            }
             // 根据标题自动提取相关的关键字
             $seo_keywords = $post['seo_keywords'];
             if (!empty($seo_keywords)) {
                 $seo_keywords = str_replace('，', ',', $seo_keywords);
-            } else {
-                // $seo_keywords = get_split_word($post['title'], $content);
             }
-
             // 自动获取内容第一张图片作为封面图
             if (empty($post['litpic'])) {
                 $post['litpic'] = get_html_first_imgurl($content);
@@ -508,28 +526,23 @@ class Tuan  extends Base
             } else {
                 $is_litpic = empty($post['is_litpic']) ? 0 : $post['is_litpic']; // 有封面图
             }
-
             // SEO描述
-            $seo_description = '';
             if (empty($post['seo_description']) && !empty($content)) {
                 $seo_description = @msubstr(checkStrHtml($content), 0, config('global.arc_seo_description_length'), false);
             } else {
                 $seo_description = $post['seo_description'];
             }
-
             // --外部链接
             $jumplinks = '';
             $is_jump = isset($post['is_jump']) ? $post['is_jump'] : 0;
             if (intval($is_jump) > 0) {
                 $jumplinks = $post['jumplinks'];
             }
-
             // 模板文件，如果文档模板名与栏目指定的一致，默认就为空。让它跟随栏目的指定而变
             if ($post['type_tempview'] == $post['tempview']) {
                 unset($post['type_tempview']);
                 unset($post['tempview']);
             }
-
             // 同步栏目切换模型之后的文档模型
             $channel = Db::name('arctype')->where(['id'=>$typeid])->getField('current_channel');
             // --存储数据
@@ -573,9 +586,7 @@ class Tuan  extends Base
             $this->error("操作失败!");
             exit;
         }
-
         $assign_data = array();
-
         $id = input('id/d');
         $info = model('Tuan')->getInfo($id, null, false);
         if (empty($info)) {
@@ -619,7 +630,7 @@ class Tuan  extends Base
         $assign_data['arctype_html'] = $arctype_html;
         /*--end*/
         /*自定义字段*/
-        $addonFieldExtList = model('Field')->getChannelFieldList($info['channel'], 0, $id, $info);
+        $addonFieldExtList = model('Field')->getChannelFieldList($info['channel'], false, $id, $info);
         $addonFieldExtList = convert_arr_key($addonFieldExtList,'name');
         $channelfieldBindRow = Db::name('channelfield_bind')->where([
             'typeid'    => ['IN', [0,$typeid]],
@@ -656,9 +667,6 @@ class Tuan  extends Base
             $this->assign("relate_list",$relate_list);
         }
         //模型信息
-        $channelList = getChanneltypeList();
-        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
-        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
             $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
         }

@@ -95,7 +95,7 @@
                                                         </div>
                                                         {/notempty}
                                                         <div class="layui-form-item">
-                                                            <label class="layui-form-label"><b>*</b>所属区域</label>
+                                                            <label class="layui-form-label">{notempty name="$addonFieldExtList.province_id.ifrequire"}<b>*</b>{/notempty}所属区域</label>
                                                             <div class="layui-input-inline w120">
                                                                 <select name="province_id" id="province_id"  lay-filter="province_id" >
                                                                     <option value="0">请选择省</option>
@@ -118,13 +118,13 @@
                                                             <div class="layui-form-inline2 ey_helptips_txt none">后台菜单>系统配置>区域管理</div>
                                                         </div>
                                                         <div class="w-out fl mt15">
-                                                            <label class="layui-form-label"><b>*</b>{$channeltype_info['ntitle']}名称</label>
+                                                            <label class="layui-form-label">{notempty name="$addonFieldExtList.title.ifrequire"}<b>*</b>{/notempty}{$channeltype_info['ntitle']}名称</label>
                                                             <div class="layui-input-inline w-in">
                                                                 <input type="text" name="title" id="title"  lay-verify="check_title" value="{$field.title}" class="layui-input">
                                                             </div>
                                                         </div>
                                                         <div class="w-out fl mt15">
-                                                            <label class="layui-form-label"><b>*</b>{$addonFieldExtList['average_price']['title']}</label>
+                                                            <label class="layui-form-label">{notempty name="$addonFieldExtList.average_price.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['average_price']['title']}</label>
                                                             <div class="layui-input-inline w-in" >
                                                                 <div class="layui-input-inline w135" >
                                                                     <input type="text" name="addonFieldSys[average_price]" id="average_price"  lay-verify="check_price" value="{$addonFieldExtList['average_price']['dfvalue']}" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');">
@@ -149,7 +149,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="w-out fl mt15 {empty name="$addonFieldExtList['saleman_id']['ifeditable']"}none{/empty}">
-                                                        <label class="layui-form-label">{$addonFieldExtList['saleman_id']['title']}</label>
+                                                        <label class="layui-form-label">{notempty name="$addonFieldExtList.saleman_id.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['saleman_id']['title']}</label>
                                                         <div class="layui-input-inline w-in">
                                                             <select name="addonFieldSys[saleman_id]" id="saleman_id">
                                                                 <option value="0">请选择经纪人</option>
@@ -162,13 +162,13 @@
                                                         <div class="layui-form-inline2 ey_helptips_txt none">后台菜单>用户管理>经纪人管理</div>
                                                     </div>
                                                     <div class="w-out fl mt15 {empty name="$addonFieldExtList['address']['ifeditable']"}none{/empty}">
-                                                    <label class="layui-form-label"><b>*</b>{$addonFieldExtList['address']['title']}</label>
+                                                    <label class="layui-form-label">{notempty name="$addonFieldExtList.address.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['address']['title']}</label>
                                                     <div class="layui-input-inline w-in">
                                                         <input type="text" name="addonFieldSys[address]" id="address"  lay-verify="check_address"  placeholder="{$addonFieldExtList['address']['remark']}" value="{$addonFieldExtList['address']['dfvalue']}" class="layui-input">
                                                     </div>
                                                 </div>
                                                 <div class="w-out fl mt15 {empty name="$addonFieldExtList['sales_address']['ifeditable']"}none{/empty}">
-                                                <label class="layui-form-label">{$addonFieldExtList['sales_address']['title']}</label>
+                                                <label class="layui-form-label">{notempty name="$addonFieldExtList.sales_address.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['sales_address']['title']}</label>
                                                 <div class="layui-input-inline w-in">
                                                     <input type="text" name="addonFieldExt[sales_address]" id="sales_address"   placeholder="{$addonFieldExtList['sales_address']['remark']}" value="{$addonFieldExtList['sales_address']['dfvalue']}" class="layui-input">
                                                 </div>
@@ -176,7 +176,7 @@
 
 
                             <div class="w-out fl mt15 {empty name="$addonFieldExtList['sale_phone']['ifeditable']"}none{/empty}">
-                            <label class="layui-form-label">{$addonFieldExtList['sale_phone']['title']}</label>
+                            <label class="layui-form-label">{notempty name="$addonFieldExtList.sale_phone.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['sale_phone']['title']}</label>
                             <div class="layui-input-inline w-in">
                                 <div class="layui-input-inline w150">
                                     <input type="text" name="addonFieldSys[sale_phone]" id="sale_phone"  lay-verify="check_tellphone" placeholder="{$addonFieldExtList['sale_phone']['remark']}" value="{$addonFieldExtList['sale_phone']['dfvalue']}" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9-]/g,'');" onpaste="this.value=this.value.replace(/[^0-9-]/g,'');">
@@ -190,19 +190,19 @@
                         </div>
                 </div>
                 <div class="w-out fl mt15 {empty name="$addonFieldExtList['licence']['ifeditable']"}none{/empty}">
-                <label class="layui-form-label">{$addonFieldExtList['licence']['title']}</label>
+                <label class="layui-form-label">{notempty name="$addonFieldExtList.licence.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['licence']['title']}</label>
                 <div class="layui-input-inline w-in">
                     <input type="text" name="addonFieldExt[licence]" id="licence" placeholder="{$addonFieldExtList['licence']['remark']}" value="{$addonFieldExtList['licence']['dfvalue']}" class="layui-input">
                 </div>
             </div>
             <div class="w-out fl mt15 {empty name="$addonFieldExtList['developer']['ifeditable']"}none{/empty}">
-            <label class="layui-form-label">{$addonFieldExtList['developer']['title']}</label>
+            <label class="layui-form-label">{notempty name="$addonFieldExtList.developer.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['developer']['title']}</label>
             <div class="layui-input-inline w-in">
                 <input type="text" name="addonFieldExt[developer]" id="developer" placeholder="{$addonFieldExtList['developer']['remark']}" value="{$addonFieldExtList['developer']['dfvalue']}" class="layui-input">
             </div>
         </div>
         <div class="w-out fl mt15">
-            <label class="layui-form-label">地图坐标</label>
+            <label class="layui-form-label">{notempty name="$addonFieldExtList.lng.ifrequire"}<b>*</b>{/notempty}地图坐标</label>
             <div class="layui-input-inline w-in">
                 <input type="text" name="map" id="map" lay-verify="check_map" placeholder="115.345,22.1349" value="{$map}" class="layui-input">
             </div>
@@ -211,7 +211,7 @@
             </div>
         </div>
                 <div class="w-out fl mt15 {empty name="$addonFieldExtList['panoram']['ifeditable']"}none{/empty}">
-                <label class="layui-form-label">{$addonFieldExtList['panoram']['title']}</label>
+                <label class="layui-form-label">{notempty name="$addonFieldExtList.panoram.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['panoram']['title']}</label>
                 <div class="layui-input-inline w-in">
                     <input type="text" name="addonFieldExt[panoram]" id="panoram" value="{$addonFieldExtList['panoram']['dfvalue']}"  placeholder="{$addonFieldExtList['panoram']['remark']}" class="layui-input">
                 </div>
@@ -229,7 +229,7 @@
         <div class="layui-card-body" pad15 style="padding-top: 0">
             <div class="layui-form" wid100 lay-filter="">
                 <div class="layui-form-item {empty name="$addonFieldExtList['sale_status']['ifeditable']"}none{/empty}">
-                <label class="layui-form-label">{$addonFieldExtList['sale_status']['title']}</label>
+                <label class="layui-form-label">{notempty name="$addonFieldExtList.sale_status.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['sale_status']['title']}</label>
                 <div class="layui-input-inline w-max2">
                     {volist name="$addonFieldExtList['sale_status']['dfvalue']" id="v2"}
                     <input type="radio" id="sale_status" name="addonFieldSys[sale_status]" {if condition="isset($addonFieldExtList['sale_status']['trueValue']) AND in_array($v2, $addonFieldExtList['sale_status']['trueValue'])"}checked="checked"{/if} value="{$v2}"  title="{$v2}">
@@ -237,7 +237,7 @@
                 </div>
             </div>
             <div class="layui-form-item {empty name="$addonFieldExtList['characteristic']['ifeditable']"}none{/empty}">
-            <label class="layui-form-label">{$addonFieldExtList['characteristic']['title']}</label>
+            <label class="layui-form-label">{notempty name="$addonFieldExtList.characteristic.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['characteristic']['title']}</label>
             <div class="layui-input-inline w-max2">
                 {volist name="$addonFieldExtList['characteristic']['dfvalue']" id="v2"}
                 <input type="checkbox" lay-skin="primary" name="addonFieldSys[characteristic][]" {if condition="isset($addonFieldExtList['characteristic']['trueValue']) AND in_array($v2, $addonFieldExtList['characteristic']['trueValue'])"}checked="checked"{/if} value="{$v2}"  title="{$v2}">
@@ -246,7 +246,7 @@
             </div>
         </div>
         <div class="layui-form-item {empty name="$addonFieldExtList['fitment']['ifeditable']"}none{/empty}">
-        <label class="layui-form-label">{$addonFieldExtList['fitment']['title']}</label>
+        <label class="layui-form-label">{notempty name="$addonFieldExtList.fitment.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['fitment']['title']}</label>
         <div class="layui-input-inline w-max2">
             {volist name="$addonFieldExtList['fitment']['dfvalue']" id="v2"}
             <input type="checkbox" lay-skin="primary" name="addonFieldSys[fitment][]" {if condition="isset($addonFieldExtList['fitment']['trueValue']) AND in_array($v2, $addonFieldExtList['fitment']['trueValue'])"}checked="checked"{/if} value="{$v2}"  title="{$v2}">
@@ -255,7 +255,7 @@
         </div>
     </div>
     <div class="layui-form-item {empty name="$addonFieldExtList['building_type']['ifeditable']"}none{/empty}">
-    <label class="layui-form-label">{$addonFieldExtList['building_type']['title']}</label>
+    <label class="layui-form-label">{notempty name="$addonFieldExtList.building_type.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['building_type']['title']}</label>
     <div class="layui-input-inline w-max2">
         {volist name="$addonFieldExtList['building_type']['dfvalue']" id="v2"}
         <input type="checkbox" lay-skin="primary" name="addonFieldSys[building_type][]" {if condition="isset($addonFieldExtList['building_type']['trueValue']) AND in_array($v2, $addonFieldExtList['building_type']['trueValue'])"}checked="checked"{/if} value="{$v2}"  title="{$v2}">
@@ -263,7 +263,7 @@
     </div>
 </div>
 <div class="layui-form-item {empty name="$addonFieldExtList['manage_type']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['manage_type']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.manage_type.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['manage_type']['title']}</label>
 <div class="layui-input-inline w-max2">
     {volist name="$addonFieldExtList['manage_type']['dfvalue']" id="v2"}
     <input type="checkbox" lay-skin="primary" name="addonFieldSys[manage_type][]" {if condition="isset($addonFieldExtList['manage_type']['trueValue']) AND in_array($v2, $addonFieldExtList['manage_type']['trueValue'])"}checked="checked"{/if} value="{$v2}"  title="{$v2}">
@@ -296,21 +296,21 @@
     </div>
 </div>
 <div class="layui-form-item">
-    <label class="layui-form-label">缩略图</label>
+    <label class="layui-form-label">{notempty name="$addonFieldExtList.litpic.ifrequire"}<b>*</b>{/notempty}缩略图</label>
     <div class="layui-input-inline">
         <div class="upload-box">
             <div class="upload-img fl">
                 <div class="icaction none">
-                                                                  <span class="load_images">
-                                                                     <a href="javascript:void(0);" onclick="BigImages($('#img_litpic').attr('src'));">
-                                                                     <i class="layui-icon layui-icon-search mr5"></i>查看
-                                                                     </a>
-                                                                  </span>
+                  <span class="load_images">
+                     <a href="javascript:void(0);" onclick="BigImages($('#img_litpic').attr('src'));">
+                     <i class="layui-icon layui-icon-search mr5"></i>查看
+                     </a>
+                  </span>
                     <span class="load_images">
-                                                                    <a href="javascript:void(0);" data-inputid="litpic" onclick="DelImages(this);">
-                                                                    <i class="layui-icon layui-icon-delete mr5"></i>删除
-                                                                    </a>
-                                                                  </span>
+                    <a href="javascript:void(0);" data-inputid="litpic" onclick="DelImages(this);">
+                    <i class="layui-icon layui-icon-delete mr5"></i>删除
+                    </a>
+                  </span>
                 </div>
                 <div class="cover-bg none"></div>
                 <img id="img_litpic" src="{$field.litpic|get_default_pic=###}">
@@ -435,76 +435,76 @@
                 <div class="layui-card-body" pad15>
                     <div class="layui-form" wid100 lay-filter="">
         <div class="w-out fl mt15 {empty name="$addonFieldExtList['property_fee']['ifeditable']"}none{/empty}">
-        <label class="layui-form-label">{$addonFieldExtList['property_fee']['title']}</label>
+        <label class="layui-form-label">{notempty name="$addonFieldExtList.property_fee.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['property_fee']['title']}</label>
         <div class="layui-input-inline w-in">
             <input type="text" name="addonFieldExt[property_fee]" id="property_fee"  placeholder="{$addonFieldExtList['property_fee']['remark']}"  value="{$addonFieldExtList['property_fee']['dfvalue']}" class="layui-input">
         </div>
         <div class="layui-input-inline layui-input-company">{$addonFieldExtList['property_fee']['dfvalue_unit']}</div>
     </div>
     <div class="w-out fl mt15 {empty name="$addonFieldExtList['manage_company']['ifeditable']"}none{/empty}">
-    <label class="layui-form-label">{$addonFieldExtList['manage_company']['title']}</label>
+    <label class="layui-form-label">{notempty name="$addonFieldExtList.manage_company.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['manage_company']['title']}</label>
     <div class="layui-input-inline w-in">
         <input type="text" name="addonFieldExt[manage_company]" id="manage_company" placeholder="{$addonFieldExtList['manage_company']['remark']}" value="{$addonFieldExtList['manage_company']['dfvalue']}" class="layui-input">
     </div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['building_num']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['building_num']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.building_num.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['building_num']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text" name="addonFieldExt[building_num]" id="building_num" placeholder="{$addonFieldExtList['building_num']['remark']}" value="{$addonFieldExtList['building_num']['dfvalue']}" class="layui-input">
 </div>
 <div class="layui-input-inline layui-input-company">{$addonFieldExtList['building_num']['dfvalue_unit']}</div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['floor_case']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['floor_case']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.floor_case.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['floor_case']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text" name="addonFieldExt[floor_case]" id="floor_case"  placeholder="{$addonFieldExtList['floor_case']['remark']}" value="{$addonFieldExtList['floor_case']['dfvalue']}" class="layui-input">
 </div>
 <div class="layui-input-inline layui-input-company">{$addonFieldExtList['floor_case']['dfvalue_unit']}</div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['carport']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['carport']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.carport.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['carport']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text" name="addonFieldExt[carport]" id="carport" placeholder="{$addonFieldExtList['carport']['remark']}" value="{$addonFieldExtList['carport']['dfvalue']}" class="layui-input">
 </div>
 <div class="layui-input-inline layui-input-company">{$addonFieldExtList['carport']['dfvalue_unit']}</div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['households']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['households']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.households.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['households']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text" name="addonFieldExt[households]" id="households" placeholder="{$addonFieldExtList['households']['remark']}" value="{$addonFieldExtList['households']['dfvalue']}" class="layui-input">
 </div>
     <div class="layui-input-inline layui-input-company">{$addonFieldExtList['households']['dfvalue_unit']}</div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['greening_rate']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['greening_rate']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.greening_rate.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['greening_rate']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text"  name="addonFieldExt[greening_rate]"   id="greening_rate"  placeholder="{$addonFieldExtList['greening_rate']['remark']}" onkeyup="this.value=this.value.replace(/[^0-9.%]/g,'');" onpaste="this.value=this.value.replace(/[^0-9.%]/g,'');" value="{$addonFieldExtList['greening_rate']['dfvalue']}" class="layui-input">
 </div>
 <div class="layui-input-inline layui-input-company">{$addonFieldExtList['greening_rate']['dfvalue_unit']}</div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['plot_ratio']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['plot_ratio']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.plot_ratio.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['plot_ratio']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text" name="addonFieldExt[plot_ratio]"  id="plot_ratio" placeholder="{$addonFieldExtList['plot_ratio']['remark']}" onkeyup="this.value=this.value.replace(/[^0-9.%]/g,'');" onpaste="this.value=this.value.replace(/[^0-9.%]/g,'');" value="{$addonFieldExtList['plot_ratio']['dfvalue']}" class="layui-input">
 </div>
 <div class="layui-input-inline layui-input-company">{$addonFieldExtList['plot_ratio']['dfvalue_unit']}</div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['property']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['property']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.property.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['property']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text"  name="addonFieldExt[property]" id="property" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['property']['remark']}"  value="{$addonFieldExtList['property']['dfvalue']}" class="layui-input">
 </div>
 <div class="layui-input-inline layui-input-company">{$addonFieldExtList['property']['dfvalue_unit']}</div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['building_age']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['building_age']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.building_age.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['building_age']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text" name="addonFieldSys[building_age]" id="building_age" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" value="{$addonFieldExtList['building_age']['dfvalue']}"  placeholder="{$addonFieldExtList['building_age']['remark']}" class="layui-input">
 </div>
 <div class="layui-input-inline layui-input-company">{$addonFieldExtList['building_age']['dfvalue_unit']}</div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['building_area']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['building_area']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.building_area.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['building_area']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text" name="addonFieldExt[building_area]"  id="building_area" placeholder="{$addonFieldExtList['building_area']['remark']}" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" onpaste="this.value=this.value.replace(/[^0-9.]/g,'');" value="{$addonFieldExtList['building_area']['dfvalue']}" class="layui-input">
 </div>
@@ -512,7 +512,7 @@
     {$addonFieldExtList['building_area']['dfvalue_unit']}</div>
 </div>
 <div class="w-out fl mt15 {empty name="$addonFieldExtList['floor_area']['ifeditable']"}none{/empty}">
-<label class="layui-form-label">{$addonFieldExtList['floor_area']['title']}</label>
+<label class="layui-form-label">{notempty name="$addonFieldExtList.floor_area.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['floor_area']['title']}</label>
 <div class="layui-input-inline w-in">
     <input type="text" name="addonFieldExt[floor_area]" id="floor_area" placeholder="{$addonFieldExtList['floor_area']['remark']}"  onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" onpaste="this.value=this.value.replace(/[^0-9.]/g,'');" value="{$addonFieldExtList['floor_area']['dfvalue']}" class="layui-input">
 </div>
@@ -530,7 +530,7 @@
             <div class="layui-form" wid100 lay-filter="">
                 {include file="field/addonextitem" /}
                 <div class="layui-form-item layui-form-text {empty name="$addonFieldExtList['location_introduce']['ifeditable']"}none{/empty}">
-                <label class="layui-form-label">{$addonFieldExtList['location_introduce']['title']}</label>
+                <label class="layui-form-label">{notempty name="$addonFieldExtList.location_introduce.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['location_introduce']['title']}</label>
                 <div class="layui-input-inline">
                     <textarea id="location_introduce" name="addonFieldExt[location_introduce]" class="layui-textarea"  placeholder="{$addonFieldExtList['location_introduce']['remark']}">{$addonFieldExtList['location_introduce']['dfvalue']}</textarea>
                 </div>
@@ -541,7 +541,7 @@
             </div>
 
             <div class="layui-form-item {empty name="$addonFieldExtList['content']['ifeditable']"}none{/empty}">
-            <span class="edit-box-tit">{$addonFieldExtList['content']['title']}</span>
+            <span class="edit-box-tit">{notempty name="$addonFieldExtList.content.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['content']['title']}</span>
             <div class="edit-box-con ">
                 <div class="edit-box-textarea2">
                     <textarea class="ckeditor" lay-ignore id="addonFieldExt_content" data-func="addonFieldExt_content" name="addonFieldExt[content]">{$addonFieldExtList['content']['dfvalue']}</textarea>
@@ -937,7 +937,7 @@
                     if(res.code == 1){
                         parent.window.location.href = res.url;
                     }else{
-                        layer.msg(data.msg, {icon: 2,time: 2000});
+                        layer.msg(res.msg, {icon: 2,time: 2000});
                     }
                 },
                 error: function(e){

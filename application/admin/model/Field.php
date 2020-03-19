@@ -65,14 +65,13 @@ class Field extends Model
         $map = array(
             'channel_id'    => array('eq', $channel_id),
             'name'          => array('notin', $hideField),
-            'ifmain'        => array('neq',1),
+//            'ifmain'        => array('neq',1),
             'ifeditable'    => 1,
         );
         if (false !== $ifmain) {
             $map['ifmain'] = $ifmain;
         }
         $row = model('Channelfield')->getListByWhere($map, '*');
-
         /*编辑时显示的数据*/
         $addonRow = array();
         if (0 < intval($aid)) {
@@ -92,7 +91,28 @@ class Field extends Model
         $list = $this->showViewFormData($row, 'addonFieldExt', $addonRow, $archivesInfo);
         return $list;
     }
+    /*
+     * 判断所有必填数据是否已经填写
+     * 如果存在必选项为空，返回必选项信息，否在，返回false
+     */
+    public function checkChannelFieldRequire($channel_id,$data){
+        $hideField = array('id','aid','add_time','update_time'); // 不显示在发布表单的字段
+        $channel_id = intval($channel_id);
+        $map = array(
+            'channel_id'    => array('eq', $channel_id),
+            'name'          => array('notin', $hideField),
+            'ifrequire'    => 1,
+            'ifeditable'    => 1,
+        );
+        $row = model('Channelfield')->getListByWhere($map, '*');
+        foreach ($row as $val){
+            if (empty($data[$val['name']]) && empty($data['addonFieldSys'][$val['name']]) && empty($data['addonFieldExt'][$val['name']])){
+                return $val;
+            }
+        }
 
+        return false;
+    }
     /**
      * 查询解析数据表的数据用以构造from表单
      * @param intval $channel_id 模型ID

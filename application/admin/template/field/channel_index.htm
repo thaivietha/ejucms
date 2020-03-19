@@ -52,7 +52,7 @@
                         <div class="layui-table-cell w100 tc"><span>编辑显示</span></div>
                       </th>
                       <th class="w110 tc"> 
-                        <div class="layui-table-cell w110 tc"><span>更新时间</span></div>
+                        <div class="layui-table-cell w110 tc"><span>是否必填</span></div>
                       </th>
                       <th class="w80 tc"> 
                         <div class="layui-table-cell w80 tc"><span>排序</span></div>
@@ -118,7 +118,7 @@
                         </td>
                         <td>
                             <div class="layui-table-cell w110 tc">
-                                {$vo.update_time|date='Y-m-d',###}
+                                <input type="checkbox" lay-skin="switch" lay-filter="ifrequire" data-id="{$vo.id}" value="{$vo['ifrequire']}" {eq name="$vo['ifrequire']" value='1'}checked{/eq} lay-text="是|否">
                             </div>
                         </td>
                         <td>
@@ -179,7 +179,7 @@
   }).use(['index', 'form'], function(){
     var $ = layui.$
     ,form = layui.form;
-
+      //编辑显示
     form.on('switch(ifeditable)', function(data){
         var obj = data.elem;
         if (obj.checked) {
@@ -211,7 +211,38 @@
         });
         return false;
     });
-
+    //是否必填
+      form.on('switch(ifrequire)', function(data){
+          var obj = data.elem;
+          if (obj.checked) {
+              data.value = 1;
+          } else {
+              data.value = 0;
+          }
+          var ifrequire = data.value;
+          var load = layer_loading();
+          $.ajax({
+              type : 'post',
+              url : "{:url('Field/ajax_ifrequire')}",
+              data : {id:$(obj).attr('data-id'),ifrequire:ifrequire,_ajax:1},
+              dataType : 'json',
+              success : function(res){
+                  layer.close(load); //关闭loading
+                  if(res.code == 1){
+                      layer.msg(res.msg, {icon: 1, time:1000}, function(){
+                          window.location.reload();
+                      });
+                  }else{
+                      showErrorMsg(res.msg);
+                  }
+              }
+              ,error: function(e){
+                  layer.close(load); //关闭loading
+                  showErrorAlert();
+              }
+          });
+          return false;
+      });
     /* 触发事件 */
     var active = {
         channel_add: function(){

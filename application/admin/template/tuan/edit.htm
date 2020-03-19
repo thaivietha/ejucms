@@ -26,7 +26,7 @@
                                                 <div class="layui-form" wid100 lay-filter="">
                                                     {notempty name="$channelJoin"}
                                                     <div class="layui-form-item" >
-                                                        <label class="layui-form-label">关联{$channelJoin.ntitle}</label>
+                                                        <label class="layui-form-label">{notempty name="$channelOrigin.join_must"}<b>*</b>{/notempty}关联{$channelJoin.ntitle}</label>
                                                         <div class="layui-input-inline layadmin-layer-demo">
                                                             <input type="hidden" name="province_id" id="province_id"  lay-verify="required" value="{$field.province_id}">
                                                             <input type="hidden" name="city_id" id="city_id"  lay-verify="required" value="{$field.city_id}">
@@ -54,14 +54,14 @@
                                                     </div>
                                                     {/notempty}
                                                     <div class="layui-form-item">
-                                                        <label class="layui-form-label"><b>*</b>标题</label>
+                                                        <label class="layui-form-label">{notempty name="$addonFieldExtList.title.ifrequire"}<b>*</b>{/notempty}标题</label>
                                                         <div class="layui-input-inline">
                                                             <input type="text" name="title" id="title"  lay-verify="required" value="{$field.title}" class="layui-input">
                                                         </div>
                                                     </div>
 
                                                     <div class="w-out fl mt15 mb15">
-                                                        <label class="layui-form-label"><b>*</b>团购价格</label>
+                                                        <label class="layui-form-label">{notempty name="$addonFieldExtList.price.ifrequire"}<b>*</b>{/notempty}团购价格</label>
                                                         <div class="layui-input-inline w-in" >
                                                             <div class="layui-input-inline w135" >
                                                                 <input type="text" name="addonFieldExt[price]" id="price"  lay-verify="number" value="{$addonFieldExtList['price']['dfvalue']}" class="layui-input">
@@ -114,7 +114,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="layui-form-item">
-                                                        <label class="layui-form-label">缩略图</label>
+                                                        <label class="layui-form-label">{notempty name="$addonFieldExtList.litpic.ifrequire"}<b>*</b>{/notempty}缩略图</label>
                                                         <div class="layui-input-inline">
                                                             <div class="upload-box">
                                                               <div class="upload-img fl">
@@ -404,10 +404,10 @@
             });
             //监听提交
             form.on('submit(formSubmit)', function(data){
-                if (data.field.joinaid == 0){
-                    layer.msg('请选择楼盘', {icon: 2,time: 2000});
-                    return false;
-                }
+//                if (data.field.joinaid == 0){
+//                    layer.msg('请选择楼盘', {icon: 2,time: 2000});
+//                    return false;
+//                }
                 var load = layer_loading();
                 data.field._ajax = 1;
                 $.ajax({
@@ -420,7 +420,7 @@
                         if(res.code == 1){
                             parent.window.location.href = res.url;
                         }else{
-                            layer.msg(data.msg, {icon: 2,time: 2000});
+                            layer.msg(res.msg, {icon: 2,time: 2000});
                         }
                     },
                     error: function(e){

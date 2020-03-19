@@ -344,14 +344,22 @@ class Xinfang extends Base
      */
     public function add()
     {
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $typeid = input('post.typeid/d', 0);
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-            if (empty($post['city_id'])) {
-                $this->error('请选择城市！');
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
+            }
+            //判断所有必选项是否已经填写
+            $check = model('Field')->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
             }
             if (empty($post['permission']) && $this->check_title($post['title'])){
                 $this->error('已经存在同名楼盘！','',['permission'=>1]);
@@ -500,9 +508,6 @@ class Xinfang extends Base
         }
         $assign_data['author'] = $pen_name;
         //模型信息
-        $channelList = getChanneltypeList();
-        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
-        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
             $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
         }
@@ -524,14 +529,22 @@ class Xinfang extends Base
      */
     public function edit()
     {
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $typeid = input('post.typeid/d', 0);
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-            if (empty($post['city_id'])) {
-                $this->error('请选择城市！');
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
+            }
+            //判断所有必选项是否已经填写
+            $check = model('Field')->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
             }
             if (empty($post['permission']) && $this->check_title($post['title'],$post['aid'])){
                 $this->error('已经存在同名楼盘！','',['permission'=>1]);
@@ -675,6 +688,8 @@ class Xinfang extends Base
         $lat = "";
         //获取主表字段信息（archives、system、content三张表）
         $addonFieldExtList = model('Field')->getChannelFieldList($info['channel'], false, $id, $info,"content,system");
+        $addonFieldExtList = convert_arr_key($addonFieldExtList,'name');
+        $assign_data['addonFieldExtList'] = $addonFieldExtList;
         foreach ($addonFieldExtList as $key => $val) {
             if ($val['name'] == 'lng'){
                 $lng = $val['dfvalue'];
@@ -686,9 +701,6 @@ class Xinfang extends Base
         if (!empty($lng) && !empty($lat)){
             $assign_data['map'] = $lng.','.$lat;
         }
-
-        $addonFieldExtList = convert_arr_key($addonFieldExtList,'name');
-        $assign_data['addonFieldExtList'] = $addonFieldExtList;
         $assign_data['aid'] = $id;
         /*--end*/
         // 阅读权限
@@ -722,9 +734,7 @@ class Xinfang extends Base
             $this->assign("relate_list",$relate_list);
         }
         //模型信息
-        $channelList = getChanneltypeList();
-        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
-        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
+
         if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
             $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
         }

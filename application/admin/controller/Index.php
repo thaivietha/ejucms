@@ -198,10 +198,21 @@ class Index extends Base
         }
         //升级到2.3版本后更新数据
         if (!tpCache('system.system_channeltype_unit_23')){
+            //更新会员发帖信息
             $aid_arr = Db::name("xiaoqu_system")->where(['is_houtai'=>0])->getField("aid",true);
             if (!empty($aid_arr)){
                 Db::name("archives")->where(['aid'=>['in',$aid_arr]])->save(['add_type'=>0]);
             }
+            //自动给团购、资讯、二手房、租房加上关联楼盘和小区
+            $list = Db::name("channeltype") ->where(['status'=>1,'is_del'=>0,'ifsystem'=>1,'nid'=>['neq','single']])->getAllWithIndex("nid");
+            $xiaoqu_id = $list['xiaoqu']['id'];
+            $xinfang_id = $list['xinfang']['id'];
+            Db::name("channeltype") ->where(['nid'=>['in',['ershou','zufang','shopcs','shopcz','officecs','officecz']]])->save(['join_id'=>$xiaoqu_id,'is_join_user'=>1]);
+            Db::name("channeltype") ->where(['nid'=>['in',['article','tuan']]])->save(['join_id'=>$xinfang_id]);
+            Db::name("channeltype") ->where(['nid'=>'xinfang'])->save(['is_join_user'=>1]);
+            //给title、区域字段设置为默认必填
+            Db::name("channelfield") ->where(['name'=>['in',['title','province_id','city_id']]])->save(['ifrequire'=>1]);
+
             tpCache('system', ['system_channeltype_unit_23'=>1]);
         }
         //升级成功后，更新问答体系

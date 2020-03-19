@@ -113,14 +113,15 @@
                                                 </span>
                                                 {/eq}
                                                 <br>
-                                                <span class="attr"> 
-                                                    {assign name='showArcFlagData' value='$vo|showArchivesFlagStr'}
-                                                    {volist name='$showArcFlagData' id="vo1"}
-                                                        {eq name='$i' value='1'}<span>{/eq}
-                                                        <b>{$vo1['small_name']}</b>
-                                                        {eq name='$i' value='$showArcFlagData|count'}</span>{/eq}
-                                                    {/volist}
-                                                </span><br>
+                                                <!--<span class="attr">-->
+                                                    <!--{assign name='showArcFlagData' value='$vo|showArchivesFlagStr'}-->
+                                                    <!--{volist name='$showArcFlagData' id="vo1"}-->
+                                                        <!--{eq name='$i' value='1'}<span>{/eq}-->
+                                                        <!--<b>{$vo1['small_name']}</b>-->
+                                                        <!--{eq name='$i' value='$showArcFlagData|count'}</span>{/eq}-->
+                                                    <!--{/volist}-->
+                                                <!--</span>-->
+                                                <br>
                                                 <span class="price-color-b">￥{$vo.average_price}{$vo.price_units}</span>
                                             </div>
                                         </a>

@@ -315,13 +315,23 @@ class Article extends Base
      */
     public function add()
     {
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $typeid = input('post.typeid/d', 0);
             $content = input('post.addonFieldExt.content', '', null);
-
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
+            }
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
+            }
+            //判断所有必选项是否已经填写
+            $check = model('Field')->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
             }
 //            if (empty($post['seo_title'])){
 //                $post['seo_title'] = $post['title'];
@@ -460,9 +470,6 @@ class Article extends Base
         $assign_data['web_region_domain'] = tpCache('web.web_region_domain');
 
         //模型信息
-        $channelList = getChanneltypeList();
-        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
-        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
             $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
         }
@@ -483,6 +490,9 @@ class Article extends Base
      */
     public function edit()
     {
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $typeid = input('post.typeid/d', 0);
@@ -491,7 +501,14 @@ class Article extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
+            }
+            //判断所有必选项是否已经填写
+            $check = model('Field')->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
+            }
             // 根据标题自动提取相关的关键字
             $seo_keywords = $post['seo_keywords'];
             if (!empty($seo_keywords)) {
@@ -629,25 +646,26 @@ class Article extends Base
         /*--end*/
         
         /*自定义字段*/
-        $addonFieldExtList = model('Field')->getChannelFieldList($info['channel'], 0, $id, $info);
-        $channelfieldBindRow = Db::name('channelfield_bind')->where([
-                'typeid'    => ['IN', [0,$typeid]],
-            ])->column('field_id');
-        if (!empty($channelfieldBindRow)) {
-            foreach ($addonFieldExtList as $key => $val) {
-                if ($val['name'] == 'city_id'){
-                    $assign_data['city_id'] = $val['dfvalue'];
-                }
-                if ($val['name'] == 'province_id'){
-                    $assign_data['province_id'] = $val['dfvalue'];
-                }
-
-
-                if (!in_array($val['id'], $channelfieldBindRow)) {
-                    unset($addonFieldExtList[$key]);
-                }
-            }
-        }
+        $addonFieldExtList = model('Field')->getChannelFieldList($info['channel'], false, $id, $info);
+//        $channelfieldBindRow = Db::name('channelfield_bind')->where([
+//                'typeid'    => ['IN', [0,$typeid]],
+//            ])->column('field_id');
+//        if (!empty($channelfieldBindRow)) {
+//            foreach ($addonFieldExtList as $key => $val) {
+//                if ($val['name'] == 'city_id'){
+//                    $assign_data['city_id'] = $val['dfvalue'];
+//                }
+//                if ($val['name'] == 'province_id'){
+//                    $assign_data['province_id'] = $val['dfvalue'];
+//                }
+//
+//
+//                if (!in_array($val['id'], $channelfieldBindRow)) {
+//                    unset($addonFieldExtList[$key]);
+//                }
+//            }
+//        }
+        $addonFieldExtList = convert_arr_key($addonFieldExtList,'name');
         $assign_data['addonFieldExtList'] = $addonFieldExtList;
         $assign_data['aid'] = $id;
         /*--end*/
@@ -673,9 +691,6 @@ class Article extends Base
             $this->assign("relate_list",$relate_list);
         }
         //模型信息
-        $channelList = getChanneltypeList();
-        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
-        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
             $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
         }

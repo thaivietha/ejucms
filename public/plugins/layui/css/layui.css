@@ -1418,6 +1418,10 @@ a cite {
 	border-radius: 2px;
 	cursor: pointer
 }
+.layui-btn-tc {
+	height: 42px;
+	line-height: 42px;
+}
 .layui-btn:hover {
 	opacity: 1;
 	filter: alpha(opacity=80);

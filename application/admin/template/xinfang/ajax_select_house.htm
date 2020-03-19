@@ -21,16 +21,10 @@
                         <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" style="width: 100%">
                             <thead >
                             <tr>
-                                <th class="laytable-cell-1-0-0">
-                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-checkbox">
-                                        <input type="checkbox"  lay-filter="checkAll" id="checkAll"   lay-skin="primary" >
-                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"> <i class="layui-icon layui-icon-ok"></i></div>
-                                    </div>
-                                </th>
-                                <th class="laytable-cell-1-0-1"> <div class="layui-table-cell laytable-cell-1-0-1" ><span>楼盘</span></div></th>
-                                <th class="laytable-cell-1-0-2"> <div class="layui-table-cell laytable-cell-1-0-2"><span>所在省份</span></div></th>
-                                <th class="laytable-cell-1-0-3"> <div class="layui-table-cell laytable-cell-1-0-3"><span>所在城市</span></div></th>
-                                <th class="laytable-cell-1-0-8"> <div class="layui-table-cell laytable-cell-1-0-8"><span>操作</span></div></th>
+                                <th class="laytable-cell-1-0-1"> <div class="layui-table-cell tc laytable-cell-1-0-1" ><span>楼盘</span></div></th>
+                                <th class="laytable-cell-1-0-2"> <div class="layui-table-cell tc laytable-cell-1-0-2"><span>所在省份</span></div></th>
+                                <th class="laytable-cell-1-0-3"> <div class="layui-table-cell tc laytable-cell-1-0-3"><span>所在城市</span></div></th>
+                                <th class="laytable-cell-1-0-8"> <div class="layui-table-cell tc laytable-cell-1-0-8"><span>操作</span></div></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -43,25 +37,21 @@
                             {else /}
                             {foreach name="list" item="vo" key="k" }
                             <tr>
+
+                                <td><div class="layui-table-cell tc laytable-cell-1-0-1"> {$vo.title} </div></td>
                                 <td>
-                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-checkbox">
-                                        <input type="checkbox" name="ids[]" value="{$vo.id}" lay-skin="primary">
-                                    </div>
-                                </td>
-                                <td><div class="layui-table-cell laytable-cell-1-0-1"> {$vo.title} </div></td>
-                                <td>
-                                    <div class="layui-table-cell laytable-cell-1-0-2" title=" ">
+                                    <div class="layui-table-cell tc laytable-cell-1-0-2" title=" ">
                                         {$vo.province}
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                    <div class="layui-table-cell tc laytable-cell-1-0-3">
                                         {$vo.city}
                                     </div>
                                 </td>
 
                                 <td>
-                                    <div class="layui-table-cell laytable-cell-1-0-8">
+                                    <div class="layui-table-cell tc laytable-cell-1-0-8">
                                         <a href="javascript:;" data-price_units="{$vo.price_units}" data-average_price="{$vo.average_price}" data-province="{$vo.province_id}" data-city="{$vo.city_id}"
                                            data-area="{$vo.area_id}" data-id="{$vo.aid}" data-title="{$vo.title}" data-lng="{$vo.lng}" data-lat="{$vo.lat}"
                                            data-address="{$vo.address}"  class="layui-btn layui-btn-xs select">

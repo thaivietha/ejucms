@@ -438,6 +438,7 @@ class Arctype extends Model
                     'is_del'    => 0,
                 ])
                 ->getAllWithIndex('id');
+
             if (isset($arctype_list[$typeid])) {
                 // 第一个先装起来
                 $arctype_list[$typeid]['typeurl'] = !empty($arctype_list[$typeid]['pointto_id']) ? $this->getTypeUrl($arctype_list[$arctype_list[$typeid]['pointto_id']]) : $this->getTypeUrl($arctype_list[$typeid]);
@@ -445,7 +446,6 @@ class Arctype extends Model
             } else {
                 return $data;
             }
-
             while (true)
             {
                 $typeid = $arctype_list[$typeid]['parent_id'];

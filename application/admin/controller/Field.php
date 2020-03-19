@@ -444,9 +444,8 @@ class Field extends Base
             if ($info['ifmain'] == 2){    //此字段为主表2的字段
                 $table = PREFIX.$table_name.'_system';
             }
-
             $sql = " ALTER TABLE `$table` CHANGE COLUMN `{$old_name}` $ntabsql ";
-
+//            var_dump($sql);die();
             try{
                 $exe_result = Db::execute($sql);
             }catch (\Exception $exception){
@@ -454,7 +453,6 @@ class Field extends Base
                 Db::execute($update_sql);
                 $exe_result = Db::execute($sql);
             }
-
 
             if (false !== $exe_result) {
                 //将空数据变更为默认值
@@ -721,7 +719,39 @@ class Field extends Base
         }
         $this->error('非法访问');
     }
-
+    /*
+     * 是否必填
+     */
+    public function ajax_ifrequire()
+    {
+        if (IS_POST) {
+            $id = input('id/d');
+            $ifrequire = input('ifrequire/d');
+            if(!empty($id)){
+                $row = Db::name('channelfield')->where([
+                    'id'    => $id,
+                ])->find();
+                if (!empty($row) && 1 == intval($row['ifcontrol'])) {
+                    $this->error('系统内置表单，禁止操作！');
+                }
+                $r = Db::name('channelfield')->where([
+                    'id'    => $id,
+                ])->update([
+                    'ifrequire'    => $ifrequire,
+                    'update_time'   => getTime(),
+                ]);
+                if($r){
+                    adminLog('操作自定义模型表单：'.$row['name']);
+                    $this->success('操作成功');
+                }else{
+                    $this->error('操作失败');
+                }
+            } else {
+                $this->error('参数有误');
+            }
+        }
+        $this->error('非法访问');
+    }
     /**
      * 栏目字段管理
      */

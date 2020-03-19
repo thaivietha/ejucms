@@ -135,4 +135,13 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
+  'join_must' => 
+  array (
+    'name' => 'join_must',
+    'type' => 'tinyint(3) unsigned',
+    'notnull' => false,
+    'default' => '0',
+    'primary' => false,
+    'autoinc' => false,
+  ),
 );
