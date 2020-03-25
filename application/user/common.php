@@ -28,6 +28,14 @@ if (!function_exists('getAllMenu'))
         $menuArr = false;
         if (!$menuArr) {
             $menuArr = get_conf('menu');
+            //判断后台频道是否已经关闭
+            $channeltype_list = \think\Db::name("channeltype")->where(['status'=>1])->getField("ctl_name",true);
+
+            foreach ($menuArr[2000]['child'] as $key=>$val){
+                if (!in_array($val['controller'],$channeltype_list)){
+                    unset($menuArr[2000]['child'][$key]);
+                }
+            }
             extra_cache('user_all_menu', $menuArr);
         }
         return $menuArr;

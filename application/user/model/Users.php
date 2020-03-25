@@ -60,26 +60,35 @@ class Users extends Model
             'update_time'    => getTime(),
             'last_time'    => getTime(),
         ];
-        switch ($type){
-            case '1':
-            case '3':
-            case '5':
-            case '7':
-            case '9':
-            case '11':
-                $data_content['all_send'] = Db::raw('all_send+'.$num);
-                $data_content['day_send'] = Db::raw('day_send+'.$num);
-                break;
-            case '2':
-            case '4':
-            case '6':
-            case '8':
-            case '10':
-            case '12':
-                $data_content['all_top'] = Db::raw('all_top+'.$num);
-                $data_content['day_top'] = Db::raw('day_top+'.$num);
-                break;
+        if (intval($type)%2==0){
+            $data_content['all_top'] = Db::raw('all_top+'.$num);
+            $data_content['day_top'] = Db::raw('day_top+'.$num);
+        }else{
+            $data_content['all_send'] = Db::raw('all_send+'.$num);
+            $data_content['day_send'] = Db::raw('day_send+'.$num);
         }
+//        switch ($type){
+//            case '1':
+//            case '3':
+//            case '5':
+//            case '7':
+//            case '9':
+//            case '11':
+//            case '13':
+//                $data_content['all_send'] = Db::raw('all_send+'.$num);
+//                $data_content['day_send'] = Db::raw('day_send+'.$num);
+//                break;
+//            case '2':
+//            case '4':
+//            case '6':
+//            case '8':
+//            case '10':
+//            case '12':
+//            case '14':
+//                $data_content['all_top'] = Db::raw('all_top+'.$num);
+//                $data_content['day_top'] = Db::raw('day_top+'.$num);
+//                break;
+//        }
         Db::name("users_content")->where('users_id',$users_id)->update($data_content);
     }
     /*
@@ -90,30 +99,43 @@ class Users extends Model
      */
     public function getPermission($users,$type,$num = 1){
         $content = $this->getContentInfo($users['users_id']);
-        switch ($type){
-            case '1':
-            case '3':
-            case '5':
-            case '7':
-            case '9':
-            case '11':
-                if ($users['free_day_send'] == 0 || ($users['free_day_send'] >= ($content['day_send']+$num) && $users['free_all_send'] == 0) || ($users['free_day_send'] >= ($content['day_send']+$num) && $users['free_all_send'] >= ($content['all_send']+$num)))
-                {
-                    return true;
-                }
-                break;
-            case '2':
-            case '4':
-            case '6':
-            case '8':
-            case '10':
-            case '12':
-                if ($users['fee_day_top'] == 0 || ($users['fee_day_top'] >= ($content['day_top']+$num) && $users['fee_all_top'] == 0) || ($users['fee_day_top'] >= ($content['day_top']+$num) && $users['fee_all_top'] > ($content['all_top']+$num)))
-                {
-                    return true;
-                }
-                break;
+        if (intval($type)%2==0){
+            if ($users['fee_day_top'] == 0 || ($users['fee_day_top'] >= ($content['day_top']+$num) && $users['fee_all_top'] == 0) || ($users['fee_day_top'] >= ($content['day_top']+$num) && $users['fee_all_top'] > ($content['all_top']+$num)))
+            {
+                return true;
+            }
+        }else{
+            if ($users['free_day_send'] == 0 || ($users['free_day_send'] >= ($content['day_send']+$num) && $users['free_all_send'] == 0) || ($users['free_day_send'] >= ($content['day_send']+$num) && $users['free_all_send'] >= ($content['all_send']+$num)))
+            {
+                return true;
+            }
         }
+//        switch ($type){
+//            case '1':
+//            case '3':
+//            case '5':
+//            case '7':
+//            case '9':
+//            case '11':
+//            case '13':
+//                if ($users['free_day_send'] == 0 || ($users['free_day_send'] >= ($content['day_send']+$num) && $users['free_all_send'] == 0) || ($users['free_day_send'] >= ($content['day_send']+$num) && $users['free_all_send'] >= ($content['all_send']+$num)))
+//                {
+//                    return true;
+//                }
+//                break;
+//            case '2':
+//            case '4':
+//            case '6':
+//            case '8':
+//            case '10':
+//            case '12':
+//            case '14':
+//                if ($users['fee_day_top'] == 0 || ($users['fee_day_top'] >= ($content['day_top']+$num) && $users['fee_all_top'] == 0) || ($users['fee_day_top'] >= ($content['day_top']+$num) && $users['fee_all_top'] > ($content['all_top']+$num)))
+//                {
+//                    return true;
+//                }
+//                break;
+//        }
 
         return false;
     }

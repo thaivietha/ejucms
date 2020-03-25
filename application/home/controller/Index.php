@@ -80,6 +80,10 @@ class Index extends Base
         if ($web_region_domain && (empty($subDomain) || $subDomain == 'www' || (!empty($web_main_domain) && $subDomain == $web_main_domain)) && file_exists("./template/{$this->tpl_theme}/pc/index_all.htm")){
             return $this->fetch(":index_all");
         }
+        if ($subDomain == $web_mobile_domain || $subDomain == $web_main_domain){    //不是主域名
+            $this->assign("is_main_domain",1);
+        }
+
         $html = $this->fetch(":index");
 
         return $html;

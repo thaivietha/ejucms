@@ -62,7 +62,7 @@ class Archives extends Base
                 'users_id' => $this->users_id
             ])->update($data);
             if($r){
-                model('users')->changeContent($this->users_id,$type,$aid,$num);
+                model('users')->changeContent($this->users_id,$type,$aid,$count);
                 adminLog('置顶文档-id：'.$aid);
                 $this->success('操作成功');
             }else{

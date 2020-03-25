@@ -28,6 +28,11 @@ class Shopcz extends Model
     public function afterSave($aid, $post, $opt)
     {
         $post['aid'] = $aid;
+        if (!empty($post['map'])){
+            $map_arr = explode(',',$post['map']);
+            $post['addonFieldSys']['lng'] = !empty($map_arr[0])?$map_arr[0]:'';
+            $post['addonFieldSys']['lat'] = !empty($map_arr[1])?$map_arr[1]:'';
+        }
         $addonFieldExt = !empty($post['addonFieldExt']) ? $post['addonFieldExt'] : array();
         model('Field')->dealChannelPostData($post['channel'], $post, $addonFieldExt);   //编辑子表信息(content)
         //计算均价

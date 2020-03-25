@@ -85,12 +85,11 @@ class Archives extends Base
                 continue;
             }
             if (in_array($val['id'],$channeltype)){
-                $contentManage[$val['id']] = [
+                $contentManage[$val['nid']] = [
                     'id'    => $val['id'],
                     'nid'    => $val['nid'],
                 ];
             }
-
         }
         $this->assign('contentManage',$contentManage);
         $menu = getMenuList(false);

@@ -2387,3 +2387,19 @@ if ( ! function_exists('getChanneltypeList'))
         return $result;
     }
 }
+
+if (!function_exists('get_qiuzu_price_list')){
+    function get_qiuzu_price_list()
+    {
+        $list = config("qiuzu.price");
+        return $list;
+    }
+}
+
+if (!function_exists('get_qiuzu_area_list')){
+    function get_qiuzu_area_list()
+    {
+        $list = config("qiuzu.area");
+        return $list;
+    }
+}

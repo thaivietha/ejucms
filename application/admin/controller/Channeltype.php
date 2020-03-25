@@ -461,6 +461,8 @@ EOF;
                             'current_channel'   => $id,
                             'is_del'            => 0,
                             'del_method'        => 0,
+                            'status'            => 1,
+                            'is_hidden'        => 0,
                         ])->count();
                     if (!empty($num)) {
                         $this->error('该模型下有栏目，请删除该模型下所有的栏目！');

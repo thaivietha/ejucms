@@ -1,8 +1,8 @@
 <?php
 /**
  * User: xyz
- * Date: 2019/10/14
- * Time: 17:35
+ * Date: 2020/3/19
+ * Time: 18:17
  */
 
 namespace app\admin\controller;
@@ -10,14 +10,14 @@ namespace app\admin\controller;
 use think\Page;
 use think\Db;
 
-class Ershou extends Base
+class Qiuzu  extends Base
 {
-    // 模型标识
-    public $nid = 'ershou';
+// 模型标识
+    public $nid = 'qiuzu';
     // 模型ID
-    public $channeltype = 12;
+    public $channeltype = 19;
     // 模型附加表
-    public $table = 'Ershou';
+    public $table = 'Qiuzu';
     // 模型信息
     public $channeltype_info;
 
@@ -35,7 +35,6 @@ class Ershou extends Base
         $this->channeltype_info = Db::name('channeltype')->field('id,ntitle')->find($this->channeltype);
         $this->assign('channeltype_info', $this->channeltype_info);
     }
-
     /**
      * 列表
      */
@@ -130,12 +129,12 @@ class Ershou extends Base
          * 数据查询，搜索出主键ID的值
          */
         $count = $this->archives_db->alias('a')
-            ->join("ershou_system c","a.aid=c.aid","LEFT")
+            ->join("qiuzu_system c","a.aid=c.aid","LEFT")
             ->where($condition)->count('a.aid');// 查询满足要求的总记录数
         unset($param['openurl']);
         $Page = new Page($count,config('paginate.list_rows'),$param);// 实例化分页类 传入总记录数和每页显示的记录数  config('paginate.list_rows')
         $list = $this->archives_db
-            ->join("ershou_system c","a.aid=c.aid","LEFT")
+            ->join("qiuzu_system c","a.aid=c.aid","LEFT")
             ->field("a.aid")
             ->alias('a')
             ->where($condition)
@@ -150,8 +149,8 @@ class Ershou extends Base
                 ->field($fields)
                 ->alias('a')
                 ->join('__ARCTYPE__ b', 'a.typeid = b.id', 'LEFT')
-                ->join("ershou_system c","a.aid = c.aid","LEFT")
-                ->join("ershou_content d","a.aid = d.aid","LEFT")
+                ->join("qiuzu_system c","a.aid = c.aid","LEFT")
+                ->join("qiuzu_content d","a.aid = d.aid","LEFT")
                 ->where('a.aid', 'in', $aids)
                 ->getAllWithIndex('aid');
             foreach ($list as $key => $val) {
@@ -208,9 +207,6 @@ class Ershou extends Base
             if ($check){
                 $this->error("{$check['title']}不能为空！");
             }
-//            if (empty($post['seo_title'])){
-//                $post['seo_title'] = $post['title'];
-//            }
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
                 'channel_id'    => $this->channeltype,
@@ -293,7 +289,7 @@ class Ershou extends Base
                 adminLog('新增数据：'.$data['title']);
 
                 // 生成静态页面代码
-                $this->success("操作成功!", url("Index/uphtml").'&aid='.$aid.'&tid='.$post['typeid'].'&controller=Ershou&action=add');
+                $this->success("操作成功!", url("Index/uphtml").'&aid='.$aid.'&tid='.$post['typeid'].'&controller=qiuzu&action=add');
                 exit;
             }
 
@@ -476,7 +472,7 @@ class Ershou extends Base
                 // ---------end
                 adminLog('编辑二手房：'.$data['title']);
                 // 生成静态页面代码
-                $this->success("操作成功!", url("Index/uphtml").'&aid='.$data['aid'].'&tid='.$typeid.'&controller=Ershou&action=edit');
+                $this->success("操作成功!", url("Index/uphtml").'&aid='.$data['aid'].'&tid='.$typeid.'&controller=qiuzu&action=edit');
                 exit;
             }
 
@@ -564,16 +560,13 @@ class Ershou extends Base
         empty($tempview) && $tempview = $arctypeInfo['tempview'];
         $this->assign('tempview', $tempview);
         /*--end*/
-
-        //读取相册信息
-        $photo_list = model("ershou_photo")->getListByWhere(['aid'=>$id,'is_del'=>0]);
-        $assign_data['photo_list'] = $photo_list;
         //经纪人信息
         if (!empty($info['relate'])){
             $relate_list = Db::name("users")->where(["id"=>["in",$info['relate']]])->select();
             $this->assign("relate_list",$relate_list);
         }
         //模型信息
+
         if (!empty($channelJoin) && !empty($assign_data['field']['joinaid'])){
             $join = model($channelJoin['ctl_name'])->getOne("c.aid={$assign_data['field']['joinaid']}");
         }
@@ -648,8 +641,8 @@ class Ershou extends Base
                 ->field($fields)
                 ->alias('a')
                 ->join('__ARCTYPE__ b', 'a.typeid = b.id', 'LEFT')
-                ->join('ershou_content c','a.aid = c.aid')
-                ->join('ershou_system d','a.aid = d.aid')
+                ->join('qiuzu_content c','a.aid = c.aid')
+                ->join('qiuzu_system d','a.aid = d.aid')
                 ->where('a.aid', 'in', $aids)
                 ->getAllWithIndex('aid');
             $region = get_region_list();
@@ -671,5 +664,4 @@ class Ershou extends Base
 
         return $assign_data;
     }
-
 }

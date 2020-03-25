@@ -374,7 +374,7 @@ class TagList extends Base
             'channel_id'=> $param_new['channel']
             // 根据需求新增条件
         ];
-        $channelfield = db('channelfield')->where($where)->field('channel_id,id,name,dtype,define,dfvalue,ifmain,is_screening')->select();
+        $channelfield = db('channelfield')->where($where)->field('channel_id,id,name,dtype,define,dfvalue,ifmain,is_screening,join_id')->getAllWithIndex('id');
         $regionInfo = \think\Cookie::get("regionInfo");
         if(is_json($regionInfo))
         {
@@ -401,18 +401,29 @@ class TagList extends Base
                     }else if ($value['ifmain'] == 0){
                         $if_content = 1;
                     }
+
                     if ($value['define'] == 'config'){    //配置文件定义数值区间
                         $dfvalue = config($value['dfvalue']);
                         !empty($dfvalue[$param_new[$fieldname]]['sql']) && array_push($condition, $fieldname." ".$dfvalue[$param_new[$fieldname]]['sql']);
                         continue;
                     }
-                    if (in_array($value['dtype'],['int','decimal','float'])){   //后台定义数值区间
+                    if (in_array($value['dtype'],['int','decimal','float'])){   //后台定义数值区间  -----  增加判断是否为关联判断，a或者b是否在区间
                         $list = explode(',',$param_new[$fieldname]);
-                        if (count($list) >1){
-                            array_push($condition, $fieldname." between {$list[0]} and {$list[1]} ");
+                        if (!empty($value['join_id']) && !empty($channelfield[$value['join_id']]['name'])){
+                            $fieldname_join = $channelfield[$value['join_id']]['name'];
+                            if (count($list) >1){
+                                array_push($condition, " ({$fieldname} between {$list[0]} and {$list[1]} OR {$fieldname_join} between {$list[0]} and {$list[1]}) ");
+                            }else{
+                                array_push($condition, " ({$fieldname} > {$list[0]} OR {$fieldname} > {$fieldname_join[0]}) ");
+                            }
                         }else{
-                            array_push($condition, $fieldname."> {$list[0]} ");
+                            if (count($list) >1){
+                                array_push($condition, $fieldname." between {$list[0]} and {$list[1]} ");
+                            }else{
+                                array_push($condition, $fieldname."> {$list[0]} ");
+                            }
                         }
+
                         continue;
                     }
                     if (empty($param_new[$fieldname]) || is_numeric($param_new[$fieldname])){   //数字
@@ -423,6 +434,7 @@ class TagList extends Base
                     $val  = explode('|', $param_new[$fieldname]);
                     if (!empty($val) && !empty($val[0])) {
                         array_push($condition, "(FIND_IN_SET('".$val[0]."',".$fieldname."))");
+                        continue;
                     }
                 }else if (tpCache('web.web_region_domain') == 1 && (($fieldname == "province_id" && $regionInfo['level'] == 1) || ($fieldname =="city_id" && $regionInfo['level'] == 2) || ($fieldname =="area_id" && $regionInfo['level'] == 3))){ //开启二级域名,区域筛选为空时，选中默认项
                     array_push($condition, "(".$fieldname." = '".$regionInfo['id']."' or ".$fieldname." = 0)");
@@ -431,6 +443,7 @@ class TagList extends Base
                 }
             }
         }
+
         if (empty($if_system)){
             $where_sys = ['channel_id'=> $param_new['channel'],'ifmain'=>2];
             $have = db('channelfield')->where($where_sys)->find();
@@ -538,6 +551,7 @@ class TagList extends Base
         if (0 < count($condition)) {
             $condition_str = implode(" AND ", $condition);
         }
+
         // 给排序字段加上表别名
         $orderby = getOrderBy($orderby,$orderway);
         /**

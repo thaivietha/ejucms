@@ -243,6 +243,23 @@
       });
 
       check_upgrade_version(); // 版本检测更新弹窗
+        var is_think_business = "{$is_think_business}";
+        var no_first_into = "{$no_first_into}";
+       check_genuine(is_think_business,no_first_into);
+       function check_genuine(business,no_first_into){
+           if (business < 0 && !no_first_into){
+               var iframes = layer.open({
+                   type: 2,
+                   title: '商业购买提醒',
+                   fixed: true, //不固定
+                   shadeClose: false,
+                   shade: 0.3,
+                   // maxmin: false, //开启最大化最小化按钮
+                   area: ['550px', '400px'],
+                   content: "{:url('Index/ajax_business')}"
+               });
+           }
+       }
       $.get("{:url('Ajax/welcome_handle', ['_ajax'=>1])}"); // 进入欢迎页面需要异步处理的业务
       checkInlet(); // 自动检测隐藏index.php
       

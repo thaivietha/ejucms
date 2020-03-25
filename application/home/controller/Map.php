@@ -34,6 +34,7 @@ class Map extends Base
         }
         $this->assign('lng', $lng);
         $this->assign('lat', $lat);
+        $this->assign('eju', $this->eju);
 
         return $this->fetch();
     }
@@ -65,6 +66,7 @@ class Map extends Base
         }
         $this->assign('lng', $lng);
         $this->assign('lat', $lat);
+        $this->assign('eju', $this->eju);
 
         return $this->fetch();
     }
@@ -96,6 +98,7 @@ class Map extends Base
         }
         $this->assign('lng', $lng);
         $this->assign('lat', $lat);
+        $this->assign('eju', $this->eju);
 
         return $this->fetch();
     }
@@ -125,6 +128,7 @@ class Map extends Base
         }
         $this->assign('lng', $lng);
         $this->assign('lat', $lat);
+        $this->assign('eju', $this->eju);
 
         return $this->fetch();
     }
@@ -157,6 +161,7 @@ class Map extends Base
         }
         $this->assign('lng', $lng);
         $this->assign('lat', $lat);
+        $this->assign('eju', $this->eju);
 
         return $this->fetch();
     }

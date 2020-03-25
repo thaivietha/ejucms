@@ -111,6 +111,21 @@
                     </div>
                     <!-- <a id="call_tags_help" href="http://www.ejucms.com/index.php?m=plugins&c=Ask&a=index" target="_blank" class="{if condition='!isset($info.is_screening) || empty($info.is_screening)'}none{/if}">查看标签调用</a> -->
                   </div>
+                    <div class="layui-form-item" id='isJoin' {empty name="$info.is_screening"}style="display:none"{/empty}>
+                        <label class="layui-form-label">关联字段</label>
+                        <div class="layui-input-inline">
+                            <select name="join_id" id="join_id" lay-filter="join_id" >
+                                <option value="0">不关联</option>
+                                {volist name='$join_list' id='vo'}
+                                <option value="{$vo.id}" {eq name="$info.join_id" value="$vo.id"}selected{/eq}>{$vo.title}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                        <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                            <div class="layui-form-inline2 ey_helptips_txt">关联其他字段，筛选本字段或者关联字段的值是否在选择区间</div>
+                        </div>
+                    </div>
                   <div class="layui-form-item">
                     <label class="layui-form-label">提示文字</label>
                     <div class="layui-input-inline">
@@ -166,7 +181,6 @@
         }    
     }
     dtype_change($('select[name=dtype]'));
-    // form.render();
 
     form.verify({
       check_name: function(value, item){ //value：表单的值、item：表单的DOM对象
@@ -259,6 +273,8 @@
         $('#call_tags_help').hide();
       }
       $("input[name='"+elemId+"']").val(this.value);
+        join_show();
+        form.render();
     });
 
     //监听提交
@@ -323,6 +339,7 @@
         } else {
             $('#dl_dfvalue_unit').hide();
         }
+        join_show();
     }
 
     // 当切换其他类型时清空所有关于区域选择的数据
@@ -375,6 +392,15 @@
     }
 
   });
-
+  //判断是否显示关联字段
+  function join_show() {
+      var dtype = $("#dtype").val();
+      var is_screening =  $("input[name=is_screening]").val();
+      if(is_screening == 1 && 0 <= $.inArray(dtype, ['int','float','decimal'])){
+          $("#isJoin").show();
+      }else{
+          $("#isJoin").hide();
+      }
+  }
   </script>
 {include file="public/footer" /}

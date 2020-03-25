@@ -391,7 +391,7 @@ class FieldLogic extends Model
      * 同步system表字段记录到指定模型
      */
     private function synSystemTableColumns($channel_id,$channelfieldArr,$channeltypeInfo){
-        $systemArr = ['Xinfang','Xiaoqu','Ershou','Zufang','Shopcs','Shopcz','Officecs','Officecz'];     //存在system表的模型
+        $systemArr = ['Xinfang','Xiaoqu','Ershou','Zufang','Shopcs','Shopcz','Officecs','Officecz','Qiuzu'];     //存在system表的模型
         if (empty($channeltypeInfo['ctl_name']) || !in_array($channeltypeInfo['ctl_name'],$systemArr)){
             return false;
         }

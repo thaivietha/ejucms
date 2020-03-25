@@ -119,6 +119,21 @@ return  [
                 'is_quick'=>0,
                 'child'=>[],
             ]
+            ,'2007' => [
+                'id'=>2007,
+                'parent_id'=>2000,
+                'name' => '求租',
+                'controller'=>'Qiuzu',
+                'action'=>'index',
+                'url'=>'',
+                'target'=>'_self',
+                'icon'=>'',
+                'grade'=>1,
+                'is_menu'=>1,
+                'is_modules'=>1,
+                'is_quick'=>0,
+                'child'=>[],
+            ]
 
         ],
     ],

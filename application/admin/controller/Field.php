@@ -286,6 +286,8 @@ class Field extends Base
         /*--end*/
         /* 上级字段*/
         $assign_data['super_list'] = model('Channelfield')->getListByWhere(['channel_id'=>$channel_id,'ifsystem'=>0],"id,name,title");
+        //可关联的字段
+        $assign_data['join_list'] = model('Channelfield')->getListByWhere(['channel_id'=>$channel_id,'ifmain'=>['neq',1],'dtype'=>['in',['int','decimal','float']]],"id,name,title");
         /*模型ID*/
         $assign_data['channel_id'] = $channel_id;
         /*--end*/
@@ -529,6 +531,8 @@ class Field extends Base
         /*--end*/
         /* 上级字段*/
         $assign_data['super_list'] = model('Channelfield')->getListByWhere(['channel_id'=>$info['channel_id'],'ifsystem'=>0],"id,name,title");
+        //可关联的字段
+        $assign_data['join_list'] = model('Channelfield')->getListByWhere(['channel_id'=>$info['channel_id'],'id'=>['neq',$id],'ifmain'=>['neq',1],'dtype'=>['in',['int','decimal','float']]],"id,name,title");
         /*模型ID*/
         $assign_data['channel_id'] = $channel_id;
         /*--end*/

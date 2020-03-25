@@ -252,7 +252,14 @@ class AdPosition extends Base
 
         // 广告
         $ad_data = Db::name('ad')->where(array('pid'=>$field['id']))->order('sort_order asc')->select();
-        $count_arr = [];
+        $count_arr = [
+            "id" => 0 ,
+            "province_id" => 0 ,
+            "city_id" => 0 ,
+            "area_id" => 0 ,
+            "name" => "不限区域",
+            "count" => 0
+        ];
         $region_list = get_region_list();
         foreach ($ad_data as $key => $val) {
             $ad_data[$key]['litpic'] = handle_subdir_pic($val['litpic']); // 支持子目录

@@ -144,7 +144,7 @@ class TagArclist extends Base
             'channel_id'=> $param['channel']
             // 根据需求新增条件
         ];
-        $channelfield = db('channelfield')->where($where)->field('channel_id,id,name,dtype,define,dfvalue,ifmain,is_screening')->select();
+        $channelfield = db('channelfield')->where($where)->field('channel_id,id,name,dtype,define,dfvalue,ifmain,is_screening,join_id')->getAllWithIndex('id');
         $regionInfo = \think\Cookie::get("regionInfo");
         if(is_json($regionInfo))
         {

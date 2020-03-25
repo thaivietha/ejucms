@@ -126,11 +126,14 @@ if(!function_exists('is_uneed_check_access')){
         $arr = explode('@', $str);
         $ctl = !empty($arr[0]) ? $arr[0] : '';
         $ctl_all = $ctl.'@*';
-        $filter_login_action = config('filter_login_action');
+        if (stristr($str,"ajax")){  //包含ajax不需要设置权限可以访问
+            return true;
+        }
+        $filter_login_action = config('filter_login_action');   //不需要登陆就可以访问
         if (in_array($str, $filter_login_action) || in_array($ctl_all, $filter_login_action)) {
             return true;
         }
-        $uneed_check_action = config('uneed_check_action');
+        $uneed_check_action = config('uneed_check_action');     //需要登陆，但是不需要特别设置就可以访问
         if (in_array($str, $uneed_check_action) || in_array($ctl_all, $uneed_check_action)) {
             return true;
         }

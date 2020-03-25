@@ -8,79 +8,93 @@
           <div class="layui-card-body">
             <div class="console-menu">
                <ul class="layui-row layui-col-space10 pt10 pb20">
-                  {if condition="!empty($contentManage[9])"}
+                  {if condition="!empty($contentManage['xinfang'])"}
                   <li class="layui-col-xs6 layui-col-md2">
                     <div class="admin-ico-nav">
                       <i class="iconfont icon-haiwaixinfang "></i>
                       <cite>新房</cite>
-                      <a lay-href="{:url('Xinfang/index', ['channel'=>9])}">新房列表</a>
-                      {if condition="!empty($contentManage[10])"}
-                      <a lay-href="{:url('Tuan/index', ['channel'=>10])}">团购列表</a>
+                      <a lay-href="{:url('Xinfang/index', ['channel'=>$contentManage['xinfang']['id']])}">新房列表</a>
+                      {if condition="!empty($contentManage['tuan'])"}
+                      <a lay-href="{:url('Tuan/index', ['channel'=>$contentManage['tuan']['id']])}">团购列表</a>
                       {/if}
                     </div>
                   </li>
                   {/if}
-                  {if condition="!empty($contentManage[12])"}
+                  {if condition="!empty($contentManage['ershou'])"}
                   <li class="layui-col-xs6 layui-col-md2 ">
                      <div class="admin-ico-nav">
                        <i  class="iconfont icon-ershoufang"></i>
                        <cite>二手房</cite>
-                       <a lay-href="{:url('Ershou/index', ['channel'=>12])}">二手房列表</a><a lay-href="{:url('Ershou/index', ['channel'=>12,'openurl'=>url('Ershou/add')])}">二手房新增</a>
+                       <a lay-href="{:url('Ershou/index', ['channel'=>$contentManage['ershou']['id']])}">二手房列表</a>
+                         <a lay-href="{:url('Ershou/index', ['channel'=>$contentManage['ershou']['id'],'openurl'=>url('Ershou/add')])}">二手房新增</a>
                      </div>
                   </li>
                   {/if}
-                  {if condition="!empty($contentManage[13])"}
+                  {if condition="!empty($contentManage['zufang'])"}
                   <li class="layui-col-xs6 layui-col-md2 ">
                      <div class="admin-ico-nav">
                        <i  class="iconfont icon-xiaoquchuzuanli"></i>
                        <cite>租房</cite>
-                       <a lay-href="{:url('Zufang/index', ['channel'=>13])}">租房列表</a><a lay-href="{:url('Zufang/index', ['channel'=>13,'openurl'=>url('Zufang/add')])}">租房新增</a>
+                       <a lay-href="{:url('Zufang/index', ['channel'=>$contentManage['zufang']['id']])}">租房列表</a>
+                         <a lay-href="{:url('Zufang/index', ['channel'=>$contentManage['zufang']['id'],'openurl'=>url('Zufang/add')])}">租房新增</a>
                      </div>
                   </li>
                   {/if}
-                   {if condition="!empty($contentManage[11])"}
+                   {if condition="!empty($contentManage['qiuzu'])"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-xiaoquchuzuanli"></i>
+                           <cite>求租</cite>
+                           <a lay-href="{:url('Qiuzu/index', ['channel'=>$contentManage['qiuzu']['id']])}">求租列表</a>
+                           <a lay-href="{:url('Qiuzu/index', ['channel'=>$contentManage['qiuzu']['id'],'openurl'=>url('Qiuzu/add')])}">求租新增</a>
+                       </div>
+                   </li>
+                   {/if}
+                   {if condition="!empty($contentManage['xiaoqu'])"}
                    <li class="layui-col-xs6 layui-col-md2 ">
                        <div class="admin-ico-nav">
                            <i  class="iconfont icon-xiaoquguanli"></i>
                            <cite>小区</cite>
-                           <a lay-href="{:url('Xiaoqu/index', ['channel'=>11])}">小区列表</a><a lay-href="{:url('Xiaoqu/index', ['channel'=>11,'openurl'=>url('Xiaoqu/add')])}">小区新增</a>
+                           <a lay-href="{:url('Xiaoqu/index', ['channel'=>$contentManage['xiaoqu']['id']])}">小区列表</a>
+                           <a lay-href="{:url('Xiaoqu/index', ['channel'=>$contentManage['xiaoqu']['id'],'openurl'=>url('Xiaoqu/add')])}">小区新增</a>
                        </div>
                    </li>
                    {/if}
-                  {if condition="!empty($contentManage[14]) || !empty($contentManage[15])"}
+                  {if condition="!empty($contentManage['shopcs']) || !empty($contentManage['shopcz'])"}
                   <li class="layui-col-xs6 layui-col-md2 ">
                      <div class="admin-ico-nav">
                        <i  class="iconfont icon-daochuSVG-"></i>
                        <cite>商铺</cite>
-                       {if condition="!empty($contentManage[14])"}
-                       <a lay-href="{:url('Shopcs/index', ['channel'=>14])}">商铺出售</a>
+                       {if condition="!empty($contentManage['shopcs'])"}
+                       <a lay-href="{:url('Shopcs/index', ['channel'=>$contentManage['shopcs']['id']])}">商铺出售</a>
                        {/if}
-                       {if condition="!empty($contentManage[15])"}
-                       <a lay-href="{:url('Shopcz/index', ['channel'=>15])}">商铺出租</a>
+                       {if condition="!empty($contentManage['shopcz'])"}
+                       <a lay-href="{:url('Shopcz/index', ['channel'=>$contentManage['shopcz']['id']])}">商铺出租</a>
                        {/if}
                      </div>
                   </li>
                   {/if}
-                  {if condition="!empty($contentManage[16]) || !empty($contentManage[17])"}
+                  {if condition="!empty($contentManage['officecs']) || !empty($contentManage['officecz'])"}
                   <li class="layui-col-xs6 layui-col-md2 ">
                      <div class="admin-ico-nav">
                        <i  class="iconfont icon-xiezilou"></i>
                        <cite>写字楼</cite>
-                       {if condition="!empty($contentManage[16])"}
-                       <a lay-href="{:url('Officecs/index', ['channel'=>16])}">写字楼出售</a>
+                       {if condition="!empty($contentManage['officecs'])"}
+                       <a lay-href="{:url('Officecs/index', ['channel'=>$contentManage['officecs']['id']])}">写字楼出售</a>
                        {/if}
-                       {if condition="!empty($contentManage[17])"}
-                       <a lay-href="{:url('Officecz/index', ['channel'=>17])}">写字楼出租</a>
+                       {if condition="!empty($contentManage['officecz'])"}
+                       <a lay-href="{:url('Officecz/index', ['channel'=>$contentManage['officecz']['id']])}">写字楼出租</a>
                        {/if}
                      </div>
                   </li>
                   {/if}
-                   {if condition="!empty($contentManage[1])"}
+                   {if condition="!empty($contentManage['article'])"}
                    <li class="layui-col-xs6 layui-col-md2 ">
                        <div class="admin-ico-nav">
                            <i  class="iconfont icon-xinwen"></i>
                            <cite>资讯</cite>
-                           <a lay-href="{:url('Article/index', ['channel'=>1])}">资讯列表</a><a lay-href="{:url('Article/index', ['channel'=>1,'openurl'=>url('Article/add')])}">资讯新增</a>
+                           <a lay-href="{:url('Article/index', ['channel'=>$contentManage['article']['id']])}">资讯列表</a>
+                           <a lay-href="{:url('Article/index', ['channel'=>$contentManage['article']['id'],'openurl'=>url('Article/add')])}">资讯新增</a>
                        </div>
                    </li>
                    {/if}

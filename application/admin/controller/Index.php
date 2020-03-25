@@ -32,7 +32,8 @@ class Index extends Base
         $web_adminbasefile = tpCache('web.web_adminbasefile');
         $web_main_domain = tpCache('web.web_main_domain');
         if ($web_main_domain != $this->request->subDomain()){
-            $gourl = "//".$web_main_domain.".".$this->request->rootDomain().$web_adminbasefile;
+            $gourl = !empty($web_main_domain) ? "//".$web_main_domain.".".$this->request->rootDomain().ROOT_DIR.'/'.$web_adminbasefile
+                : "//".$this->request->rootDomain().ROOT_DIR.'/'.$web_adminbasefile;
             $this->redirect($gourl,302);
         }
         $this->assign('home_url', $this->request->domain().ROOT_DIR.'/');
@@ -115,6 +116,11 @@ class Index extends Base
             $fieldLogic->synChannelTableColumns('','officecz');
             $this->insertModelQuickentry('officecz');
             tpCache('system', ['system_channeltype_officecz'=>1]);
+        }
+        if (!tpCache('system.system_channeltype_qiuzu')){
+            $fieldLogic->synChannelTableColumns('','qiuzu');
+            $this->insertModelQuickentry('qiuzu');
+            tpCache('system', ['system_channeltype_qiuzu'=>1]);
         }
         //2.0版本升级后，同步saleman表数据到会员中心
         if (!tpCache('system.system_salemantousers22')){
@@ -215,6 +221,11 @@ class Index extends Base
 
             tpCache('system', ['system_channeltype_unit_23'=>1]);
         }
+        //升级到2.4版本后更新数据
+//        if (!tpCache('system.system_channeltype_unit_24')){
+//            Db::name("channelfield") ->where(['name'=>['in',['title','province_id','city_id']]])->save(['ifrequire'=>1]);
+//            tpCache('system', ['system_channeltype_unit_23'=>1]);
+//        }
         //升级成功后，更新问答体系
         $question = tpCache("question");
         if (empty($question['question_acrtype'])){
@@ -244,7 +255,11 @@ class Index extends Base
                 $this->error("升级问答中心失败，请联系技术人员解决！");
             }
         }
-
+        $no_first_into = tpCache('system.system_no_first_into');
+        $this->assign('no_first_into',$no_first_into);
+        if (!$no_first_into){
+            tpCache('system', ['system_no_first_into'=>1]);
+        }
         return $this->fetch();
     }
 
@@ -647,5 +662,8 @@ class Index extends Base
         $sys_info['web_name'] = !empty($globalConfig['web_name']) ? $globalConfig['web_name'] : tpCache('global.web_name');
 
         return $sys_info;
+    }
+    public function ajax_business(){
+        return $this->fetch();
     }
 }

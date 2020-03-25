@@ -95,7 +95,7 @@
                                 <label class="layui-form-label">后台路径</label>
                                 <div class="layui-input-inline">
                                    <input type="hidden" name="adminbasefile_old" value="{$adminbasefile|default='login'}">
-                                   <span style="float: left;line-height: 38px;margin-right: 4px;">__SITE_URL____ROOT_DIR__/</span>
+                                   <span style="float: left;line-height: 38px;margin-right: 4px;">{$config.web_main_domain|default=''}{notempty name="$config.web_main_domain"}.{/notempty}{$Request.rootDomain}__ROOT_DIR__/</span>
                                    <input style="width: 100px;float: left" type="text" name="adminbasefile" value="{$adminbasefile|default='login'}" lay-verify="required|check_adminbasefile" class="layui-input" onKeyUp="this.value=this.value.replace(/[^0-9a-zA-Z_-]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9a-zA-Z_-]/g,''));">
                                    <span style="float: left;line-height: 38px;margin-left: 4px; margin-right: 5px;">.php</span>
                                     <div class="layui-form-mid layui-word-aux ey_helptips"></div>
