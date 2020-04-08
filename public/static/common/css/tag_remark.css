@@ -1,0 +1,115 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, i {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+}
+
+
+.select-score {
+    margin-bottom: 10px;
+}
+.clearfix {
+    zoom: 1;
+}
+.select-score .select-score-left {
+    width: 550px;
+}
+.float_l, .fl {
+    float: left;
+}
+.fl {
+    float: left;
+}
+.select-score li {
+    line-height: 35px;
+}
+.select-score .score-name {
+    color: #000;
+}
+.select-score li * {
+    vertical-align: middle;
+}
+.select-score .score-grade {
+    height: 17px;
+}
+.select-score li * {
+    vertical-align: middle;
+}
+.select-score .score-grade i.on {
+    background-image: url(../images/remark/icon25.png);
+}
+.select-score .score-grade i {
+    display: inline-block;
+    width: 18px;
+    height: 17px;
+    background-image: url(../images/remark/icon26.png);
+    margin-left: 3px;
+    cursor: pointer;
+}
+.select-score .score-desc {
+    margin-left: 20px;
+}
+
+.color-red {
+    color: #ff0000;
+}
+.select-score .select-score-right {
+    padding-left: 30px;
+    border-left: 1px solid #ccc;
+}
+.select-score .select-score-right .score-average {
+    font-size: 18px;
+}
+.select-score .select-score-right .score-average-point {
+    font-size: 14px;
+}
+.color-red {
+    color: #ff0000;
+}
+.select-score .select-score-right .score-average-point span {
+    font-size: 30px;
+}
+.select-score .select-score-right .score-average-desc {
+    font-size: 12px;
+    color: #999;
+}
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.question .title .ipt_box textarea {
+    float: left;
+    width: 100%;
+    padding: 4px 10px;
+    height: 80px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    line-height: 20px;
+    font-size: 14px;
+    border: 1px solid #efefef;
+}
+.but11 {
+    width: 130px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #f25045;
+    display: block;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 4px;
+}
+.sub-comment {
+    float: right;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+

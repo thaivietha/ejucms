@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+{include file="users/public_layout" /}
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+
+
+        <div class="layui-card-body">
+            <div class="layui-form layui-border-box layui-table-view house-table">
+                <div class="layui-table-box">
+                    <div class="layui-table-body ">
+                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" lay-skin="line" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th class="tc">
+                                    <div class="layui-table-cell "><span>标题</span></div>
+                                </th>
+                                <th class="w200 tc">
+                                    <div class="layui-table-cell w200 tc"><span>区域</span></div>
+                                </th>
+                                <th class="w200 tc">
+                                    <div class="layui-table-cell w200 tc"><span>收藏时间</span></div>
+                                </th>
+                                <th class="w100 tc">
+                                    <div class="layui-table-cell w100 tc"><span>操作</span></div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {empty name="list"}
+                            <tr>
+                                <td class="no-data" align="center" axis="col0" colspan="7">
+                                    <i class="fa fa-exclamation-circle"></i>暂无收藏
+                                </td>
+                            </tr>
+                            {else /}
+                            {foreach name="list" item="vo" key="k" }
+                            <tr>
+                                <td>
+                                    <div class="layui-table-cell " title="">
+                                        <a class="media" target="_blank" href="{$vo.arcurl}">
+                                             <span>
+                                                <img src="{$vo.litpic}">
+                                            </span>
+                                            <div class="media-body">
+                                                <span class="tit" >
+                                                    {$vo.title}
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w200 tc"> {$vo.province_name}{notempty name="$vo.city_name"}-{$vo.city_name}{/notempty}{notempty name="$vo.area_name"}-{$vo.area_name}{/notempty}</div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w200 tc"> {$vo.collect_time|date="Y-m-d H:i:s",###} </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w100 tc right-oper">
+                                        <a onclick="cancelfun(this)" data-url="{:url('api/Ajax/collect_change')}" data-id="{$vo.aid}"  class="layui-btn btn-edit" >
+                                            取消收藏
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {/empty}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {$page}
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table', 'element'], function() {
+        var $ = layui.$,
+            form = layui.form,
+            layer = layui.layer,
+            element = layui.element,
+            table = layui.table;
+    });
+    //取消收藏
+    function cancelfun(obj) {
+        layer.msg(false, {
+            btnAlign: 'c'
+            ,time: 0
+            ,btn: ['确定', '不了']
+            ,yes: function(index, layero){
+                layer_loading();
+                var url = $(obj).attr('data-url');
+                $.ajax({
+                    type : 'POST',
+                    url : url,
+                    data : {aid:$(obj).attr('data-id'), _ajax:1},
+                    dataType : 'json',
+                    success : function(res){
+                        layer.closeAll();
+                        if(res.code == 1){
+                            layer.msg(res.msg, {icon: 1},function () {
+                                window.location.reload();
+                            });
+                        }else{
+                            showErrorAlert(res.msg);
+                        }
+                    },
+                    error:function(){
+                        layer.closeAll();
+                        showErrorAlert();
+                    }
+                });
+                return false;
+            }
+            ,btn2: function(index, layero){
+                layer.close(index);
+            }
+        });
+    }
+    
+
+</script>
+</body>
+</html>
