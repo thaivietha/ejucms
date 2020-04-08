@@ -206,7 +206,6 @@ class Url
             }
             /*--end*/
         } else {    //伪静态
-            
             // 参数组装
             if (!empty($vars)) {
                 // 添加参数
@@ -229,10 +228,14 @@ class Url
             } else {
                 $url .= $suffix . $anchor;
             }
+
             // 检测域名
             $domain = self::parseDomain($url, $domain,$subdomain);
+
             // URL组装
             $url = $domain . rtrim(self::$root ?: $request->root(), '/') . '/' . ltrim($url, '/');
+
+
         }
 
         self::$bindCheck = false;
@@ -316,17 +319,19 @@ class Url
         $rootDomain = Config::get('url_domain_root');
         if (true === $domain) {
             // 自动判断域名
-            $domain = Config::get('app_host') ?: $request->host();
+            $domain =   $request->host();    //Config::get('app_host') ?: $request->host();
             $domain_arr = explode('.',$domain);
             $web_mobile_domain = config('ey_config.web_mobile_domain');   //手机端域名
             if ($subdomain && !empty($domain_arr) && $domain_arr[0] != $web_mobile_domain){
-                $main_domain = tpCache('web.web_main_domain');  //主域名
-                if (!empty($main_domain) && count($domain_arr)>2){
-                    $domain_arr[0] = $subdomain;
-                }else{
-                    array_unshift($domain_arr,$subdomain);
-                }
-                $domain = implode('.',$domain_arr);
+
+                $domain = $subdomain.".".$rootDomain;
+//                $main_domain = tpCache('web.web_main_domain');  //后台设置主域名
+//                if (!empty($main_domain) && count($domain_arr)>2){
+//                    $domain_arr[0] = $subdomain;
+//                }else{
+//                    array_unshift($domain_arr,$subdomain);
+//                }
+//                $domain = implode('.',$domain_arr);
             }
 
             $domains = Route::rules('domain');

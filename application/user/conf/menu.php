@@ -137,6 +137,21 @@ return  [
 
         ],
     ],
+    '4000'=>[
+        'id'=>4000,
+        'parent_id'=>0,
+        'name'=>'我的收藏',
+        'controller'=>'Collect',
+        'action'=>'index',
+        'url'=>'',
+        'target'=>'_self',
+        'icon'  => 'layui-icon-template-1',
+        'grade'=>0,
+        'is_menu'=>1,
+        'is_modules'=>1,
+        'is_quick'=>0,
+        'child'=>[],
+    ],
     '3000'=>[
         'id'=>3000,
         'parent_id'=>0,

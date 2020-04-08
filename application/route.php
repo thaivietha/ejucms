@@ -88,6 +88,11 @@ if (3 == $seo_pseudo) {
                     '<subdomain>/xiaoqu/<tid>$' => array('home/Xiaoqu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
                     '<subdomain>/ershou/<tid>$' => array('home/Ershou/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
                     '<subdomain>/zufang/<tid>$' => array('home/Zufang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/officecs/<tid>$' => array('home/Officecs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/officecz/<tid>$' => array('home/Officecz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/shopcs/<tid>$' => array('home/Shopcs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/shopcz/<tid>$' => array('home/Shopcz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                    '<subdomain>/qiuzu/<tid>$' => array('home/Qiuzu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
 //                $rewrite_str.'$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
                     '<subdomain>/$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
                 ];
@@ -141,6 +146,22 @@ if (3 == $seo_pseudo) {
             // 租房模型伪静态
             $rewrite_str.'zufang/<tid>$' => array('home/Zufang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'zufang/<dirname>/<aid>$' => array('home/Zufang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            //商铺出售模型伪静态
+            $rewrite_str.'shopcs/<tid>$' => array('home/Shopcs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'shopcs/<dirname>/<aid>$' => array('home/Shopcs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            //商铺出租模型伪静态
+            $rewrite_str.'shopcz/<tid>$' => array('home/Shopcz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'shopcz/<dirname>/<aid>$' => array('home/Shopcz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            //写字楼出售模型伪静态
+            $rewrite_str.'officecs/<tid>$' => array('home/Officecs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'officecs/<dirname>/<aid>$' => array('home/Officecs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            //写字楼出租模型伪静态
+            $rewrite_str.'officecz/<tid>$' => array('home/Officecz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'officecz/<dirname>/<aid>$' => array('home/Officecz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            //求租模型伪静态
+            $rewrite_str.'qiuzu/<tid>$' => array('home/Qiuzu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'qiuzu/<dirname>/<aid>$' => array('home/Qiuzu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+
             // 标签伪静态
             $rewrite_str.'tags$' => array('home/Tags/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
             $rewrite_str.'tags/<tagid>$' => array('home/Tags/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),

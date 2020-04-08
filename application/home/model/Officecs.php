@@ -125,7 +125,7 @@ class Officecs extends Model
                     if (isset($val['room'])){
                         unset($val['room']);
                     }
-                    $lists[$key]['arcurl'] = arcurl("home/Officecs/index", $val);
+                    $lists[$key]['arcurl'] = arcurl("home/Officecs/view", $val);
                 }
                 $manage_type_arr = explode(",",$val['manage_type']);
                 $lists[$key]['manage_type_name'] = '';

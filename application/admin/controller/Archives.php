@@ -93,7 +93,7 @@ class Archives extends Base
         }
         $this->assign('contentManage',$contentManage);
         $menu = getMenuList(false);
-        $adPosition = $tags = $links = $ask_index = $system_question = 0;
+        $adPosition = $tags = $links = $ask_index = $system_question = $remark_index = $system_remark = 0;
         if (!empty($menu[6000])){
             if (!empty($menu[6000]['child'])){
                 foreach ($menu[6000]['child'] as $val){
@@ -121,11 +121,25 @@ class Archives extends Base
                 }
             }
         }
-        $this->assign('adPosition',$adPosition);
-        $this->assign('tags',$tags);
-        $this->assign('links',$links);
-        $this->assign('ask_index',$ask_index);
-        $this->assign('system_question',$system_question);
+        if (!empty($menu[11000])){
+            if (!empty($menu[11000]['child'])){
+                foreach ($menu[11000]['child'] as $val){
+                    if ($val['id'] == 11001){
+                        $remark_index = 1;
+                    }
+                    if ($val['id'] == 11002){
+                        $system_remark = 1;
+                    }
+                }
+            }
+        }
+        $this->assign('adPosition',$adPosition);   //广告
+        $this->assign('tags',$tags);    //标签
+        $this->assign('links',$links);      //友情链接
+        $this->assign('ask_index',$ask_index);      //问答列表
+        $this->assign('system_question',$system_question);      //问答配置
+        $this->assign('remark_index',$remark_index);      //点评列表
+        $this->assign('system_remark',$system_remark);      //点评配置
 
         return $this->fetch();
     }

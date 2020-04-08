@@ -116,7 +116,7 @@ class Zufang extends Model
                     if (isset($val['room'])){
                         unset($val['room']);
                     }
-                    $lists[$key]['arcurl'] = arcurl("home/Zufang/index", $val);
+                    $lists[$key]['arcurl'] = arcurl("home/Zufang/view", $val);
                 }
                 $manage_type_arr = explode(",",$val['manage_type']);
                 $lists[$key]['manage_type_name'] = '';

@@ -242,6 +242,32 @@ class Ajax extends Base
             }
         }
     }
+    /*
+     * 收藏、取消收藏
+     * $cancle  0:收藏，1：取消收藏
+     */
+    public function collect_change(){
+        $aid = input('post.aid/d');
+        if (IS_POST && !empty($aid)){
+            $users_id = 0;
+            $cancle = 0;
+            if(session('?users_id')){
+                $users_id = session('users_id');
+            }else{
+                $gourl = url('user/Users/login');
+                $this->redirect($gourl,302);
+            }
+            $have = Db::name("users_collect")->where(['users_id'=> $users_id ,'aid'=>$aid])->find();
+            if ($have){     //已经存在收藏，操作为取消收藏
+                Db::name("users_collect")->where(['users_id'=> $users_id ,'aid'=>$aid])->delete();
+                $cancle = 1;
+            }else{
+                Db::name("users_collect")->insert(['users_id'=>$users_id,'aid'=>$aid,'add_time'=>getTime(),'update_time'=>getTime()]);
+            }
+            $this->success('操作成功', null, ['cancle'=>$cancle,'aid'=>$aid]);
+        }
+        $this->error('表单缺少标签属性aid');
+    }
     /**
      * 获取表单数据信息
      */

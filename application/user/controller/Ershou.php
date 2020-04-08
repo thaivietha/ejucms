@@ -128,7 +128,7 @@ class Ershou extends Base
                     $aid = $join_db->add_ajax($post,$channelJoin['id'],$type_info['id'],$channelJoin['ctl_name']);
                     $join = DB::name('archives')->alias("a")->where(['a.aid'=>$aid])->find();
                 }
-                if (empty($join)){
+                if (!empty($join)){
                     $post['joinaid'] = $join['aid'];
                 }
             }

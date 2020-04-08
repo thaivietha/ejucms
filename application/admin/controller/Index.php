@@ -32,8 +32,9 @@ class Index extends Base
         $web_adminbasefile = tpCache('web.web_adminbasefile');
         $web_main_domain = tpCache('web.web_main_domain');
         if ($web_main_domain != $this->request->subDomain()){
-            $gourl = !empty($web_main_domain) ? "//".$web_main_domain.".".$this->request->rootDomain().ROOT_DIR.'/'.$web_adminbasefile
-                : "//".$this->request->rootDomain().ROOT_DIR.'/'.$web_adminbasefile;
+            $gourl = !empty($web_main_domain) ? "//".$web_main_domain.".".$this->request->rootDomain().ROOT_DIR.$web_adminbasefile
+                : "//".$this->request->rootDomain().ROOT_DIR.$web_adminbasefile;
+
             $this->redirect($gourl,302);
         }
         $this->assign('home_url', $this->request->domain().ROOT_DIR.'/');
@@ -222,10 +223,11 @@ class Index extends Base
             tpCache('system', ['system_channeltype_unit_23'=>1]);
         }
         //升级到2.4版本后更新数据
-//        if (!tpCache('system.system_channeltype_unit_24')){
+        if (!tpCache('system.system_channeltype_unit_24')){
 //            Db::name("channelfield") ->where(['name'=>['in',['title','province_id','city_id']]])->save(['ifrequire'=>1]);
-//            tpCache('system', ['system_channeltype_unit_23'=>1]);
-//        }
+            $fieldLogic->synAreaChannelUnit();
+            tpCache('system', ['system_channeltype_unit_24'=>1]);
+        }
         //升级成功后，更新问答体系
         $question = tpCache("question");
         if (empty($question['question_acrtype'])){

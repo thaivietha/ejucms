@@ -14,6 +14,7 @@ use think\Db;
 class TagForm extends Base
 {
     private $come_from = '';
+    public $tid;
     //初始化
     protected function _initialize()
     {

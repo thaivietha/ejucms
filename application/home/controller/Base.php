@@ -55,4 +55,27 @@ class Base extends Common {
             $this->redirect($url, 301);
         }
     }
+    /**
+     * 获取登录的会员最新数据
+     */
+    protected function GetUsersLatestData($users_id = null) {
+        $users_id = empty($users_id) ? session('users_id') : $users_id;
+        if(!empty($users_id)) {
+            $data =  Db::name('users')->field('b.*,a.*,a.id as users_id')
+                ->alias('a')
+                ->join('__USERS_LEVEL__ b', "a.level_id = b.id", 'LEFT')
+                ->where([
+                    'a.id'  => $users_id,
+                ])
+                ->find();
+            empty($data['nickname']) && $data['nickname'] = $data['username'];
+//            $data['username'] = $data['nickname'];
+            empty($data['litpic']) && $data['litpic'] = ROOT_DIR . '/public/static/common/images/dfboy.png';
+
+            return $data;
+        }else{
+            // session中不存在会员ID则返回空
+            return false;
+        }
+    }
 }

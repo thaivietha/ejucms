@@ -113,7 +113,79 @@ class Eju extends Taglib
         'userslist'  => ['attr' => 'pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,thumb,is_saleman,level,is_count'],
         // 导航标签
         'navig' => ['attr' => 'position_id,navigid,notnavigid,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit'],
+        //收藏操作标签
+        'collect' => ['attr' => 'aid,field,collectid,titleid,styleid,currentstyle,withoutstyle,currenttitle,withouttitle,alert,success'],
+        //点评提交标签
+        'remark' => ['attr' => 'aid,formid,success,empty,id,beforeSubmit'],
+        //点评列表标签
+        'remarklist' =>['attr' => 'id,key,mod,field,aid,pagesize,orderby,orderway,usersid'],
     ];
+    /*
+     * 点评提交标签
+     */
+    public function tagRemark($tag, $content)
+    {
+        $aid    = !empty($tag['aid']) ? $tag['aid'] : '0';
+        $formid     = !empty($tag['formid']) ? $tag['formid'] : 'remark_form';
+        $success     = !empty($tag['success']) ? $tag['success'] : '';      //提交后执行方法
+        $beforeSubmit     = !empty($tag['beforeSubmit']) ? $tag['beforeSubmit'] : '';
+        $id     = isset($tag['id']) ? $tag['id'] : 'field';
+        $empty  = isset($tag['empty']) ? $tag['empty'] : '';
+        $empty  = htmlspecialchars($empty);
+
+        $parseStr = '<?php ';
+
+        // 查询数据库获取的数据集
+        $parseStr .= ' $tagRemark = new \think\template\taglib\eju\TagRemark;';
+        $parseStr .= ' $_result = $tagRemark->getRemark('.$aid.', "'.$formid.'", "'.$success.'", "'.$beforeSubmit.'");';
+        $parseStr .= 'if(!empty($_result)): ';
+        $parseStr .= '$' . $id.' = $_result ;?>';
+        $parseStr .= $content;
+        $parseStr .= '<?php  else: echo htmlspecialchars_decode("' . $empty . '");endif; ?>';
+        $parseStr .= '<?php $'.$id.' = []; ?>'; // 清除变量值，只限于在标签内部使用
+        if (!empty($parseStr)) {
+            return $parseStr;
+        }
+        return;
+    }
+    /*
+     * 点评列表标签
+     */
+    public function tagRemarklist($tag, $content){
+        $id     = isset($tag['id']) ? $tag['id'] : 'field';
+        $aid    = !empty($tag['aid']) && is_numeric($tag['aid']) ? intval($tag['aid']) : 0;
+        $key    = !empty($tag['key']) ? $tag['key'] : 'i';
+        $empty  = isset($tag['empty']) ? $tag['empty'] : '';
+        $empty  = htmlspecialchars($empty);
+        $mod    = !empty($tag['mod']) && is_numeric($tag['mod']) ? $tag['mod'] : '2';
+        $pagesize = !empty($tag['pagesize']) && is_numeric($tag['pagesize']) ? intval($tag['pagesize']) : 10;
+        $orderby    = isset($tag['orderby']) ? $tag['orderby'] : 'add_time';
+        $orderway    = isset($tag['orderway']) ? $tag['orderway'] : 'desc';
+        $users_id = isset($tag['usersid']) ? $tag['usersid'] : '';      //经纪人id
+        $parseStr = '<?php ';
+        // 声明变量
+        // 查询数据库获取的数据集
+        $parseStr .= ' $param = array(';
+        $parseStr .= '      "users_id"=> "'.$users_id.'",';
+        $parseStr .= ' );';
+        // $parseStr .= ' $orderby = "'.$orderby.'";';
+        $parseStr .= ' $tagRemarkList = new \think\template\taglib\eju\TagRemarkList;';
+        $parseStr .= ' $_result_tmp = $tagRemarkList->getRemarklist($param, '.$aid.','.$pagesize.', "'.$orderby.'", "'.$orderway.'");';
+
+
+        $parseStr .= 'if(!empty($_result_tmp)): ';
+        $parseStr .= ' $__PAGES__ = $_result_tmp["pages"];';
+        $parseStr .= ' $__COUNT__ = $_result_tmp["count"];';
+        $parseStr .= '$' . $id.' = $_result_tmp ;?>';
+        $parseStr .= $content;
+        $parseStr .= '<?php  else: echo htmlspecialchars_decode("' . $empty . '");endif; ?>';
+        $parseStr .= '<?php $'.$id.' = []; ?>'; // 清除变量值，只限于在标签内部使用
+
+        if (!empty($parseStr)) {
+            return $parseStr;
+        }
+        return;
+    }
     /*
      * 经纪人列表模块
      */
@@ -124,7 +196,7 @@ class Eju extends Taglib
         $empty  = htmlspecialchars($empty);
         $mod    = !empty($tag['mod']) && is_numeric($tag['mod']) ? $tag['mod'] : '2';
         $pagesize = !empty($tag['pagesize']) && is_numeric($tag['pagesize']) ? intval($tag['pagesize']) : 10;
-        $thumb   = !empty($tag['thumb']) ? $tag['thumb'] : 'on';
+        $thumb   = !empty($tag['thumb']) ? $tag['thumb'] : 'on';     //是否使用缩略图
         $orderby    = isset($tag['orderby']) ? $tag['orderby'] : '';
         $orderway    = isset($tag['orderway']) ? $tag['orderway'] : 'desc';
         $flag    = isset($tag['flag']) ? $tag['flag'] : '';     //flag='c' 自定义属性值：推荐[c]跳转[j]
@@ -672,13 +744,44 @@ class Eju extends Taglib
         }
         return;
     }
+    //收藏标签
+    public function tagCollect($tag, $content){
+        $id     = isset($tag['id']) ? $tag['id'] : 'field';
+        $collectid = !empty($tag['collectid']) ? $tag['collectid'] : ''; //点击收藏的sapn的id
+        $titleid = !empty($tag['titleid']) ? $tag['titleid'] : ''; //显示收藏名称的id
+        $styleid = !empty($tag['styleid']) ? $tag['styleid'] : ''; //显示收藏风格的id
+        $currentstyle   = !empty($tag['currentstyle']) ? $tag['currentstyle'] : ''; //已经收藏的class
+        $withoutstyle = !empty($tag['withoutstyle']) ? $tag['withoutstyle'] : ''; //暂未收藏的class
+        $currenttitle   = !empty($tag['currenttitle']) ? $tag['currenttitle'] : '取消收藏'; //已经收藏显示名称
+        $withouttitle = !empty($tag['withouttitle']) ? $tag['withouttitle'] : '加入收藏'; //暂未收藏显示名称
+        $alert =  !empty($tag['alert']) ? $tag['alert'] : 'off'; //off不弹出，on弹出
+        $aid     = isset($tag['aid']) ? $tag['aid'] : '0';
+        $success     = !empty($tag['success']) ? $tag['success'] : '';      //提交后执行方法
 
+        $parseStr = '<?php ';
+        $parseStr .= ' $tagCollect = new \think\template\taglib\eju\TagCollect;';
+        $parseStr .= ' $__LIST__ = $tagCollect->getCollect('.$aid.',"'.$collectid.'", "'.$titleid.'", "'.$styleid.'" ,"'.$currentstyle.'", "'.$withoutstyle.'", "'.$currenttitle.'", "'.$withouttitle.'", "'.$alert.'", "'.$success.'");';
+        $parseStr .= '?>';
+
+        $parseStr .= '<?php if(!empty($__LIST__) || (($__LIST__ instanceof \think\Collection || $__LIST__ instanceof \think\Paginator ) && $__LIST__->isEmpty())): ?>';
+        $parseStr .= '<?php $'.$id.' = $__LIST__; ?>';
+        $parseStr .= $content;
+        $parseStr .= '<?php endif; ?>';
+        $parseStr .= '<?php $'.$id.' = []; ?>'; // 清除变量值，只限于在标签内部使用
+
+        if (!empty($parseStr)) {
+            return $parseStr;
+        }
+        return;
+
+    }
+    //表单标签
     public function tagForm($tag, $content)
     {
         $formid     = !empty($tag['formid']) ? $tag['formid'] : '';
         $formid  = $this->varOrvalue($formid);
-        $success     = !empty($tag['success']) ? $tag['success'] : '';
-        $beforeSubmit     = !empty($tag['before']) ? $tag['before'] : '';
+        $success     = !empty($tag['success']) ? $tag['success'] : '';      //提交后执行方法
+        $beforeSubmit     = !empty($tag['before']) ? $tag['before'] : '';   //提交前执行方法
         if (empty($beforeSubmit)) {
             $beforeSubmit     = !empty($tag['beforeSubmit']) ? $tag['beforeSubmit'] : '';
         }

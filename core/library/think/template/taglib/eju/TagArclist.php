@@ -178,11 +178,21 @@ class TagArclist extends Base
                         }
                         if (in_array($value['dtype'],['int','decimal','float'])){   //后台定义数值区间
                             $list = explode(',',$param[$name]);
-                            if (count($list) >1){
-                                array_push($condition, $name." between {$list[0]} and {$list[1]} ");
+                            if (!empty($value['join_id']) && !empty($channelfield[$value['join_id']]['name'])){
+                                $fieldname_join = $channelfield[$value['join_id']]['name'];
+                                if (count($list) >1){
+                                    array_push($condition, " ({$name} between {$list[0]} and {$list[1]} OR {$fieldname_join} between {$list[0]} and {$list[1]}) ");
+                                }else{
+                                    array_push($condition, " ({$name} > {$list[0]} OR {$fieldname_join} > {$list[0]}) ");
+                                }
                             }else{
-                                array_push($condition, $name."> {$list[0]} ");
+                                if (count($list) >1){
+                                    array_push($condition, $name." between {$list[0]} and {$list[1]} ");
+                                }else{
+                                    array_push($condition, $name."> {$list[0]} ");
+                                }
                             }
+
                             continue;
                         }
 
@@ -376,7 +386,24 @@ class TagArclist extends Base
             /*地图*/
             $mapurl = url('home/Map/index', ['aid'=>$val['aid']], true, false, 1);
             $val['mapurl'] = $mapurl;
-            $val['saleman'] = !empty($users[$val['users_id']]) ? $users[$val['users_id']] : [];
+
+            /*经纪人*/
+            $relate_arr = [];
+            if(!empty($val['users_id'])){
+                $relate_arr[] = $val['users_id'];
+            }
+            //关联经纪人信息
+            if (!empty($val['relate'])){
+                $relate_arr = array_unique(array_merge(explode(",",$val['relate']),$relate_arr));
+            }
+            if (!empty($relate_arr)){
+                $saleman_list = \think\Db::name("users")->field("*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")->where(['id'=>['in',$relate_arr]])->getAllWithIndex('id');
+                $val['saleman_list'] = $saleman_list;
+                $val['saleman'] = $saleman_list[$relate_arr[0]];
+            }
+            !empty($val['saleman']['saleman_pic']) && $val['saleman']['saleman_pic']= thumb_img(get_default_pic($val['saleman']['saleman_pic'])); // 默认封面图
+
+//            $val['saleman'] = !empty($users[$val['users_id']]) ? $users[$val['users_id']] : [];
             /*--end*/
             /*经纪人*/
 

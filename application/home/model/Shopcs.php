@@ -125,7 +125,7 @@ class Shopcs extends Model
                     if (isset($val['room'])){
                         unset($val['room']);
                     }
-                    $lists[$key]['arcurl'] = arcurl("home/Shopcs/index", $val);
+                    $lists[$key]['arcurl'] = arcurl("home/Shopcs/view", $val);
                 }
                 $manage_type_arr = explode(",",$val['manage_type']);
                 $lists[$key]['manage_type_name'] = '';

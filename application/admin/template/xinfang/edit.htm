@@ -87,32 +87,38 @@
 													<label class="layui-form-label">关联经纪人</label>
 													<div class="layui-input-inline layadmin-layer-demo" id="relate">
 														<button class="layui-btn layui-ton" data-type="select_relate">选择经纪人</button>
+														{eju:volist name="$relate_list" id="vo"}
+														<span class="tower-add relate"  id="relate_{$vo.id}" data-id="{$vo.id}">
+															<input type="hidden" name="relate[]" value="{$vo.id}">
+															{$vo.true_name}<i class="layui-icon layui-icon-close"></i>
+														</span>
+														{/eju:volist}
 													</div>
 												</div>
 												{/notempty}
-											  <div class="layui-form-item">
-												 <label class="layui-form-label">{notempty name="addonFieldExtList.province_id.ifrequire"}<b>*</b>{/notempty}所属区域</label>
-												 <div class="layui-input-inline w120">
-													<select name="province_id" id="province_id"  lay-filter="province_id" >
-														<option value="0">请选择省</option>
-														{eju:volist name=':get_province_list()' id='vo'}
-														<option value="{$vo.id}" {eq name="$field.province_id" value="$vo.id" } selected {/eq} >{$vo.name}</option>
-														{/eju:volist}
-													</select>
-												 </div>
-												 <div class="layui-input-inline w120">
-													<select name="city_id" id="city_id"   lay-filter="city_id"  lay-verify="check_cityid">
-														<option value="">请选择城市</option>
-													</select>
-												 </div>
-												 <div class="layui-input-inline none w120" id="area_div">
-													<select name="area_id" id="area_id">
-														<option value="">请选择区域</option>
-													</select>
-												 </div>
-												<div class="layui-form-mid layui-word-aux ey_helptips"></div>
-												<div class="layui-form-inline2 ey_helptips_txt none">后台菜单>系统配置>区域管理</div>
-											  </div>
+												<div class="layui-form-item">
+													<label class="layui-form-label">{notempty name="$addonFieldExtList.province_id.ifrequire"}<b>*</b>{/notempty}所属区域</label>
+													<div class="layui-input-inline w120">
+														<select name="province_id" id="province_id"  lay-filter="province_id" >
+															<option value="0">请选择省</option>
+															{eju:volist name=':get_province_list()' id='vo'}
+															<option value="{$vo.id}" {eq name="$field.province_id" value="$vo.id" } selected {/eq} >{$vo.name}</option>
+															{/eju:volist}
+														</select>
+													</div>
+													<div class="layui-input-inline w120">
+														<select name="city_id" id="city_id"   lay-filter="city_id"  lay-verify="check_cityid">
+															<option value="">请选择城市</option>
+														</select>
+													</div>
+													<div class="layui-input-inline none w120" id="area_div">
+														<select name="area_id" id="area_id">
+															<option value="">请选择区域</option>
+														</select>
+													</div>
+													<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+													<div class="layui-form-inline2 ey_helptips_txt none">后台菜单>系统配置>区域管理</div>
+												</div>
 										      <div class="w-out fl mt15">
 												   <label class="layui-form-label">{notempty name="addonFieldExtList.title.ifrequire"}<b>*</b>{/notempty}{$channeltype_info['ntitle']}名称</label>
 													<div class="layui-input-inline w-in">

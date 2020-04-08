@@ -811,7 +811,7 @@ class FieldLogic extends Model
     public function synChannelUnit20(){
         M('channelfield')->where("name='panoram' or name='video'")->save(['ifsystem'=>'1']);
     }
-    public function synChannelUnit22(){
+    public function synAreaChannelUnit(){
         M('channelfield')->where("name='province_id'")->save(['dtype'=>'region_db','define'=>'int(10)','is_screening'=>1,'sort_order'=>'-3']);
         M('channelfield')->where("name='city_id'")->save(['dtype'=>'region_db','define'=>'int(10)','is_screening'=>1,'sort_order'=>'-2','dfvalue'=>'province_id']);
         M('channelfield')->where("name='area_id'")->save(['dtype'=>'region_db','define'=>'int(10)','is_screening'=>1,'sort_order'=>'-1','dfvalue'=>'city_id']);

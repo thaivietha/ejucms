@@ -31,6 +31,21 @@ class System extends Base
     {
         $this->redirect(url('System/web'));
     }
+    //点评配置
+    public function remark(){
+        $inc_type = 'remark';
+        $config = tpCache($inc_type);
+        if (IS_POST) {
+            $param = input('post.');
+            tpCache($inc_type, $param);
+            write_global_params(); // 写入全局内置参数
+            $this->success('操作成功', url('System/question'));
+            exit;
+        }
+        $this->assign('config',$config);//当前配置项
+
+        return $this->fetch();
+    }
     //问答配置
     public function question(){
         $inc_type =  'question';

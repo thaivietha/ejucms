@@ -263,4 +263,20 @@ return [
         'is_modules'    => 1,
         'auths' => 'System@question',
     ],
+    [
+        'id' => 29,
+        'menu_id' => 11001,
+        'menu_id2' => 11000,
+        'name'  => '点评列表',
+        'is_modules'    => 1,
+        'auths' => 'Remark@*',
+    ],
+    [
+        'id' => 30,
+        'menu_id' => 11002,
+        'menu_id2' => 11000,
+        'name'  => '点评设置',
+        'is_modules'    => 1,
+        'auths' => 'System@remark',
+    ],
 ];

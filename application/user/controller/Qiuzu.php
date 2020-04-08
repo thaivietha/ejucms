@@ -134,7 +134,7 @@ class Qiuzu extends Base
                     $aid = $join_db->add_ajax($post,$channelJoin['id'],$type_info['id'],$channelJoin['ctl_name']);
                     $join = DB::name('archives')->alias("a")->where(['a.aid'=>$aid])->find();
                 }
-                if (empty($join)){
+                if (!empty($join)){
                     $post['joinaid'] = $join['aid'];
                 }
             }
@@ -261,6 +261,13 @@ class Qiuzu extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
+            $region_id = $post['area_id'] ? $post['area_id'] : $post['city_id'];
+            $region_name = "";
+            if ($region_id){
+                $region_name = Db::name("region")->where(['id'=>$region_id])->getField('name');
+            }
+            $post['addonFieldExt']['priority'] = $region_name;
+            $post['title'] = "求租".$region_name.$post['addonFieldSys']['manage_type'];
             //判断所有必选项是否已经填写
             $field = new \app\admin\model\Field();
             $check = $field->checkChannelFieldRequire($this->channeltype, $post);
@@ -288,6 +295,7 @@ class Qiuzu extends Base
             if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
                 $this->error("请选择关联{$channelJoin['ntitle']}！");
             }
+
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/
             $contentField = Db::name('channelfield')->where([
                 'channel_id'    => $this->channeltype,

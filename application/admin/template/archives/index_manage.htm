@@ -122,6 +122,20 @@
                        </div>
                    </li>
                    {/if}
+                   {if condition="($remark_index eq 1) or ($system_remark eq 1)"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-wenda1"></i>
+                           <cite>点评</cite>
+                           {notempty name="$remark_index"}
+                           <a lay-href="{:url('Remark/index')}">点评列表</a>
+                           {/notempty}
+                           {notempty name="$system_remark"}
+                           <a lay-href="{:url('System/remark')}">点评配置</a>
+                           {/notempty}
+                       </div>
+                   </li>
+                   {/if}
                    {if condition="($tags eq 1) or ($links eq 1)"}
                    <li class="layui-col-xs6 layui-col-md2 ">
                        <div class="admin-ico-nav">
