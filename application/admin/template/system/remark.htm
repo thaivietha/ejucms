@@ -14,7 +14,7 @@
                                             <div class="layui-card-body" pad15>
                                                 <div class="layui-form" wid100>
                                                     <div class="layui-form-item">
-                                                        <label class="layui-form-label">登陆才可点评</label>
+                                                        <label class="layui-form-label">游客不可点评</label>
                                                         <div class="layui-input-inline w70">
                                                             <input type="checkbox" lay-filter="remark_add_status" lay-skin="switch" lay-text="是|否" {notempty name="$config.remark_add_status"}checked{/notempty}>
                                                             <input type="hidden" name="remark_add_status" value="{$config.remark_add_status|default='0'}" />

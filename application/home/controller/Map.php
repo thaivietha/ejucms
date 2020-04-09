@@ -143,6 +143,135 @@ class Map extends Base
         return json($result);
     }
     /*
+     * 商铺出售地图
+     */
+    public function shopcs(){
+        $aid = input('aid/d',0);
+        $lng = !empty($this->eju['region']['lng'])? $this->eju['region']['lng'] : "110.337494";
+        $lat = !empty($this->eju['region']['lat'])? $this->eju['region']['lat'] : "19.984587";
+        if (!empty($aid)){
+            $xinfang_content = db('shopcs_system')->where(['aid'=>$aid])->find();
+            if (!empty($xinfang_content['lng']) && !empty($xinfang_content['lat'])){
+                $lng = $xinfang_content['lng'];
+                $lat = $xinfang_content['lat'];
+            }
+        }
+        $this->assign('lng', $lng);
+        $this->assign('lat', $lat);
+        $this->assign('eju', $this->eju);
+
+        return $this->fetch();
+    }
+    /**
+     * @return \think\response\Json
+     * 异步获取商铺出售列表
+     */
+    public function getShopcsLists()
+    {
+        $zoom    = input('param.zoom/d',13);
+        $result  = model('shopcs')->getlists($zoom, 0);
+        return json($result);
+    }
+    /*
+    * 商铺出租地图
+    */
+    public function shopcz(){
+        $aid = input('aid/d',0);
+        $lng = !empty($this->eju['region']['lng'])? $this->eju['region']['lng'] : "110.337494";
+        $lat = !empty($this->eju['region']['lat'])? $this->eju['region']['lat'] : "19.984587";
+        if (!empty($aid)){
+            $xinfang_content = db('shopcz_system')->where(['aid'=>$aid])->find();
+            if (!empty($xinfang_content['lng']) && !empty($xinfang_content['lat'])){
+                $lng = $xinfang_content['lng'];
+                $lat = $xinfang_content['lat'];
+            }
+        }
+        $this->assign('lng', $lng);
+        $this->assign('lat', $lat);
+        $this->assign('eju', $this->eju);
+
+        return $this->fetch();
+    }
+    /**
+     * @return \think\response\Json
+     * 异步获取商铺出租列表
+     */
+    public function getShopczLists()
+    {
+        $zoom    = input('param.zoom/d',13);
+        $result  = model('shopcz')->getlists($zoom, 0);
+        return json($result);
+    }
+    /*
+        * 写字楼出售地图
+        */
+    public function officecs(){
+        $aid = input('aid/d',0);
+        $lng = !empty($this->eju['region']['lng'])? $this->eju['region']['lng'] : "110.337494";
+        $lat = !empty($this->eju['region']['lat'])? $this->eju['region']['lat'] : "19.984587";
+        if (!empty($aid)){
+            $xinfang_content = db('officecs_system')->where(['aid'=>$aid])->find();
+            if (!empty($xinfang_content['lng']) && !empty($xinfang_content['lat'])){
+                $lng = $xinfang_content['lng'];
+                $lat = $xinfang_content['lat'];
+            }
+        }
+        $this->assign('lng', $lng);
+        $this->assign('lat', $lat);
+        $this->assign('eju', $this->eju);
+
+        return $this->fetch();
+    }
+    /**
+     * @return \think\response\Json
+     * 异步获取写字楼出售列表
+     */
+    public function getOfficecsLists()
+    {
+        $zoom    = input('param.zoom/d',13);
+        $result  = model('officecs')->getlists($zoom, 0);
+        return json($result);
+    }
+    /*
+      * 写字楼出租地图
+      */
+    public function officecz(){
+        $aid = input('aid/d',0);
+        $lng = !empty($this->eju['region']['lng'])? $this->eju['region']['lng'] : "110.337494";
+        $lat = !empty($this->eju['region']['lat'])? $this->eju['region']['lat'] : "19.984587";
+        if (!empty($aid)){
+            $xinfang_content = db('officecz_system')->where(['aid'=>$aid])->find();
+            if (!empty($xinfang_content['lng']) && !empty($xinfang_content['lat'])){
+                $lng = $xinfang_content['lng'];
+                $lat = $xinfang_content['lat'];
+            }
+        }
+        $this->assign('lng', $lng);
+        $this->assign('lat', $lat);
+        $this->assign('eju', $this->eju);
+
+        return $this->fetch();
+    }
+    /**
+     * @return \think\response\Json
+     * 异步获取写字楼出租列表
+     */
+    public function getOfficeczLists()
+    {
+        $zoom    = input('param.zoom/d',13);
+        $result  = model('officecz')->getlists($zoom, 0);
+        return json($result);
+    }
+
+
+
+
+
+
+
+
+
+    /*
      * 全景地图
      */
     public function panorama(){

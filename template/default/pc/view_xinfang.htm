@@ -90,7 +90,10 @@
             {eju:notempty name="$eju.field.average_price"}
             <em>{$eju.field.average_price}</em>{$eju.field.price_units}{eju:else /}暂无
             {/eju:notempty}
-            <div class="house-price-tool fr"> <a href="{eju:diyurl type='jisuanqi' /}" title="" target="_blank"><i class="iconfont">&#xe752;</i> 房贷计算器</a> | <a href="javascript:;" class="J_dialog" data-uri="{eju:diyurl type='form' template='ajax_form_jjtz'/}"><i class="iconfont">&#xe600;</i> 降价通知</a> </div>
+            <div class="house-price-tool fr">
+              <a href="{eju:diyurl type='jisuanqi' /}" title="" target="_blank"><i class="iconfont">&#xe752;</i> 房贷计算器</a> |
+              <a href="javascript:;" class="J_dialog" data-uri="{eju:diyurl type='form' template='ajax_form_jjtz'/}"><i class="iconfont">&#xe600;</i> 降价通知</a>
+            </div>
           </div>
           <p class="house-price-timeout">价格有效期至：<span>{$eju.field.price_time|myDate='Y-m-d',###}</span></p>
         </div>
@@ -98,13 +101,19 @@
           <ul class="news-house-base">
             <li>
               <label>开盘时间 ：</label>
-              {$eju.field.opening_time|myDate='Y年m月d日',###}<a href="javascript:;" class="J_dialog" data-id="12" data-model="house" data-type="6" data-uri="{eju:diyurl type='form' template='ajax_form_kptz'/}"><i class="lpt_icon "></i>开盘通知</a> </li>
+              {$eju.field.opening_time|myDate='Y年m月d日',###}
+              <a href="javascript:;" class="J_dialog" data-id="12" data-model="house" data-type="6" data-uri="{eju:diyurl type='form' template='ajax_form_kptz'/}"><i class="lpt_icon "></i>开盘通知</a>
+              {eju:notempty name="$eju.field.hongbao"}
+              <a href="javascript:;" class="J_dialog" data-id="12" data-model="house" data-type="6" data-hongbao="{$eju.field.hongbao}" data-uri="{eju:diyurl type='form' template='ajax_form_hongbao'/}"><i class="lpt_icon "></i>领取红包</a>
+              {/eju:notempty}
+            </li>
             <li>
               <label>交房时间 ：</label>
               {$eju.field.complate_time|myDate='Y年m月d日',###} </li>
             <li class="clearfix">
               <label class="fl">主力户型 ：</label>
               <span class="fl">{$eju.field.main_unit}</span> </li>
+
             <li>
               <label>预&nbsp; 售&nbsp;证  ：</label>
               {$eju.field.licence} </li>
@@ -402,8 +411,11 @@
         });
         $('#room_total').text(total);
         $('.J_dialog').on('click',function(){
-            var me=$(this),w = 420,h = 300,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri');
-            url = url ;
+            var me=$(this),w = 420,h = 300,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri'),hongbao=me.data('hongbao');
+            if (hongbao != null && hongbao != '' && hongbao != 0){
+                url = url + "&hongbao=" + hongbao ;
+            }
+
             layer.open({
                 type: 2,
                 title: false,

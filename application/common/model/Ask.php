@@ -395,7 +395,14 @@ class Ask extends Model
         /* END */
         $aid_arr = get_arr_column($result['AskData'],'aid');
         if (!empty($aid_arr)){
-            $title_arr = Db::name("archives")->where(['aid'=>['In',$aid_arr]])->getField('aid,title,province_id,city_id,area_id');
+            $fields = "b.*, a.*";
+            $title_arr = db('archives')
+                ->field($fields)
+                ->alias('a')
+                ->join('__ARCTYPE__ b', 'a.typeid = b.id', 'LEFT')
+                ->where('a.aid', 'in', $aid_arr)
+                ->getAllWithIndex('aid');
+//            $title_arr = Db::name("archives")->where(['aid'=>['In',$aid_arr]])->getField('aid,title,province_id,city_id,area_id');
         }
         /*数据处理*/
         foreach ($result['AskData'] as $key => $value) {
@@ -410,7 +417,10 @@ class Ask extends Model
             if (isset($SearchName) && !empty($SearchName)) {
                 $result['AskData'][$key]['ask_title'] = $this->AskLogic->GetRedKeyWord($SearchName, $value['ask_title']);
             }
-            $result['AskData'][$key]['fang_title'] = !empty($title_arr[$value['aid']]['title']) ? $title_arr[$value['aid']]['title'] : '';
+            if (!empty($title_arr[$value['aid']])){
+                $result['AskData'][$key]['fang_title'] = !empty($title_arr[$value['aid']]['title']) ? $title_arr[$value['aid']]['title'] : '';
+                $result['AskData'][$key]['fang_arcurl'] = arcurl("home/Xinfang/view", $title_arr[$value['aid']],true,false,'',null);
+            }
 
             // 时间友好显示处理
             $result['AskData'][$key]['add_time_friend'] = friend_date($value['add_time']);

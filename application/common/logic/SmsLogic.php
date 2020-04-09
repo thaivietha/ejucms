@@ -37,7 +37,7 @@ class SmsLogic
         if (empty($smsTemp) || empty($smsTemp['sms_sign']) || empty($smsTemp['sms_tpl_code'])|| empty($smsTemp['tpl_content'])){
             return $result = ['status' => -1, 'msg' => '请前往设置短信发送配置'];
         }
-        $content = !empty($params['content']) ? $params['content'] : '';
+        $code = !empty($params['code']) ? $params['code'] : '';
         if(empty($unique_id)){
             $session_id = session_id();
         }else{
@@ -58,7 +58,7 @@ class SmsLogic
         }
         $smsParam = json_encode($smsParam_arr);
         //发送记录存储数据库
-        $log_id = M('sms_log')->insertGetId(array('mobile' => $sender, 'code' => $content, 'add_time' => time(), 'session_id' => $session_id, 'status' => 0, 'scene' => $scene, 'msg' => $msg,'error_msg'=>''));
+        $log_id = M('sms_log')->insertGetId(array('mobile' => $sender, 'code' => $code, 'add_time' => time(), 'session_id' => $session_id, 'status' => 0, 'scene' => $scene, 'msg' => $msg,'error_msg'=>''));
         if ($sender != '' && check_mobile($sender)) {//如果是正常的手机号码才发送
             try {
                 $resp = $this->realSendSms($sender, $smsTemp['sms_sign'], $smsParam, $smsTemp['sms_tpl_code']);

@@ -249,6 +249,8 @@ if (!function_exists('typeurl')) {
                 $subdomain = $region_list[$param['city_id']]['domain'];
             }else if (!empty($param['province_id']) && !empty($region_list[$param['province_id']]['domain'])){
                 $subdomain = $region_list[$param['province_id']]['domain'];
+            }else if(!empty($param['domain'])){
+                $subdomain = $param['domain'];
             }
         }
         $seo_pseudo = !empty($seo_pseudo) ? $seo_pseudo : config('ey_config.seo_pseudo');

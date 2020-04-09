@@ -23,13 +23,18 @@ use app\home\logic\UsersLoginc;
  */
 class Qiuzu extends Model
 {
+    // 模型标识
+    public $nid = 'qiuzu';
+    // 模型ID
+    public $channeltype = 17;
     //初始化
     protected function initialize()
     {
         // 需要调用`Model`的`initialize`方法
         parent::initialize();
+        $channeltype_list = config('global.channeltype_list');
+        $this->channeltype = $channeltype_list[$this->nid];
     }
-
     /**
      * 获取单条记录
      * @author wengxianhu by 2017-7-26
@@ -185,7 +190,7 @@ class Qiuzu extends Model
     private function search($city = 0)
     {
         $param_new = input('param.');
-        $condition[] = "a.channel = 12";
+        $condition[] = "a.channel = {$this->channeltype}";
         $condition[] = "a.status =1";
         $condition[] = "a.is_del = 0";
         if(!empty($param_new['keyword'])){
@@ -194,7 +199,7 @@ class Qiuzu extends Model
         }
         $where = [
             'is_screening' => 1,
-            'channel_id'=> 12
+            'channel_id'=> $this->channeltype
             // 根据需求新增条件
         ];
 

@@ -395,7 +395,13 @@
         removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
         pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
         autoHeightEnabled: false,
-        toolbars: ueditor_toolbars
+        toolbars: ueditor_toolbars,
+        // xss 过滤是否开启,inserthtml等操作
+        xssFilterRules: true,
+        //input xss过滤
+        inputXssFilter: true,
+        //output xss过滤
+        outputXssFilter: true
     });
     //必须在提交前渲染编辑器；
     function addonFieldExt_content() {

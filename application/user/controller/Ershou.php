@@ -164,6 +164,7 @@ class Ershou extends Base
             } else {
                 $seo_description = !empty($post['seo_description'])? $post['seo_description'] : '';
             }
+            $post['addonFieldExt']['content'] = htmlspecialchars(strip_sql($content));
             // 外部链接跳转
             $jumplinks = '';
             $is_jump = isset($post['is_jump']) ? $post['is_jump'] : 0;
@@ -321,6 +322,7 @@ class Ershou extends Base
             if (intval($is_jump) > 0) {
                 $jumplinks = $post['jumplinks'];
             }
+            $post['addonFieldExt']['content'] = htmlspecialchars(strip_sql($content));
             // --存储数据
             $newData = array(
                 'typeid'=> $this->type_info['id'],

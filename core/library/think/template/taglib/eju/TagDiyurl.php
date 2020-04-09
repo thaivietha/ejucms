@@ -17,7 +17,7 @@ class TagDiyurl extends Base
         parent::_initialize();
     }
 
-    public function getDiyurl($type = 'form',$template = '')
+    public function getDiyurl($type = 'form',$template = '',$aid = 0)
     {
         $parseStr = "";
         
@@ -26,7 +26,7 @@ class TagDiyurl extends Base
                 $tid = I("param.tid/s", ''); // 应用于栏目列表
                 /*tid为目录名称的情况下*/
                 $tid = $this->getTrueTypeid($tid);
-                $aid = I("param.aid/s", '');
+                empty($aid) && $aid = I("param.aid/d", '0');
                 $parent_url = request()->url(true);
                 $parent_url = $parent_url ? $parent_url : '/';
                 $parseStr = url('home/Index/ajax_form', ['ajax_form'=>1,'aid'=>$aid,'tid'=>$tid,'template'=>$template, 'parent_url'=>$parent_url], true, false, 1);
@@ -56,15 +56,39 @@ class TagDiyurl extends Base
             case "mapzufanglist":   //租房地图列表数据
                 $parseStr = url('home/Map/getZufangLists');
                 break;
+            case "mapshopcs":   //商铺出售地图页面
+                $parseStr = url('home/Map/shopcs');
+                break;
+            case "mapshopcslist":   //商铺出售地图列表数据
+                $parseStr = url('home/Map/getShopcsLists');
+                break;
+            case "mapshopcz":   //商铺出租地图页面
+                $parseStr = url('home/Map/shopcz');
+                break;
+            case "mapshopczlist":   //商铺出租地图列表数据
+                $parseStr = url('home/Map/getShopczLists');
+                break;
+            case "mapofficecs":   //写字楼出售地图页面
+                $parseStr = url('home/Map/officecs');
+                break;
+            case "mapofficecslist":   //写字楼出售地图列表数据
+                $parseStr = url('home/Map/getOfficecsLists');
+                break;
+            case "mapofficecz":   //写字楼出租地图页面
+                $parseStr = url('home/Map/officecz');
+                break;
+            case "mapofficeczlist":   //写字楼出租地图列表数据
+                $parseStr = url('home/Map/getOfficeczLists');
+                break;
             case "panorama":    //全景地图
-                $aid = I("param.aid/s", '');
+                empty($aid) && $aid = I("param.aid/s", '');
                 $parseStr = url('home/Map/panorama',['aid'=>$aid]);
                 break;
             case "jisuanqi":    //房贷计算器
                 $parseStr = url('home/Tool/jisuanqi');
                 break;
             case "bohao":   //拨号页面
-                $aid = I("param.aid/d", 0);
+                empty($aid) && $aid = I("param.aid/d", 0);
                 $web_mobile_domain = config('ey_config.web_mobile_domain');
                 $parseStr = url('home/Tool/bohao',['aid'=>$aid],true,false,null,null,$web_mobile_domain);
                 break;

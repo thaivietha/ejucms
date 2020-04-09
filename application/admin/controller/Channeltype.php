@@ -45,6 +45,7 @@ class Channeltype extends Base
         $list = array();
         $param = input('param.');
         $condition = array();
+        $condition['is_del'] = ['eq',0];
         // 应用搜索条件
         foreach (['keywords'] as $key) {
             if (isset($param[$key]) && $param[$key] !== '') {

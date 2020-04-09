@@ -23,13 +23,17 @@ use app\home\logic\FieldLogic;
  */
 class Xinfang extends Model
 {
-    private $tid;
+    // 模型标识
+    public $nid = 'xinfang';
+    // 模型ID
+    public $channeltype = 9;
     //初始化
     protected function initialize()
     {
         // 需要调用`Model`的`initialize`方法
         parent::initialize();
-        $this->tid = 56;
+        $channeltype_list = config('global.channeltype_list');
+        $this->channeltype = $channeltype_list[$this->nid];
     }
 
     /**
@@ -99,7 +103,6 @@ class Xinfang extends Model
         $param_query['m'] = 'home';
         $param_query['c'] = 'Lists';
         $param_query['a'] = 'index';
-//        $param_query['tid'] = $this->tid;
         $param_query[$url_screen_var] = 1;
         $where  = $this->search($city);
         $sort = $this->getSort();
@@ -215,7 +218,7 @@ class Xinfang extends Model
     private function search($city = 0)
     {
         $param_new = input('param.');
-        $condition[] = "a.channel = 9";
+        $condition[] = "a.channel = {$this->channeltype}";
         $condition[] = "a.status =1";
         $condition[] = "a.is_del = 0";
         if(!empty($param_new['keyword'])){
@@ -224,7 +227,7 @@ class Xinfang extends Model
         }
         $where = [
             'is_screening' => 1,
-            'channel_id'=> 9
+            'channel_id'=> $this->channeltype
             // 根据需求新增条件
         ];
 

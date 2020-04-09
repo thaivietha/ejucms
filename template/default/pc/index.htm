@@ -527,9 +527,16 @@
                 </div>
               <ul class="list">
                 {eju:arclist orderby='new' row='6' id='field' typeid='11'}
-                <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
-                <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
-                <span class="ft clearfix"> <span class="fr type_area nowarp" style="width:90px;">{$field.room}{$field.living_room}-{$field.area}{$field.area_unit}</span> <span class="fl"><i class="price">{eju:notempty name="$field.total_price"}{$field.total_price}</i>{$field.total_price_unit}{eju:else /}价格待定{/eju:notempty}</span> </span> </a> </li>
+                <li>
+                  <a href="{$field.arcurl}"  target="_blank">
+                    <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}">  </span>
+                    <span class="ft clearfix nowarp">{eju:notempty name="$field.area_id"}{$field.area_id|get_area_name}{eju:else /}{$field.city_id|get_city_name}{/eju:notempty} -{eju:arcview aid='$field.joinaid' id='field2'}{$field2.title}{/eju:arcview}</span>
+                    <span class="ft clearfix">
+                      <span class="fr type_area nowarp" style="width:90px;">{$field.room}{$field.living_room}-{$field.area}{$field.area_unit}</span>
+                      <span class="fl"><i class="price">{eju:notempty name="$field.total_price"}{$field.total_price}{$field.total_price_unit}{eju:else /}价格待定{/eju:notempty}</i></span>
+                    </span>
+                  </a>
+                </li>
                 {/eju:arclist}
               </ul>
             </div>

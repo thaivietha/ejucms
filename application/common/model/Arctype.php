@@ -15,17 +15,20 @@ namespace app\common\model;
 
 use think\Db;
 use think\Model;
-
+use \think\Request;
 /**
  * 栏目
  */
 class Arctype extends Model
 {
+    public $subDomain = "";
     //初始化
     protected function initialize()
     {
         // 需要调用`Model`的`initialize`方法
         parent::initialize();
+        $request    = Request::instance();
+        $this->subDomain = $request->subDomain();
     }
 
     /**
@@ -438,9 +441,11 @@ class Arctype extends Model
                     'is_del'    => 0,
                 ])
                 ->getAllWithIndex('id');
-
             if (isset($arctype_list[$typeid])) {
                 // 第一个先装起来
+                if (!empty($this->subDomain)){
+                    $arctype_list[$typeid]['typeurl']['domain'] = $this->subDomain;
+                }
                 $arctype_list[$typeid]['typeurl'] = !empty($arctype_list[$typeid]['pointto_id']) ? $this->getTypeUrl($arctype_list[$arctype_list[$typeid]['pointto_id']]) : $this->getTypeUrl($arctype_list[$typeid]);
                 $data[$typeid] = $arctype_list[$typeid];
             } else {
@@ -450,6 +455,9 @@ class Arctype extends Model
             {
                 $typeid = $arctype_list[$typeid]['parent_id'];
                 if($typeid > 0){
+                    if (!empty($this->subDomain)){
+                        $arctype_list[$typeid]['typeurl']['domain'] = $this->subDomain;
+                    }
                     if (isset($arctype_list[$typeid])) {
                         $arctype_list[$typeid]['typeurl'] =  !empty($arctype_list[$typeid]['pointto_id']) ? $this->getTypeUrl($arctype_list[$arctype_list[$typeid]['pointto_id']]) : $this->getTypeUrl($arctype_list[$typeid]);
                         $data[$typeid] = $arctype_list[$typeid];

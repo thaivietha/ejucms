@@ -22,7 +22,7 @@ class TagUser extends Base
         parent::_initialize();
         // 会员信息
         $this->users_id = session('users_id');
-        $this->users_id = !empty($this->users_id) ? $this->users_id : 0;
+        empty($this->users_id) && $this->users_id = 0;
     }
 
     /**
@@ -43,6 +43,7 @@ class TagUser extends Base
         }
 
         if (1 == intval($web_users_switch)) {
+            $subdomain =  tpCache('web.web_main_domain');  //主域名
             if (!empty($users_open_register)) {
                 $url = '';
                 $t_uniqid = '';
@@ -57,7 +58,7 @@ class TagUser extends Base
                             if (empty($shop_open)) return false; // 关闭商城中心，同时隐藏购物车入口
                             $url = url('user/Shop/shop_cart_list');
                         } else {
-                            $url = url('user/Users/'.$type);
+                            $url = url('user/Users/'.$type,'',true,false,null,null,$subdomain);
                         }
                         $t_uniqid = md5(getTime().uniqid(mt_rand(), TRUE));
                         // A标签ID

@@ -82,7 +82,17 @@
                 <div class="question-list"> 
                  {eju:volist name="$field.AskData" id="vo"}
                   <div class="question-item">
-                    <h3 class="f18"> <a href="{$vo.AskUrl}" target="_blank">{eju:notempty name="$vo.fang_title"}[{$vo.fang_title}]{/eju:notempty}{$vo.ask_title}</a> </h3>
+                    <h3 class="f18">
+                      {eju:notempty name="$vo.fang_title"}
+                      <a href="{$vo.fang_arcurl}" target="_blank">
+                        [{$vo.fang_title}]
+                      </a>
+
+                      {/eju:notempty}
+                      <a href="{$vo.AskUrl}" target="_blank">
+                        {$vo.ask_title}
+                      </a>
+                    </h3>
                     {eju:volist name="$vo.AnswerData" id="vo2"}
                     <div class="answer-cont">
                       <a href="{$vo.AskUrl}" target="_blank">

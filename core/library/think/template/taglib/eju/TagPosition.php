@@ -20,7 +20,7 @@ namespace think\template\taglib\eju;
 class TagPosition extends Base
 {
     public $tid = '';
-    
+
     //初始化
     protected function _initialize()
     {
@@ -31,6 +31,7 @@ class TagPosition extends Base
         if ($aid > 0) {
             $this->tid = M('archives')->where('aid', $aid)->getField('typeid');
         }
+
         /*--end*/
         /*tid为目录名称的情况下*/
         $this->tid = $this->getTrueTypeid($this->tid);

@@ -202,12 +202,14 @@ class Ajax extends Base
                 ])
                 ->order('a.attr_id sac')
                 ->select();
-            $content = '';
-            $sms_content = '';
+            $content = $sms_content = $user = $tel = '';
             foreach ($row as $key => $val) {
                 $content .= $val['attr_name'] . '：' . $val['attr_value'].'<br/>';
                 if (preg_match("/^1\d{10}$/",$val['attr_value'],$result)){
                     $sms_content .= $val['attr_name'] . '：' . $val['attr_value'];
+                    $tel = $val['attr_value'];
+                }else{
+                    $user = $val['attr_value'];
                 }
             }
             $html = "<p style='text-align: left;'>{$web_name}</p><p style='text-align: left;'>{$content}</p>";
@@ -216,22 +218,45 @@ class Ajax extends Base
             } else {
                 $html .= "<p style='text-align: left;'>——来源：电脑端 -- {$from_list['come_from']}</p>";
             }
-            $sms_arr = ['form'=>$web_name,'content'=>$sms_content,'from'=>$from_list['come_from']];
+            $sms_arr = ['form'=>$web_name,'user'=>$user,'tel'=>$tel,'from'=>$from_list['come_from']];
             $config_list = Db::name('form_config')->where("status=1")->getAllWithIndex("role");
             if (!empty($from_list['aid'])){
-                $users_info = Db::name("archives")->alias("a")->field("b.mobile,b.email")->join("users b","a.users_id = b.id","left")->where("a.aid=".$from_list['aid'])->find();
+                $user_id = Db::name("archives")->where("aid=".$from_list['aid'])->find();
+                //经纪人
+                $relate_arr = [];
+                if(!empty($user_id['users_id'])){
+                    $relate_arr[] = $user_id['users_id'];
+                }
+                //关联经纪人信息
+                if (!empty($user_id['relate'])){
+                    $relate_arr = array_unique(array_merge(explode(",",$user_id['relate']),$relate_arr));
+                }
+                $users_arr = Db::name("users")->where(['id'=>['in',$relate_arr]])->getAllWithIndex('id');
+
+//                $users_info = Db::name("archives")->alias("a")->field("b.mobile,b.email")->join("users b","a.users_id = b.id","left")->where("a.aid=".$from_list['aid'])->find();
             }
-            if (!empty($config_list[2]['note']) && !empty($users_info['mobile'])){   //发送经纪人短信
-                $res = sendSms($scene, $users_info['mobile'], $sms_arr);
+            if (!empty($config_list[2]['note']) && !empty($users_arr)){   //发送经纪人短信
+                foreach ($users_arr as $val){
+                    $res = sendSms($scene, $val['mobile'], $sms_arr);
+                }
             }
+            if (!empty($config_list[2]['email']) && !empty($users_arr)){   //发送经纪人邮箱
+                foreach ($users_arr as $val){
+                    $res =  send_email($val['email'],null,$html, $scene);
+                }
+            }
+//            if (!empty($config_list[2]['note']) && !empty($users_info['mobile'])){   //发送经纪人短信
+//                $res = sendSms($scene, $users_info['mobile'], $sms_arr);
+//            }
+//            if (!empty($config_list[2]['email']) && !empty($users_info['email'])){   //发送经纪人邮箱
+//                $res = send_email($users_info['email'],null,$html, $scene);  //第一个字段是收件箱
+//            }
+
             if (!empty($config_list[1]['note'])){   //发送管理员短信
                 $res = sendSms($scene, $this->eju['global']['sms_test_mobile'], $sms_arr);
             }
-            if (!empty($config_list[2]['email']) && !empty($users_info['email'])){   //发送经纪人邮箱
-                $res = send_email($users_info['email'],null,$html, $scene);  //第一个字段是收件箱
-            }
             if (!empty($config_list[1]['email'])){   //发送管理员邮箱
-                $res = send_email(null,null,$html, $scene);  //第一个字段是收件箱
+                $res = send_email($this->eju['global']['smtp_from_eamil'],null,$html, $scene);  //第一个字段是收件箱
             }
             if (!empty($res['code']) && intval($res['code']) == 1) {
                 $this->success($res['msg']);
@@ -309,7 +334,7 @@ class Ajax extends Base
             $newData = array(
                 'form_id'    => $form_id,
                 'ip'    => $ip,
-                'aid'    => !empty($post['aaa']) ? $post['aaa'] : 0,
+                'aid'    => !empty($post['aid']) ? $post['aid'] : 0,
                 'come_from' => $come_from,
                 'come_url' => $come_url,
                 'city' => $city,

@@ -23,7 +23,7 @@ class TagForm extends Base
         /*tid为目录名称的情况下*/
         $this->tid = $this->getTrueTypeid($this->tid);
 
-        $aid = I("param.aid/s", '');
+        $aid = I("param.aid/d", '0');
         if ($aid){
             $archives = M('Archives')->field('title,typeid')->where([ 'aid'=> $aid])->find();
             $typename = M('Arctype')->where(['id'=> $archives['typeid']])->getField('typename');
@@ -282,7 +282,7 @@ EOF;
         $hidden = '<input type="hidden" name="ajax_form" value="'.$ajax_form.'" />
         <input type="hidden" name="come_from" value="'.$this->come_from.'" />
         <input type="hidden" name="parent_come_url" value="'.input('param.parent_url/s').'" />
-        <input type="hidden" name="aaa" value="'.input('param.aid/s').'" />
+        <input type="hidden" name="aid" value="'.input('param.aid/d','0').'" />
         <input type="hidden" name="come_url" value="'.request()->url(true).'" />
         <input type="hidden" name="form_id" value="'.$form['id'].'" />
         <input type="hidden" name="__token__'.$token_id.'" id="'.$token_id.'" value="" />'.$tokenStr;

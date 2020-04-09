@@ -156,6 +156,11 @@ class NavigationLogic extends Model
                 'url'   => url('home/Map/index'),
             ],
             [
+                'title' => '地图找小区',
+                'code'   => 'home_Map_xiaoqu',
+                'url'   => url('home/Map/xiaoqu'),
+            ],
+            [
                 'title' => '地图找二手房',
                 'code'   => 'home_Map_ershou',
                 'url'   => url('home/Map/ershou'),
@@ -165,10 +170,26 @@ class NavigationLogic extends Model
                 'code'   => 'home_Map_zufang',
                 'url'   => url('home/Map/zufang'),
             ],
+
             [
-                'title' => '地图找小区',
-                'code'   => 'home_Map_xiaoqu',
-                'url'   => url('home/Map/xiaoqu'),
+                'title' => '地图找商铺出售',
+                'code'   => 'home_Map_shopcs',
+                'url'   => url('home/Map/shopcs'),
+            ],
+            [
+                'title' => '地图找商铺出租',
+                'code'   => 'home_Map_shopcz',
+                'url'   => url('home/Map/shopcz'),
+            ],
+            [
+                'title' => '地图找写字楼出售',
+                'code'   => 'home_Map_officecs',
+                'url'   => url('home/Map/officecs'),
+            ],
+            [
+                'title' => '地图找写字楼出租',
+                'code'   => 'home_Map_officecz',
+                'url'   => url('home/Map/officecz'),
             ],
             [
                 'title' => '房贷计算器',

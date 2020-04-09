@@ -14,11 +14,17 @@ use app\home\logic\FieldLogic;
 
 class Zufang extends Model
 {
+    // 模型标识
+    public $nid = 'zufang';
+    // 模型ID
+    public $channeltype = 13;
     //初始化
     protected function initialize()
     {
         // 需要调用`Model`的`initialize`方法
         parent::initialize();
+        $channeltype_list = config('global.channeltype_list');
+        $this->channeltype = $channeltype_list[$this->nid];
     }
     /**
      * 获取单条记录
@@ -174,7 +180,7 @@ class Zufang extends Model
     private function search($city = 0)
     {
         $param_new = input('param.');
-        $condition[] = "a.channel = 13";
+        $condition[] = "a.channel = {$this->channeltype}";
         $condition[] = "a.status =1";
         $condition[] = "a.is_del = 0";
         if(!empty($param_new['keyword'])){
@@ -183,7 +189,7 @@ class Zufang extends Model
         }
         $where = [
             'is_screening' => 1,
-            'channel_id'=> 13
+            'channel_id'=> $this->channeltype
             // 根据需求新增条件
         ];
 

@@ -222,9 +222,17 @@ class Index extends Base
 
             tpCache('system', ['system_channeltype_unit_23'=>1]);
         }
-        //升级到2.4版本后更新数据
+        //升级到2.4版本后更新数据,删除saleman相关数据结构，清除相关表结构缓存文件
         if (!tpCache('system.system_channeltype_unit_24')){
 //            Db::name("channelfield") ->where(['name'=>['in',['title','province_id','city_id']]])->save(['ifrequire'=>1]);
+            @unlink("./".$this->root_dir."/data/schema/eju_ershou_system.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_officecs_system.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_officecz_system.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_shopcs_system.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_shopcz_system.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_xinfang_system.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_zufang_system.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_saleman.php");
             $fieldLogic->synAreaChannelUnit();
             tpCache('system', ['system_channeltype_unit_24'=>1]);
         }

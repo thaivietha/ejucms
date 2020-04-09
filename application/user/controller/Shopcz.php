@@ -165,6 +165,7 @@ class Shopcz extends Base
             if (intval($is_jump) > 0) {
                 $jumplinks = !empty($post['jumplinks'])? $post['jumplinks'] : '';
             }
+            $post['addonFieldExt']['content'] = htmlspecialchars(strip_sql($content));
             // --存储数据
             $newData = array(
                 'typeid'=> $this->type_info['id'],
@@ -309,6 +310,7 @@ class Shopcz extends Base
             if (intval($is_jump) > 0) {
                 $jumplinks = $post['jumplinks'];
             }
+            $post['addonFieldExt']['content'] = htmlspecialchars(strip_sql($content));
             // --存储数据
             $newData = array(
                 'typeid'=> $this->type_info['id'],

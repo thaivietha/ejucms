@@ -38,22 +38,25 @@
   <div class="fix-width nav_house">
     <div class="house_move_act">
       <ul>
-        <li {eju:empty name='$eju.param.column'} class="hover"{/eju:empty}> <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘主页</a> </li>
+        <li {eju:empty name='$eju.param.column'} class="hover"{/eju:empty}> <a href="{:arcurl('home/Xinfang/view',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘主页</a> </li>
         <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='information'} class="hover"{/eju:eq}{/eju:notempty}>
-        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'information','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘动态</a>
+        <a href="{:arcurl('home/Xinfang/view',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'information','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘动态</a>
         </li>
         <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='huxing'} class="hover"{/eju:eq}{/eju:notempty}>
-        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}"  >在售户型</a>
+        <a href="{:arcurl('home/Xinfang/view',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'huxing','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}"  >在售户型</a>
         </li>
         <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='photo'} class="hover"{/eju:eq}{/eju:notempty}>
-        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘相册</a>
+        <a href="{:arcurl('home/Xinfang/view',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'photo','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘相册</a>
         </li>
         <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='detail'} class="hover"{/eju:eq}{/eju:notempty}>
-        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'detail','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘信息</a>
+        <a href="{:arcurl('home/Xinfang/view',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'detail','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘信息</a>
         </li>
         <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='ask'} class="hover"{/eju:eq}{/eju:notempty}>
-        <a href="{:arcurl('home/Xinfang/index',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'ask','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘问答</a>
+        <a href="{:arcurl('home/Xinfang/view',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'ask','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘问答</a>
         </li>
+          <li {eju:notempty name='$eju.param.column'}{eju:eq name='$eju.param.column' value='remark'} class="hover"{/eju:eq}{/eju:notempty}>
+          <a href="{:arcurl('home/Xinfang/view',['aid'=>$eju.field.xinfang.aid,'dirname'=>$eju.field.xinfang.dirname,'dirpath'=>$eju.field.xinfang.dirpath,'column'=>'remark','province_id'=>$eju.field.xinfang.province_id,'city_id'=>$eju.field.xinfang.city_id,'area_id'=>$eju.field.xinfang.area_id])}" >楼盘点评</a>
+          </li>
       </ul>
     </div>
   </div>
