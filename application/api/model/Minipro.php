@@ -51,8 +51,8 @@ class Minipro extends Model
             $webData   = tpCache('web');
             $barlist   = $this->getBarlist();
             $webconfig = array(
-                'web_name'      => empty($barlist['nav_title']) ? $webData['web_name'] : $barlist['nav_title'],
-                'web_copyright' => empty($barlist['copyright']) ? $webData['web_copyright'] : $barlist['copyright'],
+                'web_name'      => $webData['web_title'] ,
+                'web_copyright' => $webData['web_copyright'],
             );
             $result    = array(
                 'webconfig' => $webconfig,
@@ -449,7 +449,7 @@ class Minipro extends Model
         $status   = 1;
         if (empty($result)) {
             $condition = array();
-            $order     = '';
+            $order     = 'a.sort_order asc,a.add_time desc';
 
             // 应用搜索条件
             foreach (['channel', 'typeid', 'flag', 'arcrank', 'keyword', 'param'] as $key) {
@@ -649,7 +649,10 @@ class Minipro extends Model
             if ($channel == 9) {
                 $content = Db::name($name . '_content')->where('aid', 'in', $aids)->field('aid,sales_address')->getAllWithIndex('aid');
                 $huxing  = Db::name($name . '_huxing')->field('aid,min(huxing_area) as min_huxing,max(huxing_area) as max_huxing')->where('aid', 'in', $aids)->group('aid')->getAllWithIndex('aid');
-                $system  = Db::name($name . '_system')->field('aid,characteristic,sale_phone,sale_status,average_price')->where('aid', 'in', $aids)->getAllWithIndex('aid');
+                $system  = Db::name($name . '_system')->field('aid,characteristic,sale_phone,sale_status,average_price,price_units')->where('aid', 'in', $aids)->getAllWithIndex('aid');
+                foreach ($system as $key => $value) {
+                	$system[$key]['average_price'] = $value['average_price'].$value['price_units'];
+                }
             } elseif ($channel == 11) {
                 $system = Db::name($name . '_system')->field('aid,manage_type,building_age,address,average_price')->where('aid', 'in', $aids)->getAllWithIndex('aid');
                 $ershou = Db::name('archives')->field('joinaid,count(*) as count')->where(['is_del' => 0, 'arcrank' => 0, 'status' => 1, 'channel' => 12])->group('joinaid')->getAllWithIndex('joinaid');
@@ -726,6 +729,8 @@ class Minipro extends Model
                         ->join('__XINFANG_CONTENT__ b', 'a.aid = b.aid', 'LEFT')
                         ->join('__XINFANG_SYSTEM__ d', 'a.aid = d.aid', 'LEFT')
                         ->find($aid);
+                    $row['average_price'] =  $row['average_price'] . $row['price_units'];
+
                     $row['ejucms_huxing']      = Db::name('xinfang_huxing')->where(['aid' => $aid, 'is_del' => 0])->order('sort_order asc')->select();
                     $row['ejucms_huxing_area'] = Db::name('xinfang_huxing')->field('aid,min(huxing_area) as min,max(huxing_area) as max')->where(['aid' => $aid, 'is_del' => 0])->group('aid')->find();
                     $row['ejucms_photo']       = Db::name('xinfang_photo')->field('aid,photo_type,count(*) as count')->where(['aid' => $aid, 'is_del' => 0])->group('photo_type')->order('sort_order')->select();
