@@ -667,22 +667,9 @@ class TagList extends Base
                 $mapurl = url('home/Map/index', ['aid'=>$val['aid']], true, false, 1);
                 $arcval['mapurl'] = $mapurl;
                 //经纪人
-                $relate_arr = [];
-                if(!empty($arcval['users_id'])){
-                    $relate_arr[] = $arcval['users_id'];
-                }
-                //关联经纪人信息
-                if (!empty($arcval['relate'])){
-                    $relate_arr = array_unique(array_merge(explode(",",$arcval['relate']),$relate_arr));
-                }
-                if (!empty($relate_arr)){
-                    $saleman_list = \think\Db::name("users")->field("*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")->where(['id'=>['in',$relate_arr]])->getAllWithIndex('id');
-                    $arcval['saleman_list'] = $saleman_list;
-                    $arcval['saleman'] = $saleman_list[$relate_arr[0]];
-                }
+                $arcval = get_archives_relate_list($arcval);
                 !empty($arcval['saleman']['saleman_pic']) && $arcval['saleman']['saleman_pic']= thumb_img(get_default_pic($arcval['saleman']['saleman_pic'])); // 默认封面图
 
-//                $arcval['saleman'] = !empty($users[$arcval['users_id']]) ? $users[$arcval['users_id']] : [];
                 $list[$key] = $arcval;
             }
 

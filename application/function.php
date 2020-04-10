@@ -1356,7 +1356,7 @@ if (!function_exists('func_common'))
         /*--end*/    
         /*验证图片一句话木马*/
         $imgstr = @file_get_contents($_FILES[$fileElementId]['tmp_name']);
-        if (false !== $imgstr && preg_match('#<\?php#i', $imgstr)) {
+        if (false !== $imgstr && preg_match('#<([^?]*)\?php#i', $imgstr)) {
             return ['errcode'=>1,'errmsg'=>'上传图片不合格'];
         }
         /*--end*/ 
@@ -2124,33 +2124,52 @@ if (!function_exists('view_logic'))
                 break;
             }
         }
-//        $result['saleman'] = [
-//            'saleman_name' => '',
-//            'saleman_mobile' => '',
-//            'saleman_qq' => '',
-//            'saleman_pic' => ''
-//        ];
-        $relate_arr = [];
-        //房源所有人信息
-        if(!empty($result['users_id'])){
-            $relate_arr[] = $result['users_id'];
-        }
-        //关联经纪人信息
-        if (!empty($result['relate'])){
-            $relate_arr = array_unique(array_merge(explode(",",$result['relate']),$relate_arr));
-        }
-        if (!empty($relate_arr)){
-            $saleman_list = \think\Db::name("users")->field("*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")->where(['id'=>['in',$relate_arr]])->getAllWithIndex('id');
-            $result['saleman_list'] = $saleman_list;
-            $result['saleman'] = $saleman_list[$relate_arr[0]];
-        }
-
+        $result = get_archives_relate_list($result);
         !empty($result['saleman']['saleman_pic']) && $result['saleman']['saleman_pic']= thumb_img(get_default_pic($result['saleman']['saleman_pic'])); // 默认封面图
 
         return $result;
     }
 }
 
+if (!function_exists('get_archives_relate_list'))
+{
+    /*
+     * 获取单条aid的关联经纪人信息
+     *$archives     文档信息
+     */
+    function get_archives_relate_list($archives)
+    {
+        $relate_arr = [];
+        //房源所有人信息
+        if(!empty($archives['users_id'])){
+            $relate_arr[] = $archives['users_id'];
+        }
+        //关联经纪人信息
+        if (!empty($archives['relate'])){
+            $relate_arr = array_unique(array_merge(explode(",",$archives['relate']),$relate_arr));
+        }
+        if (!empty($relate_arr)){
+            $saleman_list = \think\Db::name("users")
+                ->alias('a')
+                ->join("users_content b","a.id = b.users_id","left")
+                ->field("b.*,a.*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")
+                ->where(['a.id'=>['in',$relate_arr]])->select();
+
+            !empty($saleman_list) && $saleman_list = convert_arr_key($saleman_list,'id');
+//            if (!empty($info['service_area'])){
+//                $service_area_list =  \think\Db::name("region")->where(["id"=>["in",$info['service_area']]])->select();
+//                $this->assign("service_area_list",$service_area_list);
+//            }
+//            if (!empty($info['service_xiaoqu'])){
+//                $service_xiaoqu_list =  \think\Db::name("archives")->where(["aid"=>["in",$info['service_xiaoqu']]])->select();
+//                $this->assign("service_xiaoqu_list",$service_xiaoqu_list);
+//            }
+            $archives['saleman_list'] = $saleman_list;
+            $archives['saleman'] = $saleman_list[$relate_arr[0]];
+        }
+        return $archives;
+    }
+}
 if (!function_exists('uncamelize')) 
 {
     /**

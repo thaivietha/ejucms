@@ -80,7 +80,7 @@ class TagRemark extends Base
                                         layer.closeAll();
                                         if (1 == res.code) {
                                             layer.msg(res.msg, {time: 1000},function(){
-                                                window.location.href = res.url;
+                                                location.reload();//window.location.href = res.url;
                                             });
                                         } else {
                                             layer.msg(res.msg, {time: 1500, icon: 2},function () {

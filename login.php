@@ -34,7 +34,7 @@ if(file_exists("./install/") && !file_exists("./install/install.lock")){
 // 绑定当前访问到admin模块
 define('BIND_MODULE','admin');
 // 缓存时间
-define('EYOUCMS_CACHE_TIME', 86400);
+define('EYOUCMS_CACHE_TIME', 0);
 // 数据绝对路径
 define('DATA_PATH', __DIR__ . '/data/');
 // 运行缓存

@@ -1879,12 +1879,13 @@ if (!function_exists('get_saleman_list')){
     {
         $result = extra_cache('global_get_saleman_list');
         if ($result == false) {
-            $result = M('saleman')->field('id, saleman_name as name,saleman_mobile')
-                ->where('status',1)
-                ->getAllWithIndex('id');
+            $result =  \think\Db::name("users")
+                ->alias('a')
+                ->join("users_content b","a.id = b.users_id","left")
+                ->field("b.*,a.*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")
+                ->where(['a.status'=>1,'a.is_saleman'=>1])->getAllWithIndex('a.id');
             extra_cache('global_get_saleman_list', $result);
         }
-
         return $result;
     }
 }

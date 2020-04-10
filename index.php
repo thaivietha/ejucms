@@ -32,7 +32,7 @@ if(file_exists("./install/") && !file_exists("./install/install.lock")){
 }
 
 // 缓存时间
-define('EYOUCMS_CACHE_TIME', 86400);
+define('EYOUCMS_CACHE_TIME', 0);
 // 数据绝对路径
 define('DATA_PATH', __DIR__ . '/data/');
 // 运行缓存

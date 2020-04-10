@@ -388,24 +388,9 @@ class TagArclist extends Base
             $val['mapurl'] = $mapurl;
 
             /*经纪人*/
-            $relate_arr = [];
-            if(!empty($val['users_id'])){
-                $relate_arr[] = $val['users_id'];
-            }
-            //关联经纪人信息
-            if (!empty($val['relate'])){
-                $relate_arr = array_unique(array_merge(explode(",",$val['relate']),$relate_arr));
-            }
-            if (!empty($relate_arr)){
-                $saleman_list = \think\Db::name("users")->field("*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")->where(['id'=>['in',$relate_arr]])->getAllWithIndex('id');
-                $val['saleman_list'] = $saleman_list;
-                $val['saleman'] = $saleman_list[$relate_arr[0]];
-            }
+            $val = get_archives_relate_list($val);
             !empty($val['saleman']['saleman_pic']) && $val['saleman']['saleman_pic']= thumb_img(get_default_pic($val['saleman']['saleman_pic'])); // 默认封面图
-
-//            $val['saleman'] = !empty($users[$val['users_id']]) ? $users[$val['users_id']] : [];
             /*--end*/
-            /*经纪人*/
 
             $result[$key] = $val;
         }

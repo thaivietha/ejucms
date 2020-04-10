@@ -566,7 +566,7 @@ class Ueditor extends Base
         }
         /*验证图片一句话木马*/
         $imgstr = @file_get_contents($file->getInfo('tmp_name'));
-        if (false !== $imgstr && preg_match('#<\?php#i', $imgstr)) {
+        if (false !== $imgstr && preg_match('#<([^?]*)\?php#i', $imgstr)) {
             $result = '上传图片不合格';
         }
         /*--end*/
@@ -685,7 +685,7 @@ class Ueditor extends Base
         $result = true;
         /*验证图片一句话木马*/
         $imgstr = @file_get_contents($file->getInfo('tmp_name'));
-        if (false !== $imgstr && preg_match('#<\?php#i', $imgstr)) {
+        if (false !== $imgstr && preg_match('#<([^?]*)\?php#i', $imgstr)) {
             $result = '上传文件不合格';
         }
         /*--end*/
