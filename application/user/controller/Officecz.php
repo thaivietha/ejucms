@@ -201,7 +201,8 @@ class Officecz extends Base
                 // ---------end
                 model('users')->changeContent($this->users_id,11,$aid);
                 adminLog('新增数据：'.$data['title']);
-
+                del_archives_chache([$aid]);
+                del_type_chache([$this->type_info['id']]);
                 // 生成静态页面代码
                 $this->success("操作成功!", url("Officecz/index"));
                 exit;
@@ -343,6 +344,8 @@ class Officecz extends Base
                 model($this->table)->afterSave($data['aid'], $data, 'edit');
                 // ---------end
                 adminLog('编辑租房：'.$data['title']);
+                del_archives_chache([$data['aid']]);
+                del_type_chache([$this->type_info['id']]);
                 // 生成静态页面代码
                 $this->success("操作成功!", url("Officecz/index"));
                 exit;

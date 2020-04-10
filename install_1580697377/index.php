@@ -458,6 +458,13 @@ switch ($step) {
         //更新网站配置的CMS版本号
         $sql = "UPDATE `{$dbPrefix}config` SET `value` = '$cms_version' WHERE name = 'system_version' AND inc_type = 'system'";
         mysqli_query($conn, $sql);
+
+        //更新网站主域名
+        $http_host = trim($_SERVER['HTTP_HOST'], '/');
+		$root_domain = GetUrlToDomain($http_host);
+		$main_domain = str_replace('.'.$root_domain, '', $http_host);
+        $sql = "UPDATE `{$dbPrefix}config` SET `value` = '$main_domain' WHERE name = 'web_main_domain' AND inc_type = 'web'";
+        mysqli_query($conn, $sql);
         
         $auth_code = get_auth_code($conn, $dbPrefix);
         $result = mysqli_query($conn, "SELECT admin_id FROM `{$dbPrefix}admin`");
@@ -506,6 +513,31 @@ switch ($step) {
         include_once ("./templates/step5.php");
         @touch('./install.lock');
         exit();
+}
+
+/**
+ * 取得根域名
+ * @param type $domain 域名
+ * @return string 返回根域名
+ */
+function GetUrlToDomain($domain = '') {
+	if (empty($domain)) {
+		return '';
+	}
+	$re_domain = '';
+	$domain_postfix_cn_array = array("com", "net", "org", "gov", "edu", "nm", "cn", "co");
+	$array_domain = explode(".", $domain);
+	$array_num = count($array_domain) - 1;
+	if (in_array($array_domain[$array_num], ['cn','tw','hk','nz'])) {
+		if (in_array($array_domain[$array_num - 1], $domain_postfix_cn_array)) {
+			$re_domain = $array_domain[$array_num - 2] . "." . $array_domain[$array_num - 1] . "." . $array_domain[$array_num];
+		} else {
+			$re_domain = $array_domain[$array_num - 1] . "." . $array_domain[$array_num];
+		}
+	} else {
+		$re_domain = $array_domain[$array_num - 1] . "." . $array_domain[$array_num];
+	}
+	return $re_domain;
 }
 
 function testwrite($d) {

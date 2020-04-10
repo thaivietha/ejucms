@@ -32,9 +32,11 @@ class TagSearchform extends Base
      */
     public function getSearchform($typeid = '', $channelid = '', $notypeid = '', $flag = '', $noflag = '',$present = '')
     {
+        $param = input("param.");
         $searchurl = url('home/Search/lists');
         $url_screen_var = config('global.url_screen_var');
         $hidden = '';
+        $no_hidden = [];
         if ($present == 'on'){
             $hidden .= '<input type="hidden" name="m" value="'.MODULE_NAME.'" />';
             $hidden .= '<input type="hidden" name="c" value="'.CONTROLLER_NAME.'" />';
@@ -42,6 +44,7 @@ class TagSearchform extends Base
             $hidden .= '<input type="hidden" name="'.$url_screen_var.'" value="1" />';
             $url_name = MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME;
             $searchurl = url($url_name);
+            $no_hidden = ['m','c','a','s','keywords',$url_screen_var];
         }else if (!empty($typeid)){
             $hidden .= '<input type="hidden" name="m" value="home" />';
             $hidden .= '<input type="hidden" name="c" value="Lists" />';
@@ -49,6 +52,7 @@ class TagSearchform extends Base
             $hidden .= '<input type="hidden" name="tid" id="tid" value="'.$typeid.'" />';
             $hidden .= '<input type="hidden" name="'.$url_screen_var.'" value="1" />';
             $searchurl = "/";
+            $no_hidden = ['m','c','a','s','keywords','tid',$url_screen_var];
         }else{
             $hidden .= '<input type="hidden" name="m" value="home" />';
             $hidden .= '<input type="hidden" name="c" value="Search" />';
@@ -58,6 +62,13 @@ class TagSearchform extends Base
             !empty($notypeid) && $hidden .= '<input type="hidden" name="notypeid" id="notypeid" value="'.$notypeid.'" />';
             !empty($flag) && $hidden .= '<input type="hidden" name="flag" id="flag" value="'.$flag.'" />';
             !empty($noflag) && $hidden .= '<input type="hidden" name="noflag" id="noflag" value="'.$noflag.'" />';
+
+            $no_hidden = ['m','c','a','s','keywords','typeid','channelid','notypeid','flag','noflag',$url_screen_var];
+        }
+        foreach ($param as $key=>$val){
+            if (!in_array($key,$no_hidden)){
+                $hidden .= '<input type="hidden" name="'.$key.'" value="'.$val.'" />';
+            }
         }
         $result[0] = array(
             'searchurl' => $searchurl,

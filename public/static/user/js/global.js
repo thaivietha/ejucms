@@ -193,7 +193,7 @@ function stickfun(obj){
             $.ajax({
                 type : 'POST',
                 url : url,
-                data : {aid:$(obj).attr('data-id'), _ajax:1},
+                data : {stick_id:$(obj).attr('data-id'), _ajax:1},
                 dataType : 'json',
                 success : function(res){
                     layer.closeAll();
@@ -240,7 +240,7 @@ function batch_stick(obj,name) {
             $.ajax({
                 type: "POST",
                 url: url,
-                data: {aid:a, _ajax:1},
+                data: {stick_id:a,thorough:1, _ajax:1},
                 dataType: 'json',
                 success: function (res) {
                     layer.closeAll();

@@ -204,6 +204,8 @@ class Ershou extends Base
                 model($this->table)->afterSave($aid, $data, 'add');
                 // ---------end
                 model('users')->changeContent($this->users_id,1,$aid);
+                del_archives_chache([$aid]);
+                del_type_chache([$this->type_info['id']]);
                 adminLog('新增数据：'.$data['title']);
 
                 // 生成静态页面代码
@@ -352,6 +354,8 @@ class Ershou extends Base
             if ($r) {
                 // ---------后置操作
                 model($this->table)->afterSave($data['aid'], $data, 'edit');
+                del_archives_chache([$data['aid']]);
+                del_type_chache([$this->type_info['id']]);
                 // ---------end
                 adminLog('编辑二手房：'.$data['title']);
                 // 生成静态页面代码

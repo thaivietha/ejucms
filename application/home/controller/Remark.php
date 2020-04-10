@@ -94,6 +94,7 @@ class Remark extends Base
             $AddData = array_merge($param,$AddData);
             $ResultId = Db::name("remark")->add($AddData);
             if (!empty($ResultId)) {
+                del_archives_chache([$aid],"remark");
                 if (1 == $config['remark_add_check']) {
                     $this->success('发布成功，但你的点评需要管理员审核！');
                 }else{

@@ -20,6 +20,7 @@ class Archives extends Base
     public function del()
     {
         if (IS_POST) {
+            $tid = input('tid/d',0);
             $del_id = input('del_id/a');
             $id_arr = eyIntval($del_id);
             $have = db('archives')->where([
@@ -31,6 +32,10 @@ class Archives extends Base
             }
             $archivesLogic = new \app\admin\logic\ArchivesLogic;
             $archivesLogic->del();
+            del_archives_chache($del_id);
+            if (!empty($tid)){
+                del_type_chache([$tid]);
+            }
         }
     }
     /*
@@ -38,8 +43,9 @@ class Archives extends Base
      */
     public function stick(){
         if (IS_POST) {
-            $aid = input('aid/a');
+            $aid = input('stick_id/a');
             $type = input('type/d', 0);
+            $tid = input('tid/d',0);
             $num = 1;//input('num/d');
             if (empty($type) || empty($aid)) {
                 $this->error('置顶失败！');
@@ -64,6 +70,10 @@ class Archives extends Base
             if($r){
                 model('users')->changeContent($this->users_id,$type,$aid,$count);
                 adminLog('置顶文档-id：'.$aid);
+                del_archives_chache($aid);
+                if (!empty($tid)){
+                    del_type_chache([$tid]);
+                }
                 $this->success('操作成功');
             }else{
                 $this->error('操作失败');
@@ -116,6 +126,7 @@ class Archives extends Base
         if (intval($is_jump) > 0) {
             $jumplinks = $post['jumplinks'];
         }
+        $post['addonFieldExt']['content'] = htmlspecialchars(strip_sql($content));
         // --存储数据
         $newData = array(
             'typeid'=> $typeid,

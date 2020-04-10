@@ -463,7 +463,48 @@ if (!function_exists('read_html_cache'))
         }
     }
 }
- 
+//运营模式下删除缓存文档文件
+if (!function_exists('del_archives_chache')){
+    function del_archives_chache($aids = [],$clomn = "")
+    {
+        $web_cmsmode = tpCache('web.web_cmsmode');
+        $html_cache_arr = config('HTML_CACHE_ARR');
+        if (1 == intval($web_cmsmode)) { // 页面html静态永久缓存
+            foreach ($aids as $aid) {
+                if (!empty($clomn)) {
+                    $fileList = glob(HTML_ROOT . 'http*/' . $html_cache_arr['home_View_index']['filename'] . '*_html/*' . $aid . '_' . $clomn . '.html');
+                } else {
+                    $fileList = glob(HTML_ROOT . 'http*/' . $html_cache_arr['home_View_index']['filename'] . '*_html/*' . $aid . '*.html');
+                }
+                if (!empty($fileList)) {
+                    foreach ($fileList as $k2 => $file) {
+                        @unlink($file);
+
+                    }
+                }
+            }
+        }
+    }
+}
+//运营模式下删除缓存栏目文件
+if (!function_exists('del_type_chache')){
+    function del_type_chache($tids = [])
+    {
+        $web_cmsmode = tpCache('web.web_cmsmode');
+        $html_cache_arr = config('HTML_CACHE_ARR');
+        if (1 == intval($web_cmsmode)) { // 页面html静态永久缓存
+            foreach ($tids as $tid) {
+                $fileList = glob(HTML_ROOT . 'http*/' . $html_cache_arr['home_Lists_index']['filename'] . '*_html/*' . $tid . '*.html');
+                if (!empty($fileList)) {
+                    foreach ($fileList as $k2 => $file) {
+                        @unlink($file);
+
+                    }
+                }
+            }
+        }
+    }
+}
 if (!function_exists('is_local_images')) 
 {
     /**

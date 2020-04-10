@@ -115,7 +115,7 @@
                                 </td>
                                 <td>
                                     <div class="layui-table-cell w300 tc right-oper">
-                                        <a onclick="stickfun(this)" data-url="{:url('Archives/stick',array('type'=>'6'))}" data-id="{$vo.aid}"  class="layui-btn btn-edit" >
+                                        <a onclick="stickfun(this)" data-url="{:url('Archives/stick',['type'=>'6','tid'=>$type_info['id']])}" data-id="{$vo.aid}"  class="layui-btn btn-edit" >
                                             置顶
                                         </a>
                                         <a data-url="{:url($table.'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}" class="layui-btn btn-edit customvar_edit" >
@@ -124,7 +124,7 @@
                                         <a href="{$vo.arcurl}" target="_blank" class="layui-btn btn-primary" >
                                             浏览
                                         </a>
-                                        <a onclick="delfun(this)" class="layui-btn btn-primary" data-url="{:url('Archives/del')}" data-id="{$vo.aid}" data-deltype="pseudo0">
+                                        <a onclick="delfun(this)" class="layui-btn btn-primary" data-url="{:url('Archives/del',['tid'=>$type_info['id']])}" data-id="{$vo.aid}" data-deltype="pseudo0">
                                             删除
                                         </a>
                                     </div>
@@ -138,10 +138,10 @@
                 </div>
                 <div class="layui-table-page footer-oper">
                     <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary" >
-                    <a  class="layui-btn layui-btn-primary"   href="javascript:;" onclick="batch_del(this,'ids');" id="batch_del_all" data-url="{:url('Archives/del')}" data-deltype="pseudo0">
+                    <a  class="layui-btn layui-btn-primary"   href="javascript:;" onclick="batch_del(this,'ids');" id="batch_del_all" data-url="{:url('Archives/del',['tid'=>$type_info['id']])}" data-deltype="pseudo0">
                         批量删除
                     </a>
-                    <a  class="layui-btn layui-btn-primary"   href="javascript:;" onclick="batch_stick(this,'ids');" id="batch_stick_all" data-url="{:url('Archives/stick',array('type'=>'6'))}" >
+                    <a  class="layui-btn layui-btn-primary"   href="javascript:;" onclick="batch_stick(this,'ids');" id="batch_stick_all" data-url="{:url('Archives/stick',['type'=>'6','tid'=>$type_info['id']])}" >
                         批量置顶
                     </a>
                 </div>
