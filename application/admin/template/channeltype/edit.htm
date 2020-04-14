@@ -57,6 +57,7 @@
                             <div class="layui-form-inline2 ey_helptips_txt">添加、编辑内容时，是否必须选择{$list.ntitle}</div>
                         </div>
                     </div>
+                  {notempty name="$field.ifsystem"}
                     <div class="layui-form-item">
                         <label class="layui-form-label">关联经纪人</label>
                         <div class="layui-input-inline w70">
@@ -64,6 +65,7 @@
                             <input type="hidden" name="is_join_user" value="{$field.is_join_user|default='0'}" />
                         </div>
                     </div>
+                  {/notempty}
 
                     <div class="layui-form-item">
                     <div class="layui-input-block">

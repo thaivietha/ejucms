@@ -2857,7 +2857,7 @@ class Eju extends Taglib
         //显示级别，0：从头开始显示（province），1：同级开始显示（默认），2：下级开始显示
         $show = !empty($tag['show']) ? $tag['show'] : '0';
         $show = $this->varOrvalue($show);
-        //开启二级域名，默认关闭
+        //开启二级域名，默认关闭,'1,2,3'
         $opencity = !empty($tag['opencity']) ? $tag['opencity'] : '';
         $opencity = $this->varOrvalue($opencity);
         //支持js选中筛选

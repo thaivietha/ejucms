@@ -36,7 +36,7 @@ class Collect  extends Base
             ->getAllWithIndex('aid');
         if ($list) {
             $aids = array_keys($list);
-            $fields = "b.add_time as collect_time, a.*, a.aid as aid";
+            $fields = "b.*,b.add_time as collect_time, a.*, a.aid as aid";
             $row = $this->archives_db
                 ->field($fields)
                 ->alias('a')

@@ -269,8 +269,8 @@ switch ($step) {
         exit();
 
     case '4':
-        $arr = array();
 
+        $arr = array();
         $dbHost = trim(addslashes($_POST['dbhost']));
         $dbport = !empty($_POST['dbport']) ? addslashes($_POST['dbport']) : '3306';
         $dbName = trim(addslashes($_POST['dbname']));
@@ -461,8 +461,16 @@ switch ($step) {
 
         //更新网站主域名
         $http_host = trim($_SERVER['HTTP_HOST'], '/');
-		$root_domain = GetUrlToDomain($http_host);
-		$main_domain = str_replace('.'.$root_domain, '', $http_host);
+        if (is_ip($http_host)){
+            $main_domain = "";
+        }else{
+            $root_domain = GetUrlToDomain($http_host);
+            if ($http_host == $root_domain){
+                $main_domain = "";
+            }else{
+                $main_domain = str_replace('.'.$root_domain, '', $http_host);
+            }
+        }
         $sql = "UPDATE `{$dbPrefix}config` SET `value` = '$main_domain' WHERE name = 'web_main_domain' AND inc_type = 'web'";
         mysqli_query($conn, $sql);
         
@@ -514,6 +522,16 @@ switch ($step) {
         @touch('./install.lock');
         exit();
 }
+//是否是ip域名
+function is_ip($domain){
+    //0.0.0.0--- 255.255.255.255
+    $pat = "/^[0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3}$/";
+    if(preg_match($pat,$domain)){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 /**
  * 取得根域名
@@ -521,7 +539,7 @@ switch ($step) {
  * @return string 返回根域名
  */
 function GetUrlToDomain($domain = '') {
-	if (empty($domain)) {
+    if (empty($domain)) {
 		return '';
 	}
 	$re_domain = '';

@@ -1853,7 +1853,7 @@ if (!function_exists('getOrderBy'))
                 break;
             case 'sortrank': // 兼容织梦的写法
             case 'sort_order':
-                $orderby = "a.sort_order {$orderway}";
+                $orderby = "a.sort_order {$orderway}, a.show_time desc";
                 break;
 
             case 'rand':

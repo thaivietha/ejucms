@@ -150,6 +150,18 @@
                        </div>
                    </li>
                    {/if}
+                   {volist name="$contentManage" id="vo"}
+                   {if condition="empty($vo['ifsystem'])"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-xiaoquguanli"></i>
+                           <cite>{$vo.typename}</cite>
+                           <a lay-href="{:url('Custom/index', ['channel'=>$vo['id']])}">{$vo.typename}列表</a>
+                           <a lay-href="{:url('Custom/index', ['channel'=>$vo['id'],'openurl'=>url('Custom/add',['channel'=>$vo['id']])])}">{$vo.typename}新增</a>
+                       </div>
+                   </li>
+                   {/if}
+                   {/volist}
                 </ul>
              </div>
           </div>

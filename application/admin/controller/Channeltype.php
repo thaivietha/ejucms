@@ -232,7 +232,7 @@ class Channeltype extends Base
         $xinfang_arr = ['article','tuan'];
         $xiaoqu_arr = ['ershou','zufang','shopcs','shopcz','officecs','officecz'];
         //团购、资讯关联新房  ，  二手房、租房（默认）、商铺、写字楼关联小区
-        $list = $this->channeltype_db ->where(['status'=>1,'is_del'=>0,'ifsystem'=>1,'nid'=>['neq','single']])->getAllWithIndex("id");
+        $list = $this->channeltype_db ->where(['is_del'=>0,'nid'=>['neq','single']])->getAllWithIndex("id"); //'status'=>1,,'ifsystem'=>1
         if (empty($list[$id])){
             $this->error('数据不存在，请联系管理员！');
             exit;
@@ -251,7 +251,6 @@ class Channeltype extends Base
         }else  if (!empty($list[$id]['nid']) && in_array($list[$id]['nid'],$xiaoqu_arr)){     //只允许关联小区
             $assign_data['list'] = $xiaoqu;
         }
-
 
         $this->assign($assign_data);
         return $this->fetch();

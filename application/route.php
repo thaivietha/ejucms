@@ -60,43 +60,40 @@ config('ey_config.seo_rewrite_format', $seo_rewrite_format);
 // 是否隐藏入口文件
 $seo_inlet = !empty($globalTpCache['seo_inlet']) ? $globalTpCache['seo_inlet'] : config('ey_config.seo_inlet');
 config('ey_config.seo_inlet', $seo_inlet);
-
 if (3 == $seo_pseudo) {
     $rewrite = [];
     $rewrite_str = '';
     /*多站点*/
-    if (stristr($request->baseFile(), 'index.php') && isMobile()) {
+    if (stristr($request->baseFile(), 'index.php') && (isMobile() || $request->subDomain() == $web_mobile_domain)) {
         if (1 == $web_region_domain) {
             $subdomain = \think\Cookie::get('subdomain');
             $rewrite_str = $subdomain.'/';
-            if (1 == $seo_rewrite_format){
-                $rewrite = [
-                    '<subdomain>/search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-//                    //目录名称
-                    '<subdomain>/<tid>$' => array('home/Lists/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
-                    '<subdomain>/$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
-                ];
-            }else{
-                $rewrite = [
-                    '<subdomain>/search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    //模型标识
-                    '<subdomain>/article/<tid>$' => array('home/Article/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/xinfang/<tid>$' => array('home/Xinfang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/tuan/<tid>$' => array('home/Tuan/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/images/<tid>$' => array('home/Images/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/single/<tid>$' => array('home/Single/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/xiaoqu/<tid>$' => array('home/Xiaoqu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/ershou/<tid>$' => array('home/Ershou/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/zufang/<tid>$' => array('home/Zufang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/officecs/<tid>$' => array('home/Officecs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/officecz/<tid>$' => array('home/Officecz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/shopcs/<tid>$' => array('home/Shopcs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/shopcz/<tid>$' => array('home/Shopcz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/qiuzu/<tid>$' => array('home/Qiuzu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-//                $rewrite_str.'$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
-                    '<subdomain>/$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
-                ];
-            }
+//            if (1 == $seo_rewrite_format){
+//                $rewrite = [
+//                    '<subdomain>/search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/<tid>$' => array('home/Lists/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+//                    '<subdomain>/$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+//                ];
+//            }else{
+//                $rewrite = [
+//                    '<subdomain>/search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    //模型标识
+//                    '<subdomain>/article/<tid>$' => array('home/Article/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/xinfang/<tid>$' => array('home/Xinfang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/tuan/<tid>$' => array('home/Tuan/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/images/<tid>$' => array('home/Images/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/single/<tid>$' => array('home/Single/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/xiaoqu/<tid>$' => array('home/Xiaoqu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/ershou/<tid>$' => array('home/Ershou/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/zufang/<tid>$' => array('home/Zufang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/officecs/<tid>$' => array('home/Officecs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/officecz/<tid>$' => array('home/Officecz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/shopcs/<tid>$' => array('home/Shopcs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/shopcz/<tid>$' => array('home/Shopcz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/qiuzu/<tid>$' => array('home/Qiuzu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+//                    '<subdomain>/$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+//                ];
+//            }
 
         }
     }

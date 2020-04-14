@@ -28,11 +28,22 @@ if (!function_exists('getAllMenu'))
         $menuArr = false;
         if (!$menuArr) {
             $menuArr = get_conf('menu');
-            //判断后台频道是否已经关闭
-            $channeltype_list = \think\Db::name("channeltype")->where(['status'=>1])->getField("ctl_name",true);
-
+            //判断后台频道是否已经关闭,或者不存在栏目
+            $channel_list = model('Channeltype')->getArctypeChannel('yes');
+            $arctypeLogic = new \app\common\logic\ArctypeLogic();
+            $arctype_list = $arctypeLogic->arctype_list(0, 0, false, 0, ['is_del'=>0], false);
+            $channeltype = get_arr_column($arctype_list, 'current_channel');
+            $channeltype_list = [];
+            foreach ($channel_list as $key => $val) {
+                if (in_array($val['id'], [6])) {
+                    continue;
+                }
+                if (in_array($val['id'],$channeltype)){
+                    $channeltype_list[] = $val['ctl_name'];
+                }
+            }
             foreach ($menuArr[2000]['child'] as $key=>$val){
-                if (!in_array($val['controller'],$channeltype_list)){
+                if (empty($channeltype_list) || !in_array($val['controller'],$channeltype_list)){
                     unset($menuArr[2000]['child'][$key]);
                 }
             }
@@ -87,19 +98,36 @@ if (!function_exists('get_arcurl'))
             $seo_pseudo = !empty($seoConfig['seo_pseudo']) ? $seoConfig['seo_pseudo'] : config('ey_config.seo_pseudo');
             $seo_dynamic_format = !empty($seoConfig['seo_dynamic_format']) ? $seoConfig['seo_dynamic_format'] : config('ey_config.seo_dynamic_format');
         }
-
-        if (2 == $seo_pseudo && $admin) {
-            $arcurl = ROOT_DIR."/index.php?m=home&c=View&a=index&aid={$arcview_info['aid']}&t=".getTime();
-        } else {
-            static $domain = null;
-            null === $domain && $domain = request()->domain();
-            if (!empty($arcview_info['room'])){
-                unset($arcview_info['room']);
-            }
-            $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true, false, $seo_pseudo, $seo_dynamic_format);
+        static $domain = null;
+        null === $domain && $domain = request()->domain();
+        if (!empty($arcview_info['room'])){
+            unset($arcview_info['room']);
+        }
+        $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true,false,$seo_pseudo,$seo_dynamic_format);
+        if (2 != $seo_pseudo){
             // 自动隐藏index.php入口文件
             $arcurl = auto_hide_index($arcurl);
         }
+//        static $seo_pseudo = null;
+//        static $seo_dynamic_format = null;
+//        if (null === $seo_pseudo || null === $seo_dynamic_format) {
+//            $seoConfig = tpCache('seo');
+//            $seo_pseudo = !empty($seoConfig['seo_pseudo']) ? $seoConfig['seo_pseudo'] : config('ey_config.seo_pseudo');
+//            $seo_dynamic_format = !empty($seoConfig['seo_dynamic_format']) ? $seoConfig['seo_dynamic_format'] : config('ey_config.seo_dynamic_format');
+//        }
+//
+//        if (2 == $seo_pseudo && $admin) {
+//            $arcurl = ROOT_DIR."/index.php?m=home&c=View&a=index&aid={$arcview_info['aid']}&t=".getTime();
+//        } else {
+//            static $domain = null;
+//            null === $domain && $domain = request()->domain();
+//            if (!empty($arcview_info['room'])){
+//                unset($arcview_info['room']);
+//            }
+//            $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true, false, $seo_pseudo, $seo_dynamic_format);
+//            // 自动隐藏index.php入口文件
+//            $arcurl = auto_hide_index($arcurl);
+//        }
 
         return $arcurl;
     }
