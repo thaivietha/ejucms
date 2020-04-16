@@ -18,12 +18,11 @@ class Users extends Base
             $this->redirect('user/Users/centre');
             exit;
         }
-
-        $website = input('param.website/s');
-        if (isWeixin() && empty($website)) {
-            $this->redirect('user/Users/users_select_login');
-            exit;
-        }
+//        $website = input('param.website/s');
+//        if (isWeixin() && empty($website)) {
+//            $this->redirect('user/Users/login');
+//            exit;
+//        }
         // 默认开启验证码
         $is_vertify = 1;
         $users_login_captcha = config('captcha.users_login');

@@ -43,15 +43,17 @@ class Base extends Common {
                 if (IS_AJAX) {
                     $this->error('请先登录！');
                 } else {
-                    if (isWeixin()) {
-                        //微信端
-                        $this->redirect('user/Users/users_select_login');
-                        exit;
-                    }else{
-                        // 其他端
-                        $this->redirect('user/Users/login');
-                        exit;
-                    }
+                    $this->redirect('user/Users/login',302);
+                    exit;
+//                    if (isWeixin()) {
+//                        //微信端
+//                        $this->redirect('user/Users/login',302);
+//                        exit;
+//                    }else{
+//                        // 其他端
+//                        $this->redirect('user/Users/login',302);
+//                        exit;
+//                    }
                 }
             }
         }

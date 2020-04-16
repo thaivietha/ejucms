@@ -91,6 +91,7 @@
             <em>{$eju.field.average_price}</em>{$eju.field.price_units}{eju:else /}暂无
             {/eju:notempty}
             <div class="house-price-tool fr">
+
               <a href="{eju:diyurl type='jisuanqi' /}" title="" target="_blank"><i class="iconfont">&#xe752;</i> 房贷计算器</a> |
               <a href="javascript:;" class="J_dialog" data-uri="{eju:diyurl type='form' template='ajax_form_jjtz'/}"><i class="iconfont">&#xe600;</i> 降价通知</a>
             </div>
@@ -102,9 +103,9 @@
             <li>
               <label>开盘时间 ：</label>
               {$eju.field.opening_time|myDate='Y年m月d日',###}
-              <a href="javascript:;" class="J_dialog" data-id="12" data-model="house" data-type="6" data-uri="{eju:diyurl type='form' template='ajax_form_kptz'/}"><i class="lpt_icon "></i>开盘通知</a>
+              <a href="javascript:;" class="J_dialog" data-uri="{eju:diyurl type='form' template='ajax_form_kptz'/}"><i class="lpt_icon "></i>开盘通知</a>
               {eju:notempty name="$eju.field.hongbao"}
-              <a href="javascript:;" class="J_dialog" data-id="12" data-model="house" data-type="6" data-hongbao="{$eju.field.hongbao}" data-uri="{eju:diyurl type='form' template='ajax_form_hongbao'/}"><i class="lpt_icon "></i>领取红包</a>
+              <a href="javascript:;" class="J_dialog"  data-hongbao="{$eju.field.hongbao}" data-uri="{eju:diyurl type='form' template='ajax_form_hongbao'/}"><i class="lpt_icon "></i>领取红包</a>
               {/eju:notempty}
             </li>
             <li>
@@ -129,8 +130,8 @@
               <div class="telx"><i>售楼处咨询电话</i>{$eju.field.sale_phone}{eju:notempty name="$eju.field.phone_code"}<b>转</b>{$eju.field.phone_code}{/eju:notempty}&nbsp;</div>
             </div>
           </div>
-          <button type="button" class="J_dialog " data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form'/}">预约看房</button>
-          <button type="button" class="J_dialog " data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form' template='ajax_form_mfth'/}">免费通话</button>
+          <button type="button" class="J_dialog"  data-uri="{eju:diyurl type='form'/}">预约看房</button>
+          <button type="button" class="J_dialog"  data-uri="{eju:diyurl type='form' template='ajax_form_mfth'/}">免费通话</button>
         </div>
       </div>
     </div>
@@ -214,7 +215,7 @@
                     <p>{$field.huxing_price}</p>
                     </span> </div>
                   <span>参考总价： </span> </div>
-                <input type="button" value="获取最新价格变动" class="getChangePzBtn J_dialog" data-id="12" data-model="house" data-type="1" data-uri="{eju:diyurl type='form' template='ajax_form_jgbd'/}">
+                <input type="button" value="获取最新价格变动" class="getChangePzBtn J_dialog" data-uri="{eju:diyurl type='form' template='ajax_form_jgbd'/}">
               </div>
             </div>
             {/eju:fanglist} </div>
@@ -353,7 +354,7 @@
 <script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.superslide.2.1.1.js"></script> 
 <script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script> 
 <script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.prettyphoto.js"></script> 
-<script src="{eju:global name='web_templets_pc' /}/skin/js/scroll_nav.js"></script> 
+<script src="{eju:global name='web_templets_pc' /}/skin/js/scroll_nav.js"></script>
 <script>
     $(window).scroll(function(e){
         var t = $(window).scrollTop(),
@@ -411,7 +412,8 @@
         });
         $('#room_total').text(total);
         $('.J_dialog').on('click',function(){
-            var me=$(this),w = 420,h = 300,house_id=me.data('id'),model = me.data('model'),type = me.data('type'),url = me.data('uri'),hongbao=me.data('hongbao');
+            var me= $(this),w = 420,h = 300;
+            var url = me.data('uri'),hongbao=me.data('hongbao');
             if (hongbao != null && hongbao != '' && hongbao != 0){
                 url = url + "&hongbao=" + hongbao ;
             }

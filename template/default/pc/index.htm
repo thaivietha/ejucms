@@ -18,15 +18,15 @@
 <script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/jquery.slide-packer.js"></script>
 </head>
 <body>
-<div class="index"> 
-  <!-- topBar S --> 
-  {eju:include file="header.htm"/} 
-  <!-- topBar E --> 
-  
+<div class="index">
+  <!-- topBar S -->
+  {eju:include file="header.htm"/}
+  <!-- topBar E -->
+
   <!-- banner S -->
-  
+
   <div class="banner" >
-    <div class="banner-2"> 
+    <div class="banner-2">
       <!--图片轮播-->
       <div class="carousel-inner">
         <div class="swiper-container">
@@ -125,13 +125,13 @@
   <div class="label_menu">
     <div class="newtool">
       <div class="newtoolnr">
-       {eju:navig position_id='1' type='top' id="field"} 
+       {eju:navig position_id='1' type='top' id="field"}
         <div class="Ntd {eju:neq name='$i' value='1'}mal01{eju:else /}{/eju:neq} {eju:eq name='$i' value='5'} nob{/eju:eq}">
           <div class="s3"> <a href="{$field.navig_url}" {$field.target} {$field.nofollow}>{$field.navig_name}</a> </div>
           <div class="s2">
-            <p> 
+            <p>
             {eju:navig name="$field.children" id="field2"}
-            <a href="{$field2.navig_url}" {$field2.target} {$field2.nofollow}>{$field2.navig_name}</a> 
+            <a href="{$field2.navig_url}" {$field2.target} {$field2.nofollow}>{$field2.navig_name}</a>
             {/eju:navig}
             </p>
             </div>
@@ -143,7 +143,7 @@
   </div>
   <!-- menu E --> <!-- 内容 S-->
   <div class="wrap">
-    <div class="comWidth bgfff"> 
+    <div class="comWidth bgfff">
       <!-- 热门房子 S -->
       <div class="hot_house">
         <div class="hot_house">
@@ -163,7 +163,7 @@
             <li> <a href="javascript:;">热销楼盘</a></li>
           </ul>
         </div>
-        <div class="content"> 
+        <div class="content">
           <!-- 楼盘列表 S -->
           <div class="build_list" id="rec_house_box">
             <ul class="clearfix" >
@@ -182,7 +182,7 @@
               {/eju:arclist}
             </ul>
           </div>
-          <!-- 楼盘列表 E --> 
+          <!-- 楼盘列表 E -->
         </div>
       </div>
       <div class="poster-margin-top">
@@ -192,7 +192,7 @@
           {/eju:ad}
         </ul>
       </div>
-      <!--资讯中心--> 
+      <!--资讯中心-->
       {eju:channelartlist typeid='2' }
       <div class="news cm_wrap">
         <div class="head clearfix">
@@ -220,7 +220,7 @@
               <script>
              $(function(){
              $('body').find('.slider-6').slide({
-			 effect: 'fade', 
+			 effect: 'fade',
 			 speed: 'slow',
 			 navCls: 'switchable-nav',
 			 contentCls: 'switchable-content',
@@ -230,7 +230,7 @@
 			 evtype: 'click'
 			 });
 			 });
-           </script> 
+           </script>
             </div>
             <ul class="news-left-list clearfix">
               {eju:arclist flag='p' orderby='new' row='2' id='field'}
@@ -244,7 +244,7 @@
               <h2> <a href="{$field.arcurl}" target="_blank">{$field.title}</a> </h2>
               <p>{$field.seo_description|html_msubstr=###,0,45,true}</p>
             </li>
-            {/eju:arclist}    
+            {/eju:arclist}
             {eju:arclist orderby='new' limit='1,10' noflag='h' id='field'}
             <li class="nowarp"> <a href="{$field.typeurl}" target="_blank">{$field.typename}</a> | <a href="{$field.arcurl}" title="{$field.title}" target="_blank">{$field.title}</a> </li>
             {/eju:arclist}
@@ -264,7 +264,7 @@
           </div>
           {/eju:type} </div>
       </div>
-      {/eju:channelartlist} 
+      {/eju:channelartlist}
       <!--资讯中心-->
       <div class="poster-margin-top"> {eju:ad aid='12'}
         <ul class="poster clearfix">
@@ -291,7 +291,7 @@
           <a href="{eju:diyurl type='map' /}">地图找房</a>
           </div>
         </div>
-        <div class="content clearfix"> 
+        <div class="content clearfix">
           <!-- 筛选 S-->
           <div class="l_box fl"> {eju:screening typeid='1' id='field' currentstyle='active' domain='0' region='on' show='2' alltxt='off' opencity='2' addfields='province_id,city_id,area_id,characteristic,manage_type,average_price'}
             {eju:volist name='$field.list' id='vo' limit='0,4'}
@@ -303,7 +303,7 @@
             {/eju:volist}
             {$field.hidden}
             {/eju:screening} </div>
-          <!-- 筛选 E--> 
+          <!-- 筛选 E-->
           <!-- 楼盘列表 S -->
           <div class="c_box build_list fl">
             <div id="content-box">
@@ -343,7 +343,7 @@
               {/eju:screening}
             </div>
           </div>
-          <!-- 楼盘列表 E --> 
+          <!-- 楼盘列表 E -->
           <!-- 购房指南 && 楼盘导购 S-->
           <div class="l_box lastly_open fr">
             <h3>近期开盘</h3>
@@ -361,7 +361,7 @@
               </li>
             </ul>
           </div>
-          <!-- 购房指南 && 新房 E--> 
+          <!-- 购房指南 && 新房 E-->
         </div>
       </div>
       <!-- 新房 E -->
@@ -386,7 +386,7 @@
           <a href="{eju:diyurl type='map' /}">地图找房</a>
           </div>
         </div>
-        <div class="content clearfix"> 
+        <div class="content clearfix">
           <!-- 最近开盘 S-->
           {eju:form formid="1" is_count='1' is_list='1'}
           <div class="l_box fl">
@@ -431,12 +431,12 @@
 
             {/eju:form}
           </div>
-          <!-- 最近开盘 E--> 
+          <!-- 最近开盘 E-->
           <!-- 楼盘列表 S -->
           <div class="c_box build_list fl">
             <div id="house-content-box">
               <ul class="clearfix">
-                {eju:arclist typeid='3' orderby='new' row='6' id='field' addfields="price,end_time,"}
+                {eju:arclist typeid='3' orderby='new' row='6' id='field' addfields="price,end_time"}
                 <li> <a href="{$field.arcurl}"  target="_blank"> <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> <span class="img_ft"> <span class="txt_box clearfix"> <span class="tit fl">{$field.title}</span> </span> <span class="tit_bg"></span> </span> </span>
                 {eju:arcview aid='$field.joinaid'  id='field2'}
                 <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.price"}<i class="price">{$field.price}</i>{$field2.price_units}{eju:else /}暂无{/eju:notempty}</span>
@@ -446,15 +446,15 @@
               </ul>
               <ul class="clearfix" style="display:none;">
                 {eju:arclist typeid='1' flag='m' orderby='new' row='6' id='field'}
-                <li> <a href="{$field.arcurl}"  target="_blank" > <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> <span class="img_ft"> <span class="txt_box clearfix"> <span class="tit fl">{$field.title}</span> </span> <span class="tit_bg"></span> </span>  </span> <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.average_price"}<i class="price">{$field.average_price}</i>{$field.price_units}{eju:else /}暂无{/eju:notempty}</span> </span> 
+                <li> <a href="{$field.arcurl}"  target="_blank" > <span class="img"> <img src="{eju:global name='web_templets_pc' /}/skin/img/nopic.jpg" data-original="{$field.litpic}" class="lazy" alt="{$field.title}"> <span class="img_ft"> <span class="txt_box clearfix"> <span class="tit fl">{$field.title}</span> </span> <span class="tit_bg"></span> </span>  </span> <span class="ft clearfix"> <span class="fr area">{$field.city_id|get_city_name}</span> <span class="fl">{eju:notempty name="$field.average_price"}<i class="price">{$field.average_price}</i>{$field.price_units}{eju:else /}暂无{/eju:notempty}</span> </span>
                 <span class="ft clearfix nowarp">{eju:volist name='$field.characteristic' id='vo' row='3'} <i class="item ">{$vo}</i> {/eju:volist}</span>
                 </a> </li>
                 {/eju:arclist}
               </ul>
             </div>
           </div>
-          <!-- 楼盘列表 E --> 
-          <!-- 房产资讯 S --> 
+          <!-- 楼盘列表 E -->
+          <!-- 房产资讯 S -->
           {eju:channelartlist typeid='5'}
           <div class="r_box house_news fr">
             <div class="hd clearfix">
@@ -472,11 +472,11 @@
               </ul>
             </div>
           </div>
-          {/eju:channelartlist} 
-          <!-- 房产资讯 E --> 
+          {/eju:channelartlist}
+          <!-- 房产资讯 E -->
         </div>
       </div>
-      
+
       <!-- 楼盘导购 E -->
       <div class="poster-margin-top"> {eju:ad aid='16'}
         <ul class="poster clearfix">
@@ -765,8 +765,8 @@
           <li><a href="{$field.links}" {$field.target}><img alt="{$field.title}" src="{$field.litpic}" width="100%"></a></li>
         </ul>
         {/eju:ad} </div>
-       
-      <div class="cm_wrap order_modl clearfix"> 
+
+      <div class="cm_wrap order_modl clearfix">
         <div class="fcphb index_block">
             <div class="index_title">
                 <h1 class="index_h1 bnzf_h1">
@@ -816,14 +816,14 @@
       </div>
     </div>
   </div>
-  <!-- 内容 E--> 
+  <!-- 内容 E-->
 </div>
-{eju:include file="footer.htm"/} 
-<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script> 
-<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script> 
-<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/placeholder.js"></script> 
-<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/echarts.common.min.js"></script> 
-<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script> 
+{eju:include file="footer.htm"/}
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/laytpl.js"></script>
+<script src="{eju:global name='web_templets_pc' /}/skin/js/layer.js"></script>
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/placeholder.js"></script>
+<script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/echarts.common.min.js"></script>
+<script src="{eju:global name='web_templets_pc' /}/skin/js/jquery.lazyload.js"></script>
 <script>
     $(function(){
         $('#tab-1 li').on('mouseover',function(){

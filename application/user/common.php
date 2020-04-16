@@ -108,26 +108,7 @@ if (!function_exists('get_arcurl'))
             // 自动隐藏index.php入口文件
             $arcurl = auto_hide_index($arcurl);
         }
-//        static $seo_pseudo = null;
-//        static $seo_dynamic_format = null;
-//        if (null === $seo_pseudo || null === $seo_dynamic_format) {
-//            $seoConfig = tpCache('seo');
-//            $seo_pseudo = !empty($seoConfig['seo_pseudo']) ? $seoConfig['seo_pseudo'] : config('ey_config.seo_pseudo');
-//            $seo_dynamic_format = !empty($seoConfig['seo_dynamic_format']) ? $seoConfig['seo_dynamic_format'] : config('ey_config.seo_dynamic_format');
-//        }
-//
-//        if (2 == $seo_pseudo && $admin) {
-//            $arcurl = ROOT_DIR."/index.php?m=home&c=View&a=index&aid={$arcview_info['aid']}&t=".getTime();
-//        } else {
-//            static $domain = null;
-//            null === $domain && $domain = request()->domain();
-//            if (!empty($arcview_info['room'])){
-//                unset($arcview_info['room']);
-//            }
-//            $arcurl = arcurl("home/{$ctl_name}/view", $arcview_info, true, false, $seo_pseudo, $seo_dynamic_format);
-//            // 自动隐藏index.php入口文件
-//            $arcurl = auto_hide_index($arcurl);
-//        }
+
 
         return $arcurl;
     }

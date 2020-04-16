@@ -549,10 +549,14 @@ class Ask extends Base
     {
         $config = tpCache('question');
         if (empty($this->users_id) && !empty($config['question_ask_status'])) {
-            if (!empty($is_add)) {
-                $this->error('游客不允许发布问题，请先登陆！',url('user/Users/login'));
+            if (IS_AJAX_POST || IS_POST){
+                if (!empty($is_add)) {
+                    $this->error('游客不允许发布问题，请先登陆！',url('user/Users/login'));
+                }else{
+                    $this->error('游客不允许编辑问题，请先登陆！',url('user/Users/login'));
+                }
             }else{
-                $this->error('游客不允许编辑问题，请先登陆！',url('user/Users/login'));
+                $this->redirect(url('user/Users/login'),[],302);
             }
         }
     }

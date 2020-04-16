@@ -58,9 +58,7 @@ class Collect  extends Base
         $assign_data['page'] = $show; // 赋值分页输出
         $assign_data['list'] = $list; // 赋值数据集
         $assign_data['pager'] = $Page; // 赋值分页对象
-
         $this->assign($assign_data);
-
 
         return $this->fetch('users/collect_index');
     }
