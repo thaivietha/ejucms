@@ -410,6 +410,7 @@ class Ask extends Model
             $value['litpic'] = get_head_pic($value['litpic']);
             $result['AskData'][$key]['litpic'] = $value['litpic'];
             $result['AskData'][$key]['username'] = !empty($value['username']) ? $value['username'] : '游客';
+            $result['AskData'][$key]['true_name'] = !empty($value['true_name']) ? $value['true_name'] : '游客';
             /* END */
             $result['AskData'][$key]['ask_title'] = htmlspecialchars_decode($value['ask_title']);
             $result['AskData'][$key]['content'] = htmlspecialchars_decode($value['content']);
@@ -570,7 +571,7 @@ class Ask extends Model
     public function GetAskDetailsData($param = array(),  $parent_id = null, $users_id = null)
     {
         $ResultData['code'] = 1;
-        $ResultData['info'] = $this->weapp_ask_db->field('a.*, b.username, b.mobile, b.nickname, b.litpic')
+        $ResultData['info'] = $this->weapp_ask_db->field('a.*, b.true_name,b.username, b.mobile, b.nickname, b.litpic')
             ->alias('a')
             ->join('__USERS__ b', 'a.users_id = b.id', 'LEFT')
             ->where('ask_id', $param['ask_id'])
@@ -582,6 +583,8 @@ class Ask extends Model
             }
         }
         empty($ResultData['info']['username']) && $ResultData['info']['username'] = "游客";
+        empty($ResultData['info']['true_name']) && $ResultData['info']['true_name'] = "游客";
+        empty($ResultData['info']['nickname']) && $ResultData['info']['nickname'] = "游客";
         empty($ResultData['info']['litpic']) && $ResultData['info']['litpic'] = "/public/static/common/images/dfboy.png";
         // 头像处理
         $ResultData['info']['litpic'] = get_head_pic($ResultData['info']['litpic']);

@@ -96,6 +96,10 @@ class TagDiyurl extends Base
                 $request = Request::instance();
                 $scheme = $request->isSsl() || Config::get('is_https') ? 'https://' : 'http://';
                 $parseStr = $scheme.$request->host();
+                $subdomain = input("param.subdomain/s",'');
+                if (!empty($subdomain)){
+                    $parseStr = getRegionDomainUrl($subdomain);
+                }
                 break;
             default:
                 $parseStr = "";

@@ -553,7 +553,6 @@ class Ajax extends Base
         if (!empty($keywords)){
             $where .= " and (initial='{$keywords}' or name like '%{$keywords}%' or domain like '%{$keywords}%')";
             $list = Db::name("region")->where($where)->getAllWithIndex('id');
-            echo Db::name("region")->getLastSql();die();
 
             foreach ($list as $key=>$val){
                 $list[$key]['domainurl'] = getRegionDomainUrl($val['domain']);

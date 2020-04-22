@@ -70,7 +70,9 @@ class View extends Base
         //判断多域名下区域和域名是否匹配
         $web_region_domain = config('ey_config.web_region_domain');   //是否开启子域名
         $web_mobile_domain = config('ey_config.web_mobile_domain');    //手机子域名
-        $requst_subDomain = request()->subDomain();  //二级域名
+        $requst_subDomain = input('param.subdomain/s','');
+        empty($requst_subDomain) && $requst_subDomain = request()->subDomain(); //二级域名
+
         if ($web_region_domain && !empty($requst_subDomain) && $requst_subDomain != $web_mobile_domain){
             $region_list = get_region_list();
             $subDomain = tpCache('web.web_main_domain');  //主域名(后台登陆默认主域名---非子站点)

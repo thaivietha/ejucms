@@ -13,13 +13,14 @@
 
 namespace think\template\taglib\eju;
 
-
+use \think\Request;
 /**
  * 栏目位置
  */
 class TagPosition extends Base
 {
     public $tid = '';
+    public $subDomain = "";
 
     //初始化
     protected function _initialize()
@@ -35,6 +36,8 @@ class TagPosition extends Base
         /*--end*/
         /*tid为目录名称的情况下*/
         $this->tid = $this->getTrueTypeid($this->tid);
+        $request    = Request::instance();
+        $this->subDomain = $request->subDomain();
         /*--end*/
     }
 
@@ -54,7 +57,7 @@ class TagPosition extends Base
         $home_url = $this->root_dir.'/'; // 支持子目录
         // $symbol = htmlspecialchars_decode($symbol);
         $str = "<a href='{$home_url}' class='{$style}'>{$basic_indexname}</a>";
-        $result = model('Arctype')->getAllPid($typeid);
+        $result = model('Arctype')->getAllPid($typeid,$this->subDomain);
         $i = 1;
         foreach ($result as $key => $val) {
             if ($i < count($result)) {

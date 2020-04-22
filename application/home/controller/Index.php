@@ -61,7 +61,8 @@ class Index extends Base
         $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
         $web_mobile_domain = config('ey_config.web_mobile_domain');    //手机子域名
         $web_main_domain = tpCache('web.web_main_domain');   //主域名
-        $subDomain = request()->subDomain();
+        $subDomain = input('param.subdomain/s','');
+        empty($subDomain) && $subDomain = request()->subDomain();
         //判断是否为合法的二级域名
         if($web_region_domain && $subDomain != $web_mobile_domain && $subDomain != $web_main_domain ){
             $have = false;

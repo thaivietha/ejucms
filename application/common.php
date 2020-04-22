@@ -1196,7 +1196,7 @@ if (!function_exists('get_next_region_list')){
     function get_next_region_list($pid){
         $result = extra_cache('global_next_region_list'.$pid);
         if ($result == false) {
-            $result = M('region')->field('id, name,domain,level')
+            $result = M('region')->field('id,id as rid, name,domain,level')
                 ->where('status',1)
                 ->where('parent_id',$pid)
                 ->order("sort_order asc")

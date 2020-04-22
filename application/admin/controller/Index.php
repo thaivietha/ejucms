@@ -233,6 +233,11 @@ class Index extends Base
             @unlink("./".$this->root_dir."/data/schema/eju_xinfang_system.php");
             @unlink("./".$this->root_dir."/data/schema/eju_zufang_system.php");
             @unlink("./".$this->root_dir."/data/schema/eju_saleman.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_archives.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_channeltype.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_channelfield.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_users_level.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_users_content.php");
             $fieldLogic->synAreaChannelUnit();
             tpCache('system', ['system_channeltype_unit_24'=>1]);
         }

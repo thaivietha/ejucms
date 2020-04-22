@@ -22,7 +22,7 @@ class Users extends Base
         $condition['status'] = 1;
         $condition['is_del'] = 0;
         if (!empty($keywords)) {
-            $condition['user_name'] = array('LIKE', "%{$keywords}%");
+            $condition['mobile'] = array('LIKE', "%{$keywords}%");
         }
         $users =  M('Users');
         $count = $users->where($condition)->count('id');// 查询满足要求的总记录数
@@ -49,7 +49,7 @@ class Users extends Base
         $condition['status'] = 1;
         $condition['is_del'] = 0;
         if (!empty($keywords)) {
-            $condition['user_name'] = array('LIKE', "%{$keywords}%");
+            $condition['mobile'] = array('LIKE', "%{$keywords}%");
         }
         $users =  M('Users');
         $count = $users->where($condition)->count('id');// 查询满足要求的总记录数

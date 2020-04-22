@@ -179,6 +179,9 @@ class Arctype extends Model
         if ($res['is_part'] == 1) {
             $typeurl = $res['typelink'];
         } else {
+            if (!empty($this->subDomain)){
+                $res['domain'] = $this->subDomain;
+            }
             $ctl_name = get_controller_byct($res['current_channel']);
             $typeurl = typeurl('home/'.$ctl_name."/lists", $res);
         }
@@ -421,7 +424,7 @@ class Arctype extends Model
      * 获取当前栏目的所有父级
      * @author wengxianhu by 2018-4-26
      */
-    public function getAllPid($id)
+    public function getAllPid($id,$subDomain = '')
     {
         $cacheKey = array(
             'common',
@@ -429,6 +432,7 @@ class Arctype extends Model
             'Arctype',
             'getAllPid',
             $id,
+            $subDomain,
         );
         $cacheKey = json_encode($cacheKey);
         $data = cache($cacheKey);
@@ -442,10 +446,6 @@ class Arctype extends Model
                 ])
                 ->getAllWithIndex('id');
             if (isset($arctype_list[$typeid])) {
-                // 第一个先装起来
-                if (!empty($this->subDomain)){
-                    $arctype_list[$typeid]['typeurl']['domain'] = $this->subDomain;
-                }
                 $arctype_list[$typeid]['typeurl'] = !empty($arctype_list[$typeid]['pointto_id']) ? $this->getTypeUrl($arctype_list[$arctype_list[$typeid]['pointto_id']]) : $this->getTypeUrl($arctype_list[$typeid]);
                 $data[$typeid] = $arctype_list[$typeid];
             } else {
@@ -455,9 +455,6 @@ class Arctype extends Model
             {
                 $typeid = $arctype_list[$typeid]['parent_id'];
                 if($typeid > 0){
-                    if (!empty($this->subDomain)){
-                        $arctype_list[$typeid]['typeurl']['domain'] = $this->subDomain;
-                    }
                     if (isset($arctype_list[$typeid])) {
                         $arctype_list[$typeid]['typeurl'] =  !empty($arctype_list[$typeid]['pointto_id']) ? $this->getTypeUrl($arctype_list[$arctype_list[$typeid]['pointto_id']]) : $this->getTypeUrl($arctype_list[$typeid]);
                         $data[$typeid] = $arctype_list[$typeid];
