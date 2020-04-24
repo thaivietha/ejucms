@@ -12,6 +12,7 @@
  */
 
 $home_rewrite = array();
+$route_list = config('route');
 $route = array(
     '__pattern__' => array(
         'tid' => '\w+',
@@ -24,7 +25,9 @@ $route = array(
         '*' => 'home?domain=*',
     ],
 );
-
+if (!empty($route_list['pattern']) && $route_list['schema'] == 1){
+    $route['__pattern__'] += $route_list['pattern'];
+}
 $globalTpCache = tpCache('global');
 config('tpcache', $globalTpCache);
 // mysql的sql-mode模式参数
@@ -65,42 +68,27 @@ if (3 == $seo_pseudo) {
     $rewrite = [];
     $rewrite_str = '';
     /*多站点手机端加上站点区域*/
+    $request = \think\Request::instance();
     if (stristr($request->baseFile(), 'index.php') && (isMobile() || $request->subDomain() == $web_mobile_domain)) {
         if (1 == $web_region_domain) {
             $subdomain = \think\Cookie::get('subdomain');
             $rewrite_str = $subdomain.'/';
-            if (1 == $seo_rewrite_format){
-                $rewrite = [
-                    '<subdomain>/search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/<tid>$' => array('home/Lists/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
-                    '<subdomain>/$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
-                ];
-            }else{
-                $rewrite = [
-                    '<subdomain>/search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    //模型标识
-                    '<subdomain>/article/<tid>$' => array('home/Article/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/xinfang/<tid>$' => array('home/Xinfang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/tuan/<tid>$' => array('home/Tuan/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/images/<tid>$' => array('home/Images/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/single/<tid>$' => array('home/Single/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/xiaoqu/<tid>$' => array('home/Xiaoqu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/ershou/<tid>$' => array('home/Ershou/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/zufang/<tid>$' => array('home/Zufang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/officecs/<tid>$' => array('home/Officecs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/officecz/<tid>$' => array('home/Officecz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/shopcs/<tid>$' => array('home/Shopcs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/shopcz/<tid>$' => array('home/Shopcz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/qiuzu/<tid>$' => array('home/Qiuzu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                    '<subdomain>/$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
-                ];
+        }
+    }
+    $home_rewrite = [];
+    /*--end*/
+    if (1 == $seo_rewrite_format) { // 精简伪静态
+        if (!empty($route_list)){
+            $list = get_route_field_list();
+            $list = array_reverse($list);
+            foreach ($list as $val){
+                $home_rewrite += array(
+                    $rewrite_str.'<tid>/'.$val.'$' => array('home/Lists/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+                );
             }
 
         }
-    }
-    /*--end*/
-    if (1 == $seo_rewrite_format) { // 精简伪静态
-        $home_rewrite = array(
+        $home_rewrite += array(
             // 标签伪静态
             $rewrite_str.'tags$' => array('home/Tags/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
             $rewrite_str.'tags/<tagid>$' => array('home/Tags/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
@@ -114,9 +102,23 @@ if (3 == $seo_pseudo) {
             $rewrite_str.'<dirname>/<aid>/<column>/<room>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'<dirname>/<aid>/<column>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'<dirname>/<aid>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
+            $rewrite_str.'$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
         );
     } else {
-        $home_rewrite = array(
+        if (!empty($route_list)){
+            $list = get_route_field_list(1);
+            foreach ($list as $key=>$val){
+                if (!empty($route_list['list'][$key])){
+                    $val = array_reverse($val);
+                    foreach ($val as $v){
+                        $home_rewrite += array(
+                            $rewrite_str.$route_list['list'][$key]['nid'].'/<tid>/'.$v.'$' => array('home/'.$route_list['list'][$key]['ctl_name'].'/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                        );
+                    }
+                }
+            }
+        }
+        $home_rewrite += array(
             // 文章模型伪静态
             $rewrite_str.'article/<tid>$' => array('home/Article/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'article/<dirname>/<aid>/<column>_<sid>$' => array('home/Article/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
@@ -209,7 +211,9 @@ if (3 == $seo_pseudo) {
             $rewrite_str.'tags/<tagid>$' => array('home/Tags/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             // 搜索伪静态
             $rewrite_str.'search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
         );
+
         /*自定义模型*/
         $cacheKey = "application_route_channeltype";
         $channeltype_row = \think\Cache::get($cacheKey);

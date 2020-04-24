@@ -377,25 +377,14 @@ return array(
         'home_Article_index'    => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
         'home_Article_lists'    => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
         'home_Article_view'     => ['filename'=>'view', 'p'=>['subdomain','dirname','aid'], 'cache'=>7200],
-        // [普通伪静态]产品
-        'home_Product_index'    => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
-        'home_Product_lists'    => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
-        'home_Product_view'     => ['filename'=>'view', 'p'=>['subdomain','dirname','aid'], 'cache'=>7200],
-        // [普通伪静态]图集
-        'home_Images_index'     => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
-        'home_Images_lists'     => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
-        'home_Images_view'      => ['filename'=>'view', 'p'=>['subdomain','dirname','aid'], 'cache'=>7200],
-        // [普通伪静态]下载
-        'home_Download_index'   => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
-        'home_Download_lists'   => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
-        'home_Download_view'    => ['filename'=>'view', 'p'=>['subdomain','dirname','aid'], 'cache'=>7200],
         // [普通伪静态]单页
         'home_Single_index'     => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
         'home_Single_lists'     => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
         // [超短伪静态]列表页
-        'home_Lists_index'      => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
+//        'home_Lists_index'      => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
+//        'home_Lists_index'      => ['filename'=>'lists', 'p'=>['subdomain','tid','page','area_id','average_price','building_type','characteristic','city_id','fitment','manage_type','province_id','sale_status'], 'cache'=>7200],
         // [超短伪静态]内容页
-        'home_View_index'       => ['filename'=>'view', 'p'=>['subdomain','dirname','aid','column','sid','photo_type'], 'cache'=>7200],
+        'home_View_index'       => ['filename'=>'view', 'p'=>['subdomain','dirname','aid','column','sid','photo_type','room'], 'cache'=>7200],
     ],
 
     // +----------------------------------------------------------------------
@@ -413,5 +402,8 @@ return array(
         2   => ['scene'=>2], // 会员注册
         3   => ['scene'=>3], // 绑定邮箱
         4   => ['scene'=>4], // 找回密码
+    ],
+    'extra_cache_key' => [
+        'global_get_route_field_list'=>[],
     ],
 );

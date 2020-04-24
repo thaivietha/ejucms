@@ -31,7 +31,7 @@ class TagSurroundings extends Base
         $result['hidden'] = <<<EOF
         <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=ETLXgCxIoVixggHcAk6mKpMd&s=1"></script>
         <script type="text/javascript" src="{$this->root_dir}/public/static/common/js/baidu_surroundings.js?v={$version}"></script>
-        <link rel="stylesheet" type="text/css" href="{$this->root_dir}/public/static/common/css/bmap_20.css?v={$version}" />
+        <!--<link rel="stylesheet" type="text/css" href="{$this->root_dir}/public/static/common/css/bmap_20.css?v={$version}" />-->
         <link rel="stylesheet" type="text/css" href="{$this->root_dir}/public/static/common/css/tag_surroundings.css?v={$version}" />
       <script type="text/javascript">
           var lng = "{$fields['lng']}";

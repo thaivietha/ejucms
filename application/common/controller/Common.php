@@ -35,13 +35,14 @@ class Common extends Controller {
         }
         /*--end*/
         parent::__construct();
-    }    
+    }
     
     /*
      * 初始化操作
      */
     public function _initialize() 
     {
+
         session('admin_info'); // 传后台信息到前台，此处可视化用到
         if (!session_id()) {
             Session::start();

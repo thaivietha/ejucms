@@ -2227,7 +2227,19 @@ if (!function_exists('get_default_subdomain'))
         return $default_subdomain;
     }
 }
-
+if (!function_exists('getScreeningFieldName')){
+    /*
+     * 获取所有筛选字段
+     * $channel_id  指定模型
+     */
+    function getScreeningFieldName($channel_id = ""){
+        $map['is_screening'] = 1;
+        if (!empty($channel_id)){
+            $map['channel_id'] = $channel_id;
+        }
+        return \think\Db::name("channelfield")->where($map)->getField("name",true);
+    }
+}
 if (!function_exists('getUsersConfigData'))
 {
     // 专用于获取users_config，会员配置表数据处理。
@@ -2445,3 +2457,96 @@ if (!function_exists('get_qiuzu_area_list')){
         return $list;
     }
 }
+if(!function_exists('get_route_field_list')){
+    /*
+     * 获取所有route值
+     *$group      是否需要根据频道分组
+     */
+    function get_route_field_list($group = ''){
+        $result = extra_cache('global_get_route_field_list');
+        if (empty($result)) {
+            $route_list = config('route');
+            $list = \think\Db::name("channelfield")->field("channel_id,name,short_name")->where("is_screening=1 and channel_id>0")->order("name asc")->select();
+            $result = $list_group = [];
+            foreach ($list as $val){
+                $list_group[$val['channel_id']][] = $val;
+            }
+            foreach ($list_group as $key=>$val){
+                $temp = $temp_result = [];
+                $count = count($val);
+                foreach ($val as $v){
+                    if (empty($v['short_name']) || (!empty($route_list['schema']) && $route_list['schema'] == 3)){
+                        $temp[] =  '<'.$v['name'].'>';
+                    }else{
+                        $temp[] = $v['short_name'].'_<'.$v['name'].'>';
+                    }
+                }
+                for ($i=1;$i<$count+1;$i++){
+                    $temp_result = array_merge($temp_result,getCombinationToString($temp,$i));  //合并数据
+                }
+//                for ($i=$count;$i>0;$i--){
+//                    $temp_result = array_merge($temp_result,getCombinationToString($temp,$i));  //合并数据
+//                }
+                if ($group){
+                    $result[$key] = $temp_result;
+                }else{
+                    $result = array_unique(array_merge($result,$temp_result));    //合并数据
+                }
+            }
+            extra_cache('global_get_route_field_list', $result);
+        }
+
+        return $result;
+    }
+}
+if(!function_exists('getCombinationToString')){
+    /*
+     * 获取数组中任意个数元素的集合
+     * $arr     原数组
+     * $m       个数
+     * $middle  中间分隔符
+     */
+    function getCombinationToString($arr,$m,$middle='-')
+    {
+        $result = array();
+        if ($m == 1) {
+            return $arr;
+        }
+        if ($m == count($arr)) {//当取出的个数等于数组的长度，就是只有一种组合，即本身
+            $result[] = implode($middle, $arr);
+            return $result;
+        }
+        $temp_firstelement = $arr[0];
+        unset($arr[0]);
+        $arr = array_values($arr);
+        $temp_first1 = getCombinationToString($arr, $m - 1);
+        foreach ($temp_first1 as $s) {
+            $s = $temp_firstelement . $middle . $s;
+            $result[] = $s;
+        }
+        unset($temp_first1);
+        $temp_first2 = getCombinationToString($arr, $m);
+        foreach ($temp_first2 as $s) {
+            $result[] = $s;
+        }
+        unset($temp_first2);
+        return $result;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

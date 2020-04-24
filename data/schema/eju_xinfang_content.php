@@ -102,7 +102,7 @@ return array (
   'plot_ratio' => 
   array (
     'name' => 'plot_ratio',
-    'type' => 'varchar(10)',
+    'type' => 'varchar(200)',
     'notnull' => false,
     'default' => '',
     'primary' => false,
@@ -258,6 +258,15 @@ return array (
     'type' => 'varchar(200)',
     'notnull' => false,
     'default' => '',
+    'primary' => false,
+    'autoinc' => false,
+  ),
+  'hongbao' => 
+  array (
+    'name' => 'hongbao',
+    'type' => 'int(10)',
+    'notnull' => false,
+    'default' => '0',
     'primary' => false,
     'autoinc' => false,
   ),

@@ -22,6 +22,18 @@
                       <div class="layui-form-inline2 ey_helptips_txt">保持唯一性，不可与主表、附加表重复</div>
                     </div>
                   </div>
+                    {notempty name="$custom_route"}
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">字段简称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" value="" name="short_name" lay-verify="required|check_short_name" placeholder="只允许字母、数字" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9a-zA-Z]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9a-zA-Z]/g,''));">
+                        </div>
+                        <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                            <div class="layui-form-inline2 ey_helptips_txt">用于前台筛选，保持唯一性，尽可能简短，不可与主表、附加表重复</div>
+                        </div>
+                    </div>
+                    {/notempty}
                   <div class="layui-form-item">
                     <label class="layui-form-label"><b>*</b>字段类型</label>
                     <div class="layui-input-inline">
@@ -179,6 +191,14 @@
             return '字段名称不允许以type开头！';
         }
       }
+       ,check_short_name:function(value, item){
+            var name = $('input[name="short_name"]').val();
+            if (/^[0-9]+$/.test(name)) {
+                return '字段名称不能纯数字！';
+            } else if (/^((_+)|(\d+))$/.test(value) || !/^(\w+)$/.test(value)) {
+                return '字段名称格式不正确！';
+            }
+        }
       ,check_dtype: function(value, item){
         if ('' == value || undefined == value) {
             return '请选择字段类型！';

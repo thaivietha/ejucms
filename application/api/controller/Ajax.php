@@ -280,7 +280,8 @@ class Ajax extends Base
                 $users_id = session('users_id');
             }else{
                 $gourl = url('user/Users/login');
-                $this->redirect($gourl,302);
+                $this->error("请登录后操作",$gourl);
+//                $this->redirect($gourl,302);
             }
             $have = Db::name("users_collect")->where(['users_id'=> $users_id ,'aid'=>$aid])->find();
             if ($have){     //已经存在收藏，操作为取消收藏

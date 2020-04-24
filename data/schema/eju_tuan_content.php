@@ -84,7 +84,7 @@ return array (
   'price' => 
   array (
     'name' => 'price',
-    'type' => 'int(10) unsigned',
+    'type' => 'int(10)',
     'notnull' => false,
     'default' => '0',
     'primary' => false,

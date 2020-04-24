@@ -202,7 +202,7 @@ class Xinfang extends Base
     public function index()
     {
         $assign_data = array();
-        $condition = array();
+        $condition =  array();
         // 获取到所有GET参数
         $param = input('param.');
         $flag = input('flag/s');
@@ -224,9 +224,9 @@ class Xinfang extends Base
         /*--end*/
         // 应用搜索条件
         foreach (['keywords','typeid','flag'] as $key) {
-            if (isset($param[$key]) && $param[$key] !== '') {
-                if ($key == 'keywords') {
-                    $condition['a.title'] = array('LIKE', "%{$param[$key]}%");
+            if (isset($param[$key]) && !empty($param[$key])) {     //$param[$key] !== ''
+                 if ($key == 'keywords') {
+                     $condition["a.aid|a.title"] =['like',"%{$param[$key]}%"];
                 } else if ($key == 'typeid') {
                     $typeid = $param[$key];
                     $hasRow = model('Arctype')->getHasChildren($typeid);
@@ -284,7 +284,8 @@ class Xinfang extends Base
          */
         $count = $this->archives_db->alias('a')
             ->join("xinfang_system c","a.aid=c.aid","LEFT")
-            ->where($condition)->count('a.aid');// 查询满足要求的总记录数
+            ->where($condition)
+            ->count('a.aid');// 查询满足要求的总记录数
         unset($param['openurl']);
         $Page = new Page($count,config('paginate.list_rows'),$param);// 实例化分页类 传入总记录数和每页显示的记录数  config('paginate.list_rows')
         $list = $this->archives_db

@@ -144,15 +144,6 @@ return array (
     'primary' => false,
     'autoinc' => false,
   ),
-  'saleman_id' => 
-  array (
-    'name' => 'saleman_id',
-    'type' => 'int(10) unsigned',
-    'notnull' => false,
-    'default' => '0',
-    'primary' => false,
-    'autoinc' => false,
-  ),
   'address' => 
   array (
     'name' => 'address',

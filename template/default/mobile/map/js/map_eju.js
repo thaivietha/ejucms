@@ -275,7 +275,7 @@ var BMapApplication = {
             span.appendChild(document.createTextNode(that._text));
 
             var arrow = this._arrow = document.createElement("div");
-            arrow.style.background = "url(../template/default/pc/map/images/label.png) no-repeat";
+            arrow.style.background = "url(../../template/default/pc/map/images/label.png) no-repeat";
             arrow.style.backgroundPosition = "0px " + _this.positions[that._type] + "px";
             arrow.style.position = "absolute";
             arrow.style.width = "11px";

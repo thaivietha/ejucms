@@ -512,7 +512,7 @@ class FieldLogic extends Model
      * 同步文档主表的字段记录到指定模型
      * @author 小虎哥 by 2018-4-16
      */
-    public function synArchivesTableColumns($channel_id = '',$channelfieldArr)
+    public function synArchivesTableColumns($channel_id = '',$channelfieldArr = [])
     {
         $new_arr = array(); // 表字段数组
         $addData = array(); // 数据存储变量
@@ -812,8 +812,30 @@ class FieldLogic extends Model
         M('channelfield')->where("name='panoram' or name='video'")->save(['ifsystem'=>'1']);
     }
     public function synAreaChannelUnit(){
-        M('channelfield')->where("name='province_id'")->save(['dtype'=>'region_db','define'=>'int(10)','is_screening'=>1,'sort_order'=>'-3']);
-        M('channelfield')->where("name='city_id'")->save(['dtype'=>'region_db','define'=>'int(10)','is_screening'=>1,'sort_order'=>'-2','dfvalue'=>'province_id']);
-        M('channelfield')->where("name='area_id'")->save(['dtype'=>'region_db','define'=>'int(10)','is_screening'=>1,'sort_order'=>'-1','dfvalue'=>'city_id']);
+        M('channelfield')->where("name='province_id'")->save(['dtype'=>'region_db','define'=>'int(10)','is_screening'=>1,'sort_order'=>'-3','short_name'=>'pv']);
+        M('channelfield')->where("name='city_id'")->save(['dtype'=>'region_db','define'=>'int(10)','is_screening'=>1,'sort_order'=>'-2','dfvalue'=>'province_id','short_name'=>'ct']);
+        M('channelfield')->where("name='area_id'")->save(['dtype'=>'region_db','define'=>'int(10)','is_screening'=>1,'sort_order'=>'-1','dfvalue'=>'city_id','short_name'=>'ar']);
+    }
+    //检查用于筛选的字段简称是否合法
+    public function checkChannelShortName($custom_route,$short_name,$name,$id = 0){
+        if (!empty($custom_route['schema']) && $custom_route['schema'] == 2){
+
+        }
+        $where['short_name'] = ['eq',$short_name];
+        $where['name'] = ['neq',$name];
+        if ($id){
+            $where['id'] = ['neq',$id];
+        }
+        $have = Db::name("channelfield")->where($where)->find();
+        if ($have){
+            return true;
+        }
+
+        return false;
+    }
+    //同步更新同name字段到sort_name、清空（重置）global_get_route_field_list缓存
+    public function snyChannelShortName($short_name,$name){
+        Db::name("channelfield")->where(['name'=>['eq',$name]])->setField(['short_name'=>$short_name]);
+        extra_cache('global_get_route_field_list', null);
     }
 }

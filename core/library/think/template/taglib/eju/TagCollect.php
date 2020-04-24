@@ -107,15 +107,17 @@ class TagCollect extends Base
                  }
              }
         }
-        var users_id = "{$this->users_id}";
+//        var users_id = "{$this->users_id}";
         var btn = document.getElementById("{$collectid}");
         var is_alert = "{$alert}";
+        
         btn.onclick = function(){
-            if (users_id=='0') {
-                alert("请登录后操作");
-                window.location.href="{$login_url}";
-                 return false;
-            }
+//            console.log(users_id);
+//            if (users_id=='0') {
+//                alert("请登录后操作");
+//                window.location.href="{$login_url}";
+//                 return false;
+//            }
             var formData =new FormData();
             formData.append("aid","{$aid}");
             var ajax = new XMLHttpRequest();
@@ -128,6 +130,7 @@ class TagCollect extends Base
                 {
                     var json = ajax.responseText;
                     var res = JSON.parse(json);
+                    console.log(res);
                     if (1 == res.code) {
                         {$funname}();
                         if (is_alert === 'on'){
@@ -138,6 +141,9 @@ class TagCollect extends Base
                     } else {
                         {$funname}();
                         alert(res.msg);
+                        if(res.url){
+                            window.location.href=res.url;
+                        }
                     }
                 }
             }

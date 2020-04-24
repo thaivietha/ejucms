@@ -1356,8 +1356,8 @@ if (!function_exists('func_common'))
         /*--end*/    
         /*验证图片一句话木马*/
         $imgstr = @file_get_contents($_FILES[$fileElementId]['tmp_name']);
-        if (false !== $imgstr && preg_match('#<([^?]*)\?php#i', $imgstr)) {
-            return ['errcode'=>1,'errmsg'=>'上传图片不合格'];
+        if (false !== $imgstr && (preg_match('#__HALT_COMPILER()#i', $imgstr) || preg_match('#<([^?]*)\?php#i', $imgstr))) {
+            return ['errcode'=>1,'errmsg'=>'禁止上传木马图片!'];
         }
         /*--end*/ 
         

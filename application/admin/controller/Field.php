@@ -24,11 +24,14 @@ class Field extends Base
 {
     public $fieldLogic;
     public $arctype_channel_id;
+    public $custom_route = [];
 
     public function _initialize() {
         parent::_initialize();
         $this->fieldLogic = new FieldLogic();
         $this->arctype_channel_id = config('global.arctype_channel_id');
+        $this->custom_route = config("route");
+        $this->assign("custom_route",$this->custom_route);
     }
 
     /**
@@ -213,6 +216,9 @@ class Field extends Base
             if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang','shopcs','shopcz','officecs','officecz']) && true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'])){
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
+            if (!empty($this->custom_route) && $this->fieldLogic->checkChannelShortName($this->custom_route,$post['short_name'],$post['name'])){  //判断是否同名、同步更新同name字段到sort_name
+                $this->error("字段简称 ".$post['short_name']." 已在其他字段名称中存在使用！");
+            }
             /*--end*/
 
             if (empty($post['typeids'])) {
@@ -269,7 +275,9 @@ class Field extends Base
                     schemaTable($table);
                 } catch (\Exception $e) {}
                 /*--end*/
-
+                if (!empty($this->custom_route)){ //判断是否同名、同步更新同name字段到sort_name、清空（重置）global_get_route_field_list缓存
+                    $this->fieldLogic->snyChannelShortName($post['short_name'],$post['name']);
+                }
                 \think\Cache::clear('channelfield');
                 $this->success("操作成功！", url('Field/channel_index', array('channel_id'=>$channel_id)));
             }
@@ -433,6 +441,9 @@ class Field extends Base
             if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang','shopcs','shopcz','officecs','officecz']) &&  true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'], array($old_name))){
                 $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
             }
+            if (!empty($this->custom_route) && $this->fieldLogic->checkChannelShortName($this->custom_route,$post['short_name'],$post['name'],$post['id'])){  //判断是否同名、同步更新同name字段到sort_name
+                $this->error("字段简称 ".$post['short_name']." 已在其他字段名称中存在使用！");
+            }
             /*--end*/
             if (empty($post['typeids'])) {
                 $this->error('请选择指定栏目！');
@@ -501,7 +512,9 @@ class Field extends Base
                     schemaTable($table);
                 } catch (\Exception $e) {}
                 /*--end*/
-
+                if (!empty($this->custom_route)){ //判断是否同名、同步更新同name字段到sort_name、清空（重置）global_get_route_field_list缓存
+                    $this->fieldLogic->snyChannelShortName($post['short_name'],$post['name']);
+                }
                 $this->success("操作成功！", url('Field/channel_index', array('channel_id'=>$post['channel_id'])));
             } else {
                 $sql = " ALTER TABLE `$table` ADD  $ntabsql ";

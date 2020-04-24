@@ -27,7 +27,7 @@ class Collect  extends Base
             ->where($condition)->count('a.aid');// 查询满足要求的总记录数
         $Page = new Page($count,config('paginate.list_rows'),$param);// 实例化分页类 传入总记录数和每页显示的记录数  config('paginate.list_rows')
         $list = $this->archives_db
-            ->field("a.aid")
+            ->field("a.aid,b.add_time as collect_time")
             ->alias('a')
             ->join("users_collect b","a.aid = b.aid","LEFT")
             ->where($condition)
@@ -36,7 +36,7 @@ class Collect  extends Base
             ->getAllWithIndex('aid');
         if ($list) {
             $aids = array_keys($list);
-            $fields = "b.*,b.add_time as collect_time, a.*, a.aid as aid";
+            $fields = "b.*, a.*, a.aid as aid";
             $row = $this->archives_db
                 ->field($fields)
                 ->alias('a')
@@ -45,6 +45,7 @@ class Collect  extends Base
                 ->getAllWithIndex('aid');
             $region_list = get_region_list();
             foreach ($list as $key => $val) {
+                $row[$val['aid']]['collect_time'] = $val['collect_time'];
                 $row[$val['aid']]['arcurl'] = get_arcurl($row[$val['aid']]);
                 $row[$val['aid']]['litpic'] = handle_subdir_pic($row[$val['aid']]['litpic']); // 支持子目录
                 $row[$val['aid']]['province_name'] = !empty($region_list[$row[$val['aid']]['province_id']]['name']) ? $region_list[$row[$val['aid']]['province_id']]['name'] : '';

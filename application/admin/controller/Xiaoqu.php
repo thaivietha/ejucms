@@ -62,7 +62,7 @@ class Xiaoqu extends Base
         foreach (['keywords','typeid','flag'] as $key) {
             if (isset($param[$key]) && $param[$key] !== '') {
                 if ($key == 'keywords') {
-                    $condition['a.title'] = array('LIKE', "%{$param[$key]}%");
+                    $condition["a.aid|a.title"] =['like',"%{$param[$key]}%"];
                 } else if ($key == 'typeid') {
                     $typeid = $param[$key];
                     $hasRow = model('Arctype')->getHasChildren($typeid);

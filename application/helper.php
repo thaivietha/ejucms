@@ -259,11 +259,18 @@ if (!function_exists('typeurl')) {
                 $seo_pseudo_format = config('ey_config.seo_dynamic_format');
             }
         }
+        //动态
         if (1 == $seo_pseudo && 2 == $seo_pseudo_format) {
             if (is_array($param)) {
                 $vars = array(
                     'tid'   => $param['id'],
                 );
+                $screening_arr = getScreeningFieldName();
+                foreach ($param as $key=>$val){
+                    if (in_array($key,$screening_arr)){
+                        $vars[$key] = $val;
+                    }
+                }
                 $vars = http_build_query($vars);
             } else {
                 $vars = $param;
@@ -278,12 +285,17 @@ if (!function_exists('typeurl')) {
             }
             $eyouUrl .= $vars;
         } elseif (2 == $seo_pseudo) { // 生成静态页面代码
-            
             if (isMobile()) { // 手机端访问非静态页面
                 if (is_array($param)) {
                     $vars = array(
                         'tid'   => $param['id'],
                     );
+                    $screening_arr = getScreeningFieldName();
+                    foreach ($param as $key=>$val){
+                        if (in_array($key,$screening_arr)){
+                            $vars[$key] = $val;
+                        }
+                    }
                     $vars = http_build_query($vars);
                 } else {
                     $vars = $param;
@@ -324,6 +336,14 @@ if (!function_exists('typeurl')) {
                 $vars = array(
                     'tid'   => $param['dirname'],
                 );
+                $screening_arr = getScreeningFieldName();
+                if (!empty($screening_arr)){
+                    foreach ($param as $key=>$val){
+                        if (in_array($key,$screening_arr)){
+                            $vars[$key] = $val;
+                        }
+                    }
+                }
             } else {
                 $vars = $param;
             }
@@ -344,6 +364,12 @@ if (!function_exists('typeurl')) {
                 $vars = array(
                     'tid'   => $param['id'],
                 );
+                $screening_arr = getScreeningFieldName();
+                foreach ($param as $key=>$val){
+                    if (in_array($key,$screening_arr)){
+                        $vars[$key] = $val;
+                    }
+                }
             } else {
                 $vars = $param;
             }

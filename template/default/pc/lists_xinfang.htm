@@ -233,7 +233,7 @@
           </div>
           <div class="con_box">
             <ul class="list">
-              {eju:arclist typeid='1' flag='c' orderby='new' limit='0,5' id='field' screen='0'}
+              {eju:arclist typeid='1' flag='c' orderby='new' limit='0,5' addwhere="(FIND_IN_SET('商铺',manage_type) or FIND_IN_SET('写字楼',manage_type) or FIND_IN_SET('公寓',manage_type))" id='field' screen='0'}
               <li class="clearfix"> <a href="{$field.arcurl}">
                 <div class="fl l_img"> <img src="{$field.litpic}" width="120" height="80" alt=""> </div>
                 <div class="fr r_con">
