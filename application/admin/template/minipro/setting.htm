@@ -273,10 +273,10 @@
                 data: data.field,
                 dataType: 'json',
                 success: function (res) {
-                    layer.close(load); //关闭loading
                     if (res.code == 1) {
                         window.location.href = res.url;
                     } else {
+                        layer.close(load); //关闭loading
                         showErrorMsg(res.msg);
                     }
                 },
