@@ -167,7 +167,7 @@ class Ajax extends Base
     }
       
     /**
-     * 邮箱发送
+     * 报名表单邮箱发送
      */
     public function send_email()
     {
@@ -232,8 +232,6 @@ class Ajax extends Base
                     $relate_arr = array_unique(array_merge(explode(",",$user_id['relate']),$relate_arr));
                 }
                 $users_arr = Db::name("users")->where(['id'=>['in',$relate_arr]])->getAllWithIndex('id');
-
-//                $users_info = Db::name("archives")->alias("a")->field("b.mobile,b.email")->join("users b","a.users_id = b.id","left")->where("a.aid=".$from_list['aid'])->find();
             }
             if (!empty($config_list[2]['note']) && !empty($users_arr)){   //发送经纪人短信
                 foreach ($users_arr as $val){
@@ -245,13 +243,6 @@ class Ajax extends Base
                     $res =  send_email($val['email'],null,$html, $scene);
                 }
             }
-//            if (!empty($config_list[2]['note']) && !empty($users_info['mobile'])){   //发送经纪人短信
-//                $res = sendSms($scene, $users_info['mobile'], $sms_arr);
-//            }
-//            if (!empty($config_list[2]['email']) && !empty($users_info['email'])){   //发送经纪人邮箱
-//                $res = send_email($users_info['email'],null,$html, $scene);  //第一个字段是收件箱
-//            }
-
             if (!empty($config_list[1]['note'])){   //发送管理员短信
                 $res = sendSms($scene, $this->eju['global']['sms_test_mobile'], $sms_arr);
             }
@@ -264,6 +255,42 @@ class Ajax extends Base
                 $this->error($res['msg']);
             }else{
                 $this->error("发送失败");
+            }
+        }
+    }
+    /*
+     * 浏览、拨打电话触发发送
+     */
+    public function send_in_call(){
+        // 超时后，断掉邮件发送
+        function_exists('set_time_limit') && set_time_limit(10);
+        if (IS_AJAX_POST){
+            $send_email_scene = config('send_email_scene');
+            if (!empty($send_email_scene[10])){
+                $scene = $send_email_scene[10]['scene'];
+                $web_name = tpCache('web.web_name');
+                $title = input('post.title/s','');
+                $html = "<p style='text-align: left;'>{$web_name}</p><p style='text-align: left;'>{$title}来电</p>";
+                if (isMobile()) {
+                    $html .= "<p style='text-align: left;'>——来源：移动端 --</p>";
+                } else {
+                    $html .= "<p style='text-align: left;'>——来源：电脑端 --</p>";
+                }
+                $sms_arr = ['time'=>date("Y-m-d H:i:s"),'form'=>$web_name,'title'=>$title];
+                $config_list = Db::name('form_config')->where("status=1")->getAllWithIndex("role");
+                if (!empty($config_list[1]['note'])){   //发送管理员短信
+                    $res = sendSms($scene, $this->eju['global']['sms_test_mobile'], $sms_arr);
+                }
+                if (!empty($config_list[1]['email'])){   //发送管理员邮箱
+                    $res = send_email($this->eju['global']['smtp_from_eamil'],null,$html, $scene);  //第一个字段是收件箱
+                }
+                if (!empty($res['code']) && intval($res['code']) == 1) {
+                    $this->success($res['msg']);
+                } else if(!empty($res['msg'])){
+                    $this->error($res['msg']);
+                }else{
+                    $this->error("发送失败");
+                }
             }
         }
     }
@@ -316,22 +343,11 @@ class Ajax extends Base
             if ($count > 0 && 1>1) {
                 $this->error('同一个IP在60秒之内不能重复提交！');
             }
-
             $come_url = input('post.come_url/s'); //htmlspecialchars(input('post.come_url/s'));
             $parent_come_url = input('post.parent_come_url/s');  //htmlspecialchars(input('post.parent_come_url/s'));
             $come_url = !empty($parent_come_url)? $parent_come_url :$come_url;
             $come_from = input('post.come_from/s', '请添加come_from隐藏信息');  //htmlspecialchars(input('post.come_from/s', '请添加come_from隐藏信息'));
             $city = "";
-/*            try {
-                $city_arr = getCityLocation($ip);
-                if (!empty($city_arr)) {
-                    !empty($city_arr['country']) && $city .= $city_arr['country'];
-                    !empty($city_arr['area']) && $city .= $city_arr['area'];
-                    !empty($city_arr['region']) && $city .= $city_arr['region'];
-                    !empty($city_arr['city']) && $city .= $city_arr['city'];
-                }
-            } catch (\Exception $e) {}*/
-
             $newData = array(
                 'form_id'    => $form_id,
                 'ip'    => $ip,
@@ -561,5 +577,45 @@ class Ajax extends Base
         }
         return json($list);
     }
+    /*
+     * 获取用户当前所在城市域名
+     */
+//    public function get_region_info(){
+//        $ip = clientIP();
+//        $city = "";
+//        $city_str = httpRequest("https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?query={$ip}&co=&resource_id=6006&oe=utf8","get");
+//        if ($city_str){
+//            $city_arr = json_decode($city_str,true);
+//            if ($city_arr['status'] == 0 && !empty($city_arr['data'][0] ["location"])){
+//                $city = $city_arr['data'][0] ["location"];
+//            }
+//        }
+//        $keywords = addslashes(input('param.keywords/s',''));
+//        $level = input('param.level/d','0');
+//        $one = [];
+//        $where = "status=1 and domain<>''";
+//        if ($level){
+//            $where .= " and level={$level}";
+//        }
+//        if (!empty($keywords)){
+//            $where .= " and (initial='{$keywords}' or name like '%{$keywords}%' or domain like '%{$keywords}%')";
+//        }
+//        if (empty($city)){
+//            $where .= " and is_default=1";
+//        }
+//        $list = Db::name("region")->where($where)->getAllWithIndex('id');
+//        foreach ($list as $key=>$val){
+//            if (empty($city) || strstr($city,$val['name'])){
+//                $val['domainurl'] = getRegionDomainUrl($val['domain']);
+//                $one = $val;
+//                break;
+//            }else if($val['is_default'] == 1){
+//                $val['domainurl'] = getRegionDomainUrl($val['domain']);
+//                $one = $val;
+//            }
+//        }
+//
+//        return json($one);
+//    }
 
 }

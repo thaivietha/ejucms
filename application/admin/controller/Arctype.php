@@ -151,6 +151,7 @@ class Arctype extends Base
 
         /* 模型 */
         $map = array(
+            'is_del'    => 0,
             'status'    => 1,
         );
         $channeltype_list = model('Channeltype')->getAll('id,title,nid', $map, 'id');
@@ -386,6 +387,7 @@ class Arctype extends Base
         $this->assign('select_pointto_html',$select_pointto_html);
         /* 模型 */
         $map = array(
+            'is_del'    => 0,
             'status'    => 1,
         );
         $channeltype_list = model('Channeltype')->getAll('id,title,nid,ctl_name', $map, 'id');

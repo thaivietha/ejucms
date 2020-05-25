@@ -848,8 +848,8 @@
                                                                     <input type="text" name="huxing_kitchen[]" value="{$val.huxing_kitchen}"><span>厨</span>
                                                                 </div>
                                                                 <div class="pricearea">
-                                                                    <span>价格：</span><input type="text" name="huxing_price[]"  value="{$val.huxing_price}"><em>万元/套</em>
-                                                                    <span>面积：</span><input type="text" name="huxing_area[]"  value="{$val.huxing_area}"><em>㎡</em>
+																	<span>面积：</span><input onBlur="huxing_area_blur(this)" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" type="text" name="huxing_area[]"  value="{$val.huxing_area}"><em>㎡</em>
+																	<span>价格：</span><input type="text" name="huxing_price[]" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" value="{$val.huxing_price}"><em>万元/套</em>
                                                                 </div>
                                                                 <div class="selectdiv">
                                                                     <select name="sale_status[]"  lay-ignore>
@@ -917,9 +917,9 @@
                                                                         <input  type="text" name=""/><span>厨</span>
                                                                     </div>
                                                                     <div class="pricearea">
-                                                                        <span>价格：</span><input  type="text" name=""/><em>万元/套</em>
-                                                                        <span>面积：</span><input  type="text" name=""/><em>㎡</em>
-                                                                    </div>
+                                                                        <span>面积：</span><input onBlur="huxing_area_blur(this)" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" type="text" name=""/><em>㎡</em>
+																		<span>价格：</span><input onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" type="text" name=""/><em>万元/套</em>
+																	</div>
                                                                     <div class="selectdiv">
                                                                         <select lay-ignore>
                                                                             <option value="0">销售状态</option>
@@ -1118,7 +1118,6 @@
 
             //初始化所有点
             var init_point = '{$points.data}';
-            console.log(init_point);
             if(init_point){
                 init_point = eval('('+init_point+')');
                 for(var i in init_point){
@@ -1351,7 +1350,6 @@
         });
         //检测是否存在同名楼盘，并提交
 		function form_submit(data) {
-		    console.log(data);
             var load = layer_loading();
             $.ajax({
                 type : 'post',
@@ -1631,8 +1629,9 @@
                 $(".huxing .images-upload:eq(0)").find('div.size input:eq(2)').attr('name','huxing_toilet[]');
                 $(".huxing .images-upload:eq(0)").find('div.size input:eq(3)').attr('name','huxing_kitchen[]');
                 //提交价格，面积
-                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(0)').attr('name','huxing_price[]');
-                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(1)').attr('name','huxing_area[]');
+                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(0)').attr('name','huxing_area[]');
+                $(".huxing .images-upload:eq(0)").find('div.pricearea input:eq(1)').attr('name','huxing_price[]');
+
                 //提交select
                 $(".huxing .images-upload:eq(0)").find('div.selectdiv select:eq(0)').attr('name','sale_status[]');
                 $(".huxing .images-upload:eq(0)").find('div.selectdiv select:eq(1)').attr('name','huxing_aspect[]');
@@ -1819,7 +1818,6 @@
                     $("#sand_"+data[keys]).remove();
                 }
 			}
-			console.log(all_form);
 //            all_form.render();
         }
         //删除楼栋
@@ -1970,6 +1968,17 @@
                 });
             });
         });
+        function huxing_area_blur(obj){
+            var average_price = $("#average_price").val();
+            var area = $(obj).val();
+            var huxing_price = $(obj).parent().find('input:eq(1)').val();
+            console.log(huxing_price);
+            if(huxing_price == 0 || huxing_price == ''){
+                huxing_price	= (average_price * area)/10000;
+                $(obj).parent().find('input:eq(1)').val(huxing_price);
+			}
+		}
+
     </script>
 
 

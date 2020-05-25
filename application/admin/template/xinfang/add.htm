@@ -801,8 +801,8 @@
                                                                             <input  type="text" name=""/><span>厨</span>
                                                                         </div>
                                                                         <div class="pricearea">
-                                                                            <span>面积：</span><input class="huxing_area"  type="text" name=""/><em>㎡</em>
-                                                                            <span>价格：</span><input class="huxing_price"  type="text" name=""/><em>万元/套</em>
+                                                                            <span>面积：</span><input onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" class="huxing_area"  type="text" name=""/><em>㎡</em>
+                                                                            <span>价格：</span><input onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" class="huxing_price"  type="text" name=""/><em>万元/套</em>
                                                                         </div>
                                                                         <div class="selectdiv">
                                                                             <select lay-ignore>

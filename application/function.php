@@ -2012,6 +2012,14 @@ if (!function_exists('view_logic'))
                     }
                     $huxing_list = !empty($allAttrInfo['huxing_list'][$aid]) ? $allAttrInfo['huxing_list'][$aid] : [] ;
                 }
+                if (!isset($result['total_price']) || empty($result['total_price'])){
+                    $result['total_price'] = 0;
+                    foreach ($huxing_list as $val){
+                        if (empty($result['total_price']) || $result['total_price'] > $val['huxing_price']){
+                            $result['total_price'] = $val['huxing_price'];
+                        }
+                    }
+                }
                 $result['huxing_list'] = $huxing_list;
                 /*--end*/
 
@@ -2535,5 +2543,59 @@ if ( ! function_exists('getSubDomain'))
         $domain .= ROOT_DIR;
 
         return $domain;
+    }
+}
+if (!function_exists('mchStrCode')) {
+    /**
+     *  加密函数
+     *
+     * @access    public
+     * @param     string $string 字符串
+     * @param     string $operation 操作
+     * @return    string
+     */
+    function mchStrCode($string, $operation = 'ENCODE', $auth_code = '')
+    {
+        if (empty($auth_code)) {
+            $auth_code = tpCache('system.system_auth_code');
+            if (empty($auth_code)) {
+                $auth_code = \think\Config::get('AUTH_CODE');
+                /*多语言*/
+                if (is_language()) {
+                    $langRow = \think\Db::name('language')->order('id asc')->select();
+                    foreach ($langRow as $key => $val) {
+                        tpCache('system', ['system_auth_code' => $auth_code], $val['mark']);
+                    }
+                } else { // 单语言
+                    tpCache('system', ['system_auth_code' => $auth_code]);
+                }
+                /*--end*/
+            }
+        }
+
+        $key_length = 4;
+        $expiry     = 0;
+        $key        = md5($auth_code);
+        $fixedkey   = md5($key);
+        $egiskeys   = md5(substr($fixedkey, 16, 16));
+        $runtokey   = $key_length ? ($operation == 'ENCODE' ? substr(md5(microtime(true)), -$key_length) : substr($string, 0, $key_length)) : '';
+        $keys       = md5(substr($runtokey, 0, 16) . substr($fixedkey, 0, 16) . substr($runtokey, 16) . substr($fixedkey, 16));
+        $string     = $operation == 'ENCODE' ? sprintf('%010d', $expiry ? $expiry + time() : 0) . substr(md5($string . $egiskeys), 0, 16) . $string : base64_decode(substr($string, $key_length));
+
+        $i             = 0;
+        $result        = '';
+        $string_length = strlen($string);
+        for ($i = 0; $i < $string_length; $i++) {
+            $result .= chr(ord($string{$i}) ^ ord($keys{$i % 32}));
+        }
+        if ($operation == 'ENCODE') {
+            return $runtokey . str_replace('=', '', base64_encode($result));
+        } else {
+            if ((substr($result, 0, 10) == 0 || substr($result, 0, 10) - time() > 0) && substr($result, 10, 16) == substr(md5(substr($result, 26) . $egiskeys), 0, 16)) {
+                return substr($result, 26);
+            } else {
+                return '';
+            }
+        }
     }
 }

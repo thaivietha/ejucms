@@ -382,7 +382,8 @@ return array(
         'home_Single_lists'     => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
         // [超短伪静态]列表页
 //        'home_Lists_index'      => ['filename'=>'lists', 'p'=>['subdomain','tid','page'], 'cache'=>7200],
-//        'home_Lists_index'      => ['filename'=>'lists', 'p'=>['subdomain','tid','page','area_id','average_price','building_type','characteristic','city_id','fitment','manage_type','province_id','sale_status'], 'cache'=>7200],
+
+        'home_Lists_index'      => ['filename'=>'lists', 'p'=>['subdomain','tid','page','total_price','area','aspect','room','floo_type','hire_type','division','industry','level','area_id','average_price','building_type','characteristic','city_id','fitment','manage_type','province_id','sale_status'], 'cache'=>7200],
         // [超短伪静态]内容页
         'home_View_index'       => ['filename'=>'view', 'p'=>['subdomain','dirname','aid','column','sid','photo_type','room'], 'cache'=>7200],
     ],
@@ -401,7 +402,8 @@ return array(
         1   => ['scene'=>1], // 留言表单
         2   => ['scene'=>2], // 会员注册
         3   => ['scene'=>3], // 绑定邮箱
-        4   => ['scene'=>4], // 找回密码
+        4   => ['scene'=>4], // 找回密码、测试接收消息
+        10   => ['scene'=>10], // 拨打楼盘号码发送
     ],
     'extra_cache_key' => [
         'global_get_route_field_list'=>[],

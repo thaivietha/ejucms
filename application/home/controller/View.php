@@ -70,9 +70,8 @@ class View extends Base
         //判断多域名下区域和域名是否匹配
         $web_region_domain = config('ey_config.web_region_domain');   //是否开启子域名
         $web_mobile_domain = config('ey_config.web_mobile_domain');    //手机子域名
-        $requst_subDomain = input('param.subdomain/s','');
-        empty($requst_subDomain) && $requst_subDomain = request()->subDomain(); //二级域名
-
+        $requst_subDomain = request()->subDomain(); //二级域名
+        empty($requst_subDomain) && $requst_subDomain = input('param.subdomain/s','');
         if ($web_region_domain && !empty($requst_subDomain) && $requst_subDomain != $web_mobile_domain){
             $region_list = get_region_list();
             $subDomain = tpCache('web.web_main_domain');  //主域名(后台登陆默认主域名---非子站点)
@@ -83,6 +82,7 @@ class View extends Base
             }else if(!empty($archivesInfo['province_id']) && !empty($region_list[$archivesInfo['province_id']]['domain'])){
                 $subDomain = $region_list[$archivesInfo['province_id']]['domain'];
             }
+
             if (!empty($subDomain) && $subDomain != $this->eju['param']['subDomain']){
                 abort(404,'页面不存在');
             }
@@ -183,7 +183,6 @@ class View extends Base
         $this->eju['param']['url_screen_var'] = $url_screen_var;
         $this->eju['param']['root_dir'] = ROOT_DIR;
         $this->eju = array_merge($this->eju, $eju);
-
         $this->assign('eju', $this->eju);
 
         /*模板文件*/

@@ -280,12 +280,12 @@ if (!function_exists('write_html_cache'))
                     foreach ($val['p'] as $k=>$v) {
                         if (isset($param[$v])) {
                             if (preg_match('/\/$/i', $filename)) {
-                                $filename .= $param[$v];
+                                $filename .= $v.$param[$v];
                             } else {
                                 if (!empty($filename)) {
                                     $filename .= '_';
                                 }
-                                $filename .= $param[$v];
+                                $filename .= $v.$param[$v];
                             }
                         }
                     }
@@ -404,12 +404,12 @@ if (!function_exists('read_html_cache'))
                     foreach ($val['p'] as $k=>$v) {
                         if (isset($param[$v])) {
                             if (preg_match('/\/$/i', $filename)) {
-                                $filename .= $param[$v];
+                                $filename .= $v.$param[$v];
                             } else {
                                 if (!empty($filename)) {
                                     $filename .= '_';
                                 }
-                                $filename .= $param[$v];
+                                $filename .= $v.$param[$v];
                             }
                         }
                     }

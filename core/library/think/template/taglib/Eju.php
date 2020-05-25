@@ -119,6 +119,8 @@ class Eju extends Taglib
         'remark' => ['attr' => 'aid,formid,success,empty,id,beforeSubmit'],
         //点评列表标签
         'remarklist' =>['attr' => 'id,key,mod,field,aid,pagesize,orderby,orderway,usersid'],
+        //默认跳转城市
+        'regionview'  =>['attr' => 'id,key,mod,field'],
     ];
     /*
      * 点评提交标签
@@ -293,6 +295,29 @@ class Eju extends Taglib
         // 声明变量
         $parseStr .= ' $tagSand = new \think\template\taglib\eju\TagSand;';
         $parseStr .= ' $_result_tmp = $tagSand->getSand('.$aid.');';
+        $parseStr .= 'if(!empty($_result_tmp)): ';
+        $parseStr .= '$' . $id.' = $_result_tmp ;?>';
+        $parseStr .= $content;
+        $parseStr .= '<?php  else: echo htmlspecialchars_decode("' . $empty . '");endif; ?>';
+        $parseStr .= '<?php $'.$id.' = []; ?>'; // 清除变量值，只限于在标签内部使用
+
+        if (!empty($parseStr)) {
+            return $parseStr;
+        }
+        return;
+    }
+    /*
+     * 默认二级城市
+     */
+    public function tagRegionview($tag, $content){
+        $id     = isset($tag['id']) ? $tag['id'] : 'field';
+        $empty  = isset($tag['empty']) ? $tag['empty'] : '';
+        $empty  = htmlspecialchars($empty);
+
+        $parseStr = '<?php ';
+        // 声明变量
+        $parseStr .= ' $tagRegionview = new \think\template\taglib\eju\TagRegionview;';
+        $parseStr .= ' $_result_tmp = $tagRegionview->getRegionview();';
         $parseStr .= 'if(!empty($_result_tmp)): ';
         $parseStr .= '$' . $id.' = $_result_tmp ;?>';
         $parseStr .= $content;
