@@ -1,0 +1,139 @@
+{include file="public/layout" /}
+<body>
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="web-system">
+                    <div class="layui-tab layui-tab-card">
+                        {include file="system/tupian" /}
+                        <div class="layui-tab-content" style="padding:10px 0">
+                            <div class="layui-tab-item layui-show">
+                                <div class="layui-row layui-col-space15">
+                                    <div class="layui-col-md12">
+                                        <div class="layui-card">
+                                            <div class="layui-card-body" pad15>
+                                                <div class="layui-form" wid100 lay-filter="">
+
+                                                    <div class="layui-form-item ey-text">
+                                                        <label class="layui-form-label"><b>*</b>AccessKey</label>
+                                                        <div class="layui-input-inline">
+                                                            <input type="text" id="access_key" name="access_key" value="{$Qiniuyun.access_key|default=''}" class="layui-input ey-input" >
+                                                        </div>
+                                                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                        <div class="layui-form-inline2 ey_helptips_txt">七牛云个人中心-》密钥管理-》AK</div>
+                                                    </div>
+                                                    <div class="layui-form-item ey-text">
+                                                        <label class="layui-form-label"><b>*</b>SecretKey</label>
+                                                        <div class="layui-input-inline">
+                                                            <input type="text" id="secret_key" name="secret_key" value="{$Qiniuyun.secret_key|default=''}" class="layui-input ey-input">
+                                                        </div>
+                                                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                        <div class="layui-form-inline2 ey_helptips_txt">七牛云个人中心-》密钥管理-》SK</div>
+                                                    </div>
+                                                    {notempty name="$Qiniuyun.bucket"}
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label"><b>*</b>存储空间名</label>
+                                                        <div class="layui-input-inline">
+                                                            <select name="bucket" id="bucket"  onchange="SelectDomain()">
+                                                                {volist name='$ListBucket' id='vo'}
+                                                                <option value="{$vo}" {eq name="$vo" value="$Qiniuyun.bucket"} selected="selected" {/eq}>{$vo}</option>
+                                                                {/volist}
+                                                            </select>
+                                                        </div>
+                                                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                        <div class="layui-form-inline2 ey_helptips_txt">要修改此项，请先到七牛云创建存储空间名，再选择对应的存储空间名。</div>
+                                                    </div>
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label"><b>*</b>访问域名</label>
+                                                        <div class="layui-input-inline">
+                                                            <select name="domain" id="domain">
+                                                                {volist name='$ListDomain' id='vo'}
+                                                                <option value="{$vo}" {eq name="$vo" value="$Qiniuyun.domain"} selected="selected" {/eq}>{$vo}</option>
+                                                                {/volist}
+                                                            </select>
+                                                        </div>
+                                                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                        <div class="layui-form-inline2 ey_helptips_txt">要修改此项，请先到七牛云绑定域名等待生效后，再选择对应七牛云中已保存的外链默认域名。</div>
+                                                    </div>
+                                                    {/notempty}
+                                                    <div class="layui-form-item">
+                                                        <div class="layui-input-block">
+                                                            <input type="hidden" name="tcp" value="3">
+                                                            <input type="hidden" name="tabase" value="{$Request.param.tabase}">
+                                                            <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        layui.config({
+            base: '__SKIN__/' //静态资源所在路径
+            ,version: '{$version}'
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form'], function(){
+            var $ = layui.$
+                ,layer = layui.layer
+                ,form = layui.form;
+
+            //监听提交
+            form.on('submit(formSubmit)', function(data){
+                var load = layer_loading();
+                data.field._ajax = 1;
+                $.ajax({
+                    type : 'post',
+                    url : "{:url('System/qiniu')}",
+                    data : data.field,
+                    dataType : 'json',
+                    success : function(res){
+                        layer.close(load); //关闭loading
+                        if(res.code == 1){
+                            layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                                window.location.reload();
+                            });
+                        }else{
+                            showErrorMsg(res.msg);
+                        }
+                    },
+                    error: function(e){
+                        layer.close(load); //关闭loading
+                        showErrorAlert();
+                    }
+                });
+                return false;
+            });
+        });
+        // 查询选中的存储空间名对应的访问域名
+        function SelectDomain(){
+            layer_loading('正在获取访问域名');
+            $.ajax({
+                url: "{:weapp_url('Qiniuyun/Qiniuyun/select_domain')}",
+                data: $('#post_form').serialize(),
+                type:'post',
+                dataType:'json',
+                success:function(res){
+                    layer.closeAll();
+                    if ('1' == res.code) {
+                        // $('#domain').val(res.data);
+                        $('#domain').empty().html(res.data);
+                    }else{
+                        layer.alert(res.msg, {icon:0});
+                    }
+                }
+            });
+        }
+    </script>
+    {include file="public/footer" /}

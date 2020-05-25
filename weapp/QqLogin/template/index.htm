@@ -1,0 +1,121 @@
+{include file="header.htm" /}
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    {include file="bar.htm" /}
+    <!-- 操作说明 -->
+    <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
+        <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+        </div>
+        <ul>
+            <li>注意事项：待QQ应用审核之后，才能进行有效使用！</li>
+        </ul>
+    </div>
+    <form class="form-horizontal" id="post_form" action="{:weapp_url('QqLogin/QqLogin/save')}" method="post">
+        <div class="ncap-form-default">
+            {if condition="!empty($info.data.appid) && !empty($info.data.appkey)"}
+            <dl class="row">
+                <dt class="tit" style="width: 150px;">
+                    <label>前台登录页面</label>
+                </dt>
+                <dd class="opt" style="width: 75%;">
+                    <div class="onoff">
+                        <label for="login_show1" class="cb-enable {if condition='isset($info.data.login_show) && $info.data.login_show eq 1'}selected{/if}">显示</label>
+                        <label for="login_show0" class="cb-disable {if condition='!isset($info.data.login_show) || $info.data.login_show eq 0'}selected{/if}">隐藏</label>
+                        <input id="login_show1" name="login_show" value="1" type="radio" {if condition="isset($info.data.login_show) && $info.data.login_show eq 1"} checked="checked"{/if}>
+                        <input id="login_show0" name="login_show" value="0" type="radio" {if condition="!isset($info.data.login_show) || $info.data.login_show eq 0"} checked="checked"{/if}>
+                    </div>
+                    <p class="notic">前台登录页面是否显示QQ登录按钮</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit" style="width: 150px;">
+                    <label>绑定已有账号功能</label>
+                </dt>
+                <dd class="opt" style="width: 75%;">
+                    <div class="onoff">
+                        <label for="bind1" class="cb-enable {if condition='isset($info.data.bind) && $info.data.bind eq 1'}selected{/if}">开启</label>
+                        <label for="bind0" class="cb-disable {if condition='!isset($info.data.bind) || $info.data.bind eq 0'}selected{/if}">关闭</label>
+                        <input id="bind1" name="bind" value="1" type="radio" {if condition="isset($info.data.bind) && $info.data.bind eq 1"} checked="checked"{/if}>
+                        <input id="bind0" name="bind" value="0" type="radio" {if condition="!isset($info.data.bind) || $info.data.bind eq 0"} checked="checked"{/if}>
+                    </div>
+                    <p class="notic">开启后QQ登录用户可以选择绑定本站已有账号</p>
+                </dd>
+            </dl>
+            {/if}
+            <dl class="row">
+                <dt class="tit">
+                    <label for="appid"><em>*</em>QQ应用appid</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="appid" value="{$info.data.appid|default=''}" id="appid" class="input-txt">
+                    <span class="err"></span>
+                    <p class=""></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="appkey"><em>*</em>QQ应用appkey</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="appkey" value="{$info.data.appkey|default=''}" id="appkey" class="input-txt">
+                    <span class="err"></span>
+                    <p class=""></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="callback">回调地址</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" value="{$callback}" class="input-txt">
+                    <a href="javascript:void(0);" onclick="showtext('callback');" class="ncap-btn ncap-btn-green callback" data-clipboard-text="{$callback}">点击复制</a>
+                    <span class="err"></span>
+                    <p class=""></p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label>登录代码</label>
+                </dt>
+                <dd class="opt">
+                    <textarea rows="5" cols="60" style="height:60px;"><a href='{$qqlogin_url}'>QQ登录</a></textarea>
+                    <a style="margin-top: -20px;" href="javascript:void(0);" onclick="showtext('qqlogin_url');" class="ncap-btn ncap-btn-green qqlogin_url" data-clipboard-text="<a href='{$qqlogin_url}'>QQ登录</a>">点击复制</a>
+                    <span class="err"></span>
+                    <p class="notic"></p>
+                </dd>
+            </dl>
+            <div class="bot">
+                <a href="JavaScript:void(0);" onclick="checkForm();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    // 判断输入框是否为空
+    function checkForm(){
+        if($.trim($('input[name=appid]').val()) == ''){
+            showErrorMsg('QQ应用appid不能为空！');
+            $('input[name=appid]').focus();
+            return false;
+        }
+        if($.trim($('input[name=appkey]').val()) == ''){
+            showErrorMsg('QQ应用appkey不能为空！');
+            $('input[name=appkey]').focus();
+            return false;
+        }
+        layer_loading('正在处理');
+        $('#post_form').submit();
+    }
+</script>
+<script type="text/javascript" src="__SKIN__/js/clipboard.min.js"></script>
+<script type="text/javascript">
+    function showtext(classname){
+        var clipboard1 = new Clipboard("."+classname);clipboard1.on("success", function(e) {layer.msg("复制成功");});clipboard1.on("error", function(e) {layer.msg("复制失败！请手动复制", {icon:2});}); 
+    }
+</script>
+{include file="footer.htm" /}

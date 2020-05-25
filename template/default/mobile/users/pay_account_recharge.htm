@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+{include file="users/header" /}
+<body style="padding-top:2.625rem ;">
+<!--顶部-->
+{include file="users/rightNav" /}
+<form id="post_form" action="{:url('Pay/pay_account_recharge')}" onsubmit="return false;">
+    <!--用户设置-->
+    <div class="fang_add mt10">
+        <div class="item">
+            <div class="item_l">账户余额：</div>
+            <div class="item_r">
+                <span class="fl info-text">￥{$users.users_money}元</span>
+            </div>
+        </div>
+        <div class="item">
+            <div class="item_l">充值金额：</div>
+            <div class="item_r">￥
+                <input type="text" name="money" value="{$money}" onkeyup="this.value=this.value.replace(/[^0-9\.]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9\.]/g,'')" placeholder="请输入充值金额" />
+                元
+            </div>
+    </div>
+    <!--确认提交-->
+    <div class="footer-bt">
+        <input type="hidden" name="unified_number" value="{$unified_number}">
+        <a href="JavaScript:;"  onclick="submit_fun()">去付款</a>
+    </div>
+</form>
+<script>
+    //提交
+    function submit_fun(){
+        var money = $('input[name=money]');
+        if($.trim(money.val()) == ''){
+            layer.msg('充值金额不能为空！', {icon: 2, time: 1000});
+            money.focus();
+            return false;
+        } else if(isNaN($.trim(money.val()))){
+            layer.msg('请输入正确的充值金额！', {icon: 2, time: 1000});
+            money.focus();
+            return false;
+        }
+        var load = layer_loading();
+        $.ajax({
+            type : 'post',
+            url : "{:url('Pay/pay_account_recharge')}",
+            data : $("#post_form").serialize(),
+            dataType : 'json',
+            success : function(res){
+                layer.close(load); //关闭loading
+                if (res.code == 1) {
+                    if (0 == res.data.is_gourl) {
+                        $('#unified_number').val(res.data.unified_number);
+                        $('#transaction_type').val(res.data.transaction_type);
+                        WeChatInternal(res.data);
+                    }else{
+                        window.location.href = res.url;
+                    }
+                }else{
+                    layer.closeAll();
+                    layer.alert(res.msg, {icon: 2});
+                }
+            },
+            error: function(e){
+                layer.close(load); //关闭loading
+                showErrorAlert();
+            }
+        });
+        return false;
+    }
+    // 微信内部中进行支付
+    function WeChatInternal(unified_id,unified_number,transaction_type)
+    {
+        $.ajax({
+            url: "{eju:url link='user/Pay/wechat_pay'/}",
+            data: {unified_id:unified_id,unified_number:unified_number,transaction_type:transaction_type},
+            type:'post',
+            dataType:'json',
+            success:function(res){
+                if (1 == res.code) {
+                    callpay(res.msg);
+                }else{
+                    layer.alert(res.msg, {icon:0});
+                }
+            }
+        });
+    }
+</script>
+
+
+</body>
+</html>

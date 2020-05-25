@@ -1,0 +1,4 @@
+application/plugins/controller/WxLogin.php
+data/schema/ey_weapp_wxlogin.php
+template/plugins/wxlogin
+weapp/WxLogin

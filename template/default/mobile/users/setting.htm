@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+{include file="users/header" /}
+<body style="padding-top:2.625rem ;">
+<!--顶部-->
+{include file="users/rightNav" /}
+
+<!--用户设置-->
+<div class="userContent">
+    {volist name="menu" id="vo"}
+    {eq name='$vo.id' value='3000'}
+        {notempty name='$vo.child'}
+            {volist name="$vo.child" id="v2"}
+                {if condition='(!empty($v2.url)) or (!empty($v2.action))'}
+                <div class="cateItem">
+                    <a {if condition='!empty($v2.url)'}href="{$v2.url}"{elseif condition='!empty($v2.action)'/}href="{:url($v2['controller'].'/'.$v2['action'])}"{/if}>
+                        <h2>{$v2.name}</h2>
+                        <i class="iconfont icon-right"></i>
+                    </a>
+                </div>
+                {/if}
+            {/volist}
+        {/notempty}
+    {/eq}
+    {/volist}
+
+    <div class="cateItem">
+        <a href="{:url('Users/bind_email')}">
+            <h2>邮箱绑定</h2>
+            <i class="iconfont icon-right"></i>
+        </a>
+    </div>
+
+</div>
+<!--退出当前账户-->
+<div class="logout">
+    <a href="{:url('Users/logout')}">退出当前登录</a>
+</div>
+
+<script type="text/javascript">
+    //顶部右侧导航按钮
+    $(".menuBox .icon-gengduo").on("click",function(){
+        $(".rightNav").show();
+        $(".menuBox .icon-gengduo").hide();
+        $(".menuBox .icon-guanbi").show();
+        $(".zhezhao").show();
+    })
+    $(".menuBox .icon-guanbi").on("click",function(){
+        $(".rightNav").hide();
+        $(".menuBox .icon-gengduo").show();
+        $(".menuBox .icon-guanbi").hide();
+        $(".zhezhao").hide();
+    })
+</script>
+
+</body>
+</html>
