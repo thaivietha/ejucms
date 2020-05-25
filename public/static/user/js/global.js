@@ -16,9 +16,7 @@ var ueditor_toolbars = [[
 ]];
 
 var layer_tips; // 全局提示框的对象
-
 $(function(){
-
     try{
         GetUploadInst(); // 上传图片
     }catch(e){
@@ -178,6 +176,43 @@ function batch_del_pseudo(obj, a, del_type)
             }
         });
     }
+}
+/*
+ * 会员升级
+ */
+function upgradefun(obj){
+    var tsmsg = $(obj).attr('data-msg');
+    layer.msg(tsmsg, {
+        btnAlign: 'c'
+        ,time: 0
+        ,btn: ['确定升级', '取消']
+        ,yes: function(index, layero){
+            layer_loading();
+            var url = $(obj).attr('data-url');
+            $.ajax({
+                type : 'POST',
+                url : url,
+                data : { _ajax:1},
+                dataType : 'json',
+                success : function(res){
+                    layer.closeAll();
+                    if(res.code == 1){
+                        layer.msg(res.msg, {icon: 1});
+                    }else{
+                        showErrorAlert(res.msg);
+                    }
+                },
+                error:function(){
+                    layer.closeAll();
+                    showErrorAlert();
+                }
+            });
+            return false;
+        }
+        ,btn2: function(index, layero){
+            layer.close(index);
+        }
+    });
 }
 /*
  * 单个置顶

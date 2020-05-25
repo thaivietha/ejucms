@@ -212,6 +212,15 @@ return array(
     'trace'                  => array(
         // 内置Html Console 支持扩展
         'type' => 'Html',
+        'trace_tabs' =>  [
+            'base'=>'基本',
+            'file'=>'文件',
+            'info'=>'流程',
+            'error'=>'错误',
+            'sql'=>'SQL',
+            'debug'=>'调试',
+            'user'=>'用户'
+        ]
     ),
 
     // +----------------------------------------------------------------------
@@ -367,7 +376,7 @@ return array(
         'home_Index_index'      => ['filename'=>'index', 'p'=>['subdomain'], 'cache'=>7200],
         // [普通伪静态]楼盘
         'home_Xinfang_index'    => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
-        'home_Xinfang_lists'    => ['filename'=>'lists', 'p'=>['subdomain','tid','page','subdomain'], 'cache'=>7200],
+        'home_Xinfang_lists'    => ['filename'=>'lists', 'p'=>['subdomain','tid','page','subdomain','province_id','city_id','average_price','characteristic','manage_type','sale_status','area_id','building_type','fitment'], 'cache'=>7200],
         'home_Xinfang_view'     => ['filename'=>'view', 'p'=>['subdomain','dirname','aid','column','sid','photo_type','room'], 'cache'=>7200],
         // [普通伪静态]团购
         'home_Tuan_index'    => ['filename'=>'channel', 'p'=>['subdomain'], 'cache'=>7200],
@@ -407,5 +416,6 @@ return array(
     ],
     'extra_cache_key' => [
         'global_get_route_field_list'=>[],
+        'all_channelfield_short_name_list'=>[],
     ],
 );

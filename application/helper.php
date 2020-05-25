@@ -162,7 +162,7 @@ if (!function_exists('extra_cache')) {
         if (!isset($keys_list[$name])) {
             return false;
         }
-        $options = $keys_list[$name]['options'];
+        $options = !empty($keys_list[$name]['options']) ? $keys_list[$name]['options'] : [];
         $cache_conf = config('cache');
         if ($expire > 0) {
             $cache_conf['expire'] = $expire;
@@ -175,7 +175,7 @@ if (!function_exists('extra_cache')) {
             $cache_conf['prefix'] = $options['prefix'];
         }
 
-        $tag = $keys_list[$name]['tag'];
+        $tag = !empty($keys_list[$name]['tag']) ? $keys_list[$name]['tag'] : [];
         if (empty($tag)) {
             $tag = $module;
         }
@@ -253,6 +253,7 @@ if (!function_exists('typeurl')) {
                 $subdomain = $param['domain'];
             }
         }
+
         $seo_pseudo = !empty($seo_pseudo) ? $seo_pseudo : config('ey_config.seo_pseudo');
         if (empty($seo_pseudo_format)) {
             if (1 == $seo_pseudo) {
@@ -330,7 +331,6 @@ if (!function_exists('typeurl')) {
                     }
                 }
             }
-
         } elseif (3 == $seo_pseudo) {
             if (is_array($param)) {
                 $vars = array(
@@ -339,7 +339,7 @@ if (!function_exists('typeurl')) {
                 $screening_arr = getScreeningFieldName();
                 if (!empty($screening_arr)){
                     foreach ($param as $key=>$val){
-                        if (in_array($key,$screening_arr)){
+                        if (in_array($key,$screening_arr) && !in_array($key,['province_id','city_id','area_id'])){
                             $vars[$key] = $val;
                         }
                     }
@@ -351,11 +351,17 @@ if (!function_exists('typeurl')) {
             static $seo_rewrite_format = null;
             null === $seo_rewrite_format && $seo_rewrite_format = config('ey_config.seo_rewrite_format');
             if (1 == intval($seo_rewrite_format)) {
-                $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
+                $url_arr = explode('?',$url);
+                if (!empty($url_arr[1])){
+                    $eyouUrl = url('home/Lists/index?'.$url_arr[1], $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
+                }else{
+                    $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
+                }
                 if (!strstr($eyouUrl, '.htm')){
                     $eyouUrl .= '/';
                 }
             } else {
+
                 $eyouUrl = url($url, $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain); // 兼容v1.1.6之前被搜索引擎收录的URL
             }
             /*--end*/
@@ -374,6 +380,7 @@ if (!function_exists('typeurl')) {
                 $vars = $param;
             }
             $eyouUrl = url('home/Lists/index', $vars, $suffix, $domain, $seo_pseudo, $seo_pseudo_format,$subdomain);
+
         }
 
         return $eyouUrl;

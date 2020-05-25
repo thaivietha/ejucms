@@ -45,15 +45,7 @@
         <div class="layui-card">
           <div class="web-system">
             <div class="layui-tab layui-tab-card">
-              <ul class="layui-tab-title">
-                  {eq name="'System@water'|is_check_access" value="1"}
-                  <li class="layui-this"><a href="{:url('System/water')}">水印配置</a></li>
-                  {/eq}
-
-                  {eq name="'System@thumb'|is_check_access" value="1"}
-                  <li><a href="{:url('System/thumb')}">缩略图配置</a></li>
-                  {/eq}
-              </ul>
+              {include file="system/tupian" /}
               <div class="layui-tab-content" style="padding:10px 0">
                 <div class="layui-tab-item layui-show">
                   <div class="layui-row layui-col-space15">

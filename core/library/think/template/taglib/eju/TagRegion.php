@@ -50,7 +50,7 @@ class TagRegion extends Base
      * @param boolean $self 包括自己本身
      * @author wengxianhu by 2018-4-26
      */
-    public function getRegion($type = 'top', $currentstyle = '', $opencity = '', $domain = '', $orderby = '', $orderway = '', $ishot = '',$typeid = '',$channel = '',$groupby = '')
+    public function getRegion($param = array(),$type = 'top', $currentstyle = '', $opencity = '', $domain = '', $orderby = '', $orderway = '', $ishot = '',$typeid = '',$channel = '',$groupby = '')
     {
         $this->currentstyle = $currentstyle;
         $this->opencity = !empty($opencity) ? explode(',', str_replace('，', ',', $opencity)) : [];
@@ -87,10 +87,80 @@ class TagRegion extends Base
         !empty($typeid) && $this->typeid = $typeid;
         !empty($channel) && $this->channel = $channel;
         $result = $this->getSwitchRegion($domains, $type);
+        foreach ($result as $key=>$val){
+            $result[$key] = $this->getRegionPrice($val,$param);
+        }
 
         return $result;
     }
+    /*
+     * 计算城市楼盘均价
+     */
+    public function getRegionPrice($obj,$param){
+        if (empty($obj['level']) || ($obj['level'] == 1 && empty($param['province_id'])) || ($obj['level'] == 2 && empty($param['city_id'])) || ($obj['level'] == 3 && empty($param['area_id']))){
+            return $obj;
+        }
+        $table = $param['pricetype']."_price";
+        $map['is_del'] = 0;
+        if ($obj['level'] == 1){
+            $map['province_id'] = $obj['id'];
+        }else  if ($obj['level'] == 2){
+            $map['city_id'] = $obj['id'];
+        }else if ($obj['level'] == 3){
+            $map['area_id'] = $obj['id'];
+        }
+        $time_arr = to_month(2,"Y-m月");
+        $aid_arr = db('archives')->where($map)->getField("aid",true);
+        $where['aid'] = ['in',$aid_arr];
+        $where['type'] = 1;
+        $where['create_time'] = ['lt',$time_arr[0][3]];
+        $list = Db::name($table)->where($where)->order("price_id asc")->field("aid,GROUP_CONCAT(month) as month,GROUP_CONCAT(price) as price")->group('aid')->select();
+        $count = count($list);
+        $compareDate = [];  //日期数组
+        $buildPrices = [];  //楼盘价格数组
+        $maxPrice = $minPrice = 0;   //最大最小值
+        foreach ($list as $k=>$v){
+            $price_list = [];
+            if (!empty($v['month']) && !empty($v['price'])){
+                $month_arr = explode(',',$v['month']);
+                $price_arr = explode(',',$v['price']);
+                foreach ($month_arr as $key=>$val){
+                    $price_list[$val] = $price_arr[$key];
+                }
+            }
+            $last_price = 0;  //最后的价钱
+            foreach ($time_arr as $key=>$val){
+                if ($k == 0){    //第一轮的时候给日期赋值
+                    $compareDate[$key] = $val[0];
+                }
+                if (!empty($price_list[$val[1]])){
+                    $last_price = $price_list[$val[1]];
+                    $buildPrices[$key] = empty($buildPrices[$key]) ? $price_list[$val[1]] : $buildPrices[$key] + $price_list[$val[1]];
+                    unset($price_list[$val[1]]);
+                }else if($result = end($price_list)){
+                    $last_price = $result;
+                    $buildPrices[$key] = empty($buildPrices[$key]) ? $result : $buildPrices[$key] + $result;
+                }else{
+                    $buildPrices[$key] = empty($buildPrices[$key]) ? $last_price : $buildPrices[$key] + $last_price;
+                }
+                if ($maxPrice < $last_price){
+                    $maxPrice = $last_price;
+                }
+                if ($minPrice == 0 || $minPrice > $last_price){
+                    $minPrice = $last_price;
+                }
+                if ($k == ($count -1)){
+                    $buildPrices[$key] = round($buildPrices[$key]/$count,2);
+                }
+            }
+        }
+        $obj['price'] = !empty($buildPrices[1]) ? intval($buildPrices[1]) : 0;
+        $obj['last_price'] = !empty($buildPrices[0]) ? intval($buildPrices[0]) : 0;
+        $obj['increase'] =  !empty($buildPrices[0]) ? round(abs((($obj['price']-$obj['last_price'])/$obj['last_price'])*100),2).'%' : "0.0%";
+        $obj['increase_type'] = $obj['price'] < $obj['last_price'] ? "down" : "up";
 
+        return $obj;
+    }
     /**
      * 获取指定级别的区域列表
      * @param string type son表示下一级区域,self表示同级区域,top顶级区域
@@ -436,7 +506,6 @@ class TagRegion extends Base
                 $result[$val[$type]][] = $val;
             }
         }
-//        var_dump($result);die();
 
         return $result;
     }

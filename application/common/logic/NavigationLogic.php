@@ -230,7 +230,6 @@ class NavigationLogic extends Model
     public function navig_list($id = 0, $selected = 0, $re_type = true, $level = 0, $map = array(), $is_cache = true)
     {
         static $res = NULL;
-
         if ($res === NULL)
         {
             $where = array(
@@ -246,14 +245,14 @@ class NavigationLogic extends Model
             }
 
             $fields = "c.*, count(s.navig_id) as has_children, '' as children";
-            $res = DB::name('navig_list')
+            $res = Db::name('navig_list')
                 ->field($fields)
                 ->alias('c')
                 ->join('__NAVIG_LIST__ s','s.parent_id = c.navig_id','LEFT')
                 ->where($where)
                 ->group('c.navig_id')
                 ->order('c.parent_id asc, c.sort_order asc, c.navig_id')
-                ->cache($is_cache,EYOUCMS_CACHE_TIME,"navig_list")
+                ->cache($is_cache,EYOUCMS_CACHE_TIME,"navig_list".$map['position_id'])
                 ->select();
             $res = convert_arr_key($res,'navig_id');
         }

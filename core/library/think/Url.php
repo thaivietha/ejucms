@@ -20,7 +20,6 @@ class Url
      */
     public static function build($url = '', $vars = '', $suffix = true, $domain = false, $seo_pseudo = null, $seo_pseudo_format = null,$subdomain = null)
     {
-
         static $request = null;
         if (null == $request) {
             $request = Request::instance();
@@ -76,7 +75,8 @@ class Url
         }
 
         if ($url) {
-            $rule = Route::name(isset($name) ? $name : $url . (isset($info['query']) ? '?' . $info['query'] : ''));
+            $route_name = isset($name) ? $name : $url . (isset($info['query']) ? '?' . $info['query'] : '');
+            $rule = Route::name($route_name);
             if (is_null($rule) && isset($info['query'])) {
                 $rule = Route::name($url);
                 // 解析地址里面参数 合并到vars
@@ -85,7 +85,6 @@ class Url
                 unset($info['query']);
             }
         }
-
         if (!empty($rule) && $match = self::getRuleUrl($rule, $vars)) {
             // 匹配路由命名标识
             $url = $match[0];
@@ -395,13 +394,18 @@ class Url
     // 匹配路由地址
     public static function getRuleUrl($rule, &$vars = [])
     {
+        if (!empty($vars['tid'])){
+            $temp['tid'] = $vars['tid'];
+            if ($temp == $vars){
+                $rule = array_reverse($rule);
+            }
+        }
         foreach ($rule as $item) {
             list($url, $pattern, $domain, $suffix) = $item;
-            if (empty($pattern)) {
+            if (empty($pattern)) {    //并没有传任何参数
                 return [rtrim($url, '$'), $domain, $suffix];
             }
-
-            /*同个模块、控制器、操作名对应多个路由规则，进行优先级别匹配 by 许宇资*/
+            /*同个模块、控制器、操作名对应多个路由规则，进行优先级别匹配 by 帅小伙*/
             $unequal = 0;
             foreach ($pattern as $key => $val){
                 if (!isset($vars[$key])){
@@ -413,7 +417,6 @@ class Url
                 continue;
             }
             /*end*/
-
             $type = Config::get('url_common_param');
             foreach ($pattern as $key => $val) {
                 if (isset($vars[$key])) {

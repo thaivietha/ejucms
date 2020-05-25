@@ -6,17 +6,7 @@
         <div class="layui-card">
           <div class="web-system">
             <div class="layui-tab layui-tab-card">
-              {neq name='$Request.param.tabase' value='-1'}
-              <ul class="layui-tab-title">
-                  {eq name="'System@water'|is_check_access" value="1"}
-                  <li><a href="{:url('System/water')}">水印配置</a></li>
-                  {/eq}
-
-                  {eq name="'System@thumb'|is_check_access" value="1"}
-                  <li class="layui-this"><a href="{:url('System/thumb')}">缩略图配置</a></li>
-                  {/eq}
-              </ul>
-              {/neq}
+              {include file="system/tupian" /}
               <div class="layui-tab-content" style="padding:10px 0">
                 <div class="layui-tab-item layui-show">
                   <div class="layui-row layui-col-space15">
@@ -114,7 +104,7 @@
                 $('input[name="thumb_width"]').attr('disabled', true);
                 $('input[name="thumb_height"]').attr('disabled', true);
                 $('input[name="thumb_color"]').attr('disabled', true);
-            } 
+            }
         }
     }
 
@@ -136,7 +126,7 @@
                         }, function(){
                             layer.close(confirm);
                         }
-                    );  
+                    );
                 }else{
                     showErrorMsg(res.msg);
                 }
@@ -185,7 +175,7 @@
         });
         return false;
     });
-    
+
   });
 
   </script>

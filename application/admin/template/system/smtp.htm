@@ -10,6 +10,131 @@
 							<div class="layui-tab-content" style="padding:10px 0">
 								<div class="layui-tab-item layui-show">
 									<div class="layui-row layui-col-space15">
+
+										<div class="layui-col-md12">
+											<div class="layui-card">
+												<div class="layui-card-body" pad15>
+													<div class="layui-form" wid100 lay-filter="">
+														<div class="layui-card-header">微信支付配置</div>
+														<div class="layui-form-item layadmin-layer-demo">
+															<label class="layui-form-label">支付方式</label>
+															<div class="layui-input-inline">
+																<input type="checkbox" lay-filter="wechat[is_open_wechat]" lay-skin="switch" lay-text="开启|关闭" {if condition="isset($wechat.is_open_wechat) AND $wechat.is_open_wechat eq 0"}checked{/if}>
+																<input type="hidden" name="wechat[is_open_wechat]" value="{$wechat.is_open_wechat|default='0'}" />
+
+															</div>
+														</div>
+														<div class="layui-form-item">
+															<label class="layui-form-label"><b>*</b>微信AppId</label>
+															<div class="layui-input-inline">
+																<input id="appid" name="wechat[appid]"  lay-verify="required" value="{$wechat.appid|default=''}" class="layui-input" type="text"/>
+															</div>
+															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+															<div class="layui-form-inline2 ey_helptips_txt">请输入您的微信公众平台中的微信AppId，用于微信支付。</div>
+														</div>
+														<div class="layui-form-item">
+															<label class="layui-form-label"><b>*</b>微信商户号</label>
+															<div class="layui-input-inline">
+																<input id="mchid" name="wechat[mchid]"  lay-verify="required" value="{$wechat.mchid|default=''}" class="layui-input" type="text"/>
+															</div>
+															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+															<div class="layui-form-inline2 ey_helptips_txt">请输入您的微信公众平台中的微信商户号，用于微信支付。</div>
+														</div>
+														<div class="layui-form-item">
+															<label class="layui-form-label"><b>*</b>微信KEY值</label>
+															<div class="layui-input-inline">
+																<input id="key" name="wechat[key]"  lay-verify="required" value="{$wechat.key|default=''}" class="layui-input" type="text"/>
+															</div>
+															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+															<div class="layui-form-inline2 ey_helptips_txt">请输入您的微信公众平台中的微信KEY值，用于微信支付。</div>
+														</div>
+
+
+														<div class="layui-form-item">
+															<div class="layui-input-block">
+																<button class="layui-btn" lay-submit lay-filter="formSubmitWechat">确认提交</button>
+																<a href="https://www.eyoucms.com/plus/view.php?aid=8829" target="_blank" style="font-size: 12px;padding-left: 10px;top: 30px">不会配置？</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="layui-col-md12">
+											<div class="layui-card">
+												<div class="layui-card-body" pad15>
+													<div class="layui-form" wid100 lay-filter="">
+														<div class="layui-card-header">支付宝支付配置</div>
+														<div class="layui-form-item layadmin-layer-demo">
+															<label class="layui-form-label">支付方式</label>
+															<div class="layui-input-inline">
+																<input type="checkbox" lay-filter="alipay[is_open_alipay]" lay-skin="switch" lay-text="开启|关闭" {if condition="isset($alipay.is_open_alipay) AND $alipay.is_open_alipay eq 0"}checked{/if}>
+																<input type="hidden" name="alipay[is_open_alipay]" value="{$alipay.is_open_alipay|default='0'}" />
+															</div>
+														</div>
+														<div class="layui-form-item layadmin-layer-demo">
+															<label class="layui-form-label">使用支付宝版本</label>
+															<div class="layui-input-inline">
+																<input type="radio" lay-filter="version" name="alipay[version]" {if condition="empty($php_version) && empty($alipay.version)"}checked="checked"{/if} value="0"  title="新版接口">
+																<input type="radio" lay-filter="version" name="alipay[version]" {if condition="$alipay.version == 1 || $php_version == 1"}checked="checked"{/if} value="1"  title="旧版接口">
+															</div>
+														</div>
+														<div class="layui-form-item "  >
+															<label class="layui-form-label"><b>*</b>支付宝APPID</label>
+															<div class="layui-input-inline">
+																<input id="app_id" name="alipay[app_id]"   value="{$alipay.app_id|default=''}" class="layui-input" type="text"/>
+															</div>
+															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+															<div class="layui-form-inline2 ey_helptips_txt">请输入您的支付宝APPID，用于支付宝支付。</div>
+														</div>
+														<div  class="layui-form-item "  >
+															<label class="layui-form-label"><b>*</b>商户私钥</label>
+															<div class="layui-input-inline">
+																<textarea rows="5" cols="50" id="merchant_private_key" name="alipay[merchant_private_key]" style="height:120px;">{$alipay.merchant_private_key}</textarea>
+															</div>
+															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+															<div class="layui-form-inline2 ey_helptips_txt">请输入您的商户私钥，用于支付宝支付。</div>
+														</div>
+														<div class="layui-form-item " >
+															<label class="layui-form-label"><b>*</b>支付宝公钥</label>
+															<div class="layui-input-inline">
+																<textarea rows="5" cols="50" id="alipay_public_key" name="alipay[alipay_public_key]" style="height:106px;">{$alipay.alipay_public_key}</textarea>
+															</div>
+															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+															<div class="layui-form-inline2 ey_helptips_txt">请输入您的支付宝公钥，用于支付宝支付。</div>
+														</div>
+
+														<div class="layui-form-item old_version"  {if condition="empty($php_version) && empty($alipay.version)"}style="display:none;"{/if}>
+															<label class="layui-form-label"><b>*</b>支付宝账号</label>
+															<div class="layui-input-inline">
+																<input id="account" name="alipay[account]"   value="{$alipay.account|default=''}" class="layui-input" type="text"/>
+															</div>
+															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+															<div class="layui-form-inline2 ey_helptips_txt">请输入您的支付宝账号，用于支付宝支付。</div>
+														</div>
+														<div class="layui-form-item old_version"  {if condition="empty($php_version) && empty($alipay.version)"}style="display:none;"{/if}>
+															<label class="layui-form-label"><b>*</b>交易安全校验码</label>
+															<div class="layui-input-inline">
+																<input id="code" name="alipay[code]"  value="{$alipay.code|default=''}" class="layui-input" type="text"/>
+															</div>
+															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+															<div class="layui-form-inline2 ey_helptips_txt">请输入您的交易安全校验码，用于支付宝支付。</div>
+														</div>
+														<div class="layui-form-item old_version"  {if condition="empty($php_version) && empty($alipay.version)"}style="display:none;"{/if}>
+															<label class="layui-form-label"><b>*</b>合作者身份ID</label>
+															<div class="layui-input-inline">
+																<input id="id" name="alipay[id]"  value="{$alipay.id|default=''}" class="layui-input" type="text"/>
+															</div>
+															<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+															<div class="layui-form-inline2 ey_helptips_txt">请输入您的合作者身份ID，用于支付宝支付。</div>
+														</div>
+
+														<div class="layui-form-item">
+															<div class="layui-input-block">
+																<button class="layui-btn" lay-submit lay-filter="formSubmitAlipay">确认提交</button>
+															</div>
+														</div>
+													</div>
 										<div class="layui-col-md12">
 											<div class="layui-card">
 												<div class="layui-card-body" pad15>
@@ -94,8 +219,6 @@
 																</select>
 										                    </div>
 										                </div>
-										
-										
 										                <div class="layui-form-item">
 										                    <label class="layui-form-label"><b>*</b>短信平台[appkey]</label>
 										                    <div class="layui-input-inline">
@@ -104,7 +227,6 @@
 										                    <div class="layui-form-mid layui-word-aux ey_helptips"></div>
 										                    <div class="layui-form-inline2 ey_helptips_txt">短信平台配置appkey/keyid</div>
 										                </div>
-										
 										                <div class="layui-form-item">
 										                    <label class="layui-form-label"><b>*</b>短信平台[secretKey]</label>
 										                    <div class="layui-input-inline">
@@ -154,6 +276,80 @@
 										        </div>
 										    </div>
 										</div>
+										<div class="layui-col-md12">
+											<div class="layui-card">
+												<div class="layui-card-body" pad15>
+													<div class="layui-form" wid100 lay-filter="">
+														<div class="layui-card-header">图片加速配置</div>
+															<div class="layui-form-item">
+																<label class="layui-form-label">加速配置</label>
+																<div class="layui-input-block">
+																	<input type="checkbox" lay-filter="speed_open" lay-skin="switch" lay-text="开启|关闭" {if condition="isset($speed.speed_open) && $speed.speed_open eq 1"}checked{/if}>
+																	<input type="hidden" id="speed_open" name="speed_open" value="{$speed.speed_open|default='0'}" />
+																</div>
+															</div>
+															<div class="layui-form-item">
+																<label class="layui-form-label"><b>*</b>选择加速平台</label>
+																<div class="layui-input-inline">
+																	<select name="speed_platform" id="speed_platform">
+																		<option value="1" {if condition="isset($speed.speed_platform) && $speed.speed_platform eq 1"}selected="selected"{/if}>七牛云</option>
+																	</select>
+																</div>
+															</div>
+															<div class="layui-form-item ey-text">
+																<label class="layui-form-label"><b>*</b>AccessKey</label>
+																<div class="layui-input-inline">
+																	<input type="text" id="access_key" name="access_key" value="{$Qiniuyun.access_key|default=''}" class="layui-input ey-input" >
+																</div>
+																<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+																<div class="layui-form-inline2 ey_helptips_txt">七牛云个人中心-》密钥管理-》AK</div>
+															</div>
+															<div class="layui-form-item ey-text">
+																<label class="layui-form-label"><b>*</b>SecretKey</label>
+																<div class="layui-input-inline">
+																	<input type="text" id="secret_key" name="secret_key" value="{$Qiniuyun.secret_key|default=''}" class="layui-input ey-input">
+																</div>
+																<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+																<div class="layui-form-inline2 ey_helptips_txt">七牛云个人中心-》密钥管理-》SK</div>
+															</div>
+															{notempty name="$Qiniuyun.bucket"}
+															<div class="layui-form-item">
+																<label class="layui-form-label"><b>*</b>存储空间名</label>
+																<div class="layui-input-inline">
+																	<select name="bucket" id="bucket"  onchange="SelectDomain()">
+																		{volist name='$ListBucket' id='vo'}
+																		<option value="{$vo}" {eq name="$vo" value="$Qiniuyun.bucket"} selected="selected" {/eq}>{$vo}</option>
+																		{/volist}
+																	</select>
+																</div>
+																<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+																<div class="layui-form-inline2 ey_helptips_txt">要修改此项，请先到七牛云创建存储空间名，再选择对应的存储空间名。</div>
+															</div>
+															<div class="layui-form-item">
+																<label class="layui-form-label"><b>*</b>访问域名</label>
+																<div class="layui-input-inline">
+																	<select name="domain" id="domain">
+																		{volist name='$ListDomain' id='vo'}
+																		<option value="{$vo}" {eq name="$vo" value="$Qiniuyun.domain"} selected="selected" {/eq}>{$vo}</option>
+																		{/volist}
+																	</select>
+																</div>
+																<div class="layui-form-mid layui-word-aux ey_helptips"></div>
+																<div class="layui-form-inline2 ey_helptips_txt">要修改此项，请先到七牛云绑定域名等待生效后，再选择对应七牛云中已保存的外链默认域名。</div>
+															</div>
+															{/notempty}
+															<div class="layui-form-item">
+																<div class="layui-input-block">
+																	<input type="hidden" name="tcp" value="3">
+																	<input type="hidden" name="tabase" value="{$Request.param.tabase}">
+																	<button class="layui-btn" lay-submit lay-filter="formSubmitQiniu">确认提交</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -174,7 +370,16 @@
 				var $ = layui.$,
 					layer = layui.layer,
 					form = layui.form;
-
+                // 监听开关
+                form.on('switch', function(data){
+                    var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+                    if (data.elem.checked) {
+                        this.value = 1;
+                    } else {
+                        this.value = 0;
+                    }
+                    $("#"+elemId).val(this.value);
+                });
 				$('#smtp_tpl_list').click(function() {
 					var iframes = layer.open({
 						type: 2,
@@ -198,7 +403,31 @@
 				        content: "{:url('System/sms_tpl')}"
 				    });
 				});
-
+				//监听版本  version  radio
+                form.on('radio(version)', function(data){
+                    console.log(data);
+                    var switch_set = data.value;
+                    if (switch_set == 0) {
+                        if (php_version(true)) {
+//                            $(".new_version").show();
+                            $(".old_version").hide();
+                        }
+                    }else if (switch_set == 1) {
+//                        $(".new_version").hide();
+                        $(".old_version").show();
+                    }
+                    form.render();
+                });
+				// 监听开关
+                form.on('switch', function(data){
+                    var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+                    if (data.elem.checked) {
+                        this.value = 1;
+                    } else {
+                        this.value = 0;
+                    }
+                    $("input[name='"+elemId+"']").val(this.value);
+                });
 				form.on('submit(sendEmail)', function(data) {
 					if (data.field.smtp_from_eamil == '') {
 						showErrorMsg('接收邮箱的地址不能为空！');
@@ -245,8 +474,85 @@
 					}
 					return false;
 				});
-
-				//监听提交
+				//监听微信提交
+                form.on('submit(formSubmitWechat)', function(data) {
+                    var load = layer_loading();
+                    data.field._ajax = 1;
+                    $.ajax({
+                        type: 'post',
+                        url: "{:url('System/wechat_set')}",
+                        data: data.field,
+                        dataType: 'json',
+                        success: function(res) {
+                            layer.close(load); //关闭loading
+                            if (res.code == 1) {
+                                layer.msg(res.msg, {
+                                    icon: 1,
+                                    time: 1000
+                                }, function() {
+                                    window.location.reload();
+                                });
+                            } else {
+                                if (res.data.icon && res.data.icon == 4) {
+                                    layer.alert(res.msg, {
+                                        icon: res.data.icon,
+                                        title: false,
+                                        closeBtn: false
+                                    }, function() {
+                                        window.location.reload();
+                                    });
+                                } else {
+                                    showErrorMsg(res.msg);
+                                }
+                            }
+                        },
+                        error: function(e) {
+                            layer.close(load); //关闭loading
+                            showErrorAlert();
+                        }
+                    });
+                    return false;
+                });
+                //监听支付宝支付提交
+                form.on('submit(formSubmitAlipay)', function(data) {
+                    var load = layer_loading();
+                    data.field._ajax = 1;
+                    $.ajax({
+                        type: 'post',
+                        url: "{:url('System/alipay_set')}",
+                        data: data.field,
+                        dataType: 'json',
+                        success: function(res) {
+                            layer.close(load); //关闭loading
+                            if (res.code == 1) {
+                                layer.msg(res.msg, {
+                                    icon: 1,
+                                    time: 1000
+                                }, function() {
+                                    window.location.reload();
+                                });
+                            } else {
+                                if (res.data.icon && res.data.icon == 4) {
+                                    layer.alert(res.msg, {
+                                        icon: res.data.icon,
+                                        title: false,
+                                        closeBtn: false
+                                    }, function() {
+                                        window.location.reload();
+                                    });
+                                } else {
+                                    showErrorMsg(res.msg);
+                                }
+                            }
+                        },
+                        error: function(e) {
+                            layer.close(load); //关闭loading
+                            showErrorAlert();
+                        }
+                    });
+                    return false;
+                });
+				//监听邮件提交
 				form.on('submit(formSubmit)', function(data) {
 					var load = layer_loading();
 					data.field._ajax = 1;
@@ -359,9 +665,66 @@
                     });
                     return false;
                 });
-
-
+                //监听图片提交
+                form.on('submit(formSubmitQiniu)', function(data) {
+                    var load = layer_loading();
+                    data.field._ajax = 1;
+                    $.ajax({
+                        type: 'post',
+                        url: "{:url('System/qiniu')}",
+                        data: data.field,
+                        dataType: 'json',
+                        success: function(res) {
+                            layer.close(load); //关闭loading
+                            if(res.code == 1){
+                                layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                                    window.location.reload();
+                                });
+                            }else{
+                                showErrorMsg(res.msg);
+                            }
+                        },
+                        error: function(e) {
+                            layer.close(load); //关闭loading
+                            showErrorAlert();
+                        }
+                    });
+                    return false;
+                });
 			});
+            // 查询选中的存储空间名对应的访问域名
+            function SelectDomain(){
+                layer_loading('正在获取访问域名');
+                $.ajax({
+                    url: "{:weapp_url('Qiniuyun/Qiniuyun/select_domain')}",
+                    data: $('#post_form').serialize(),
+                    type:'post',
+                    dataType:'json',
+                    success:function(res){
+                        layer.closeAll();
+                        if ('1' == res.code) {
+                            // $('#domain').val(res.data);
+                            $('#domain').empty().html(res.data);
+                        }else{
+                            layer.alert(res.msg, {icon:0});
+                        }
+                    }
+                });
+            }
+            //判断php版本
+            function php_version(is){
+                var php_version = 0;
+                // php_version=1，表示php本版低于5.5.0，不可用新版支付方式
+                if (php_version == 1) {
+                    if (is == true) {
+                        layer.alert('PHP版本低于5.5.0，不可用新版支付方式，请使用旧版！', {icon: 2, title:false});
+                    }
+                    $("#postAlipayForm input[name='alipay[version]'][value=1]").attr("checked","checked");
+                    return false;
+                }
+                return true;
+            }
+
 		</script>
 
 		{include file="public/footer" /}

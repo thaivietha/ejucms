@@ -10,7 +10,19 @@
  * Author: 小虎哥 <1105415366@qq.com>
  * Date: 2018-4-3
  */
-
+if (!function_exists('filterNickname')) {
+    // 过滤微信表情符号
+    function filterNickname($nickname = '')
+    {
+        $nickname = preg_replace('/[\x{1F600}-\x{1F64F}]/u', '', $nickname);
+        $nickname = preg_replace('/[\x{1F300}-\x{1F5FF}]/u', '', $nickname);
+        $nickname = preg_replace('/[\x{1F680}-\x{1F6FF}]/u', '', $nickname);
+        $nickname = preg_replace('/[\x{2600}-\x{26FF}]/u', '', $nickname);
+        $nickname = preg_replace('/[\x{2700}-\x{27BF}]/u', '', $nickname);
+        $nickname = str_replace(array('"', '\''), '', $nickname);
+        return addslashes(trim($nickname));
+    }
+}
 if (!function_exists('convert_arr_key')) 
 {
     /**
@@ -423,7 +435,7 @@ if (!function_exists('httpRequest'))
         $method = strtoupper($method);
         $ci = curl_init();
         /* Curl settings */
-        curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
+//        curl_setopt($ci, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
         curl_setopt($ci, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:34.0) Gecko/20100101 Firefox/34.0");
         curl_setopt($ci, CURLOPT_CONNECTTIMEOUT, 60); /* 在发起连接前等待的时间，如果设置为0，则无限等待 */
         // curl_setopt($ci, CURLOPT_TIMEOUT, 7); /* 设置cURL允许执行的最长秒数 */
@@ -2132,7 +2144,9 @@ if (!function_exists('view_logic'))
                 break;
             }
         }
-        $result = get_archives_relate_list($result);
+        if (isset($tag['relate']) && $tag['relate'] == 'on'){   //获取关联经纪人信息
+            $result = get_archives_relate_list($result,$tag['re_area'],$tag['re_xiaoqu']);
+        }
         !empty($result['saleman']['saleman_pic']) && $result['saleman']['saleman_pic']= thumb_img(get_default_pic($result['saleman']['saleman_pic'])); // 默认封面图
 
         return $result;
@@ -2144,8 +2158,10 @@ if (!function_exists('get_archives_relate_list'))
     /*
      * 获取单条aid的关联经纪人信息
      *$archives     文档信息
+     * $area        关联区域转换为文字
+     * $xiaoqu      关联小区转换为文字
      */
-    function get_archives_relate_list($archives)
+    function get_archives_relate_list($archives,$area = 0,$xiaoqu = 0)
     {
         $relate_arr = [];
         //房源所有人信息
@@ -2163,15 +2179,40 @@ if (!function_exists('get_archives_relate_list'))
                 ->field("b.*,a.*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")
                 ->where(['a.id'=>['in',$relate_arr]])->select();
 
-            !empty($saleman_list) && $saleman_list = convert_arr_key($saleman_list,'id');
-//            if (!empty($info['service_area'])){
-//                $service_area_list =  \think\Db::name("region")->where(["id"=>["in",$info['service_area']]])->select();
-//                $this->assign("service_area_list",$service_area_list);
-//            }
-//            if (!empty($info['service_xiaoqu'])){
-//                $service_xiaoqu_list =  \think\Db::name("archives")->where(["aid"=>["in",$info['service_xiaoqu']]])->select();
-//                $this->assign("service_xiaoqu_list",$service_xiaoqu_list);
-//            }
+            $region_list = get_info_list('region','id','status=1');
+            foreach($saleman_list as $key=>$val){
+                $service_area = $service_xiaoqu = [];
+                //主营区域
+                if ($area){
+                    if (!empty($val['service_area'])){
+                        $service_area_arr = explode(',',$val['service_area']);
+                        foreach ($region_list as $k=>$v){
+                            if (in_array($k,$service_area_arr)){
+                                $service_area[] = $v;
+                            }
+                        }
+                    }
+                    $saleman_list[$key]['service_area'] = $service_area;
+                }
+                //主营小区
+                if ($xiaoqu){
+                    if (!empty($val['service_xiaoqu'])){
+                        $service_xiaoqu_arr = explode(',',$val['service_xiaoqu']);
+                        $service_xiaoqu_list = \think\Db::name("archives") ->field("b.*, a.*")
+                            ->alias('a')
+                            ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT')
+                            ->where(["a.aid"=>["in",$service_xiaoqu_arr]])
+                            ->select();
+                        foreach ($service_xiaoqu_list as $k=>$v){
+                            if (in_array($v['aid'],$service_xiaoqu_arr)){
+                                $v['arcurl'] =  arcurl('home/Xiaoqu/view', $v,true,false,'',null);
+                                $service_xiaoqu[] = $v;
+                            }
+                        }
+                    }
+                    $saleman_list[$key]['service_xiaoqu'] = $service_xiaoqu;
+                }
+            }
             $archives['saleman_list'] = $saleman_list;
             $archives['saleman'] = $saleman_list[$relate_arr[0]];
         }

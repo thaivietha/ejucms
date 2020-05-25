@@ -14,7 +14,7 @@
 namespace think\template\taglib\eju;
 
 use think\Request;
-
+use think\Db;
 /**
  * 栏目列表
  */
@@ -56,13 +56,9 @@ class TagChannel extends Base
     {
         $this->currentstyle = $currentstyle;
         $typeid  = !empty($typeid) ? $typeid : $this->tid;
-
         if (empty($typeid)) {
             /*应用于没有指定tid的列表，默认获取该控制器下的第一级栏目ID*/
             // http://demo.ejucms.com/index.php/home/Article/lists.html
-            $controller_name = request()->controller();
-            $channeltype_info = model('Channeltype')->getInfoByWhere(array('ctl_name'=>$controller_name), 'id');
-            $channeltype = $channeltype_info['id'];
             if ($hidden == 'on'){
                 $map = array(
                     'parent_id' => 0,
@@ -75,14 +71,22 @@ class TagChannel extends Base
                     'status'    => 1,
                 );
             }else{
+
                 $map = array(
-                    'channeltype'   => $channeltype,
                     'parent_id' => 0,
                     'is_hidden' => 0,
                     'status'    => 1,
                 );
             }
-            $typeid = M('arctype')->where($map)->order('sort_order asc')->limit(1)->getField('id');
+            $controller_name = request()->controller();
+            if (!empty($controller_name)){
+                $channeltype_info = model('Channeltype')->getInfoByWhere(array('ctl_name'=>$controller_name), 'id');
+                if (!empty($channeltype_info['id'])){
+                    $channeltype = $channeltype_info['id'];
+                    $map['channeltype'] = $channeltype;
+                }
+            }
+            $typeid = Db::name('arctype')->where($map)->order('sort_order asc')->limit(1)->getField('id');
             /*--end*/
         }
 
@@ -233,7 +237,6 @@ class TagChannel extends Base
         if (empty($typeid)) {
             return $result;
         }
-
         $arctype_max_level = intval(config('global.arctype_max_level')); // 栏目最多级别
         /*获取所有显示且有效的栏目列表*/
         $map = array(
@@ -252,9 +255,11 @@ class TagChannel extends Base
             ->cache(true,EYOUCMS_CACHE_TIME,"arctype")
             ->select();
         $res = convert_arr_key($res,'id');
+
         /*--end*/
         if ($res) {
             $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', array(), 'id');
+
             foreach ($res as $key => $val) {
                 /*获取指定路由模式下的URL*/
                 if ($val['is_part'] == 1) {  //获取外部链接
@@ -289,8 +294,8 @@ class TagChannel extends Base
 
                 $res[$key] = $val;
             }
-        }
 
+        }
         /*栏目层级归类成阶梯式*/
         $arr = group_same_key($res, 'parent_id');
         for ($i=0; $i < $arctype_max_level; $i++) {

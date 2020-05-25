@@ -54,10 +54,9 @@ class Archives extends Base
             }
             $count = count($aid);
             $permission = model('users')->getPermission($this->users,$type,$count);
-            if (!$permission){
-                $this->error("您剩余操作条数不够");
+            if (empty($permission)){
+                $this->error("您剩余操作余额不够");
             }
-
             $to_time = $num * 24 * 60 * 60 + getTime();
             $data = [
                 'show_time' => $to_time,
@@ -68,7 +67,7 @@ class Archives extends Base
                 'users_id' => $this->users_id
             ])->update($data);
             if($r){
-                model('users')->changeContent($this->users_id,$type,$aid,$count);
+                model('users')->changeContent($this->users,$type,$aid,$count,$permission[1]);
                 adminLog('置顶文档-id：'.$aid);
                 del_archives_chache($aid);
                 if (!empty($tid)){

@@ -43,7 +43,7 @@ class Arctype extends Model
         $field .= ', a.id as typeid';
 
         /*当前栏目信息*/
-        $result = db('Arctype')->field($field)
+        $result = Db::name('Arctype')->field($field)
             ->alias('a')
             ->where('a.id', $id)
             ->join('__CHANNELTYPE__ c', 'c.id = a.current_channel', 'LEFT')
@@ -55,7 +55,7 @@ class Arctype extends Model
                 $result['typeurl'] = $this->getTypeUrl($result); // 当前栏目的URL
                 /*获取当前栏目父级栏目信息*/
                 if ($result['parent_id'] > 0) {
-                    $parent_row = db('Arctype')->field($field)
+                    $parent_row = Db::name('Arctype')->field($field)
                         ->alias('a')
                         ->where('a.id', $result['parent_id'])
                         ->join('__CHANNELTYPE__ c', 'c.id = a.current_channel', 'LEFT')
@@ -92,13 +92,13 @@ class Arctype extends Model
         $result['typeurl'] = $this->getTypeUrl($result); // 当前栏目的URL
         if (!empty($result['parent_id'])) {
             // 当前栏目的父级栏目信息
-            $parent_row = M('arctype')->where('id', $result['parent_id'])
+            $parent_row = Db::name('arctype')->where('id', $result['parent_id'])
                 ->cache(true,EYOUCMS_CACHE_TIME,"arctype")
                 ->find();
-            $ptypeid = $parent_row['id'];
+            $ptypeid = !empty($parent_row['id']) ? $parent_row['id'] : 0;
             $ptypeurl = $this->getTypeUrl($parent_row);
-            $ptypename = $parent_row['typename'];
-            $pdirname = $parent_row['dirname'];
+            $ptypename = !empty($parent_row['typename']) ? $parent_row['typename'] : "";
+            $pdirname = !empty($parent_row['dirname']) ? $parent_row['dirname'] : "";
             // 当前栏目的顶级栏目信息
             if (!isset($result['toptypeurl'])) {
                 $allPid = $this->getAllPid($id);
@@ -176,7 +176,7 @@ class Arctype extends Model
      */
     public function getTypeUrl($res)
     {
-        if ($res['is_part'] == 1) {
+        if (!empty($res['is_part']) && $res['is_part'] == 1) {
             $typeurl = $res['typelink'];
         } else {
             if (!empty($this->subDomain)){
@@ -360,7 +360,7 @@ class Arctype extends Model
                 'c.is_del'  => 0,
             );
             $fields = "c.*, count(s.id) as has_children";
-            $res = db('arctype')
+            $res = Db::name('arctype')
                 ->field($fields)
                 ->alias('c')
                 ->join('__ARCTYPE__ s','s.parent_id = c.id','LEFT')

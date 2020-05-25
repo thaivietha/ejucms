@@ -62,6 +62,7 @@ class TagStatic extends Base
                 } else { // 不是本地文件禁止使用该方法
                     return $this->toHtml($file);
                 }
+                $update_time = getTime();
                 
             } else {
                 if (!preg_match('/^\//i',$file)) {
@@ -74,12 +75,15 @@ class TagStatic extends Base
                 if (!file_exists(ltrim($file, '/'))) {
                     continue;
                 }
-                $http_url = $request->domain().$this->root_dir.$file; // 支持子目录
+
+                try{
+                    $fileStat = stat(dirname(APP_PATH) . $file);
+                    $update_time = !empty($fileStat['mtime']) ? $fileStat['mtime'] : getTime();
+                } catch (\Exception $e) {
+                    $update_time = getTime();
+                }
             }
             // -------------end---------------
-
-            $headInf = @get_headers($http_url,1); 
-            $update_time = !empty($headInf['Last-Modified']) ? strtotime($headInf['Last-Modified']) : '';
             $parseStr .= $this->toHtml($file, $update_time);
         }
 

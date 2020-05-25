@@ -88,8 +88,8 @@ class Shopcs extends Base
     }
     public function add(){
         $permission = model('users')->getPermission($this->users,5);
-        if (!$permission){
-            $this->error("您已经没有操作条数", url("Shopcs/index"));
+        if (empty($permission)){
+            $this->error("您剩余操作余额不够", url("Shopcs/index"));
         }
         $channelList = getChanneltypeList();
         $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
@@ -198,7 +198,7 @@ class Shopcs extends Base
                 // ---------后置操作
                 model($this->table)->afterSave($aid, $data, 'add');
                 // ---------end
-                model('users')->changeContent($this->users_id,5,$aid);
+                model('users')->changeContent($this->users,5,$aid,$permission[1]);
                 adminLog('新增数据：'.$data['title']);
                 del_archives_chache([$aid]);
                 del_type_chache([$this->type_info['id']]);
@@ -348,7 +348,6 @@ class Shopcs extends Base
                 $this->success("操作成功!", url("Shopcs/index"));
                 exit;
             }
-
             $this->error("操作失败!");
             exit;
         }

@@ -278,12 +278,23 @@ class Custom extends Base
      */
     public function add()
     {
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $typeid = input('post.typeid/d', 0);
 
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
+            }
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
+            }
+            //判断所有必选项是否已经填写
+            $check = model('Field')->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
             }
 //            if (empty($post['seo_title'])){
 //                $post['seo_title'] = $post['title'];
@@ -336,7 +347,7 @@ class Custom extends Base
                 unset($post['type_tempview']);
                 unset($post['tempview']);
             }
-
+            !empty($post['relate']) && $post['relate'] = implode(',',$post['relate']);
             // --存储数据
             $newData = array(
                 'typeid'=> $typeid,
@@ -354,6 +365,9 @@ class Custom extends Base
                 'sort_order'    => 100,
                 'add_time'     => strtotime($post['add_time']),
                 'update_time'  => strtotime($post['add_time']),
+                'province_id'  => empty($post['province_id']) ? 0 : $post['province_id'],
+                'city_id'      => empty($post['city_id']) ? 0 : $post['city_id'],
+                'area_id'      => empty($post['area_id']) ? 0 : $post['area_id'],
                 'show_time'      => getTime(),
             );
             $data = array_merge($post, $newData);
@@ -456,6 +470,9 @@ class Custom extends Base
      */
     public function edit()
     {
+        $channelList = getChanneltypeList();
+        $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
+        $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
         if (IS_POST) {
             $post = input('post.');
             $typeid = input('post.typeid/d', 0);
@@ -463,7 +480,14 @@ class Custom extends Base
             if (empty($typeid)) {
                 $this->error('请选择所属栏目！');
             }
-
+            if(!empty($channelOrigin['join_must']) && empty($post['joinaid'])){
+                $this->error("请选择关联{$channelJoin['ntitle']}！");
+            }
+            //判断所有必选项是否已经填写
+            $check = model('Field')->checkChannelFieldRequire($this->channeltype, $post);
+            if ($check){
+                $this->error("{$check['title']}不能为空！");
+            }
             /*获取第一个html类型的内容，作为文档的内容来截取SEO描述*/        
             $contentField = Db::name('channelfield')->where([
                     'channel_id'    => $this->channeltype,
@@ -516,6 +540,11 @@ class Custom extends Base
             // 同步栏目切换模型之后的文档模型
             $channel = Db::name('arctype')->where(['id'=>$typeid])->getField('current_channel');
             // --存储数据
+            if(!empty($post['relate'])){
+                $post['relate'] = implode(',',$post['relate']);
+            }else{
+                $post['relate'] = "";
+            }
             $newData = array(
                 'typeid'=> $typeid,
                 'channel'   => $channel,

@@ -125,40 +125,40 @@
             {/case}
 
             {case value="img"}
-                <!-- 单张图 start -->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">{if condition="isset($vo['ifrequire']) AND !empty($vo['ifrequire'])"}<b>*</b>{/if}{$vo.title|default=''}</label>
-                    <div class="layui-input-inline">
-                        <div class="upload-box">
-                          <div class="upload-img fl">
+            <!-- 单张图 start -->
+            <div class="layui-form-item">
+                <label class="layui-form-label">{if condition="isset($vo['ifrequire']) AND !empty($vo['ifrequire'])"}<b>*</b>{/if}{$vo.title|default=''}</label>
+                <div class="layui-input-inline">
+                    <div class="upload-box">
+                        <div class="upload-img fl">
                             <div class="icaction none">
-                              <span class="load_images">
-                                 <a href="javascript:void(0);" onclick="BigImages($('#img_{$vo.fieldArr}_{$vo.name|default=''}_eyou_local').attr('src'));">
-                                 <i class="layui-icon layui-icon-search mr5"></i>查看
-                                 </a>
-                              </span>
-                              <span class="load_images">
-                                <a href="javascript:void(0);" data-inputid="{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" onclick="DelImages(this);">
-                                <i class="layui-icon layui-icon-delete mr5"></i>删除
-                                </a>
-                              </span>
+                                          <span class="load_images">
+                                             <a href="javascript:void(0);" onclick="BigImages($('#img_{$vo.fieldArr}_{$vo.name|default=''}_eyou_local').attr('src'));">
+                                             <i class="layui-icon layui-icon-search mr5"></i>查看
+                                             </a>
+                                          </span>
+                                <span class="load_images">
+                                            <a href="javascript:void(0);" data-inputid="{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" onclick="DelImages(this);">
+                                            <i class="layui-icon layui-icon-delete mr5"></i>删除
+                                            </a>
+                                          </span>
                             </div>
                             <div class="cover-bg none"></div>
-                            <img id="img_{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" src="{$vo[$vo['name'].'_eyou_local']|get_default_pic=###}">
-                          </div>
-                          <div class="upload-right fl">
+                            <img id="img_{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" src="{$vo[$vo['name'].'_eyou_remote']|get_default_pic=###}">
+                        </div>
+                        <div class="upload-right fl">
                             <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'{$vo.fieldArr}_{$vo.name|default=''}_eyou_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
                             <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'{$vo.fieldArr}_{$vo.name|default=''}_eyou_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
-                            <input name="{$vo.fieldArr}[{$vo.name|default=''}_eyou_local]" id="{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" placeholder="图片地址" value="{$vo[$vo['name'].'_eyou_local']|default=''}" class="layui-input">
-                          </div>
+                            <input name="{$vo.fieldArr}[{$vo.name|default=''}_eyou_local]" id="{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" placeholder="图片地址" value="{$vo[$vo['name'].'_eyou_remote']|default=''}" class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-input-inline layui-btn-container" style="width: auto;">
-                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
-                        <div class="ey_helptips_txt">{$vo.remark|default=''}</div>
-                    </div>
                 </div>
-                <!-- 单张图 end -->
+                <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                    <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                    <div class="ey_helptips_txt">{$vo.remark|default=''}</div>
+                </div>
+            </div>
+            <!-- 单张图 end -->
             {/case}
 
             {case value="imgs"}
@@ -170,9 +170,9 @@
                         <button class="layui-btn layui-btn-sm fl" onClick="GetPictureFolder(100,'{$vo.fieldArr}_{$vo.name|default=''}','{$vo.fieldArr}_{$vo.name|default=''}_call_back');"><i class="layui-icon">&#xe64a;</i>图库</button>
                     </div>
                 </div>
-                <div class="layui-form-item " id="dl_{$vo.fieldArr}_{$vo.name|default=''}">
+                <div class="layui-form-item ">
                     <label class="layui-form-label"></label>
-                    <div class="edit-box-con2 fl sort-list-{$vo.fieldArr}_{$vo.name|default=''}">
+                    <div class="edit-box-con2 fl sort-list-{$vo.fieldArr}_{$vo.name|default=''}"  id="dl_{$vo.fieldArr}_{$vo.name|default=''}">
                         {volist name="$vo[$vo['name'].'_eyou_imgupload_list']" id="v2" key="k2"}
                         <div class="images-upload">
                             <div class="upimg">
@@ -183,6 +183,7 @@
                             </div>
                         </div>
                         {/volist}
+                        <div class="images-upload" style="display: none;"></div>
                     </div>
                 </div>
                 <!-- 上传图片显示的样板 start -->
@@ -359,3 +360,10 @@
         {/switch}
     {/if}
 {/volist}
+<script>
+    //判断复选框是否为空
+    function checkbox_is_empty(fieldArr,name){
+        var len = $("input[name='"+fieldArr+"["+name+"][]']:checked").length;
+        $("input[name='"+fieldArr+"["+name+"_eyempty]']").val(len);
+    }
+</script>

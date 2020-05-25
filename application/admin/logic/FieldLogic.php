@@ -90,7 +90,7 @@ class FieldLogic extends Model
                 $default_sql = "DEFAULT '$dfvalue'";
             }else{
                 $default_sql = "DEFAULT '0.00'";
-                $dfvalue = "0.00";
+                $dfvalue = "0";
             }
             $maxlen = 9;
             $fields[0] = " `$fieldname` float($maxlen,2) NOT NULL $default_sql COMMENT '$fieldtitle';";
@@ -106,7 +106,7 @@ class FieldLogic extends Model
                 $default_sql = "DEFAULT '$dfvalue'";
             }else{
                 $default_sql = "DEFAULT '0.00'";
-                $dfvalue = "0.00";
+                $dfvalue = "0";
             }
             $maxlen = 10;
             $fields[0] = " `$fieldname` decimal($maxlen,2) NOT NULL $default_sql COMMENT '$fieldtitle';";
@@ -457,6 +457,7 @@ class FieldLogic extends Model
 
         $new_arr = array(); // 表字段数组
         $addData = array(); // 数据存储变量
+        $ifsystem = 1;
         foreach ($rowExt as $key => $val) {
             $fieldname = $val['Field'];
             if (in_array($fieldname, array('id','add_time','update_time','aid','typeid'))) {

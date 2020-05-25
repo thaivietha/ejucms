@@ -5,11 +5,17 @@ namespace app\user\controller;
 use think\Db;
 use think\Config;
 use think\Verify;
+use weapp\QqLogin\vendor\qq;
 
 class Users extends Base
 {
+
     public function _initialize() {
         parent::_initialize();
+        if ($this->users_id > 0) {
+            $content = model("users")->getContentInfo($this->users_id);
+            $this->assign("content",$content);
+        }
     }
     // 登陆
     public function login()
@@ -96,7 +102,41 @@ class Users extends Base
                 $this->error('该号码不存在，请注册！', null, ['status'=>1]);
             }
         }
-
+        /*微信登录插件 - 判断是否显示微信登录按钮*/
+        $weapp_wxlogin = 0;
+        if (is_dir('./weapp/WxLogin/')) {
+            $wx         = Db::name('weapp')->field('data,status,config')->where(['code' => 'WxLogin'])->find();
+            $wx['data'] = unserialize($wx['data']);
+            if ($wx['status'] == 1 && $wx['data']['login_show'] == 1) {
+                $weapp_wxlogin = 1;
+            }
+            // 使用场景 0 PC+手机 1 手机 2 PC
+            $wx['config'] = json_decode($wx['config'], true);
+            if (isMobile() && !in_array($wx['config']['scene'], [0,1])) {
+                $weapp_wxlogin = 0;
+            } else if (!isMobile() && !in_array($wx['config']['scene'], [0,2])) {
+                $weapp_wxlogin = 0;
+            }
+        }
+        $this->assign('weapp_wxlogin', $weapp_wxlogin);
+        /*end*/
+        /*QQ登录插件 - 判断是否显示QQ登录按钮*/
+        $weapp_qqlogin = 0;
+        if (is_dir('./weapp/QqLogin/')) {
+            $qq         = Db::name('weapp')->field('data,status,config')->where(['code' => 'QqLogin'])->find();
+            $qq['data'] = unserialize($qq['data']);
+            if ($qq['status'] == 1 && $qq['data']['login_show'] == 1) {
+                $weapp_qqlogin = 1;
+            }
+            // 使用场景 0 PC+手机 1 手机 2 PC
+            $qq['config'] = json_decode($qq['config'], true);
+            if (isMobile() && !in_array($qq['config']['scene'], [0,1])) {
+                $weapp_qqlogin = 0;
+            } else if (!isMobile() && !in_array($qq['config']['scene'], [0,2])) {
+                $weapp_qqlogin = 0;
+            }
+        }
+        $this->assign('weapp_qqlogin', $weapp_qqlogin);
         // 跳转链接
         $referurl  = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : url("user/Users/centre"); // url("user/Users/centre");
 
@@ -107,8 +147,6 @@ class Users extends Base
     // 会员中心（主页）
     public function centre()
     {
-        $this->assign('home_url', $this->request->domain().ROOT_DIR.'/');
-        $this->assign('menu',getMenuList());
 
         return $this->fetch('users_centre');
     }
@@ -117,8 +155,6 @@ class Users extends Base
     {
         $level_list = Db::name("users_level")->where("status",1)->select();
         $assign_data['level_list'] = $level_list;
-        $content = model("users")->getContentInfo($this->users_id);
-        $assign_data['content'] = $content;
         $count = model("users")->getCountInfo($this->users_id);
         $assign_data['count'] = $count;
         $this->assign($assign_data);
@@ -151,6 +187,7 @@ class Users extends Base
             }
         }
         $assign_data['field'] = $this->users;
+        $assign_data['top_title'] = "编辑资料";
         $this->assign($assign_data);
         return $this->fetch('users_edit');
     }
@@ -409,9 +446,7 @@ class Users extends Base
 
         return $this->fetch('users_reg');
     }
-    /*
-     * 找回密码
-     */
+    //找回密码
     public function retrieve_password(){
         if ($this->users_id > 0) {
             $this->redirect('user/Users/centre');
@@ -480,9 +515,7 @@ class Users extends Base
 
         return $this->fetch();
     }
-    /*
-     * 重置密码
-     */
+    //重置密码
     public function reset_password(){
         if (IS_AJAX_POST) {
             $post = input('post.');
@@ -540,4 +573,49 @@ class Users extends Base
         $this->assign('users', $users);
         return $this->fetch();
     }
+    //会员升级
+    public function upgrade(){
+        if (IS_POST) {
+            $id = input('id/d', 0);
+            $fee = input('fee/s',"");
+            $num = 1;//input('num/d');
+            if (empty($fee) || empty($id) || $this->users['level_id'] == $id) {  //已经是当前级别
+                $this->error('升级失败!');
+            }
+            $level_info = Db::name("users_level")->where(['id'=>$id])->find();
+            if (empty($level_info) || $level_info['fee'] != floatval($fee) || $this->users['fee'] >= $level_info['fee']) {
+                $this->error('升级失败！');
+            }
+            //判断余额是否足够支付
+//            $users_money = Db::name("users")->where("id=".$this->users_id)->getField("users_money");
+            if ($this->users['users_money'] < $level_info['fee']){
+                $this->error('余额不够，请先充值！');
+            }
+            $data_users_money['level_id'] = $level_info['id'];
+            $data_users_money['users_money'] = Db::raw('users_money-'.$level_info['fee']);
+            $r = Db::name("users")->where("id=".$this->users_id)->update($data_users_money);
+            if($r){
+                $data_log = [
+                    'users_id' => $this->users_id,
+                    'aid' => 0,
+                    'type' => 0,
+                    'num' => $num,
+                    'add_time' => getTime(),
+                    'update_time' => getTime()
+                ];
+                Db::name('users_log')->insert($data_log);
+                $this->success('操作成功');
+            }else{
+                $this->error('操作失败');
+            }
+        }
+    }
+    //用户设置
+    public function setting(){
+        $assign_data['top_title'] = "用户设置";
+        $this->assign($assign_data);
+
+        return $this->fetch();
+    }
+
 }

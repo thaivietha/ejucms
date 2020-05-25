@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="__SKIN__/css/ey_layui.css?v={$version}" media="all">
     <link rel="stylesheet" href="__SKIN__/css/page.css?v={$version}" media="all">
     <link rel="stylesheet" href="__SKIN__/css/perfect-scrollbar.css?v={$version}" media="all">
-	<link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_mobile' /}/skin/css/login.css">
+    <link rel="stylesheet" type="text/css" href="{eju:global name='web_templets_mobile' /}/users/skin/css/login.css">
 
     <script type="text/javascript">
         var eyou_basefile = window.location.pathname;
@@ -31,14 +31,23 @@
 
 </head>
 <body>
+<!--登录注册顶部-->
+<div class="userTop">
+    <div class="goBack" onclick="window.history.go(-1)">
+        <i class="layui-icon layui-icon-left"></i>
+    </div>
+    <div class="userTitle">
+        会员登录
+    </div>
+    <div class="menuBox"></div>
+</div>
 
 <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
-
     <div class="layadmin-user-login-main">
-        <div class="layadmin-user-login-box layadmin-user-login-header">
-           <!-- <div style="margin-bottom: 10px;"><img height="34" src="__PUBLIC__/static/admin/images/logo_login.png" alt=""></div> -->
-            <p>会员登陆</p>
-        </div>
+        <!--  <div class="layadmin-user-login-box layadmin-user-login-header">
+             <div style="margin-bottom: 10px;"><img height="34" src="__PUBLIC__/static/admin/images/logo_login.png" alt=""></div>
+              <p>会员登陆</p>
+          </div> -->
         <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
             <div class="layui-form-item">
                 <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="mobile"></label>
@@ -79,6 +88,9 @@
         </div>
     </div>
 </div>
+
+{eju:include file="users/login.htm"/}
+
 <script>
     layui.config({
         base: '__SKIN__/' //静态资源所在路径

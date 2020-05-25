@@ -57,7 +57,7 @@ class TagForm extends Base
             echo '标签form报错：该表单不存在。';
             return false;
         }
-        $form_attr = model('form_attr')->where([
+        $form_attr = Db::name('form_attr')->where([
                 'form_id'   => $form['id'],
                 'is_del'    => 0,
             ])->order("sort_order asc, attr_id asc")->select();
@@ -71,7 +71,7 @@ class TagForm extends Base
             $baoming_count = Db::name('form_list')->where("form_id=".$formid)->count();
         }
         if ($is_list){
-            $value_list = Db::name('form_value')->where("form_id=".$formid)->order('list_id asc')->select();
+            $value_list = Db::name('form_value')->where("form_id=".$formid)->order('list_id asc')->limit($is_list)->select();
         }
         $ajax_form = input('param.ajax_form/d'); // 是否ajax弹窗报名，还是页面显示报名
         $md5 = md5(getTime().uniqid(mt_rand(), TRUE));
@@ -85,17 +85,14 @@ class TagForm extends Base
         var x = document.getElementById('".$form_name."');
         for (var i=0;i<x.length;i++){
         ";   //检测规则
+        $attr_arr = [];
+
+        $regionInfo = \think\Cookie::get("regionInfo");
+        $region_id = !empty($regionInfo['id']) ? intval($regionInfo['id']) : 0;
+
         foreach ($form_attr as $key=>$val){
             $attr_id = $val['attr_id'];
-            foreach ($value_list as $k=>$v){
-                if ($attr_id == $v['attr_id']){
-                    if ($val['is_default']){
-                        $baominglist[$v['list_id']][$attr_id] =  mb_substr($v['attr_value'], 0, 3, 'utf-8') . '***';
-                    }else{
-                        $baominglist[$v['list_id']][$attr_id] =  mb_substr($v['attr_value'], 0, 1, 'utf-8') . '**';
-                    }
-                }
-            }
+            $attr_arr[$attr_id] = "";
             /*字段名称*/
             $name = 'attr_'.$attr_id;
             $result[$name] = $name;
@@ -107,8 +104,6 @@ class TagForm extends Base
              * 区域类型，自动定位关联下级区域
              */
             if ($val['input_type'] == 'region') {
-                $regionInfo = \think\Cookie::get("regionInfo");
-                $region_id = !empty($regionInfo['id']) ? intval($regionInfo['id']) : 0;
                 if (!empty($region_id)) {
                     $level = !empty($regionInfo['level']) ? intval($regionInfo['level']) : 0;
                     $regionList = [];
@@ -278,6 +273,18 @@ EOF;
     {$funname}();
 </script>
 EOF;
+        if (!empty($value_list)){
+            foreach ($value_list as $k=>$v){
+                if (empty($baominglist[$v['list_id']])){
+                    $baominglist[$v['list_id']] = $attr_arr;
+                }
+                if (!empty($v['attr_value']) && count($v['attr_value']) > 10){
+                    $baominglist[$v['list_id']][$v['attr_id']] =  mb_substr($v['attr_value'], 0, 3, 'utf-8') . '***' ;
+                }else if(!empty($v['attr_value'])){
+                    $baominglist[$v['list_id']][$v['attr_id']] =   mb_substr($v['attr_value'], 0, 1, 'utf-8'). '**'  ;
+                }
+            }
+        }
 
         $hidden = '<input type="hidden" name="ajax_form" value="'.$ajax_form.'" />
         <input type="hidden" name="come_from" value="'.$this->come_from.'" />
@@ -293,7 +300,6 @@ EOF;
         $result['submit'] = "return {$submit}();";
         $result['count'] = $baoming_count;
         $result['list'] = $baominglist;
-
         return [$result];
     }
 }

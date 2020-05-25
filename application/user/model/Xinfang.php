@@ -51,7 +51,7 @@ class Xinfang extends Model
                         ,'aid'=>$aid
                         ,'photo_title'=>$val
                         ,'photo_pic'=>$post['photo_pic'][$key]
-                        ,'photo_type'=>$post['photo_type'][$key]
+                        ,'photo_type'=>!empty($post['photo_type'][$key]) ? $post['photo_type'][$key] : ""
                         ,'sort_order'=> $key + 1
                     ];
                 }else{
@@ -59,7 +59,7 @@ class Xinfang extends Model
                         'aid'=>$aid
                         ,'photo_title'=>$val
                         ,'photo_pic'=>$post['photo_pic'][$key]
-                        ,'photo_type'=>$post['photo_type'][$key]
+                        ,'photo_type'=>!empty($post['photo_type'][$key]) ? $post['photo_type'][$key] : ""
                         ,'sort_order'=> $key + 1
                     ];
                 }

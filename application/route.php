@@ -78,24 +78,13 @@ if (3 == $seo_pseudo) {
     $home_rewrite = [];
     /*--end*/
     if (1 == $seo_rewrite_format) { // 精简伪静态
-        if (!empty($route_list)){
-            $list = get_route_field_list();
-            $list = array_reverse($list);
-            foreach ($list as $val){
-                $home_rewrite += array(
-                    $rewrite_str.'<tid>/'.$val.'$' => array('home/Lists/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
-                );
-            }
 
-        }
         $home_rewrite += array(
             // 标签伪静态
             $rewrite_str.'tags$' => array('home/Tags/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
             $rewrite_str.'tags/<tagid>$' => array('home/Tags/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             // 搜索伪静态
             $rewrite_str.'search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-            // 列表页
-            $rewrite_str.'<tid>$' => array('home/Lists/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
             //内容详情页
             $rewrite_str.'<dirname>/<aid>/<column>_<sid>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'<dirname>/<aid>/<column>_<photo_type>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
@@ -104,23 +93,23 @@ if (3 == $seo_pseudo) {
             $rewrite_str.'<dirname>/<aid>$' => array('home/View/index',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
         );
-    } else {
         if (!empty($route_list)){
-            $list = get_route_field_list(1);
-            foreach ($list as $key=>$val){
-                if (!empty($route_list['list'][$key])){
-                    $val = array_reverse($val);
-                    foreach ($val as $v){
-                        $home_rewrite += array(
-                            $rewrite_str.$route_list['list'][$key]['nid'].'/<tid>/'.$v.'$' => array('home/'.$route_list['list'][$key]['ctl_name'].'/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-                        );
-                    }
-                }
+            $list = get_route_field_list();
+            $list = array_reverse($list);
+            foreach ($list as $val){
+                $home_rewrite += array(
+                    $rewrite_str.'<tid>/'.$val.'$' => array('home/Lists/index?'.$val,array('method' => 'get', 'ext' => ''), 'cache'=>1),
+                );
             }
         }
         $home_rewrite += array(
+            // 列表页
+            $rewrite_str.'<tid>$' => array('home/Lists/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+        );
+    } else {
+        $home_rewrite += array(
             // 文章模型伪静态
-            $rewrite_str.'article/<tid>$' => array('home/Article/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+
             $rewrite_str.'article/<dirname>/<aid>/<column>_<sid>$' => array('home/Article/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'article/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Article/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'article/<dirname>/<aid>/<column>/<room>$' => array('home/Article/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
@@ -128,79 +117,71 @@ if (3 == $seo_pseudo) {
             $rewrite_str.'article/<dirname>/<aid>$' => array('home/Article/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
 
             // 楼盘模型伪静态
-            $rewrite_str.'xinfang/<tid>$' => array('home/Xinfang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+
             $rewrite_str.'xinfang/<dirname>/<aid>/<column>_<sid>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>/<column>/<room>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>/<column>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xinfang/<dirname>/<aid>$' => array('home/Xinfang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 团购模型伪静态
-            $rewrite_str.'tuan/<tid>$' => array('home/Tuan/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+
             $rewrite_str.'tuan/<dirname>/<aid>/<column>_<sid>$' => array('home/Tuan/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'tuan/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Tuan/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'tuan/<dirname>/<aid>/<column>/<room>$' => array('home/Tuan/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'tuan/<dirname>/<aid>/<column>$' => array('home/Tuan/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'tuan/<dirname>/<aid>$' => array('home/Tuan/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 图集模型伪静态
-            $rewrite_str.'images/<tid>$' => array('home/Images/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+
             $rewrite_str.'images/<dirname>/<aid>/<column>_<sid>$' => array('home/Images/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'images/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Images/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'images/<dirname>/<aid>/<column>/<room>$' => array('home/Images/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'images/<dirname>/<aid>/<column>$' => array('home/Images/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'images/<dirname>/<aid>$' => array('home/Images/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
-            // 单页模型伪静态
-            $rewrite_str.'single/<tid>$' => array('home/Single/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+
             // 小区模型伪静态
-            $rewrite_str.'xiaoqu/<tid>$' => array('home/Xiaoqu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+
             $rewrite_str.'xiaoqu/<dirname>/<aid>/<column>_<sid>$' => array('home/Xiaoqu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xiaoqu/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Xiaoqu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xiaoqu/<dirname>/<aid>/<column>/<room>$' => array('home/Xiaoqu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xiaoqu/<dirname>/<aid>/<column>$' => array('home/Xiaoqu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'xiaoqu/<dirname>/<aid>$' => array('home/Xiaoqu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 二手房模型伪静态
-            $rewrite_str.'ershou/<tid>$' => array('home/Ershou/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'ershou/<dirname>/<aid>/<column>_<sid>$' => array('home/Ershou/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'ershou/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Ershou/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'ershou/<dirname>/<aid>/<column>/<room>$' => array('home/Ershou/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'ershou/<dirname>/<aid>/<column>$' => array('home/Ershou/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'ershou/<dirname>/<aid>$' => array('home/Ershou/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             // 租房模型伪静态
-            $rewrite_str.'zufang/<tid>$' => array('home/Zufang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'zufang/<dirname>/<aid>/<column>_<sid>$' => array('home/Zufang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'zufang/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Zufang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'zufang/<dirname>/<aid>/<column>/<room>$' => array('home/Zufang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'zufang/<dirname>/<aid>/<column>$' => array('home/Zufang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'zufang/<dirname>/<aid>$' => array('home/Zufang/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             //商铺出售模型伪静态
-            $rewrite_str.'shopcs/<tid>$' => array('home/Shopcs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'shopcs/<dirname>/<aid>/<column>_<sid>$' => array('home/Shopcs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'shopcs/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Shopcs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'shopcs/<dirname>/<aid>/<column>/<room>$' => array('home/Shopcs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'shopcs/<dirname>/<aid>/<column>$' => array('home/Shopcs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'shopcs/<dirname>/<aid>$' => array('home/Shopcs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             //商铺出租模型伪静态
-            $rewrite_str.'shopcz/<tid>$' => array('home/Shopcz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'shopcz/<dirname>/<aid>/<column>_<sid>$' => array('home/Shopcz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'shopcz/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Shopcz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'shopcz/<dirname>/<aid>/<column>/<room>$' => array('home/Shopcz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'shopcz/<dirname>/<aid>/<column>$' => array('home/Shopcz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'shopcz/<dirname>/<aid>$' => array('home/Shopcz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             //写字楼出售模型伪静态
-            $rewrite_str.'officecs/<tid>$' => array('home/Officecs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'officecs/<dirname>/<aid>/<column>_<sid>$' => array('home/Officecs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'officecs/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Officecs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'officecs/<dirname>/<aid>/<column>/<room>$' => array('home/Officecs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'officecs/<dirname>/<aid>/<column>$' => array('home/Officecs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'officecs/<dirname>/<aid>$' => array('home/Officecs/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             //写字楼出租模型伪静态
-            $rewrite_str.'officecz/<tid>$' => array('home/Officecz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'officecz/<dirname>/<aid>/<column>_<sid>$' => array('home/Officecz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'officecz/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Officecz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'officecz/<dirname>/<aid>/<column>/<room>$' => array('home/Officecz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'officecz/<dirname>/<aid>/<column>$' => array('home/Officecz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'officecz/<dirname>/<aid>$' => array('home/Officecz/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             //求租模型伪静态
-            $rewrite_str.'qiuzu/<tid>$' => array('home/Qiuzu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'qiuzu/<dirname>/<aid>/<column>_<sid>$' => array('home/Qiuzu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'qiuzu/<dirname>/<aid>/<column>_<photo_type>$' => array('home/Qiuzu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
             $rewrite_str.'qiuzu/<dirname>/<aid>/<column>/<room>$' => array('home/Qiuzu/view',array('method' => 'get', 'ext' => 'html'),'cache'=>1),
@@ -212,6 +193,40 @@ if (3 == $seo_pseudo) {
             // 搜索伪静态
             $rewrite_str.'search$' => array('home/Search/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
             $rewrite_str.'$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
+        );
+        //列表页面
+        $home_rewrite += array(
+            $rewrite_str.'ershou/<tiiiid>$' => array('home/Ershou/lists?aaaaa',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+        );
+        if (!empty($route_list)){
+            $list = get_route_field_list(1);
+            foreach ($list as $key=>$val){
+                if (!empty($route_list['list'][$key])){
+                    $val = array_reverse($val);
+                    foreach ($val as $v){
+                        $home_rewrite += array(
+                            $rewrite_str.$route_list['list'][$key]['nid'].'/<tid>/'.$v.'$' => array('home/'.$route_list['list'][$key]['ctl_name'].'/lists?'.$v,array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+                        );
+                    }
+                }
+            }
+        }
+
+        $home_rewrite += array(
+            $rewrite_str.'article/<tid>$' => array('home/Article/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'xinfang/<tid>$' => array('home/Xinfang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'tuan/<tid>$' => array('home/Tuan/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'images/<tid>$' => array('home/Images/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            // 单页模型伪静态
+            $rewrite_str.'single/<tid>$' => array('home/Single/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'xiaoqu/<tid>$' => array('home/Xiaoqu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'ershou/<tid>$' => array('home/Ershou/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'zufang/<tid>$' => array('home/Zufang/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'shopcs/<tid>$' => array('home/Shopcs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'shopcz/<tid>$' => array('home/Shopcz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'officecs/<tid>$' => array('home/Officecs/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'officecz/<tid>$' => array('home/Officecz/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
+            $rewrite_str.'qiuzu/<tid>$' => array('home/Qiuzu/lists',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
         );
 
         /*自定义模型*/

@@ -43,25 +43,34 @@
                                     <div class="layui-table-cell wauto"><span>级别名称</span></div>
                                 </th>
                                 <th class="w100 tc">
-                                    <div class="layui-table-cell w120 tc"><span>每日免费发布</span></div>
+                                    <div class="layui-table-cell w100 tc"><span>每日免费发布</span></div>
                                 </th>
                                 <th class="w100 tc">
-                                    <div class="layui-table-cell w120 tc"><span>共免费发布</span></div>
+                                    <div class="layui-table-cell w100 tc"><span>共免费发布</span></div>
                                 </th>
                                 <th class="w100 tc">
-                                    <div class="layui-table-cell w120 tc"><span>每日免费置顶</span></div>
+                                    <div class="layui-table-cell w100 tc"><span>每日免费置顶</span></div>
                                 </th>
                                 <th class="w100 tc">
-                                    <div class="layui-table-cell w120 tc"><span>共免费置顶</span></div>
+                                    <div class="layui-table-cell w100 tc"><span>共免费置顶</span></div>
                                 </th>
-                                <th class="w100 tc">
-                                    <div class="layui-table-cell w100 tc"><span>二手房审核</span></div>
+                                <th class="w80 tc">
+                                    <div class="layui-table-cell w80 tc"><span>二手房审核</span></div>
                                 </th>
-                                <th class="w100 tc">
-                                    <div class="layui-table-cell w100 tc"><span>租房审核</span></div>
+                                <th class="w80 tc">
+                                    <div class="layui-table-cell w80 tc"><span>租房审核</span></div>
                                 </th>
-                                <th class="w100 tc">
-                                    <div class="layui-table-cell w100 tc"><span>启用</span></div>
+                                <th class="w80 tc">
+                                    <div class="layui-table-cell w80 tc"><span>会员收费(元)</span></div>
+                                </th>
+                                <th class="w80 tc">
+                                    <div class="layui-table-cell w80 tc"><span>置顶(元/条)</span></div>
+                                </th>
+                                <th class="w80 tc">
+                                    <div class="layui-table-cell w80 tc"><span>可注册</span></div>
+                                </th>
+                                <th class="w80 tc">
+                                    <div class="layui-table-cell w80 tc"><span>启用</span></div>
                                 </th>
                                 <th class="w220 tc">
                                     <div class="layui-table-cell w220 tc"><span>操作</span></div>
@@ -90,37 +99,71 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="layui-table-cell w120 tc">
-                                        {empty name="$vo.free_day_send"}不限{else /}{$vo.free_day_send}条{/empty}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="layui-table-cell w120 tc">
-                                        {empty name="$vo.free_all_send"}不限{else /}{$vo.free_all_send}条{/empty}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="layui-table-cell w120 tc">
-                                        {empty name="$vo.fee_day_top"}不限{else /}{$vo.fee_day_top}条{/empty}
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="layui-table-cell w120 tc">
-                                        {empty name="$vo.fee_all_top"}不限{else /}{$vo.fee_all_top}条{/empty}
+                                    <div class="layui-table-cell w100 tc">
+                                        {eq name="$vo.free_day_send" value="-1"}不限{else /}{$vo.free_day_send}条{/eq}
                                     </div>
                                 </td>
                                 <td>
                                     <div class="layui-table-cell w100 tc">
+                                        {eq name="$vo.free_all_send" value="-1"}不限{else /}{$vo.free_all_send}条{/eq}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w100 tc">
+                                        {eq name="$vo.fee_day_top" value="-1"}不限{else /}{$vo.fee_day_top}条{/eq}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w100 tc">
+                                        {eq name="$vo.fee_all_top" value="-1"}不限{else /}{$vo.fee_all_top}条{/eq}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w80 tc">
                                         <input type="checkbox" lay-skin="switch" lay-filter="check_ershou" data-id="{$vo.id}" {eq name="$vo['check_ershou']" value='1'}value="off" checked{else /}value="on"{/eq} lay-text="是|否">
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="layui-table-cell w100 tc">
+                                    <div class="layui-table-cell w80 tc">
                                         <input type="checkbox" lay-skin="switch" lay-filter="check_zufang" data-id="{$vo.id}" {eq name="$vo['check_zufang']" value='1'}value="off" checked{else /}value="on"{/eq} lay-text="是|否">
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="layui-table-cell w100 tc">
+                                    <div class="layui-table-cell w80 tc">
+                                        {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
+                                        <input type="text" class="layui-input " onchange="changeTableVal('users_level','id','{$vo.id}','fee',this);"  size="4"  value="{$vo.fee}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'');" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"  />
+                                        {else /}
+                                        {$vo.sort_order}
+                                        {/eq}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w80 tc">
+                                        {eq name="$Think.const.CONTROLLER_NAME.'@edit'|is_check_access" value="1"}
+                                        <input type="text" class="layui-input number" onchange="changeTableVal('users_level','id','{$vo.id}','fee_top',this);"  size="4"  value="{$vo.fee_top}"/>
+                                        {else /}
+                                        {$vo.sort_order}
+                                        {/eq}
+                                    </div>
+                                </td>
+                                <script>
+                                    $('input.number').keyup(function(){
+                                        var c=$(this);
+                                        var patten = /^[+-]?(\d*)(\.\d*)?$/g;
+                                        if(!patten.test(c.val())){
+                                            console.log(c.val());
+                                            var temp_amount=c.val().replace(/[^\d]/g,'');
+                                            $(this).val(temp_amount);
+                                        }
+                                    });
+                                </script>
+                                <td>
+                                    <div class="layui-table-cell w80 tc">
+                                        <input type="checkbox" lay-skin="switch" lay-filter="is_system" data-id="{$vo.id}" {eq name="$vo['is_system']" value='1'}value="off" checked{else /}value="on"{/eq} lay-text="是|否">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w80 tc">
                                         <input type="checkbox" lay-skin="switch" lay-filter="status" data-id="{$vo.id}" {eq name="$vo['status']" value='1'}value="off" checked{else /}value="on"{/eq} lay-text="是|否">
                                     </div>
                                 </td>
@@ -175,6 +218,12 @@
             changeTableVal('users_level','id',$(this).data('id'),'check_zufang',this);
             return false;
         });
+        //是否可注册
+        form.on('switch(is_system)', function(data){
+            changeTableVal('users_level','id',$(this).data('id'),'is_system',this);
+            return false;
+        });
+        //是否启用
         form.on('switch(status)', function(data){
             changeTableVal('users_level','id',$(this).data('id'),'status',this);
             return false;

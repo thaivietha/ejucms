@@ -42,7 +42,7 @@ class TagNavig extends Base
             $cacheKey .= "_{$aid}";
             $this->tid = cache($cacheKey);
             if ($this->tid == false) {
-                $this->tid = M('archives')->where('aid', $aid)->getField('typeid');
+                $this->tid = Db::name('archives')->where('aid', $aid)->getField('typeid');
                 cache($cacheKey, $this->tid);
             }
         }
@@ -107,7 +107,6 @@ class TagNavig extends Base
                 $result = $this->getFirst($navigid);
                 break;
         }
-
         return $result;
     }
 
@@ -314,17 +313,14 @@ class TagNavig extends Base
         !empty($notnavigid) && $map['navig_id'] = ['NOTIN', $notnavigid]; // 排除指定菜单ID
         $res = $this->navigationlogic->navig_list(0, 0, false, $navig_max_level, $map);
         /*--end*/
-
         if (count($res) > 0) {
-
             // 所有栏目信息
-            $arctypeRow = Db::name('arctype')->field('id,typename,dirname,current_channel,is_part,typelink,pointto_id')->cache(true,EYOUCMS_CACHE_TIME,"arctype")->getAllWithIndex('id');
-
-            $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', array(), 'id');
+            $type_id_arr = get_arr_column($res,'type_id');
+            $arctypeRow = Db::name('arctype')->field('id,typename,dirname,current_channel,is_part,typelink,pointto_id')->where(['id'=>['in',$type_id_arr]])->cache(true,EYOUCMS_CACHE_TIME,"arctype".$this->position_id)->getAllWithIndex('id');
+            $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', ['is_del'=>0], 'id');
             $currentstyleArr = []; // 标记选择菜单的数组
             foreach ($res as $key => $val) {
                 $arctypeInfo = !empty($arctypeRow[$val['type_id']]) ? $arctypeRow[$val['type_id']] : [];
-
                 /*获取菜单的URL*/
                 if (!empty($val['type_id'])) {
                     if ($arctypeInfo['is_part'] == 1) {     //外部链接
@@ -366,8 +362,8 @@ class TagNavig extends Base
                     ];
                 }
 
-                $val['target'] = 1 == $value['target'] ? ' target="_blank" ' : ' target="_self" ';
-                $val['nofollow'] = 1 == $value['nofollow'] ? ' rel="nofollow" ' : '';
+                $val['target'] = 1 == $val['target'] ? ' target="_blank" ' : ' target="_self" ';
+                $val['nofollow'] = 1 == $val['nofollow'] ? ' rel="nofollow" ' : '';
 
                 // 导航图片
                 $val['navig_pic'] = handle_subdir_pic($val['navig_pic']);
@@ -386,7 +382,7 @@ class TagNavig extends Base
 
             /*菜单层级归类成阶梯式*/
             $arr = group_same_key($res, 'parent_id');
-            for ($i=0; $i < $navig_max_level; $i++) { 
+            for ($i=0; $i < $navig_max_level; $i++) {
                 foreach ($arr as $key => $val) {
                     foreach ($arr[$key] as $key2 => $val2) {
                         if (!isset($arr[$val2['navig_id']])) continue;

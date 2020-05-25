@@ -51,7 +51,6 @@ class Common extends Controller {
         header("Cache-control: private");  // history.back返回后输入框值丢失问题 
         $this->session_id = session_id(); // 当前的 session_id
         !defined('SESSION_ID') && define('SESSION_ID', $this->session_id); //将当前的session_id保存为常量，供其它方法调用
-
         $this->globalTpCache = tpCache('global');
 
         /*关闭网站*/
@@ -67,17 +66,19 @@ class Common extends Controller {
         $this->eju['global'] = $this->globalTpCache;
         // 请求参数
         $this->eju['param'] = $this->request->param();
-
         // 区域子站点
         //ajax请求不需要重新加载区域参数
         if ($this->request->controller() != 'Ajax'){
-            $subDomain = input("param.subdomain/s");
+            $subDomain = input("param.subdomain/s");   //  \think\Cookie::get('subdomain');//
             empty($subDomain) && $subDomain = $this->request->subDomain();
             $this->eju['param']['subDomain'] = $subDomain;
             if (empty($this->eju['global']['web_region_domain'])) { // 关闭区域子站点
                 $regionInfo = $this->getDefaultCity();
             } else { // 开启区域子站点
                 if (!empty($subDomain) && $subDomain != $this->eju['global']['web_mobile_domain']){
+                    $regionInfo =  $this->getDomainCity($subDomain);
+                }else if(!empty($subDomain) && $subDomain == $this->eju['global']['web_mobile_domain']){
+                    $subDomain = \think\Cookie::get('subdomain');
                     $regionInfo =  $this->getDomainCity($subDomain);
                 }else{
                     $regionInfo =  $this->getDefaultCity();
@@ -109,9 +110,6 @@ class Common extends Controller {
         $web_main_domain = tpCache('web.web_main_domain');  //主域名
         if(!empty($subDomain) && (empty($web_main_domain) || $subDomain != $web_main_domain)){
             $info =  M('region')->field('*')->where(['domain'=>$subDomain,'status'=>1])->find();
-//            if (empty($info)) {
-//                abort(404,'页面不存在');
-//            }
             if (!empty($info)){
                 $info = model('Region')->handle_info($info, false);
                 return $info;

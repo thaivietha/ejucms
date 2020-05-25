@@ -188,12 +188,11 @@
     <label class="layui-form-label">{if condition="isset($vo['ifrequire']) AND !empty($vo['ifrequire'])"}<b>*</b>{/if}{$vo.title|default=''}</label>
     <div class="layui-input-inline layadmin-layer-demo">
         <button class="layui-btn multi-upload-demoMore layui-btn-sm fl" lay-data="{number:100,ey_savepath:'allimg',ey_callback:'{$vo.fieldArr}_{$vo.name|default=''}_call_back'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
-        <button class="layui-btn layui-btn-sm fl" onClick="GetPictureFolder(100,'{$vo.fieldArr}_{$vo.name|default=''}','{$vo.fieldArr}_{$vo.name|default=''}_call_back');"><i class="layui-icon">&#xe64a;</i>图库</button>
     </div>
 </div>
-<div class="layui-form-item " id="dl_{$vo.fieldArr}_{$vo.name|default=''}">
+<div class="layui-form-item " >
     <label class="layui-form-label"></label>
-    <div class="edit-box-con2 fl sort-list-{$vo.fieldArr}_{$vo.name|default=''}">
+    <div class="edit-box-con2 fl sort-list-{$vo.fieldArr}_{$vo.name|default=''}" id="dl_{$vo.fieldArr}_{$vo.name|default=''}">
         {volist name="$vo[$vo['name'].'_eyou_imgupload_list']" id="v2" key="k2"}
         <div class="images-upload">
             <div class="upimg">
@@ -204,6 +203,7 @@
             </div>
         </div>
         {/volist}
+        <div class="images-upload" style="display: none;"></div>
     </div>
 </div>
 <!-- 上传图片显示的样板 start -->
@@ -243,21 +243,7 @@
      */
     function {$vo.fieldArr}_{$vo.name|default=''}_ClearPicArr2(obj,path)
     {
-        // 删除数据库记录
-        $.ajax({
-            type:'GET',
-            url:"{:url('Field/del_channelimgs')}",
-            data:{filename:path,channel:"{$channeltype|default='0'}",fieldname:"{$vo.name}",aid:"{$aid|default='0'}",_ajax:1},
-            success:function(){
-                $(obj).parent().parent().remove(); // 删除完服务器的, 再删除 html上的图片
-                $.ajax({
-                    type:'GET',
-                    url:"{:url('Uploadify/delupload')}",
-                    data:{action:"del", filename:path,_ajax:1},
-                    success:function(){}
-                });
-            }
-        });
+        $(obj).parent().parent().remove(); // 删除完服务器的, 再删除 html上的图片
     }
 
     /** 以下 产品相册的拖动排序相关 js*/
@@ -389,3 +375,24 @@
 {/switch}
 {/if}
 {/volist}
+
+<script>
+    //自定义switch样式
+    $(".cb-enable").click(function(){
+        var parent = $(this).parents('.onoff');
+        $('.cb-disable',parent).removeClass('selected');
+        $(this).addClass('selected');
+        $('.checkbox',parent).attr('checked', true);
+    });
+    $(".cb-disable").click(function(){
+        var parent = $(this).parents('.onoff');
+        $('.cb-enable',parent).removeClass('selected');
+        $(this).addClass('selected');
+        $('.checkbox',parent).attr('checked', false);
+    });
+    //判断复选框是否为空
+    function checkbox_is_empty(fieldArr,name){
+        var len = $("input[name='"+fieldArr+"["+name+"][]']:checked").length;
+        $("input[name='"+fieldArr+"["+name+"_eyempty]']").val(len);
+    }
+</script>

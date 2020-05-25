@@ -88,8 +88,8 @@ class Qiuzu extends Base
     }
     public function add(){
         $permission = model('users')->getPermission($this->users,13);
-        if (!$permission){
-            $this->error("您已经没有操作条数", url("qiuzu/index"));
+        if (empty($permission)){
+            $this->error("您剩余操作余额不够", url("qiuzu/index"));
         }
         $channelList = getChanneltypeList();
         $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
@@ -209,7 +209,7 @@ class Qiuzu extends Base
                 // ---------后置操作
                 model($this->table)->afterSave($aid, $data, 'add');
                 // ---------end
-                model('users')->changeContent($this->users_id,13,$aid);
+                model('users')->changeContent($this->users,13,$aid,$permission[1]);
                 adminLog('新增数据：'.$data['title']);
                 del_archives_chache([$aid]);
                 del_type_chache([$this->type_info['id']]);
@@ -430,7 +430,6 @@ class Qiuzu extends Base
         $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
         $assign_data['searchurl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxList") : '';
         $assign_data['checkurl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxCheck") : '';
-
         $this->assign($assign_data);
 
         return $this->fetch('users/qiuzu_edit');

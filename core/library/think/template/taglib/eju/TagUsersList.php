@@ -117,11 +117,11 @@ class TagUsersList extends Base
                 ->where('a.id', 'in', $aids)
                 ->getAllWithIndex('id');
             // 获取模型对应的控制器名称
-            $channel_list = model('Channeltype')->getAll('id, ctl_name', array(), 'id');
+//            $channel_list = model('Channeltype')->getAll('id, ctl_name', array(), 'id');
 
             foreach ($list as $key => $val) {
                 $arcval = $row[$val['id']];
-                $controller_name = $channel_list[$arcval['channel']]['ctl_name'];
+//                $controller_name = $channel_list[$arcval['channel']]['ctl_name'];
                 /*封面图*/
                 $arcval['litpic'] = get_default_pic($arcval['litpic']); // 默认封面图
                 if ('on' == $thumb) { // 属性控制是否使用缩略图

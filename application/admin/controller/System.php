@@ -425,7 +425,105 @@ class System extends Base
         $this->assign('config',$config);//当前配置项
         return $this->fetch();
     }
+    /*
+     * 七牛云图片加速
+     */
+    public function qiniu(){
+        $inc_type =  'speed';
+        $model = new \weapp\Qiniuyun\model\QiniuyunModel;
+        if (IS_POST) {
+            $post = input('post.');
+            tpCache($inc_type,['speed_open'=>$post['speed_open'],'speed_platform'=>$post['speed_platform']]);
+            if (!empty($post)) {
+                // 判断提交的数据是否为空
+                if (empty($post['access_key'])) {
+                    $this->error("AccessKey不可为空！");
+                }
+                if (empty($post['secret_key'])) {
+                    $this->error("SecretKey不可为空！");
+                }
 
+                // 查询七牛云插件配置信息
+                $data = Db::name('weapp')->where('code','Qiniuyun')->field('data')->find();
+                if (empty($data['data'])) {
+                    // data为空则表示第一次添加插件配置，自动生成一次存储空间
+                    $post['bucket'] = 'eyou_qiniuyun';
+                    $IsCreate = $model->createBucket($post);
+                    if (!empty($IsCreate)) {
+                        // 创建成功后，拉取对应存储空间下的域名列表，降序排序自动选中第一个，用于存入数据库
+                        $Domain = $model->listBucketDomain($post);
+                        if (!empty($Domain)) {
+                            rsort($Domain);
+                            $post['domain'] = $Domain['0'];
+                        }
+                    }else{
+                        $this->error("错误代码：101，AccessKey或SecretKey配置有误，请检查！");
+                    }
+
+                }else{
+                    // data不为空则表示修改插件配置
+                    // 查询存储空间列表，判断AccessKey或SecretKey配置是否正确
+                    $ResultList = $model->listBucket($post);
+                    if ('false' == $ResultList) {
+                        $this->error("错误代码：102，AccessKey或SecretKey配置有误，请检查！");
+                    }
+
+                    if (empty($ResultList)) {
+                        // 为空表示配置正确但七牛云上的存储空间已被删除，自动生成一次存储空间
+                        $post['bucket'] = 'eyou_qiniuyun';
+                        $IsCreate = $model->createBucket($post);
+                        if (!empty($IsCreate)) {
+                            // 创建成功后，拉取对应存储空间下的域名列表，降序排序自动选中第一个，用于存入数据库
+                            $Domain = $model->listBucketDomain($post);
+                            if (!empty($Domain)) {
+                                rsort($Domain);
+                                $post['domain'] = $Domain['0'];
+                            }
+                        }else{
+                            $this->error("错误代码：103，AccessKey或SecretKey配置有误，请检查！");
+                        }
+                    }else{
+                        if (isset($post['is_bucket']) && !empty($post['is_bucket']) && empty($post['bucket'])) {
+                            $this->error("存储空间名不可为空！");
+                        } else if (empty($post['bucket'])) {
+                            $post['bucket'] = $ResultList[0];
+                        }
+
+                        if (isset($post['is_domain']) && !empty($post['is_domain']) && empty($post['domain'])) {
+                            $this->error("访问域名不可为空！");
+                        }
+                    }
+                }
+
+                // 更新七牛云插件配置信息
+                $data = [
+                    'data'        => json_encode($post),
+                    'update_time' => getTime(),
+                ];
+                $IsResult = Db::name('weapp')->where('code','Qiniuyun')->update($data);
+                if (!empty($IsResult)) {
+                    $this->success("操作成功！");
+                }else{
+                    $this->error("操作失败！");
+                }
+            }
+        }
+
+        // 查询插件配置信息
+        $data = Db::name('weapp')->where('code','Qiniuyun')->field('data')->find();
+        $Qiniuyun = json_decode($data['data'], true);
+        $this->assign('Qiniuyun', $Qiniuyun);
+
+        // 查询七牛云存储空间名称列表
+        $ListBucket = $model->listBucket($Qiniuyun);
+        $this->assign('ListBucket', $ListBucket);
+
+        // 查询七牛云存储空间域名列表
+        $ListDomain = $model->listBucketDomain($Qiniuyun);
+        $this->assign('ListDomain', $ListDomain);
+
+        return $this->fetch();
+    }
     /**
      * 邮件配置
      */
@@ -437,9 +535,51 @@ class System extends Base
             tpCache($inc_type,$param);
             $this->success('操作成功', url('System/smtp'));
         }
+        /*会员中心总配置信息*/
+        $userConfig = getUsersConfigData('all');
+        $this->assign('userConfig', $userConfig);
+        /*是否开启支付功能*/
+        $this->assign('pay_open', $userConfig['pay_open']);
+        /* END */
+
+        /*微信支付配置*/
+        $wechat = !empty($userConfig['pay_wechat_config']) ? unserialize($userConfig['pay_wechat_config']) : [];
+        $this->assign('wechat', $wechat);
+        /* END */
+
+        /*支付宝支付配置*/
+        $alipay = !empty($userConfig['pay_alipay_config']) ? unserialize($userConfig['pay_alipay_config']) : [];
+        $this->assign('alipay', $alipay);
+        if (version_compare(PHP_VERSION,'5.5.0','<')) {
+            $php_version = 1; // PHP5.4.0或更低版本，可使用旧版支付方式
+        } else {
+            $php_version = 0;// PHP5.5.0或更高版本，可使用新版支付方式，兼容旧版支付方式
+        }
+        $this->assign('php_version',$php_version);
+        /* END */
+
+        /*微站点配置*/
+        $login = !empty($userConfig['wechat_login_config']) ? unserialize($userConfig['wechat_login_config']) : [];
+        $this->assign('login', $login);
+
         $smtp_config = tpCache($inc_type);
         $this->assign('config',$smtp_config);//当前配置项(邮件)
         $this->assign('sms_config',tpCache('sms'));//当前配置项(短信)
+
+        $qiniumodel = new \weapp\Qiniuyun\model\QiniuyunModel;
+        // 查询插件配置信息
+        $data = Db::name('weapp')->where('code','Qiniuyun')->field('data')->find();
+        $Qiniuyun = json_decode($data['data'], true);
+        $this->assign('Qiniuyun', $Qiniuyun);
+
+        // 查询七牛云存储空间名称列表
+        $ListBucket = $qiniumodel->listBucket($Qiniuyun);
+        $this->assign('ListBucket', $ListBucket);
+
+        // 查询七牛云存储空间域名列表
+        $ListDomain = $qiniumodel->listBucketDomain($Qiniuyun);
+        $this->assign('ListDomain', $ListDomain);
+        $this->assign('speed',tpCache('speed'));//当前图片加速
         return $this->fetch();
     }
 
@@ -950,6 +1090,143 @@ EOF;
             $this->success('请求成功', null, ['msg'=>$msg]);
         }
         $this->error('非法访问！');
+    }
+    //提交微信支付配置
+    public function wechat_set(){
+        if (IS_POST) {
+            $post = input('post.');
+            if (empty($post['wechat']['appid'])) {
+                $this->error('微信AppId不能为空！');
+            }
+            if (empty($post['wechat']['mchid'])) {
+                $this->error('微信商户号不能为空！');
+            }
+            if (empty($post['wechat']['key'])) {
+                $this->error('微信KEY值不能为空！');
+            }
+
+            $data = model('Pay')->payForQrcode($post['wechat']);
+            if ($data['return_code'] == 'FAIL') {
+                if ('签名错误' == $data['return_msg']) {
+                    $this->error('微信KEY值错误！');
+                }else if (stristr($data['return_msg'], 'appid')) {
+                    $this->error('微信AppId错误！');
+                }else if (stristr($data['return_msg'], 'mch_id')) {
+                    $this->error('微信商户号错误！');
+                } else {
+                    $this->error($data['return_msg']);
+                }
+            }
+            getUsersConfigData('pay', ['pay_wechat_config'=>serialize($post['wechat'])]);
+
+            $this->success('操作成功');
+        }
+    }
+    //提交支付宝支付配置
+    public function alipay_set(){
+        if (IS_POST) {
+            $post = input('post.');
+            $php_version = $post['alipay']['version'];
+            if (0 == $php_version) {
+                if (empty($post['alipay']['app_id'])) {
+                    $this->error('支付APPID不能为空！');
+                }
+                if (empty($post['alipay']['merchant_private_key'])) {
+                    $this->error('商户私钥不能为空！');
+                }
+                if (empty($post['alipay']['alipay_public_key'])) {
+                    $this->error('支付宝公钥不能为空！');
+                }
+
+                $order_number = getTime();
+                $return = $this->check_alipay_order($order_number,'admin_pay',$post['alipay']);
+                if ('ok' != $return) {
+                    $this->error($return);
+                }
+            }else if (1 == $php_version) {
+                if (empty($post['alipay']['account'])) {
+                    $this->error('支付宝账号不能为空！');
+                }
+                if (empty($post['alipay']['code'])) {
+                    $this->error('交易安全校验码不能为空！');
+                }
+                if (empty($post['alipay']['id'])) {
+                    $this->error('合作者身份ID不能为空！');
+                }
+            }
+
+            // 处理数据中的空格和换行
+            $post['alipay']['app_id']               = preg_replace('/\r|\n/', '', $post['alipay']['app_id']);
+            $post['alipay']['merchant_private_key'] = preg_replace('/\r|\n/', '', $post['alipay']['merchant_private_key']);
+            $post['alipay']['alipay_public_key']    = preg_replace('/\r|\n/', '', $post['alipay']['alipay_public_key']);
+
+            getUsersConfigData('pay', ['pay_alipay_config'=>serialize($post['alipay'])]);
+
+            $this->success('操作成功');
+        }
+    }
+    // 查询订单付款状态(支付宝)
+    private function check_alipay_order($order_number,$admin_pay='',$alipay='')
+    {
+        if (!empty($order_number)) {
+            // 引入文件
+            vendor('alipay.pagepay.service.AlipayTradeService');
+            vendor('alipay.pagepay.buildermodel.AlipayTradeQueryContentBuilder');
+
+            // 实例化加载订单号
+            $RequestBuilder = new \AlipayTradeQueryContentBuilder;
+            $out_trade_no   = trim($order_number);
+            $RequestBuilder->setOutTradeNo($out_trade_no);
+
+            // 处理支付宝配置数据
+            if (empty($alipay)) {
+                $pay_alipay_config = !empty($this->userConfig['pay_alipay_config']) ? $this->userConfig['pay_alipay_config'] : '';
+                if (empty($pay_alipay_config)) {
+                    return false;
+                }
+                $alipay = unserialize($pay_alipay_config);
+            }
+            $config['app_id']     = $alipay['app_id'];
+            $config['merchant_private_key'] = $alipay['merchant_private_key'];
+            $config['charset']    = 'UTF-8';
+            $config['sign_type']  = 'RSA2';
+            $config['gatewayUrl'] = 'https://openapi.alipay.com/gateway.do';
+            $config['alipay_public_key'] = $alipay['alipay_public_key'];
+
+            // 实例化支付宝配置
+            $aop = new \AlipayTradeService($config);
+
+            // 返回结果
+            if (!empty($admin_pay)) {
+                $result = $aop->IsQuery($RequestBuilder,$admin_pay);
+            }else{
+                $result = $aop->Query($RequestBuilder);
+            }
+
+            $result = json_decode(json_encode($result),true);
+
+            // 判断结果
+            if ('40004' == $result['code'] && 'Business Failed' == $result['msg']) {
+                // 用于支付宝支付配置验证
+                if (!empty($admin_pay)) { return 'ok'; }
+                // 用于订单查询
+                return '订单在支付宝中不存在！';
+            }else if ('10000' == $result['code'] && 'WAIT_BUYER_PAY' == $result['trade_status']) {
+                return '订单在支付宝中生成，但并未支付完成！';
+            }else if ('10000' == $result['code'] && 'TRADE_SUCCESS' == $result['trade_status']) {
+                return '订单已使用支付宝支付完成！';
+            }
+
+            // 用于支付宝支付配置验证
+            if (!empty($admin_pay) && !empty($result)) {
+                if ('40001' == $result['code'] && 'Missing Required Arguments' == $result['msg']) {
+                    return '商户私钥错误！';
+                }
+                if (!is_array($result)) {
+                    return $result;
+                }
+            }
+        }
     }
 
 

@@ -15,7 +15,7 @@ namespace think\template\taglib\eju;
 
 use think\Config;
 use think\Cookie;
-
+use think\Db;
 /**
  * 基类
  */
@@ -26,7 +26,7 @@ class Base
      */
     public $root_dir = '';
 
-    public static $request = null;
+    public  $request = null;
 
     //构造函数
     function __construct()
@@ -51,7 +51,7 @@ class Base
     {
         /*tid为目录名称的情况下*/
         if (!empty($typeid) && strval($typeid) != strval(intval($typeid))) {
-            $typeid = M('Arctype')->where([
+            $typeid = Db::name('Arctype')->where([
                     'dirname'   => $typeid,
                 ])->cache(true,EYOUCMS_CACHE_TIME,"arctype")
                 ->getField('id');

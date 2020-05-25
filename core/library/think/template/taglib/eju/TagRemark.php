@@ -64,40 +64,58 @@ class TagRemark extends Base
                                     $("#average-score").text(average);
                                 });
                             });
-                            function SubmitData(obj) {
+                            function SubmitRemarkData(obj) {
                                 if (!$('#content').val()) {
-                                    layer.msg('请填写评论内容！', {time: 1500, icon: 2});
+                                    alert('请填写评论内容！');
+//                                    layer.msg('请填写评论内容！', {time: 1500, icon: 2});
                                     return false;
                                 }
                                 var content = $('#content').val();
-                                console.log($(obj).data('url'));
                                 $.ajax({
                                     url: $(obj).data('url'),
                                     data: $('#{$formid}').serialize(),
                                     type:'post',
                                     dataType:'json',
                                     success:function(res){
-                                        layer.closeAll();
+//                                        layer.closeAll();
+                                        alert(res.msg);
                                         if (1 == res.code) {
-                                            layer.msg(res.msg, {time: 1000},function(){
-                                                location.reload();//window.location.href = res.url;
-                                            });
+                                            location.reload();
+//                                            layer.msg(res.msg, {time: 1000},function(){
+//                                                location.reload();
+//                                            });
                                         } else {
-                                            layer.msg(res.msg, {time: 1500, icon: 2},function () {
-                                                if (res.url != null && res.url != ''){
+                                            if (res.url != null && res.url != ''){
                                                     window.location.href = res.url;
                                                 }else{
                                                     $('#LAY-user-get-vercode').trigger('click');
                                                 }
-                                            });
+//                                            layer.msg(res.msg, {time: 1500, icon: 2},function () {
+//                                                if (res.url != null && res.url != ''){
+//                                                    window.location.href = res.url;
+//                                                }else{
+//                                                    $('#LAY-user-get-vercode').trigger('click');
+//                                                }
+//                                            });
                                         }
                                     },
                                     error : function() {
-                                        layer.closeAll();
-                                        layer.alert('网络失败，请刷新页面后重试', {icon: 5, closeBtn: 0});
+                                        alert('网络失败，请刷新页面后重试');
+//                                        layer.closeAll();
+//                                        layer.alert('网络失败，请刷新页面后重试', {icon: 5, closeBtn: 0});
                                     }
                                 });
                             }
+                            $(document).on('click','.changeVerifyRemark', function(){
+                                var src = "{$img_url}";
+                                if (src.indexOf('?') > -1) {
+                                    src += '&';
+                                } else {
+                                    src += '?';
+                                }
+                                src += 'r='+Math.floor(Math.random()*100);
+                                $("#LAY-user-get-vercode").attr('src', src);//重载验证码
+                            });
                         </script>
 
 EOF;
@@ -178,8 +196,8 @@ EOF;
                                             <div class="submit clearfix">
                                                 <div class="verify fl">
                                                     <input type="text" placeholder="填写验证码" name="verify" id="verify">
-                                                    <img src="'.$img_url.'" style="height: 40px;" class="changeVerify" id="LAY-user-get-vercode" alt="验证码">
-                                                    <span class="changeVerify">换一张</span>
+                                                    <img src="'.$img_url.'" style="height: 40px;" class="changeVerifyRemark" id="LAY-user-get-vercode" alt="验证码">
+                                                    <span class="changeVerifyRemark">换一张</span>
                                                 </div>
                                                 <input type="hidden" id="price" name="price" value="3">
                                                 <input type="hidden" id="place" name="place" value="3">
@@ -190,7 +208,7 @@ EOF;
                                                 <input type="hidden"  name="aid" value="'.$aid.'">
                                                  <input type="hidden" name="__token__'.$token_id.'" id="'.$token_id.'" value="" />
                                                 <div class="sub-btn">
-                                                    <input type="button" class="but11 sub-comment" data-url="'.$SubmitAdd.'" onclick="SubmitData(this);" value="提交">
+                                                    <input type="button" class="but11 sub-comment" data-url="'.$SubmitAdd.'" onclick="SubmitRemarkData(this);" value="提交">
                                                 </div>
                                             </div>
                                         </div>

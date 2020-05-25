@@ -105,6 +105,10 @@ class Base extends Common {
         }
         $this->assign('is_wechat_applets',$is_wechat_applets);
         $this->assign('eju',$this->eju);
+        $this->assign('menu',getMenuList());
+        $this->assign('home_url', $this->request->domain().ROOT_DIR.'/');
+
+
     }
     /*
      * 获取用户基本信息

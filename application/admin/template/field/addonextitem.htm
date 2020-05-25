@@ -68,30 +68,30 @@
                 <!-- 多行文本框 end -->
             {/case}
 
-            {case value="checkbox"}
-                <!-- 复选框 start -->
-                <div class="layui-form-item">
-                    <label class="layui-form-label">{if condition="isset($vo['ifrequire']) AND !empty($vo['ifrequire'])"}<b>*</b>{/if}{$vo.title|default=''}</label>
-                    <div class="layui-input-inline w500">
-                        {volist name="$vo.dfvalue" id="v2"}
-                        <input type="checkbox" lay-skin="primary" lay-filter="addonFieldExt" name="{$vo.fieldArr}[{$vo.name|default=''}][]" data-callback="func_{$vo.name}_eyempty" value="{$v2}" {if condition="isset($vo['trueValue']) AND in_array($v2, $vo['trueValue'])"}checked="checked"{/if} title="{$v2}">
-                        {/volist}
-                        <input type="hidden" name="{$vo.fieldArr}[{$vo.name}_eyempty]" value="{if condition="!empty($vo['trueValue'])"}1{else /}0{/if}">
-                    </div>
-                    <div class="layui-input-inline layui-btn-container " style="width: auto;">
-                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
-                        <div class="layui-form-inline2 ey_helptips_txt">{$vo.remark|default=''}</div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    function func_{$vo.name}_eyempty()
-                    {
-                        var len = $("input[name='{$vo.fieldArr}[{$vo.name}][]']:checked").length;
-                        $("input[name='{$vo.fieldArr}[{$vo.name}_eyempty]']").val(len);
-                    }
-                </script>
-                <!-- 复选框 end -->
-            {/case}
+{case value="checkbox"}
+<!-- 复选框 start -->
+<div class="layui-form-item">
+    <label class="layui-form-label">{if condition="isset($vo['ifrequire']) AND !empty($vo['ifrequire'])"}<b>*</b>{/if}{$vo.title|default=''}</label>
+    <div class="layui-input-inline w500">
+        {volist name="$vo.dfvalue" id="v2"}
+        <input type="checkbox" lay-skin="primary" lay-filter="addonFieldExt" name="{$vo.fieldArr}[{$vo.name|default=''}][]" data-callback="func_{$vo.name}_eyempty" value="{$v2}" {if condition="isset($vo['trueValue']) AND in_array($v2, $vo['trueValue'])"}checked="checked"{/if} title="{$v2}">
+        {/volist}
+        <input type="hidden" name="{$vo.fieldArr}[{$vo.name}_eyempty]" value="{if condition="!empty($vo['trueValue'])"}1{else /}0{/if}">
+    </div>
+    <div class="layui-input-inline layui-btn-container " style="width: auto;">
+        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+        <div class="layui-form-inline2 ey_helptips_txt">{$vo.remark|default=''}</div>
+    </div>
+</div>
+<script type="text/javascript">
+    function func_{$vo.name}_eyempty()
+    {
+        var len = $("input[name='{$vo.fieldArr}[{$vo.name}][]']:checked").length;
+        $("input[name='{$vo.fieldArr}[{$vo.name}_eyempty]']").val(len);
+    }
+</script>
+<!-- 复选框 end -->
+{/case}
 
             {case value="radio"}
                 <!-- 单选项 start -->
@@ -165,12 +165,12 @@
                               </span>
                             </div>
                             <div class="cover-bg none"></div>
-                            <img id="img_{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" src="{$vo[$vo['name'].'_eyou_local']|get_default_pic=###}">
+                            <img id="img_{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" src="{$vo[$vo['name'].'_eyou_remote']|get_default_pic=###}">
                           </div>
                           <div class="upload-right fl">
                             <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'{$vo.fieldArr}_{$vo.name|default=''}_eyou_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
                             <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'{$vo.fieldArr}_{$vo.name|default=''}_eyou_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
-                            <input name="{$vo.fieldArr}[{$vo.name|default=''}_eyou_local]" id="{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" placeholder="图片地址" value="{$vo[$vo['name'].'_eyou_local']|default=''}" class="layui-input">
+                            <input name="{$vo.fieldArr}[{$vo.name|default=''}_eyou_local]" id="{$vo.fieldArr}_{$vo.name|default=''}_eyou_local" placeholder="图片地址" value="{$vo[$vo['name'].'_eyou_remote']|default=''}" class="layui-input">
                           </div>
                         </div>
                     </div>
@@ -191,9 +191,9 @@
                         <button class="layui-btn layui-btn-sm fl" onClick="GetPictureFolder(100,'{$vo.fieldArr}_{$vo.name|default=''}','{$vo.fieldArr}_{$vo.name|default=''}_call_back');"><i class="layui-icon">&#xe64a;</i>图库</button>
                     </div>
                 </div>
-                <div class="layui-form-item " id="dl_{$vo.fieldArr}_{$vo.name|default=''}">
+                <div class="layui-form-item " >
                     <label class="layui-form-label"></label>
-                    <div class="edit-box-con2 fl sort-list-{$vo.fieldArr}_{$vo.name|default=''}">
+                    <div class="edit-box-con2 fl sort-list-{$vo.fieldArr}_{$vo.name|default=''}" id="dl_{$vo.fieldArr}_{$vo.name|default=''}">
                         {volist name="$vo[$vo['name'].'_eyou_imgupload_list']" id="v2" key="k2"}
                         <div class="images-upload">
                             <div class="upimg">
@@ -204,6 +204,7 @@
                             </div>
                         </div>
                         {/volist}
+                        <div class="images-upload" style="display: none;"></div>
                     </div>
                 </div>
                 <!-- 上传图片显示的样板 start -->
@@ -389,3 +390,10 @@
         {/switch}
     {/if}
 {/volist}
+<script>
+    //判断复选框是否为空
+    function checkbox_is_empty(fieldArr,name){
+        var len = $("input[name='"+fieldArr+"["+name+"][]']:checked").length;
+        $("input[name='"+fieldArr+"["+name+"_eyempty]']").val(len);
+    }
+</script>

@@ -133,7 +133,7 @@
                                                     <label class="layui-form-label">{notempty name="$addonFieldExtList.total_price.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['total_price']['title']}</label>
                                                     <div class="layui-input-inline w-in" >
                                                         <div class="layui-input-inline w135" >
-                                                            <input type="text" name="addonFieldSys[total_price]" id="total_price"  placeholder="12000"  lay-verify="check_price" value="" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');">
+                                                            <input type="text" name="addonFieldSys[total_price]" id="total_price"  placeholder="12000"  lay-verify="check_price" value="" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" onpaste="this.value=this.value.replace(/[^0-9.]/g,'');">
                                                         </div>
                                                         <div class="layui-input-inline w120 {empty name="$addonFieldExtList['price_units']['ifeditable']"}none{/empty}" >
                                                         <select name="addonFieldSys[price_units]" id="price_units">
@@ -266,35 +266,35 @@
         <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_miankuan']['ifeditable']"}none{/empty}">
             <label class="layui-form-label">{notempty name="$addonFieldExtList.diy_miankuan.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['diy_miankuan']['title']}</label>
             <div class="layui-input-inline w-in">
-                <input type="text"  name="addonFieldExt[diy_miankuan]" id="diy_miankuan" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['diy_miankuan']['remark']}"  value="{$addonFieldExtList['diy_miankuan']['dfvalue']}" class="layui-input">
+                <input type="text"  name="addonFieldExt[diy_miankuan]" id="diy_miankuan" placeholder="{$addonFieldExtList['diy_miankuan']['remark']}"  value="{$addonFieldExtList['diy_miankuan']['dfvalue']}" class="layui-input">
             </div>
             <div class="layui-input-inline layui-input-company">{$addonFieldExtList['diy_miankuan']['dfvalue_unit']}</div>
         </div>
         <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_cenggao']['ifeditable']"}none{/empty}">
             <label class="layui-form-label">{notempty name="$addonFieldExtList.diy_cenggao.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['diy_cenggao']['title']}</label>
             <div class="layui-input-inline w-in">
-                <input type="text"  name="addonFieldExt[diy_cenggao]" id="diy_cenggao" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['diy_cenggao']['remark']}"  value="{$addonFieldExtList['diy_cenggao']['dfvalue']}" class="layui-input">
+                <input type="text"  name="addonFieldExt[diy_cenggao]" id="diy_cenggao" placeholder="{$addonFieldExtList['diy_cenggao']['remark']}"  value="{$addonFieldExtList['diy_cenggao']['dfvalue']}" class="layui-input">
             </div>
             <div class="layui-input-inline layui-input-company">{$addonFieldExtList['diy_cenggao']['dfvalue_unit']}</div>
         </div>
         <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_jinshen']['ifeditable']"}none{/empty}">
             <label class="layui-form-label">{notempty name="$addonFieldExtList.diy_jinshen.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['diy_jinshen']['title']}</label>
             <div class="layui-input-inline w-in">
-                <input type="text"  name="addonFieldExt[diy_jinshen]" id="diy_jinshen" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['diy_jinshen']['remark']}"  value="{$addonFieldExtList['diy_jinshen']['dfvalue']}" class="layui-input">
+                <input type="text"  name="addonFieldExt[diy_jinshen]" id="diy_jinshen" placeholder="{$addonFieldExtList['diy_jinshen']['remark']}"  value="{$addonFieldExtList['diy_jinshen']['dfvalue']}" class="layui-input">
             </div>
             <div class="layui-input-inline layui-input-company">{$addonFieldExtList['diy_jinshen']['dfvalue_unit']}</div>
         </div>
         <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_xgfy']['ifeditable']"}none{/empty}">
             <label class="layui-form-label">{notempty name="$addonFieldExtList.diy_xgfy.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['diy_xgfy']['title']}</label>
             <div class="layui-input-inline w-in">
-                <input type="text"  name="addonFieldExt[diy_xgfy]" id="diy_xgfy" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['diy_xgfy']['remark']}"  value="{$addonFieldExtList['diy_xgfy']['dfvalue']}" class="layui-input">
+                <input type="text"  name="addonFieldExt[diy_xgfy]" id="diy_xgfy" placeholder="{$addonFieldExtList['diy_xgfy']['remark']}"  value="{$addonFieldExtList['diy_xgfy']['dfvalue']}" class="layui-input">
             </div>
             <div class="layui-input-inline layui-input-company">{$addonFieldExtList['diy_xgfy']['dfvalue_unit']}</div>
         </div>
         <div class="w-out fl mt15 {empty name="$addonFieldExtList['diy_jgmy']['ifeditable']"}none{/empty}">
             <label class="layui-form-label">{notempty name="$addonFieldExtList.diy_jgmy.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['diy_jgmy']['title']}</label>
             <div class="layui-input-inline w-in">
-                <input type="text"  name="addonFieldExt[diy_jgmy]" id="diy_jgmy" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['diy_jgmy']['remark']}"  value="{$addonFieldExtList['diy_jgmy']['dfvalue']}" class="layui-input">
+                <input type="text"  name="addonFieldExt[diy_jgmy]" id="diy_jgmy" placeholder="{$addonFieldExtList['diy_jgmy']['remark']}"  value="{$addonFieldExtList['diy_jgmy']['dfvalue']}" class="layui-input">
             </div>
             <div class="layui-input-inline layui-input-company">{$addonFieldExtList['diy_jgmy']['dfvalue_unit']}</div>
         </div>

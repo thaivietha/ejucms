@@ -232,7 +232,7 @@
                                     <div class="layui-input-inline2 w200">
                                         <select name="addonFieldSys[area]" id="area"  lay-filter="area">
                                             <option value="">请选择</option>
-                                            {volist name=":get_qiuzu_area_list()" id="v2"}
+                                            {volist name="$qiuzu_area_list" id="v2"}
                                             <option value="{$v2.value}" {if condition="isset($addonFieldExtList['area_min']['dfvalue']) AND ($v2['min'] eq $addonFieldExtList['area_min']['dfvalue']) AND isset($addonFieldExtList['area_max']['dfvalue']) AND ($v2['max'] eq $addonFieldExtList['area_max']['dfvalue'])"}selected{/if} >{$v2.name}</option>
                                             {/volist}
                                             <option value="0">其他</option>
@@ -268,7 +268,7 @@
                                         {volist name=":get_qiuzu_price_list()" id="v2"}
                                         <option value="{$v2.value}" {if condition="isset($addonFieldExtList['price_min']['dfvalue']) AND ($v2['min'] eq $addonFieldExtList['price_min']['dfvalue']) AND isset($addonFieldExtList['price_max']['dfvalue']) AND ($v2['max'] eq $addonFieldExtList['price_max']['dfvalue'])"}selected{/if}>{$v2.name}</option>
                                         {/volist}
-                                        <option value="0" >其他</option>
+                                        <option value="0">其他</option>
 
                                     </select>
                                 </div>
@@ -384,11 +384,9 @@
         set_city_list(city_id);
         var area_id = "{$field.area_id}";
         set_area_list(area_id);
-        var area = "{$addonFieldExtList.area_min.dfvalue}" + "," + "{$addonFieldExtList.area_max.dfvalue}";
-        area_value(area);
+        area_value();
         price_select("{$addonFieldExtList.price_type.trueValue[0]}");
-        var price = "{$addonFieldExtList.price_min.dfvalue}" + "," + "{$addonFieldExtList.price_max.dfvalue}";
-        price_value(price);
+        price_value();
     });
     //光标离开楼盘地址编辑，自动获取坐标
     $("#address").on('blur',function(){
@@ -611,15 +609,12 @@
         });
     }
     //判断是否显示填空区域
-    function area_value(data){
-        if(data == '0'){
-            $("#area_min").val("");
-            $("#area_max").val("");
+    function area_value(){
+        var area = $("#area").val();
+        if(area == '' || area == '0'){
             $("#area_value_div").show();
+            $("#area").val(0);
         }else{
-            var arr = data.split(',');
-            $("#area_min").val(arr[0]);
-            $("#area_max").val(arr[1]);
             $("#area_value_div").hide();
         }
     }
@@ -635,15 +630,12 @@
             $("#price_value_div").hide();
         }
     }
-    function price_value(data){
-        if(data == '0'){
-            $("#price_min").val("");
-            $("#price_max").val("");
+    function price_value(){
+        var price = $("#price").val();
+        if(price == '' || price == '0'){
             $("#price_value_div").show();
+            $("#price").val(0);
         }else{
-            var arr = data.split(',');
-            $("#price_min").val(arr[0]);
-            $("#price_max").val(arr[1]);
             $("#price_value_div").hide();
         }
     }

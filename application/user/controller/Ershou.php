@@ -82,6 +82,7 @@ class Ershou extends Base
         $assign_data['pager'] = $Page; // 赋值分页对象
         $assign_data['type_info'] = $this->type_info;
         $assign_data['table'] = $this->table;
+        $assign_data['top_title'] = "我出售的房源({$count})套";
         $this->assign($assign_data);
 
 
@@ -89,8 +90,8 @@ class Ershou extends Base
     }
     public function add(){
         $permission = model('users')->getPermission($this->users,1);
-        if (!$permission){
-            $this->error("您已经没有操作条数", url("Ershou/index"));
+        if (empty($permission)){
+            $this->error("您剩余操作余额不够", url("Ershou/index"));
         }
         $channelList = getChanneltypeList();
         $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
@@ -203,7 +204,7 @@ class Ershou extends Base
                 // ---------后置操作
                 model($this->table)->afterSave($aid, $data, 'add');
                 // ---------end
-                model('users')->changeContent($this->users_id,1,$aid);
+                model('users')->changeContent($this->users,1,$aid,$permission[1]);
                 del_archives_chache([$aid]);
                 del_type_chache([$this->type_info['id']]);
                 adminLog('新增数据：'.$data['title']);
@@ -239,6 +240,7 @@ class Ershou extends Base
         $assign_data['price_units'] = !empty($join['price_units']) ? $join['price_units']:'元/㎡';
         $assign_data['searchurl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxList") : '';
         $assign_data['checkurl'] = !empty($channelJoin['ctl_name']) ? url($channelJoin['ctl_name']."/ajaxCheck") : '';
+        $assign_data['top_title'] = "添加二手房";
 
         $this->assign($assign_data);
 

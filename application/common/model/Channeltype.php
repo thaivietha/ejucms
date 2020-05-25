@@ -14,7 +14,7 @@
 namespace app\common\model;
 
 use think\Model;
-
+use think\Db;
 /**
  * 模型
  */
@@ -33,7 +33,7 @@ class Channeltype extends Model
      */
     public function getInfo($id)
     {
-        $result = M('channeltype')->field('*')->cache(true,EYOUCMS_CACHE_TIME,"channeltype")->find($id);
+        $result = Db::name('channeltype')->field('*')->cache(true,EYOUCMS_CACHE_TIME,"channeltype_id_".$id)->find($id);
 
         return $result;
     }
@@ -44,7 +44,7 @@ class Channeltype extends Model
      */
     public function getInfoByWhere($where, $field = '*')
     {
-        $result = M('channeltype')->field($field)->where($where)->find();
+        $result = Db::name('channeltype')->field($field)->where($where)->find();
 
         return $result;
     }
@@ -58,7 +58,7 @@ class Channeltype extends Model
         $map = array(
             'id'   => array('IN', $ids),
         );
-        $result = db('Channeltype')->field($field)
+        $result = Db::name('Channeltype')->field($field)
             ->where($map)
             ->order('sort_order asc')
             ->select();
@@ -84,7 +84,7 @@ class Channeltype extends Model
         $cacheKey = json_encode($cacheKey);
         $result = cache($cacheKey);
         if (empty($result)) {
-            $result = db('channeltype')->field($field)
+            $result = Db::name('channeltype')->field($field)
                 ->where($map)
                 ->order('sort_order asc, id asc')
                 ->select();
@@ -111,7 +111,7 @@ class Channeltype extends Model
                 'b.status'    => 1,
                 'b.is_del'    => 0,
             );
-            $result = M('Channeltype')->field('b.*, a.*, b.id as typeid')
+            $result = Db::name('Channeltype')->field('b.*, a.*, b.id as typeid')
                 ->alias('a')
                 ->join('__ARCTYPE__ b', 'b.current_channel = a.id', 'LEFT')
                 ->where($map)
@@ -121,7 +121,7 @@ class Channeltype extends Model
                 ->getAllWithIndex('nid');
 
         } else {
-            $result = M('Channeltype')->field('b.*, a.*, b.id as typeid')
+            $result = Db::name('Channeltype')->field('b.*, a.*, b.id as typeid')
                 ->alias('a')
                 ->join('__ARCTYPE__ b', 'b.current_channel = a.id', 'LEFT')
                 ->group('a.id')
@@ -148,8 +148,8 @@ class Channeltype extends Model
     public function getInfoByAid($aid)
     {
         $result = array();
-        $res1 = M('archives')->where(array('aid'=>$aid))->find();
-        $res2 = M('Channeltype')->where(array('id'=>$res1['channel']))->find();
+        $res1 = Db::name('archives')->where(array('aid'=>$aid))->find();
+        $res2 = Db::name('Channeltype')->where(array('id'=>$res1['channel']))->find();
 
         if (is_array($res1) && is_array($res2)) {
             $result = array_merge($res1, $res2);
@@ -186,11 +186,11 @@ class Channeltype extends Model
         $ctl_name_arr = array_unique($ctl_name_arr);
 
         if (!empty($ctl_name_arr)) {
-            \think\Db::name('Channeltype')->where('id > 0')->cache(true,null,"channeltype")->update(array('status'=>0, 'update_time'=>getTime()));
+            Db::name('Channeltype')->where('id > 0')->cache(true,null,"channeltype")->update(array('status'=>0, 'update_time'=>getTime()));
             $map = array(
                 'ctl_name'  => array('IN', $ctl_name_arr),
             );
-            \think\Db::name('Channeltype')->where($map)->cache(true,null,"channeltype")->update(array('status'=>1, 'update_time'=>getTime()));
+            Db::name('Channeltype')->where($map)->cache(true,null,"channeltype")->update(array('status'=>1, 'update_time'=>getTime()));
         } 
     }
 }

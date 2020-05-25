@@ -85,7 +85,7 @@ class Response
         $data = $this->getContent();
 
         // 调试注入
-        if (false) {
+        if (Env::get('app_trace', Config::get('app_trace'))) {
             Debug::inject($this, $data);
         }
 

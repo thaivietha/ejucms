@@ -88,9 +88,10 @@ class Officecs extends Base
     }
     public function add(){
         $permission = model('users')->getPermission($this->users,9);
-        if (!$permission){
-            $this->error("您已经没有操作条数", url("officecs/index"));
+        if (empty($permission)){
+            $this->error("您剩余操作余额不够", url("officecs/index"));
         }
+
         $channelList = getChanneltypeList();
         $channelOrigin = $channelList[$this->channeltype];  //本模型channel信息
         $channelJoin = $channelList[$channelOrigin['join_id']];   //关联channel信息
@@ -198,7 +199,7 @@ class Officecs extends Base
                 // ---------后置操作
                 model($this->table)->afterSave($aid, $data, 'add');
                 // ---------end
-                model('users')->changeContent($this->users_id,9,$aid);
+                model('users')->changeContent($this->users,9,$aid,$permission[1]);
                 adminLog('新增数据：'.$data['title']);
                 del_archives_chache([$aid]);
                 del_type_chache([$this->type_info['id']]);

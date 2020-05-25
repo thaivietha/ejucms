@@ -9,7 +9,7 @@
                   <div class="layui-form-item">
                     <label class="layui-form-label"><b>*</b>字段标题</label>
                     <div class="layui-input-inline">
-                     <input type="text" name="title" value="" lay-verify="required" class="layui-input">
+                     <input type="text" name="title" value="" lay-verify="required|check_title" class="layui-input">
                     </div>
                   </div>
                   <div class="layui-form-item">
@@ -189,6 +189,8 @@
             return '字段名称格式不正确！';
         } else if(/^type/.test(value)){
             return '字段名称不允许以type开头！';
+        }else if(name.length > 30){
+            return '字段名称最多30个字符！';
         }
       }
        ,check_short_name:function(value, item){
@@ -197,6 +199,14 @@
                 return '字段名称不能纯数字！';
             } else if (/^((_+)|(\d+))$/.test(value) || !/^(\w+)$/.test(value)) {
                 return '字段名称格式不正确！';
+            }else if(name.length > 10){
+                return '字段简称最多10个字符！';
+            }
+        }
+        ,check_title:function(value, item){
+            var name = $('input[name="title"]').val();
+            if(name.length > 30){
+                return '字段标题最多30个字符！';
             }
         }
       ,check_dtype: function(value, item){

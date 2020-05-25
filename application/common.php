@@ -215,9 +215,8 @@ if (!function_exists('write_html_cache'))
         if ($html_cache_status && !empty($html_cache_arr) && !empty($html)) {
             $request = \think\Request::instance();
             $param = input('param.');
-
             /*区域子站点*/
-            $subDomain = $request->param('subdomain');
+            $subDomain = \think\Cookie::get('subdomain');//$request->param('subdomain');
             empty($subDomain) && $subDomain = $request->subDomain();
             $param['subdomain'] = $subDomain;
             /*end*/
@@ -276,7 +275,6 @@ if (!function_exists('write_html_cache'))
                             $param['tid']   = $tid;
                         }
                     }
-
                     foreach ($val['p'] as $k=>$v) {
                         if (isset($param[$v])) {
                             if (preg_match('/\/$/i', $filename)) {
@@ -345,7 +343,7 @@ if (!function_exists('read_html_cache'))
             $param = input('param.');
 
             /*区域子站点*/
-            $subDomain = $request->param('subdomain');
+            $subDomain = \think\Cookie::get('subdomain');//$request->param('subdomain');
             empty($subDomain) && $subDomain = $request->subDomain();
             $param['subdomain'] = $subDomain;
             /*end*/
@@ -472,7 +470,7 @@ if (!function_exists('del_archives_chache')){
         if (1 == intval($web_cmsmode)) { // 页面html静态永久缓存
             foreach ($aids as $aid) {
                 if (!empty($clomn)) {
-                    $fileList = glob(HTML_ROOT . 'http*/' . $html_cache_arr['home_View_index']['filename'] . '*_html/*' . $aid . '_' . $clomn . '.html');
+                    $fileList = glob(HTML_ROOT . 'http*/' . $html_cache_arr['home_View_index']['filename'] . '*_html/*' . $aid . '_*' . $clomn . '.html');
                 } else {
                     $fileList = glob(HTML_ROOT . 'http*/' . $html_cache_arr['home_View_index']['filename'] . '*_html/*' . $aid . '*.html');
                 }
@@ -704,7 +702,7 @@ if (!function_exists('thumb_img'))
         // 缩略图优先级别高于七牛云，自动把七牛云的图片路径转为本地图片路径，并且进行缩略图
         $original_img = is_local_images($original_img);
 
-        // 未开启缩略图，或远程图片
+        // 不存在图片，或图片为远程图片
         if (is_http_url($original_img) || stristr($original_img, '/public/static/common/images/not_adv.jpg')) {
             return $original_img;
         } else if (empty($original_img)) {
@@ -1123,13 +1121,14 @@ if (!function_exists('get_region_list')){
     {
         $result = extra_cache('global_get_region_list');
         if (empty($result)) {
-            $result = M('region')->field('id, name, domain, parent_id,level')
+            $result = \think\Db::name('region')->field('id, name, domain, parent_id,level')
                 ->where('status',1)
                 ->order("sort_order asc")
+                ->cache(true,EYOUCMS_CACHE_TIME,"global_get_region_list")
                 ->getAllWithIndex('id');
-
             extra_cache('global_get_region_list', $result);
         }
+
         return $result;
     }
 }
@@ -1141,10 +1140,11 @@ if (!function_exists('get_province_list')){
     {
         $result = extra_cache('global_get_province_list');
         if (empty($result)) {
-            $result = M('region')->field('id, name, domain, parent_id')
+            $result = \think\Db::name('region')->field('id, name, domain, parent_id')
                 ->where('level',1)
                 ->where('status',1)
                 ->order("sort_order asc")
+                ->cache(true,EYOUCMS_CACHE_TIME,"global_get_province_list")
                 ->getAllWithIndex('id');
 
             extra_cache('global_get_province_list', $result);
@@ -1160,9 +1160,10 @@ if (!function_exists('get_city_list')){
     {
         $result = extra_cache('global_get_city_list');
         if (empty($result)) {
-            $result = M('region')->field('id, name, parent_id')
+            $result = \think\Db::name('region')->field('id, name, parent_id')
                 ->where('level',2)
                 ->where('status',1)
+                ->cache(true,EYOUCMS_CACHE_TIME,"global_get_city_list")
                 ->getAllWithIndex('id');
             extra_cache('global_get_city_list', $result);
         }
@@ -1178,9 +1179,10 @@ if (!function_exists('get_area_list')){
     {
         $result = extra_cache('global_get_area_list');
         if (empty($result)) {
-            $result = M('region')->field('id, name, parent_id')
+            $result = \think\Db::name('region')->field('id, name, parent_id')
                 ->where('level',3)
                 ->where('status',1)
+                ->cache(true,EYOUCMS_CACHE_TIME,"global_get_area_list")
                 ->getAllWithIndex('id');
             extra_cache('global_get_area_list', $result);
         }
@@ -1196,10 +1198,11 @@ if (!function_exists('get_next_region_list')){
     function get_next_region_list($pid){
         $result = extra_cache('global_next_region_list'.$pid);
         if ($result == false) {
-            $result = M('region')->field('id,id as rid, name,domain,level')
+            $result = \think\Db::name('region')->field('id,id as rid, name,domain,level')
                 ->where('status',1)
                 ->where('parent_id',$pid)
                 ->order("sort_order asc")
+                ->cache(true,EYOUCMS_CACHE_TIME,'global_next_region_list'.$pid)
                 ->getAllWithIndex('id');
             extra_cache('global_next_region_list'.$pid, $result);
         }
@@ -1383,9 +1386,13 @@ if (!function_exists('SynchronizeQiniu'))
     {
         static $Qiniuyun = null;
         // 若没有传入配信信息则读取数据库
+        $speed = tpCache('speed');   //判断是否设置开启了七牛云
+        if (empty($speed['speed_open']) || empty($speed['speed_platform']) || $speed['speed_platform'] != 1){
+            return $images;
+        }
         if (null == $Qiniuyun) {
             // 需要填写你的 Access Key 和 Secret Key
-            $data     = M('weapp')->where('code','Qiniuyun')->field('data')->find();
+            $data     = M('weapp')->where(['code'=>'Qiniuyun','status'=>1])->field('data')->find();
             $Qiniuyun = json_decode($data['data'], true);
         }
         // 配置为空则返回原图片路径
@@ -1867,7 +1874,7 @@ if (!function_exists('getOrderBy'))
             default:
             {
                 if (empty($orderby)) {
-                    $orderby = 'a.sort_order asc, a.show_time desc';
+                    $orderby = 'a.sort_order desc, a.show_time desc';
                 } elseif (trim($orderby) != 'rand()') {
                     $orderbyArr = explode(',', $orderby);
                     foreach ($orderbyArr as $key => $val) {
@@ -2024,7 +2031,7 @@ if (!function_exists('getParentRegionId')){
         $countnext++;
         $regionArr[] = $id;
         if(!empty($id)){
-            $list = db('region')->field('id,parent_id')->where('id='.$id)->find();
+            $list = \think\Db::name('region')->field('id,parent_id')->where('id='.$id)->find();
             if($list && $list['parent_id']!=0){
                 getParentRegionId($list['parent_id']);
             }
@@ -2105,12 +2112,14 @@ if (!function_exists('get_next_info_list')){
 if (!function_exists('get_info_list')){
     function get_info_list($table = 'region',$id = 'id',$map = "")
     {
-        $result = extra_cache("global_get_{$table}_list");
+        $map_json = json_encode($map);
+        $result = extra_cache("global_get_{$table}_list".$map_json);
         if ($result == false) {
-            $result = db($table)->field("*")
+            $result = \think\Db::name($table)->field("*")
                 ->where($map)
+                ->cache(true,EYOUCMS_CACHE_TIME,"global_get_{$table}_list".$map_json)
                 ->getAllWithIndex($id);
-            extra_cache("global_get_{$table}_list", $result);
+            extra_cache("global_get_{$table}_list".$map_json, $result);
         }
 
         return $result;
@@ -2237,7 +2246,7 @@ if (!function_exists('getScreeningFieldName')){
         if (!empty($channel_id)){
             $map['channel_id'] = $channel_id;
         }
-        return \think\Db::name("channelfield")->where($map)->getField("name",true);
+        return \think\Db::name("channelfield")->where($map)->cache(true,EYOUCMS_CACHE_TIME,"channelfield".$channel_id)->getField("name",true);
     }
 }
 if (!function_exists('getUsersConfigData'))
@@ -2465,12 +2474,9 @@ if(!function_exists('get_route_field_list')){
     function get_route_field_list($group = ''){
         $result = extra_cache('global_get_route_field_list');
         if (empty($result)) {
+            $result = [];
             $route_list = config('route');
-            $list = \think\Db::name("channelfield")->field("channel_id,name,short_name")->where("is_screening=1 and channel_id>0")->order("name asc")->select();
-            $result = $list_group = [];
-            foreach ($list as $val){
-                $list_group[$val['channel_id']][] = $val;
-            }
+            $list_group = get_all_channelfield_short_name_list();
             foreach ($list_group as $key=>$val){
                 $temp = $temp_result = [];
                 $count = count($val);
@@ -2484,9 +2490,6 @@ if(!function_exists('get_route_field_list')){
                 for ($i=1;$i<$count+1;$i++){
                     $temp_result = array_merge($temp_result,getCombinationToString($temp,$i));  //合并数据
                 }
-//                for ($i=$count;$i>0;$i--){
-//                    $temp_result = array_merge($temp_result,getCombinationToString($temp,$i));  //合并数据
-//                }
                 if ($group){
                     $result[$key] = $temp_result;
                 }else{
@@ -2494,6 +2497,24 @@ if(!function_exists('get_route_field_list')){
                 }
             }
             extra_cache('global_get_route_field_list', $result);
+        }
+        return $result;
+    }
+}
+if(!function_exists('get_all_channelfield_short_name_list')){
+    /*
+     * 获取所有route值
+     *$group      是否需要根据频道分组
+     */
+    function get_all_channelfield_short_name_list(){
+        $result = extra_cache('all_channelfield_short_name_list');
+        if (empty($result)) {
+            $list = \think\Db::name("channelfield")->field("channel_id,name,short_name")->where("is_screening=1 and channel_id>0")->order("name asc")->select();
+            $result = [];
+            foreach ($list as $val){
+                $result[$val['channel_id']][] = $val;
+            }
+            extra_cache('all_channelfield_short_name_list', $result);
         }
 
         return $result;
@@ -2533,16 +2554,6 @@ if(!function_exists('getCombinationToString')){
         return $result;
     }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 

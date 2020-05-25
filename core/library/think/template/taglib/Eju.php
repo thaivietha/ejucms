@@ -30,14 +30,14 @@ class Eju extends Taglib
         'php'        => ['attr' => ''],
         'channel'    => ['attr' => 'typeid,notypeid,reid,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit,hidden'],
         'channelartlist' => ['attr' => 'typeid,type,row,id,key,empty,titlelen,mod'],
-        'arclist'    => ['attr' => 'users_id,channelid,typeid,notypeid,row,offset,titlelen,limit,orderby,orderway,noflag,flag,infolen,empty,mod,name,id,key,addfields,tagid,pagesize,thumb,joinaid,province,city,area,screen,addwhere,map,mapkey'],
+        'arclist'    => ['attr' => 'users_id,channelid,typeid,notypeid,row,offset,titlelen,limit,orderby,orderway,noflag,flag,infolen,empty,mod,name,id,key,addfields,tagid,pagesize,thumb,joinaid,province,city,area,screen,addwhere,map,mapkey,relate,re_area,re_xiaoqu'],
         'arcpagelist'=> ['attr' => 'tagid,pagesize,id,tips,loading,callback'],
-        'list'       => ['attr' => 'users_id,channelid,typeid,notypeid,pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,addfields,thumb,joinaid'],
+        'list'       => ['attr' => 'users_id,channelid,typeid,notypeid,pagesize,titlelen,orderby,orderway,noflag,flag,infolen,empty,mod,id,key,addfields,thumb,joinaid,relate,re_area,re_xiaoqu'],
         'pagelist'   => ['attr' => 'listitem,listsize', 'close' => 0],
         'countlist'   => ['attr' => '', 'close' => 0],
         'position'   => ['attr' => 'symbol,style', 'close' => 0],
         'type'       => ['attr' => 'typeid,type,empty,dirname,id,addfields,addtable'],
-        'arcview'    => ['attr' => 'aid,empty,id,addfields,huxing,photo,price'],
+        'arcview'    => ['attr' => 'aid,empty,id,fields,addfields,huxing,photo,price'],
         'arcclick'   => ['attr' => '', 'close' => 0],
         'load'       => ['attr' => 'file,href,type,value,basepath', 'close' => 0, 'alias' => ['import,css,js', 'type']],
         'assign'     => ['attr' => 'name,value', 'close' => 0],
@@ -76,7 +76,7 @@ class Eju extends Taglib
         'attr'       => ['attr' => 'aid,name', 'close' => 0],
         'weapplist'  => ['attr' => 'type,id,key,mod,empty,currentstyle'], // 网站应用插件列表
         // 筛选搜索，region：是否关联区域显示，domain:是否开启二级域名（1：显示同级区域跳转到二级域名首页，0：显示下级区域，跳转到楼盘筛选）
-        'screening' => ['attr' => 'empty,id,mod,key,currentstyle,addfields,addfieldids,alltxt,target,region,domain,show,opencity,ajax,present'],
+        'screening' => ['attr' => 'empty,id,mod,key,currentstyle,addfields,addfieldids,alltxt,target,region,domain,show,opencity,ajax,present,regionid'],
         //表单标签
         'inputform'=> ['attr' => 'formid,name,empty,id,success,class'],
         //表单标签
@@ -94,7 +94,7 @@ class Eju extends Taglib
         //周边环境
         'surroundings' => ['attr' => 'id,key,mod,field,canvas,tag,select,total,tab,result'],
         // 区域列表
-        'region'    => ['attr' => 'typeid,channel,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit,domain,opencity,orderby,orderway,ishot,groupby'],
+        'region'    => ['attr' => 'typeid,channel,type,row,currentstyle,id,name,key,empty,mod,titlelen,offset,limit,domain,opencity,orderby,orderway,ishot,groupby,pricetype,province,city,area'],
         //自定义url
         'diyurl'   => ['attr' => 'aid,type,template', 'close' => 0],
         // 楼盘其他表，比如：户型、相册、价格趋势
@@ -232,9 +232,9 @@ class Eju extends Taglib
         $parseStr .= 'if( count($__LIST__)==0 ) : echo htmlspecialchars_decode("' . $empty . '");';
         $parseStr .= 'else: ';
         $parseStr .= 'foreach($__LIST__ as $key=>$' . $id . '): ';
-        $parseStr .= '$aid = $'.$id.'["aid"];';
-        $parseStr .= '$' . $id . '["title"] = text_msubstr($' . $id . '["title"], 0, '.$titlelen.', false);';
-        $parseStr .= '$' . $id . '["seo_description"] = text_msubstr($' . $id . '["seo_description"], 0, '.$infolen.', true);';
+//        $parseStr .= '$aid = $'.$id.'["aid"];';
+//        $parseStr .= '$' . $id . '["title"] = text_msubstr($' . $id . '["title"], 0, '.$titlelen.', false);';
+//        $parseStr .= '$' . $id . '["seo_description"] = text_msubstr($' . $id . '["seo_description"], 0, '.$infolen.', true);';
 
         $parseStr .= '$' . $key . '= intval($key) + 1;?>';
         $parseStr .= '<?php $mod = ($' . $key . ' % ' . $mod . ' ); ?>';
@@ -503,15 +503,9 @@ class Eju extends Taglib
         $total     = isset($tag['total']) ? $tag['total'] : 'map_total';   //总记录数class
         $total  = $this->varOrvalue($total);
         $tab     = isset($tag['tab']) ? $tag['tab'] : 'lp-map-tab';
-        $tab  = $this->varOrvalue($tab); $select     = isset($tag['select']) ? $tag['select'] : 'lp-map-a';   //选中class
-        $select  = $this->varOrvalue($select);
-        $total     = isset($tag['total']) ? $tag['total'] : 'map_total';   //总记录数class
-        $total  = $this->varOrvalue($total);
-        $tab     = isset($tag['tab']) ? $tag['tab'] : 'lp-map-tab';
         $tab  = $this->varOrvalue($tab);
         $result     = isset($tag['result']) ? $tag['result'] : 'map_result';
         $result  = $this->varOrvalue($result);
-
         $canvas     = isset($tag['canvas']) ? $tag['canvas'] : 'map_canvas';  //地图布景id
         $canvas  = $this->varOrvalue($canvas);
         $tag     = isset($tag['tag']) ? $tag['tag'] : 'lp-map-s';   //选择li的固定class
@@ -997,7 +991,7 @@ class Eju extends Taglib
             $offset = !empty($limitArr[0]) ? intval($limitArr[0]) : 0;
             $row = !empty($limitArr[1]) ? intval($limitArr[1]) : 0;
         }
-        $hidden   = !empty($tag['hidden']) ? $tag['hidden'] : '';   //不传值表示显示不隐藏，on：只显示隐藏，off：隐藏和不隐藏全部显示
+        $hidden   = !empty($tag['hidden']) ? $tag['hidden'] : '';   //不传值表示只显示不隐藏，on：只显示隐藏，off：隐藏和不隐藏全部显示
         // 获取最顶级父栏目ID
         // $topTypeId = 0;
         // if ($tid >0 && $type == 'top') {
@@ -1204,9 +1198,11 @@ class Eju extends Taglib
         }
         $users_id = isset($tag['users_id']) ? $tag['users_id'] : '';    //楼盘所有人
         $users_id  = $this->varOrvalue($users_id);
-
         $map  =  !empty($tag['map']) ? $tag['map'] : "[]";//查询字段内容
         $mapkey = !empty($tag['mapkey']) ? $tag['mapkey'] : "[]";   //查询字段名数组
+        $relate = isset($tag['relate']) ? $tag['relate'] : '0';   //是否需要获取关联经纪人信息
+        $re_area = isset($tag['re_area']) ? $tag['re_area'] : '0';   //是否获取关联经纪人关联区域
+        $re_xiaoqu = isset($tag['re_xiaoqu']) ? $tag['re_xiaoqu'] : '0';   //是否获取关联经纪人关联小区
 
         $parseStr = '<?php ';
         // 声明变量
@@ -1248,6 +1244,9 @@ class Eju extends Taglib
             $parseStr .= '      "area_id"=> '.$area.',';
             $parseStr .= '      "screen"=> '.$screen.',';
             $parseStr .= '      "users_id"=> '.$users_id.',';
+            $parseStr .= '      "relate"=> '.$relate.',';
+            $parseStr .= '      "re_area"=> '.$re_area.',';
+            $parseStr .= '      "re_xiaoqu"=> '.$re_xiaoqu.',';
             $parseStr .= ' );';
             $parseStr .= ' $tag = '.var_export($tag,true).';';
             $parseStr .= ' $tagArclist = new \think\template\taglib\eju\TagArclist;';
@@ -1326,6 +1325,9 @@ class Eju extends Taglib
         $users_id  = $this->varOrvalue($users_id);
         $joinaid   = isset($tag['joinaid']) ? $tag['joinaid'] : '';
         $joinaid  = $this->varOrvalue($joinaid);
+        $relate = isset($tag['relate']) ? $tag['relate'] : '0';   //是否需要获取关联经纪人信息
+        $re_area = isset($tag['re_area']) ? $tag['re_area'] : '0';   //是否获取关联经纪人关联区域
+        $re_xiaoqu = isset($tag['re_xiaoqu']) ? $tag['re_xiaoqu'] : '0';   //是否获取关联经纪人关联小区
         $parseStr = '<?php ';
         // 声明变量
         /*typeid的优先级别从高到低：装修数据 -> 标签属性值 -> 外层标签channelartlist属性值*/
@@ -1342,6 +1344,9 @@ class Eju extends Taglib
         $parseStr .= '      "channel"=> '.$channelid.',';
         $parseStr .= '      "joinaid"=> '.$joinaid.',';
         $parseStr .= '      "users_id"=> '.$users_id.',';
+        $parseStr .= '      "relate"=> '.$relate.',';
+        $parseStr .= '      "re_area"=> '.$re_area.',';
+        $parseStr .= '      "re_xiaoqu"=> '.$re_xiaoqu.',';
         $parseStr .= ' );';
         // $parseStr .= ' $orderby = "'.$orderby.'";';
         $parseStr .= ' $tagList = new \think\template\taglib\eju\TagList;';
@@ -1612,6 +1617,8 @@ class Eju extends Taglib
         $empty  = isset($tag['empty']) ? $tag['empty'] : '';
         $empty  = htmlspecialchars($empty);
         $id     = isset($tag['id']) ? $tag['id'] : 'field';
+        $fields =  isset($tag['fields']) ? $tag['fields'] : '';   //只获取主表部分字段信息
+        $fields  = $this->varOrvalue($fields);
         $addfields     = isset($tag['addfields']) ? $tag['addfields'] : '';
         $addfields  = $this->varOrvalue($addfields);
         $tag['huxing']  = !empty($tag['huxing']) ? $tag['huxing'] : 'off';
@@ -1629,7 +1636,7 @@ class Eju extends Taglib
         $parseStr .= ' $tag = '.var_export($tag,true).';';
         $parseStr .= ' if(!isset($aid) || empty($aid)) : $aid = '.$aid.'; endif;';
         $parseStr .= ' $tagArcview = new \think\template\taglib\eju\TagArcview;';
-        $parseStr .= ' $_result = $tagArcview->getArcview($aid, '.$addfields.',$tag);';
+        $parseStr .= ' $_result = $tagArcview->getArcview($aid,'.$fields.', '.$addfields.',$tag);';
         $parseStr .= ' ?>';
 
         /*方式一*/
@@ -2900,11 +2907,13 @@ class Eju extends Taglib
 
         $target  = !empty($tag['target']) ? $tag['target'] : '';  //是否新页面打开
         $target  = $this->varOrvalue($target);
+        $regionid = !empty($tag['regionid']) ? $tag['regionid'] : '0';    //关联区域id
+        $regionid = $this->varOrvalue($regionid);
         $parseStr = '<?php ';
 
         // 查询数据库获取的数据集
         $parseStr .= ' $tagScreening = new \think\template\taglib\eju\TagScreening;';
-        $parseStr .= ' $_result = $tagScreening->getScreening("'.$currentstyle.'", '.$addfields.', '.$addfieldids.', '.$alltxt.','.$typeid.','.$target.','.$region.','.$opencity.','.$show.','.$ajax.','.$present.');';
+        $parseStr .= ' $_result = $tagScreening->getScreening("'.$currentstyle.'", '.$addfields.', '.$addfieldids.', '.$alltxt.','.$typeid.','.$target.','.$region.','.$opencity.','.$show.','.$ajax.','.$present.','.$regionid.');';
         $parseStr .= '?>';
 
         $parseStr .= '<?php if(!empty($_result["list"]) || (($_result["list"] instanceof \think\Collection || $_result["list"] instanceof \think\Paginator ) && $_result["list"]->isEmpty())): ?>';
@@ -2956,11 +2965,19 @@ class Eju extends Taglib
         $ishot    = isset($tag['ishot']) ? $tag['ishot'] : '';   //off：只显示热门城市，on：只显示非热门城市，默认显示全部
         $groupby    = isset($tag['groupby']) ? $tag['groupby'] : '';   //分组，默认不分组，可以按照区域首字母分组和上级分组（initial、parent_id）
 
-
         $typeid    = isset($tag['typeid']) ? $tag['typeid'] : '';
         $typeid  = $this->varOrvalue($typeid);
         $channel    = isset($tag['channel']) ? $tag['channel'] : '';
         $channel  = $this->varOrvalue($channel);
+
+        $province   = isset($tag['province']) ? $tag['province'] : '';  //获取所有省份价格
+        $province  = $this->varOrvalue($province);
+        $city   = isset($tag['city']) ? $tag['city'] : '';  //获取所有城市价格
+        $city  = $this->varOrvalue($city);
+        $area   = isset($tag['area']) ? $tag['area'] : ''; //获取所有区域价格
+        $area  = $this->varOrvalue($area);
+        $pricetype   = isset($tag['pricetype']) ? $tag['pricetype'] : 'xinfang';  //获取价格类型
+        $pricetype  = $this->varOrvalue($pricetype);
 
         $parseStr = '<?php ';
         $parseStr .= ' $row = '.$row.';';
@@ -2974,7 +2991,6 @@ class Eju extends Taglib
             } else {
                 $name = $this->autoBuildVar($name);
             }
-
             $parseStr .= 'if(is_array(' . $name . ') || ' . $name . ' instanceof \think\Collection || ' . $name . ' instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k = 0;';
             // 设置了输出数组长度
             if (0 != $offset || 'null' != $row) {
@@ -2982,10 +2998,15 @@ class Eju extends Taglib
             } else {
                 $parseStr .= ' $__LIST__ = ' . $name . ';';
             }
-
         } else { // 查询数据库获取的数据集
+            $parseStr .= ' $param = array(';
+            $parseStr .= '      "province_id"=> '.$province.',';
+            $parseStr .= '      "city_id"=> '.$city.',';
+            $parseStr .= '      "area_id"=> '.$area.',';
+            $parseStr .= '      "pricetype"=> '.$pricetype.',';
+            $parseStr .= ' );';
             $parseStr .= ' $tagRegion = new \think\template\taglib\eju\TagRegion;';
-            $parseStr .= ' $_result = $tagRegion->getRegion("'.$type.'", "'.$currentstyle.'", "'.$opencity.'", '.$domain.', "'.$orderby.'", "'.$orderway.'", "'.$ishot.'",'.$typeid.','.$channel.',"'.$groupby.'");';
+            $parseStr .= ' $_result = $tagRegion->getRegion($param,"'.$type.'", "'.$currentstyle.'", "'.$opencity.'", '.$domain.', "'.$orderby.'", "'.$orderway.'", "'.$ishot.'",'.$typeid.','.$channel.',"'.$groupby.'");';
             $parseStr .= ' if(is_array($_result) || $_result instanceof \think\Collection || $_result instanceof \think\Paginator): $' . $key . ' = 0; $e = 1;$k = 0;';
             // 设置了输出数组长度
             if (0 != $offset || 'null' != $row) {

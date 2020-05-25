@@ -13,39 +13,67 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label"><b>*</b>每天免费发布</label>
+                            <label class="layui-form-label"><b>*</b>升级费用</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="free_day_send" name="free_day_send" value="{$info.free_day_send}" lay-verify="number" class="layui-input">
+                                <input type="text" id="fee" name="fee" value="{$info.fee|default=''}" lay-verify="number" class="layui-input"  onkeyup="this.value=this.value.replace(/[^\d.]/g,'');">
                             </div>
                             <div class="layui-input-inline">
-                                设置为0表示不做限制
+                                （元）， 设置为0表示免费升级
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><b>*</b>每天免费发布</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="free_day_send" name="free_day_send" value="{$info.free_day_send}" lay-verify="number" class="layui-input" onkeyup="this.value=this.value.replace(/[^-\d]/g,'');">
+                            </div>
+                            <div class="layui-input-inline">
+                                （条）， 设置为-1表示不做限制
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label"><b>*</b>共免费发布</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="free_all_send" name="free_all_send" value="{$info.free_all_send}" lay-verify="number" class="layui-input">
+                                <input type="text" id="free_all_send" name="free_all_send" value="{$info.free_all_send}" lay-verify="number" class="layui-input"  onkeyup="this.value=this.value.replace(/[^-\d]/g,'');">
                             </div>
                             <div class="layui-input-inline">
-                                设置为0表示不做限制
+                                （条）， 设置为-1表示不做限制
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label class="layui-form-label"><b>*</b>每天免费置顶</label>
+                            <label class="layui-form-label"><b>*</b>每条发布费用</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="fee_day_top" name="fee_day_top" value="{$info.fee_day_top}" lay-verify="number" class="layui-input">
+                                <input type="text" id="fee_send" name="fee_send" value="{$info.fee_send}" lay-verify="number" class="layui-input number">
                             </div>
                             <div class="layui-input-inline">
-                                设置为0表示不做限制
+                                （元）， 设置为0表示免费发布，设置为-1表示不允许额外发布
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><b>*</b>每天免费置顶</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="fee_day_top" name="fee_day_top" value="{$info.fee_day_top}" lay-verify="number" class="layui-input"  onkeyup="this.value=this.value.replace(/[^-\d]/g,'');">
+                            </div>
+                            <div class="layui-input-inline">
+                                （条）， 设置为-1表示不做限制
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label"><b>*</b>共免费置顶</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="fee_all_top" name="fee_all_top" value="{$info.fee_all_top}" lay-verify="number" class="layui-input">
+                                <input type="text" id="fee_all_top" name="fee_all_top" value="{$info.fee_all_top}" lay-verify="number" class="layui-input"  onkeyup="this.value=this.value.replace(/[^-\d]/g,'');">
                             </div>
                             <div class="layui-input-inline">
-                                设置为0表示不做限制
+                                （条）， 设置为-1表示不做限制
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><b>*</b>每条置顶费用</label>
+                            <div class="layui-input-inline">
+                                <input type="text" id="fee_top" name="fee_top" value="{$info.fee_top}" lay-verify="number" class="layui-input number">
+                            </div>
+                            <div class="layui-input-inline">
+                                （元）， 设置为0表示免费置顶，设置为-1表示不允许额外置顶
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -190,6 +218,14 @@
             });
 
         });
-
+        $('input.number').keyup(function(){
+            var c=$(this);
+            var patten = /^[+-]?(\d*)(\.\d*)?$/g;
+            if(!patten.test(c.val())){
+                console.log(c.val());
+                var temp_amount=c.val().replace(/[^\d]/g,'');
+                $(this).val(temp_amount);
+            }
+        });
     </script>
     {include file="public/footer" /}

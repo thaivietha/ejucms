@@ -93,7 +93,7 @@ class TagSurroundings extends Base
                   sortOrder(pm,"{$map_result}","{$map_tab}");
                   //document.getElementById("map_result").innerHTML = s.join("");
               }else{
-                  document.getElementById("map_result").innerHTML = '没有查到, 您可以尝试把地图放大之后再查找';
+                  document.getElementById("{$map_result}").innerHTML = '没有查到, 您可以尝试把地图放大之后再查找';
               }
           });
           //多个关键字搜索返回结果 ****end

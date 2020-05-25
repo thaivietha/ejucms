@@ -221,15 +221,23 @@ class Ajax extends Base
             $sms_arr = ['form'=>$web_name,'user'=>$user,'tel'=>$tel,'from'=>$from_list['come_from']];
             $config_list = Db::name('form_config')->where("status=1")->getAllWithIndex("role");
             if (!empty($from_list['aid'])){
-                $user_id = Db::name("archives")->where("aid=".$from_list['aid'])->find();
-                //经纪人
-                $relate_arr = [];
-                if(!empty($user_id['users_id'])){
-                    $relate_arr[] = $user_id['users_id'];
-                }
-                //关联经纪人信息
+                $user_id = Db::name("archives")->where(["aid"=>$from_list['aid']])->find();
+                //发布经纪人
+//                $relate_arr = [];
+//                if(!empty($user_id['users_id'])){
+//                    $relate_arr[] = $user_id['users_id'];
+//                }
+//                //关联经纪人信息
+//                if (!empty($user_id['relate'])){
+//                    $relate_arr = array_unique(array_merge(explode(",",$user_id['relate']),$relate_arr));
+//                }
                 if (!empty($user_id['relate'])){
-                    $relate_arr = array_unique(array_merge(explode(",",$user_id['relate']),$relate_arr));
+                    $relate = explode(",",$user_id['relate']);
+                    if (!empty($relate[0])){
+                        $relate_arr[] = $relate[0];
+                    }else{
+                        $relate_arr[] = $user_id['users_id'];
+                    }
                 }
                 $users_arr = Db::name("users")->where(['id'=>['in',$relate_arr]])->getAllWithIndex('id');
             }
@@ -270,19 +278,45 @@ class Ajax extends Base
                 $scene = $send_email_scene[10]['scene'];
                 $web_name = tpCache('web.web_name');
                 $title = input('post.title/s','');
+                $aid = input('post.aid/d',0);
                 $html = "<p style='text-align: left;'>{$web_name}</p><p style='text-align: left;'>{$title}来电</p>";
                 if (isMobile()) {
                     $html .= "<p style='text-align: left;'>——来源：移动端 --</p>";
                 } else {
                     $html .= "<p style='text-align: left;'>——来源：电脑端 --</p>";
                 }
-                $sms_arr = ['time'=>date("Y-m-d H:i:s"),'form'=>$web_name,'title'=>$title];
+                $sms_arr = ['time'=>date("Y-m-d H:i:s"),'form'=>msubstr($web_name,0,20),'title'=>msubstr($title,0,20)];
                 $config_list = Db::name('form_config')->where("status=1")->getAllWithIndex("role");
                 if (!empty($config_list[1]['note'])){   //发送管理员短信
                     $res = sendSms($scene, $this->eju['global']['sms_test_mobile'], $sms_arr);
                 }
                 if (!empty($config_list[1]['email'])){   //发送管理员邮箱
                     $res = send_email($this->eju['global']['smtp_from_eamil'],null,$html, $scene);  //第一个字段是收件箱
+                }
+                if (!empty($config_list[2]) && !empty($aid)){
+                    $user_id = Db::name("archives")->where(['aid'=>$aid])->find();
+                    $relate = [];
+                    if (!empty($user_id['relate'])){
+                        $relate = explode(",",$user_id['relate']);
+                    }
+                    if (!empty($relate[0])){
+                        $relate_arr[] = $relate[0];
+                    }else{
+                        $relate_arr[] = $user_id['users_id'];
+                    }
+                    if (!empty($relate_arr)){
+                        $users_arr = Db::name("users")->where(['id'=>['in',$relate_arr]])->getAllWithIndex('id');
+                        if (!empty($config_list[2]['note']) && !empty($users_arr)){   //发送经纪人短信
+                            foreach ($users_arr as $val){
+                                $res = sendSms($scene, $val['mobile'], $sms_arr);
+                            }
+                        }
+                        if (!empty($config_list[2]['email']) && !empty($users_arr)){   //发送经纪人邮箱
+                            foreach ($users_arr as $val){
+                                $res =  send_email($val['email'],null,$html, $scene);
+                            }
+                        }
+                    }
                 }
                 if (!empty($res['code']) && intval($res['code']) == 1) {
                     $this->success($res['msg']);
@@ -453,11 +487,12 @@ class Ajax extends Base
         if (IS_AJAX) {
             $type = input('param.type/s', 'default');
             $img = input('param.img/s');
+            $users_id = session('users_id');
+            session_write_close();
             if ('login' == $type) {
-                $users_id = session('users_id');
                 if (!empty($users_id)) {
                     $currentstyle = input('param.currentstyle/s');
-                    $users = M('users')->field('username,nickname,litpic')
+                    $users = Db::name('users')->field('username,nickname,litpic')
                         ->where([
                             'id'  => $users_id,
                         ])->find();
@@ -480,7 +515,7 @@ class Ajax extends Base
             }
             else if ('reg' == $type)
             {
-                if (session('?users_id')) {
+                if ($users_id) {
                     $users['ey_is_login'] = 1;
                 } else {
                     $users['ey_is_login'] = 0;
@@ -489,7 +524,7 @@ class Ajax extends Base
             }
             else if ('logout' == $type)
             {
-                if (session('?users_id')) {
+                if ($users_id) {
                     $users['ey_is_login'] = 1;
                 } else {
                     $users['ey_is_login'] = 0;
@@ -577,45 +612,5 @@ class Ajax extends Base
         }
         return json($list);
     }
-    /*
-     * 获取用户当前所在城市域名
-     */
-//    public function get_region_info(){
-//        $ip = clientIP();
-//        $city = "";
-//        $city_str = httpRequest("https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?query={$ip}&co=&resource_id=6006&oe=utf8","get");
-//        if ($city_str){
-//            $city_arr = json_decode($city_str,true);
-//            if ($city_arr['status'] == 0 && !empty($city_arr['data'][0] ["location"])){
-//                $city = $city_arr['data'][0] ["location"];
-//            }
-//        }
-//        $keywords = addslashes(input('param.keywords/s',''));
-//        $level = input('param.level/d','0');
-//        $one = [];
-//        $where = "status=1 and domain<>''";
-//        if ($level){
-//            $where .= " and level={$level}";
-//        }
-//        if (!empty($keywords)){
-//            $where .= " and (initial='{$keywords}' or name like '%{$keywords}%' or domain like '%{$keywords}%')";
-//        }
-//        if (empty($city)){
-//            $where .= " and is_default=1";
-//        }
-//        $list = Db::name("region")->where($where)->getAllWithIndex('id');
-//        foreach ($list as $key=>$val){
-//            if (empty($city) || strstr($city,$val['name'])){
-//                $val['domainurl'] = getRegionDomainUrl($val['domain']);
-//                $one = $val;
-//                break;
-//            }else if($val['is_default'] == 1){
-//                $val['domainurl'] = getRegionDomainUrl($val['domain']);
-//                $one = $val;
-//            }
-//        }
-//
-//        return json($one);
-//    }
 
 }

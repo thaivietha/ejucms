@@ -209,34 +209,43 @@
                                 <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" style="width: 100%">
                                     <thead>
                                     <tr>
-                                        <th class="w120 tc">
-                                            <div class="layui-table-cell w120 tc"><span>等级</span></div>
+                                        <th class="w100 tc">
+                                            <div class="layui-table-cell w100 tc"><span>等级</span></div>
                                         </th>
-                                        <th class="w120 tc">
-                                            <div class="layui-table-cell w120 tc"><span>每天发布(条)</span></div>
+                                        <th class="w80 tc">
+                                            <div class="layui-table-cell w80 tc"><span>每天免费发布(条)</span></div>
                                         </th>
-                                        <th class="w120 tc">
-                                            <div class="layui-table-cell w120 tc"><span>共发布(条)</span></div>
+                                        <th class="w80 tc">
+                                            <div class="layui-table-cell w80 tc"><span>共免费发布(条)</span></div>
                                         </th>
-                                        <th class="w120 tc">
-                                            <div class="layui-table-cell w120 tc"><span>每天置顶(条)</span></div>
+                                        <th class="w80 tc">
+                                            <div class="layui-table-cell w80 tc"><span>每天免费置顶(条)</span></div>
                                         </th>
-                                        <th class="w120 tc">
-                                            <div class="layui-table-cell w120 tc"><span>共置顶(条)</span></div>
+                                        <th class="w80 tc">
+                                            <div class="layui-table-cell w80 tc"><span>共免费置顶(条)</span></div>
                                         </th>
-                                        <th class="w610 tc">
-                                            <div class="layui-table-cell w610 tc" style="border-bottom: 1px solid #e6e6e6;"><span>发布需审核</span></div>
-                                            <div class="layui-table-cell w610 tc">
-                                                <span class="layui-table-cell w100 tc fl">二手房</span>
-                                                <span class="layui-table-cell w100 tc fl">出租房</span>
-                                                <span class="layui-table-cell w100 tc fl">商铺出售</span>
-                                                <span class="layui-table-cell w100 tc fl">商铺出租</span>
-                                                <span class="layui-table-cell w100 tc fl">写字楼出售</span>
-                                                <span class="layui-table-cell w100 tc fl">写字楼出租</span>
+                                        <th class="w530 tc">
+                                            <div class="layui-table-cell w530 tc" style="border-bottom: 1px solid #e6e6e6;"><span>发布需审核</span></div>
+                                            <div class="layui-table-cell w530 tc">
+                                                <span class="layui-table-cell w80 tc fl">二手房</span>
+                                                <span class="layui-table-cell w80 tc fl">出租房</span>
+                                                <span class="layui-table-cell w80 tc fl">商铺出售</span>
+                                                <span class="layui-table-cell w80 tc fl">商铺出租</span>
+                                                <span class="layui-table-cell w80 tc fl">写字楼出售</span>
+                                                <span class="layui-table-cell w80 tc fl">写字楼出租</span>
                                             </div>
                                         </th>
+                                        <th class="w80 tc">
+                                            <div class="layui-table-cell w80 tc"><span>发布（元/条/天）</span></div>
+                                        </th>
+                                        <th class="w80 tc">
+                                            <div class="layui-table-cell w80 tc"><span>置顶（元/条/天）</span></div>
+                                        </th>
+                                        <th class="w80 tc">
+                                            <div class="layui-table-cell w80 tc"><span>年费(元/年)</span></div>
+                                        </th>
+                                        <th class="w80 tc"></th>
                                     </tr>
-
                                     </thead>
                                     <tbody>
                                     {empty name="level_list"}
@@ -249,28 +258,60 @@
                                     {foreach name="level_list" item="vo" }
                                     <tr>
                                         <td>
-                                            <div class="layui-table-cell w120 tc">{$vo.level_name}</div>
+                                            <div class="layui-table-cell w100 tc">{$vo.level_name}</div>
                                         </td>
                                         <td>
-                                            <div class="layui-table-cell w120 tc">{empty name="$vo.free_day_send"}不限{else /}{$vo.free_day_send}条{/empty}</div>
+                                            <div class="layui-table-cell w80 tc">
+                                                {eq name="$vo.free_day_send" value="-1"}不限{else /}{$vo.free_day_send}条{/eq}
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="layui-table-cell w120 tc">{empty name="$vo.free_all_send"}不限{else /}{$vo.free_all_send}条{/empty}</div>
+                                            <div class="layui-table-cell w80 tc">
+                                                {eq name="$vo.free_all_send" value="-1"}不限{else /}{$vo.free_all_send}条{/eq}
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="layui-table-cell w120 tc">{empty name="$vo.fee_day_top"}不限{else /}{$vo.fee_day_top}条{/empty}</div>
+                                            <div class="layui-table-cell w80 tc">
+                                                {eq name="$vo.fee_day_top" value="-1"}不限{else /}{$vo.fee_day_top}条{/eq}
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="layui-table-cell w120 tc">{empty name="$vo.fee_all_top"}不限{else /}{$vo.fee_all_top}条{/empty}</div>
+                                            <div class="layui-table-cell w80 tc">
+                                                {eq name="$vo.fee_all_top" value="-1"}不限{else /}{$vo.fee_all_top}条{/eq}
+                                            </div>
                                         </td>
                                         <td>
-                                            <div class="layui-table-cell w610 tc">
-                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_ershou']" value='1'}是{else /}否{/eq}</span>
-                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_zufang']" value='1'}是{else /}否{/eq}</span>
-                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_shopcs']" value='1'}是{else /}否{/eq}</span>
-                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_shopcz']" value='1'}是{else /}否{/eq}</span>
-                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_officecs']" value='1'}是{else /}否{/eq}</span>
-                                                <span class="layui-table-cell w100 tc fl">{eq name="$vo['check_officecz']" value='1'}是{else /}否{/eq}</span>
+                                            <div class="layui-table-cell w530 tc">
+                                                <span class="layui-table-cell w80 tc fl">{eq name="$vo['check_ershou']" value='1'}是{else /}否{/eq}</span>
+                                                <span class="layui-table-cell w80 tc fl">{eq name="$vo['check_zufang']" value='1'}是{else /}否{/eq}</span>
+                                                <span class="layui-table-cell w80 tc fl">{eq name="$vo['check_shopcs']" value='1'}是{else /}否{/eq}</span>
+                                                <span class="layui-table-cell w80 tc fl">{eq name="$vo['check_shopcz']" value='1'}是{else /}否{/eq}</span>
+                                                <span class="layui-table-cell w80 tc fl">{eq name="$vo['check_officecs']" value='1'}是{else /}否{/eq}</span>
+                                                <span class="layui-table-cell w80 tc fl">{eq name="$vo['check_officecz']" value='1'}是{else /}否{/eq}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="layui-table-cell w80 tc" style="color:#ff0000;">
+                                                {eq name="$vo.fee_send" value="-1"}限制{else /}{$vo.fee_send}元{/eq}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="layui-table-cell w80 tc" style="color:#ff0000;">
+                                                {eq name="$vo.fee_top" value="-1"}限制{else /}{$vo.fee_top}元{/eq}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="layui-table-cell w80 tc" style="color:#ff0000;">
+                                                {empty name="$vo.fee"}免费{else /}{$vo.fee}元{/empty}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="layui-table-cell w80 tc">
+                                                {if condition="$users.fee lt $vo.fee"}
+                                                <a href="javascript:;" onclick="upgradefun(this)" data-url="{:url('Users/upgrade',['id'=>$vo['id'],'fee'=>$vo['fee']])}" data-id="{$vo.id}"  data-msg="确实要升级为{$vo.level_name}么？" class="grade-btn">
+                                                    升级
+                                                </a>
+                                                {/if}
                                             </div>
                                         </td>
                                     </tr>
@@ -280,7 +321,18 @@
                                 </table>
                             </div>
                         </div>
-
+                        <style>
+                            .grade-btn {
+                                display: inline-block;
+                                width: 50px;
+                                height: 25px;
+                                line-height: 25px;
+                                text-align: center;
+                                background-color: #1E9FFF;
+                                color: #fff;
+                                border-radius: 3px;
+                            }
+                        </style>
                     </div>
                 </div>
             </div>

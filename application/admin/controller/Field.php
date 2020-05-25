@@ -211,10 +211,10 @@ class Field extends Base
 
             /*检测字段是否存在于主表与附加表中*/
             if (true == $this->fieldLogic->checkChannelFieldList($table, $post['name'], $channel_id)) {
-                $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
+                $this->error("字段名称 ".$post['name']." 与系统字段冲突1！".$table);
             }
-            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang','shopcs','shopcz','officecs','officecz']) && true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'])){
-                $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
+            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang','shopcs','shopcz','officecs','officecz','qiuzu']) && true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'])){
+                $this->error("字段名称 ".$post['name']." 与系统字段冲突2！");
             }
             if (!empty($this->custom_route) && $this->fieldLogic->checkChannelShortName($this->custom_route,$post['short_name'],$post['name'])){  //判断是否同名、同步更新同name字段到sort_name
                 $this->error("字段简称 ".$post['short_name']." 已在其他字段名称中存在使用！");
@@ -433,13 +433,12 @@ class Field extends Base
             $table_name = M('channeltype')->where('id',$post['channel_id'])->getField('table');
             $table = PREFIX.$table_name.'_content';
             /*--end*/
-
             /*检测字段是否存在于主表与附加表中*/
             if (true == $this->fieldLogic->checkChannelFieldList($table, $post['name'], $channel_id, array($old_name))) {
-                $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
+                $this->error("字段名称 ".$post['name']." 与系统字段冲突3！");
             }
-            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang','shopcs','shopcz','officecs','officecz']) &&  true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'], array($old_name))){
-                $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
+            if (in_array($table_name,['xinfang','xiaoqu','ershou','zufang','shopcs','shopcz','officecs','officecz','qiuzu']) &&  true == $this->fieldLogic->checkTableFieldList( PREFIX.$table_name.'_system', $post['name'], array($old_name))){
+                $this->error("字段名称 ".$post['name']." 与系统字段冲突4！");
             }
             if (!empty($this->custom_route) && $this->fieldLogic->checkChannelShortName($this->custom_route,$post['short_name'],$post['name'],$post['id'])){  //判断是否同名、同步更新同name字段到sort_name
                 $this->error("字段简称 ".$post['short_name']." 已在其他字段名称中存在使用！");
@@ -458,7 +457,7 @@ class Field extends Base
                 $table = PREFIX.$table_name.'_system';
             }
             $sql = " ALTER TABLE `$table` CHANGE COLUMN `{$old_name}` $ntabsql ";
-//            var_dump($sql);die();
+
             try{
                 $exe_result = Db::execute($sql);
             }catch (\Exception $exception){
@@ -466,11 +465,10 @@ class Field extends Base
                 Db::execute($update_sql);
                 $exe_result = Db::execute($sql);
             }
-
             if (false !== $exe_result) {
                 //将空数据变更为默认值
-                $update_sql = "UPDATE `$table` SET `{$post['name']}` ='$new_dfvalue' WHERE `{$post['name']}`='0' or `{$post['name']}`='' or `{$post['name']}` is NULL;";
-                Db::execute($update_sql);
+//                $update_sql = "UPDATE `$table` SET `{$post['name']}` ='$new_dfvalue' WHERE `{$post['name']}`='0' or `{$post['name']}`='' or `{$post['name']}` is NULL;";
+//                Db::execute($update_sql);
                 /*保存更新字段的记录$table*/
                 if (!empty($post['region_data'])) {
                     $dfvalue = $post['region_data'];
@@ -872,7 +870,7 @@ class Field extends Base
 
             /*检测字段是否存在于主表与附加表中*/
             if (true == $this->fieldLogic->checkChannelFieldList($tableExt, $post['name'], 6)) {
-                $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
+                $this->error("字段名称 ".$post['name']." 与系统字段冲突5！");
             }
             /*--end*/
 
@@ -984,7 +982,7 @@ class Field extends Base
 
             /*检测字段是否存在于主表与附加表中*/
             if (true == $this->fieldLogic->checkChannelFieldList($tableExt, $post['name'], 6, array($old_name))) {
-                $this->error("字段名称 ".$post['name']." 与系统字段冲突！");
+                $this->error("字段名称 ".$post['name']." 与系统字段冲突6！");
             }
             /*--end*/
 

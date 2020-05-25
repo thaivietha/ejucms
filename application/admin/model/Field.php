@@ -391,9 +391,6 @@ class Field extends Model
                     }
                 }
                 $nowDataExt[$key] = $val;
-//                if (!empty($val)){
-//                    $nowDataExt[$key] = $val;
-//                }
             }
             $nowData = array(
                 'aid'   => $data['aid'],

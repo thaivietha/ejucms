@@ -42,13 +42,22 @@ if (!function_exists('getAllMenu'))
                     $channeltype_list[] = $val['ctl_name'];
                 }
             }
+            //检查模型是否启用
             foreach ($menuArr[2000]['child'] as $key=>$val){
                 if (empty($channeltype_list) || !in_array($val['controller'],$channeltype_list)){
                     unset($menuArr[2000]['child'][$key]);
                 }
             }
+            //检测是否开启支付设置，用于充值
+            $pay_wechat = unserialize(getUsersConfigData('pay.pay_wechat_config'));
+            $pay_alipay = unserialize(getUsersConfigData('pay.pay_alipay_config'));
+            if((empty($pay_wechat) && empty($pay_alipay)) || (!empty($pay_wechat['is_open_wechat'])  && !empty($pay_alipay['is_open_alipay']))){
+                unset($menuArr[3000]['child'][3002]);
+            }
+
             extra_cache('user_all_menu', $menuArr);
         }
+
         return $menuArr;
     }
 }

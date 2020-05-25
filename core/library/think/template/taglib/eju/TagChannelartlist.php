@@ -59,7 +59,6 @@ class TagChannelartlist extends Base
         }
 
         $result = $this->getSwitchType($typeid, $type);
-
         return $result;
     }
 
