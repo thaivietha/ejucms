@@ -34,6 +34,10 @@ class TagRegion extends Base
     public $channel = '';
     public $groupby = '';
 
+    public $dirname = '';
+    public $custom_route = [];
+    public $seo_pseudon = 1;
+
     //初始化
     protected function _initialize()
     {
@@ -42,6 +46,9 @@ class TagRegion extends Base
         $this->field = 'id,name,level,parent_id,initial,litpic,domain';
         $this->web_region_domain = tpCache('web.web_region_domain'); // 是否开启子站点
         $this->url_screen_var = config('global.url_screen_var'); // 筛选动态标识
+        $this->dirname = input('param.tid/s');
+        $this->custom_route = config("route");   //route配置
+        $this->seo_pseudon = config('ey_config.seo_pseudo');  //路由模式（1：动态，3：伪静态）
     }
 
     /**
@@ -55,6 +62,13 @@ class TagRegion extends Base
         $this->currentstyle = $currentstyle;
         $this->opencity = !empty($opencity) ? explode(',', str_replace('，', ',', $opencity)) : [];
         $this->groupby = $groupby;
+        !empty($channel) && $this->channel = $channel;
+        if ( !empty($typeid) && $typeid == "on"){
+            $this->typeid = input('param.tid/s', '');
+            $this->typeid = $this->getTrueTypeid($this->typeid);
+        }else if( !empty($typeid)){
+            $this->typeid = $typeid;
+        }
         $web_mobile_domain = tpCache('global.web_mobile_domain');
         $web_main_domain = tpCache('global.web_main_domain');
         empty($domain) && $this->subDomain != $web_mobile_domain && $this->subDomain != $web_main_domain &&  $domain = $this->subDomain;
@@ -84,8 +98,7 @@ class TagRegion extends Base
                 $this->orderby = "sort_order asc, initial asc, id asc";
                 break;
         }
-        !empty($typeid) && $this->typeid = $typeid;
-        !empty($channel) && $this->channel = $channel;
+
         $result = $this->getSwitchRegion($domains, $type);
         foreach ($result as $key=>$val){
             $result[$key] = $this->getRegionPrice($val,$param);
@@ -368,6 +381,7 @@ class TagRegion extends Base
         }else{
             $firstTypeid = model('Arctype')->getFristTypeid(9); // 指定模型的第一个区域ID
         }
+
         /*获取指定区域域名的上一级区域域名列表*/
         $map = array(
             'domain'   => array('in', $domain),
@@ -412,18 +426,30 @@ class TagRegion extends Base
                     // ->cache(true,EYOUCMS_CACHE_TIME,"region")
                     ->find();
                 /*区域的URL*/
+                $vars = [
+                    'tid'           => $firstTypeid,
+                    'province_id'   => $row1['parent_id'],
+                    'city_id'       => $row[$key]['parent_id'],
+                    'area_id'       => $row[$key]['id'],
+                    $this->url_screen_var => 1,
+                ];
+                $isdomain = 0;
                 if (!empty($this->web_region_domain) && !empty($val['domain']) && (empty($this->opencity) || in_array($val['level'], $this->opencity))) {
-                    $domainurl = getRegionDomainUrl($val['domain']);
-                } else {
-                    $vars = [
-                        'tid'           => $firstTypeid,
-                        'province_id'   => $row1['parent_id'],
-                        'city_id'       => $row[$key]['parent_id'],
-                        'area_id'       => $row[$key]['id'],
-                        $this->url_screen_var => 1,
-                    ];
-                    $domainurl = $this->root_dir.'/index.php?m=home&c=Lists&a=index&'.http_build_query($vars);
+                    $isdomain = 1;
                 }
+                $domainurl = $this->makeUrl($vars,$isdomain);
+//                if (!empty($this->web_region_domain) && !empty($val['domain']) && (empty($this->opencity) || in_array($val['level'], $this->opencity))) {
+//                    $domainurl = getRegionDomainUrl($val['domain']);
+//                } else {
+//                    $vars = [
+//                        'tid'           => $firstTypeid,
+//                        'province_id'   => $row1['parent_id'],
+//                        'city_id'       => $row[$key]['parent_id'],
+//                        'area_id'       => $row[$key]['id'],
+//                        $this->url_screen_var => 1,
+//                    ];
+//                    $domainurl = $this->root_dir.'/index.php?m=home&c=Lists&a=index&'.http_build_query($vars);
+//                }
                 $row[$key]['domainurl'] = $domainurl;
                 /*--end*/
                 if (in_array($val['domain'], $domain)) {
@@ -434,17 +460,28 @@ class TagRegion extends Base
                 $result = $row;
             }else if (2 == $row[$key]['level'])
             {
+                $vars = [
+                    'tid'           => $this->typeid,
+                    'province_id'   => $row[$key]['parent_id'],
+                    'city_id'       => $row[$key]['id'],
+                    $this->url_screen_var => 1,
+                ];
+                $isdomain = 0;
                 if (!empty($this->web_region_domain) && !empty($val['domain']) && (empty($this->opencity) || in_array($val['level'], $this->opencity))) {
-                    $domainurl = getRegionDomainUrl($val['domain']);
-                } else {
-                    $vars = [
-                        'tid'           => $firstTypeid,
-                        'province_id'   => $row[$key]['parent_id'],
-                        'city_id'       => $row[$key]['id'],
-                        $this->url_screen_var => 1,
-                    ];
-                    $domainurl = $this->root_dir.'/index.php?m=home&c=Lists&a=index&'.http_build_query($vars);
+                    $isdomain = 1;
                 }
+                $domainurl = $this->makeUrl($vars,$isdomain);
+//                if (!empty($this->web_region_domain) && !empty($val['domain']) && (empty($this->opencity) || in_array($val['level'], $this->opencity))) {
+//                    $domainurl = getRegionDomainUrl($val['domain']);
+//                } else {
+//                    $vars = [
+//                        'tid'           => $firstTypeid,
+//                        'province_id'   => $row[$key]['parent_id'],
+//                        'city_id'       => $row[$key]['id'],
+//                        $this->url_screen_var => 1,
+//                    ];
+//                    $domainurl = $this->root_dir.'/index.php?m=home&c=Lists&a=index&'.http_build_query($vars);
+//                }
                 $row[$key]['domainurl'] = $domainurl;
                 /*--end*/
                 if (in_array($val['domain'], $domain)) {
@@ -455,16 +492,26 @@ class TagRegion extends Base
                 $result = $row;
             }else if (1 == $row[$key]['level'])
             {
+                $vars = [
+                    'tid'           => $firstTypeid,
+                    'province_id'   => $row[$key]['id'],
+                    $this->url_screen_var => 1,
+                ];
+                $isdomain = 0;
                 if (!empty($this->web_region_domain) && !empty($val['domain']) && (empty($this->opencity) || in_array($val['level'], $this->opencity))) {
-                    $domainurl = getRegionDomainUrl($val['domain']);
-                } else {
-                    $vars = [
-                        'tid'           => $firstTypeid,
-                        'province_id'   => $row[$key]['id'],
-                        $this->url_screen_var => 1,
-                    ];
-                    $domainurl = $this->root_dir.'/index.php?m=home&c=Lists&a=index&'.http_build_query($vars);
+                    $isdomain = 1;
                 }
+                $domainurl = $this->makeUrl($vars,$isdomain);
+//                if (!empty($this->web_region_domain) && !empty($val['domain']) && (empty($this->opencity) || in_array($val['level'], $this->opencity))) {
+//                    $domainurl = getRegionDomainUrl($val['domain']);
+//                } else {
+//                    $vars = [
+//                        'tid'           => $firstTypeid,
+//                        'province_id'   => $row[$key]['id'],
+//                        $this->url_screen_var => 1,
+//                    ];
+//                    $domainurl = $this->root_dir.'/index.php?m=home&c=Lists&a=index&'.http_build_query($vars);
+//                }
                 $row[$key]['domainurl'] = $domainurl;
                 /*--end*/
                 if (in_array($val['domain'], $domain)) {
@@ -766,5 +813,70 @@ class TagRegion extends Base
         }
 
         return $result;
+    }
+    /*
+         * 根据传值,生成url
+         * $domain  是否开启二级域名
+         */
+    private function makeUrl($param_query,$domain = 0){
+        if ($this->seo_pseudon == 3 && !empty($param_query['tid'])){
+            $ctl_name_list = model('Channeltype')->getAll('id,ctl_name', array(), 'id');
+            empty($this->channel) && $this->channel = Db::name("arctype")->where(['id'=>$param_query['tid']])->getField("current_channel");
+            $ctl_name = $ctl_name_list[$this->channel]['ctl_name'];
+            $url = "home/".$ctl_name."/lists";
+            $param_query['dirname'] = $this->dirname;  //必需得有
+            $param_query['channel'] = $this->channel;
+
+            return $this->auto_hide_index(typeurl($url,$param_query));
+        }
+        $param_url = "";
+        $web_region_domain = config('tpcache.web_region_domain');  //主域名
+        if ($web_region_domain && $domain == '1' && $param_query['domain'] != ""){
+            $first_url = '//'.$param_query['domain'].'.'.request()->rootDomain().ROOT_DIR.'/index.php';
+        }else{
+            $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+            if ($web_region_domain){
+                $region_list = get_region_list();
+                if (!empty($param_query['area_id']) && !empty($region_list[$param_query['area_id']]['domain'])){
+                    $subdomain = $region_list[$param_query['area_id']]['domain'];
+                }else if (!empty($param_query['city_id']) && !empty($region_list[$param_query['city_id']]['domain'])){
+                    $subdomain = $region_list[$param_query['city_id']]['domain'];
+                }else if (!empty($param_query['province_id']) && !empty($region_list[$param_query['province_id']]['domain'])){
+                    $subdomain = $region_list[$param_query['province_id']]['domain'];
+                }else if(!empty($param_query['domain'])){
+                    $subdomain = $param_query['domain'];
+                }
+            }
+            if (!empty($subdomain)){
+                $first_url = '//'.$subdomain.'.'.request()->rootDomain().ROOT_DIR.'/index.php';
+            }else{
+                $first_url = ROOT_DIR.'/index.php';
+            }
+        }
+        unset($param_query['domain']);
+        unset($param_query['page']);
+        if (!empty($param_query['tid'])){
+            $param_query['m'] = 'home';
+            $param_query['c'] = 'Lists';
+            $param_query['a'] = 'index';
+            $param_url = "?".http_build_query($param_query);
+        }
+        $url = $first_url.$param_url;
+
+        $url = urldecode($url);
+
+        return $this->auto_hide_index($url);
+    }
+    // URL中隐藏index.php入口文件，此方法仅此控制器使用到
+    private function auto_hide_index($url = '')
+    {
+        if (empty($url)) return false;
+        // 是否开启去除index.php文件
+        $seo_inlet = null;
+        $seo_inlet === null && $seo_inlet = config('ey_config.seo_inlet');
+        if (1 == $seo_inlet && !isMobile()) {
+            $url = str_replace('/index.php', '/', $url);
+        }
+        return $url;
     }
 }

@@ -76,7 +76,7 @@ class Eju extends Taglib
         'attr'       => ['attr' => 'aid,name', 'close' => 0],
         'weapplist'  => ['attr' => 'type,id,key,mod,empty,currentstyle'], // 网站应用插件列表
         // 筛选搜索，region：是否关联区域显示，domain:是否开启二级域名（1：显示同级区域跳转到二级域名首页，0：显示下级区域，跳转到楼盘筛选）
-        'screening' => ['attr' => 'empty,id,mod,key,currentstyle,addfields,addfieldids,alltxt,target,region,domain,show,opencity,ajax,present,regionid'],
+        'screening' => ['attr' => 'empty,id,mod,key,currentstyle,addfields,addfieldids,alltxt,target,region,domain,show,opencity,ajax,present,regionid,typeid,channel'],
         //表单标签
         'inputform'=> ['attr' => 'formid,name,empty,id,success,class'],
         //表单标签
@@ -2965,9 +2965,10 @@ class Eju extends Taglib
         $ishot    = isset($tag['ishot']) ? $tag['ishot'] : '';   //off：只显示热门城市，on：只显示非热门城市，默认显示全部
         $groupby    = isset($tag['groupby']) ? $tag['groupby'] : '';   //分组，默认不分组，可以按照区域首字母分组和上级分组（initial、parent_id）
 
-        $typeid    = isset($tag['typeid']) ? $tag['typeid'] : '';
+
+        $typeid    = isset($tag['typeid']) ? $tag['typeid'] : '';    //跳转栏目id,值为“on”时表示获取当前栏目tid
         $typeid  = $this->varOrvalue($typeid);
-        $channel    = isset($tag['channel']) ? $tag['channel'] : '';
+        $channel    = isset($tag['channel']) ? $tag['channel'] : '';    //跳转模型id
         $channel  = $this->varOrvalue($channel);
 
         $province   = isset($tag['province']) ? $tag['province'] : '';  //获取所有省份价格

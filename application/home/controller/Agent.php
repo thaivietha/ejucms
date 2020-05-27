@@ -116,4 +116,19 @@ class Agent extends Base
     public function officecz(){
         return $this->fetch();
     }
+    //自定义栏目列表
+    public function custom(){
+        $dirname = input('dirname/s',"");
+
+
+        return $this->fetch($dirname);
+    }
 }
+
+
+
+
+
+
+
+

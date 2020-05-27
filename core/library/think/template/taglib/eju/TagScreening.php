@@ -226,16 +226,14 @@ class TagScreening extends Base
                     }else if ($show == 2 && (($regionInfo['level'] == 1  &&  $name == "city_id") || ($regionInfo['level'] == 2  &&  $name == "area_id"))){  //从下级开始显示
                         $RegionData = get_next_region_list($regionInfo['id']);
                     }
-                    if (count($RegionData) == 1){
+                    if (count($RegionData) == 1){   //只存在一个筛选项，则取消筛选
                         $simple = array_merge($RegionData);
-//                        if ($simple[0]['level'] < 3){
                             if ($simple[0]['level'] == 1){
                                 $param['province_id'] = $simple[0]['id'];
                             }else if($simple[0]['level'] == 2){
                                 $param['city_id'] = $simple[0]['id'];
                             }
                             $RegionData = [];
-//                        }
                     }
                 }
             }else if('config' == $value['define']){    //自定义区域筛选
@@ -298,6 +296,7 @@ class TagScreening extends Base
             $param_query[$url_screen_var] = 1;
             /* end */
             foreach ($RegionData as $kk => $vv) {
+                $domain = 0;
                 $param_query['domain'] = "";//$regionInfo['domain'];     //默认二级域名
                 // 参数拼装URL
                 if (!empty($vv['id'])) {
@@ -306,15 +305,19 @@ class TagScreening extends Base
                     }else{
                         $param_query[$name] = $vv['id'];
                     }
-                    if (!empty($vv['domain'])){
-                        $param_query['domain'] = $vv['domain'];     //设置二级域名
+                    if (isset($vv['domain'])){  //设置二级域名
+                        if (!empty($vv['domain'])){
+                            $param_query['domain'] = $vv['domain'];
+                        }else if(!empty($vv['parent_id']) && !empty($regionInfo['domain']) && $regionInfo['id'] == $vv['parent_id']){   //查看上级是否是二级域名
+                            $param_query['domain'] = $regionInfo['domain'];
+                            $vv['level'] = $regionInfo['level'];
+                        }
                     }
                 }else{      //选择不限，去掉该字段已选项
                     unset($param_query[$name]);
                 }
                 $param_query = $this->unsetNextFiledName($row,$name,$param_query);   //点击该栏目时,去掉所有下级的筛选条件
-                $domain = 0;
-                if (!empty($vv['level']) && !empty($opencity_arr) && in_array($vv['level'],$opencity_arr)){
+                if (!empty($vv['level']) && !empty($opencity_arr) && in_array($vv['level'],$opencity_arr)){  //判断是否设置二级域名
                     $domain = 1;
                 }
                 $url = $this->makeUrl($param_query,$domain);
@@ -491,7 +494,24 @@ EOF;
         if ($web_region_domain && $domain == '1' && $param_query['domain'] != ""){
             $first_url = '//'.$param_query['domain'].'.'.request()->rootDomain().ROOT_DIR.'/index.php?';
         }else{
-            $first_url = ROOT_DIR.'/index.php?';
+            $web_region_domain = config('ey_config.web_region_domain');  //是否开启子域名
+            if ($web_region_domain){
+                $region_list = get_region_list();
+                if (!empty($param_query['area_id']) && !empty($region_list[$param_query['area_id']]['domain'])){
+                    $subdomain = $region_list[$param_query['area_id']]['domain'];
+                }else if (!empty($param_query['city_id']) && !empty($region_list[$param_query['city_id']]['domain'])){
+                    $subdomain = $region_list[$param_query['city_id']]['domain'];
+                }else if (!empty($param_query['province_id']) && !empty($region_list[$param_query['province_id']]['domain'])){
+                    $subdomain = $region_list[$param_query['province_id']]['domain'];
+                }else if(!empty($param_query['domain'])){
+                    $subdomain = $param_query['domain'];
+                }
+            }
+            if (!empty($subdomain)){
+                $first_url = '//'.$subdomain.'.'.request()->rootDomain().ROOT_DIR.'/index.php?';
+            }else{
+                $first_url = ROOT_DIR.'/index.php?';
+            }
         }
         unset($param_query['domain']);
         unset($param_query['page']);

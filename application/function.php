@@ -2163,7 +2163,7 @@ if (!function_exists('get_archives_relate_list'))
      */
     function get_archives_relate_list($archives,$area = 0,$xiaoqu = 0)
     {
-        $relate_arr = [];
+        $result = $relate_arr = [];
         //房源所有人信息
         if(!empty($archives['users_id'])){
             $relate_arr[] = $archives['users_id'];
@@ -2177,15 +2177,14 @@ if (!function_exists('get_archives_relate_list'))
                 ->alias('a')
                 ->join("users_content b","a.id = b.users_id","left")
                 ->field("b.*,a.*,nickname as saleman_name,mobile as saleman_mobile,qq as saleman_qq,litpic as saleman_pic")
-                ->where(['a.id'=>['in',$relate_arr]])->select();
-
+                ->where(['a.id'=>['in',$relate_arr]])->getAllWithIndex('id'); //select();
             $region_list = get_info_list('region','id','status=1');
-            foreach($saleman_list as $key=>$val){
+            foreach ($relate_arr as $key){
                 $service_area = $service_xiaoqu = [];
                 //主营区域
                 if ($area){
-                    if (!empty($val['service_area'])){
-                        $service_area_arr = explode(',',$val['service_area']);
+                    if (!empty($saleman_list[$key]['service_area'])){
+                        $service_area_arr = explode(',',$saleman_list[$key]['service_area']);
                         foreach ($region_list as $k=>$v){
                             if (in_array($k,$service_area_arr)){
                                 $service_area[] = $v;
@@ -2196,8 +2195,8 @@ if (!function_exists('get_archives_relate_list'))
                 }
                 //主营小区
                 if ($xiaoqu){
-                    if (!empty($val['service_xiaoqu'])){
-                        $service_xiaoqu_arr = explode(',',$val['service_xiaoqu']);
+                    if (!empty($saleman_list[$key]['service_xiaoqu'])){
+                        $service_xiaoqu_arr = explode(',',$saleman_list[$key]['service_xiaoqu']);
                         $service_xiaoqu_list = \think\Db::name("archives") ->field("b.*, a.*")
                             ->alias('a')
                             ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT')
@@ -2212,9 +2211,45 @@ if (!function_exists('get_archives_relate_list'))
                     }
                     $saleman_list[$key]['service_xiaoqu'] = $service_xiaoqu;
                 }
+                $result[] = $saleman_list[$key];
             }
-            $archives['saleman_list'] = $saleman_list;
-            $archives['saleman'] = $saleman_list[$relate_arr[0]];
+            $archives['saleman_list'] = $result;
+            $archives['saleman'] = !empty($result[0]) ? $result[0] : [];
+//            foreach($saleman_list as $key=>$val){
+//                $service_area = $service_xiaoqu = [];
+//                //主营区域
+//                if ($area){
+//                    if (!empty($val['service_area'])){
+//                        $service_area_arr = explode(',',$val['service_area']);
+//                        foreach ($region_list as $k=>$v){
+//                            if (in_array($k,$service_area_arr)){
+//                                $service_area[] = $v;
+//                            }
+//                        }
+//                    }
+//                    $saleman_list[$key]['service_area'] = $service_area;
+//                }
+//                //主营小区
+//                if ($xiaoqu){
+//                    if (!empty($val['service_xiaoqu'])){
+//                        $service_xiaoqu_arr = explode(',',$val['service_xiaoqu']);
+//                        $service_xiaoqu_list = \think\Db::name("archives") ->field("b.*, a.*")
+//                            ->alias('a')
+//                            ->join('__ARCTYPE__ b', 'b.id = a.typeid', 'LEFT')
+//                            ->where(["a.aid"=>["in",$service_xiaoqu_arr]])
+//                            ->select();
+//                        foreach ($service_xiaoqu_list as $k=>$v){
+//                            if (in_array($v['aid'],$service_xiaoqu_arr)){
+//                                $v['arcurl'] =  arcurl('home/Xiaoqu/view', $v,true,false,'',null);
+//                                $service_xiaoqu[] = $v;
+//                            }
+//                        }
+//                    }
+//                    $saleman_list[$key]['service_xiaoqu'] = $service_xiaoqu;
+//                }
+//            }
+//            $archives['saleman_list'] = $saleman_list;
+//            $archives['saleman'] = $saleman_list[$relate_arr[0]];
         }
         return $archives;
     }

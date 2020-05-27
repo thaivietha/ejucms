@@ -171,6 +171,9 @@ class View extends Base
 			'huxing' => 'on',
 			'photo'	 => 'on',
 			'price'	 => 'on',
+            'relate' => 'on',
+            're_area' => '1',
+            're_xiaoqu' => '1',
 		];
         $result = view_logic($aid, $this->channel, $result, true, $tag,$this->modelName); // 模型对应逻辑
         /*自定义字段的数据格式处理*/

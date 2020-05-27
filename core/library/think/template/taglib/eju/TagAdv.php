@@ -75,11 +75,10 @@ class TagAdv extends Base
                 break;
         }
         $regionInfo = \think\Cookie::get("regionInfo");
-        $request    = Request::instance();
-        $domain = $request->host();
-        $domain_arr = explode('.',$domain);
         $web_mobile_domain = config('ey_config.web_mobile_domain');
-        if (!empty($domain_arr) && $domain_arr[0] != 'www' && $domain_arr[0] != $web_mobile_domain && !empty($regionInfo)){
+        $web_main_domain = config('ey_config.web_main_domain');
+        $domain = \think\Cookie::get("subdomain");
+        if ($domain != $web_main_domain && $domain != $web_mobile_domain && !empty($regionInfo)){
             $where_region = $where;
             if ($regionInfo['level'] == 1){
                 $where_region .= " and province_id={$regionInfo['id']} and city_id=0 and area_id=0";
@@ -91,7 +90,7 @@ class TagAdv extends Base
             $result = M("ad")->field("*")
                 ->where($where_region)
                 ->orderRaw($orderby)
-                ->cache(true,EYOUCMS_CACHE_TIME,"ad")
+                ->cache(true,EYOUCMS_CACHE_TIME,"ad".$where_region)
                 ->select();
         }
         if (empty($result) || empty($row) ||  count($result) <$row ){

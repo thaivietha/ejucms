@@ -24,6 +24,7 @@ class Lists extends Base
 
     public function _initialize() {
         parent::_initialize();
+
     }
 
     /**
@@ -95,7 +96,7 @@ class Lists extends Base
         $this->nid = $row['nid'];
         $this->channel = intval($row['current_channel']);
         /*--end*/
-
+        $this->getTrueParamValue();
         $result = $this->logic($tid); // 模型对应逻辑
 
         $eju = array(
@@ -111,7 +112,58 @@ class Lists extends Base
         /*--end*/
         return $this->fetch(":{$viewfile}");
     }
+    /*
+     * 获取请求数据
+     */
+    private function getTrueParamValue(){
+        $custom_route = config("route");   //route配置
+        $seo_pseudon = config('ey_config.seo_pseudo');  //路由模式（1：动态，3：伪静态）
+        $channelfield = Db::name('channelfield')->where( ['is_screening' => 1,'channel_id'=> $this->channel])->field('channel_id,id,name,dtype,define,dfvalue,ifmain,is_screening,join_id,dfvalue_unit')
+            ->cache(true,EYOUCMS_CACHE_TIME,"channelfield_channel_is_screening_".$this->channel)->getAllWithIndex('id');
+        foreach ($channelfield as $key => $value) {
+            $fieldname = $value['name'];
+            if (!empty($this->eju['param'][$fieldname])) {
+                $this->eju['param'][$fieldname] = addslashes($this->eju['param'][$fieldname]);
+                if ($value['define'] == 'config'){    //配置文件定义数值区间
+                    $dfvalue = config($value['dfvalue']);
+                    if (!empty($dfvalue[$this->eju['param'][$fieldname]]['name'])){
+                        $this->eju['param'][$fieldname] = $dfvalue[$this->eju['param'][$fieldname]]['name'];
+                    }
+                    continue;
+                }
+                if (in_array($value['dtype'],['int','decimal','float'])){   //后台定义数值区间  -----  增加判断是否为关联判断，a或者b是否在区间
+                    if($seo_pseudon == 3 && !empty($custom_route['schema']) && $custom_route['schema'] > 1){  //数字模式
+                        $dfvalue = explode(',',$value['dfvalue']);
+                        if ( $this->eju['param'][$fieldname] == 1){   //第一段0到第一个值
+                            $list = ['0',$dfvalue[ $this->eju['param'][$fieldname]-1]];
+                        }else if(empty($dfvalue[ $this->eju['param'][$fieldname] - 1])){   //最后一段，最后一个到正无穷
+                            $list = [$dfvalue[$this->eju['param'][$fieldname]-2]];
+                        }else{  //中间数段
+                            $list = [$dfvalue[$this->eju['param'][$fieldname]-2],$dfvalue[ $this->eju['param'][$fieldname]-1]];
+                        }
 
+                    }else{
+                        $list = explode(',', $this->eju['param'][$fieldname]);
+                    }
+                    if (count($list) >1){
+                        $this->eju['param'][$fieldname] = $list[0]."-".$list[1].$value['dfvalue_unit'];
+                    }else{
+                        $this->eju['param'][$fieldname] = $list[0].$value['dfvalue_unit']."以上";
+                    }
+                    continue;
+                }
+                if (in_array($value['dtype'],['checkbox','radio','select'])){
+                    if($seo_pseudon == 3 && !empty($custom_route['schema']) && $custom_route['schema'] > 1){
+                        $dfvalue = explode(',',$value['dfvalue']);
+                        if(!empty($dfvalue[ $this->eju['param'][$fieldname]-1])){
+                            $this->eju['param'][$fieldname] = $dfvalue[ $this->eju['param'][$fieldname]-1];
+                        }
+                    }
+                    continue;
+                }
+            }
+        }
+    }
     /**
      * 模型对应逻辑
      * @param intval $tid 栏目ID
