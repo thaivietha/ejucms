@@ -30,6 +30,40 @@ class UsersConfig extends Base
             if (!empty($post['users'])){
                 getUsersConfigData('users', $post['users']);
             }
+            if (!empty($post['qq'])){
+                $data = $post['qq'];
+                empty($data['login_show']) && $data['login_show'] = 0;
+                $data['appid']  = trim($data['appid']);
+                $data['appkey'] = trim($data['appkey']);
+                $info = $this->qqmodel->getWeappData();
+                if (empty($info['data'])) {
+                    if (!empty($data['appid']) && !empty($data['appkey'])) {
+                        $data['login_show'] = 1;
+                    }
+                }
+                $saveData = array(
+                    'data'        => serialize($data),
+                    'update_time' => getTime(),
+                );
+                $r = Db::name('weapp')->where(array('code' => 'QqLogin'))->update($saveData);
+            }
+            if (!empty($post['wx'])){
+                $data = $post['wx'];
+                empty($data['login_show']) && $data['login_show'] = 0;
+                $data['appid']  = trim($data['appid']);
+                $data['secret'] = trim($data['secret']);
+                $info = $this->wxmodel->getWeappData();
+                if (empty($info['data'])) {
+                    if (!empty($data['appid']) && !empty($data['secret'])) {
+                        $data['login_show'] = 1;
+                    }
+                }
+                $saveData = array(
+                    'data'        => serialize($data),
+                    'update_time' => getTime(),
+                );
+                $r = Db::name('weapp')->where(array('code' => 'WxLogin'))->update($saveData);
+            }
             $this->success('操作成功');
         }
         $users_verification_list = ['不验证','后台激活','邮件验证','短信验证'];
@@ -54,7 +88,8 @@ class UsersConfig extends Base
     //qq登陆配置提交
     public function qqlogin(){
         if (IS_POST) {
-            $data = input('post.');
+            $post = input('post.');
+            $data = $post['qq'];
             $data['appid']  = trim($data['appid']);
             if (empty($data['appid'])) {
                 $this->error('QQ应用appid不能为空！');

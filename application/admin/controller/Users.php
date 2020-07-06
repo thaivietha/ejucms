@@ -127,8 +127,10 @@ class Users extends Base
         $level_list = Db::name("users_level")->where($where)->getField("id,level_name");
         $this->assign('level_list',$level_list);
         $users_label_value = getUsersConfigData('users.users_label_value');
-        $users_label_list = explode(",",$users_label_value);
-        $this->assign('users_label_list',$users_label_list);
+        if (!empty($users_label_value)){
+            $users_label_list = explode(",",$users_label_value);
+            $this->assign('users_label_list',$users_label_list);
+        }
         return $this->fetch();
     }
     /*
@@ -206,8 +208,11 @@ class Users extends Base
         $level_list = Db::name("users_level")->where($where)->getField("id,level_name");
         $this->assign('level_list',$level_list);
         $users_label_value = getUsersConfigData('users.users_label_value');
-        $users_label_list = explode(",",$users_label_value);
-        $this->assign('users_label_list',$users_label_list);
+        if (!empty($users_label_value)){
+            $users_label_list = explode(",",$users_label_value);
+            $this->assign('users_label_list',$users_label_list);
+        }
+
         return $this->fetch();
     }
     /**

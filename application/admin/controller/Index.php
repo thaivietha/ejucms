@@ -241,6 +241,15 @@ class Index extends Base
             $fieldLogic->synAreaChannelUnit();
             tpCache('system', ['system_channeltype_unit_24'=>1]);
         }
+        //升级到2.5版本后更新数据，清除相关表结构缓存文件
+        if (!tpCache('system.system_channeltype_unit_25')){
+            @unlink("./".$this->root_dir."/data/schema/eju_users_level.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_users_count.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_users_content.php");
+            @unlink("./".$this->root_dir."/data/schema/eju_users.php");
+            $fieldLogic->synAreaChannelUnit();
+            tpCache('system', ['system_channeltype_unit_25'=>1]);
+        }
         //升级成功后，更新问答体系
         $question = tpCache("question");
         if (empty($question['question_acrtype'])){

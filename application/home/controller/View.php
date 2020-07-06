@@ -153,7 +153,7 @@ class View extends Base
             if(isset($param['room'])){
                 unset($param['room']);
             }
-            $result['arcurl'] = $result['pageurl'] = arcurl('home/View/index', $param, true, true);
+            $result['arcurl'] = $result['pageurl'] = arcurl('home/'.$param['ctl_name'].'/view', $param, true, true);
         }
         /*--end*/
         // seo

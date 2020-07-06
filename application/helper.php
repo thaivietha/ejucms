@@ -339,7 +339,7 @@ if (!function_exists('typeurl')) {
                 $screening_arr = getScreeningFieldName();
                 if (!empty($screening_arr)){
                     foreach ($param as $key=>$val){
-                        if (in_array($key,$screening_arr) && !in_array($key,['province_id','city_id','area_id'])){
+                        if (in_array($key,$screening_arr)){   // && !in_array($key,['province_id','city_id','area_id'])
                             $vars[$key] = $val;
                         }
                     }

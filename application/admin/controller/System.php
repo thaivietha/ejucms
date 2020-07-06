@@ -12,19 +12,26 @@
  */
 
 namespace app\admin\controller;
+
 use think\Db;
 use think\Cache;
 use think\Request;
 use think\Page;
+use weapp\QqLogin\model\QqLoginModel;
+use weapp\WxLogin\model\WxLoginModel;
 
 class System extends Base
 {
     // 选项卡是否显示
     public $tabase = '';
+    private $qqmodel;
+    private $wxmodel;
     
     public function _initialize() {
         parent::_initialize();
         $this->tabase = input('param.tabase/d');
+        $this->qqmodel = new QqLoginModel;
+        $this->wxmodel = new WxLoginModel;
     }
 
     public function index()
@@ -575,11 +582,22 @@ class System extends Base
         // 查询七牛云存储空间名称列表
         $ListBucket = $qiniumodel->listBucket($Qiniuyun);
         $this->assign('ListBucket', $ListBucket);
-
         // 查询七牛云存储空间域名列表
         $ListDomain = $qiniumodel->listBucketDomain($Qiniuyun);
         $this->assign('ListDomain', $ListDomain);
         $this->assign('speed',tpCache('speed'));//当前图片加速
+        //qq登陆配置
+        $web_basehost = tpCache('web.web_basehost');
+        $qqcallback = $web_basehost.$this->root_dir.'/index.php?m=plugins&c=QqLogin&a=login';
+        $this->assign('qqcallback',$qqcallback);
+        $qqinfo = $this->qqmodel->getWeappData();
+        $this->assign('qqinfo',$qqinfo);
+        //微信登陆配置
+        $wxinfo = $this->wxmodel->getWeappData();
+        $this->assign('wxinfo',$wxinfo);
+        $wxlogin_url = url('Users/wxlogin', [], true, false, 1, 1, 0);
+        $this->assign('wxlogin_url',$wxlogin_url);
+
         return $this->fetch();
     }
 

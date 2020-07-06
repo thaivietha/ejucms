@@ -77,6 +77,7 @@ class Pay extends Model
     public function UpdateOrderData($users_id,$users_order_validity = '')
     {
         empty($users_order_validity) && $users_order_validity = getUsersConfigData('users.users_order_validity');
+        empty($users_order_validity) && $users_order_validity = 900;
         $time  = getTime() - intval($users_order_validity);
         $where = array(
             'users_id' => $users_id,

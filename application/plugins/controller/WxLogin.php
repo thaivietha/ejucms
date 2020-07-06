@@ -151,7 +151,7 @@ class WxLogin extends Base
 	                $users_id = $we_user['users_id'];
 	            }
 	            $users = $this->users_db->where([
-	                'users_id' => $users_id,
+	                'id' => $users_id,
 	            ])->find();
 	            if (empty($users)) {
 	            	$users_id = $this->setReg($unionid, $infoArray);

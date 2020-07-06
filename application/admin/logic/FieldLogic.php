@@ -116,9 +116,10 @@ class FieldLogic extends Model
         }
         else if("img" == $dtype)
         {
-            if(empty($dfvalue)) {
-                $dfvalue = '';
-            }
+            $dfvalue = '';
+//            if(empty($dfvalue)) {
+//                $dfvalue = '';
+//            }
             $maxlen = 250;
             $fields[0] = " `$fieldname` varchar($maxlen) NOT NULL DEFAULT '$dfvalue' COMMENT '$fieldtitle';";
             $fields[1] = "varchar($maxlen)";
@@ -127,9 +128,10 @@ class FieldLogic extends Model
         }
         else if("imgs" == $dtype)
         {
-            if(empty($dfvalue)) {
-                $dfvalue = '';
-            }
+            $dfvalue = '';
+//            if(empty($dfvalue)) {
+//                $dfvalue = '';
+//            }
             $maxlen = 10001;
             $fields[0] = " `$fieldname` varchar($maxlen) NOT NULL DEFAULT '$dfvalue' COMMENT '$fieldtitle';";
             $fields[1] = "varchar($maxlen)";
@@ -138,9 +140,10 @@ class FieldLogic extends Model
         }
         else if("files" == $dtype)
         {
-            if(empty($dfvalue)) {
-                $dfvalue = '';
-            }
+            $dfvalue = '';
+//            if(empty($dfvalue)) {
+//                $dfvalue = '';
+//            }
             $maxlen = 10002;
             $fields[0] = " `$fieldname` varchar($maxlen) NOT NULL DEFAULT '$dfvalue' COMMENT '$fieldtitle';";
             $fields[1] = "varchar($maxlen)";

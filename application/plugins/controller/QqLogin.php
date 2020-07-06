@@ -83,14 +83,14 @@ class QqLogin extends Base
         }else{
             if (!empty($origin)){   //已经使用此qq登陆过
                 $users = Db::name("users")->where([
-                    'users_id' => $origin['users_id'],
+                    'id' => $origin['users_id'],
                 ])->find();
                 if (empty($users)) {
                     //不存在，自动注册账号，并且登陆
                     $users = $this->setReg($openid);
                     if (!empty($users['users_id'])) {
                         Db::name('weapp_qqlogin')->where('openid', $openid)->update([
-                            'users_id'  => $users['users_id'],
+                            'users_id'  => $users['id'],
                             'update_time'   => getTime(),
                         ]);
                     }
@@ -99,7 +99,7 @@ class QqLogin extends Base
                 $users = $this->setReg($openid);
                 if (!empty($users)) {
                     Db::name('weapp_qqlogin')->insert([
-                        'users_id'   => $users['users_id'],
+                        'users_id'   => $users['id'],
                         'openid'     => $openid,
                         'nickname'   => $users['nickname'],
                         'add_time'   => getTime(),

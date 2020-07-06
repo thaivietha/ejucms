@@ -39,17 +39,14 @@
                                 <th class="w60 tc">
                                     <div class="layui-table-cell w60 tc" ><span>ID</span></div>
                                 </th>
-                                <th>
-                                    <div class="layui-table-cell wauto"><span>会员级别</span></div>
-                                </th>
-                                <th class="w150 tc">
-                                    <div class="layui-table-cell w150 tc"><span>用户名</span></div>
-                                </th>
-                                <th class="w150 tc">
-                                    <div class="layui-table-cell w150 tc"><span>真实姓名</span></div>
-                                </th>
                                 <th class="w150 tc">
                                     <div class="layui-table-cell w150 tc"><span>手机号</span></div>
+                                </th>
+                                <th class="w150 tc">
+                                    <div class="layui-table-cell w150 tc"><span>昵称</span></div>
+                                </th>
+                                <th>
+                                    <div class="layui-table-cell wauto"><span>会员级别</span></div>
                                 </th>
                                 <th class="w200 tc">
                                     <div class="layui-table-cell w200 tc"><span>注册时间</span></div>
@@ -79,13 +76,8 @@
                                 </td>
                                 <td><div class="layui-table-cell w60 tc"> {$vo.id} </div></td>
                                 <td>
-                                    <div class="layui-table-cell wauto" title="{$vo.level_name}">
-                                        {$vo.level_name}
-                                    </div>
-                                </td>
-                                <td>
                                     <div class="layui-table-cell w150 tc">
-                                        {$vo.username}
+                                        {$vo.mobile}
                                     </div>
                                 </td>
                                 <td>
@@ -94,8 +86,8 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="layui-table-cell w150 tc">
-                                        {$vo.mobile}
+                                    <div class="layui-table-cell wauto" title="{$vo.level_name}">
+                                        {$vo.level_name}
                                     </div>
                                 </td>
                                 <td>

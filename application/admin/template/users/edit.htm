@@ -137,6 +137,7 @@
                                 <input type="text" name="company" id="company"  value="{$info.company}" class="layui-input">
                             </div>
                         </div>
+                        {notempty name="$users_label_list"}
                         <div class="layui-form-item">
                             <label class="layui-form-label">标签</label>
                             <div class="layui-input-inline">
@@ -145,6 +146,7 @@
                                 {/volist}
                             </div>
                         </div>
+                        {/notempty}
                         <div class="layui-form-item">
                             <label class="layui-form-label">介绍</label>
                             <div class="layui-input-inline">

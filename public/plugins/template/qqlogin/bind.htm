@@ -27,18 +27,18 @@
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" name="mobile" required  lay-verify="phone" class="form-control" placeholder="用户名"/>
+                    <input type="text" name="mobile" required  lay-verify="phone" class="form-control" placeholder="手机号"/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="input-group">
-                    <input type="password" name="password" required class="form-control" placeholder="登录密码"/>
+                    <input type="password" name="password" id="password" required class="form-control" placeholder="登录密码"/>
                 </div>
             </div>
             <div id="confirm_pass">
                 <div class="form-group" >
                     <div class="input-group">
-                        <input type="password" name="password2" required class="form-control" placeholder="确认密码"/>
+                        <input type="password" name="password2" id="password2" required class="form-control" placeholder="确认密码"/>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,10 @@
             return false;
         }
     });
-
+    $("#password2").blur(function(event){
+        checkUser();
+        return false;
+    });
     function changepass(type){
         if ( 1==type ) {
             $("#confirm_pass").show();
@@ -63,9 +66,8 @@
             $("#confirm_pass").hide();
         }
     }
-
-    function checkUser(){
-    	var type = $("#theForm input[name='type']:checked").val();
+    function check_submit(){
+        var type = $("#theForm input[name='type']:checked").val();
         var mobile = $('#theForm input[name=mobile]');
         var password = $('#theForm input[name=password]');
         var password2 = $('#theForm input[name=password2]');
@@ -89,6 +91,18 @@
         if (1==type && password2.val() == '') {
             layer.msg('请输入确认密码！', {time: 1500, icon: 2});
             password2.focus();
+            return false;
+        }
+        if (1==type && password2.val() != password.val()) {
+            layer.msg('两次密码输入不一致！', {time: 1500, icon: 2});
+            password2.focus();
+            return false;
+        }
+
+        return true;
+    }
+    function checkUser(){
+        if(check_submit() === false){
             return false;
         }
 		layer_loading('正在处理');

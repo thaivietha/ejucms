@@ -183,7 +183,11 @@ class Arctype extends Model
                 $res['domain'] = $this->subDomain;
             }
             $ctl_name = get_controller_byct($res['current_channel']);
+            if (empty($res['tid']) && !empty($res['id'])){
+                $res['tid'] = $res['id'];
+            }
             $typeurl = typeurl('home/'.$ctl_name."/lists", $res);
+
         }
 
         return $typeurl;

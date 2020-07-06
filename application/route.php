@@ -195,9 +195,6 @@ if (3 == $seo_pseudo) {
             $rewrite_str.'$' => array('home/Index/index',array('method' => 'get', 'ext' => ''), 'cache'=>1),
         );
         //列表页面
-        $home_rewrite += array(
-            $rewrite_str.'ershou/<tiiiid>$' => array('home/Ershou/lists?aaaaa',array('method' => 'get', 'ext' => 'html'), 'cache'=>1),
-        );
         if (!empty($route_list)){
             $list = get_route_field_list(1);
             foreach ($list as $key=>$val){

@@ -63,6 +63,7 @@ class Arctype extends Base
         $arctype_list = $arctypeLogic->arctype_list(0, 0, false, 0, $where, false);
         foreach ($arctype_list as $key=>$val){
             $arctype_list[$key]['channeltypename'] = !empty($channeltype_list[$val['current_channel']]['title']) ? $channeltype_list[$val['current_channel']]['title'] : '指向栏目';
+            unset($val['level']);
             $arctype_list[$key]['typeurl'] = get_typeurl($val);
         }
 
