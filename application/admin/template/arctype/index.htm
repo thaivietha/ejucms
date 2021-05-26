@@ -1,0 +1,261 @@
+{include file="public/layout" /}
+<body class="nav-more">
+  <div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="web-system">
+            <div class="layui-tab layui-tab-card">
+              <ul class="layui-tab-title">
+                {eq name="'Arctype@index'|is_check_access" value="1"}
+                <li class="layui-this" id="tab_Arctype_index"><a lay-href="{:url('Arctype/index')}">栏目管理</a></li>
+                {/eq}
+
+                {eq name="'Navigation@index'|is_check_access" value="1"}
+                <li class="" onclick="tab_focus(this, 'tab_Arctype_index', 'layui-this');"><a lay-href="{:url('Navigation/index')}">导航管理</a></li>
+                {/eq}
+              </ul>
+              <div class="layui-tab-content web-system" style="padding:10px 0">
+                <div class="layui-tab-item layui-show">
+                  <div class="layui-row layui-col-space15">
+                    <div class="layui-col-md12">
+                      <div class="layui-card">
+                        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                            <div class="layui-form-item" style="margin-top: -10px;">
+                                <div class="fl"><a data-url="{:url('Arctype/add')}" class="layui-btn arctype_add" style="border-color:#3db9b2; color: #fff; padding: 0 15px;height: 35px;line-height: 35px;
+                    border-radius: 2px;" data-title="新增顶级栏目">新增顶级栏目</a></div>
+                            </div>
+                        </div>
+                        <div class="layui-card-body " style="overflow-x: auto;">
+                            <div class="layui-table-box">
+                                <div class="layui-table-body layui-table-main right-oper" style="margin: 0;">
+                                    <table id="table1" class="layui-table" lay-filter="table1"></table>
+                                    <!-- 隐藏 -->
+                                    <script type="text/html" id="switchTpl">
+                                        <input type="checkbox" name="is_hidden" data-id="{{d.id}}" value="{{d.is_hidden}}" lay-skin="switch" lay-text="是|否" lay-filter="is_hidden" {{ d.is_hidden == 1 ? 'checked class="yes"' : ' class="no"' }}>
+                                    </script>
+                                    <!-- 操作列 -->
+                                    <script type="text/html" id="oper-col">
+                                        <a class="layui-btn btn-edit edit" lay-event="edit">编辑</a>
+                                        <a class="layui-btn btn-primary more mr10" >更多</a>
+                                        {eq name="'Archives@index'|is_check_access" value="1"}
+                                        <a class="layui-btn btn-primary" lay-event="detail">内容</a>
+                                        {/eq}
+                                        {{ d.grade < {$arctype_max_level - 1} ? '<a class="layui-btn btn-primary" lay-event="addson">增加子栏目</a>' : '<a class="layui-btn btn-primary" lay-event="">不支持增加</a>' }}
+                                        <a class="layui-btn  btn-primary" lay-event="preview">预览</a>
+                                        {eq name="'Arctype@pseudo_del'|is_check_access" value="1"}
+                                        <a class="layui-btn btn-del" lay-event="del" data-url="{:url('Arctype/pseudo_del')}" data-id="{{d.id}}" data-typename="{{d.typename}}" data-deltype="pseudo" >删除</a>
+                                        {/eq}
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+  </div>
+
+<script>
+    $(function () {
+        /* 生成静态页面代码 */
+        var typeid = "{$typeid}";
+        if(typeid > 0){
+            $.ajax({
+                url:__root_dir__+"/index.php?m=home&c=Buildhtml&a=upHtml",
+                type:'POST',
+                dataType:'json',
+                data:{'typeid':typeid,ctl_name:'Arctype',_ajax:1},
+                success:function(data){
+
+                }
+            });
+        }
+    });
+    var json_arctype_list = {$arctype_list|json_encode};
+    var json_channeltype_list = {$channeltype_list|json_encode};
+    layui.config({
+        base: '__SKIN__/', //静态资源所在路径
+        version:'{$version}'
+    }).extend({
+        index: 'lib/index', //主入口模块
+        treetable: 'treetable-lay/treetable'//树形栏目
+    }).use([ 'table', 'treetable','index','layer'], function () {
+        var $ = layui.$
+            ,form = layui.form
+            ,treetable = layui.treetable
+            ,table = layui.table;
+        
+        
+        // 渲染表格
+        var renderTable = function () {
+            layer.load(2);
+            treetable.render({
+                treeColIndex: 1,
+                treeSpid: 0,    //为顶级栏目时的parent_id值
+                treeIdName: 'id',
+                treePidName: 'parent_id',
+                treeDefaultClose: false,
+                treeLinkage: false,
+                elem: '#table1',
+//                url: layui.setter.base +'json/ey_json/arctype.js?v={$version}',
+                page: false,
+                data:json_arctype_list,
+                cols: [[
+                    {field: 'id', title: 'ID', width: 80}
+                    ,{field: 'typename', title: '<a href="javascript:;" class="arctype-btn-expand"  id="btn-expand" style="display: none;"></a><a href="javascript:;" class="arctype-btn-fold" id="btn-fold"></a>栏目名称', minWidth: 300}
+                    ,{field: 'channeltypename', title: '所属模型', width: 150,align:'center'}
+                    ,{field: 'is_hidden', title: '隐藏', width: 80, align:'center',templet: '#switchTpl', unresize: true}
+                    ,{field: 'sort_order', title: '排序', width: 80,align:'center',edit:'text'}
+                    ,{field:'oper-col', title: '操作', width: 135,align:'center',templet: '#oper-col'}
+                ]],
+                done: function () {
+                    layer.closeAll('loading');
+                }
+            });
+        };
+
+        renderTable();
+
+        $('#btn-expand').click(function () {
+            $('#btn-expand').hide();
+            $('#btn-fold').show();
+            treetable.expandAll('#table1');
+        });
+
+        $('#btn-fold').click(function () {
+            $('#btn-expand').show();
+            $('#btn-fold').hide();
+            treetable.foldAll('#table1');
+        });
+
+        $('#btn-refresh').click(function () {
+            renderTable();
+        });
+
+        $('.arctype_add').click(function(){
+            var title = $(this).attr('data-title');
+            var url = $(this).attr('data-url');
+            arctype_opt(title, url);
+        });
+
+        function arctype_opt(title, url)
+        {
+            var iframes = layer.open({
+                type: 2,
+                title: false,
+                closeBtn: false,
+                fixed: true, //不固定
+                shadeClose: false,
+                shade: 0.3,
+                content: url
+            });
+            layer.full(iframes);
+        }
+
+        //监听工具条
+        table.on('tool(table1)', function (obj) {
+            var layEvent = obj.event;
+            var data = obj.data;
+            if (layEvent === 'detail') {
+                if (data.current_channel == 6){
+                    window.location.href=eyou_basefile+"?m=admin&c=Arctype&a=single_edit&typeid="+data.id+'&goback=1';
+                }else{
+                    var ifsystem = json_channeltype_list[data.current_channel]['ifsystem'];
+                    var ctl_name = json_channeltype_list[data.current_channel]['ctl_name'];
+                    if (0 == ifsystem) {
+                        window.location.href=eyou_basefile+"?m=admin&c=Custom&a=index&channel="+data.current_channel+"&typeid="+data.id+'&goback=1';
+                    } else {
+                        window.location.href=eyou_basefile+"?m=admin&c="+ctl_name+"&a=index&typeid="+data.id+'&goback=1';
+                    }
+                }
+            } else if (layEvent === 'addson') {
+                var url = eyou_basefile+"?m=admin&c=Arctype&a=add&parent_id="+data.id;
+                arctype_opt('新增子栏目', url);
+            } else if (layEvent === 'preview'){
+                var newWeb = window.open('_blank');
+                newWeb.location = data.typeurl;
+            } else if (layEvent === 'edit'){
+                var url = eyou_basefile+"?m=admin&c=Arctype&a=edit&id="+data.id;
+                arctype_opt('编辑栏目', url);
+            }else if (layEvent === 'del'){
+                delfun(this);
+            }
+
+        });
+        //监听编辑框
+        table.on('edit(table1)', function (obj) {
+            var value = obj.value //得到修改后的值
+                ,data = obj.data //得到所在行所有键值
+                ,field = obj.field; //得到字段
+            this.value = value;
+            changeTableVal('arctype','id',data.id,field,this);
+            
+        });
+        //隐藏操作
+        form.on('switch(is_hidden)', function(obj){
+            if (obj.value ==0){
+                this.value = 1;
+            }else{
+                this.value = 0;
+            }
+            var dataid = $(this).attr('data-id');
+            changeTableVal('arctype','id',dataid,'is_hidden',this);
+        });
+        
+        //栏目更多弹出按钮触发事件
+        $(document).off('mousedown','.layui-table-grid-down').
+            on('mousedown','.layui-table-grid-down',function (event) {
+                table._tableTrCurrr = $(this).closest('td');
+            });
+         $(document).off('click','.layui-table-tips-main [lay-event]').
+            on('click','.layui-table-tips-main [lay-event]',function (event) {
+                var elem = $(this);
+                var tableTrCurrr =  table._tableTrCurrr;
+                if(!tableTrCurrr){
+                    return;
+                }
+                var layerIndex = elem.closest('.layui-table-tips').attr('times');
+                layer.close(layerIndex);
+                table._tableTrCurrr.find('[lay-event="' + elem.attr('lay-event') + '"]').first().click();
+         });
+
+    });
+    
+    function delfun(obj){
+        var title = $(obj).attr('data-typename');
+        layer.confirm('<font color="#ff0000">如有子栏目及文档将一起清空</font>，确认删除到回收站？', {
+            title: false,
+            btn: ['确定','取消'] //按钮
+        }, function(){
+            layer_loading('正在处理');
+            // 确定
+            $.ajax({
+                type : 'post',
+                url : $(obj).attr('data-url'),
+                data : {del_id:$(obj).attr('data-id')},
+                dataType : 'json',
+                success : function(data){
+                    layer.closeAll();
+                    if(data.code == 1){
+                        layer.msg(data.msg, {icon: 1});
+                        window.location.reload();
+                    }else{
+                        layer.alert(data.msg, {icon: 2, title:false});  //alert(data);
+                    }
+                }
+            })
+        }, function(index){
+            layer.close(index);
+        });
+        return false;
+    }
+
+</script>
+{include file="public/footer" /}
+

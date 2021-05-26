@@ -1,0 +1,184 @@
+{include file="public/layout" /}
+<body>
+  <div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <!-- <div class="layui-card-header">内容管理</div> -->
+          <div class="layui-card-body">
+            <div class="console-menu">
+               <ul class="layui-row layui-col-space10 pt10 pb20">
+                  {if condition="!empty($contentManage['xinfang'])"}
+                  <li class="layui-col-xs6 layui-col-md2">
+                    <div class="admin-ico-nav">
+                      <i class="iconfont icon-haiwaixinfang "></i>
+                      <cite>新房</cite>
+                      <a lay-href="{:url('Xinfang/index', ['channel'=>$contentManage['xinfang']['id']])}">新房列表</a>
+                      {if condition="!empty($contentManage['tuan'])"}
+                      <a lay-href="{:url('Tuan/index', ['channel'=>$contentManage['tuan']['id']])}">团购列表</a>
+                      {/if}
+                    </div>
+                  </li>
+                  {/if}
+                  {if condition="!empty($contentManage['ershou'])"}
+                  <li class="layui-col-xs6 layui-col-md2 ">
+                     <div class="admin-ico-nav">
+                       <i  class="iconfont icon-ershoufang"></i>
+                       <cite>二手房</cite>
+                       <a lay-href="{:url('Ershou/index', ['channel'=>$contentManage['ershou']['id']])}">二手房列表</a>
+                         <a lay-href="{:url('Ershou/index', ['channel'=>$contentManage['ershou']['id'],'openurl'=>url('Ershou/add')])}">二手房新增</a>
+                     </div>
+                  </li>
+                  {/if}
+                  {if condition="!empty($contentManage['zufang'])"}
+                  <li class="layui-col-xs6 layui-col-md2 ">
+                     <div class="admin-ico-nav">
+                       <i  class="iconfont icon-xiaoquchuzuanli"></i>
+                       <cite>租房</cite>
+                       <a lay-href="{:url('Zufang/index', ['channel'=>$contentManage['zufang']['id']])}">租房列表</a>
+                         <a lay-href="{:url('Zufang/index', ['channel'=>$contentManage['zufang']['id'],'openurl'=>url('Zufang/add')])}">租房新增</a>
+                     </div>
+                  </li>
+                  {/if}
+                   {if condition="!empty($contentManage['qiuzu'])"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-xiaoquchuzuanli"></i>
+                           <cite>求租</cite>
+                           <a lay-href="{:url('Qiuzu/index', ['channel'=>$contentManage['qiuzu']['id']])}">求租列表</a>
+                           <a lay-href="{:url('Qiuzu/index', ['channel'=>$contentManage['qiuzu']['id'],'openurl'=>url('Qiuzu/add')])}">求租新增</a>
+                       </div>
+                   </li>
+                   {/if}
+                   {if condition="!empty($contentManage['xiaoqu'])"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-xiaoquguanli"></i>
+                           <cite>小区</cite>
+                           <a lay-href="{:url('Xiaoqu/index', ['channel'=>$contentManage['xiaoqu']['id']])}">小区列表</a>
+                           <a lay-href="{:url('Xiaoqu/index', ['channel'=>$contentManage['xiaoqu']['id'],'openurl'=>url('Xiaoqu/add')])}">小区新增</a>
+                       </div>
+                   </li>
+                   {/if}
+                  {if condition="!empty($contentManage['shopcs']) || !empty($contentManage['shopcz'])"}
+                  <li class="layui-col-xs6 layui-col-md2 ">
+                     <div class="admin-ico-nav">
+                       <i  class="iconfont icon-daochuSVG-"></i>
+                       <cite>商铺</cite>
+                       {if condition="!empty($contentManage['shopcs'])"}
+                       <a lay-href="{:url('Shopcs/index', ['channel'=>$contentManage['shopcs']['id']])}">商铺出售</a>
+                       {/if}
+                       {if condition="!empty($contentManage['shopcz'])"}
+                       <a lay-href="{:url('Shopcz/index', ['channel'=>$contentManage['shopcz']['id']])}">商铺出租</a>
+                       {/if}
+                     </div>
+                  </li>
+                  {/if}
+                  {if condition="!empty($contentManage['officecs']) || !empty($contentManage['officecz'])"}
+                  <li class="layui-col-xs6 layui-col-md2 ">
+                     <div class="admin-ico-nav">
+                       <i  class="iconfont icon-xiezilou"></i>
+                       <cite>写字楼</cite>
+                       {if condition="!empty($contentManage['officecs'])"}
+                       <a lay-href="{:url('Officecs/index', ['channel'=>$contentManage['officecs']['id']])}">写字楼出售</a>
+                       {/if}
+                       {if condition="!empty($contentManage['officecz'])"}
+                       <a lay-href="{:url('Officecz/index', ['channel'=>$contentManage['officecz']['id']])}">写字楼出租</a>
+                       {/if}
+                     </div>
+                  </li>
+                  {/if}
+                   {if condition="!empty($contentManage['article'])"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-xinwen"></i>
+                           <cite>资讯</cite>
+                           <a lay-href="{:url('Article/index', ['channel'=>$contentManage['article']['id']])}">资讯列表</a>
+                           <a lay-href="{:url('Article/index', ['channel'=>$contentManage['article']['id'],'openurl'=>url('Article/add')])}">资讯新增</a>
+                       </div>
+                   </li>
+                   {/if}
+                   {notempty name="$adPosition"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-guanggao"></i>
+                           <cite>广告</cite>
+                           <a lay-href="{:url('AdPosition/index')}">广告列表</a>
+                           <a lay-href="{:url('AdPosition/index',['openurl'=>url('AdPosition/add')])}">新增广告</a>
+                       </div>
+                   </li>
+                   {/notempty}
+                   {if condition="($ask_index eq 1) or ($system_question eq 1)"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-wenda1"></i>
+                           <cite>问答</cite>
+                           {notempty name="$ask_index"}
+                           <a lay-href="{:url('Ask/index')}">问答列表</a>
+                           {/notempty}
+                           {notempty name="$system_question"}
+                           <a lay-href="{:url('System/question')}">问答配置</a>
+                           {/notempty}
+                       </div>
+                   </li>
+                   {/if}
+                   {if condition="($remark_index eq 1) or ($system_remark eq 1)"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-wenda1"></i>
+                           <cite>点评</cite>
+                           {notempty name="$remark_index"}
+                           <a lay-href="{:url('Remark/index')}">点评列表</a>
+                           {/notempty}
+                           {notempty name="$system_remark"}
+                           <a lay-href="{:url('System/remark')}">点评配置</a>
+                           {/notempty}
+                       </div>
+                   </li>
+                   {/if}
+                   {if condition="($tags eq 1) or ($links eq 1)"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-qitapeizhi"></i>
+                           <cite>其他</cite>
+                           {notempty name="$tags"}
+                           <a lay-href="{:url('Tags/index')}">tags列表</a>
+                           {/notempty}
+                           {notempty name="$links"}
+                           <a lay-href="{:url('Links/index')}">友情链接</a>
+                           {/notempty}
+                       </div>
+                   </li>
+                   {/if}
+                   {volist name="$contentManage" id="vo"}
+                   {if condition="empty($vo['ifsystem'])"}
+                   <li class="layui-col-xs6 layui-col-md2 ">
+                       <div class="admin-ico-nav">
+                           <i  class="iconfont icon-xiaoquguanli"></i>
+                           <cite>{$vo.typename}</cite>
+                           <a lay-href="{:url('Custom/index', ['channel'=>$vo['id']])}">{$vo.typename}列表</a>
+                           <a lay-href="{:url('Custom/index', ['channel'=>$vo['id'],'openurl'=>url('Custom/add',['channel'=>$vo['id']])])}">{$vo.typename}新增</a>
+                       </div>
+                   </li>
+                   {/if}
+                   {/volist}
+                </ul>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    layui.config({
+      base: '__SKIN__/' //静态资源所在路径
+      ,version: '{$version}'
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use(['index'], function(){
+
+    });
+  </script>
+{include file="public/footer" /}
+

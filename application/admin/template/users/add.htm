@@ -1,0 +1,334 @@
+{include file="public/layout" /}
+<body>
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body web-system" pad15>
+                    <div class="layui-form" wid100 lay-filter="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><b>*</b>会员级别</label>
+                            <div class="layui-input-inline">
+                                <select name="level_id"  class="layui-input">
+                                    {volist name="level_list" id="vo"}
+                                    <option value="{$key}" >{$vo}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><b>*</b>手机号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="mobile" id="mobile" lay-verify="phone" value="" class="layui-input">
+                            </div>
+                            <div class="layui-input-inline">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">{eju:if condition="$Request.param.back eq 'index'"}<b>*</b>{/eju:if}用户名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="username" id="username" {eju:if condition="$Request.param.back eq 'index'"}lay-verify="required"{/eju:if} value="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">{eju:if condition="$Request.param.back eq 'saleman_list'"}<b>*</b>{/eju:if}真实姓名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="true_name" id="true_name" {eju:if condition="$Request.param.back eq 'saleman_list'"}lay-verify="required"{/eju:if} value="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">头像</label>
+                            <div class="layui-input-inline">
+                                <div class="upload-box">
+                                    <div class="upload-img fl">
+                                        <div class="icaction none">
+                                      <span class="load_images">
+                                         <a href="javascript:void(0);" onclick="BigImages($('#img_litpic').attr('src'));">
+                                         <i class="layui-icon layui-icon-search mr5"></i>查看
+                                         </a>
+                                      </span>
+                                            <span class="load_images">
+                                        <a href="javascript:void(0);" data-inputid="litpic" onclick="DelImages(this);">
+                                        <i class="layui-icon layui-icon-delete mr5"></i>删除
+                                        </a>
+                                      </span>
+                                        </div>
+                                        <div class="cover-bg none"></div>
+                                        <img id="img_litpic" src="{:get_default_pic()}">
+                                    </div>
+                                    <div class="upload-right fl">
+                                        <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'litpic',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                        <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'litpic');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                        <input name="litpic" id="litpic" placeholder="图片地址" value="" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">qq</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="qq" id="qq" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');"  class="layui-input">
+                            </div>
+                            <div class="layui-input-inline">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">邮箱</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" id="email"  value="" class="layui-input">
+                            </div>
+                        </div>
+
+                        {eju:if condition="$Request.param.back eq 'saleman_list'"}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">咨询人数</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="consult" id="consult" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" class="layui-input">
+                            </div>
+                            <div class="layui-input-inline">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">第三方商桥</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="party" id="party" class="layui-input">
+                            </div>
+                            <div class="layui-input-inline">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">服务区域</label>
+                            <div class="layui-input-inline layadmin-layer-demo" id="service_area">
+                                <button class="layui-btn layui-ton" data-type="select_region">选择区域</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">服务小区</label>
+                            <div class="layui-input-inline layadmin-layer-demo" id="service_xiaoqu">
+                                <button class="layui-btn layui-ton" data-type="select_xiaoqu">选择小区</button>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">历史成交</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="deal" id="deal"  class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">最近带看</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="look" id="look" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">所属公司</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="company" id="company" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">标签</label>
+                            <div class="layui-input-inline">
+                                {volist name="$users_label_list" id="v2"}
+                                <input type="checkbox" lay-skin="primary" name="users_label[]" value="{$v2}"  title="{$v2}">
+                                {/volist}
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">介绍</label>
+                            <div class="layui-input-inline">
+                                <textarea name="content" id="content" class="layui-textarea" placeholder=""></textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">内部人员</label>
+                            <div class="layui-input-inline w70">
+                                <input type="checkbox" lay-filter="is_saleman" lay-skin="switch" lay-text="是|否" checked>
+                                <input type="hidden" name="is_saleman" value="1" />
+                            </div>
+                        </div>
+                        {/eju:if}
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><b>*</b>密码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="password" id="password" lay-verify="check_password" value="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><b>*</b>确认密码</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="verify_password" id="verify_password"  value="" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">状态</label>
+                            <div class="layui-input-inline w70">
+                                <input type="checkbox" lay-filter="is_activation" lay-skin="switch" lay-text="激活|屏蔽" checked>
+                                <input type="hidden" name="is_activation" value="1" />
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="hidden" value="{$Request.param.back}" name="back" />
+                                <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function(){
+            // 鼠标事件，加载查看大图和删除图片
+            $(".upload-img").live('mouseover', function(){
+                $(this).find('div.icaction').show();
+                $(this).find('div.cover-bg').show();
+            }).live('mouseout', function(){
+                $(this).find('div.icaction').hide();
+                $(this).find('div.cover-bg').hide();
+            });
+        });
+
+        layui.config({
+            base: '__SKIN__/' //静态资源所在路径
+            ,version: '{$version}'
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'set'],function () {
+            var $ = layui.$
+                ,element = layui.element
+                ,layer = layui.layer
+                ,form = layui.form;
+
+            element.render();
+            var active = {
+                select_region:function () {     //小区关联管理
+                    var xinfang = layer.open({
+                        type : 2,
+                        title : '选择区域',
+                        area : ['700px','500px'],
+                        shade : 0.2,
+                        iframeAuto:true,
+                        content : "{:url('Region/ajaxSelectRegion')}"+'&func=set_region_back',
+                        end : function(){
+
+                        }
+                    });
+                }
+                ,select_xiaoqu:function () {
+                    var xinfang = layer.open({
+                        type : 2,
+                        title : '选择小区',
+                        area : ['700px','500px'],
+                        shade : 0.2,
+                        iframeAuto:true,
+                        content : "{:url('Xiaoqu/ajaxSelectXiaoqu')}"+'&func=set_house_back',
+                        end : function(){
+
+                        }
+                    });
+                }
+            };
+            $('#LAY-component-layer-list .layadmin-layer-demo .layui-btn').on('click', function(){
+                var type = $(this).data('type');
+                active[type] && active[type].call(this);
+            });
+            form.verify({
+                check_password:function (value, item) {
+                    if(value == '' || undefined == value){
+                        return '请填写密码！';
+                    }
+                    if (value.length < 6){
+                        return '密码不能少于6位！';
+                    }
+                    var verify_password = $("#verify_password").val();
+                    if (value !== verify_password){
+                        return '两次输入密码不一致！';
+                    }
+                }
+                ,check_tellphone: function(value){
+                    var phone = /^[0-9-]+$/;
+                    var flag = phone.test(value);
+                    if(value != '' && !flag){
+                        return '请输入正确座机号码或手机号';
+                    }
+                }
+            });
+            // 监听开关
+            form.on('switch', function(data){
+                var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+                if (data.elem.checked) {
+                    this.value = 1;
+                } else {
+                    this.value = 0;
+                }
+                $("input[name='"+elemId+"']").val(this.value);
+            });
+
+            //监听提交
+            form.on('submit(formSubmit)', function(data){
+                var load = layer_loading();
+                data.field._ajax = 1;
+                $.ajax({
+                    type : 'post',
+                    url : "{:url('Users/add')}",
+                    data : data.field,
+                    dataType : 'json',
+                    success : function(res){
+                        layer.close(load); //关闭loading
+                        if(res.code == 1){
+                            layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                                parent.gourl(res.url);
+                            });
+                        }else{
+                            showErrorMsg(res.msg);
+                        }
+                    },
+                    error: function(e){
+                        layer.close(load); //关闭loading
+                        showErrorAlert();
+                    }
+                });
+                return false;
+            });
+        });
+        /*
+         *  调用选择区域回调
+         */
+        function set_region_back(recall) {
+            if ($("#service_area_"+recall.id).length == 0){
+                var html = '<span class="tower-add service_area" id="service_area_'+ recall.id +'" data-id="'+ recall.id +'">' +
+                    '<input type="hidden" name="service_area[]" value="'+ recall.id +'">' +
+                    recall.name +
+                    '<i class="layui-icon layui-icon-close"></i>' +
+                    '</span>';
+                $("#service_area").append(html);
+            }
+        }
+        $("#service_area").on('click','i',function(){
+            $(this).parent().remove();
+        });
+        /*
+        * 调用选择小区回调
+         */
+        function set_house_back(recall) {
+            if ($("#service_xiaoqu_"+recall.aid).length == 0){
+                var html = '<span class="tower-add service_xiaoqu" id="service_xiaoqu_'+ recall.aid +'" data-id="'+ recall.aid +'">' +
+                    '<input type="hidden" name="service_xiaoqu[]" value="'+ recall.aid +'">' +
+                    recall.title +
+                    '<i class="layui-icon layui-icon-close"></i>' +
+                    '</span>';
+                $("#service_xiaoqu").append(html);
+            }
+        }
+        $("#service_xiaoqu").on('click','i',function(){
+            $(this).parent().remove();
+        });
+    </script>
+</body>
+{include file="public/footer" /}

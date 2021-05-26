@@ -1,0 +1,78 @@
+{include file="public/layout" /}
+<body>
+<div class="layui-fluid " id="LAY-component-layer-list">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form layui-border-box layui-table-view house-table">
+                        <div class="layui-table-box">
+                            <div class="layui-table-body " >
+                                <table cellspacing="0" cellpadding="0" border="0" class="layui-table" style="width: 100%">
+                                    <thead >
+                                    <tr>
+                                        <th class="w200 tc"><div class="layui-table-cell w200 tc" ><span>字段名称</span></div></th>
+                                        <th class="wauto"><div class="layui-table-cell wauto"><span>字段值</span></div></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        {volist name="form_attr_list" id="fal"}
+                                        <tr>
+                                            <td>
+                                                <div class="layui-table-cell w200 tc ">
+                                                    {$fal.attr_name}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="layui-table-cell wauto">
+                                                    {$value_list[$fal['attr_id']]['attr_value']}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {/volist}
+                                        <tr>
+                                            <td>
+                                                <div class="layui-table-cell w200 tc ">
+                                                    IP地址
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="layui-table-cell wauto">
+                                                    {$form_list.ip} [{$form_list.city}]
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="layui-table-cell w200 tc ">
+                                                    提交来源
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="layui-table-cell wauto">
+                                                    <a href="{$form_list.come_url}" target="_blank">{$form_list.come_from}</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="layui-table-cell w200 tc ">
+                                                    提交时间
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="layui-table-cell wauto">
+                                                    {$form_list.add_time|MyDate="Y-m-d H:i:s",###}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {include file="public/footer" /}

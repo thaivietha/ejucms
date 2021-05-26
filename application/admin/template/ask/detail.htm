@@ -1,0 +1,285 @@
+{include file="public/layout" /}
+<body>
+<link rel="stylesheet" href="__SKIN__/css/page.css" media="all">
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body web-system" pad15>
+                    <div class="layui-form" wid100 lay-filter="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">提问标题</label>
+                            <div class="layui-input-inline">
+                                {$ask.ask_title|htmlspecialchars_decode}
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">提问内容</label>
+                            <div class="layui-input-inline">
+                                {$ask.content|htmlspecialchars_decode}
+                            </div>
+                        </div>
+                        {notempty name="$ask.xinfang_title"}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">关联楼盘</label>
+                            <div class="layui-input-inline">
+                                {$ask.xinfang_title|htmlspecialchars_decode}
+                            </div>
+                        </div>
+                        {/notempty}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">已审核</label>
+                            <div class="layui-input-inline w70">
+                                {notempty name="$ask.is_review"}
+                                是
+                                {else /}
+                                否
+                                {/notempty}
+
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">热门</label>
+                            <div class="layui-input-inline w70">
+                                {notempty name="$ask.is_recom"}
+                                是
+                                {else /}
+                                否
+                                {/notempty}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-card">
+        <div class="head-oper">
+            <div class="fl">
+                {eq name="'Ask@index'|is_check_access" value="1"}
+                <a data-url="{:url('Ask/edit',array('ask_id'=>$ask_id))}"  data-type="Ask_edit" class="layui-btn mt5 ">编辑问题</a>
+                {/eq}
+                {notempty name="$ask_id"}
+                {eq name="'Answer@add'|is_check_access" value="1"}
+                <a data-url="{:url('Answer/add',array('ask_id'=>$ask_id))}" data-type="Answer_add" class="layui-btn mt5 ">新增回复</a>
+                {/eq}
+                {/notempty}
+            </div>
+            <div class="fr">
+                <form action="{:url('Answer/index')}" method="get" onsubmit="layer_loading();">
+                    <div class="fl mt5" >
+                        <div class="layui-input-inline w240">
+                            {$searchform.hidden|default=''}
+                            <input type="text" name="keywords" id="keywords" value="{$Request.param.keywords}" placeholder="搜索相关答案…" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-input-inline w50 mt5">
+                        <button class="layui-btn input-btn-search" type="submit"><i class="layui-icon layui-icon-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-form layui-border-box layui-table-view house-table" lay-id="admin-arctype" >
+                <div class="layui-table-box">
+                    <div class="layui-table-body " >
+                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" style="width: 100%" lay-skin="line">
+                            <thead >
+                            <tr>
+                                <th class="w40 tc">
+                                    <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                                        <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary">
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"> <i class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </th>
+                                <th class="w60 tc">
+                                    <div class="layui-table-cell w60 tc" ><span>ID</span></div>
+                                </th>
+                                <th class="w150 tc">
+                                    <div class="layui-table-cell w150 tc"><span>回复用户</span></div>
+                                </th>
+                                <th>
+                                    <div class="layui-table-cell wauto"><span>回复内容</span></div>
+                                </th>
+                                <!--<th class="w200">-->
+                                    <!--<div class="layui-table-cell w200"><span>问题</span></div>-->
+                                <!--</th>-->
+                                <th class="w100 tc">
+                                    <div class="layui-table-cell w100 tc"><span>审核</span></div>
+                                </th>
+                                <th class="w110 tc">
+                                    <div class="layui-table-cell w110 tc"><span>回复时间</span></div>
+                                </th>
+                                <th class="w80 tc">
+                                    <div class="layui-table-cell w150 tc"><span>ip</span></div>
+                                </th>
+                                <th class="w150 tc">
+                                    <div class="layui-table-cell w250 tc"><span>操作</span></div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {empty name="list"}
+                            <tr>
+                                <td colspan="10" class="no-data tc">
+                                    没有符合条件的数据
+                                </td>
+                            </tr>
+                            {else/}
+                            {foreach name="list" item="vo" key="k" }
+                            <tr>
+                                <td>
+                                    <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                                        <input type="checkbox" name="ids[]" lay-filter="ids" lay-skin="primary" value="{$vo.id}">
+                                    </div>
+                                </td>
+                                <td><div class="layui-table-cell w60 tc"> {$vo.id} </div></td>
+                                <td><div class="layui-table-cell w150 tc"> {$vo.username} </div></td>
+                                <td>
+                                    <div class="layui-table-cell wauto"  title="{$vo.content}">
+                                        {$vo.content|html_msubstr=###,0,30}
+                                    </div>
+                                </td>
+                                <!--<td>-->
+                                    <!--<div class="layui-table-cell  w200 tc">-->
+                                        <!--<a href="{:url('Answer/index', array('ask_id'=>$vo['ask_id']))}" title="{$vo['question']['content']}">-->
+                                            <!--{$vo['question']['ask_title']}-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</td>-->
+                                <td>
+                                    <div class="layui-table-cell w100 tc">
+                                        <input type="checkbox" name="is_review"  data-id="{$vo.id}" value="{$vo.is_review}" lay-filter="is_review" lay-skin="switch" lay-text="是|否" {eq name="$vo.is_review" value="1"} class="on" checked{else /}class="off"{/eq}>
+                                    </div>
+                                </td>
+                                <td><div class="layui-table-cell w110 tc"> {$vo.add_time|date='Y-m-d',###} </div></td>
+                                <td>
+                                    <div class="layui-table-cell w150 tc">
+                                        {$vo.users_ip}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w250 tc right-oper">
+                                        {eq name="'Answer@edit'|is_check_access" value="1"}
+                                        <a class="layui-btn btn-edit customvar_edit" data-url="{:url('Answer/edit',array('id'=>$vo['id']))}" data-type="Answer_edit">编辑</a>
+                                        {/eq}
+                                        {eq name="'Answer@del'|is_check_access" value="1"}
+                                        <a href="javascript:void(0);" class="layui-btn btn-primary" data-url="{:url('Answer/del')}" data-id="{$vo.id}" onClick="delfun(this);">删除</a>
+                                        {/eq}
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {/empty}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="layui-table-page footer-oper">
+                    <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary" >
+                    {eq name="'Answer@del'|is_check_access" value="1"}
+                    <a class="layui-btn layui-btn-primary" data-type="batch_del" data-url="{:url('Answer/del')}"  style="line-height: 34px;">
+                        批量删除
+                    </a>
+                    {/eq}
+                </div>
+                <!--分页-->
+            </div>
+            {$page}
+        </div>
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+            ,form = layui.form;
+
+        form.on('switch(is_review)', function(data){
+            var dataid = $(this).attr('data-id');
+            if ($(this).val() == 1){
+                $(this).val(0);
+            }else{
+                $(this).val(1);
+            }
+            changeTableVal('answer','id',dataid,'is_review',this);
+            return false;
+        });
+        // 监听复选框全选
+        form.on('checkbox(checkAll)', function(data){
+            if (data.elem.checked) {
+                $('.checkAll').attr('checked', true);
+                $('input[name*=ids]').attr('checked', true);
+            } else {
+                $('.checkAll').attr('checked', false);
+                $('input[name*=ids]').attr('checked', false);
+            }
+            form.render('checkbox');
+        });
+
+        // 监听每行复选框
+        form.on('checkbox(ids)', function(data){
+            if (data.elem.checked && $('input[name*=ids]:checked').length == $('input[name*=ids]').length) {
+                $('.checkAll').attr('checked', true);
+            } else {
+                $('.checkAll').attr('checked', false);
+            }
+            form.render('checkbox');
+        });
+
+        /* 触发事件 */
+        var active = {
+            //编辑提问
+            Ask_edit:function () {
+                var iframes = layer.open({
+                    title: "编辑问题"
+                    , type: 2
+                    , shadeClose: true
+                    , area: ['90%', '90%']
+                    , content: $(this).data('url')
+                });
+            }
+            // 新增回答
+            ,Answer_add: function(){
+                var iframes = layer.open({
+                    type: 2,
+                    title: '新增回答',
+                    fixed: true, //不固定
+                    shadeClose: true,
+                    area: ['90%', '90%'],
+                    shade: 0.3,
+                    content: $(this).data('url')
+                });
+            }
+            // 编辑回答
+            ,Answer_edit: function(){
+                var iframes = layer.open({
+                    type: 2,
+                    title: '编辑回答',
+                    fixed: true, //不固定
+                    shadeClose: true,
+                    area: ['90%', '90%'],
+                    shade: 0.3,
+                    content: $(this).data('url')
+                });
+            }
+            // 批量删除
+            ,batch_del: function(){
+                batch_del(this,'ids');
+            }
+        };
+
+        $('#LAY-component-layer-list .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] && active[type].call(this);
+        });
+
+    });
+
+</script>
+{include file="public/footer" /}

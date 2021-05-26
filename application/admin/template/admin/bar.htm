@@ -1,0 +1,17 @@
+<ul class="layui-tab-title">
+    {eq name="'Admin@index'|is_check_access" value="1"}
+    <li {if condition="('Admin'==$Think.const.CONTROLLER_NAME) and ('index'==$Think.const.ACTION_NAME)"}class="layui-this"{/if}>
+        <a href="{:url('Admin/index')}">管理员</a>
+    </li>
+    {/eq}
+    {eq name="'AuthRole@index'|is_check_access" value="1"}
+    <li {if condition="('AuthRole'==$Think.const.CONTROLLER_NAME) and ('index'==$Think.const.ACTION_NAME)"}class="layui-this"{/if}>
+    <a href="{:url('AuthRole/index')}">权限组</a>
+    </li>
+    {/eq}
+</ul>
+<style>
+    .layui-tab-title .layui-this {
+        background-color:#fff;
+    }
+</style>

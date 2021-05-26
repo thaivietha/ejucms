@@ -1,0 +1,143 @@
+{include file="public/layout" /}
+<body>
+<link rel="stylesheet" href="__SKIN__/css/page.css" media="all">
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.config.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.all.min.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/lang/zh-cn/zh-cn.js" /}
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-card">
+        <div class="layui-tab  layui-tab-card">
+            <ul class="layui-tab-title">
+                <!-- <li><a href="{:url('Minipro/global_conf')}"><span>1.常规配置</span></a></li> -->
+                <li><a href="{:url('Minipro/home_conf')}"><span>1.首页配置</span></a></li>
+                <!-- <li><a href="{:url('Minipro/about_conf')}"><span>2.联系我们</span></a></li> -->
+                <li><a href="{:url('Minipro/setting')}"><span>2.生成小程序</span></a></li>
+                <li class="layui-this">3.收客列表</li>
+            </ul>
+        </div>
+         <div class="layui-card-body">
+                <div class="layui-form layui-border-box layui-table-view house-table">
+                    <div class="layui-table-box">
+                        <div class="layui-table-body " >
+                            <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" style="width: 100%" lay-skin="line">
+                                <thead >
+                                <tr>
+                                    <!--<th class="w40 tc">-->
+                                        <!--<div class="layui-table-cell w40 tc laytable-cell-checkbox">-->
+                                            <!--<input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary" >-->
+                                        <!--</div>-->
+                                    <!--</th>-->
+                                    <th class="w60 tc"> <div class="layui-table-cell w60 tc" ><span>ID</span></div></th>
+                                    <th class="wauto tc"> <div class="layui-table-cell wauto tc"><span>标题</span></div></th>
+                                    <th class="wauto tc"> <div class="layui-table-cell wauto tc"><span>频道</span></div></th>
+                                    <th class="wauto tc"> <div class="layui-table-cell wauto tc"><span>类型</span></div></th>
+                                    <th class="wauto tc"> <div class="layui-table-cell wauto tc"><span>手机号</span></div></th>
+                                    <th class="wauto tc"> <div class="layui-table-cell wauto tc"><span>ip</span></div></th>
+                                    <th class="wauto tc"> <div class="layui-table-cell wauto tc"><span>提交时间</span></div></th>
+                                    <th class="wauto tc"> <div class="layui-table-cell wauto tc"><span>更新时间</span></div></th>
+                                    <!--<th class="w150 tc"> <div class="layui-table-cell w150 tc"><span>操作</span></div></th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {empty name="list"}
+                                <tr>
+                                    <td class="no-data" align="center" axis="col0" colspan="9">
+                                        <i class="fa fa-exclamation-circle"></i>没有符合条件的数据
+                                    </td>
+                                </tr>
+                                {else/}
+                                {foreach name="list" item="vo" key="k" }
+                                <tr>
+                                    <!--<td>-->
+                                        <!--<div class="layui-table-cell w40 tc laytable-cell-checkbox">-->
+                                            <!--<input type="checkbox" name="ids[]" value="{$vo.list_id}" lay-filter="ids" lay-skin="primary">-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                    <td><div class="layui-table-cell w60 tc"> {$vo.id} </div></td>
+                                    <td><div class="layui-table-cell wauto tc"><a href="{$vo.arcurl}" target="_blank">{$vo.title}</a></div></td>
+                                    <td><div class="layui-table-cell wauto tc">{$vo.channel_name}</div></td>
+                                    <td><div class="layui-table-cell wauto tc">{$vo.type_name}</div></td>
+                                    <td><div class="layui-table-cell wauto tc">{$vo.mobile}</div></td>
+                                    <td><div class="layui-table-cell wauto tc">{$vo.ip}</div></td>
+                                    <td><div class="layui-table-cell wauto tc">{$vo.add_time|MyDate="Y-m-d H:i:s",###}</div></td>
+                                    <td><div class="layui-table-cell wauto tc">{$vo.update_time|MyDate="Y-m-d H:i:s",###}</div></td>
+                                    <!--<td>-->
+                                        <!--<div class="layui-table-cell w150 tc layadmin-layer-demo right-oper">-->
+                                            <!--<a class="layui-btn btn-edit customvar_edit" data-type="Form_examine" data-formname="{$vo.form_name}" data-listid="{$vo.list_id}">查看</a>-->
+
+                                            <!--<a class="layui-btn btn-primary"  data-url="{:url('Form/del')}" data-id="{$vo.list_id}" data-type="Form_del">删除</a>-->
+                                        <!--</div>-->
+                                    <!--</td>-->
+                                </tr>
+                                {/foreach}
+                                {/empty}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {$page}
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        // 鼠标事件，加载查看大图和删除图片
+        $(".upload-img").live('mouseover', function(){
+            $(this).find('div.icaction').show();
+            $(this).find('div.cover-bg').show();
+        }).live('mouseout', function(){
+            $(this).find('div.icaction').hide();
+            $(this).find('div.cover-bg').hide();
+        });
+
+    });
+
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+            ,element = layui.element
+            ,layer = layui.layer
+            ,form = layui.form;
+
+        element.render();
+
+        //监听提交
+        form.on('submit(formSubmit)', function(data){
+            var load = layer_loading();
+            data.field._ajax = 1;
+            console.log(data.field);
+
+            $.ajax({
+                type : 'post',
+                url : "{:url('Minipro/about_conf')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        layer.msg(res.msg, {icon: 1, time: 1500}, function(){
+                            window.location.reload();
+                        });
+                    }else{
+                        showErrorMsg(res.msg);
+                    }
+                },
+                error: function(e){
+                    console.log('fail');
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        });
+
+    });
+
+</script>
+
+{include file="public/footer" /}

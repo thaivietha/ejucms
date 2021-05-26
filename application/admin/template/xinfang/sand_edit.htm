@@ -1,0 +1,230 @@
+{include file="public/layout" /}
+<body>
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.config.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/ueditor.all.min.js" /}
+{load href="__PUBLIC__/plugins/Ueditor/lang/zh-cn/zh-cn.js" /}
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="">
+                    <form class="layui-form" onsubmit="return false;">
+                        <div class="layui-tab layui-tab-card">
+                            <div class="layui-tab-content web-system" style="padding:10px 0">
+                                <div class="layui-tab-item layui-show">
+                                    <div class="layui-row layui-col-space15">
+                                        <div class="layui-col-md12">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body" pad15>
+                                                    <div wid100 lay-filter="">
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>楼栋名称</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="title" value="{$field.title|default=''}" lay-verify="check_title" class="layui-input">
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt">输入楼栋名称</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>单元数</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" value="{$field.unit|default=''}" name="unit" id="unit" class="layui-input" lay-verify="required" >
+                                                                <div class="layui-form-inline"></div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>电梯数</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" value="{$field.elevator|default=''}" name="elevator" id="elevator" class="layui-input" lay-verify="required">
+                                                                <div class="layui-form-inline"></div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>楼层数</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" value="{$field.floor_num|default=''}" name="floor_num" id="floor_num" class="layui-input" lay-verify="required">
+                                                                <div class="layui-form-inline"></div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>总户数</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" value="{$field.room_num|default=''}" name="room_num" id="room_num" class="layui-input" lay-verify="required">
+                                                                <div class="layui-form-inline"></div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">开盘时间</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="open_time" id="open_time" placeholder="{php}echo date('Y-m-d H:i:s'){/php}" autocomplete="off" value="{$field.open_time|myDate='Y-m-d H:i:s',###}" class="layui-input">
+                                                                <div class="layui-form-inline"></div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">交房时间</label>
+                                                            <div class="layui-input-inline">
+                                                                <input type="text" name="complate_time" id="complate_time" placeholder="{php}echo date('Y-m-d H:i:s'){/php}" autocomplete="off" value="{$field.complate_time|myDate='Y-m-d H:i:s',###}" class="layui-input">
+                                                                <div class="layui-form-inline"></div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>销售状态</label>
+                                                            <div class="layui-input-inline">
+                                                                {volist name=":get_sale_status_list()" id="vo"}
+                                                                <input type="radio" {eq name="$field.sale_status" value="$vo"}checked="checked"{/eq} id="sale_status" name="sale_status"  value="{$vo}"  title="{$vo}" lay-verify="otherReq" >
+                                                                {/volist}
+                                                                <div class="layui-form-inline"></div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label"><b>*</b>包含户型</label>
+                                                            <div class="layui-input-inline">
+                                                                {volist name="$huxing_list" id="vo"}
+                                                                <input type="checkbox" {if condition="isset($field.huxing_id) AND in_array($vo.huxing_id, $field.huxing_id)"}checked="checked"{/if} lay-skin="primary" id="huxing_id" name="huxing_id[]"  value="{$vo.huxing_id}"  title="{$vo.huxing_title}"  >
+                                                                {/volist}
+                                                                <div class="layui-form-inline"></div>
+                                                            </div>
+                                                            <div class="layui-input-inline layui-btn-container " style="width: auto;">
+                                                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                <div class="layui-form-inline2 ey_helptips_txt"></div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="layui-form-item">
+                                                            <div class="layui-input-block">
+                                                                <input type="hidden" name="sand_id" id="sand_id" value="{$field.sand_id|default=''}" />
+                                                                <input type="hidden" name="aid" id="aid" value="{$aid|default=''}" />
+                                                                <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('#open_time').layDate();
+        $('#complate_time').layDate();
+    });
+    var formNew;
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index', //主入口模块
+    }).use(['index', 'form', 'set'], function(){
+        var $ = layui.$
+            ,element = layui.element
+            ,router = layui.router()
+            ,layer = layui.layer
+            ,form = formNew = layui.form;
+        element.render();
+
+        form.verify({
+            check_title: function(value, item){
+                if(value == '' || undefined == value){
+                    return '必填项不能为空';
+                }
+            }
+            ,otherReq:function (value, item) {
+                var $ = layui.$;
+                var verifyName=$(item).attr('name')
+                    , verifyType=$(item).attr('type')
+                    ,formElem=$(item).parents('.layui-form')//获取当前所在的form元素，如果存在的话
+                    ,verifyElem=formElem.find('input[name='+verifyName+']')//获取需要校验的元素
+                    ,isTrue= verifyElem.is(':checked')//是否命中校验
+                    ,focusElem = verifyElem.next().find('i.layui-icon');//焦点元素
+                if(!isTrue || !value){
+                    //定位焦点
+                    focusElem.css(verifyType=='radio'?{"color":"#FF5722"}:{"border-color":"#FF5722"});
+                    //对非输入框设置焦点
+                    focusElem.first().attr("tabIndex","1").css("outline","0").blur(function() {
+                        focusElem.css(verifyType=='radio'?{"color":""}:{"border-color":""});
+                    }).focus();
+                    return '必填项不能为空';
+                }
+            }
+        });
+        /* 触发事件 */
+        var active = {
+        };
+        $('#LAY-component-layer-list .layadmin-layer-demo .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] && active[type].call(this);
+        });
+        //监听提交
+        form.on('submit(formSubmit)', function(data){
+            var load = layer_loading();
+            data.field._ajax = 1;
+            $.ajax({
+                type : 'post',
+                url : "{:url('Xinfang/sand_edit')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                            eval('window.parent.sand_call_back(res.data,2)');
+                            window.parent.layer.closeAll();
+                        });
+                    }else{
+                        showErrorMsg(res.msg);
+                    }
+                },
+                error: function(e){
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        });
+    });
+
+</script>
+{include file="public/footer" /}

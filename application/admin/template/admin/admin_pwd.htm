@@ -1,0 +1,105 @@
+{include file="public/layout" /}
+<body>
+  <div class="layui-fluid">
+      <div class="layui-row layui-col-space15">
+          <div class="layui-col-md12">
+            <div class="layui-card">
+              <div class="head-oper">
+                <div class="fl">修改密码 - 管理员</div>
+              </div>
+              <div class="layui-card-body" pad15>
+                <div class="layui-form" wid100 lay-filter="">
+                  <div class="layui-form-item">
+                    <label class="layui-form-label"><b>*</b>原密码</label>
+                    <div class="layui-input-inline">
+                     <input type="password" name="old_pw" id="old_pw" value="" lay-verify="required|check_old_pw" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label"><b>*</b>新密码</label>
+                    <div class="layui-input-inline">
+                     <input type="password" name="new_pw" id="new_pw" value="" lay-verify="required|check_new_pw" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <label class="layui-form-label"><b>*</b>确认密码</label>
+                    <div class="layui-input-inline">
+                     <input type="password" name="new_pw2" id="new_pw2" value="" lay-verify="required|check_new_pw2" autocomplete="off" class="layui-input">
+                    </div>
+                  </div>
+                  <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <input type="hidden" name="admin_id" value="{$info.admin_id}">
+                        <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+
+  <script>
+  layui.config({
+    base: '__SKIN__/' //静态资源所在路径
+    ,version: '{$version}'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'set'], function(){
+    var $ = layui.$
+    ,layer = layui.layer
+    ,form = layui.form;
+
+    form.verify({
+      check_old_pw: function(value, item){ //value：表单的值、item：表单的DOM对象
+        if (5 > value.length) {
+            return '原始密码长度不能少于5位';
+        }
+      }
+      ,check_new_pw: function(value, item){
+        if (5 > value.length) {
+            return '新密码长度不能少于5位';
+        }
+      }
+      ,check_new_pw2: function(value, item){
+        if (5 > value.length) {
+            return '确认密码长度不能少于5位';
+        }
+        var new_pw = $('input[name=new_pw]').val();
+        if (value != new_pw) {
+            return '两次密码输入不一致';
+        }
+      }
+    }); 
+
+    //监听提交
+    form.on('submit(formSubmit)', function(data){
+        var load = layer_loading();
+        data.field._ajax = 1;
+        $.ajax({
+            type : 'post',
+            url : "{:url('Admin/admin_pwd')}",
+            data : data.field,
+            dataType : 'json',
+            success : function(res){
+                layer.close(load); //关闭loading
+                if(res.code == 1){
+                    layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                        window.location.reload();
+                    });
+                }else{
+                    showErrorMsg(res.msg);
+                }
+            },
+            error: function(e){
+                layer.close(load); //关闭loading
+                showErrorAlert();
+            }
+        });
+        return false;
+    });
+
+  });
+
+  </script>
+{include file="public/footer" /}

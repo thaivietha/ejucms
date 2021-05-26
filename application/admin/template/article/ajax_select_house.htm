@@ -1,0 +1,145 @@
+{include file="public/layout" /}
+
+<body>
+<link rel="stylesheet" href="__SKIN__/css/page.css" media="all">
+
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-card">
+        <div class="head-search layadmin-layer-demo ">
+            <div class="layui-input-inline w100 pt10">
+                <input type="hidden" name="pid" id="pid" value="{$Request.param.pid|default=''}">
+                <input type="text" name="keywords" id="keywords" value="{$Request.param.keywords}" placeholder="标题搜索" class="layui-input">
+            </div>
+            <div class="layui-input-inline w50 pt10">
+                <button class="layui-btn" data-type="search">搜 索</button>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-form layui-border-box layui-table-view" lay-filter="demo" lay-id="admin-arctype" >
+                <div class="layui-table-box">
+                    <div class="layui-table-body " >
+                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" style="width: 100%">
+                            <thead >
+                            <tr>
+                                <th class="laytable-cell-1-0-0">
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-checkbox">
+                                        <input type="checkbox"  lay-filter="checkAll" id="checkAll"   lay-skin="primary" >
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"> <i class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </th>
+                                <th class="laytable-cell-1-0-1"> <div class="layui-table-cell laytable-cell-1-0-1" ><span>标题</span></div></th>
+                                <th class="laytable-cell-1-0-2"> <div class="layui-table-cell laytable-cell-1-0-2"><span>所属省份</span></div></th>
+                                <th class="laytable-cell-1-0-3"> <div class="layui-table-cell laytable-cell-1-0-3"><span>所属城市</span></div></th>
+                                <th class="laytable-cell-1-0-8"> <div class="layui-table-cell laytable-cell-1-0-8"><span>操作</span></div></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {empty name="list"}
+                            <tr>
+                                <td class="no-data" align="center" axis="col0" colspan="50">
+                                    <i class="fa fa-exclamation-circle"></i>没有符合条件的数据
+                                </td>
+                            </tr>
+                            {else /}
+                            {foreach name="list" item="vo" key="k" }
+                            <tr>
+                                <td>
+                                    <div class="layui-table-cell laytable-cell-1-0-0 laytable-cell-checkbox">
+                                        <input type="checkbox" name="ids[]" value="{$vo.id}" lay-skin="primary">
+                                    </div>
+                                </td>
+                                <td><div class="layui-table-cell laytable-cell-1-0-1"> {$vo.title} </div></td>
+                                <td>
+                                    <div class="layui-table-cell laytable-cell-1-0-2" title=" ">
+                                        {$vo.province}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell laytable-cell-1-0-3">
+                                        {$vo.city}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="layui-table-cell laytable-cell-1-0-8">
+                                        <a href="javascript:;" data-province="{$vo.province_id}" data-city="{$vo.city_id}" data-area="{$vo.area_id}" data-id="{$vo.aid}" data-title="{$vo.title}"  class="layui-btn layui-btn-xs select">
+                                            <i class="fa fa-pencil-square-o"></i>选择
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {/empty}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--分页-->
+            {$page}
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/plugins/layui/layui.js?v={$version}"></script>
+<script>
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table'], function(){
+        var $ = layui.$
+            ,form = layui.form
+            ,table = layui.table;
+
+        /* 触发事件 */
+        var active = {
+            search:function () {        //触发搜索事件（重载数据列表）
+                var keywords =  $("#keywords").val();
+                var func = "{$func}";
+                window.location.href="{:url('Xiaoqu/ajaxSelectHouse')}"+"&keywords="+ keywords + "&func="+ func;
+            }
+        };
+        $('#LAY-component-layer-list .layadmin-layer-demo .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] && active[type].call(this);
+        });
+        //全选
+        form.on('checkbox(checkAll)', function(data){
+            var a = data.elem.checked;
+            $('input[name*=ids]').prop('checked',a);
+            form.render('checkbox');
+        });
+        //全选
+        $('#check_all').click(function () {
+            $('input[name*=ids]').prop('checked',$(this).data('check'));
+            if ($(this).data('check') == 0){
+                $(this).data('check',1);
+            }else{
+                $(this).data('check',0);
+            }
+            form.render('checkbox');
+        });
+    });
+
+    $('.select').on('click',function(){
+        var callback = "{$func}";
+        var fileurl_tmp = [];
+        var id = $(this).data('id'),city = $(this).data('city'),province = $(this).data('province'),area = $(this).data('area'),lng = $(this).data('lng'),lat = $(this).data('lat'),address = $(this).data('address')
+            ,title = $(this).data('title'),price_units = $(this).data('price_units'),average_price = $(this).data('average_price'),building_age = $(this).data('building_age'),property = $(this).data('property');
+        fileurl_tmp['aid'] = id;
+        fileurl_tmp['province_id'] = province;
+        fileurl_tmp['city_id'] = city;
+        fileurl_tmp['area_id'] = area;
+        fileurl_tmp['lng'] = lng;
+        fileurl_tmp['lat'] = lat;
+        fileurl_tmp['address'] = address;
+        fileurl_tmp['title'] = title ;
+        fileurl_tmp['price_units'] = price_units ;
+        fileurl_tmp['average_price'] = average_price ;
+        fileurl_tmp['building_age'] = building_age ;
+        fileurl_tmp['property'] = property ;
+        eval('window.parent.'+callback+'(fileurl_tmp)');
+        window.parent.layer.closeAll();
+    });
+</script>
+{include file="public/footer" /}

@@ -1,0 +1,965 @@
+{include file="public/layout" /}
+<body>
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="">
+                    <form class="layui-form" id="post_form" action="{:url('Minipro/home_conf')}"  wid100 onsubmit="return false;">
+                        <div class="layui-tab  layui-tab-card">
+                            <ul class="layui-tab-title">
+                                <!-- <li><a href="{:url('Minipro/global_conf')}"><span>1.常规配置</span></a></li> -->
+                                <li class="layui-this">1.首页配置</li>
+                                <!-- <li><a href="{:url('Minipro/about_conf')}"><span>2.联系我们</span></a></li> -->
+                                <li><a href="{:url('Minipro/setting')}"><span>2.生成小程序</span></a></li>
+                                <li><a href="{:url('Minipro/lists')}"><span>3.收客列表</span></a></li>
+                            </ul>
+                            <div class="layui-tab-content web-system " style="padding:10px 0">
+                                <!--常规选项-->
+                                <div class="layui-tab-item layui-show">
+                                    <div class="layui-row layui-col-space15">
+                                        <div class="layui-col-md12">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body" pad15>
+                                                    <!--折叠面板--stra-->
+                                                    <!--幻灯片-->
+                                                    <div class="layui-collapse mt20" lay-filter="component-panel">
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title" style="color: #777;font-weight: bold;">幻灯片</h2>
+                                                            <div class="layui-colla-content layui-show">
+                                                                <div class="" wid100 lay-filter="">
+                                                                    <!-- <div class="layui-form-item">
+                                                                        <label class="layui-form-label">幻灯片显示</label>
+                                                                        <div class="layui-input-block">
+                                                                            <input type="checkbox" name="swipers[show]" lay-skin="switch" lay-filter="switchTest1" lay-text="是|否" {if condition="!isset($row.swipers.show) OR $row.swipers.show eq 1"} checked{/if} >
+                                                                            <input type="hidden" name="swipers[show]" value="{$row.swipers.show|default='0'}" />
+                                                                        </div>
+                                                                    </div> -->
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">有封面文档</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="m9_typeid_div_input">
+                                                                                <button class="layui-btn " data-id="9" onclick="jumpMore(this);" style="margin-bottom: 5px;">选择文档</button>
+                                                                                <input type="hidden" name="swipers[aid]" id="m9_typeid" class="layui-input" value="{$row.swipers.aid|default=''}" style="margin-bottom: 20px;">
+                                                                                <input type="hidden" name="swipers[titles]" id="m9_titles" class="layui-input" value="{$row.swipers.titles|default=''}">
+                                                                                <div style="display: none;"  id="9_title"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo ">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <!--首页栏目-->
+                                                    <div class="layui-collapse mt20" lay-filter="component-panel" style="display: none;">
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title" style="color: #777;font-weight: bold;">首页栏目</h2>
+                                                            <div class="layui-colla-content layui-show">
+                                                                <div class="" wid100 lay-filter="">
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目一显示</label>
+                                                                        <div class="layui-input-block">
+                                                                            <input type="checkbox" {if condition="!isset($row.cate.m1_show) OR $row.cate.m1_show eq 1"} checked{/if} name="cate[m1_show]" lay-skin="switch" lay-filter="switchTest2" lay-text="是|否">
+                                                                            <input type="hidden" name="cate[m1_show]" value="{$row.cate.m1_show|default='0'}" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目一名称</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="cate[m1_name]" value="{$row.cate.m1_name|default=''}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo ">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">尽量控制4个字符之内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目一链接</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="cate[m1_path_key]" id="cate_m1_path_key" lay-filter="path_key">
+                                                                                {volist name="$pages_list" id="vo"}
+                                                                                <option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row.cate.m1_path_key) AND $row.cate.m1_path_key == $key"} selected {/if}>{$vo.title}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                            <div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m1_typeid_div">
+                                                                                <select name="cate[m1_typeid]" id="m1_typeid" lay-filter="choose">
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <input type="hidden" value="{$row.cate.m1_typeid|default=''}" class="typeid" id="1_typeid">
+                                                                            <div class="m1_typeid_div_input" style="display: none;margin-top: 20px;">
+                                                                                <input type="hidden" name="cate[m1_typeid]" id="m1_typeid" class="layui-input" value="{$row.cate.m1_typeid|default=''}">
+                                                                                <input type="text" disabled name="cate[m1_title]" id="m1_title" class="layui-input" value="{$row.cate.m1_title|default=''}" style="margin-bottom: 20px;display: none;">
+                                                                                <button class="layui-btn " data-id="1" onclick="jump(this);">选择文档</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目一默认图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m1_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m1_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m1_img_local" src="{$row.cate.m1_img_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m1_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m1_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="cate[m1_img_local]" id="m1_img_local" placeholder="图片地址" value="{$row.cate.m1_img_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="cate[old_m1_img_local]" value="{$row.cate.m1_img_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 100*100 (像素) 的gif或jpg文件，图片最好在1M以内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目二显示</label>
+                                                                        <div class="layui-input-block">
+                                                                            <input type="checkbox" {if condition="!isset($row.cate.m2_show) OR $row.cate.m2_show eq 1"} checked{/if} name="cate[m2_show]" lay-skin="switch" lay-filter="switchTest3" lay-text="是|否">
+                                                                            <input type="hidden" name="cate[m2_show]" value="{$row.cate.m2_show|default='0'}" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目二名称</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="cate[m2_name]" value="{$row.cate.m2_name|default=''}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo ">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">尽量控制4个字符之内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目二链接</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="cate[m2_path_key]" id="cate_m2_path_key" lay-filter="path_key">
+                                                                                {volist name="$pages_list" id="vo"}
+                                                                                <option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row.cate.m2_path_key) AND $row.cate.m2_path_key == $key"} selected {/if}>{$vo.title}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                            <div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m2_typeid_div">
+                                                                                <select name="cate[m2_typeid]" id="m2_typeid" lay-filter="choose">
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <input type="hidden" value="{$row.cate.m2_typeid|default=''}" class="typeid" id="2_typeid">
+                                                                            <div class="m2_typeid_div_input" style="display: none;margin-top: 20px;">
+                                                                                <input type="hidden" name="cate[m2_typeid]" id="m2_typeid" class="layui-input" value="{$row.cate.m2_typeid|default=''}">
+                                                                                <input type="text" disabled name="cate[m2_title]" id="m2_title" class="layui-input" value="{$row.cate.m2_title|default=''}" style="margin-bottom: 20px;display: none;">
+                                                                                <button class="layui-btn " data-id="2" onclick="jump(this);">选择文档</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目二默认图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m2_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m2_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m2_img_local" src="{$row.cate.m2_img_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m2_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m2_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="cate[m2_img_local]" id="m2_img_local" placeholder="图片地址" value="{$row.cate.m2_img_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="cate[old_m2_img_local]" value="{$row.cate.m2_img_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 100*100 (像素) 的gif或jpg文件，图片最好在1M以内/div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目三显示</label>
+                                                                        <div class="layui-input-block">
+                                                                            <input type="checkbox" {if condition="!isset($row.cate.m3_show) OR $row.cate.m3_show eq 1"} checked{/if} name="cate[m3_show]" lay-skin="switch" lay-filter="switchTest4" lay-text="是|否">
+                                                                            <input type="hidden" name="cate[m3_show]" value="{$row.cate.m3_show|default='0'}" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目三名称</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="cate[m3_name]" value="{$row.cate.m3_name|default=''}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo ">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">尽量控制4个字符之内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目三链接</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="cate[m3_path_key]" id="cate_m3_path_key" lay-filter="path_key">
+                                                                                {volist name="$pages_list" id="vo"}
+                                                                                <option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row.cate.m3_path_key) AND $row.cate.m3_path_key == $key"} selected {/if}>{$vo.title}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                            <div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m3_typeid_div">
+                                                                                <select name="cate[m3_typeid]" id="m3_typeid" lay-filter="choose">
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <input type="hidden" value="{$row.cate.m3_typeid|default=''}" class="typeid" id="3_typeid">
+                                                                            <div class="m3_typeid_div_input" style="display: none;margin-top: 20px;">
+                                                                                <input type="hidden" name="cate[m3_typeid]" id="m3_typeid" class="layui-input" value="{$row.cate.m3_typeid|default=''}">
+                                                                                <input type="text" disabled name="cate[m3_title]" id="m3_title" class="layui-input" value="{$row.cate.m3_title|default=''}" style="margin-bottom: 20px;display: none;">
+                                                                                <button class="layui-btn " data-id="3" onclick="jump(this);">选择文档</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目三默认图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m3_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m3_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m3_img_local" src="{$row.cate.m3_img_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m3_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m3_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="cate[m3_img_local]" id="m3_img_local" placeholder="图片地址" value="{$row.cate.m2_img_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="cate[old_m3_img_local]" value="{$row.cate.m3_img_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 100*100 (像素) 的gif或jpg文件，图片最好在1M以内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目四显示</label>
+                                                                        <div class="layui-input-block">
+                                                                            <input type="checkbox" {if condition="!isset($row.cate.m4_show) OR $row.cate.m4_show eq 1"} checked{/if} name="cate[m4_show]" lay-skin="switch" lay-filter="switchTest5" lay-text="是|否">
+                                                                            <input type="hidden" name="cate[m4_show]" value="{$row.cate.m4_show|default='0'}" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目四名称</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <input type="text" name="cate[m4_name]" value="{$row.cate.m4_name|default=''}" class="layui-input">
+                                                                        </div>
+                                                                        <div class="layui-input-inline layadmin-layer-demo ">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="layui-form-inline2 ey_helptips_txt none">尽量控制4个字符之内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目四链接</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <select name="cate[m4_path_key]" id="cate_m4_path_key" lay-filter="path_key">
+                                                                                {volist name="$pages_list" id="vo"}
+                                                                                <option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row.cate.m4_path_key) AND $row.cate.m4_path_key == $key"} selected {/if}>{$vo.title}</option>
+                                                                                {/volist}
+                                                                            </select>
+                                                                            <div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m4_typeid_div">
+                                                                                <select name="cate[m4_typeid]" id="m4_typeid" lay-filter="choose">
+
+                                                                                </select>
+                                                                            </div>
+                                                                            <input type="hidden" value="{$row.cate.m4_typeid|default=''}" class="typeid" id="4_typeid">
+                                                                            <div class="m4_typeid_div_input" style="display: none;margin-top: 20px;">
+                                                                                <input type="hidden" name="cate[m4_typeid]" id="m4_typeid" class="layui-input" value="{$row.cate.m4_typeid|default=''}">
+                                                                                <input type="text" disabled name="cate[m4_title]" id="m4_title" class="layui-input" value="{$row.cate.m4_title|default=''}" style="margin-bottom: 20px;display: none;">
+                                                                                <button class="layui-btn " data-id="4" onclick="jump(this);">选择文档</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="layui-form-item">
+                                                                        <label class="layui-form-label">栏目四默认图</label>
+                                                                        <div class="layui-input-inline">
+                                                                            <div class="upload-box">
+                                                                                <div class="upload-img fl">
+                                                                                    <div class="icaction none">
+                                                                                        <span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_m4_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>
+                                                                                        <span class="load_images"><a href="javascript:void(0);" data-inputid="m4_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>
+                                                                                    </div>
+                                                                                    <div class="cover-bg none"></div>
+                                                                                    <img id="img_m4_img_local" src="{$row.cate.m4_img_local|get_default_pic=###}?v={php}echo time();{/php}">
+                                                                                </div>
+                                                                                <div class="upload-right fl">
+                                                                                    <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'m4_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                                                                    <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'m4_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                                                                    <input name="cate[m4_img_local]" id="m4_img_local" placeholder="图片地址" value="{$row.cate.m4_img_local|default=''}" class="layui-input">
+                                                                                    <input type="hidden" name="cate[old_m4_img_local]" value="{$row.cate.m4_img_local|default=''}" class="layui-input">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                            <div class="ey_helptips_txt">建议尺寸 100*100 (像素) 的gif或jpg文件，图片最好在1M以内</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--折叠面板--end-->
+                                                </div>
+                                                    <!--模块三-->
+                                                    <!--<div class="layui-collapse mt20" lay-filter="component-panel">-->
+                                                        <!--<div class="layui-colla-item">-->
+                                                            <!--<h2 class="layui-colla-title" style="color: #777;font-weight: bold;">模块三</h2>-->
+                                                            <!--<div class="layui-colla-content layui-show">-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">公告显示</label>-->
+                                                                    <!--<div class="layui-input-block">-->
+                                                                        <!--<input type="checkbox" {if condition="!isset($row.notice.show) OR $row.notice.show eq 1"} checked{/if} name="notice[show]" lay-skin="switch" lay-filter="switchTest6" lay-text="是|否">-->
+                                                                        <!--<input type="hidden" name="notice[show]" value="{$row.notice.show|default='0'}" />-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">公告图标</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<div class="upload-box">-->
+                                                                            <!--<div class="upload-img fl">-->
+                                                                                <!--<div class="icaction none">-->
+                                                                                    <!--<span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_icon_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>-->
+                                                                                    <!--<span class="load_images"><a href="javascript:void(0);" data-inputid="icon_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>-->
+                                                                                <!--</div>-->
+                                                                                <!--<div class="cover-bg none"></div>-->
+                                                                                <!--<img id="img_icon_img_local" src="{$row.notice.icon_img_local|get_default_pic=###}?v={php}echo time();{/php}">-->
+                                                                            <!--</div>-->
+                                                                            <!--<div class="upload-right fl">-->
+                                                                                <!--<button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'icon_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>-->
+                                                                                <!--<button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'icon_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>-->
+                                                                                <!--<input name="notice[icon_img_local]" id="icon_img_local" placeholder="图片地址" value="{$row.notice.icon_img_local|default=''}" class="layui-input">-->
+                                                                                <!--<input type="hidden" name="notice[old_icon_img_local]" value="{$row.notice.icon_img_local|default=''}" class="layui-input">-->
+                                                                            <!--</div>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="layui-input-inline layui-btn-container" style="width: auto;">-->
+                                                                        <!--<div class="layui-form-mid layui-word-aux ey_helptips"></div>-->
+                                                                        <!--<div class="ey_helptips_txt">建议尺寸 32*32 (像素) 的gif或jpg文件，图片最好在1M以内</div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">公告内容</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<input type="text" name="notice[title]" value="{$row.notice.title|default=''}" class="layui-input">-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="layui-input-inline layadmin-layer-demo ">-->
+                                                                        <!--<div class="layui-form-mid layui-word-aux ey_helptips"></div>-->
+                                                                        <!--<div class="layui-form-inline2 ey_helptips_txt none"></div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+
+                                                    <!--</div>-->
+                                                    <!--模块四-->
+                                                    <!--<div class="layui-collapse mt20" lay-filter="component-panel">-->
+                                                        <!--<div class="layui-colla-item">-->
+                                                            <!--<h2 class="layui-colla-title" style="color: #777;font-weight: bold;">模块四</h2>-->
+                                                            <!--<div class="layui-colla-content layui-show">-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">视频显示</label>-->
+                                                                    <!--<div class="layui-input-block">-->
+                                                                        <!--<input type="checkbox" {if condition="!isset($row.video.show) OR $row.video.show eq 1"} checked{/if} name="video[show]" lay-skin="switch" lay-filter="switchTest1" lay-text="是|否">-->
+                                                                        <!--<input type="hidden" name="video[show]" value="{$row.video.show|default='0'}" />-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">视频名称</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<input type="text" name="video[title]" value="{$row.video.title|default=''}" class="layui-input">-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="layui-input-inline layadmin-layer-demo ">-->
+                                                                        <!--<div class="layui-form-mid layui-word-aux ey_helptips"></div>-->
+                                                                        <!--<div class="layui-form-inline2 ey_helptips_txt none"></div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">视频封面</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<div class="upload-box">-->
+                                                                            <!--<div class="upload-img fl">-->
+                                                                                <!--<div class="icaction none">-->
+                                                                                    <!--<span class="load_images"> <a href="javascript:void(0);" onclick="BigImages($('#img_v_img_local').attr('src'));"> <i class="layui-icon layui-icon-search mr5"></i>查看</a></span>-->
+                                                                                    <!--<span class="load_images"><a href="javascript:void(0);" data-inputid="v_img_local" onclick="DelImages(this);"> <i class="layui-icon layui-icon-delete mr5"></i>删除 </a> </span>-->
+                                                                                <!--</div>-->
+                                                                                <!--<div class="cover-bg none"></div>-->
+                                                                                <!--<img id="img_v_img_local" src="{$row.video.v_img_local|get_default_pic=###}?v={php}echo time();{/php}">-->
+                                                                            <!--</div>-->
+                                                                            <!--<div class="upload-right fl">-->
+                                                                                <!--<button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'v_img_local',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>-->
+                                                                                <!--<button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'v_img_local');"><i class="layui-icon">&#xe64a;</i>图库</button>-->
+                                                                                <!--<input name="video[v_img_local]" id="v_img_local" placeholder="图片地址" value="{$row.video.v_img_local|default=''}" class="layui-input">-->
+                                                                                <!--<input type="hidden" name="video[old_v_img_local]" value="{$row.video.v_img_local|default=''}" class="layui-input">-->
+                                                                            <!--</div>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="layui-input-inline layui-btn-container" style="width: auto;">-->
+                                                                        <!--<div class="layui-form-mid layui-word-aux ey_helptips"></div>-->
+                                                                        <!--<div class="ey_helptips_txt">建议尺寸 100*100 (像素) 的gif或jpg文件，图片最好在1M以内</div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="layui-form-item layui-form-text ey-text">-->
+                                                                    <!--<label class="layui-form-label">视频链接</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<textarea name="video[src]" class="layui-textarea ey-input" placeholder="请输入MP4链接地址" data-num="200">{$row.video.src|default=''}</textarea>-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="layui-input-inline layui-form-mid layui-word-aux ey_helptips"></div>-->
+                                                                    <!--<div class="layui-form-inline2 ey_helptips_txt"></div>-->
+                                                                    <!--<div class="layui-form-inline2 ey-big-text none">请输入MP4链接地址</div>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+
+                                                    <!--</div>-->
+                                                    <!--模块五-->
+                                                    <!--<div class="layui-collapse mt20" lay-filter="component-panel">-->
+                                                        <!--<div class="layui-colla-item">-->
+                                                            <!--<h2 class="layui-colla-title" style="color: #777;font-weight: bold;">模块五</h2>-->
+                                                            <!--<div class="layui-colla-content layui-show">-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">图文显示</label>-->
+                                                                    <!--<div class="layui-input-block">-->
+                                                                        <!--<input type="checkbox" {if condition="!isset($row.images.show) OR $row.images.show eq 1"} checked{/if} name="images[show]" lay-skin="switch" lay-filter="switchTest7" lay-text="是|否">-->
+                                                                        <!--<input type="hidden" name="images[show]" value="{$row.images.show|default='0'}" />-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">图文名称</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<input type="text" name="images[title]" value="{$row.images.title|default=''}" class="layui-input">-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="layui-input-inline layadmin-layer-demo ">-->
+                                                                        <!--<div class="layui-form-mid layui-word-aux ey_helptips"></div>-->
+                                                                        <!--<div class="layui-form-inline2 ey_helptips_txt none"></div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">栏目</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<div class="m5_typeid_div_input">-->
+                                                                            <!--<button class="layui-btn " data-id="5" onclick="jumpTypeMore(this);" style="margin-bottom: 5px;">选择栏目</button>-->
+                                                                            <!--<input type="hidden" name="images[typeid]" id="m5_typeid" class="layui-input" value="{$row.images.typeid|default=''}">-->
+                                                                            <!--<input type="hidden" name="images[titles]" id="m5_titles" class="layui-input" value="{$row.images.titles|default=''}">-->
+                                                                            <!--<div style="display: none;"  id="5_title"></div>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="layui-input-inline layadmin-layer-demo ">-->
+                                                                        <!--<div class="layui-form-mid layui-word-aux ey_helptips"></div>-->
+                                                                        <!--<div class="layui-form-inline2 ey_helptips_txt none"></div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">显示数量</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<input type="text" name="images[num]" value="{$row.images.num|default=''}" placeholder="比如：1,2,3,4" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9,]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9,]/g,''));">-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="layui-input-inline layadmin-layer-demo ">-->
+                                                                        <!--<div class="layui-form-mid layui-word-aux ey_helptips"></div>-->
+                                                                        <!--<div class="layui-form-inline2 ey_helptips_txt none"></div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">MORE链接</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<select name="images[more_path_key]" id="images_more_path_key" lay-filter="path_key">-->
+                                                                            <!--{volist name="$pages_list" id="vo"}-->
+                                                                            <!--<option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row.images.more_path_key) AND $row.images.more_path_key == $key"}selected{/if}>{$vo.title}</option>-->
+                                                                            <!--{/volist}-->
+                                                                        <!--</select>-->
+                                                                        <!--<div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m6_typeid_div">-->
+                                                                            <!--<select name="images[more_typeid]" id="m6_typeid" lay-filter="choose">-->
+
+                                                                            <!--</select>-->
+                                                                        <!--</div>-->
+                                                                        <!--<input type="hidden" value="{$row.images.more_typeid|default=''}" class="typeid" id="6_typeid">-->
+                                                                        <!--<div class="m6_typeid_div_input" style="display: none;margin-top: 20px;">-->
+                                                                            <!--<input type="hidden" name="images[more_typeid]" id="m6_typeid" class="layui-input" value="{$row.images.more_typeid|default=''}">-->
+                                                                            <!--<input type="text" disabled name="images[more_title]" id="m6_title" class="layui-input" value="{$row.images.more_title|default=''}" style="margin-bottom: 20px;display: none;">-->
+                                                                            <!--<button class="layui-btn " data-id="6" onclick="jump(this);">选择文档</button>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+
+                                                    <!--</div>-->
+                                                    <!--列表-->
+                                                    <div class="layui-collapse mt20" lay-filter="component-panel">
+                                                        <div class="layui-colla-item">
+                                                            <h2 class="layui-colla-title" style="color: #777;font-weight: bold;">列表</h2>
+                                                            <div class="layui-colla-content layui-show">
+                                                                <!-- <div class="layui-form-item">
+                                                                    <label class="layui-form-label">列表显示</label>
+                                                                    <div class="layui-input-block">
+                                                                        <input type="checkbox" {if condition="!isset($row.article.show) OR $row.article.show eq 1"} checked{/if} name="article[show]" lay-skin="switch" lay-filter="switchTest7" lay-text="是|否">
+                                                                        <input type="hidden" name="article[show]" value="{$row.article.show|default='0'}" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="layui-form-item">
+                                                                    <label class="layui-form-label">列表名称</label>
+                                                                    <div class="layui-input-inline">
+                                                                        <input type="text" name="article[title]" value="{$row.article.title|default='新闻中心'}" class="layui-input">
+                                                                    </div>
+                                                                    <div class="layui-input-inline layadmin-layer-demo ">
+                                                                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                        <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                                    </div>
+                                                                </div> -->
+                                                                <!--<div class="layui-form-item">-->
+                                                                    <!--<label class="layui-form-label">栏目</label>-->
+                                                                    <!--<div class="layui-input-inline">-->
+                                                                        <!--<div class="m7_typeid_div_input">-->
+                                                                            <!--<button class="layui-btn " data-id="7" onclick="jumpTypeMore(this);" style="margin-bottom: 5px;">选择栏目</button>-->
+                                                                            <!--<input type="hidden" name="article[typeid]" id="m7_typeid" class="layui-input" value="{$row.article.typeid|default=''}">-->
+                                                                            <!--<input type="hidden" name="article[titles]" id="m7_titles" class="layui-input" value="{$row.article.titles|default=''}">-->
+                                                                            <!--<div style="display: none;"  id="7_title"></div>-->
+                                                                        <!--</div>-->
+                                                                    <!--</div>-->
+                                                                    <!--<div class="layui-input-inline layadmin-layer-demo ">-->
+                                                                        <!--<div class="layui-form-mid layui-word-aux ey_helptips"></div>-->
+                                                                        <!--<div class="layui-form-inline2 ey_helptips_txt none"></div>-->
+                                                                    <!--</div>-->
+                                                                <!--</div>-->
+                                                                <div class="layui-form-item">
+                                                                    <label class="layui-form-label">频道模型</label>
+                                                                    <div class="layui-input-inline">
+                                                                        {volist name="channel_list" id="vo" key="key"}
+                                                                            <input type="checkbox" id="article_channel" lay-skin="primary" lay-filter="channel" title="{$vo.ntitle}" value="{$vo.id}" {if condition="isset($row.article.channel_id) AND in_array($vo.id, $row.article.channel_id)"}checked="checked"{/if}>
+                                                                        {/volist}
+                                                                        <input value="{$row.article.channel_id}" id="hidden_channel_id" type="hidden">
+                                                                        <div style="display: none;margin-top: 20px;"  id="article_channel_divx"></div>
+
+                                                                    </div>
+                                                                    <div class="layui-input-inline layadmin-layer-demo ">
+                                                                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                        <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="layui-form-item">
+                                                                    <label class="layui-form-label">显示数量</label>
+                                                                    <div class="layui-input-inline">
+                                                                        <input type="text" name="article[num]" value="{$row.article.num|default=''}" placeholder="比如：1,2,3,4" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9,]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9,]/g,''));">
+                                                                    </div>
+                                                                    <div class="layui-input-inline layadmin-layer-demo ">
+                                                                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                                        <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <!-- <div class="layui-form-item">
+                                                                    <label class="layui-form-label">MORE链接</label>
+                                                                    <div class="layui-input-inline">
+                                                                        <select name="article[more_path_key]" id="article_more_path_key" lay-filter="path_key">
+                                                                            {volist name="$pages_list" id="vo"}
+                                                                            <option value="{$key}" data-showtext="{$vo.showtext|default='false'}" {if condition="!empty($row.article.more_path_key) AND $row.article.more_path_key == $key"}selected{/if}>{$vo.title}</option>
+                                                                            {/volist}
+                                                                        </select>
+                                                                        <div class="layui-input-block" style="margin: 20px 0 0;display: none;" id="m8_typeid_div">
+                                                                            <select name="article[more_typeid]" id="m8_typeid" lay-filter="choose">
+
+                                                                            </select>
+                                                                        </div>
+                                                                        <input type="hidden" value="{$row.article.more_typeid|default=''}" class="typeid" id="8_typeid">
+                                                                        <div class="m8_typeid_div_input" style="display: none;margin-top: 20px;">
+                                                                            <input type="hidden" name="article[more_typeid]" id="m8_typeid" class="layui-input" value="{$row.article.more_typeid|default=''}">
+                                                                            <input type="text" disabled name="article[more_title]" id="m8_title" class="layui-input" value="{$row.article.more_title|default=''}" style="margin-bottom: 20px;display: none;">
+                                                                            <button class="layui-btn " data-id="8" onclick="jump(this);">选择文档</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> -->
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button-container layadmin-layer-demo">
+                            <button class="layui-btn layui-btn-sm" lay-submit lay-filter="formSubmit">确认提交</button>
+                            <!-- <button class="layui-btn layui-btn-sm layui-btn-primary"  data-type="return_parent">返回</button> -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+<script>
+
+    $(document).ready(function(){
+        // 鼠标事件，加载查看大图和删除图片
+        $(".upload-img").live('mouseover', function(){
+            $(this).find('div.icaction').show();
+            $(this).find('div.cover-bg').show();
+        }).live('mouseout', function(){
+            $(this).find('div.icaction').hide();
+            $(this).find('div.cover-bg').hide();
+        });
+
+    });
+
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+            ,element = layui.element
+            ,layer = layui.layer
+            ,form = layui.form;
+
+        element.render();
+        //图文
+        // show_path('5');
+        //列表栏目
+        // show_path('7');
+        show_path('9');
+        select_path($('#cate_m1_path_key'));
+        select_path($('#cate_m2_path_key'));
+        select_path($('#cate_m3_path_key'));
+        select_path($('#cate_m4_path_key'));
+        // select_path($('#images_more_path_key'));
+        // select_path($('#article_more_path_key'));
+        //频道初始化赋值
+        check_channel();
+
+        //监听自定义开关
+        form.on('switch', function(data){
+            // var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+            var elemId = data.elem.name;
+            if (data.elem.checked) {
+                this.value = 1;
+            } else {
+                this.value = 0;
+            }
+            $("input[name='"+elemId+"']").val(this.value);
+        });
+
+        form.on('checkbox(channel)',function (data) {
+            var id = data.elem.value;
+            if (data.elem.checked){
+                var idshtml = $("#article_channel_divx").html();
+                idshtml += "<div id='channel_" + id + "'><span class='tower-add' >" + data.elem.title + " </span>";
+                idshtml += "<input type='hidden' name='article[channel_id][]' id='channel_"+ id +"' checked='true' value='"+ id +"' /></div>";
+
+                $("#article_channel_divx").html(idshtml);
+                $('#article_channel_divx').show();
+            } else {
+                $("#channel_"+id).html('');
+                $("#channel_"+id).hide();
+            }
+        })
+
+        //监听链接选择
+        form.on('select(choose)', function(data){
+            $('input[name='+data.elem.id+']').val(data.elem.value);
+        });
+
+        //监听链接
+        form.on('select(path_key)', function(data){
+            var pathkey = data.elem.value;
+            var showtext = $('#'+data.elem.id).find('option:selected').data('showtext');
+            var showtextObj = $('#'+data.elem.id).parent().find('div[class=layui-input-block]');
+            var div_id = showtextObj[0].id;
+            var select = $('#'+div_id).find('select');
+            if (true == showtext) {
+                if (pathkey == 5){
+                    $('#' + div_id).css('display', 'none');
+                    $('.'+div_id+'_input').css('display','block');
+                } else {
+                    $.ajax({
+                        type : 'post',
+                        url : "{:url('Minipro/getTypeList')}",
+                        data : {id:pathkey},
+                        dataType : 'json',
+                        success : function(res){
+                            if (res.code == 1){
+                                select[0].innerHTML = res.data;
+                                form.render();
+                            }
+                        },
+                        error: function(e){
+                            console.log('fail');
+                        }
+                    });
+                    $('.'+div_id+'_input').css('display','none');
+                    $('#'+div_id).css('display','block');
+                }
+            } else {
+                $('#'+div_id+'_input').css('display','none');
+                $('#' + div_id).css('display', 'none');
+            }
+        });
+
+        //监听提交
+        form.on('submit(formSubmit)', function(data){
+            var load = layer_loading();
+            data.field._ajax = 1;
+            var article_channel = $('input[id="article_channel"]:checked').val()
+            if(!article_channel){
+                layer.close(load); //关闭loading
+                showErrorAlert('频道模型请至少选择一项');
+                return false;
+            }
+            $.ajax({
+                type : 'post',
+                url : "{:url('Minipro/home_conf')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        layer.msg(res.msg, {icon: 1, time: 1500}, function(){
+                            window.location.reload();
+                        });
+                    }else{
+                        showErrorMsg(res.msg);
+                    }
+                },
+                error: function(e){
+                    console.log('fail');
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        });
+
+        function show_path(sort) {
+            var ids = $("input[id=m"+ sort +"_typeid]").val(),
+            titles = $("input[id=m"+sort+"_titles]").val();
+            if (ids && titles) {
+                //赋值
+                ids = ids.split(',');
+                titles = titles.split(',');
+                var idshtml = '';
+                for (var i=0;i<ids.length;i++){
+                    var rand = getRanNum();
+                    idshtml += "<span class='tower-add' id='" + rand + ids[i] + "'>" + titles[i] + " <i class='layui-icon layui-icon-close' onclick=\"del('" + rand + ids[i] + "','"+ sort +"')\"></i></span>";
+                }
+
+                $('#'+ sort +'_title').html(idshtml);
+                $('#'+ sort +'_title').show();
+            }
+        }
+
+        // 菜单链接
+        function select_path(obj)
+        {
+            var pathkey = $(obj).val();
+            var showtext = $(obj).find('option:selected').data('showtext');
+            var showtextObj = $(obj).parent().find('div[class=layui-input-block]');
+            var div_id = showtextObj[0].id;
+            var select = $('#'+div_id).find('select');
+
+            var input = $(obj).parent().find('input[class=typeid]');
+            var selected = $('#'+input[0].id).val();
+            if (true == showtext) {
+                if (pathkey==5){
+                    $('#'+div_id).css('display','none');
+                    $('.'+div_id+'_input').css('display','block');
+                    var title = div_id.slice(0,2)+'_title';
+                    $('#'+title).css('display','block');
+                } else {
+                    $.ajax({
+                        type : 'post',
+                        url : "{:url('Minipro/getTypeList')}",
+                        data : {id:pathkey,selected:selected},
+                        dataType : 'json',
+                        success : function(res){
+                            if (res.code == 1){
+                                select[0].innerHTML = res.data;
+                                form.render();
+                            }
+                        },
+                        error: function(e){
+                            console.log('fail');
+                        }
+                    });
+                    $('.'+div_id+'_input').css('display','none');
+                    $('#'+div_id).css('display','block');
+                }
+            } else {
+                $('#'+div_id).css('display','none');
+            }
+        }
+
+    });
+    //选择文档回调
+    function set_article_back(recall){
+        $("input[id=m"+recall['sort']+"_typeid]").val(recall['aid']);
+        $("input[id=m"+recall['sort']+"_title]").val(recall['title']);
+        $("input[id=m"+recall['sort']+"_title]").css('display','block');
+    }
+    function jump(obj) {     //文档关联管理
+        var id = $(obj).data('id');
+        var article = layer.open({
+            type : 2,
+            title : '选择文档',
+            area : ['500px','500px'],
+            shade : 0.2,
+            iframeAuto:true,
+            content : "{:url('Minipro/ajax_archives_list')}"+'&func=set_article_back&sym=1&sort='+id,
+            end : function(){
+
+            }
+        });
+        layer.full(article);
+    }
+    //选择文档多选回调
+    function set_article_more_back(recall){
+        //先判断原本是否有值--->也就是二次选择
+        var ids = $("input[id=m"+recall['sort']+"_typeid]").val();
+        var titles = $("input[id=m"+recall['sort']+"_titles]").val();
+        if (ids && titles) {
+            ids = ids.split(',');
+            titles = titles.split(',');
+            var recall_id = recall['id'].split(',');
+            var recall_titles = recall['titles'].split(',');
+            var m =0,length=recall_id.length;
+            //判断再次选择得是否与已有的重复
+            for (var i=0;i<length;i++) {
+                if ($.inArray(recall_id[m], ids) >= 0) {
+                    recall_id.splice(m, 1);
+                    recall_titles.splice(m, 1);
+                }else {
+                    m++
+                }
+            }
+            //合并数组
+            ids = ids.concat(recall_id);
+            titles = titles.concat(recall_titles);
+            //用,分隔
+            ids = ids.join(',');
+            titles = titles.join(',');
+        } else{
+            ids = recall['id'];
+            titles = recall['titles'];
+        }
+        //赋值
+        $("input[id=m"+recall['sort']+"_typeid]").val(ids);
+        $("input[id=m"+recall['sort']+"_titles]").val(titles);
+        ids = ids.split(',');
+        titles = titles.split(',');
+        var idshtml = '';
+        for (var i=0;i<ids.length;i++){
+            var rand = getRanNum();
+            idshtml += "<span class='tower-add' id='"+rand+ids[i]+"'>"+titles[i]+ " <i class='layui-icon layui-icon-close' onclick=\"del('"+rand+ids[i]+"','"+recall['sort']+"')\"></i></span>";
+        }
+
+        $('#'+recall['sort']+'_title').html(idshtml);
+        $('#'+recall['sort']+'_title').show();
+    }
+    function del(name,sort){
+        var typeid = name.substring(4);
+        $("#"+name).html('');
+        $("#"+name).hide();
+        var val = $("#m"+sort+"_typeid").val();
+        var title = $("#m"+sort+"_titles").val();
+
+        val = val.split(",");//分隔为数组
+        title = title.split(",");//分隔为数组
+
+        for (var i=0;i<val.length;i++){
+            if (typeid == val[i]){
+                val.splice(i,1);
+                title.splice(i,1);
+            }
+        }
+        if (val){
+            val = val.join(',');
+            title = title.join(',');
+            $("#m"+sort+"_typeid").val(val);
+            $("#m"+sort+"_titles").val(title);
+        } else {
+            $('#'+recall['sort']+'_title').html('');
+            $('#'+recall['sort']+'_title').hide();
+        }
+    }
+    function jumpMore(obj) {     //文档关联管理
+        var id = $(obj).data('id');
+        var ids = $('#m'+id+'_typeid').val();
+        var article = layer.open({
+            type : 2,
+            title : '选择文档',
+            area : ['500px','500px'],
+            shade : 0.2,
+            iframeAuto:true,
+            content : "{:url('Minipro/ajax_archives_list_pic')}"+'&func=set_article_more_back&sym=1&sort='+id+'&ids='+ids,
+            end : function(){
+
+            }
+        });
+        layer.full(article);
+    }
+    function jumpTypeMore(obj) {     //文档关联管理
+        var id = $(obj).data('id');
+        var article = layer.open({
+            type : 2,
+            title : '选择栏目',
+            area : ['500px','500px'],
+            shade : 0.2,
+            iframeAuto:true,
+            content : "{:url('Minipro/ajax_arctype_list')}"+'&func=set_article_more_back&sym=1&sort='+id,
+            end : function(){
+
+            }
+        });
+        layer.full(article);
+    }
+    function getRanNum(){
+        var result = [];
+        for(var i=0;i<4;i++){
+            var ranNum = Math.ceil(Math.random() * 25); //生成一个0到25的数字
+            //大写字母'A'的ASCII是65,A~Z的ASCII码就是65 + 0~25;然后调用String.fromCharCode()传入ASCII值返回相应的字符并push进数组里
+            result.push(String.fromCharCode(65+ranNum));
+        }
+        return  result.join('');
+    }
+    function check_channel() {
+        var row = '<?php echo json_encode($row); ?>';
+        var list = '<?php echo json_encode($channel_list); ?>';
+        row = JSON.parse(row);
+        list = JSON.parse(list);
+        var channel_id = row.article.channel_id;
+
+        for (var i=0;i<channel_id.length;i++){
+            var id = channel_id[i];
+            var idshtml = $("#article_channel_divx").html();
+            idshtml += "<div id='channel_" + id + "'><span class='tower-add' >" + list[id].ntitle + " </span>";
+            idshtml += "<input type='hidden' name='article[channel_id][]' id='channel_"+ id +"' checked='true' value='"+ id +"' /></div>";
+
+            $("#article_channel_divx").html(idshtml);
+            $('#article_channel_divx').show();
+
+        }
+    }
+</script>
+
+{include file="public/footer" /}

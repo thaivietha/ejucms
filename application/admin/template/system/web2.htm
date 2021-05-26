@@ -1,0 +1,314 @@
+{include file="public/layout" /}
+<body>
+  <div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+      <div class="layui-col-md12">
+        <div class="layui-card">
+          <div class="web-system">
+            <div class="layui-tab layui-tab-card">
+              {include file="system/bar" /}
+              <div class="layui-tab-content" style="padding:10px 0">
+                <div class="layui-tab-item layui-show">
+                    <div class="layui-row layui-col-space15">
+                      <div class="layui-col-md12">
+                        <div class="layui-card">
+                          <div class="layui-card-body" pad15>
+                            <div class="layui-form" wid100>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label">系统模式</label>
+                                <div class="layui-input-inline w100">
+                                  <input type="checkbox" lay-filter="web_cmsmode" lay-skin="switch" lay-text="运营模式|开发模式" {if condition="isset($config.web_cmsmode) && $config.web_cmsmode eq 1"}checked{/if}>
+                                  <input type="hidden" name="web_cmsmode" value="{$config.web_cmsmode|default='2'}" />
+                                </div>
+                                <div class="layui-form-inline2">
+                                    开发模式：方便修改模板，及时预览前台效果，没缓存，一改便生效。
+                                    <br/>
+                                    运营模式：提高前台响应速度，利于收录；改模板及后台发布内容需执行【<a style="color:green" id="clear_cache" href="javascript:void(0);">更新缓存</a>】后才能在前台展示。
+                                </div>
+                              </div>
+                            
+                              <div class="layui-form-item">
+                                <label class="layui-form-label">升级弹窗</label>
+                                <div class="layui-input-inline w70">
+                                   <input type="checkbox" lay-filter="web_show_popup_upgrade" lay-skin="switch" lay-text="开启|关闭" {if condition="!isset($config.web_show_popup_upgrade) || $config.web_show_popup_upgrade eq 1"}checked{/if}>
+                                   <input type="hidden" name="web_show_popup_upgrade" value="{$config.web_show_popup_upgrade|default='1'}" />
+                                </div>
+                                <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                  <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                  <div class="layui-form-inline2 ey_helptips_txt">系统有新版本升级时，后台有弹窗提示</div>
+                                </div>
+                              </div>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label">移动端域名</label>
+                                <div class="layui-input-inline">
+                                   <input style="width: 80px;float: left" type="text" name="web_mobile_domain" value="{$config.web_mobile_domain|default='m'}" class="layui-input" lay-verify="required" onKeyUp="this.value=this.value.replace(/[^0-9a-z]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9a-z]/g,''));" placeholder="手机域名">
+                                   <span style="float: left;line-height: 38px;margin-left: 4px; margin-right: 5px;">.{$Request.rootDomain}</span>
+                                    <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                    <div class="layui-form-inline2 ey_helptips_txt">手机端访问自动跳转到手机域名下</div>
+                                </div>
+                                <div class="layui-form-inline2">请将二级域名 m 解析到站点根目录下</div>
+                              </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">PC端主域名</label>
+                                    <div class="layui-input-inline">
+                                        <input style="width: 80px;float: left" type="text" name="web_main_domain" value="{$config.web_main_domain|default=''}" class="layui-input" onKeyUp="this.value=this.value.replace(/[^0-9a-z]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9a-z]/g,''));" placeholder="主域名">
+                                        <span style="float: left;line-height: 38px;margin-left: 4px; margin-right: 5px;">.{$Request.rootDomain}</span>
+                                        <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                        <div class="layui-form-inline2 ey_helptips_txt">pc端默认主页</div>
+                                    </div>
+                                    <div class="layui-form-inline2"></div>
+                                </div>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label">区域子站点</label>
+                                <div class="layui-input-inline w70">
+                                   <input type="checkbox" lay-filter="web_region_domain" lay-skin="switch" lay-text="开启|关闭" {if condition="isset($config.web_region_domain) && $config.web_region_domain eq 1"}checked{/if}>
+                                   <input type="hidden" name="web_region_domain" value="{$config.web_region_domain|default='0'}" />
+                                   <input type="hidden" name="web_region_show_data" value="{$config.web_region_show_data|default='0'}" />
+                                   <input type="hidden" id="old_web_region_domain" value="{$config.web_region_domain|default='0'}" />
+                                </div>
+                                <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                  <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                  <div class="layui-form-inline2 ey_helptips_txt">开启之后，每个地区需要设定子域名！</div>
+                                </div>
+                              </div>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label">使用https</label>
+                                <div class="layui-input-inline w70">
+                                   <input type="checkbox" lay-filter="web_is_https" lay-skin="switch" lay-text="开启|关闭" {if condition="isset($config.web_is_https) && $config.web_is_https eq 1"} checked{/if}>
+                                   <input type="hidden" name="web_is_https" value="{$config.web_is_https|default='0'}" />
+                                </div>
+                                <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                  <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                  <div class="layui-form-inline2 ey_helptips_txt">开启之后，sitemap.xml地图以及全站URL将带有https头协议</div>
+                                </div>
+                                <div class="layui-form-inline2">开启前，请先在空间正确配置SSL证书。<br/>在能正常访问https://域名的情况下，才开启这个功能，使整站的URL都强制采用https协议访问。</div>
+                              </div>
+                               <div class="layui-form-item none">
+                                <label class="layui-form-label">系统安装目录</label>
+                                <div class="layui-input-inline">
+                                  <input type="text" name="web_cmspath" value="{$config.web_cmspath|default=''}" class="layui-input">
+                                </div>
+                                <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                <div class="layui-form-inline2 ey_helptips_txt">目录后面不要带 / 反斜杆，一般适用于EjuCms安装在子目录</div>
+                              </div>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label">后台路径</label>
+                                <div class="layui-input-inline">
+                                   <input type="hidden" name="adminbasefile_old" value="{$adminbasefile|default='login'}">
+                                   <span style="float: left;line-height: 38px;margin-right: 4px;">{$config.web_main_domain|default=''}{notempty name="$config.web_main_domain"}.{/notempty}{$Request.rootDomain}__ROOT_DIR__/</span>
+                                   <input style="width: 100px;float: left" type="text" name="adminbasefile" value="{$adminbasefile|default='login'}" lay-verify="required|check_adminbasefile" class="layui-input" onKeyUp="this.value=this.value.replace(/[^0-9a-zA-Z_-]/g,'');" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^0-9a-zA-Z_-]/g,''));">
+                                   <span style="float: left;line-height: 38px;margin-left: 4px; margin-right: 5px;">.php</span>
+                                    <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                    <div class="layui-form-inline2 ey_helptips_txt">为了提高后台的安全性，请及时更改后台入口文件。</div>
+                                </div>
+                              </div>
+                              <div class="layui-form-item">
+                                <label class="layui-form-label">后台LOGO</label>
+                                <div class="layui-input-inline">
+                                  <div class="upload-box">
+                                    <div class="upload-img fl">
+                                      <div class="icaction none">
+                                        <span class="load_images">
+                                           <a href="javascript:void(0);" onclick="BigImages($('#img_web_adminlogo').attr('src'));">
+                                           <i class="layui-icon layui-icon-search mr5"></i>查看
+                                           </a>
+                                        </span>
+                                        <span class="load_images">
+                                          <a href="javascript:void(0);" data-inputid="web_adminlogo" onclick="DelImages(this);">
+                                          <i class="layui-icon layui-icon-delete mr5"></i>删除
+                                          </a>
+                                        </span>
+                                      </div>
+                                      <div class="cover-bg none"></div>
+                                      <img id="img_web_adminlogo" src="{$config.web_adminlogo|get_default_pic=###}?v={php}echo time();{/php}">
+                                    </div>
+                                    <div class="upload-right fl">
+                                      <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'web_adminlogo',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                      <button class="layui-btn layui-btn-sm layui-btn-primary layui-btn-sm fl mb10" onClick="GetPictureFolder(1,'web_adminlogo');"><i class="layui-icon">&#xe64a;</i>图库</button>
+                                      <input name="web_adminlogo" id="web_adminlogo" placeholder="图片地址" value="{$config.web_adminlogo|default=''}" class="layui-input">
+                                      <input type="hidden" name="old_web_adminlogo" value="{$config.web_adminlogo|default=''}" class="layui-input">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="layui-input-inline layui-btn-container" style="width: auto;">
+                                  <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                  <div class="ey_helptips_txt">默认网站LOGO，通用头部显示，显示尺寸以模板设计为主</div>
+                                </div>
+                              </div>
+                               <div class="layui-form-item">
+                                <label class="layui-form-label">数据库备份目录</label>
+                                <div class="layui-input-inline">
+                                  {assign name='$root_dir' value='ROOT_DIR'}
+                                  {empty name='$root_dir'}
+                                    <input type="text" name="web_sqldatapath" value="{$config.web_sqldatapath|default=$sqlbackuppath}" class="layui-input">
+                                  {else /}
+                                    <span style="float: left;line-height: 38px;margin-right: 4px;">__ROOT_DIR__</span>
+                                    <input style="width: 364px;float: left" type="text" name="web_sqldatapath" value="{$config.web_sqldatapath|default=$sqlbackuppath}" class="layui-input">
+                                  {/empty}
+                                </div>
+                              </div>
+                              <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                  <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+     </div>
+  </div>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+      // 鼠标事件，加载查看大图和删除图片
+      $(".upload-img").live('mouseover', function(){
+          $(this).find('div.icaction').show();
+          $(this).find('div.cover-bg').show();
+      }).live('mouseout', function(){
+          $(this).find('div.icaction').hide();
+          $(this).find('div.cover-bg').hide();
+      });
+  });
+  
+  layui.config({
+    base: '__SKIN__/' //静态资源所在路径
+    ,version: '{$version}'
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'form'], function(){
+    var $ = layui.$
+    ,layer = layui.layer
+    ,form = layui.form;
+
+    form.verify({
+      check_adminbasefile: function(value, item){ //value：表单的值、item：表单的DOM对象
+        if(/[^0-9a-zA-Z_-]/.test(value)){
+          return '只允许字母、数字、下划线和连接符等组合！';
+        }
+      }
+    }); 
+
+    /*清除缓存*/
+    $('#clear_cache').click(function(){
+        var load = layer_loading();
+        $.ajax({
+            type : 'post',
+            url : "{:url('System/clear_cache')}",
+            data : {_ajax:1},
+            dataType : 'json',
+            success : function(res){
+                layer.close(load); //关闭loading
+                if(res.code == 1){
+                    layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                        top.window.location.reload();
+                    });
+                }else{
+                    showErrorMsg(res.msg);
+                }
+            },
+            error: function(e){
+                layer.close(load); //关闭loading
+                showErrorAlert();
+            }
+        });
+    });
+
+    // 监听开关
+    form.on('switch', function(data){
+      var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+      if (data.elem.checked) {
+        this.value = 1;
+      } else {
+        this.value = 0;
+      }
+      $("input[name='"+elemId+"']").val(this.value);
+
+      if ('web_region_domain' == elemId) {
+        var old_web_region_domain = $('#old_web_region_domain').val();
+        if (1 == old_web_region_domain && 0 == this.value) {
+          layer.confirm('所有资讯的区域划分将失效？', {
+                  title: false,
+                  btn: ['确定','取消'] //按钮
+              }, function(index){
+                  layer.close(index);
+                  $('input[name=web_region_show_data]').val(1);
+              }, function(index){
+                  $('input[name=web_region_show_data]').val(0);
+              }
+          );
+        } else {
+          $('input[name=web_region_show_data]').val(0);
+        }
+      }
+    });
+
+    //监听提交
+    form.on('submit(formSubmit)', function(data){
+
+        if(data.field.adminbasefile_old != data.field.adminbasefile){
+            var flag = false;
+            layer.confirm('后台路径：<font color="red">'+'__SITE_URL__'+'__ROOT_DIR__/'+data.field.adminbasefile+'.php</font>，确认更改？', {
+                    title: false,
+                    btn: ['继续更改','取消'] //按钮
+                }, function(index){
+                    layer.close(index);
+                    formSubmit(data);
+                }, function(index){
+                    flag = false;
+                }
+            );
+            return flag;
+        }
+
+        formSubmit(data);
+      
+        function formSubmit(data)
+        {
+            var load = layer_loading();
+            data.field._ajax = 1;
+            $.ajax({
+                type : 'post',
+                url : "{:url('System/web2')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                            if ('_parent' == res.target) {
+                                top.window.location.href = res.url;
+                            } else {
+                                window.location.reload();
+                            }
+                        });
+                    }else{
+                        if (res.data.icon && res.data.icon == 4) {
+                            layer.alert(res.msg, {icon: res.data.icon, title: false, closeBtn: false}, function(){
+                                window.location.reload();
+                            });
+                        } else {
+                            showErrorMsg(res.msg);
+                        }
+                    }
+                },
+                error: function(e){
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        }
+    });
+    
+  });
+  </script>
+
+{include file="public/footer" /}

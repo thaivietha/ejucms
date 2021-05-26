@@ -1,0 +1,189 @@
+<?php
+namespace think\model\driver;
+
+/**
+ * 加密方式：by 小虎哥 <1105415366@qq.com>
+ */
+class Driver
+{
+    /**
+     * @access public
+     */
+    static public function service_upgrade_domain() {
+        $keys_token = arrayJointString(['fn','NlcnZ','pY2VfZ','X','lfdG9r','ZW5+']);
+        $keys_token = msubstr($keys_token, 1, strlen($keys_token) - 2);
+        $token = config($keys_token);
+        $keys = arrayJointString(['fnNl','cnZpY2','VfZX','l+']);
+        $keys = msubstr($keys, 1, strlen($keys) - 2);
+        $domain = config($keys);
+        $domainMd5 = md5('~'.base64_decode($domain).'~');
+        if ($token != $domainMd5) {
+            $msg = arrayJointString(['5qC45b+','D56','iL5bqP6KK','r5','6+h5pS5','77yM6','K+','35bC95b+r6L+Y5Y6','f','77','yM5oSf6LCi5Lqr','5','5','S','o5byA5rqQ','5Y','W','N6','LS','5RWp1','Q21z5oi','/','5L','q','n572R56uZ5bu','66K6+57O7','57ufLg==']);
+            $msg = msubstr($msg, 1, -1);
+            die($msg);
+        }
+        return false;
+    }
+
+    static public function setcprh($name) {
+        static $globalTpCache = null;
+        null === $globalTpCache && $globalTpCache = tpCache('global');
+        $value = isset($globalTpCache[$name]) ? $globalTpCache[$name] : '';
+        $tmp2Array = array('fndl','Yl9jb3B','5cmln','aHR+');
+        $tmp2Name = arrayJointString($tmp2Array);
+        $tmp2Name = msubstr($tmp2Name, 1, strlen($tmp2Name) - 2);
+        if ($name == $tmp2Name) {
+            static $request=null;
+            null == $request && $request = \think\Request::instance();
+            if ($request->module() == 'home' && $request->controller() == 'Index' && $request->action() == 'index') {
+                $tmp2Array = array('I19jbX','Njb3B5c','mlnaHR','+');
+                $cname = arrayJointString($tmp2Array);
+                $cname = msubstr($cname, 1, strlen($cname) - 2);
+                $is_cr = tpCache('php.'.$cname);
+                if ($name == $tmp2Name && empty($is_cr)) {
+                    tpCache('php', [$cname => get_rand_str(24,0,1)]);
+                }
+            }
+            $tmp2Array = array('IXdlYl9','pc19hdXR','ob3J0b2tl','bn4=');
+            $is_2author_key = arrayJointString($tmp2Array);
+            $is_2author_key = msubstr($is_2author_key, 1, strlen($is_2author_key) - 2);
+            if (!empty($globalTpCache[$is_2author_key]) && -1 == intval($globalTpCache[$is_2author_key])) {
+                $tmp_array = array('PGEga','HJlZj0i','aHR0cDovL','3d3dy5lan','VjbXMuY29t','L3Bvd2VyYnk','ucGhwIiB0Y','XJnZXQ9I','l9ibGFuay','I+IFBvd2','VyZWQgYn','kgRWp1Q01T','PC9hPg==');
+                $value .= arrayJointString($tmp_array);
+            }
+        }
+        return [
+            'value' => $value,
+            'data'  => $globalTpCache,
+        ];
+    }
+
+    static public function checkEncode()
+    {
+        $is_check_pass = true;
+        $file = 'App.php';
+        $content = @php_strip_whitespace(CORE_PATH.$file);
+        if (empty($content)) {
+            $content = @file_get_contents(CORE_PATH.$file);
+        }
+        if (false === strpos($content, 'G'.md5('App.php_1105415366@qq.com'))) {
+            $is_check_pass = false;
+        } else {
+            foreach (['checkClassMethod','_getTpCode'] as $key => $val) {
+                if (false !== strpos($content, 'public static function '.$val)) { // 查找固定方法不存在
+                    $is_check_pass = false;
+                    break;
+                }
+            }
+        }
+
+        // 行为
+        if ($is_check_pass) {
+            $_usespace_1 = '\think\console\output\kernel\ThinkamAb';
+            $methodArr = ['tpabc','checkEncode','checkregion']; // 固定的类方法
+
+            // 加密文件被破解还原
+            $file = trim($_usespace_1, '\\');
+            $file = str_replace('\\', DS, $file).'.php';
+            $content = @php_strip_whitespace(LIB_PATH.$file);
+            if (empty($content)) {
+                $content = @file_get_contents(LIB_PATH.$file);
+            }
+            if (false === strpos($content, 'G'.md5('ThinkamAb.php_1105415366@qq.com'))) {
+                $is_check_pass = false;
+            } else {
+                foreach ($methodArr as $key => $val) {
+                    if (false !== strpos($content, 'private function '.$val)) { // 查找固定方法不存在
+                        $is_check_pass = false;
+                        break;
+                    }
+                }
+            }
+
+            if ($is_check_pass) {
+                // 固定的类方法不存在
+                $reflect     = new \ReflectionClass($_usespace_1);
+                $methods = $reflect->getMethods();
+                $num = 0;
+                foreach ($methods as $_k => $_v) {
+                    if (in_array($_v->name, $methodArr)) {
+                        $num++;
+                    }
+                }
+                if ($num < count($methodArr)) { // 固定的类方法不存在
+                    $is_check_pass = false;
+                }
+            }
+        }
+
+        if (!$is_check_pass) {
+            $str = '5Yu/6KaB56+h5pS55qC45b+D5paH5Lu277yM6K+36LSt5Lmw5ZWG5Lia5o6I5p2D77yM5ZCm5YiZ5ZCO5p6c6Ieq6LSf77yB4oCU4oCUIDxhIGhyZWY9Imh0dHA6Ly93d3cuZWp1Y21zLmNvbSIgdGFyZ2V0PSJfYmxhbmsiPkJ5IOaYk+WxhUNNUzwvYT4=';
+            die(base64_decode($str));
+        }
+    }
+
+    /**
+     * @access public
+     */
+    static public function testing_ization()
+    {
+        static $request = null;
+        null == $request && $request = \think\Request::instance();
+        if (!stristr($request->baseFile(), 'index.php')) {
+            self::checkEncode();
+        }
+
+        $tmp64 = 'aXN'.'zZX'.'Rf'.'YXV0'.'aG9y';
+        $session_key = base64_decode($tmp64);
+        $isset_1_session = session($session_key);
+        if (!empty($isset_1_session) && !isset($_GET['cl'.'o'.'se'.'_w'.'e'.'b'])) return false;
+        session($session_key, 1);
+
+        $basehost = $request->host(true);
+        if (preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/i', $basehost)) return false;
+
+        $keys = arrayJointString(['fnNlcn','ZpY2Vf','ZXl+']);
+        $keys = msubstr($keys, 1, strlen($keys) - 2);
+        $domain = base64_decode(config($keys));
+
+        $arrKey = arrayJointString(['fmN','saWV','udF9k','b21haW','5+']);
+        $arrKey = msubstr($arrKey, 1, strlen($arrKey) - 2);
+        $vaules = [
+            $arrKey => urldecode($basehost)
+        ];
+        $query_str = arrayJointString(['fi','9p','bmRleC5waHA','/b','T1','hcGkmYz1DbX','N','TZ','XJ2aWNlJmE','9Z2V0X2F','1d','GhvcnRva2Vu','JmNtc190','eXBlPTE','m','fg=','=']);
+        $query_str = msubstr($query_str, 1, strlen($query_str) - 2);
+        $url = $domain.$query_str.http_build_query($vaules);
+        $context = stream_context_set_default(['http'=>['timeout'=>2,'method'=>'GET']]);
+        $response = @file_get_contents($url, false, $context);
+        $params = json_decode($response,true);
+
+        $is2eyKey = arrayJointString(['IXdl','Yl9pc','19hd','XRob3','J0b2t','lbn4=']);
+        $is2eyKey = msubstr($is2eyKey, 1, strlen($is2eyKey) - 2);
+        $session_key2 = arrayJointString(['aXN','fY29y','ZV9id','XNpbm','Vzcw==']);
+        session($session_key2, 0);
+
+        $tmp2Black = 'cGhw'.'X2'.'V5b3'.'Vf'.'Ymxh'.'Y2ts'.'aXN'.'0';
+        $tmp2Black = base64_decode($tmp2Black);
+        tpCache('web', [$is2eyKey => 0]);
+        tpCache('php', [$tmp2Black => '']);
+        
+        if (is_array($params) && $params['errcode'] == 0) {
+            if (empty($params['info']['code'])) {
+                tpCache('web', [$is2eyKey => -1]);
+                session($session_key2, -1);
+                return true;
+            }
+        }
+
+        if (is_array($params) && $params['errcode'] == 10002) {
+            session($session_key, null);
+            $tmpval = 'EL+#$JK'.base64_encode($params['errmsg']).'WENXHSK#0m3s';
+            tpCache('php', [$tmp2Black => $tmpval]);
+            die($params['errmsg']);
+        }
+
+        return true;
+    }
+}
+?>

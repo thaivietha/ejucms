@@ -1,0 +1,170 @@
+{include file="public/layout" /}
+<body>
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="web-system">
+                    <div class="layui-tab layui-tab-card">
+                        {include file="system/bar" /}
+                        <!--{neq name='$Request.param.tabase' value='-1'}-->
+                        <!--<ul class="layui-tab-title">-->
+                            <!--{eq name="'UsersConfig@register'|is_check_access" value="1"}-->
+                            <!--<li {if condition="'register'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('UsersConfig/register')}">注册设置</a></li>-->
+                            <!--{/eq}-->
+                        <!--</ul>-->
+                        <!--{/neq}-->
+                        <div class="layui-tab-content" style="padding:10px 0">
+                            <div class="layui-tab-item layui-show">
+                                <div class="layui-row layui-col-space15">
+                                    <div class="layui-col-md12">
+                                        <div class="layui-card">
+                                            <div class="layui-card-body" pad15>
+                                                <div class="layui-form" wid100>
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label">会员中心</label>
+                                                        <div class="layui-input-block">
+                                                            <input type="checkbox" lay-filter="users_open_register" lay-skin="switch" lay-text="开启|关闭" {if condition="!isset($info.users_open_register) OR $info.users_open_register eq 1"}checked{/if}>
+                                                            <input type="hidden" id="users_open_register" name="users[users_open_register]" value="{$info.users_open_register|default='0'}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="layui-form-item">
+                                                        <label class="layui-form-label">注册验证</label>
+                                                        <div class="layui-input-inline">
+                                                            <select name="users[users_verification]" lay-ignore=""  class="layui-input">
+                                                                {volist name="users_verification_list" id="vo"}
+                                                                <option value="{$key}" {eq name="$info.users_verification" value="$key"}selected="true"{/eq}>{$vo}</option>
+                                                                {/volist}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="layui-form-item layui-form-text ey-text">
+                                                        <label class="layui-form-label">禁止注册用户名</label>
+                                                        <div class="layui-input-inline">
+                                                            <textarea id="users_reg_notallow" name="users[users_reg_notallow]" class="layui-textarea ey-input" placeholder="建议不超过200个字符" data-num="200">{$info.users_reg_notallow|default=''}</textarea>
+                                                        </div>
+                                                        <div class="layui-input-inline layui-form-mid layui-word-aux ey_helptips"></div>
+                                                        <div class="layui-form-inline2 ey_helptips_txt">前台注册时禁止注册的用户名列表，以逗号(,)分隔开</div>
+                                                    </div>
+
+                                                    <div class="layui-form-item layui-form-text ey-text">
+                                                        <label class="layui-form-label">经纪人标签</label>
+                                                        <div class="layui-input-inline">
+                                                            <textarea id="users_label_value" name="users[users_label_value]" class="layui-textarea ey-input" placeholder="建议不超过200个字符" data-num="200">{$info.users_label_value|default=''}</textarea>
+                                                        </div>
+                                                        <div class="layui-input-inline layui-form-mid layui-word-aux ey_helptips"></div>
+                                                        <div class="layui-form-inline2 ey_helptips_txt">前台注册时禁止注册的用户名列表，以逗号(,)分隔开</div>
+                                                    </div>
+
+                                                    <div class="layui-form-item">
+                                                        <div class="layui-input-block">
+                                                            <button class="layui-btn" lay-submit lay-filter="formSubmit">确认提交</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            // 鼠标事件，加载查看大图和删除图片
+            $(".upload-img").live('mouseover', function(){
+                $(this).find('div.icaction').show();
+                $(this).find('div.cover-bg').show();
+            }).live('mouseout', function(){
+                $(this).find('div.icaction').hide();
+                $(this).find('div.cover-bg').hide();
+            });
+        });
+
+        layui.config({
+            base: '__SKIN__/' //静态资源所在路径
+            ,version: '{$version}'
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form'], function(){
+            var $ = layui.$
+                ,layer = layui.layer
+                ,form = layui.form;
+
+            tipsText();
+
+            /* 触发事件 */
+            var active = {
+                customvar_index: function(){
+                    //iframe窗
+                    var iframes = layer.open({
+                        type: 2,
+                        title: '自定义变量列表',
+                        fixed: true, //不固定
+                        shadeClose: false,
+                        shade: 0.3,
+                        content: "{:url('System/customvar_index')}",
+                        end: function(){
+                            layer_loading();
+                            window.location.reload();
+                        }
+                    });
+                    layer.full(iframes);
+                }
+            };
+
+            $('#LAY-component-layer-list .layui-btn').on('click', function(){
+                var type = $(this).data('type');
+                active[type] && active[type].call(this);
+            });
+
+            // 监听开关
+            form.on('switch', function(data){
+                var elemId = data.elem.attributes['lay-filter']['nodeValue'];
+                if (data.elem.checked) {
+                    this.value = 1;
+                } else {
+                    this.value = 0;
+                }
+                $("#"+elemId).val(this.value);
+//                $("input[name='"+elemId+"']").val(this.value);
+            });
+
+            //监听提交
+            form.on('submit(formSubmit)', function(data){
+                var load = layer_loading();
+                data.field._ajax = 1;
+                $.ajax({
+                    type : 'post',
+                    url : "{:url('UsersConfig/register')}",
+                    data : data.field,
+                    dataType : 'json',
+                    success : function(res){
+                        layer.close(load); //关闭loading
+                        if(res.code == 1){
+                            layer.msg(res.msg, {icon: 1, time: 1000}, function(){
+                                window.location.reload();
+                            });
+                        }else{
+                            showErrorMsg(res.msg);
+                        }
+                    },
+                    error: function(e){
+                        layer.close(load); //关闭loading
+                        showErrorAlert();
+                    }
+                });
+                return false;
+            });
+
+        });
+    </script>
+
+    {include file="public/footer" /}

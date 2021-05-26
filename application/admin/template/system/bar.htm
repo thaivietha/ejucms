@@ -1,0 +1,27 @@
+{neq name='$Request.param.tabase' value='-1'}
+    <ul class="layui-tab-title">
+        {eq name="'System@web'|is_check_access" value="1"}
+        <li {if condition="'web'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('System/web')}">网站设置</a></li>
+        {/eq}
+
+        {eq name="'System@web2'|is_check_access" value="1"}
+        <li {if condition="'web2'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('System/web2')}">核心设置</a></li>
+        {/eq}
+
+        {eq name="'System@basic'|is_check_access" value="1"}
+        <li {if condition="'basic'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('System/basic')}">附件设置</a></li>
+        {/eq}
+
+        {eq name="'System@smtp'|is_check_access" value="1"}
+        <li {if condition="preg_match('/^smtp/i', $Think.const.ACTION_NAME)"}class="layui-this"{/if}><a href="{:url('System/smtp')}">接口配置</a></li>
+        {/eq}
+
+        {eq name="'UsersConfig@register'|is_check_access" value="1"}
+        <li {if condition="'register'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('UsersConfig/register')}">会员设置</a></li>
+        {/eq}
+        
+        {eq name="'System@question'|is_check_access" value="1"}
+        <!--<li {if condition="preg_match('/^question/i', $Think.const.ACTION_NAME)"}class="layui-this"{/if}><a href="{:url('System/question')}">问答配置</a></li>-->
+        {/eq}
+    </ul>
+{/neq}
