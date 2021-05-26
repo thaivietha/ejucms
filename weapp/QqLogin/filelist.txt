@@ -1,3 +1,0 @@
-application/plugins/controller/QqLogin.php
-template/plugins/qqlogin
-weapp/QqLogin

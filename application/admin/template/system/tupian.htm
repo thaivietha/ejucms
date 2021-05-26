@@ -1,8 +1,0 @@
-<ul class="layui-tab-title">
-    {eq name="'System@water'|is_check_access" value="1"}
-    <li  {if condition="'water'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('System/water')}">水印配置</a></li>
-    {/eq}
-    {eq name="'System@thumb'|is_check_access" value="1"}
-    <li {if condition="'thumb'==$Think.const.ACTION_NAME"}class="layui-this"{/if}><a href="{:url('System/thumb')}">缩略图配置</a></li>
-    {/eq}
-</ul>
