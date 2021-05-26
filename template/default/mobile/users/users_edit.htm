@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+{include file="users/public_layout" /}
+<body>
+
+<div class="layui-fluid " id="LAY-component-layer-list">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body layui-form house-form" wid100>
+                    <div class="layui-form-item"></div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户头像</label>
+                        <div class="layui-input-inline">
+                            <div class="admin-img">
+                                <img id="img_litpic" src="{$field.litpic|get_default_pic=###}" alt="">
+                                <a class="test-upload-demoMore" lay-data="{number:1,ey_inputId:'litpic',ey_savepath:'allimg'}">上传头像</a>
+                                <input type="hidden" name="litpic" id="litpic" placeholder="图片地址" value="{$field.litpic|default=''}" class="layui-input">
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">手机号</label>
+                        <div class="layui-input-inline">
+                            <span class="fl info-text">{$field.mobile}</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">qq</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="qq" value="{$field.qq}" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">昵称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="nickname" value="{$field.nickname}" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">真实姓名</label>
+                        <div class="layui-input-inline">
+                            <input type="text" name="true_name" value="{$field.true_name}" class="layui-input" >
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-inline">
+                            <span class="fl info-text">{$field.email}</span>
+                            <span class="err"  {notempty name="$field.is_email"}style="display: none"{/notempty}>
+                                <a href="JavaScript:void(0);" onclick="get_users_email_code('绑定邮箱');">（绑定邮箱）</a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="hidden" name="id" value="{$field.users_id}">
+                            <button class="layui-btn"  lay-submit lay-filter="formSubmit">确认提交</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form',  'upload'], function(){
+        var $ = layui.$
+            ,upload = layui.upload
+            ,form = layui.form;
+
+        //监听提交
+        form.on('submit(formSubmit)', function(data){
+            var load = layer_loading();
+            data.field._ajax = 1;
+            $.ajax({
+                type : 'post',
+                url : "{:url('Users/edit')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        layer.msg(res.msg, {icon: 1,time: 2000});
+                    }else{
+                        layer.msg(res.msg, {icon: 2,time: 2000});
+                    }
+                },
+                error: function(e){
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        });
+
+    });
+    function get_users_email_code(title)
+    {
+        var url = "/index.php?m=user&c=Users&a=bind_email";
+        if (url.indexOf('?') > -1) {
+            url += '&';
+        } else {
+            url += '?';
+        }
+        url += 'title='+title;
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: false,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['350px', '300px'],
+            content: url
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,522 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>{eju:global name='web_title' /}</title>
+    <meta name="renderer" content="webkit" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+    <meta name="description" content="{eju:global name='web_description' /}" />
+    <meta name="keywords" content="{eju:global name='web_keywords' /}" />
+    <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    {eju:static file="skin/css/public.css" /}
+    {eju:static file="skin/css/iconfont.css" /}
+    {eju:static file="skin/css/home_always.css" /}
+    {eju:static file="skin/css/swiper-3.4.2.min.css" /}
+
+    {eju:static file="skin/js/jquery.min.1.7.2.js" /}
+    {eju:static file="skin/js/scrollable.js" /}
+    {eju:static file="skin/js/scrollable.autoscroll.js" /}
+    {eju:static file="skin/js/top_footer.js" /}
+<script>
+$(function() {
+    $(".scrollable").scrollable({circular: true});
+   //自动滚动   $(".scrollable").scrollable({circular: true,}).autoscroll({autoplay: false, interval: 1000}); 
+    
+});
+</script>
+
+<script type="text/javascript">
+    function showTime(tuanid, time_distance) {
+        this.tuanid = tuanid;
+        //PHP时间是秒，JS时间是微秒
+        var timestamp = (new Date()).getTime();
+        this.time_distance = time_distance * 1000 - timestamp;
+    }
+    showTime.prototype.setTimeShow = function () {
+        var timer = $("#lefttime_" + this.tuanid);
+        var btn_baoming = $("#btn_baoming_" + this.tuanid);
+        var str_time;
+        var int_day, int_hour, int_minute, int_second;
+        time_distance = this.time_distance;
+        this.time_distance = this.time_distance - 1000;
+        if (time_distance > 0) {
+            int_day = Math.floor(time_distance / 86400000);
+            time_distance -= int_day * 86400000;
+            int_hour = Math.floor(time_distance / 3600000);
+            time_distance -= int_hour * 3600000;
+            int_minute = Math.floor(time_distance / 60000);
+            time_distance -= int_minute * 60000;
+            int_second = Math.floor(time_distance / 1000);
+            if (int_hour < 10)
+                int_hour = "0" + int_hour;
+            if (int_minute < 10)
+                int_minute = "0" + int_minute;
+            if (int_second < 10)
+                int_second = "0" + int_second;
+            str_time = "剩余时间:<em class='data-day'>"+int_day + "</em>天<em class='data-hour'>" + int_hour + "</em>小时<em class='data-minute'>" + int_minute + "</em>分钟<em class='data-sec'>" + int_second + "</em>秒";
+            timer.html(str_time);
+            var self = this;
+            setTimeout(function () { self.setTimeShow(); }, 1000); //D:正确
+        } else {
+            btn_baoming.html("报名结束");
+            btn_baoming.prop("class","btn gray dialog");
+            timer.text("结束");
+            return;
+        }
+    }
+</script>
+
+</head>
+<body>
+<!--头部-->
+{eju:include file="header.htm"/}
+<!--banner-->
+<div class="banner">
+  <div class="swiper-container">
+    <div class="af-banner-wrap">
+      <div class="af-top-cont">
+        <p class="af-top-cont-text1"> </p>
+      </div>
+      <div class="af-search">
+          {eju:searchform channelid='9' type='default'}
+          <form class="" style="height: 100%;" method="get" action="{$field.action}">
+              <p>
+                  <input type="text" class="s_inp01" name="keywords" value="" id="search_key" placeholder="请输入楼盘名称开始找房...">
+                  <button  type="submit" id="search_but" class="but01" style="text-decoration:none;">开始找房</button>
+                  <a href="{eju:diyurl type='map' /}" target="_blank" id="search_but2">地图找房</a>
+              </p>
+              {$field.hidden}
+          </form>
+          {/eju:searchform}
+        <div class="proposal-box"> </div>
+        <div class="clear"> </div>
+      </div>
+    </div>
+    <div class="swiper-wrapper">
+        {eju:adv pid='1' row='3'}
+        <div class="swiper-slide" style="background: url('{$field.litpic}') center center no-repeat"> </div>
+        {/eju:adv}
+    </div>
+  </div>
+  <!--条件筛选-->
+    <div class="filter-box">
+        {eju:screening id='field' typeid='1' addfields='province_id,city_id,area_id,average_price,characteristic,manage_type' region='off' target='_blank' currentstyle='act2' show='2' alltxt='不限' opencity='2' }
+            {eju:volist name='$field.list' id='vo' key='nl'}
+            <div class="in-box x{$nl} left">
+                <h2>{$vo.title}</h2>
+                <ul>
+                    {eju:volist name='$vo.dfvalue' id='vo2'}
+                    <li><a style="cursor: pointer;" {$vo2.onClick}  title="{$vo2.name}"  class="{$vo2.currentstyle}">{$vo2.name}</a></li>
+                    {/eju:volist}
+                </ul>
+            </div>
+            {/eju:volist}
+            {$field.hidden}
+        {/eju:screening}
+    </div>
+    <!--条件筛选--end-->
+</div><!--banner--end-->
+ <!--精选房源-->
+<div class="fang-jx">
+    <div class="index-tit">
+        <p>搜罗优质楼盘</p>
+        {eju:type typeid='1' empty='栏目不存在时，显示这里的文案'}
+        <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+        {/eju:type}
+    </div>
+     <a class="prev"></a>
+     <a class="next"></a>
+    <div class="scrollable">
+        <ul class="items">
+            <li>
+            {eju:arclist channelid='9' flag='h' orderby='new' limit='0,4' id='field'}
+                <a href="{$field.arcurl}" target="_blank">
+                    <img src="{$field.litpic}" alt="{$field.title}">
+                    <div class="info-box">
+                        <div class="info1">
+                            <div class="info1-l left">{$field.title}</div>
+                            <div class="info1-r right">{$field.city_id|get_city_name}</div>
+                        </div>
+                        <div class="info2">
+                            <div class="info2-con">{$field.title}</div>
+                            <p>{$field.average_price}{$field.price_units}</p>
+                        </div>
+                    </div>
+                </a>
+            {/eju:arclist}
+            </li>
+            <li>
+            {eju:arclist channelid='9' flag='h' orderby='new' limit='4,8' id='field'}
+                <a href="{$field.arcurl}" target="_blank">
+                    <img src="{$field.litpic}" alt="{$field.title}">
+                    <div class="info-box">
+                        <div class="info1">
+                            <div class="info1-l left">{$field.title}</div>
+                            <div class="info1-r right">{$field.city_id|get_city_name}</div>
+                        </div>
+                        <div class="info2">
+                            <div class="info2-con">{$field.title}</div>
+                            <p>{$field.average_price}{$field.price_units}</p>
+                        </div>
+                    </div>
+                </a>
+            {/eju:arclist}
+            </li>
+        </ul>
+    </div>
+
+</div> <!--精选房源--end-->
+<!--热销新房-->
+<div class="hot-house" style="background-color: #fff">
+  <div class="w1200">
+      <div  class="index-tit">
+          <h2>{$eju.region.name}热销房源</h2>
+          <p>优质好房 不容错过</p>
+          {eju:type typeid='1' empty='栏目不存在时，显示这里的文案'}
+          <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+          {/eju:type}
+      </div>
+     <ul class="hot-list">
+         {eju:arclist channelid='9' flag='a' orderby='new' row='4' id='field'}
+         <li>
+             <a class="a1" href="{$field.arcurl}" target="_blank">
+                 <div class="img">
+                     <img src="{$field.litpic}" alt="{$field.title}">
+                     <div class="info-box">
+                         <div class="info1">
+                             <div class="info1-r right">{$field.city_id|get_city_name}</div>
+                         </div>
+                         <div class="info2">
+                             <div class="info2-con">{$field.city_id|get_city_name}</div>
+                         </div>
+                     </div>
+                 </div>
+             </a>
+             <div class="txt">
+                 <div class="txt-tit">
+                     <a href="{$field.arcurl}">{$field.title}</a>
+                     <p>{$field.average_price}{$field.price_units}</p>
+                 </div>
+                 <div class="add">{$field.address}</div>
+                 <div class="tag">
+                     {eju:volist name="$field.characteristic" id="vo"}
+                     <a href="javascript:;">{$vo}</a>
+                     {/eju:volist}
+                 </div>
+             </div>
+         </li>
+         {/eju:arclist}
+     </ul>
+  </div>
+</div><!--热销新房--end-->
+<div class="hot-house" style="background-color: #fff">
+  <div class="w1200">
+      <div  class="index-tit">
+          <h2>{$eju.region.name}热门小区</h2>
+          <p>优质好房 不容错过</p>
+          {eju:type typeid='10' empty='栏目不存在时，显示这里的文案'}
+          <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+          {/eju:type}
+      </div>
+     <ul class="hot-list">
+         {eju:arclist typeid='10' orderby='new' row='4' id='field'}
+         <li>
+             <a class="a1" href="{$field.arcurl}" target="_blank">
+                 <div class="img">
+                     <img src="{$field.litpic}" alt="{$field.title}">
+                     <div class="info-box">
+                         <div class="info1">
+                             <div class="info1-r right">{$field.city_id|get_city_name}</div>
+                         </div>
+                         <div class="info2">
+                             <div class="info2-con">{$field.city_id|get_city_name}</div>
+                         </div>
+                     </div>
+                 </div>
+             </a>
+             <div class="txt">
+                 <div class="txt-tit">
+                     <a href="{$field.arcurl}">{$field.title}</a>
+                     <p>{$field.average_price}{$field.price_units}</p>
+                 </div>
+                 <div class="add">{$field.address}</div>
+                 <div class="tag">
+                     {eju:volist name="$field.characteristic" id="vo"}
+                     <a href="javascript:;">{$vo}</a>
+                     {/eju:volist}
+                 </div>
+             </div>
+         </li>
+         {/eju:arclist}
+     </ul>
+  </div>
+</div>
+<div class="hot-house" style="background-color: #fff">
+  <div class="w1200">
+      <div  class="index-tit">
+          <h2>{$eju.region.name}热门二手房</h2>
+          <p>优质好房 不容错过</p>
+          {eju:type typeid='11' empty='栏目不存在时，显示这里的文案'}
+          <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+          {/eju:type}
+      </div>
+     <ul class="hot-list">
+         {eju:arclist typeid='11' orderby='new' row='4' id='field'}
+         <li>
+             <a class="a1" href="{$field.arcurl}" target="_blank">
+                 <div class="img">
+                     <img src="{$field.litpic}" alt="{$field.title}">
+                     <div class="info-box">
+                         <div class="info1">
+                             <div class="info1-r right">{$field.city_id|get_city_name}</div>
+                         </div>
+                         <div class="info2">
+                             <div class="info2-con">{$field.city_id|get_city_name}</div>
+                         </div>
+                     </div>
+                 </div>
+             </a>
+             <div class="txt">
+                 <div class="txt-tit">
+                     <a href="{$field.arcurl}">{$field.title}</a>
+                     <p>{$field.total_price}万</p>
+                 </div>
+                 <div class="add">{$field.address}</div>
+                 <div class="tag">
+                     {eju:volist name="$field.characteristic" id="vo"}
+                     <a href="javascript:;">{$vo}</a>
+                     {/eju:volist}
+                 </div>
+             </div>
+         </li>
+         {/eju:arclist}
+     </ul>
+  </div>
+</div>
+<div class="hot-house" style="background-color: #fff">
+  <div class="w1200">
+      <div  class="index-tit">
+          <h2>{$eju.region.name}租房</h2>
+          <p>优质好房 不容错过</p>
+          {eju:type typeid='12' empty='栏目不存在时，显示这里的文案'}
+          <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+          {/eju:type}
+      </div>
+     <ul class="hot-list">
+         {eju:arclist typeid='12' orderby='new' row='4' id='field'}
+         <li>
+             <a class="a1" href="{$field.arcurl}" target="_blank">
+                 <div class="img">
+                     <img src="{$field.litpic}" alt="{$field.title}">
+                     <div class="info-box">
+                         <div class="info1">
+                             <div class="info1-r right">{$field.city_id|get_city_name}</div>
+                         </div>
+                         <div class="info2">
+                             <div class="info2-con">{$field.city_id|get_city_name}</div>
+                         </div>
+                     </div>
+                 </div>
+             </a>
+             <div class="txt">
+                 <div class="txt-tit">
+                     <a href="{$field.arcurl}">{$field.title}</a>
+                     <p>{$field.total_price}{$field.price_units}</p>
+                 </div>
+                 <div class="add">{$field.address}</div>
+                 <div class="tag">
+                     {eju:volist name="$field.characteristic" id="vo"}
+                     <a href="javascript:;">{$vo}</a>
+                     {/eju:volist}
+                 </div>
+             </div>
+         </li>
+         {/eju:arclist}
+     </ul>
+  </div>
+</div>
+<!--团购热门新房-->
+<div class="hot-group" >
+  <div class="w1200">
+  	<div class="index-tit">
+		<h2>{$eju.region.name}团购热门新房</h2>
+		<p>优质好房 不容错过</p>
+        {eju:type typeid='3' empty='栏目不存在时，显示这里的文案'}
+        <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+        {/eju:type}
+	</div>
+ 	 <ul class="hot-list">
+         {eju:arclist typeid='3' addfields="apply_num,end_time,description,price" orderby='new' row='4' id='field'}
+         <li>
+             <a class="a1" href="{$field.arcurl}" target="_blank">
+                 <div class="img">
+                     <img src="{$field.litpic}" alt="{$field.title}">
+                     <p>{$field.description}</p>
+                 </div>
+             </a>
+             {eju:arcview aid='$field.joinaid' id='field2'}
+             <div class="txt">
+                 <div class="title">
+                     <a href=""><h3>{$field.title}</h3></a><span>已有<em>{$field.apply_num}</em>人报名</span>
+                 </div>
+                 <div class="price">
+                     <span>{$field.price}{$field2.price_units}</span>
+                     <del>[ {$field2.average_price}{$field2.price_units} ]</del>
+                 </div>
+                 <div class="time">
+                     <span id="lefttime_{$e}"></span>
+                     {eju:if condition="$field.end_time > time()"}
+                        <a id="btn_baoming_{$e}" class="btn red dialog" href="javascript:;" data-url="{eju:diyurl type='form' /}">立即报名</a>
+                     {eju:else /}
+                        <a id="btn_baoming_{$e}" class="btn gray dialog" href="javascript:;" data-url="{eju:diyurl type='form' /}">报名结束</a>
+                     {/eju:if}
+                     <script type="text/javascript">
+                         var st = new showTime("{$e}","{$field.end_time}");
+                         st.setTimeShow();
+                     </script>
+                 </div>
+             </div>
+             {/eju:arcview}
+         </li>
+         {/eju:arclist}
+ 	 </ul>
+  </div>
+</div><!--团购热门新房--end-->
+<!--楼盘资讯-->
+<div class="index-news w1200">
+    <div  class="index-tit">
+        <h2>{$eju.region.name}楼盘资讯</h2>
+        <p>及时获取有效房产信息</p>
+        {eju:type typeid='2' empty='栏目不存在时，显示这里的文案'}
+        <a  class="more" target="_blank" href="{$field.typeurl}" title="{$field.typename}">查看更多</a>
+        {/eju:type}
+    </div>
+    <div class="news-list">
+        <div class="left">
+            <ul>
+                {eju:arclist typeid='2' orderby='new' row='4' id='field'}
+                <li>
+                    <div class="img"><a href="{$field.arcurl}" target="_blank">
+                        <img src="{$field.litpic}" alt="{$field.title}"></a>
+                    </div>
+                    <div class="txt">
+                        <h2><a href="{$field.arcurl}">{$field.title}</a></h2>
+                        <p>{$field.seo_description|html_msubstr=###,0,90,true}</p>
+                        <span>{$field.add_time|MyDate='Y-m-d H:i:s',###}</span>
+                    </div>
+                </li>
+                {/eju:arclist}
+            </ul>
+        </div>
+        <div class="right">
+            <div class="tit">
+                <a href="javascript:;">{$eju.region.name}本地资讯</a>
+            </div>
+            <ul>
+                {eju:arclist typeid='6' orderby='new' row='6' id='field'}
+                <li>
+                    <a href="{$field.arcurl}" target="_blank">
+                        <img src="{$field.litpic}" alt="{$field.title}">
+                    </a>
+                    <div class="txt">
+                        <a href="{$field.arcurl}" target="_blank">{$field.title}</a>
+                        <span>{$field.add_time|MyDate='Y-m-d H:i:s',###}</span>
+                    </div>
+                </li>
+                {/eju:arclist}
+            </ul>
+        </div>
+    </div>
+</div><!--楼盘资讯--end-->
+<!--服务特色-->
+<div class="hot-house">
+  <div class="w1200">
+    <ul class="serve">
+        <li>
+            <img src="{eju:global name='web_templets_pc' /}/skin/images/ico-zhenshi.png" alt="">
+            <h2>真实房源</h2>
+            <p>100%开发商授权真房源</p>
+        </li>
+        <li>
+            <img src="{eju:global name='web_templets_pc' /}/skin/images/ico-shenli.png" alt="">
+            <h2>省力</h2>
+            <p>免费接机专送看房</p>
+        </li>
+        <li>
+            <img src="{eju:global name='web_templets_pc' /}/skin/images/ico-shenqian.png" alt="">
+            <h2>省钱</h2>
+            <p>团购享优惠特价折扣</p>
+        </li>
+        <li>
+            <img src="{eju:global name='web_templets_pc' /}/skin/images/ico-shenshi.png" alt="">
+            <h2>省事</h2>
+            <p>星级酒店免费住</p>
+        </li>
+    </ul>
+  </div>
+</div><!--服务特色--end-->
+{eju:include file="footer.htm"/}
+
+{eju:static file="skin/js/swiper-3.4.2.jquery.min.js" /}
+<script>
+    /*幻灯片*/
+    var mySwiper = new Swiper('.swiper-container', {
+        direction: 'horizontal',
+        loop: true,
+        autoplay : 5000
+    })
+</script>
+{eju:static file="skin/js/carousel.min.js" /}
+{eju:static file="skin/layer/layer.min.js" /}
+
+<script type="text/javascript">
+$(function() {
+    $(".detail_slide").thumbnailImg({
+        large_elem : ".large_box",
+        small_elem : ".small_list",
+        left_btn : ".left_btn",
+        right_btn : ".right_btn"
+    });
+    $('.dialog').bind('click',function(){
+        var url = $(this).data('url');
+        $.layer({
+                type: 2,
+                shadeClose: true,  
+                title: false,  
+                closeBtn: [1, true],  
+                shade: [0.8, '#000'],  
+                border: [0],  
+                area: ['500px', '330px'],
+                offset: ['165px',''],  
+                iframe: {src: url}  
+            }); 
+    });
+});
+//shangqiao
+function chat(url) {
+    //获得窗口的垂直位置
+    var iTop = (window.screen.height - 710) / 2;
+    //获得窗口的水平位置
+    var iLeft = (window.screen.width - 780) / 2;
+    window.open(url,"_blank","left="+iLeft+",top="+iTop+",width=780,height=710,toolbar=no,menubar=no,scrollbars=no" );
+}
+</script>
+<script>
+    /*头部滚动-隐藏-显示导航*/
+//    $(document).ready(function() {
+//        $(window).on('scroll', function() {
+//            var scrollTop = $(this).scrollTop();
+//            if(scrollTop > 40) {
+//                $(".af_head").addClass("af_head_sw");
+//                $(".af_head a.logo").css("background", "url('{eju:global name='web_templets_pc' /}/skin/images/logo1.png') center 10px no-repeat");
+//            } else {
+//                $(".af_head").removeClass("af_head_sw");
+//                $(".af_head a.logo").css("background", "url('{eju:global name='web_templets_pc' /}/skin/images/logo1.png') center 10px no-repeat");
+//            }
+//        });
+//    });
+</script>
+
+</body>
+</html>

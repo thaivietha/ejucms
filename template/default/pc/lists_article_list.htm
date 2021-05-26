@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>{$eju.field.seo_title}</title>
+  <meta name="renderer" content="webkit" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+  <meta name="description" content="{$eju.field.seo_description}" />
+  <meta name="keywords" content="{$eju.field.seo_keywords}" />
+  <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  {eju:static file="skin/css/public.css" /}
+  {eju:static file="skin/css/iconfont.css" /}
+  {eju:static file="skin/css/zixun.css" /}
+  {eju:static file="skin/css/af_gd_right.css" /}
+  {eju:static file="skin/css/af_head_select.css" /}
+
+  {eju:static file="skin/js/jquery.min.1.7.2.js" /}
+  {eju:static file="skin/js/top_footer.js" /}
+</head>
+
+<body>
+{eju:include file="header.htm"/}
+<!-- 位置 -->
+<div class="weizhi">
+	<ul>
+		<li><a href="javascript:;">你的位置</a>：</li> <li>{eju:position style="crumb" /}</li>
+		<div class="clear"></div>
+	</ul>
+</div>
+<div class="af-zxlist">
+  <div class="af-zxlist-fl left">
+    <div class="left-cate">
+      <ul>
+        <li {eju:gt name="$eju.field.has_children" value="0"}class="current"{/eju:gt}> <a href="{$eju.field.ptypeurl}" title="全部资讯" >全部资讯</a> </li> 
+        {eju:channel type='first' id='field' currentstyle='current' row='50'}
+        <li class="{$field.currentstyle}"><a href="{$field.typeurl}">{$field.typename}</a></li>
+        {/eju:channel}
+      </ul>
+    </div>
+    {eju:channelartlist type='son'}
+    <div class="af-gdlist-fl">
+      <ul>
+        <li class="af-gdlist-head"> <a class="" href="{eju:field name='typeurl' /}" target="_blank"><span class="af-more">更多&gt;&gt;</span></a>
+          <h2 class="" data="{eju:field name='typename' /}">{eju:field name='typename' /}</h2>
+        </li>
+        {eju:arclist limit='0,1' titlelen='40' id='field'} 
+        <li class="af-gdlist-con"> 
+          <a href="{$field.arcurl}" target="_blank"><img class="af-gdlist-pic left" src="{$field.litpic}" alt="" title="" width="260" height="162"></a>
+          <div class="gdist-wrap"> <a href="{$field.arcurl}" target="_blank">
+            <p class="gdlist-head">{$field.title}</p>
+            </a>
+            <p class="gdlist-con">{$field.seo_description|html_msubstr=###,0,60,true}<a href="{$field.arcurl}" target="_blank">[详情]</a> </p>
+            <p class="gdlist-data"> <span class="condata">{$field.add_time|MyDate='Y-m-d',###}</span></p>
+          </div>
+          <div class="clear"></div>
+        </li>
+        {/eju:arclist}   
+
+        {eju:arclist limit='1,9' titlelen='40' id='field'} 
+        <li class="gdlist-tittle"> <a href="{$field.arcurl}" target="_blank">
+          <p>{$field.title}</p>
+          <span class="right">（{$field.add_time|MyDate='m-d',###}）</span></a> 
+        </li>
+        {/eju:arclist}    
+      </ul>
+      <div class="clear"></div>
+    </div>
+    {/eju:channelartlist} 
+  </div>
+  <!--right--> 
+  {eju:static file="skin/js/jquery.ajax.form.js" /}
+  
+  {eju:include file="right_article.htm"/}
+  <div class="clear"></div>
+</div>
+<!--底部--> 
+{eju:include file="footer.htm"/} 
+
+<!--底部--end-->
+
+</body>
+</html>

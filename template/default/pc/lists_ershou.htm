@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{$eju.field.seo_title}</title>
+    <meta name="renderer" content="webkit" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+    <meta name="description" content="{$eju.field.seo_description}" />
+    <meta name="keywords" content="{$eju.field.seo_keywords}" />
+    <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    {eju:static file="skin/css/public.css" /}
+    {eju:static file="skin/css/iconfont.css" /}
+    {eju:static file="skin/css/lplist.css" /}
+    {eju:static file="skin/css/sx.css" /}
+
+    {eju:static file="skin/js/jquery.min.1.7.2.js" /}
+    {eju:static file="skin/js/top_footer.js" /}
+</head>
+<body>
+{eju:include file="header.htm"/}
+<!-- 位置 -->
+<div class="weizhi">
+    <ul>
+        <li><a href="#">您当前的位置：</a></li>
+        <li>{eju:position style="crumb" /}</li>
+        <div class="clear"></div>
+    </ul>
+</div>
+
+<!--筛选-->
+<ul class="select">
+    <div class="select_search" >
+    <span>
+    {eju:searchform channelid='12' type='default'}
+      <form method="get" action="{$field.action}">
+        <input id="search_key" class="txt tschtext" type="text" name="keywords" value="{$Request.param.keywords}" placeholder="请输入房源名称开始找房..." class="search-inp" />
+        <input type="submit"  id="search_but" class="tschbtn2" value="开始搜索" id="submitss">
+        {$field.hidden}
+      </form>
+    {/eju:searchform}
+    </span>
+        <a target="_blank" href="{eju:diyurl type='mapershou' /}" id="search_but2" class="but01">地图找房</a>
+    </div>
+
+    {eju:screening id='field' currentstyle='select-all selected' domain='0' region='on' show='2' alltxt='不限' opencity='2' }
+    {eju:volist name='$field.list' id='vo'}
+    <li class="select-list">
+        <dl id="select1">
+            <dt>{$vo.title} ：</dt>
+            {eju:volist name='$vo.dfvalue' id='vo2'}
+            <dd class="{$vo2.currentstyle}"><a {$vo2.onClick}>{$vo2.name}</a></dd>
+            {/eju:volist}
+        </dl>
+    </li>
+    {/eju:volist}
+    <li class="select-result">
+        <dl>
+            <dt>已选：</dt>
+            {eju:volist name='$field.list' id='vo'}
+            {eju:notempty name="$vo.onName"}
+            <dd class="select-no selected"><a {$vo.handle}>{$vo.onName}</a> </dd>
+            {/eju:notempty}
+            {/eju:volist}
+            <dd><a style="display: none;" href="{$field.resetUrl}" id="emptySearch" class="emptySearch" title="清空全部">清空全部</a></dd>
+        </dl>
+    </li>
+    {$field.hidden}
+    {/eju:screening}
+</ul>
+<!--排序-->
+<div class="af-px">
+    <div class="af-px-left">
+        <ul>
+            <li class="tab">全部房源</li>
+        </ul>
+    </div>
+    <div class="af-px-right">
+        {eju:orderlist id='field' addfields='total_price' currentstyle='active' upstyle='iconfont af-icon-tabshouqi' downstyle='iconfont af-icon-tabxiala' alltxt='默认排序' }
+        {eju:volist name='$field.list' id='vo'}
+        <div class="rr a-moren"> <a href="javascript:;" {$vo.onClick} class="{$vo.currentstyle}"> <span class="item">{$vo.title}
+        {eju:notempty name='$vo.classstyle'} <i class="{$vo.classstyle}"></i> {/eju:notempty} </span> </a> </div>
+        {/eju:volist}
+        {$field.hidden}
+        {/eju:orderlist}
+    </div>
+    <div class="clear"></div>
+</div>
+<!--列表-->
+<div class="af-xf-list">
+    <ul>
+        {eju:list pagesize='10' titlelen='30' infolen='160' orderby='new' addfields='building_age' }
+        <li class="list-lp">
+            <div class="af-xf-img">
+                <a href="{$field.arcurl}" target="_blank" title="{$field.title}">
+                 <img src="{$field.litpic}" alt="{$field.title}" width="260" height="190" />
+                </a>
+            </div>
+            <div class="af-xf-wrap">
+                <div class="af-xfname"> <a href="{$field.arcurl}" target="_blank">{$field.title}</a>
+                    <div class="clear"></div>
+                </div>
+                <p class="af-xf-dz">
+                <p>
+                    <span class="info">{$field.room}室{$field.living_room}厅{$field.toilet}卫</span>
+                    <span class="l">|</span>
+                    <span class="info">{$field.area}㎡</span>
+                    <span class="l">|</span>
+                    <span class="info">{$field.aspect}</span>
+                    <span class="l">|</span>
+                    <span class="info">{$field.building_age}年建</span>
+                    <span class="l">|</span>
+                    <span class="people_name">{$field.sale_name}</span>
+                </p>
+                </p>
+                <p class="af-xf-dz">
+                {eju:arcview aid='$field.joinaid' id='field2'}<a href="{$field2.arcurl}">{$field2.title}</a>{/eju:arcview} 
+                <span class="ads">{$field.address}</span>  
+                </p>
+                <p class="af-xf-tese">
+                    {eju:volist name="$field.characteristic" id="vo"}
+                    <span id="c_2">{$vo}</span>
+                    {/eju:volist}
+                </p>
+            </div>
+            <div class="af-xf-jg">
+                <div class="esfjg">
+                    <span class="esfjg-red"><b>{$field.total_price}<em>万</em></b></span><br>
+                    <!--<span class="esfjg-red"><em>14546元/㎡</em></span>-->
+                </div>
+            </div>
+            <div class="clear"></div>
+        </li>
+        {/eju:list}
+
+    </ul>
+</div>
+<!--页码-->
+<div class="page-box">
+    <ul class="pagination">
+        {eju:pagelist listitem="index,end,pageno,pre,next" listsize="10"/}
+    </ul>
+</div>
+{eju:include file="footer.htm"/}
+{eju:static file="skin/js/jquery.cxscroll.min.js" /}
+<script type="text/javascript">
+    $(function(){
+        if($(".select-no").length > 0) {
+            $("#emptySearch").show();
+        }
+    });
+    $(".scroll_horizontal").cxScroll({
+        auto: false
+    });
+</script>
+</body>
+</html>

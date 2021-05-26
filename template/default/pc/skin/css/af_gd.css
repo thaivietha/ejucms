@@ -1,0 +1,148 @@
+﻿
+			.af-gdmain {
+				width: 1200px;
+				margin: 0 auto;
+			}
+			
+			.af-gdlist {
+				width: 840px;
+				/*	margin: 30px auto;*/
+			}
+			
+			.af-gdbox p {
+				text-align: center;
+				color: #444;
+				width: 260px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.swiper-slide {
+		        text-align: center;
+		        font-size: 18px;
+		        background: #fff;
+		        
+		        /* Center slide text vertically */
+		        display: -webkit-box;
+		        display: -ms-flexbox;
+		        display: -webkit-flex;
+		        display: flex;
+		        -webkit-box-pack: center;
+		        -ms-flex-pack: center;
+		        -webkit-justify-content: center;
+		        justify-content: center;
+		        -webkit-box-align: center;
+		        -ms-flex-align: center;
+		        -webkit-align-items: center;
+		        align-items: center;
+		    }
+			.af-gdlist-fl {
+				width: 798px;
+				padding: 10px 20px;
+				padding-bottom: 32px;
+				margin-bottom: 20px;
+				border: 1px solid #ddd;
+			}
+			
+			.af-gdlist-fl ul li.af-gdlist-con {
+				padding: 20px 0;
+				/*	border-bottom: 1px solid #efefef;*/
+			}
+			
+			.af-gdlist-fl ul li.af-gdlist-head {
+				width: auto;
+				margin-bottom: 20px;
+				color: #444444;
+				padding: 0 0;
+				border-bottom: 1px solid #ddd;
+			}
+			
+			span.af-more {
+				height: 57px;
+				line-height: 30px;
+				float: right;
+				color: #444444;
+			}
+			
+			.af-gdlist-head h2 {
+				font-size: 20px;
+				font-weight: 700;
+				height: 36px;
+			}
+			
+			.af-gdlist-head h2 a {
+				font-size: 20px;
+				color: #01bdf3;
+				display: block;
+				line-height: 47px;
+				height: 46px;
+				float: left;
+				margin: 0px 20px 0 0;
+				border-bottom: 1px solid #01bdf3;
+			}
+			
+			.gdist-wrap {
+				width: 516px;
+				float: right;
+				height: 152px;
+				color: #636363;
+				padding: 5px 0px;
+				position: relative;
+			}
+
+
+			
+			p.gdlist-head {
+				font-size: 20px;
+				margin-bottom: 10px;
+				color: #444;
+				white-space: nowrap;
+    			overflow: hidden;
+    			text-overflow: ellipsis;
+			}
+			
+			p.gdlist-con {
+				line-height: 24px;
+				    font-size: 14px;
+			}
+			
+			p.gdlist-data {
+				position: absolute;
+				bottom: 5px;
+				font-size: 14px;color: #636363;
+			}
+
+			.gdist-wrap .gdlist-data span.condata
+			{font-size: 14px;color: #636363;}
+			
+			p.gdlist-con a {
+				color: #01bdf3;
+			}
+			
+			li.gdlist-tittle {
+				width: 369px;
+				float: left;
+				margin: 10px 0;
+				padding-left: 16px;
+				background: url(../images/newicon.png) -3px no-repeat;
+			}
+			li.gdlist-tittle:nth-child(odd) {
+			    margin-right: 20px;
+			}
+			.gdlist-tittle a {
+				font-size: 14px;
+				color: #444;
+			}
+			
+			.gdlist-tittle p {
+				display: block;
+				width: 290px;
+				float: left;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.gdlist-tittle span {
+				font-size: 12px;
+				color: #636363;
+			}

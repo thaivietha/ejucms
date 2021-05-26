@@ -1,0 +1,242 @@
+﻿.detail_wrap {
+    width: 1200px;
+    margin: 0 auto;
+}
+.detail-main{
+    width: 800px;
+    margin: 0px auto;
+    margin-bottom: 60px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    float: left;
+}
+.detail-main img {
+    max-width: 100%;
+}
+.af-zxcon-title {
+    margin: 15px auto 12px auto;
+}
+.af-zxcon-title h2 {
+    font-size: 26px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+.af-zxcon-title p {
+    height: 40px;
+    text-align: center;
+    line-height: 220%;
+    color: #888888;
+    background: url(../images/line6.jpg) bottom repeat-x;
+}
+
+.af-zxcon-wrap{
+	    margin: 18px auto 0 auto;
+    width: 98%;
+    padding-left: 6px;
+    border-bottom: 1px solid #e9e9e9;
+    padding-bottom: 15px;
+}
+.af-zxcon-wrap p {
+    font-size: 14px;
+    margin: 3px auto 16px auto;
+    text-align: left;
+    line-height: 200%;
+}
+#pl {
+	color: #D8D8D8;
+	padding: 5px 10px;
+	background: #F7F7F7;
+}
+#pl .red_right {
+	vertical-align: middle;
+	_margin-top: 5px;
+}
+#pl .red_right .ico08 {
+	margin: 0 3px 0 8px;
+	font-size: 14px;
+	color: #EA4F06;
+}
+
+
+        .weizhi {
+                margin: 20px auto;
+                width: 1200px;
+            }
+            
+            .weizhi li a {
+                /* float: left; */
+                font-size: 14px;
+                color: #c3c1c1;
+            }
+            
+            .weizhi li {
+                float: left;
+                color: #c3c1c1;
+                padding-right: 10px;
+            }
+            
+            li.current a {
+                color: #00adef;
+            }
+
+    /* nav */
+            
+            .anchor_layer .nav_wrap {
+                width: 1200px;
+                height: 45px;
+                background-color: #f8f8f8;
+                overflow: hidden;
+                margin: 0 auto 40px;
+                behavior: url(../images/pie.htc);
+                border-bottom: 2px solid #02bdf4;
+            }
+            
+            .anchor_layer .nav_wrap.navFix {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 100%;
+                min-width: 1220px;
+                border-radius: 0;
+                z-index: 11;
+                background: #f8f8f8;
+                border: 1px solid #ddd;
+                border-bottom: 2px solid #02bdf4;
+                font-size: 0px;
+            }
+            
+            .anchor_layer .nav_wrap a {
+                width: 120px;
+                height: 45px;
+                display: block;
+                color: #555;
+                line-height: 45px;
+                text-align: center;
+                font-size: 14px;
+                behavior: url(pie.htc);
+            }
+            
+            li.wrap_tab {
+                display: inline-block;
+                height: 44px;
+                line-height: 44px;
+                font-size: 16px;
+            }
+            
+            .anchor_layer .nav_wrap .active a{
+                background-color: #02bdf4;
+                color: #fff;
+                behavior: url(../images/pie.htc);
+            }
+            .guanzhu{
+				font-size: 20px;
+				text-align: center;
+				color: #777;
+				padding: 20px 0;
+            }
+            li.gdlist-tittle {
+                width: 364px;
+                float: left;
+                margin: 10px 0;
+                margin-right: 20px;
+                padding-left: 16px;
+                background: url(../images/newicon.png) -3px no-repeat;
+            }
+            .gdlist-tittle a {
+                font-size: 14px;
+                color: #444;
+            }
+            .gdlist-tittle p {
+                display: block;
+                width: 290px;
+                float: left;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+                        /* 报名看房 */
+                        .detail_right {
+                            float: right;
+                            width: 330px;
+                        }         
+.lpagent_bmtel {
+    border: 2px solid #dd2446;
+    border-radius: 5px;
+    padding:10px 20px;
+    margin-bottom: 20px;
+    background: url(../images/telbg.jpg) no-repeat top;
+}
+
+.bm_wrap input#bm_ins {
+    padding: 8px 10px;
+    width: 264px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+    background: #fff5e7;
+    margin-bottom: 10px;
+}
+.lpagent_bm .bt_yhbm {
+    background: #dd2446;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 6px 16px;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}
+.lpagent_tel  .tel_num {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    /* margin-bottom: 24px; */
+}
+
+.lpagent_tel .tel_num em {
+    font-size: 14px;
+    padding: 0 5px;
+    font-weight: normal;
+}
+
+.lpagent_tel .lpagent_tel_btn {
+    background: #fff;
+    color: #dd2446;
+    padding: 2px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.lpagent_tel {
+    padding-bottom: 24px;
+}
+
+.nh_content {
+    width: 330px;
+}
+.qr-code img {
+    width: 216px;
+}
+
+.qr-code {
+    text-align: center;
+    padding-top: 10px;
+}
+
+.qr-code p {
+    font-size: 18px;
+    /* padding-top: 10px; */
+    color: #dd2446;
+}
+.back_area a {
+    display: table;
+    margin-right: 20px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.back_area i {
+    color: #24c6ef;
+    margin-right: 4px;
+}

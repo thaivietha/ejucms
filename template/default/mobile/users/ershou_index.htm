@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+{include file="users/public_layout" /}
+
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="head-oper">
+            <div class="fl">
+                <a id="customvar_add" data-url="{:url('Ershou/add', array('typeid'=>$type_info.id))}" class="layui-btn ">
+                    发布二手房
+                </a>
+
+            </div>
+            <div class="fr ">
+                <form id="ershou_form" action="{:url('Ershou/index')}" method="get" onsubmit="layer_loading();">
+                 {$searchform.hidden|default=''}
+                <div class="fl mt5"  style="padding-right: 10px;">
+                    <div class="layui-input-inline w50">
+                        <select name="status" id="status" lay-ignore>
+                            <option value="">状态</option>
+                            <option value="1" {eq name="$Request.param.status" value="1"}selected{/eq}>发布</option>
+                            <option value="2" {eq name="$Request.param.status" value="2"}selected{/eq}>待审</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="fl mt5" style="padding-right: 10px;">
+                    <div class="layui-input-inline w240">
+                        <input type="text" name="keywords" id="keywords" value="{$Request.param.keywords}" placeholder="请输入搜索关键词" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-input-inline w70 layadmin-layer-demo mt5">
+                    <button class="layui-btn input-btn-search"  type="submit"><i class="layui-icon layui-icon-search"></i></button>
+                </div>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="layui-card-body">
+            <div class="layui-form layui-border-box layui-table-view house-table">
+                <div class="layui-table-box">
+                    <div class="layui-table-body ">
+                        <table cellspacing="0" cellpadding="0" border="0" class="layui-table layui-form" lay-skin="line" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th class="w40 tc">
+                                    <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                                        <input type="checkbox" lay-filter="checkAll" class="checkAll"   lay-skin="primary" >
+                                        <div class="layui-unselect layui-form-checkbox" lay-skin="primary"> <i class="layui-icon layui-icon-ok"></i></div>
+                                    </div>
+                                </th>
+                                <th class="w80 tc">
+                                    <div class="layui-table-cell w130 tc"><span>小区名称</span></div>
+                                </th>
+                                <th class="">
+                                    <div class="layui-table-cell "><span>二手房标题</span></div>
+                                </th>
+                                <th class="w100 tc">
+                                    <div class="layui-table-cell w100 tc"><span>面积</span></div>
+                                </th>
+                                <th class="w80 tc">
+                                    <div class="layui-table-cell w80 tc"><span>状态</span></div>
+                                </th>
+                                <th class="w110 tc">
+                                    <div class="layui-table-cell w110 tc"><span>发布时间</span></div>
+                                </th>
+                                <th class="w300 tc">
+                                    <div class="layui-table-cell w300 tc"><span>操作</span></div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {empty name="list"}
+                            <tr>
+                                <td class="no-data" align="center" axis="col0" colspan="7">
+                                    <i class="fa fa-exclamation-circle"></i>没有符合条件的数据
+                                </td>
+                            </tr>
+                            {else /}
+                            {foreach name="list" item="vo" key="k" }
+                            <tr>
+                                <td>
+                                    <div class="layui-table-cell w40 tc laytable-cell-checkbox">
+                                        <input type="checkbox" name="ids[]" value="{$vo.aid}" lay-filter="ids" lay-skin="primary">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w130 tc"> {$vo.xiaoqu_name} </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell " title="">
+                                        <a class="media" href="javascript:;">
+                                             <span  class="customvar_edit"  data-url="{:url($table.'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}">
+                                                <img src="{$vo.litpic}">
+                                            </span>
+                                            <div class="media-body">
+                                                <span data-url="{:url($table.'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}"  class="tit customvar_edit" >
+                                                    {$vo.title}({$vo.room}室{$vo.living_room}厅)
+                                                </span>
+                                                <br>
+                                                <span class="price-color-b">￥{$vo.total_price}万元</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w100 tc"> {$vo.area}㎡ </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w80 tc">{eq name="$vo.status" value="1"}发布{else /}待审{/eq}</div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w110 tc"> {$vo.add_time|date="Y-m-d",###} </div>
+                                </td>
+                                <td>
+                                    <div class="layui-table-cell w300 tc right-oper">
+                                        <a onclick="stickfun(this)" data-url="{:url('Archives/stick',['type'=>'2','tid'=>$type_info['id']])}" data-id="{$vo.aid}"  class="layui-btn btn-edit" >
+                                            置顶
+                                        </a>
+                                        <a data-url="{:url($table.'/edit',array('id'=>$vo['aid'],'typeid'=>$vo['typeid']))}" class="layui-btn btn-edit customvar_edit" >
+                                            编辑
+                                        </a>
+                                        <a href="{$vo.arcurl}" target="_blank" class="layui-btn btn-primary" >
+                                            浏览
+                                        </a>
+                                        <a onclick="delfun(this)" class="layui-btn btn-primary" data-url="{:url('Archives/del',['tid'=>$type_info['id']])}" data-id="{$vo.aid}" data-deltype="pseudo0">
+                                            删除
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            {/empty}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="layui-table-page footer-oper">
+                    <input type="checkbox" lay-filter="checkAll" class="checkAll" lay-skin="primary" >
+                    <a  class="layui-btn layui-btn-primary"   href="javascript:;" onclick="batch_del(this,'ids');" data-url="{:url('Archives/del',['tid'=>$type_info['id']])}" data-deltype="pseudo0">
+                        批量删除
+                    </a>
+                    <a  class="layui-btn layui-btn-primary"   href="javascript:;" onclick="batch_stick(this,'ids');" data-url="{:url('Archives/stick',['type'=>'2','tid'=>$type_info['id']])}" >
+                        批量置顶
+                    </a>
+                </div>
+            </div>
+            {$page}
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'table', 'element'], function() {
+        var $ = layui.$,
+            form = layui.form,
+            layer = layui.layer,
+            element = layui.element,
+            table = layui.table;
+
+        // 监听复选框全选
+        form.on('checkbox(checkAll)', function(data){
+            if (data.elem.checked) {
+                $('.checkAll').attr('checked', true);
+                $('input[name*=ids]').attr('checked', true);
+            } else {
+                $('.checkAll').attr('checked', false);
+                $('input[name*=ids]').attr('checked', false);
+            }
+            form.render('checkbox');
+        });
+
+        // 监听每行复选框
+        form.on('checkbox(ids)', function(data){
+            if (data.elem.checked && $('input[name*=ids]:checked').length == $('input[name*=ids]').length) {
+                $('.checkAll').attr('checked', true);
+            } else {
+                $('.checkAll').attr('checked', false);
+            }
+            form.render('checkbox');
+        });
+    });
+    //选中下拉状态
+    $(document).on('change', '#status', function(){
+        $('#ershou_form').submit();
+    });
+
+    //新增
+    $('#customvar_add').click(function (){
+        var iframes = layer.open({
+            type: 2,
+            title: false,
+            closeBtn: false,
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            content: $(this).attr('data-url')
+        });
+        layer.full(iframes);
+    });
+    //编辑
+    $('.customvar_edit').click(function () {
+        var iframes = layer.open({
+            type: 2,
+            title: false,
+            closeBtn: false,
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            content: $(this).attr('data-url')
+        });
+        layer.full(iframes);
+    });
+    //置顶
+    $('.customvar_stick').click(function () {
+        var iframes = layer.open({
+            type: 2,
+            title: "置顶",
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            maxmin: false, //开启最大化最小化按钮
+            area: ['450px', '330px'],
+            content: $(this).attr('data-url')
+        });
+    });
+
+</script>
+</body>
+</html>

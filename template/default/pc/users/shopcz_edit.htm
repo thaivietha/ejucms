@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html>
+{include file="users/public_layout" /}
+<body>
+<script type="text/javascript" src="__PUBLIC__/plugins/Ueditor/ueditor.config.js?v={$version}"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/Ueditor/ueditor.all.js?v={$version}"></script>
+<script type="text/javascript" src="__PUBLIC__/plugins/Ueditor/lang/zh-cn/zh-cn.js?v={$version}"></script>
+<style>
+    .w135{
+        width: 135px !important;
+    }
+    .input_div{
+        background-color: #fff;
+        position:absolute;
+        z-index: 999;
+        width: 100%;
+        box-shadow: 1px 2px 4px rgba(50, 50, 50, 0.4);
+        display: block;
+    }
+    .input_div .soption{
+        float: left;
+        width: 92%;
+        line-height: 26px;
+        padding:0 4%;
+        display:block;
+    }
+    .input_div .soption:hover{
+        background-color: #eee;
+    }
+</style>
+<div class="layui-fluid" id="LAY-component-layer-list">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="">
+                    <form class="layui-form" id="post_form" action="{:url('Shopcz/edit')}" onsubmit="return false;">
+                        <div class="bt-close">
+                            <span class="layui-layer-setwin"><a onclick="close_this();" class="layui-layer-ico layui-layer-close layui-layer-close1"></a></span>
+                        </div>
+                        <div class="layui-tab layui-tab-card">
+                            <ul class="layui-tab-title">
+                                <li class="layui-this">基本信息</li>
+                                <li>相册选项</li>
+                            </ul>
+                            <div class="layui-tab-content web-system" style="padding:0 0 40px 0">
+                                <!--基本信息-->
+                                <div class="layui-tab-item layui-show">
+
+                                    <div class="layui-row layui-col-space15">
+                                        <div class="layui-row w-max" style="padding-top: 20px;">
+                                            <div class="layui-card">
+                                                <div class="layui-card-body" pad15="">
+                                                    <div class="layui-form" wid100="" lay-filter="">
+                                                        {notempty name="$channelJoin"}
+                                                        <div class="layui-form-item">
+                                                            <label class="layui-form-label">{notempty name="$channelOrigin.join_must"}<b>*</b>{/notempty}关联{$channelJoin.ntitle}</label>
+                                                            <div class="layui-input-inline w-in">
+                                                                <input type="hidden" id="joinaid" name="joinaid" value="{$field.joinaid}"/>
+                                                                <input type="text" name="join_title" value="{$join_title}" id="join_title"  placeholder="丰祥花苑"  class="layui-input">
+                                                                <div class="input_div" id="input_div" style="display: none">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <script>
+                                                            var data_obj;
+                                                            $(function (){
+                                                                var searchurl = "{$searchurl}";
+                                                                autoSearch("join_title");
+                                                                function autoSearch(searchId) {
+                                                                    $("#" + searchId).autocomplete({
+                                                                        delay:300,      //触发时间
+                                                                        minLength:1,    //最小触发长度
+                                                                        source: function (request, response) {
+                                                                            $.ajax({
+                                                                                async: false,   //调用方式：同步
+                                                                                type: "POST",
+                                                                                url: searchurl,
+                                                                                dataType: "json",
+                                                                                data: {
+                                                                                    "keywords": request.term
+                                                                                },
+                                                                                success: function (data) {
+                                                                                    if (data.constructor === Object){
+                                                                                        data_obj = data;
+                                                                                        $.map(data,function (item,i) {
+                                                                                            var span = $('<span onclick="select_soption(this)" class="soption" data-id="'+i+'">'+item.title+'</span>');
+                                                                                            $(".input_div").append(span);
+                                                                                        });
+                                                                                        $(".input_div").show();
+                                                                                    }else{      //获取到空数据
+                                                                                        $(".input_div").hide();
+                                                                                    }
+                                                                                }
+                                                                                ,error:function (data) {
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                    });
+                                                                }
+                                                            });
+                                                            function select_soption(obj) {
+                                                                var aid = $(obj).data('id');
+                                                                $("#joinaid").val(aid);
+                                                                $("#title").val(data_obj[aid]['title']);
+                                                                $("#join_title").val(data_obj[aid]['title']);
+                                                                $("#province_id").val(data_obj[aid]['province_id']);
+                                                                $("#city_id").val(data_obj[aid]['city_id']);
+                                                                $("#area_id").val(data_obj[aid]['area_id']);
+                                                                var map = "";
+                                                                if (data_obj[aid]['lng'] && data_obj[aid]['lat']){
+                                                                    map =  data_obj[aid]['lng']+","+data_obj[aid]['lat'];
+                                                                }
+                                                                $("#map").val(map);
+                                                                $("#address").val(data_obj[aid]['address']);
+                                                                $("#building_age").val(data_obj[aid]['building_age']);
+                                                                $("#property").val(data_obj[aid]['property']);
+
+                                                                $("#input_div").empty();
+                                                                $("#input_div").hide();
+
+                                                                set_city_list(data_obj[aid]['city_id']);
+                                                                set_area_list(data_obj[aid]['area_id']);
+
+                                                                layui_index.form.render();
+                                                            }
+                                                        </script>
+                                                        {/notempty}
+
+                                                        <div class="layui-form-item" >
+                                                            <label class="layui-form-label">{notempty name="$addonFieldExtList.province_id.ifrequire"}<b>*</b>{/notempty}所属区域</label>
+                                                            <div class="layui-input-inline w120">
+                                                                <select name="province_id" id="province_id"  lay-filter="province_id" >
+                                                                    <option value="0">请选择省</option>
+                                                                    {eju:volist name=':get_province_list()' id='vo'}
+                                                                    <option value="{$vo.id}" {eq name="$field.province_id" value="$vo.id" } selected {/eq} >{$vo.name}</option>
+                                                                    {/eju:volist}
+                                                                </select>
+                                                            </div>
+                                                            <div class="layui-input-inline w120">
+                                                                <select name="city_id" id="city_id"   lay-filter="city_id"  lay-verify="check_cityid">
+                                                                    <option value="">请选择城市</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="layui-input-inline none w120" id="area_div">
+                                                                <select name="area_id" id="area_id">
+                                                                    <option value="">请选择区域</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+                                                            <div class="layui-form-inline2 ey_helptips_txt none"></div>
+                                                        </div>
+                                                        <div class="w-out fl mt15 " >
+                                                            <label class="layui-form-label">{notempty name="$addonFieldExtList.address.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['address']['title']}</label>
+                                                            <div class="layui-input-inline w-in">
+                                                                <input type="text" name="addonFieldSys[address]" id="address" value="{$addonFieldExtList['address']['dfvalue']}"  placeholder="{$addonFieldExtList['address']['remark']}"  lay-verify="check_address" value="" class="layui-input">
+                                                            </div>
+                                                        </div>
+                                                        <div class="w-out fl mt15 " >
+                                                            <label class="layui-form-label">{notempty name="$addonFieldExtList.lng.ifrequire"}<b>*</b>{/notempty}地图坐标</label>
+                                                            <div class="layui-input-inline w-in">
+                                                                <input type="text" name="map" id="map" lay-verify="check_map" placeholder="115.345,22.1349" value="{$map}" class="layui-input">
+                                                            </div>
+                                                            <div class="layui-form-mid layui-word-aux layadmin-layer-demo fr" style="padding: 0!important">
+                                                                <a class="layui-btn layui-btn-primary bt-address fl" data-type="map_mark" title="点击标注楼盘坐标"><i class="layui-icon layui-icon-location"></i></a>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="w-out fl mt15">
+                                                            <label class="layui-form-label">{notempty name="$addonFieldExtList.title.ifrequire"}<b>*</b>{/notempty}房源标题</label>
+                                                            <div class="layui-input-inline w-in">
+                                                                <input type="text" name="title" id="title"  placeholder="丰祥花苑" lay-verify="check_title" value="{$field.title}" class="layui-input">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="w-out fl mt15 {empty name="$addonFieldExtList['total_price']['ifeditable']"}none{/empty}">
+                                                        <label class="layui-form-label">{notempty name="$addonFieldExtList.total_price.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['total_price']['title']}</label>
+                                                        <div class="layui-input-inline w-in" >
+                                                            <div class="layui-input-inline w135" >
+                                                                <input type="text" name="addonFieldSys[total_price]" id="total_price"  placeholder="12000"  lay-verify="check_price" value="{$addonFieldExtList['total_price']['dfvalue']}" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');">
+                                                            </div>
+                                                            <div class="layui-input-inline w120 {empty name="$addonFieldExtList['price_units']['ifeditable']"}none{/empty}" >
+                                                            <select name="addonFieldSys[price_units]" id="price_units">
+                                                                {volist name="$addonFieldExtList['price_units']['dfvalue']" id="v2"}
+                                                                <option value="{$v2}" {if condition="isset($addonFieldExtList['price_units']['trueValue']) AND in_array($v2, $addonFieldExtList['price_units']['trueValue'])"}selected{/if}>{$v2}</option>
+                                                                {/volist}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="w-out fl mt15 {empty name="$addonFieldExtList['pay_way']['ifeditable']"}none{/empty}">
+                                                <label class="layui-form-label">{notempty name="$addonFieldExtList.pay_way.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['pay_way']['title']}</label>
+                                                <div class="layui-input-inline w-in">
+                                                    <select name="addonFieldSys[pay_way]" id="pay_way">
+                                                        {volist name="$addonFieldExtList['pay_way']['dfvalue']" id="v2"}
+                                                        <option value="{$v2}" {if condition="isset($addonFieldExtList['pay_way']['trueValue']) AND in_array($v2, $addonFieldExtList['pay_way']['trueValue'])"}selected{/if}>{$v2}</option>
+                                                        {/volist}
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="w-out fl mt15 {empty name="$addonFieldExtList['hire_type']['ifeditable']"}none{/empty}">
+                                            <label class="layui-form-label">{notempty name="$addonFieldExtList.hire_type.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['hire_type']['title']}</label>
+                                            <div class="layui-input-inline w-in" >
+                                                <div class="layui-input-inline w135" >
+                                                    <select name="addonFieldSys[hire_type]" id="hire_type"  lay-filter="hire_type">
+                                                        {volist name="$addonFieldExtList['hire_type']['dfvalue']" id="v2"}
+                                                        <option value="{$v2}" {if condition="isset($addonFieldExtList['hire_type']['trueValue']) AND in_array($v2, $addonFieldExtList['hire_type']['trueValue'])"}selected{/if}>{$v2}</option>
+                                                        {/volist}
+                                                    </select>
+                                                </div>
+                                                <div  id="room_type_div" class="layui-input-inline w120" style="display: none">
+                                                    <select name="addonFieldSys[room_type]" id="room_type">
+                                                        {volist name="$addonFieldExtList['room_type']['dfvalue']" id="v2"}
+                                                        <option value="{$v2}" {if condition="isset($addonFieldExtList['room_type']['trueValue']) AND in_array($v2, $addonFieldExtList['room_type']['trueValue'])"}selected{/if}>{$v2}</option>
+                                                        {/volist}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="w-out fl mt15 {empty name="$addonFieldExtList['area']['ifeditable']"}none{/empty}">
+                                        <label class="layui-form-label">{notempty name="$addonFieldExtList.area.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['area']['title']}</label>
+                                        <div class="layui-input-inline w-in">
+                                            <input type="text" name="addonFieldSys[area]" id="area"   lay-verify="check_area" value="{$addonFieldExtList['area']['dfvalue']}"  onkeyup="this.value=this.value.replace(/[^0-9.]/g,'');" onpaste="this.value=this.value.replace(/[^0-9.]/g,'');"  placeholder="{$addonFieldExtList['area']['remark']}" class="layui-input">
+                                        </div>
+                                        <div class="layui-input-inline layui-input-company">{$addonFieldExtList['area']['dfvalue_unit']}</div>
+                                    </div>
+                                    <div class="w-out fl mt15">
+                                        <label class="layui-form-label">{notempty name="$addonFieldExtList.floo_type.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['floo_type']['title']}</label>
+                                        <div class="layui-input-inline w-in" >
+                                            <div class="layui-input-inline w120" >
+                                                <select name="addonFieldSys[floo_type]" id="floo_type" >
+                                                    {volist name="$addonFieldExtList['floo_type']['dfvalue']" id="v2"}
+                                                    <option value="{$v2}" {if condition="isset($addonFieldExtList['floo_type']['trueValue']) AND in_array($v2, $addonFieldExtList['floo_type']['trueValue'])"}selected{/if}>{$v2}</option>
+                                                    {/volist}
+                                                </select>
+                                            </div>
+                                            <div class="layui-input-inline w20">
+                                                共
+                                            </div>
+                                            <div class="layui-input-inline w80" >
+                                                <input type="text" name="addonFieldSys[floor_count]" id="floor_count"  lay-verify="check_floor" value="{$addonFieldExtList['floor_count']['dfvalue']}" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');">
+                                            </div>
+                                            <div class="layui-input-inline layui-input-company">{$addonFieldExtList['floor_count']['dfvalue_unit']}</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-out fl mt15 {empty name="$addonFieldExtList['property_fee']['ifeditable']"}none{/empty}">
+                                    <label class="layui-form-label">{notempty name="$addonFieldExtList.property_fee.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['property_fee']['title']}</label>
+                                    <div class="layui-input-inline w-in">
+                                        <input type="text" name="addonFieldExt[property_fee]" id="property_fee" value="{$addonFieldExtList['property_fee']['dfvalue']}"   placeholder="{$addonFieldExtList['property_fee']['remark']}" class="layui-input">
+                                    </div>
+                                    <div class="layui-input-inline layui-input-company">{$addonFieldExtList['property_fee']['dfvalue_unit']}</div>
+                                </div>
+                                    <div class="w-out fl mt15 {empty name="$addonFieldExtList['sale_name']['ifeditable']"}none{/empty}" >
+                                    <label class="layui-form-label">{notempty name="$addonFieldExtList.sale_name.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['sale_name']['title']}</label>
+                                    <div class="layui-input-inline w-in">
+                                        <input type="text" name="addonFieldSys[sale_name]"  id="sale_name" value="{$addonFieldExtList['sale_name']['dfvalue']}" placeholder="{$addonFieldExtList['sale_name']['remark']}" class="layui-input">
+                                    </div>
+                                    <div class="layui-input-inline layui-input-company">{$addonFieldExtList['sale_name']['dfvalue_unit']}</div>
+                                </div>
+                                <div class="w-out fl mt15 {empty name="$addonFieldExtList['sale_phone']['ifeditable']"}none{/empty}">
+                                <label class="layui-form-label">{notempty name="$addonFieldExtList.sale_phone.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['sale_phone']['title']}</label>
+                                <div class="layui-input-inline w-in">
+                                    <div class="layui-input-inline w150">
+                                        <input type="text" name="addonFieldSys[sale_phone]" id="sale_phone"  lay-verify="check_tellphone" value="{$addonFieldExtList['sale_phone']['dfvalue']}"  placeholder="{$addonFieldExtList['sale_phone']['remark']}" class="layui-input" onkeyup="this.value=this.value.replace(/[^0-9-]/g,'');" onpaste="this.value=this.value.replace(/[^0-9-]/g,'');">
+                                    </div>
+                                    <div class="layui-input-inline w20">
+                                        转
+                                    </div>
+                                    <div class="layui-input-inline w80">
+                                        <input type="text" name="addonFieldSys[phone_code]" id="phone_code" value="{$addonFieldExtList['phone_code']['dfvalue']}"  placeholder="{$addonFieldExtList['phone_code']['remark']}" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-out fl mt15 {empty name="$addonFieldExtList['building_age']['ifeditable']"}none{/empty}">
+                            <label class="layui-form-label">{notempty name="$addonFieldExtList.building_age.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['building_age']['title']}</label>
+                            <div class="layui-input-inline w-in">
+                                <input type="text" name="addonFieldExt[building_age]" id="building_age" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" value="{$addonFieldExtList['building_age']['dfvalue']}"  placeholder="{$addonFieldExtList['building_age']['remark']}" class="layui-input">
+                            </div>
+                            <div class="layui-input-inline layui-input-company">{$addonFieldExtList['building_age']['dfvalue_unit']}</div>
+                        </div>
+                        <div class="w-out fl mt15 {empty name="$addonFieldExtList['property']['ifeditable']"}none{/empty}">
+                        <label class="layui-form-label">{notempty name="$addonFieldExtList.property.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['property']['title']}</label>
+                        <div class="layui-input-inline w-in">
+                            <input type="text"  name="addonFieldExt[property]" id="property" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" onpaste="this.value=this.value.replace(/[^0-9]/g,'');" placeholder="{$addonFieldExtList['property']['remark']}"  value="{$addonFieldExtList['property']['dfvalue']}" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline layui-input-company">{$addonFieldExtList['property']['dfvalue_unit']}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layui-col-md12" style="padding-top:0;">
+    <div class="layui-card">
+        <div class="layui-card-body" pad15 style="padding-top: 0">
+            <div class="layui-form" wid100 lay-filter="">
+                <div class="layui-form-item {empty name="$addonFieldExtList['lease_type']['ifeditable']"}none{/empty}">
+                <label class="layui-form-label">{notempty name="$addonFieldExtList.lease_type.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['lease_type']['title']}</label>
+                <div class="layui-input-inline w-max2">
+                    {volist name="$addonFieldExtList['lease_type']['dfvalue']" id="v2"}
+                    <input type="radio" id="addonFieldSys_{$addonFieldExtList['lease_type']['name']|default=''}" name="addonFieldSys[{$addonFieldExtList['lease_type']['name']|default=''}]" value="{$v2}" {if condition="isset($addonFieldExtList['lease_type']['trueValue']) AND in_array($v2, $addonFieldExtList['lease_type']['trueValue'])"}checked="checked"{/if} title="{$v2}">
+                    {/volist}
+                </div>
+            </div>
+            <div class="layui-form-item {empty name="$addonFieldExtList['fitment']['ifeditable']"}none{/empty}">
+            <label class="layui-form-label">{notempty name="$addonFieldExtList.fitment.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['fitment']['title']}</label>
+            <div class="layui-input-inline w-max2">
+                {volist name="$addonFieldExtList['fitment']['dfvalue']" id="v2"}
+                <input type="radio" id="addonFieldSys_{$addonFieldExtList['fitment']['name']|default=''}" name="addonFieldSys[{$addonFieldExtList['fitment']['name']|default=''}]" value="{$v2}" {if condition="isset($addonFieldExtList['fitment']['trueValue']) AND in_array($v2, $addonFieldExtList['fitment']['trueValue'])"}checked="checked"{/if} title="{$v2}">
+                {/volist}
+            </div>
+        </div>
+        <div class="layui-form-item {empty name="$addonFieldExtList['industry']['ifeditable']"}none{/empty}">
+        <label class="layui-form-label">{notempty name="$addonFieldExtList.industry.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['industry']['title']}</label>
+        <div class="layui-input-inline w-max2">
+            {volist name="$addonFieldExtList['industry']['dfvalue']" id="v2"}
+            <input type="checkbox" lay-skin="primary" name="addonFieldSys[industry][]" value="{$v2}" {if condition="isset($addonFieldExtList['industry']['trueValue']) AND in_array($v2, $addonFieldExtList['industry']['trueValue'])"}checked="checked"{/if}  title="{$v2}">
+            {/volist}
+        </div>
+    </div>
+    <div class="layui-form-item {empty name="$addonFieldExtList['division']['ifeditable']"}none{/empty}">
+    <label class="layui-form-label">{notempty name="$addonFieldExtList.division.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['division']['title']}</label>
+    <div class="layui-input-inline w-max2">
+        {volist name="$addonFieldExtList['division']['dfvalue']" id="v2"}
+        <input type="radio" id="addonFieldSys_{$addonFieldExtList['division']['name']|default=''}" name="addonFieldSys[{$addonFieldExtList['division']['name']|default=''}]" value="{$v2}" {if condition="isset($addonFieldExtList['division']['trueValue']) AND in_array($v2, $addonFieldExtList['division']['trueValue'])"}checked="checked"{/if} title="{$v2}">
+        {/volist}
+    </div>
+</div>
+<div class="layui-form-item {empty name="$addonFieldExtList['manage_type']['ifeditable']"}none{/empty}">
+<label class="layui-form-label">{notempty name="$addonFieldExtList.manage_type.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['manage_type']['title']}</label>
+<div class="layui-input-inline w-max2">
+    {volist name="$addonFieldExtList['manage_type']['dfvalue']" id="v2"}
+    <input type="radio" id="addonFieldSys_{$addonFieldExtList['manage_type']['name']|default=''}" name="addonFieldSys[{$addonFieldExtList['manage_type']['name']|default=''}]" value="{$v2}" {if condition="isset($addonFieldExtList['manage_type']['trueValue']) AND in_array($v2, $addonFieldExtList['manage_type']['trueValue'])"}checked="checked"{/if} title="{$v2}">
+    {/volist}
+</div>
+</div>
+<div class="layui-form-item {empty name="$addonFieldExtList['characteristic']['ifeditable']"}none{/empty}">
+<label class="layui-form-label">{notempty name="$addonFieldExtList.characteristic.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['characteristic']['title']}</label>
+<div class="layui-input-inline w-max2">
+    {volist name="$addonFieldExtList['characteristic']['dfvalue']" id="v2"}
+    <input type="checkbox" lay-skin="primary" name="addonFieldSys[characteristic][]" value="{$v2}"  title="{$v2}" {if condition="isset($addonFieldExtList['characteristic']['trueValue']) AND in_array($v2, $addonFieldExtList['characteristic']['trueValue'])"}checked="checked"{/if} >
+    {/volist}
+</div>
+</div>
+<div class="layui-form-item {empty name="$addonFieldExtList['supporting']['ifeditable']"}none{/empty}">
+<label class="layui-form-label">{notempty name="$addonFieldExtList.supporting.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['supporting']['title']}</label>
+<div class="layui-input-inline w-max2">
+    {volist name="$addonFieldExtList['supporting']['dfvalue']" id="v2"}
+    <input type="checkbox" lay-skin="primary" name="addonFieldExt[supporting][]" value="{$v2}"  title="{$v2}" {if condition="isset($addonFieldExtList['supporting']['trueValue']) AND in_array($v2, $addonFieldExtList['supporting']['trueValue'])"}checked="checked"{/if}>
+    {/volist}
+</div>
+</div>
+
+
+<div class="layui-form-item">
+    <label class="layui-form-label">{notempty name="$addonFieldExtList.litpic.ifrequire"}<b>*</b>{/notempty}缩略图</label>
+    <div class="layui-input-inline">
+        <div class="upload-box">
+            <div class="upload-img fl">
+                <div class="icaction none">
+                                <span class="load_images">
+                                 <a href="javascript:void(0);" onclick="BigImages($('#img_litpic').attr('src'));">
+                                    <i class="layui-icon layui-icon-search mr5"></i>查看
+                                 </a>
+                                </span>
+                    <span class="load_images">
+                                    <a href="javascript:void(0);" data-inputid="litpic" onclick="DelImages(this);">
+                                        <i class="layui-icon layui-icon-delete mr5"></i>删除
+                                    </a>
+                                </span>
+                </div>
+                <div class="cover-bg none"></div>
+                <img id="img_litpic" src="{$field.litpic|get_default_pic=###}">
+            </div>
+            <div class="upload-right fl">
+                <button class="layui-btn test-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:1,ey_inputId:'litpic',ey_savepath:'allimg'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                <input name="litpic" id="litpic" placeholder="图片地址" value="{$field.litpic|default=''}" class="layui-input">
+            </div>
+        </div>
+    </div>
+</div>
+{include file="users/addonextitem" /}
+
+<div class="layui-form-item {empty name="$addonFieldExtList['content']['ifeditable']"}none{/empty}">
+<span class="edit-box-tit">{notempty name="$addonFieldExtList.content.ifrequire"}<b>*</b>{/notempty}{$addonFieldExtList['content']['title']}</span>
+<div class="edit-box-con ">
+    <div class="edit-box-textarea2">
+        <textarea  class="ckeditor" lay-ignore id="addonFieldExt_content" data-func="addonFieldExt_content" name="addonFieldExt[content]">{$addonFieldExtList['content']['dfvalue']}</textarea>
+    </div>
+</div>
+<div class="layui-input-inline layui-btn-container " style="width: auto;">
+    <div class="layui-form-mid layui-word-aux ey_helptips"></div>
+    <div class="layui-form-inline2 ey_helptips_txt">{$addonFieldExtList['content']['remark']}</div>
+</div>
+</div>
+<script type="text/javascript">
+    UE.getEditor('addonFieldExt_content',{
+        serverUrl :"{:url('Ueditor/index',array('savepath'=>'ueditor'))}",
+        zIndex: 999,
+        initialFrameWidth: "100%", //初化宽度
+        initialFrameHeight: 450, //初化高度
+        focus: false, //初始化时，是否让编辑器获得焦点true或false
+        maximumWords: 99999,
+        removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+        pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+        autoHeightEnabled: false,
+        toolbars: ueditor_toolbars,
+        // xss 过滤是否开启,inserthtml等操作
+        xssFilterRules: true,
+        //input xss过滤
+        inputXssFilter: true,
+        //output xss过滤
+        outputXssFilter: true
+    });
+    //必须在提交前渲染编辑器；
+    function addonFieldExt_content() {
+        //判断编辑模式状态:0表示【源代码】HTML视图；1是【设计】视图,即可见即所得；-1表示不可用
+        if(UE.getEditor("addonFieldExt_content").queryCommandState('source') != 0) {
+            UE.getEditor("addonFieldExt_content").execCommand('source'); //切换到【设计】视图
+        }
+    }
+</script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--相册选项-->
+<div class="layui-tab-item ">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body" pad15>
+                    <div class="layui-form" wid100 lay-filter="">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">上传相册</label>
+                            <div class="layui-input-inline">
+                                <div class="upload-box">
+                                    <div class="upload-right fl">
+                                        <button class="layui-btn multi-upload-demoMore layui-btn-primary layui-btn-sm fl mb10 mr5" lay-data="{number:100,ey_savepath:'allimg',ey_callbefore:'shopcz_photo_upload()',ey_callback:'shopcz_photo_upload_call_back'}"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-form-item ">
+                            <label class="layui-form-label"></label>
+                            <div class="edit-box-con2 fl sort-list">
+                                {volist name="photo_list" id="vo" key="k"}
+                                <div class="images-upload ic">
+                                    <div class="upimg" title="拖动修改排序">
+                                        <div class="icaction" style="display: none;">
+                                            <span class="load_images" onclick="Images('{$vo.photo_pic}');">
+                                                <a href="javascript:void(0);" style="color: white">
+                                                    <i class="fa fa-search-plus"></i>查看大图
+                                                </a>
+                                            </span>
+                                        </div>
+                                        <div class="cover-bg" style="display: none;"></div>
+                                        <img src="{$vo.photo_pic}">
+                                    </div>
+                                    <input type="hidden" name="photo_id[]" value="{$vo.photo_id}">
+                                    <span class="span_input">
+                                        <input type="hidden" name="photo_pic[]" value="{$vo.photo_pic}">
+                                    </span>
+                                    <span class="select_input">
+                                        <input type="hidden" name="photo_type[]" value="{$vo.photo_type}">
+                                    </span>
+                                    <textarea placeholder="请输入标题..." name="photo_title[]" value="{$vo.photo_title}">{$vo.photo_title}</textarea>
+                                    <div class="operation">
+                                        <a href="javascript:void(0)" onclick="ClearPicArr(this,'{$vo.photo_pic}')" style="float:right"><i class="layui-icon layui-icon-close mr5"></i>删除</a>
+                                    </div>
+                                </div>
+                                {/volist}
+
+
+                                <div class="images-upload" style="display: none;"></div>
+                                <!-- 上传图片显示的样板 start -->
+                                <div class="images_upload_tpl" style="display: none;">
+                                    <div class="images-upload">
+                                        <div class="upimg">
+                                            <div class="icaction" style="display: none;">
+                                                <span class="load_images">
+                                                    <a href="javascript:void(0);" style="color:white">
+                                                        <i class="layui-icon layui-icon-search mr5"></i>查看大图
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="cover-bg" style="display: none"></div>
+                                            <img src="__STATIC__/admin/images/add-button.jpg">
+                                        </div>
+                                        <input type="hidden"/>
+                                        <span class="span_input">
+                                            <input type="hidden"/>
+                                        </span>
+                                        <textarea placeholder="请输入标题..." style="height: 28px;"></textarea>
+                                        <div class="operation">
+                                            <a href="javascript:void(0);" style="float: right"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 上传图片显示的样板 end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<!--底部浮动横条-->
+<div class="button-container layadmin-layer-demo">
+    <input type="hidden" name="aid" value="{$aid}">
+    <button class="layui-btn layui-btn-sm" lay-submit lay-filter="formSubmit">确认提交</button>
+    <button class="layui-btn layui-btn-sm layui-btn-primary" data-type="return_parent">返回</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    $(document).ready(function(){
+        // 鼠标事件，加载查看大图和删除图片
+        $(".upload-img").live('mouseover', function(){
+            $(this).find('div.icaction').show();
+            $(this).find('div.cover-bg').show();
+        }).live('mouseout', function(){
+            $(this).find('div.icaction').hide();
+            $(this).find('div.cover-bg').hide();
+        });
+        var city_id = "{$field.city_id}";
+        set_city_list(city_id);
+        console.log(city_id);
+        var area_id = "{$field.area_id}";
+        set_area_list(area_id);
+    });
+    //光标离开楼盘地址编辑，自动获取坐标
+    $("#address").on('blur',function(){
+        var province_id = $("#province_id").val(),city_id = $("#city_id").val(),area_id = $("#area_id").val();
+        var address = $(this).val();
+        var url     = "{:url('home/Map/getLocationByAddress')}";
+        var param = {
+            province : province_id,
+            city : city_id,
+            area : area_id,
+            address : address
+        };
+        $.get(url,param,function(res){
+            if(res.code == 1)
+            {
+                $("#map").val(res.data.map);
+            }
+        });
+    });
+    var layui_index = layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+        ,version: '{$version}'
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form'], function(){
+        var $ = layui.$
+            ,element = layui.element
+            ,layer = layui.layer
+            ,form = layui.form;
+
+        element.render();
+        /* 触发事件 */
+        var active = {
+            return_parent:function () {     //返回上级
+                var index=parent.layer.getFrameIndex(window.name); //获取当前窗口的name
+                parent.layer.close(index);		//关闭窗口
+            }
+            ,select_house:function () {     //小区关联管理
+                var xinfang = layer.open({
+                    type : 2,
+                    title : '选择小区',
+                    area : ['500px','500px'],
+                    shade : 0.2,
+                    iframeAuto:true,
+                    content : "{:url('Xiaoqu/ajaxSelectHouse')}"+'&func=set_house_back',
+                    end : function(){
+
+                    }
+                });
+                layer.full(xinfang);
+            }
+            ,map_mark:function () {     //标注管理
+                set_map();
+            }
+        };
+
+        $('#LAY-component-layer-list .layadmin-layer-demo .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] && active[type].call(this);
+        });
+        form.verify({
+            check_title:function (value, item) {
+                if(value == '' || undefined == value){
+                    tabchange(0);
+                    return '房源标题不能为空';
+                }
+            }
+            ,check_price:function (value, item) {
+                var number = /^[0-9]+\.*[0-9]*$/;
+                if(value != '' && !number.test(value)){
+                    tabchange(0);
+                    return '价格只能输入数字';
+                }
+            }
+            ,check_tellphone: function(value){
+                var phone = /^[0-9-]+$/;
+                var flag = phone.test(value);
+                if(value != '' && !flag){
+                    tabchange(0);
+                    return '请输入正确座机号码或手机号';
+                }
+            }
+        });
+        //选择租赁方式
+        form.on('select(hire_type)', function(data){
+            if(data.value == '整租'){
+                $("#room_type_div").hide();
+            }else{
+                $("#room_type_div").show();
+            }
+            form.render();
+        });
+        function tabchange(tabIndex)
+        {
+            var tabObj = $('div.layui-tab ul.layui-tab-title');
+            tabObj.find('li').each(function(){
+                $(this).removeClass('layui-this');
+            });
+            $(tabObj.find('li').get(tabIndex)).addClass('layui-this');
+            $('.layui-tab-item').removeClass('layui-show');
+            $($('.layui-tab-item').get(tabIndex)).addClass('layui-show');
+        }
+        //选中省份模型
+        form.on('select(province_id)', function(data){
+            set_city_list(0);
+            set_area_list(0);
+            form.render();
+        });
+        //选中城市
+        form.on('select(city_id)', function(data){
+            set_area_list(0);
+            form.render();
+        });
+        //监听提交
+        form.on('submit(formSubmit)', function(data){
+            var load = layer_loading();
+            data.field._ajax = 1;
+            $('textarea[class*="ckeditor"]').each(function(index, item){
+                data.field[item.name] = item.value;
+            });
+            $.ajax({
+                type : 'post',
+                url : "{:url('Shopcz/edit')}",
+                data : data.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if(res.code == 1){
+                        parent.window.location.href = res.url;
+                    }else{
+                        layer.msg(res.msg, {icon: 2,time: 2000});
+                    }
+                },
+                error: function(e){
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+            return false;
+        });
+    });
+    //标注地图位置
+    function set_map()
+    {
+        var province = $("#province_id").val();
+        var city = $("#city_id").val();
+        var area = $("#area_id").val();
+        if(city==='0' || city === '' || city === null)
+        {
+            layer.msg('请选择城市',{icon:2});
+            return false;
+        }
+        var map = $("#map").val();
+        var url = "{:url('home/Map/updateLocation')}&province="+province+"&city="+city+"&area="+area+"&map="+map;
+        //iframe窗
+        var iframes = layer.open({
+            type: 2,
+            title: '标注地图',
+            fixed: true, //不固定
+            shadeClose: false,
+            shade: 0.3,
+            content: url
+        });
+        layer.full(iframes);
+    }
+    //自动获取城市列表
+    function set_city_list(cityid) {
+        var pid =  $("#province_id").val();
+        $.ajax({
+            url: "{:url('Archives/ajax_get_region')}",
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {pid:pid,_ajax:1},
+            success: function(res){
+                if (res.code === 1){
+                    $("#city_id").empty();
+                    $("#city_id").prepend(res.msg);
+                    if (cityid > 0){
+                        $("#city_id").val(cityid);
+                    }
+                }
+            },
+            error: function(e){
+                showErrorMsg();
+                return false;
+            }
+        });
+    }
+    //自动获取区域
+    function set_area_list(areaid) {
+        var pid =  $("#city_id").val();
+        $.ajax({
+            url: "{:url('Archives/ajax_get_region')}",
+            type: 'POST',
+            dataType: 'JSON',
+            async: false,
+            data: {pid:pid,level:3,_ajax:1},
+            success: function(res){
+                if (res.code === 1){
+                    $("#area_id").empty();
+                    $("#area_id").prepend(res.msg);
+                    if (areaid > 0){
+                        $("#area_id").val(areaid);
+                    }
+                    if (res.data.isempty == 1){
+                        $("#area_div").hide();
+                    }else{
+                        $("#area_div").show();
+                    }
+                }
+            },
+            error: function(e){
+                showErrorMsg();
+                return false;
+            }
+        });
+    }
+    //上传相册前判断
+    function shopcz_photo_upload(){
+        return true;
+    }
+    // 上传之后删除组图input
+    function ClearPicArr(obj,path)
+    {
+        $(obj).parent().parent().remove(); // 删除完服务器的, 再删除 html上的图片
+        $.ajax({
+            type:'POST',
+            url:"{:url('Uploadify/delupload')}",
+            data:{action:"del", filename:path},
+            success:function(){}
+        });
+    }
+    // 查看大图
+    function Images(links){
+        var max_width = 650;
+        var max_height = 350;
+        var img = "<img src='"+links+"'/>";
+        $(img).load(function() {
+            width  = this.width;
+            height = this.height;
+            if (width > height) {
+                if (width > max_width) {
+                    width = max_width;
+                }
+                width += 'px';
+            } else {
+                width = 'auto';
+            }
+            if (width < height) {
+                if (height > max_height) {
+                    height = max_height;
+                }
+                height += 'px';
+            } else {
+                height = 'auto';
+            }
+            var links_img = "<img style='width:"+width+";height:"+height+";' src="+links+">";
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: true,
+                shadeClose:true,
+                area: [width, height],
+                skin: 'layui-layer-nobg', //没有背景色
+                content: links_img
+            });
+        });
+    }
+    // 图集相册的拖动排序相关 js
+    $( ".sort-list" ).sortable({
+        start: function( event, ui) {
+        }
+        ,stop: function( event, ui ) {
+        }
+    });
+    $( ".sort-list" ).disableSelection();
+
+    // 上传图集相册回调函数
+    function shopcz_photo_upload_call_back(pathObj){
+        if (Array.isArray(pathObj)){
+            var paths = pathObj;
+        }else{
+            var paths = [pathObj.url];
+        }
+        var last_div = $(".images_upload_tpl").html();
+        var inputs   = $('.span_input input');
+        var photo_type = $("#photo_type_select").val();
+        var photo_type_name = $("#photo_type_select").find("option:selected").text();
+        for (var i=0;i<paths.length ;i++){
+            $(".images-upload:eq(0)").before(last_div);  // 插入一个 新图片
+            // 修改他的链接地址
+            $(".images-upload:eq(0)").find('span:eq(0)').attr('onclick',"Images('"+paths[i]+"');");
+            // 修改他的图片路径
+            $(".images-upload:eq(0)").find('img').attr('src',paths[i]);
+            // 处理图片路径及隐藏域
+            if (inputs.length > '0') {
+                // 修改隐藏域，提交ID隐藏域
+                $(".images-upload:eq(0)").find('input:eq(0)').attr('name','photo_id[]').attr('value','');
+                // 修改隐藏域，提交图片隐藏域
+                $(".span_input:eq(0)").find('input:eq(0)').attr('name','photo_pic[]').attr('value',paths[i]);
+                //修改隐藏域，提交图片类型 select_input
+                $(".images-upload:eq(0)").find('input:eq(0)').attr('name','photo_type[]').attr('value',photo_type);
+                // 提交标题
+                $(".images-upload:eq(0)").find('textarea:eq(0)').attr('name','photo_title[]');
+                // 删除按钮
+                $(".images-upload:eq(0)").find('div.operation a:eq(0)').attr('onclick',"ClearPicArr(this,'"+paths[i]+"')").html("<i class='layui-icon layui-icon-close mr5'></i>删除");
+            }
+        }
+    }
+    //选择小区回调
+    function set_house_back(recall){
+        $("#joinaid").val(recall['aid']);
+        $("#province_id").val(recall['province_id']);
+        $("#city_id").val(recall['city_id']);
+        $("#area_id").val(recall['area_id']);
+        $("#lng").val(recall['lng']);
+        $("#lat").val(recall['lat']);
+        $("#address").val(recall['address']);
+        $("#building_age").val(recall['building_age']);
+        $("#property").val(recall['property']);
+        $("#title").val(recall['title']);
+        $('#house_title').html(recall['title']+ ' <i class="layui-icon layui-icon-close"></i>');
+        $("#house_title").show();
+    }
+    $("#house_title").on('click','i',function(){
+        $("#house_title").html('');
+        $("#house_title").hide();
+        $("#joinaid").val(0);
+        $("#province_id").val(0);
+        $("#city_id").val(0);
+        $("#area_id").val(0);
+        $("#lng").val('');
+        $("#lat").val('');
+        $("#address").val('');
+    });
+
+</script>
+</body>
+</html>

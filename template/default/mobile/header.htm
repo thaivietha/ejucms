@@ -1,0 +1,44 @@
+<div class="newsheader">
+    <header data-am-widget="header" class="am-header am-header-blue">
+        <div class="am-header-left am-header-nav">
+            <a href="javascript:history.back(-1);" class="">
+                <i class="icon-return iconfont"></i>
+            </a>
+        </div>
+        <h1 class="am-header-title">
+            <a href="{eju:global name='web_cmsurl' /}" class="">
+                <img src="{eju:global name='web_attr_1' /}" />
+            </a>
+        </h1>
+        <div class="am-header-right am-header-nav">
+            <a href="#" class="" data-am-offcanvas="{target: '#doc-oc-demo3'}"> <i class="icon-daohang iconfont"></i> </a>
+        </div>
+        <!-- 侧边栏内容 -->
+        <div id="doc-oc-demo3" class="am-offcanvas">
+            <div class="am-offcanvas-bar am-offcanvas-bar-flip">
+                <div class="am-offcanvas-content">
+                    <ul>
+                        <li>
+                            <a  href="{eju:global name='web_cmsurl' /}">网站首页</a>
+                        </li>
+                        {eju:channel type="top" row="60" id="field"}
+                        <li>
+                            <a href="{$field.typeurl}" >
+                                {$field.typename}
+                            </a>
+                        </li>
+                        {/eju:channel}
+                        <li>
+                            {eju:user type='open'}
+                            {eju:user type='login'}
+                            <a href="{$field.url}" id="{$field.id}">会员中心</a>　
+                            {$field.hidden}
+                            {/eju:user}
+                            {/eju:user}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>

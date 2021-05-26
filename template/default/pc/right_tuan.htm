@@ -1,0 +1,63 @@
+<style>
+    .input-text{
+        width: 182px;
+        height: 24px;
+        line-height: 24px;
+        border: 1px solid #ddd;
+        padding: 6px 10px 6px 30px;
+        margin-top: 10px;
+        font-size: 12px;
+        color: #999;
+        border-radius: 2px;
+    }
+</style>
+
+<div class="kyf-right right">
+    <div class="r_tel">
+        <div class="tel-num"> <span class=""><i class="iconfont af-icon-24xiaoshi"></i>服务热线</span>
+            <p>{eju:global name='web_attr_2' /}</p>
+            <p class="tel-data">工作时间：周一到周日全天24小时</p>
+        </div>
+        <p class="tel-af">团购服务中心</p>
+        <div class="tel-icon"> <a><span class="tel-icon-num1"></span>
+            <p>小团购大力量</p>
+        </a> <a><span class="tel-icon-num2"></span>
+            <p>人多折扣越低</p>
+        </a> <a><span class="tel-icon-num3"></span>
+            <p>免费接机</p>
+        </a> <a><span class="tel-icon-num4"></span>
+            <p>旅游看房</p>
+        </a> <a><span class="tel-icon-num5"></span>
+            <p>特权服务</p>
+        </a> <a><span class="tel-icon-num6"></span>
+            <p>省时省力省钱</p>
+        </a>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="r-bd">
+        <h3 class="r-head">我要看房</h3>
+        {eju:form formid="2"}
+        <form method="post" id="{$field.form_name}" action="{$field.action}" onsubmit="{$field.submit}">
+            <input type="text" id="{$field.attr_2}" name="{$field.attr_2}" placeholder="{$field.itemname_2}" class="input-text">
+            <input type="text" id="{$field.attr_3}" name="{$field.attr_3}" placeholder="{$field.itemname_3}" class="input-text">
+            <input type="submit" class="tjsx-btn" value="立即报名" id="submit2">
+            {$field.hidden}
+        </form>
+        {/eju:form}
+    </div>
+    <div class="r-hothouse">
+        <h3 class="r-head">热门楼盘</h3>
+        <ul>
+            {eju:arclist channelid='9' flag='h' orderby='new' row='10' id='field'}
+            <li>
+                <a href="{$field.arcurl}" target="_blank">
+                    <p>{$field.title}</p>
+                    <span class="right"> <em>{$field.average_price}</em>{$field.price_units} </span>
+                </a>
+            </li>
+            {/eju:arclist}
+            <div class="clear"></div>
+        </ul>
+    </div>
+</div>

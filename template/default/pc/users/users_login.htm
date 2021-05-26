@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>会员登陆-{eju:global name='web_title' /}</title>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="__PUBLIC__/plugins/layui/css/layui.css?v={$version}" media="all">
+    <link rel="stylesheet" href="__SKIN__/css/admin.css?v={$version}" media="all">
+    <link rel="stylesheet" href="__SKIN__/css/login.css?v={$version}" media="all">
+    <link rel="stylesheet" href="__SKIN__/css/ey_layui.css?v={$version}" media="all">
+    <link rel="stylesheet" href="__SKIN__/css/page.css?v={$version}" media="all">
+    <link rel="stylesheet" href="__SKIN__/css/perfect-scrollbar.css?v={$version}" media="all">
+     <!-- 引入公共头部样式	 -->
+
+    <script type="text/javascript">
+        var eyou_basefile = window.location.pathname;
+        var module_name = "{$Think.const.MODULE_NAME}";
+        var __root_dir__ = "__ROOT_DIR__";
+    </script>
+
+    <script type="text/javascript" src="__SKIN__/js/jquery.js?v={$version}"></script>
+    <script type="text/javascript" src="__SKIN__/js/jquery-ui/jquery-ui.min.js?v={$version}"></script>
+    <script type="text/javascript" src="__PUBLIC__/plugins/layer-v3.1.0/layer.js?v={$version}"></script>
+    <script type="text/javascript" src="__SKIN__/js/jquery.cookie.js?v={$version}"></script>
+    <script type="text/javascript" src="__PUBLIC__/plugins/laydate/laydate.js?v={$version}"></script>
+    <script type="text/javascript" src="__PUBLIC__/plugins/layui/layui.js?v={$version}"></script>
+    <script type="text/javascript" src="__SKIN__/js/global.js?v={$version}"></script>
+    <script type="text/javascript" src="__SKIN__/js/add_js/perfect-scrollbar.js?v={$version}"></script>
+
+</head>
+<body>
+ <!-- topBar S --> 
+  <!-- topBar E --> 
+  <div class="login-bg">
+	  <div class="w1200">
+		  <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
+		  	<div class="layadmin-user-login-main">
+		  		<div class="layadmin-user-login-box layadmin-user-login-header">
+		  			 <div style="margin-bottom: 10px;"><img height="34" src="{eju:global name='web_logo' /}" alt=""></div>
+		  			<p>会员登陆</p>
+		  		</div>
+		  		<div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+		  			<div class="layui-form-item">
+		  				<label class="layadmin-user-login-icon layui-icon layui-icon-username" for="mobile"></label>
+		  				<input type="text" name="mobile" id="mobile" lay-verify="required" placeholder="登陆号码" class="layui-input">
+		  			</div>
+		  			<div class="layui-form-item">
+		  				<label class="layadmin-user-login-icon layui-icon layui-icon-password" for="password"></label>
+		  				<input type="password" name="password" id="password" lay-verify="required" placeholder="密码" class="layui-input">
+		  			</div>
+		  			{eju:eq name="$is_vertify" value="1"}
+		  			<div class="layui-form-item">
+		  				<div class="layui-row">
+		  					<div class="layui-col-xs7">
+		  						<label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="vertify"></label>
+		  						<input type="text" name="vertify" id="vertify" lay-verify="required" placeholder="图形验证码" class="layui-input">
+		  					</div>
+		  					<div class="layui-col-xs5">
+		  						<div style="margin-left: 10px;">
+		  							<img src="{eju:url link='api/Ajax/vertify' vars='type=users_login' /}"  id="LAY-user-get-vercode"  class="layadmin-user-login-codeimg" >
+		  						</div>
+		  					</div>
+		  				</div>
+		  			</div>
+		  			{/eju:eq}
+		  
+		  			<div class="layui-form-item" style="margin-bottom: 20px;">
+		  
+		  			</div>
+		  			<div class="layui-form-item">
+		  				<input type="hidden" name="referurl" value="{$referurl}"/>
+		  				<input type="hidden" name="website" value="website"/>
+		  				<button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit"  data-href="{eju:url link='user/Users/login' /}">登 录</button>
+		  			</div>
+		  			<div class="layui-trans layui-form-item layadmin-user-login-other">
+		  				<a  class="layadmin-link" href="{eju:url link='user/Users/reg' /}" >注册帐号</a>
+		  				<a  class="layadmin-user-jump-change layadmin-link" href="{eju:url link='user/Users/retrieve_password' /}" >忘记密码？</a>
+		  			</div>
+		  		</div>
+		  	</div>
+		  </div>
+	  </div>
+</div>	
+
+<script>
+    layui.config({
+        base: '__SKIN__/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'user'], function(){
+        var $ = layui.$
+            ,setter = layui.setter
+            ,admin = layui.admin
+            ,form = layui.form
+            ,router = layui.router()
+            ,search = router.search;
+        form.render();
+
+        $(document).on('click','#LAY-user-get-vercode', function(){
+            var src = "{eju:url link='api/Ajax/vertify' vars='type=users_login' /}";
+            if (src.indexOf('?') > -1) {
+                src += '&';
+            } else {
+                src += '?';
+            }
+            src += 'r='+Math.floor(Math.random()*100);
+            $(this).attr('src', src);//重载验证码
+        });
+
+        $(document).keydown(function(event){
+            if(event.keyCode ==13){
+                $('div button[lay-filter=LAY-user-login-submit]').trigger('click');
+            }
+        });
+        //提交
+        form.on('submit(LAY-user-login-submit)', function(obj){
+            var load = layer_loading();
+            obj.field._ajax = 1;
+            //请求登入接口
+            $.ajax({
+                type : 'post',
+                url : obj.elem.attributes['data-href'].value,
+                data : obj.field,
+                dataType : 'json',
+                success : function(res){
+                    layer.close(load); //关闭loading
+                    if (1 == res.code) {
+                        window.location.href = res.url; //后台主页
+                    } else {
+                        $('#LAY-user-get-vercode').trigger('click');
+                        layer.msg(res.msg, {icon: 5, title:false});
+                        return false;
+                    }
+                },
+                error: function(e){
+                    layer.close(load); //关闭loading
+                    showErrorAlert();
+                }
+            });
+        });
+    });
+</script>
+ <script type="text/javascript" src="{eju:global name='web_templets_pc' /}/skin/js/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>{$eju.field.seo_title}</title>
+  <meta name="renderer" content="webkit" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=0,minimal-ui" />
+  <meta name="description" content="{$eju.field.seo_description}" />
+  <meta name="keywords" content="{$eju.field.seo_keywords}" />
+  <link href="{eju:global name='web_cmspath' /}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  {eju:static file="skin/css/public.css" /}
+  {eju:static file="skin/css/iconfont.css" /}
+  {eju:static file="skin/css/lplist.css" /}
+  {eju:static file="skin/css/sx.css" /}
+
+  {eju:static file="skin/js/jquery.min.1.7.2.js" /}
+  {eju:static file="skin/js/top_footer.js" /}
+</head>
+<style>
+  .af-search input#search_but {
+  	width: 175px;
+  	height: 42px;
+  	line-height: 42px;
+  	text-align: center;
+  	font-size: 22px;
+  	display: block;
+  	background: #00aeef;
+  	float: left;
+  	border-radius: 0 4px 4px 0;
+  	color: #fff;
+  }
+  .active {
+  	color: #ee4433;
+  }
+</style>
+<body>
+{eju:include file="header.htm"/} 
+
+<div class="weizhi">
+	<ul>
+		<li><a href="javascript:;">你的位置</a>：</li> <li>{eju:position style="crumb" /}</li>
+		<div class="clear"></div>
+	</ul>
+</div>
+<!--广告位-->
+<div class="lpdaogou_lsx_wrap " id="ludedcddtop">
+  <div class="daogou_pic_lsx">
+    <ul>
+      {eju:adv pid='2' currentstyle='on' row='5' mod='2'}
+      <li {eju:eq name='$mod' value='0'}class="mar_lr"{/eju:eq}> 
+        <a target="_blank" href="{$field.links}" title="{$field.title}"> <img src="{$field.litpic}" width="224" height="305" alt="{$field.title}"> </a> 
+      </li>
+      {/eju:adv}
+      <div class="clear"></div>
+    </ul>
+  </div>
+</div>
+<!--筛选-->
+
+<ul class="select">
+  <div class="select_search" >
+    <span>
+    {eju:searchform channelid='9' type='default'}
+      <form method="get" action="{$field.action}">
+        <input id="search_key" class="txt tschtext" type="text" name="keywords" value="{$Request.param.keywords}" placeholder="请输入楼盘名称开始找房..." class="search-inp" />
+        <input type="submit"  id="search_but" class="tschbtn2" value="开始找房" id="submitss">
+        {$field.hidden}
+      </form>
+    {/eju:searchform} 
+    </span>
+    <a target="_blank" href="{eju:diyurl type='map' /}" id="search_but2" class="but01">地图找房</a>
+  </div>
+
+  {eju:screening id='field' currentstyle='select-all selected' domain='0' region='on' show='2' alltxt='不限' opencity='2' }
+    {eju:volist name='$field.list' id='vo'}
+    <li class="select-list">
+      <dl id="">
+        <dt>{$vo.title} ：</dt>
+        {eju:volist name='$vo.dfvalue' id='vo2'}
+        <dd class="{$vo2.currentstyle}"><a {$vo2.onClick}>{$vo2.name}</a></dd>
+        {/eju:volist}
+      </dl>
+    </li>
+    {/eju:volist}
+    <li class="select-result">
+      <dl>
+        <dt>已选：</dt>
+        {eju:volist name='$field.list' id='vo'}
+          {eju:notempty name="$vo.onName"}
+          <dd class="select-no selected"><a {$vo.handle}>{$vo.onName}</a> </dd>
+          {/eju:notempty}
+        {/eju:volist}
+        <dd><a style="display: none;" href="{$field.resetUrl}" id="emptySearch" class="emptySearch" title="清空全部">清空全部</a></dd>
+      </dl>
+    </li>
+    {$field.hidden}
+  {/eju:screening}
+</ul>
+<!--排序-->
+<div class="af-px">
+  <div class="af-px-left">
+    <ul>
+      <li class="js-tabtoggle tab" toggle="0"><i class="iconfont af-icon-sort"></i>全部楼盘(<i id="countlist"></i>个)</li>
+      <li class="js-tabtoggle" toggle="1"><i class="iconfont af-icon-appstore"></i>户型图模式</li>
+    </ul>
+  </div>
+  <div class="af-px-right"> 
+    {eju:orderlist id='field' addfields='average_price' currentstyle='active' upstyle='iconfont af-icon-tabshouqi' downstyle='iconfont af-icon-tabxiala' alltxt='默认排序' }
+      {eju:volist name='$field.list' id='vo'}
+        <div class="rr a-moren"> <a href="javascript:;" {$vo.onClick} class="{$vo.currentstyle}"> <span class="item">{$vo.title}
+        {eju:notempty name='$vo.classstyle'} <i class="{$vo.classstyle}"></i> {/eju:notempty} </span> </a> </div>
+      {/eju:volist}
+      {$field.hidden}
+    {/eju:orderlist} 
+  </div>
+  <div class="clear"></div>
+</div>
+
+<!--列表-->
+<div class="af-xf-list">
+  <ul>
+    {eju:list pagesize='10' titlelen='30' infolen='160' orderby='new' huxing="on"}
+    <li class="list-lp">
+      <div class="af-xf-img"> 
+        <a href="{$field.arcurl}" target="_blank" title="{$field.title}"><img src="{$field.litpic}" alt="{$field.title}" width="260" height="190" /></a> 
+      </div>
+      <div class="af-xf-wrap">
+        <div class="af-xfname"> 
+          <a href="{$field.arcurl}" target="_blank">{$field.title}</a> 
+          <span>{$field.sale_status}</span>
+          <div class="clear"></div>
+        </div>
+        <p class="af-xf-dz"> 
+          <span>[{$field.province_id|get_province_name}-{$field.city_id|get_city_name}]</span>{$field.address} 
+        </p>
+        <p class="af-xf-dz"> 
+          <span>户型：</span>
+          {eju:arcview aid="$field.aid" huxing="on" id="view"}
+            {eju:volist name="$view.huxing_list" id="vo"}
+              <a target="_blank" title="{$vo.huxing_title}" href="{$field.arcurl}">{$vo.huxing_room}室(建面{$vo.huxing_area}㎡)</a>&nbsp;
+            {/eju:volist}
+          {/eju:arcview}
+        </p>
+        <p class="af-xf-tese"> 
+          {eju:volist name='$field.characteristic' id='vo'}
+            <span id="c_2">{$vo}</span> 
+          {/eju:volist} </p>
+        <p class="af-xf-dtell">
+          <a target="_blank" href="{$field.mapurl}">
+            <span> <i class="iconfont af-icon-locationfill"></i>查看地图 </span>
+          </a>
+          <span>
+            <i class="iconfont af-icon-dianhuatianchong"></i>
+            {$field.sale_phone} 
+            {eju:notempty name="$field.phone_code"} 转 {$field.phone_code}{/eju:notempty}
+          </span>
+        </p>
+      </div>
+      <div class="af-xf-jg">
+        <p class="xfjg"> <span class="xfjg-red"><em>均价</em>{eju:notempty name="$field.average_price"}{$field.average_price}{eju:else /}暂无{/eju:notempty}</span>{eju:notempty name="$field.average_price"}{$field.price_units}{/eju:notempty} </p>
+      </div>
+      <div class="clear"></div>
+      <div class="af-xf-hx js-frames">
+        <div id="pic_list_1" class="scroll_horizontal">
+          <div class="box">
+            <ul class="list">
+              {eju:arcview aid="$field.aid" huxing="on" id="view"}
+                {eju:volist name="$view.huxing_list" id="vo"}
+                  <li> 
+                    <a href="javascript:;"><img src="{$vo.huxing_pic}">
+                    <div class="title">{$vo.huxing_title}：{$vo.huxing_room}室{$vo.huxing_living_room}厅{$vo.huxing_kitchen}厨{$vo.huxing_toilet}卫 ({$vo.huxing_area}㎡)</div>
+                    <div class="xfhx-mask"></div>
+                    </a> 
+                  </li>
+                {/eju:volist}
+              {/eju:arcview}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+    {/eju:list}
+  </ul>
+</div>
+<div style="display: none" id="countlist_none" data-count="{eju:countlist /}"></div>
+<script  type="text/javascript">
+  $(function(){
+      var count = $("#countlist_none").data("count");
+      $("#countlist").html(count);
+  });
+</script>
+<!--页码-->
+<div class="page-box">
+  <ul class="pagination">
+    {eju:pagelist listitem="index,end,pageno,pre,next" listsize="10"/}
+  </ul>
+</div>
+{eju:include file="footer.htm"/}
+{eju:static file="skin/js/jquery.cxscroll.min.js" /}
+{eju:static file="skin/js/sx.js" /}
+<script type="text/javascript">
+    $(function(){
+        if($(".select-no").length > 0) {
+            $("#emptySearch").show();
+        }
+    });
+    $(".scroll_horizontal").cxScroll({
+        auto : false
+    });
+</script>
+</body>
+</html>

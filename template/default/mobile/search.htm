@@ -1,0 +1,44 @@
+<!-- 搜索弹出 -->
+<div class="search_cont">
+    <div class="search_cont_wrap">
+        <div class="search-text"> <a class="search_back"><i class="icon-return iconfont"></i></a>
+            {eju:searchform channelid='9' type='default'}
+            <form id="search_form" method="get" action="{$field.action}">
+                <i onclick="subDo()" class="icon-search iconfont"></i>
+                <input class="text" type="text" name="keywords" value="{$Request.param.keywords}" placeholder="输入楼盘名称开始找房">
+                {$field.hidden}
+            </form>
+            <a class="search_btn" onclick="subDo()" >搜索</a>
+            {/eju:searchform}
+        </div>
+        <div class="zf_findhouse">
+            <h3>热门搜索</h3>
+            <ul class="tags">
+                {eju:screening id='field' typeid='1' addfields='characteristic' currentstyle='act2' alltxt='off'}
+                    {eju:volist name='$field.list' id='vo'}
+                        {eju:volist name='$vo.dfvalue' id='vo2'}
+                        <li class="tag-4"><a {$vo2.onClick} target="_blank">{$vo2.name}</a></li>
+                        {/eju:volist}
+                    {/eju:volist}
+                    {$field.hidden}
+                {/eju:screening}
+            </ul>
+        </div>
+        <div class="zf_findhouse">
+            <h3>快捷找房</h3>
+            {eju:screening id='field' typeid='1' currentstyle='active' alltxt='不限'}
+                {eju:volist name='$field.list' id='vo'}
+                <div class="find-item">
+                    <div class="type">{$vo.title}：</div>
+                    <ul class="list find-zone">
+                        {eju:volist name='$vo.dfvalue' id='vo2'}
+                        <li><a {$vo2.onClick} class="act">{$vo2.name}</a></li>
+                        {/eju:volist}
+                    </ul>
+                </div>
+                {/eju:volist}
+                {$field.hidden}
+            {/eju:screening}
+        </div>
+    </div>
+</div>
